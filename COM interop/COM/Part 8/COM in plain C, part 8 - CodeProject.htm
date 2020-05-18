@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>COM in plain C, part 8 - CodeProject</title> 
+    
+	<link type="text/css" rel="stylesheet" href="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/Main.css">
+
+    <script type="text/javascript" async="" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/analytics.js"></script><script type="text/javascript" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/jquery.js" defer="defer"></script>
+<script type="text/javascript" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/article.js" defer="defer"></script>
+<script type="text/javascript" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/MemberProfilePopup.js" defer="defer"></script>
+<script type="text/javascript" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/a.js" defer="defer"></script>
+
+	
+<meta http-equiv="content-language" content="en-US">
+<meta charset="UTF-8">
+<meta name="Description" content="Miscellaneous Script Host details">
+<meta name="Keywords" content="VC6, C++, C, Windows, Visual-Studio, Dev, COM, Intermediate,COM / COM+,Platforms, Frameworks &amp; Libraries,Free source code, tutorials">
+<meta name="Author" content="Jeff Glatt">
+<meta name="Rating" content="General">
+<meta name="Revisit-After" content="1 days">
+<meta name="application-name" content="CodeProject">
+<meta name="google-translate-customization" content="d908bb7ce7aff658-4c2f3a504525c916-g629383f736781a8a-13">
+
+<link rel="dns-prefetch" href="https://ajax.googleapis.com/"> 
+<link rel="canonical" href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8">
+<meta name="twitter: card" content="summary">
+<meta name="twitter: site" content="@CodeProject">
+<meta property="og:url" content="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8">
+<meta property="og:title" content="COM in plain C, part 8">
+<meta property="og:description" content="Miscellaneous Script Host details">
+
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - All Topics" href="https://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=1">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - Artificial Intelligence" href="https://www.codeproject.com/WebServices/ArticleRSS.aspx?cat=31">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Lounge Postings" href="https://www.codeproject.com/webservices/LoungeRSS.aspx">
+<meta name="robots" content="index, follow">
+<link rel="search" type="application/opensearchdescription+xml" title="CodeProject" href="https://www.codeproject.com/info/OpenSearch.xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="apple-touch-icon" sizes="144x144" href="https://www.codeproject.com/favicon/apple-touch-icon.png"> 
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.codeproject.com/favicon/favicon-32x32.png"> 
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.codeproject.com/favicon/favicon-16x16.png"> 
+<link rel="manifest" href="https://www.codeproject.com/favicon/manifest.json"> 
+<link rel="mask-icon" href="https://www.codeproject.com/favicon/safari-pinned-tab.svg" color="#ff9900">
+	<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "TechArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8"
+   },
+  "headline": "COM in plain C, part 8",
+  "url": "https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8",
+  "discussionUrl": "https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8#_comments",
+  "isFamilyFriendly": "true",
+  "image": "https://codeproject.global.ssl.fastly.net/App_Themes/CodeProject/Img/Article100.png",
+  "keywords": "VC6,C++,C,Windows,Visual-Studio,Dev,COM,Intermediate",
+  "commentCount": "15",
+  "editor" : {
+    "@type" : "Person",
+    "name" : "Sean Ewington",
+    "url" : "https://www.codeproject.com/script/Membership/View.aspx?mid=3873871"
+  },
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "CodeProject"
+  },
+  "description": "Miscellaneous Script Host details",
+  "articleSection": "COM / COM+",
+  "author" : [{
+      "@type" : "Person",
+      "name" : "Jeff Glatt",
+      "url" : "https://www.codeproject.com/script/Membership/View.aspx?mid=88625"
+    }],
+  "datePublished": "2007-01-06",
+  "dateCreated": "2007-01-06",
+  "dateModified": "2007-03-29"
+,
+  "aggregateRating" : {
+    "@type" : "aggregateRating",
+    "ratingValue" : 4.85,
+    "ratingCount" : 22,
+    "bestRating" : 5,
+    "worstRating" : 1
+  }
+}</script>
+
+<script type="application/ld+json">{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "item" : {
+      "@id" : "/Chapters/8/Platforms-Frameworks-Libraries.aspx",
+      "name" : "Platforms, Frameworks & Libraries"
+    }
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "item" : {
+      "@id" : "/KB/COM/",
+      "name" : "COM / COM+"
+    }
+  }]
+}</script>
+
+
+	<!-- base href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8" -->
+	
+    
+
+
+<script type="text/javascript">
+function defrm () { /* thanks twitter */
+    document.write = '';
+    window.top.location = window.self.location;
+    setTimeout(function() { document.body.innerHTML = ''; }, 0);
+    window.self.onload = function(evt) { document.body.innerHTML = ''; };
+}
+
+if (window.top !== window.self) {
+    try {
+        if (window.top.location.host) { /* will throw for all except chrome */ }
+        else { defrm(); /* chrome */ }
+    } catch (ex) { defrm(); /* everyone else */ }
+}
+
+// Specific case where a site is screwing with us.
+if (typeof(DemoUrl) !== 'undefined') {
+    document.write(unescape('%3Cme') + 'ta http' + '-equiv="re' + 'fresh con' +
+                           'tent="1;url=' + DemoUrl + unescape('"%3CE'));
+}
+</script>
+	
+
+
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" type="text/javascript" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/js"></script>
+    <script type="text/javascript">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-1735123-1' , {'user_id': '55e1d411-e955-4cb4-9978-1528f21616a2'});
+    </script>
+
+
+<style type="text/css"></style></head>	
+
+<body class="firefox firefox72">
+
+<a class="access-link" href="#Main"><img alt="Click here to Skip to main content" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/t.gif"></a>
+
+
+
+
+<div class="page-background">
+
+	
+	
+
+	
+
+	
+    <div id="ctl00_STM" class="site-top-menu fixed">
+        <div class="main-content">
+            
+
+<div class="container memberbar clearfix flex-container flex-extend">
+
+	<div id="ctl00_MemberBar_GenInfo" class="flex-item align-left">14,417,643 members</div>
+
+	<div class="flex-item">
+		
+	</div>
+
+	<div class="flex-item align-right">
+
+		
+
+		<span id="ctl00_MemberBar_ReadLaterList_ReadLaterListDiv" class="tooltip member-message">
+	<span id="ReadLaterListIcon" class="readlaterlist-count openable hidden"></span>
+	<div class="tooltip-flyout readlaterlist-dropdown">
+		<div id="ItemsToRead" class="readlaterlist-list"></div>
+	</div>
+</span><span id="ctl00_MemberBar_Messages_NotificationDiv" class="tooltip member-message">
+	<a id="ctl00_MemberBar_Messages_NotificationCount" title="1 message" class="notification-count openable" href="https://www.codeproject.com/script/Membership/MyNotifications.aspx">1</a>
+
+	<div class="tooltip-flyout notification-dropdown">
+		
+
+		<div id="ctl00_MemberBar_Messages_Confirm" class="bold spaced">
+            <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/caution.png" style="width:20px;height:20px;vertical-align:bottom">
+            <a id="ctl00_MemberBar_Messages_EmailConfirm" href="https://www.codeproject.com/script/Membership/SendConfirmRequest.aspx?rp=%2fArticles%2f17038%2fCOM-in-plain-C-part-8">Click here to confirm your email address. </a>
+		</div>
+
+		
+		
+		<div id="Notifications" class="notification-list">
+			<img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/loading24.gif" alt="loading" style="margin:auto;">
+		</div>
+		<div class="spaced">
+			
+		</div>
+	</div>
+</span><span id="ctl00_MemberBar_TotalPoints" title="Total reputation points"><a class="bold member-rep-box silver" title="Reputation points earned: 836" href="https://www.codeproject.com/script/Reputation/List.aspx?mid=527156">836</a></span><span id="ctl00_MemberBar_CurRat" class="member-links tooltip openable">
+				<a id="ctl00_MemberBar_MyProfile" class="me desktop-only tablet-only" dir="ltr" href="https://www.codeproject.com/Members/jon57">jon57</a>
+                <a id="ctl00_MemberBar_MyProfileMob" class="me mobile-only" href="https://www.codeproject.com/Members/jon57">☰</a>
+                <div class="tooltip-flyout">
+					
+					<div class="list-item"><a id="ctl00_MemberBar_MySettingsDefault" href="https://www.codeproject.com/script/Membership/Modify.aspx">My Settings</a></div>
+					
+					<div class="list-item"><a id="ctl00_MemberBar_MyBookmarks" href="https://www.codeproject.com/script/Bookmarks/List.aspx?obtid=2">My Bookmarks</a></div>
+					<div class="list-item"><a id="ctl00_MemberBar_MyArticles" href="https://www.codeproject.com/script/Articles/MemberArticles.aspx?amid=527156">My Articles</a></div>
+					<div class="list-item"><a id="ctl00_MemberBar_MyMessages" href="https://www.codeproject.com/script/Forums/Messages.aspx?fmid=527156">My Messages</a></div>
+					<div class="list-item"><a id="ctl00_MemberBar_MyQuestions" href="https://www.codeproject.com/script/Answers/MemberPosts.aspx?tab=questions&amp;mid=527156&amp;showall=True">My Questions</a></div>
+					<div class="list-item"><a id="ctl00_MemberBar_MyAnswers" href="https://www.codeproject.com/script/Answers/MemberPosts.aspx?tab=answers&amp;mid=527156&amp;showall=True">My Answers</a></div>
+					<div class="list-item"><a id="ctl00_MemberBar_MyComments" href="https://www.codeproject.com/script/comments/MemberComments.aspx?mid=527156">My Comments</a></div>
+					
+					
+					<div id="ctl00_MemberBar_MyFollowingHolder">
+					    <div class="list-item"><a id="ctl00_MemberBar_MyFollowing" href="https://www.codeproject.com/script/follow/Edit.aspx">Things I Follow</a></div>
+					    <div class="list-item"><a id="ctl00_MemberBar_MyFollowers" href="https://www.codeproject.com/script/follow/Followers.aspx">My Followers</a></div>
+					</div>
+					
+        
+					<form name="unsubForm" id="unsubForm" action="/script/Membership/LogOff.aspx?rp=%2fArticles%2f17038%2fCOM-in-plain-C-part-8" method="post" class="tight">
+                    <input type="hidden" name="AntiForgeryToken" value="e82756ee-ccd1-43de-910d-7f5dd2636494">
+                    <input type="submit" value="Sign out" class="list-item border-none extended align-left" onclick="return doSignout();" style="background-color: transparent; color: #999; cursor:pointer">
+                    
+                    </form>
+
+                    <script type="text/javascript">//<!--
+			        function doSignout()
+			        {
+    			        document.unsubForm.action = "/script/Membership/LogOff.aspx?rp=%2fArticles%2f17038%2fCOM-in-plain-C-part-8"
+				        document.unsubForm.submit();
+				        return true;
+			        }//-->
+			        </script>
+                    
+				</div>
+			</span>
+
+		
+	</div>
+</div>
+        </div>
+    </div>
+
+	
+    <div id="ctl00_SH" class="site-header fixed">
+        <div class="main-content">
+            <div class="logo"><a href="https://www.codeproject.com/"><img id="ctl00_Logo" tabindex="1" title="CodeProject" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/logo250x135.gif" alt="Home" style="height:135px;width:250px;border-width:0px;"></a></div>
+            <div class="promo"><div class="msg-728x90" data-format="728x90" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="Platforms-Frameworks-Libraries/COM-COMplus/ActiveX" data-country="US" data-tags="VC6, C++, C, Windows, Visual-Studio, Dev, COM, Intermediate,rating4.5" data-cookieconsent="true"><noscript><a href="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=728x90&c=165418"><img src="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=728x90&c=165418"  width="728px" height="90px" target="_blank"/></a></noscript></div></div>
+        </div>
+    </div>
+
+	
+	<div id="ctl00_TPR" class="sub-headerbar clearfix fixed">
+    <div class="float-right">
+		
+
+<div class="searchbar">
+
+<form method="get" action="/search.aspx?sbo=kw" name="Search" class="tight">
+
+
+<table class="search" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td><input tabindex="2" class="search subdue" id="sb_tb" autocomplete="off" value="Search for articles, questions, tips" name="q"></td><td><input type="image" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/search.gif"></td></tr></tbody></table>
+
+<div class="hover-container">
+	<div id="SearchFilter" class="search-advanced small-text align-left" style="display: none;">
+	<b>Search within:<br></b>
+		
+		<input type="radio" id="sb_kw" name="sbo" value="kw" checked="checked"><label for="sb_kw">Articles</label><br>
+<input type="radio" id="sb_qa" name="sbo" value="qa"><label for="sb_qa">Quick Answers</label><br>
+<input type="radio" id="sb_fm" name="sbo" value="fm"><label for="sb_fm">Messages</label><br>
+
+
+		
+		
+
+		
+		
+	</div>
+</div>
+</form>
+
+</div>
+    </div>
+    <div class="float-left">
+		
+
+<div class="navbar clearfix">
+<ul class="navmenu openable">
+
+<li class="desktop-only"><a id="ctl00_TopNavBar_Home" href="https://www.codeproject.com/">home</a>
+
+
+</li><li class="openable"><a id="ctl00_TopNavBar_Art" class="down selected" href="https://www.codeproject.com/script/Articles/Latest.aspx">articles</a>
+
+	<ul>
+		<li class="openable"><a id="ctl00_TopNavBar_ArtTopicList" class="fly" onmouseover="navBarMenu.ShowMap(this, 'ctl00_TopNavBar_MapFlyout');" href="https://www.codeproject.com/script/Content/SiteMap.aspx">Chapters and Sections<span class="has-submenu">&gt;</span></a><ul id="ctl00_TopNavBar_MapFlyout" class="taxonomy">
+			<li>
+				<div id="siteMap"></div>
+			</li>
+			</ul>
+		</li>
+		
+		<li><a id="ctl00_TopNavBar_ArtLatestArts" class="fly" href="https://www.codeproject.com/script/Articles/Latest.aspx?at=1,3,7">Latest Articles</a></li>
+		
+		<li><a id="ctl00_TopNavBar_ArtTop" class="fly" href="https://www.codeproject.com/script/Articles/TopArticles.aspx?ta_so=5">Top Articles</a></li>
+		
+		
+		<li><a id="ctl00_TopNavBar_ArtGuide" class="fly" href="https://www.codeproject.com/info/Submit.aspx">Posting/Update Guidelines</a></li>
+		<li><a id="ctl00_TopNavBar_ArtHelpForum" class="fly" href="https://www.codeproject.com/Forums/1641/Article-Writing.aspx">Article Help Forum</a></li>
+		
+		<li><a id="ctl00_TopNavBar_ArtPostArticle" class="fly highlight1" href="https://www.codeproject.com/script/Articles/Submit.aspx">
+			<img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/write13.png" width="13" height="13"> Submit an article or tip
+			</a></li>
+        
+		<li><a id="ctl00_TopNavBar_ArtImportGitHub" class="fly highlight3" href="https://www.codeproject.com/script/Articles/ImportArticle.aspx">
+			<img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/write13.png" width="13" height="13"> Import GitHub Project
+			</a></li>
+        
+		<li><a id="ctl00_TopNavBar_ArtPostBlog" class="fly highlight2" href="https://www.codeproject.com/script/Articles/BlogFeed.aspx">
+			<img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/write13.png" width="13" height="13"> Import your Blog
+			</a></li>		
+        
+        <li class="last"></li>
+	</ul>
+
+</li>
+
+
+
+<li class="openable">
+<a id="ctl00_TopNavBar_Answers" href="https://www.codeproject.com/script/Answers/List.aspx?tab=active">
+    <span class="desktop-only tablet-only">quick answers</span><span class="mobile-only">Q&amp;A</span>
+</a>
+	<ul>
+		<li id="ctl00_TopNavBar_AQL"><a id="ctl00_TopNavBar_ArticleQuestion" class="fly highlight1" href="#_comments">
+			<img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/write13.png" width="13" height="13"> Ask a Question about this 
+			article</a>
+		</li>
+
+		<li><a id="ctl00_TopNavBar_QAAsk" class="fly highlight2" href="https://www.codeproject.com/Questions/ask.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/write13.png" width="13" height="13"> Ask a Question</a></li>
+
+		<li><a id="ctl00_TopNavBar_QAUnanswered" class="fly" href="https://www.codeproject.com/script/Answers/List.aspx?tab=unanswered">View Unanswered Questions</a></li>
+		<li><a id="ctl00_TopNavBar_QALatest" class="fly" href="https://www.codeproject.com/script/Answers/List.aspx?tab=active">View All Questions</a></li>
+        
+				<li><a id="ctl00_TopNavBar_QATR_ctl00_Tag" class="fly" href="https://www.codeproject.com/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=81" style="padding-left:30px">View C# questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl01_Tag" class="fly" href="https://www.codeproject.com/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=842" style="padding-left:30px">View VB.NET questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl02_Tag" class="fly" href="https://www.codeproject.com/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=85" style="padding-left:30px">View ASP.NET questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl03_Tag" class="fly" href="https://www.codeproject.com/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=93" style="padding-left:30px">View SQL questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl04_Tag" class="fly" href="https://www.codeproject.com/script/Answers/List.aspx?tab=active&amp;alltags=true&amp;tags=87" style="padding-left:30px">View Javascript questions</a></li>
+			
+    
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Forums" href="https://www.codeproject.com/script/Forums/List.aspx">
+        <span class="desktop-only tablet-only">discussions</span><span class="mobile-only">forums</span>
+</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_MessageBoardsAll" class="fly" href="https://www.codeproject.com/script/Forums/List.aspx">All Message Boards...</a></li>
+		<li class="openable"><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1580997/Application-Lifecycle.aspx">Application Lifecycle<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="https://www.codeproject.com/Forums/1533717/Running-a-Business.aspx">Running a Business</a></li>
+<li><a class="fly" href="https://www.codeproject.com/Forums/1533716/Sales-Marketing.aspx">Sales / Marketing</a></li>
+<li><a class="fly" href="https://www.codeproject.com/Forums/1651/Collaboration-Beta-Testing.aspx">Collaboration / Beta Testing</a></li>
+<li><a class="fly" href="https://www.codeproject.com/Forums/3304/Work-Issues.aspx">Work  Issues</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/369270/Design-and-Architecture.aspx">Design and Architecture</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/12076/ASP-NET.aspx">ASP.NET</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1580226/JavaScript.aspx">JavaScript</a>
+</li>
+<li class="openable"><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1647/C-Cplusplus-MFC.aspx">C / C++ / MFC<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="https://www.codeproject.com/Forums/4486/ATL-WTL-STL.aspx">ATL /  WTL / STL</a></li>
+<li><a class="fly" href="https://www.codeproject.com/Forums/3785/Managed-Cplusplus-CLI.aspx">Managed C++/CLI</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1649/Csharp.aspx">C#</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1627782/Free-Tools.aspx">Free Tools</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1827460/Objective-C-and-Swift.aspx">Objective-C and Swift</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1725/Database.aspx">Database</a>
+</li>
+<li class="openable"><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/186301/Hardware-Devices.aspx">Hardware &amp; Devices<span class="has-submenu">&gt;</span></a>
+<ul class="openable"><li><a class="fly" href="https://www.codeproject.com/Forums/1644/System-Admin.aspx">System Admin</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1606152/Hosting-and-Servers.aspx">Hosting and Servers</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1643/Java.aspx">Java</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1942421/Linux-Programming.aspx">Linux Programming</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1650/NET-Framework.aspx">.NET Framework</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1848626/Android.aspx">Android</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1876716/iOS.aspx">iOS</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/13695/Mobile.aspx">Mobile</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1540733/SharePoint.aspx">SharePoint</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1004257/Silverlight-WPF.aspx">Silverlight / WPF</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1646/Visual-Basic.aspx">Visual Basic</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1640/Web-Development.aspx">Web Development</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/suggestions.aspx">Site Bugs / Suggestions</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="https://www.codeproject.com/Forums/1652005/Spam-and-Abuse-Watch.aspx">Spam and Abuse Watch</a>
+</li>
+
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+<li class="openable"><a id="ctl00_TopNavBar_Features" href="https://www.codeproject.com/Feature/">
+      <span class="desktop-only tablet-only">features</span><span class="mobile-only">stuff</span>
+</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_Comps" class="fly" href="https://www.codeproject.com/script/Contests/CurrentCompetitions.aspx?cmpTpId=3&amp;awsac=true">Competitions</a></li>
+		<li><a id="ctl00_TopNavBar_News" class="fly" href="https://www.codeproject.com/script/News/List.aspx">News</a></li>
+		<li><a id="ctl00_TopNavBar_Insider" class="fly" href="https://www.codeproject.com/Feature/Insider/">The Insider Newsletter</a></li>
+    	<li><a id="ctl00_TopNavBar_DailyBuild" class="fly" href="https://www.codeproject.com/Feature/DailyBuild">The Daily Build Newsletter</a></li>
+		<li><a id="ctl00_TopNavBar_Newsletters" class="fly" href="https://www.codeproject.com/script/Mailouts/Archive.aspx?mtpid=1">Newsletter archive</a></li>
+		<li><a id="ctl00_TopNavBar_Surveys" class="fly" href="https://www.codeproject.com/script/Surveys/List.aspx">Surveys</a></li>
+		<li><a id="ctl00_TopNavBar_Showcase" class="fly" href="https://www.codeproject.com/KB/showcase/">Product Showcase</a></li>
+        
+		<li><a id="ctl00_TopNavBar_Stuff" class="fly" href="https://www.codeproject.com/Info/Stuff.aspx">CodeProject Stuff</a></li>
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+
+<li class="openable"><a id="ctl00_TopNavBar_Lounge" href="https://www.codeproject.com/Lounge.aspx">
+            <span class="desktop-only tablet-only">community</span><span class="mobile-only">lounge</span>
+</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_WhosWho" class="fly" href="https://www.codeproject.com/script/Membership/Profiles.aspx">Who's Who</a></li>
+		<li><a id="ctl00_TopNavBar_MVPs" class="fly break" href="https://www.codeproject.com/script/Contests/Winners.aspx?obtid=1&amp;cmpTpId=2&amp;cid=0">Most Valuable Professionals</a></li>
+		
+
+		<li><a id="ctl00_TopNavBar_LoungeLnk" class="fly highlight2" href="https://www.codeproject.com/Lounge.aspx">The Lounge &nbsp;</a></li>
+		<li><a id="ctl00_TopNavBar_WhereAmILink" class="fly" href="https://www.codeproject.com/Forums/1939564/Where-I-am-Member-Photos.aspx">Where I Am: Member Photos</a></li>
+		<li><a id="ctl00_TopNavBar_InsiderLnk" class="fly" href="https://www.codeproject.com/Insider.aspx">The Insider News</a></li>
+		<li><a id="ctl00_TopNavBar_WeirdWonderful" class="fly" href="https://www.codeproject.com/Feature/WeirdAndWonderful.aspx">The Weird &amp; The Wonderful</a></li>
+		<li></li>
+		
+
+		
+		<li class="openable"><a class="fly" href="https://www.codeproject.com/Forums/1580229/Hindi.aspx">Non-English Language
+			<span class="has-submenu">&gt;</span></a>
+		<ul>
+		<li><a class="fly" href="https://www.codeproject.com/Forums/1580229/Hindi.aspx">General Indian Topics</a></li>
+		
+		</ul>
+		</li><li class="last"></li>
+		
+	</ul>
+
+</li>
+
+
+<li class="openable" style="margin-left:20px"><a id="ctl00_TopNavBar_Help" href="https://www.codeproject.com/KB/FAQs/">
+    <span class="desktop-only tablet-only">help</span><span class="mobile-only">?</span>
+</a>
+
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_HelpWhatIs" class="fly" href="https://www.codeproject.com/info/guide.aspx">What is 'CodeProject'?</a></li>
+		<li><a id="ctl00_TopNavBar_HelpGeneral" class="fly break" href="https://www.codeproject.com/KB/FAQs/">General FAQ</a></li>
+		<li><a id="ctl00_TopNavBar_HelpPostQuestion" class="fly break highlight2" href="https://www.codeproject.com/Questions/ask.aspx">Ask a Question</a></li>
+		<li><a id="ctl00_TopNavBar_HelpBugs" class="fly" href="https://www.codeproject.com/suggestions.aspx">Bugs and Suggestions</a></li>
+		<li><a id="ctl00_TopNavBar_HelpArticles" class="fly" href="https://www.codeproject.com/Forums/1641/Article-Writing.aspx">Article Help Forum</a></li>
+		
+		
+		
+		
+		<li><a id="ctl00_TopNavBar_HelpAboutUs" class="fly" href="https://www.codeproject.com/info/about.aspx">About Us</a></li>
+		<li class="last"></li>
+	</ul>
+
+</li>
+
+</ul>
+
+</div>
+    </div>
+	<div class="sub-headerbar-divider"></div>
+	</div>		
+	
+
+	<div id="A" class="container-content-wrap fixed"> 
+
+	<div class="container-content">
+
+        
+		<div class="clearfix">
+			<div class="container-breadcrumb float-left ">
+				<div><a href="https://www.codeproject.com/script/Content/SiteMap.aspx">Articles</a> » <a href="https://www.codeproject.com/Chapters/8/Platforms-Frameworks-Libraries.aspx">Platforms, Frameworks &amp; Libraries</a> » <a href="https://www.codeproject.com/KB/COM/">COM / COM+</a> » <a href="https://www.codeproject.com/KB/COM/#ActiveX">ActiveX</a></div>
+			</div>
+
+            <div class="float-left">
+				
+			</div>
+
+			<div class="edit-links float-right">
+				
+
+
+
+ 
+&nbsp;
+
+
+
+
+
+
+
+
+
+
+			</div>
+
+			<div class="article-nav float-right">
+                
+				
+
+
+<div style="display:inline-block;position:relative;top:-6px;margin-right:20px">
+    <a id="ctl00_ActionLinks_ArticleFollow_FollowBtn" title="" class="button unfollowed align-center invisiblewith-subline tooltip" data-enabletooltip="true" data-tooltip="Have any updates for this Article appear in your Timeline so you can stay up to date" style="display: inline-block;">Follow<div class="speech-bubble-container-up" style="width:150px">  <div class="speech-bubble-up" style="text-align:center"> Have any updates for this Article appear in your Timeline so you can stay up to date</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></a>
+	<a id="ctl00_ActionLinks_ArticleFollow_UnfollowBtn" title="" class="button followed align-center invisiblewith-subline tooltip" data-enabletooltip="true" data-tooltip="Stop following this Article" style="display:none;">Unfollow<div class="speech-bubble-container-up" style="width:150px">  <div class="speech-bubble-up" style="text-align:center"> Stop following this Article</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></a>
+
+</div>
+
+
+
+<span id="ctl00_ActionLinks_BookmarkMd_bookmark" data-type="bookmark" data-ref="2_17038_1" data-size="medium" data-mode="bookmark"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark48.png" style="width:24px;height:24px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span> 
+
+<a id="ctl00_ActionLinks_PrintMd" data-tooltip="Print" data-enabletooltip="true" data-width="auto" href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?display=Print" class="tooltip" title="">
+   <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/print48.png" style="border:0" width="24px" height="24px">
+<div class="speech-bubble-container-up" style="width:auto">  <div class="speech-bubble-up" style="text-align:center"> Print</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></a>
+
+
+
+<span id="ctl00_ActionLinks_R">
+    
+    
+</span>
+			</div>
+		</div>
+
+        
+		<div class="extended article-container-parts">
+
+			
+			<div id="AT" class="article-container  fixed"> 
+
+				<div class="article">
+
+					<form name="aspnetForm" method="post" action="/Articles/17038/COM-in-plain-C-part-8" id="aspnetForm" style="margin:0;padding:0">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="oI1vuR7sAYksosM8emib3jwgnJBfapL0gGY4CTBvTMIgXnQnRTr/ndeqC9skHuqUZaGuLXfMH7o6THglB3mpDDiWBRCLlcZAbrnG3S6I4sDvxflTg1PDR5UVxovwrDBaMZqPqmLQXR7wpG0z+bKCbivpSa6L5oUAP888FKOGKz3hROfL7xZEeKMoV6hEI4DAUdqRxEUJnjFbeiJV8cBWVOzBsGF1CtOOioCbEz+d47YuBqjiuCoYhTbcnvv3X5Y14Ya3RLbkvjaUsLLZABnCzBYMKqfx3LIXZZinbohNmOAmnvkwjVFCefzN+GeE0e04bhWUn+GoniQdMhGZIFNw2jTi8O3kaUbwTUz7YR+x7yKZKYJ1fY+hEHSgd/35V9it4HfTcTuejL4CpouvpkPlZPzBpEabFkYeBbC/0EVB9WnbJmAVf7l7yLwKFLpoWg58yf/HeirKbcpJHuYcQL4DkGoo+hs64stJZSeSzbFYtcv/wfo3zxCcOCRUQjy81H8brrpugJSD56AAnKMNURlp3OMcdmsdysHC0Thim51BuNYCFmkcvY8xCLoshzjHnfyyN4lAbUlW6rK7Ed/3ff05Gd7oZJsxiY0BUvORv5r9N9eHQIHPv7Uh4NVYkr6lT1bk2qsQYtNqX1XeKrjLyHhgt4RGLPpKzpsMi6N3gGN4Jwu8w1tFK3bxApWn86Z8L1LHj2ZHpIOWxJJXl5neAebxqjBluPjV93vW+gd5A1vg/PMREbeHP3LSJuNg/xMRJNHq+MAiiCxQ/z4mQqFQyRJRyatcxBlerZExbI+9/0Y62TsrOjsS9eJhsH0Z1ZD3oF5WEA8MkHwDtt+cqYNLHsVt5h/QHwih00oiQ/vKm67AuqicdqSnWsIPuj/3DX/c92Ej+vYNK+iXV6juvB349BfvDG5MQd4r8yXMi8qjaFfzV8NZXmRrwcYT9zmmsMWLoQqMxq8v2rFj9S3qLxGH6bqs8b3dH5/nw4ZnFz7zP94TFTvWl9F6YyMj+sfCX8xTtC6kk8EnxptGNvZWb4nFxouFJ9oeevbnhrlOCVav1ohXkzfNtXCi3/2W8Ksx7aWqkcXuPxFLja07afbxgTCVY4WGTS+4l5Xn/y0Nbn1X24HnKpYmfzMJvwpQzw2LhvxtUmFoK4ljlIUB9+TQxtVniQvAI5v6jm0c0G6qWa0sAzVLWt++mEEnfPLmrFduVG1MaAcB0zI23oZrUrBfdG6UuOjNBZOuk988bhOxU845lTNiBtn0XQ6RplT7EhBPIxPa8Ms0kq/lEkcsgfY8L43QRFEP8QDTdR7IQeAIXw8CLj2XwcuUEhpHqweUPs6lwezNQxdCLeKSWd2VbRVwo3gsbuTNr3xvnwzuJRjexjnSZjE3H/SsRoHuqyiWtbDxL792o1jxmC3x6ep7pdShfYXT1FcEAiSvIiKGeP5gm2pJ0w5WtDGu4pdD9jCgJNpCPvMvESPCKQzQaPTqa8EfwFLDokXVTaJ0StZ8VsrYOLldU0UzLovVX3Bn3ZMPfaJ8xjSrFQ5l8YJ7Z+Sn1vxoo8e3t0wxDZrOMt5wvru8TfRcc734XivUctVqFk30JhDfURTkl+MXTta9E/VwmFyIqDMVAFvklENTl3ENrjxjsAbmbqGJJ+uvY71SYwQcYZlc4SL3gcXHYz3ZMxAQYaPMYNcilTlyZigKubF6y0s0Myyk0mk/yd0Ob5g/hR/qAzkyCgy0cgMsWos6TOQA0+o809+92jSS+LnBLZ08cIqpI343MinWVRuFyoTlXCvrl6h9RpOjK7Kc0aQZN1pam8pfrHw9/oHseAuuveSzQZ5MudH9t+ILeWvp2hmGq71PZQhe+yweGfyKdxPVubRLErhr2eeCdvBSV5j5moh89cKy2SvZhlnEKUQ5Tdf9zFd1mKHdaZClRMxalOy4B79JDj6ceQcnnjrRQgSAv7RYhu3ME8PLWjrj3D9XGGOgT4cfykB3kCjL4+VcrkJE8kolYf2gd/+Hqd2iVf89lFsrSj7EudgX4WpzIG912Yg8VYY56FCfmCmcZsWyz1WSagSNZviKjr4ADtL95zD8jRaDDG1MDhETO+JAwzd4hwEgqoqoVwkV4JXYUcM733upzTA57ptGfr8J5MNo38itT05kpOGHxLAntA83CTwC7/hPXXjAQ9Nh1p88V0SH04PeHUGfoLweknxfiF4Biv0Q8/p1qJGKzME1Xj7OyBLdsvc5Ce6PewCZMT3ZpwhAANAxejkkNq//hBOX0zLvvdYQP4oxW65y+FvoDEv/cDztT3vxWNHuDwV8x2wf5IZFtVC5Xw==">
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="10C1FD69">
+</div>
+
+					
+					 
+					<div class="header">
+					    <a name="Main"></a>
+
+					    
+					    <a name="_articleTop" id="_articleTop"></a>
+					    <div class="title">
+					        <h1 id="ctl00_ArticleTitle">COM in plain C, part 8</h1>
+					    </div>
+
+                        <div>
+					        
+					        <div class="entry flex-container">
+
+                                
+
+                                <div class="flex-item" style="flex:1 1 auto">
+                                    <div class="flex-container" style="justify-content:space-between;flex-wrap:wrap-reverse">
+                                       <span id="ctl00_Authors" class="author flex-item"><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=88625" rel="author">Jeff Glatt</a></span> 
+
+                                        <div class="flex-item" style="margin-top:-7px;height:35px">
+                                            <div id="ctl00_RateArticle_RateItemWrapper" class="container-rating small-text" name="RateItem_17038">
+
+	<table class="small-text" width="100%" cellspacing="0" cellpadding="0">
+	<tbody><tr>
+		<td id="ctl00_RateArticle_VoteResultDiv" class="rating-result align-right">
+			<span class="align-right"></span>
+			<img class="loading invisible" alt="loading..." src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/loading16.gif" width="16px" height="16px"> 
+		</td>
+
+	
+		<td class="voteTbl" style="white-space:nowrap" align="right">
+			<table class="small-text">
+			<tbody><tr>
+				
+				<td id="ctl00_RateArticle_StartForm" nowrap="nowrap" align="right"><b>Rate me!</b> </td>
+
+				<td id="ctl00_RateArticle_VoteFormDiv" class="nowrap tooltip rating-stars-voter-large" style="padding-top:1px">
+
+                    
+					
+
+<meta itemprop="upvoteCount" content="22">
+
+
+<table id="ctl00_RateArticle_ItemRating_RatingTable" style="margin: 0px 1px;" class="hide-on-hover float-left" cellspacing="0" cellpadding="0">
+	<tbody><tr>
+		<td class="nowrap">
+
+        <div style="width:120px;height:28px;position:relative" class="nowrap rating-stars-large"><div style="width:116px;height:24px;" class="clipped align-left float-left"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/stars-fill-lg.png"></div><div style="width:4px;height:24px;position:relative" class="clipped"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/stars-empty-lg.png" style="position:absolute;top:0;right:0"></div>
+
+		
+	</div></td>
+		<td id="ctl00_RateArticle_ItemRating_VR" class="nowrap">
+		<span id="ctl00_RateArticle_ItemRating_VotesR">4.85  (22 votes)</span>
+		
+	</td>
+	</tr>
+</tbody></table>
+
+<span id="ctl00_RateArticle_ItemRating_RatingText"></span>
+
+
+                    
+					<span id="ctl00_RateArticle_RB" class="ajaxHist radio voting show-on-hover" style="display: none;">
+						<span id="ctl00_RateArticle_VoteRBL"><input id="ctl00_RateArticle_VoteRBL_0" type="radio" name="ctl00$RateArticle$VoteRBL" value="1" style="display: none;"><input id="ctl00_RateArticle_VoteRBL_1" type="radio" name="ctl00$RateArticle$VoteRBL" value="2" style="display: none;"><input id="ctl00_RateArticle_VoteRBL_2" type="radio" name="ctl00$RateArticle$VoteRBL" value="3" style="display: none;"><input id="ctl00_RateArticle_VoteRBL_3" type="radio" name="ctl00$RateArticle$VoteRBL" value="4" style="display: none;"><input id="ctl00_RateArticle_VoteRBL_4" type="radio" name="ctl00$RateArticle$VoteRBL" value="5" style="display: none;"></span> 
+					<div class="rating-star-block"><a href="#" rating="1" class="star outline" title="vote 1">vote 1</a><a href="#" rating="2" class="star outline" title="vote 2">vote 2</a><a href="#" rating="3" class="star outline" title="vote 3">vote 3</a><a href="#" rating="4" class="star outline" title="vote 4">vote 4</a><a href="#" rating="5" class="star outline" title="vote 5">vote 5</a></div></span>
+
+                    
+					
+
+                    
+	                <div id="ctl00_RateArticle_RCD" class="hover-container tooltip-flyout rating-comment" style="top:12px">
+		                Add a reason or comment to your vote:
+                        <a href="#" id="clear-rate_ctl00_RateArticle_RCD" title="close" class="rating-close">x</a>
+                        <br>
+                        <textarea class="RateComment" rows="5" cols="60" style="width:96%;"></textarea>
+		                <span id="ctl00_RateArticle_CommentReq" class="subdue">Adding a comment to your rating is optional</span>
+		            </div>
+
+                    
+                        
+
+				</td>
+
+				
+                <td id="ctl00_RateArticle_VR" class="nowrap show-on-hover tooltip" style="display: none;">
+
+		            <span id="ctl00_RateArticle_VotesR">4.85  (22 votes)</span>
+
+                    
+					<div id="ctl00_RateArticle_histPHR" class="speech-bubble-container-up-right" style="width:175px;margin-top:24px;right:-15px;top:6px">
+						<div class="speech-bubble-up-right">
+							<div id="ctl00_RateArticle_HistogramR">
+
+</div>
+							<img id="ctl00_RateArticle_LoadingR" class="align-middle" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/loading24.gif" style="border-width:0px;">
+						</div>
+						<div class="speech-bubble-pointer-up-right">
+							<div class="speech-bubble-pointer-up-right-inner"></div>
+						</div>
+					</div>
+                </td>
+
+
+				<td style="padding-left:5px">	
+					<input type="submit" name="ctl00$RateArticle$SubmitRateBtn" value="Vote!" id="ctl00_RateArticle_SubmitRateBtn" class="button" style="display: none;">
+				</td>
+			</tr>
+			</tbody></table>
+
+			
+		</td>
+	</tr>
+	</tbody></table>
+
+</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-container">
+                                        <span id="ctl00_LastUpdated" class="date flex-item-tight" title="Date last updated">29 Mar 2007</span>
+                                    </div>
+                                </div>
+					        </div>
+
+                            
+
+                        </div>
+
+                        <div id="ctl00_description" class="summary">Miscellaneous Script Host details</div><span id="ctl00_thumbnailUrl" class="date" content="https://codeproject.global.ssl.fastly.net/script/Articles/Images/article100x80.png"></span>			
+
+                    </div>
+                    
+					
+					
+
+					
+
+					
+					
+					
+
+						
+					
+
+					<div id="ctl00_confirmError" class="advise"><img style="float:left;margin-right:10px" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/warning48.png" width="48px" height="48px"><b>Is your email address OK?</b> You are signed up for our 
+						newsletters but your email address is either unconfirmed, or has not been 
+						reconfirmed in a long time. Please <b>click <a id="ctl00_RequestConfirmLink2" href="https://www.codeproject.com/script/Membership/SendConfirmRequest.aspx?rp=%2fArticles%2f17038%2fCOM-in-plain-C-part-8">here</a> to have a confirmation email
+                        sent</b> so we can confirm your email address and start sending you 
+                        newsletters again. Alternatively, you can 
+						<a id="ctl00_SubscribeLink2" href="https://www.codeproject.com/script/Membership/Subscribe.aspx">update your subscriptions</a>.</div>
+
+						
+						<div id="contentdiv" class="text">
+						
+
+
+
+<ul class="download">
+<li><a href="https://www.codeproject.com/KB/COM/com_in_c8/com_in_c8_src.zip">Download source files - 419 Kb</a> </li></ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#INTRO">Persistent script code</a>
+</li><li><a href="#ITEM">Script code and "Named Items"</a>
+</li><li><a href="#CALL">Call a particular function in a script</a> 
+</li><li><a href="#VAR">Query/set a variable in a script</a> 
+</li><li><a href="#MULTI">Interfacing different languages</a>
+</li></ul>
+
+<h2><a name="INTRO">Introduction</a></h2>
+
+<p>In the preceding chapters, we learned how to create an ActiveX Script
+ Host. Although those chapters covered the most important aspects of 
+writing a script host, there are some additional, more esoteric features
+ that your script host may want to utilize. This chapter will detail 
+some of those more esoteric features.</p>
+
+<h2><a name="MACRO">Persistent script code</a></h2>
+
+<p>In our previous Script Host examples, we had a <code>runScript</code>
+ function that opened the script engine, ran a script, and then closed 
+down the engine. With this approach, the script got loaded/parsed, run, 
+and then unloaded (after it was done running). 
+</p>
+<p>But there may be times when you'd like to add some scripts to the 
+engine, and then leave them added to the engine even when those scripts 
+are not running. Perhaps you'd like these scripts to be callable by any 
+other script you run with that same engine's IActiveScript. In essence, 
+maybe you'd like to treat these scripts like a collection of "ram-based 
+macros". ActiveX Script Engines make this possible. But we have to alter
+ our approach in two ways: 
+</p><ol>
+<li>When we add a script as a "macro", we need to specify the SCRIPTTEXT_ISPERSISTENT flag to <code>ParseScriptText</code>.
+ This tells the engine that the script is to remain internally 
+parsed/loaded inside of the script engine, even after ParseScriptText 
+returns. 
+
+</li><li>We can't Release the engine's IActiveScript object until we're 
+all done using our macros. At this point, those macros are finally 
+unloaded. </li></ol>
+
+<p>The best approach to take is to add these macros while the engine is 
+in its INITIALIZED state, but before set into its STARTED or CONNECTED 
+states. <code>ParseScriptText</code> will not attempt to run the 
+scripts. Instead, the scripts will be parsed for proper syntax, 
+internally added to the script's engine, and remain there as <code>ParseScriptText</code>
+ returns immediately. The scripts will remain in the engine even after 
+called by another script, or run via any other mechanism, until such 
+time as we finally release the engine's <code>IActiveScript</code> object. 
+</p><p>In the directory <strong>ScriptHost7</strong>, you'll find an example to illustrate this point. We'll be adding a VB script to the engine, and specifying the <code>SCRIPTTEXT_ISPERSISTENT</code> flag. To keep things simple, this VB script will be embedded as global data in our EXE as so: 
+</p>
+
+<div class="pre-action-link" id="premain412609" style="width:100%;display:block;"><span id="prehide412609" onclick="processCodeBlocks.togglePre(412609);">Hide</span>  &nbsp; <span id="copycode412609" onclick="return processCodeBlocks.copyCode(412609);">Copy Code</span></div><pre id="pre412609" style="margin-top: 0px;" class="notranslate" lang="c++"><span class="code-keyword">wchar_t</span> VBmacro[] = L<span class="code-string">"</span><span class="code-string">Sub HelloWorld\r\nMsgBox \"Hello world\"\r\nEnd Sub"</span>;</pre>
+
+<p>All we have above is a VB subroutine named HelloWorld. It simply displays a message box. 
+</p><p>Next, we'll embed a second VB script. This VB script will simply call the first script's HelloWorld subroutine: 
+</p><div class="pre-action-link" id="premain277799" style="width:100%;display:block;"><span id="prehide277799" onclick="processCodeBlocks.togglePre(277799);">Hide</span>  &nbsp; <span id="copycode277799" onclick="return processCodeBlocks.copyCode(277799);">Copy Code</span></div><pre id="pre277799" style="margin-top: 0px;" class="notranslate" lang="c++"><span class="code-keyword">wchar_t</span> VBscript[] = L<span class="code-string">"</span><span class="code-string">HelloWorld"</span>;</pre>
+<p>When we add this second script to the engine, we won't specify the SCRIPTTEXT_ISPERSISTENT flag. 
+</p><p>To make persistent scripts work, we need our <code>runScript</code>
+ thread to keep the VB engine's IActiveScript around until our program 
+terminates. To achieve this, we'll start this thread at the beginning of
+ our program (instead of starting the thread only when it's time to run a
+ script). This thread will remain alive until our program ends. 
+Initially, the thread will call <code>CoCreateInstance</code> to get the VB engine's IActiveScript, then call its QueryInterface to get the engine's IActiveScriptParse, then call <code>InitNew</code> to initialize the engine, and finally call <code>SetScriptSite</code> to give the engine our IActiveScriptSite. This initialization is the same as our preceding host examples. 
+</p><p>Then runScript will call <code>ParseScriptText</code> to add our "VB macro" to the engine. This is almost exactly like preceding example, except we specify SCRIPTTEXT_ISPERSISTENT: 
+</p><div class="pre-action-link" id="premain925463" style="width:100%;display:block;"><span id="prehide925463" onclick="processCodeBlocks.togglePre(925463);">Hide</span>  &nbsp; <span id="copycode925463" onclick="return processCodeBlocks.copyCode(925463);">Copy Code</span></div><pre id="pre925463" style="margin-top: 0px;" class="notranslate" lang="c++">activeScriptParse-&gt;lpVtbl-&gt;ParseScriptText(activeScriptParse, &amp;VBmacro[<span class="code-digit">0</span>],
+    <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, SCRIPTTEXT_ISPERSISTENT, <span class="code-digit">0</span>, <span class="code-digit">0</span>);</pre>
+<p>After adding this script, the runScript thread now waits for the main
+ thread to tell it to go ahead and run the second script (which will 
+call this script we just loaded). The thread waits on an event signal 
+we've created. 
+</p><p>The main window has a "Run Script" button. When the user clicks upon this, the main thread sets this event signal: 
+</p><div class="pre-action-link" id="premain914222" style="width:100%;display:block;"><span id="prehide914222" onclick="processCodeBlocks.togglePre(914222);">Hide</span>  &nbsp; <span id="copycode914222" onclick="return processCodeBlocks.copyCode(914222);">Copy Code</span></div><pre id="pre914222" style="margin-top: 0px;" class="notranslate" lang="c++"><span class="code-comment">//</span><span class="code-comment"> Let the script thread know that we want it to run a script</span>
+SetEvent(NotifySignal[<span class="code-digit">0</span>]);</pre>
+<p>runThread wakes up and calls <code>ParseScriptText</code> to add the second script, and then sets the VB engine state to SCRIPTSTATE_CONNECTED via a call to <code>SetScriptState</code>.
+ This will run the second script, which will call the HelloWorld sub in 
+the macro script to pop up a message box. After the user dismisses this 
+box, then the first script ends and <code>SetScriptState</code> returns. 
+</p><p>At this point, we do not Release the IActiveScriptParse and IActiveScript, and close the engine. Instead, we simply call <code>SetScriptState</code>
+ again to set the VB engine's state to SCRIPTSTATE_INITIALIZED. This 
+causes the second script to be unloaded. But the macro script is not 
+unloaded, because it is persistent. 
+</p><p>runThread goes back to sleep, waiting for the user to click the 
+"Run Script" button again. In this event, runThread repeats the process 
+of adding/running the second script. But note that there is no need to 
+re-add the macro script. It is still loaded in the engine. 
+</p><p>Here's the "script loop" in runThread: 
+</p><div class="pre-action-link" id="premain934315" style="width:100%;display:block;"><span id="prehide934315" onclick="processCodeBlocks.togglePre(934315);">Hide</span>  &nbsp; <span id="copycode934315" onclick="return processCodeBlocks.copyCode(934315);">Copy Code</span></div><pre id="pre934315" style="margin-top: 0px;" class="notranslate" lang="c++"><span class="code-keyword">for</span> (;;)
+{
+   <span class="code-comment">//</span><span class="code-comment"> Wait for main thread to signal us to run a script.</span>
+   WaitForSingleObject(NotifySignal, INFINITE);
+
+   <span class="code-comment">//</span><span class="code-comment"> Have the script engine parse our second script and add it to</span>
+   <span class="code-comment">//</span><span class="code-comment"> the internal list of scripts to run. NOTE: We do NOT specify</span>
+   <span class="code-comment">//</span><span class="code-comment"> SCRIPTTEXT_ISPERSISTENT so this script will be unloaded</span>
+   <span class="code-comment">//</span><span class="code-comment"> when the engine goes back to INITIALIZED state.</span>
+   activeScriptParse-&gt;lpVtbl-&gt;ParseScriptText(activeScriptParse,
+      &amp;VBscript[<span class="code-digit">0</span>], <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>);
+
+   <span class="code-comment">//</span><span class="code-comment"> Run all of the scripts that we added to the engine.</span>
+   EngineActiveScript-&gt;lpVtbl-&gt;SetScriptState(EngineActiveScript,
+      SCRIPTSTATE_CONNECTED);
+
+   <span class="code-comment">//</span><span class="code-comment"> The above script has ended after SetScriptState returns. Now</span>
+   <span class="code-comment">//</span><span class="code-comment"> let's set the engine state back to initialized to unload this</span>
+   <span class="code-comment">//</span><span class="code-comment"> script. VBmacro[] remains still loaded.</span>
+   EngineActiveScript-&gt;lpVtbl-&gt;SetScriptState(EngineActiveScript,
+      SCRIPTSTATE_INITIALIZED);
+}</pre>
+
+<h2><a name="ITEM">Script code and "Named Items"</a></h2>
+
+<p>In the above example, we added the macro script to the same "named 
+item" as the second script. (Note: We didn't specify any particular 
+named item, so the engine used its default "global item"). But it's 
+possible to load scripts under different "named items". 
+</p><p>In the preceding chapter, you'll recall that we made it possible 
+for a script to call our own C functions by creating a named item (via 
+the engine IActiveScript's <code>AddNamedItem</code>). The script used this item's name to call our C functions. 
+</p><p>But that's not the only use of a named item. We can also group 
+scripts under named items we create, and that's what we'll examine now. 
+</p><p>Consider that we have two C source files named <em>File1.c</em> and <em>File2.c</em>. Here is the contents of <em>File1.c</em>: 
+</p><div class="pre-action-link" id="premain180120" style="width:100%;display:block;"><span id="prehide180120" onclick="processCodeBlocks.togglePre(180120);">Hide</span>  &nbsp; <span id="copycode180120" onclick="return processCodeBlocks.copyCode(180120);">Copy Code</span></div><pre id="pre180120" style="margin-top: 0px;" class="notranslate" lang="c++"><span class="code-comment">//</span><span class="code-comment"> File1.c</span>
+<span class="code-keyword">static</span> <span class="code-keyword">void</span> MyFunction(<span class="code-keyword">void</span>)
+{
+   printf(<span class="code-string">"</span><span class="code-string">File1.c"</span>);
+}
+
+<span class="code-keyword">static</span> <span class="code-keyword">void</span> File1(<span class="code-keyword">void</span>)
+{
+   MyFunction();
+}</pre>Here is the contents of <em>File2.c</em>: <div class="pre-action-link" id="premain996168" style="width:100%;display:block;"><span id="prehide996168" onclick="processCodeBlocks.togglePre(996168);">Hide</span>  &nbsp; <span id="copycode996168" onclick="return processCodeBlocks.copyCode(996168);">Copy Code</span></div><pre id="pre996168" style="margin-top: 0px;" class="notranslate">// File2.c
+static void MyFunction(const char *ptr)
+{
+   printf(ptr);
+}
+
+static void File2(void)
+{
+   MyFunction("File1.c");
+}</pre>
+<p>There are a few things to note above. 
+</p><ol>
+<li>Due to the static keywords, <code>MyFunction</code> in <em>File1.c</em> is not the same as <code>MyFunction</code> in <em>File2.c</em>. We can compile and link these two source files together and not have any problem (ie, there is no name conflict). 
+
+</li><li>Due to the static keywords, the functions in <em>File1.c</em> cannot call the functions in <em>File2.c</em>, and vice versa.</li></ol>
+<p>When we create a named item (into which we'll load script code), 
+think of it as creating a C source file. To create a named item, we call
+ the engine IActiveScipt's <code>AddNamedItem</code>. Let's assume we 
+have a script engine that implements the C language. First of all, we 
+need to call AddNamedItem twice. The first time, we create a named item 
+with the name <em>File1.c</em>. The second time we'll create a named item with the name <em>File2.c</em>. This creates the two "source files" in the engine. Then we'll call <code>ParseScriptText</code> to add the contents of <em>File1.c</em> to the <em>File1.c</em> named item. To do this, we must pass the name of the item as the third arg to ParseScriptText. Then, we'll add the contents of <em>File2.c</em> to the <em>File2.c</em> named item. Here is how we do this: 
+</p><div class="pre-action-link" id="premain286196" style="width:100%;display:block;"><span id="prehide286196" onclick="processCodeBlocks.togglePre(286196);">Hide</span>  &nbsp; <span id="preShrink286196" onclick="processCodeBlocks.shrinkExpand(286196);">Shrink</span> <img id="preimg286196" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up-16.png" style="height:16px;width:16px" onclick="processCodeBlocks.shrinkExpand(286196);">  &nbsp; <span id="copycode286196" onclick="return processCodeBlocks.copyCode(286196);">Copy Code</span></div><pre id="pre286196" style="margin-top: 0px;" processed="true" class="notranslate" lang="c++"><span class="code-comment">//</span><span class="code-comment"> Here's the contents of File1.c</span>
+<span class="code-keyword">wchar_t</span> File1[] = L<span class="code-string">"</span><span class="code-string">static void MyFunction(void)\r\n\
+{\r\n\
+   printf(\"File1.c\");\r\n\
+}\r\n\r\n\
+static void File1(void)\r\n\
+{\r\n\
+   MyFunction();\r\n\
+}"</span>;
+
+<span class="code-comment">//</span><span class="code-comment"> Here's the contents of File2.c</span>
+<span class="code-keyword">wchar_t</span> File1[] = L<span class="code-string">"</span><span class="code-string">static void MyFunction(const char *ptr)\r\n\
+{\r\n\
+   printf(ptr);\r\n\
+}\r\n\r\n\
+static void File2(void)\r\n\
+{\r\n\
+   MyFunction(\"File1.c\");\r\n\
+}"</span>;
+
+<span class="code-comment">//</span><span class="code-comment"> Create the File1.c named item. Error-checking omitted!</span>
+EngineActiveScript-&gt;lpVtbl-&gt;AddNamedItem(EngineActiveScript, <span class="code-string">"</span><span class="code-string">File1.c"</span>, <span class="code-digit">0</span>);
+
+<span class="code-comment">//</span><span class="code-comment"> Create the File2.c named item.</span>
+EngineActiveScript-&gt;lpVtbl-&gt;AddNamedItem(EngineActiveScript, <span class="code-string">"</span><span class="code-string">File2.c"</span>, <span class="code-digit">0</span>);
+
+<span class="code-comment">//</span><span class="code-comment"> Add the File1.c contents to the File1.c named object</span>
+activeScriptParse-&gt;lpVtbl-&gt;ParseScriptText(activeScriptParse, &amp;File1[<span class="code-digit">0</span>],
+    <span class="code-string">"</span><span class="code-string">File1.c"</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>);
+
+<span class="code-comment">//</span><span class="code-comment"> Add the File2.c contents to the File2.c named object</span>
+activeScriptParse-&gt;lpVtbl-&gt;ParseScriptText(activeScriptParse, &amp;File2[<span class="code-digit">0</span>],
+    <span class="code-string">"</span><span class="code-string">File2.c"</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>);</pre>
+<p>Now let's take our VB "macro script" and put it in a named item we'll
+ create. We'll arbitrarily give this item a name of MyMacro. Here's what
+ we do in runScript: 
+</p><div class="pre-action-link" id="premain198816" style="width:100%;display:block;"><span id="prehide198816" onclick="processCodeBlocks.togglePre(198816);">Hide</span>  &nbsp; <span id="copycode198816" onclick="return processCodeBlocks.copyCode(198816);">Copy Code</span></div><pre id="pre198816" style="margin-top: 0px;" class="notranslate">// The name of the named item
+wchar_t MyMacroObjectName[] = L"MyMacro";
+
+// Create the MyMacro named item
+EngineActiveScript-&gt;lpVtbl-&gt;AddNamedItem(EngineActiveScript, 
+    &amp;MyMacroObjectName[0],    
+
+SCRIPTITEM_ISVISIBLE|SCRIPTITEM_ISPERSISTENT);
+
+// Add the contents of VBmacro to the MyMacro named item
+activeScriptParse-&gt;lpVtbl-&gt;ParseScriptText(activeScriptParse, &amp;VBmacro[0],
+   &amp;MyMacroObjectName[0], 0, 0, 0, 0, 
+    SCRIPTITEM_ISVISIBLE|SCRIPTTEXT_ISPERSISTENT, 0, 0);</pre>
+
+<p>You'll notice that we pass a few flags to AddNamedItem. We specify <code>SCRIPTITEM_ISPERSISTENT</code>
+ because we don't want the engine to delete this named item (and its 
+contents) when we reset the engine state to INITIALIZED. We also specify
+ <code>SCRIPTITEM_ISVISIBLE</code> because we want this named item to be
+ accessible from the default global item (which is where the second 
+script gets added). Specifying <code>SCRIPTITEM_ISVISIBLE</code> is 
+tantamount to removing the static keyword on our functions in that C 
+language engine example. It allows a named item's functions to be 
+callable by another named item's functions. Without <code>SCRIPTITEM_ISVISIBLE</code>, a named item's functions may call themselves, but not be called by any other named item's functions. 
+</p><p>We have to modify the second VB script. Now it needs to reference
+ the named item when it calls the HelloWorld subroutine. In VBscript, 
+this is accomplished by using the name as if it's an object: 
+</p><div class="pre-action-link" id="premain240329" style="width:100%;display:block;"><span id="prehide240329" onclick="processCodeBlocks.togglePre(240329);">Hide</span>  &nbsp; <span id="copycode240329" onclick="return processCodeBlocks.copyCode(240329);">Copy Code</span></div><pre id="pre240329" style="margin-top: 0px;" class="notranslate" lang="c++"><span class="code-keyword">wchar_t</span> VBscript[] = L<span class="code-string">"</span><span class="code-string">MyMacro.HelloWorld"</span>;</pre>
+
+<p>There is one more thing to do. When we call AddNamedItem to create 
+"MyMacro", the engine is going to call our IActiveScriptSite's <code>GetItemInfo</code>,
+ passing the name "MyMacro". We need to obtain and return an IDispatch 
+pointer for this named item. Where do we get that? We get it by calling 
+the engine IActiveScript's <code>GetScriptDispatch</code>, passing the item name. Here then is our IActiveScriptSite's <code>GetItemInfo</code>: 
+</p><div class="pre-action-link" id="premain483659" style="width:100%;display:block;"><span id="prehide483659" onclick="processCodeBlocks.togglePre(483659);">Hide</span>  &nbsp; <span id="copycode483659" onclick="return processCodeBlocks.copyCode(483659);">Copy Code</span></div><pre id="pre483659" style="margin-top: 0px;" class="notranslate" lang="c++">STDMETHODIMP GetItemInfo(MyRealIActiveScriptSite *<span class="code-keyword">this</span>, LPCOLESTR
+   objectName, DWORD dwReturnMask, IUnknown **objPtr, ITypeInfo **typeInfo)
+{
+   <span class="code-keyword">if</span> (dwReturnMask &amp; SCRIPTINFO_IUNKNOWN) *objPtr = <span class="code-digit">0</span>;
+   <span class="code-keyword">if</span> (dwReturnMask &amp; SCRIPTINFO_ITYPEINFO) *typeInfo = <span class="code-digit">0</span>;
+
+   <span class="code-comment">//</span><span class="code-comment"> We assume that the named item the engine is asking for is our</span>
+   <span class="code-comment">//</span><span class="code-comment"> "MyMacro" named item we created. We need to return the</span>
+   <span class="code-comment">//</span><span class="code-comment"> IDispatch for this named item. Where do we get it? From the engine.</span>
+   <span class="code-comment">//</span><span class="code-comment"> Specifically, we call the engine IActiveScript's GetScriptDispatch(),</span>
+   <span class="code-comment">//</span><span class="code-comment"> passing objectName (which should be "MyMacro").</span>
+   <span class="code-keyword">if</span> (dwReturnMask &amp; SCRIPTINFO_IUNKNOWN)
+      <span class="code-keyword">return</span>(EngineActiveScript-&gt;lpVtbl-&gt;GetScriptDispatch(
+          EngineActiveScript, objectName, objPtr));
+   <span class="code-keyword">return</span>(E_FAIL);
+}</pre>
+
+<p>With the above minor modifications, we have now used a named item for
+ our macro script. What is the benefit of this? First of all, our second
+ script can now have a HelloWorld subroutine inside it, and this will 
+not conflict with MyMacro's HelloWorld. So, we've now eliminated the 
+possibility of any sub/function name conflicts between our macro script 
+and the second script. Furthermore, if we had more macro scripts, we 
+could put each one in its own named item. In this way, each macro script
+ can have similarly named subs/functions, and again there is no conflict
+ between any of the macro scripts. The VB engine knows which 
+sub/function is being called because the object name used in the call 
+indicates which named item holds the sub/function. 
+</p><p>In conclusion, using named items is a way to prevent possible 
+sub/function name conflicts in script code you add to a particular 
+engine. 
+</p>
+<h2><a name="CALL">Call</a> a particular function in a script</h2>
+
+<p>In the above example, we called the engine's <code>GetScriptDispatch</code> to retrieve an IDispatch to a particular named item. We simply returned this to the engine. 
+</p><p>But we could also use that IDispatch ourselves to directly call a
+ particular VB sub/function (in a particular named item). To call the 
+sub/function, we call that IDispatch's <code>GetIDsOfNames</code> and <code>Invoke</code> functions. This will be much like what we did in <strong>IExampleApp3</strong>
+ when we used an IDispatch's Invoke to call some function in a COM 
+object. You may wish to peruse that example again to refresh your 
+memory. Let's say that we wish to directly call the HelloWorld sub in 
+the MyMacros named object. First we need to get the IDispatch for that 
+named object, which we do by calling the engine IActiveScript's <code>GetScriptDispatch</code>. Then we call that IDispatch's <code>GetIDsOfNames</code> to get the <code>DISPID</code>
+ (ie, unique number) that the engine has assigned to the function we 
+want to call. Finally, we use this DISPID with the IDispatch's <code>Invoke</code> to directly call the function.
+</p><div class="pre-action-link" id="premain871548" style="width:100%;display:block;"><span id="prehide871548" onclick="processCodeBlocks.togglePre(871548);">Hide</span>  &nbsp; <span id="preShrink871548" onclick="processCodeBlocks.shrinkExpand(871548);">Shrink</span> <img id="preimg871548" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up-16.png" style="height:16px;width:16px" onclick="processCodeBlocks.shrinkExpand(871548);">  &nbsp; <span id="copycode871548" onclick="return processCodeBlocks.copyCode(871548);">Copy Code</span></div><pre id="pre871548" style="margin-top: 0px;" processed="true" class="notranslate" lang="c++"><span class="code-comment">//</span><span class="code-comment"> NOTE: Error-checking omitted!</span>
+IDispatch  
+*objPtr;
+DISPID     dispid;
+OLECHAR    
+*funcName;
+DISPPARAMS dspp;
+VARIANT    ret;
+
+<span class="code-comment">//</span><span class="code-comment"> Get the IDispatch for "MyMacro" named item</span>
+EngineActiveScript-&gt;lpVtbl-&gt;GetScriptDispatch(EngineActiveScript,
+   
+<span class="code-string">"</span><span class="code-string">MyMacro"</span>, &amp;objPtr);
+
+<span class="code-comment">//</span><span class="code-comment"> Now get the DISPID for the "HelloWorld" sub</span>
+funcName = (OLECHAR 
+*)L<span class="code-string">"</span><span class="code-string">HelloWorld"</span>;
+objPtr-&gt;lpVtbl-&gt;GetIDsOfNames(objPtr, &amp;IID_NULL, 
+&amp;funcName, <span class="code-digit">1</span>,
+   LOCALE_USER_DEFAULT, &amp;dispid);
+
+<span class="code-comment">//</span><span class="code-comment"> Call HelloWorld.</span>
+<span class="code-comment">//</span><span class="code-comment"> Since HelloWorld has no args passed to it, we don't have to do</span>
+<span class="code-comment">//</span><span class="code-comment"> any grotesque initialization of DISPPARAMS.</span>
+ZeroMemory(&amp;dspp, 
+<span class="code-keyword">sizeof</span>(DISPPARAMS));
+VariantInit(&amp;ret);
+objPtr-&gt;lpVtbl-&gt;Invoke(objPtr, 
+dispid, &amp;IID_NULL, LOCALE_USER_DEFAULT,
+  DISPATCH_METHOD, 
+&amp;dspp, &amp;ret, <span class="code-digit">0</span>, <span class="code-digit">0</span>);
+VariantClear(&amp;ret);
+
+<span class="code-comment">//</span><span class="code-comment"> Release the IDispatch now that we made the call</span>
+objPtr-&gt;lpVtbl-&gt;Release(objPtr);</pre>
+
+<p>In the directory <strong>ScriptHost8</strong> is an example that adds the following VB script (containing a main subroutine) to the VB engine: </p>
+
+<div class="pre-action-link" id="premain630340" style="width:100%;display:block;"><span id="prehide630340" onclick="processCodeBlocks.togglePre(630340);">Hide</span>  &nbsp; <span id="copycode630340" onclick="return processCodeBlocks.copyCode(630340);">Copy Code</span></div><pre id="pre630340" style="margin-top: 0px;" class="notranslate" lang="c++"><span class="code-keyword">wchar_t</span> VBscript[] = L<span class="code-string">"</span><span class="code-string">Sub main\r\nMsgBox \"Hello world\"\r\nEnd Sub"</span>;</pre>
+
+<p>Then we directly call this main routine. One thing you'll notice is 
+that we don't create/specify any particular named item when we call <code>ParseScriptText</code>.
+ This causes the script code to be added to the default "global named 
+item". And so we need to fetch the IDispatch for this global named item.
+ How do we do that? We pass a 0 to GetScriptDispatch for the name. This 
+is a special value that tells GetScriptDispatch to return the global 
+named item's IDispatch.</p>
+ 
+<h2><a name="VAR">Query/Set</a> a variable in a script</h2>
+
+<p>To query or set the value of a particular variable (in a particular 
+named item), we do almost exactly the same as above. The only difference
+ is that, in the call to Invoke, we specify the <code>DISPATCH_PROPERTYGET</code> flag if querying the value, or the <code>DISPATCH_PROPERTYPUT</code> if setting the value. Here then is an example of setting a variable named "MyVariable" within the "MyMacro" named item: </p>
+
+<div class="pre-action-link" id="premain280499" style="width:100%;display:block;"><span id="prehide280499" onclick="processCodeBlocks.togglePre(280499);">Hide</span>  &nbsp; <span id="preShrink280499" onclick="processCodeBlocks.shrinkExpand(280499);">Shrink</span> <img id="preimg280499" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up-16.png" style="height:16px;width:16px" onclick="processCodeBlocks.shrinkExpand(280499);">  &nbsp; <span id="copycode280499" onclick="return processCodeBlocks.copyCode(280499);">Copy Code</span></div><pre id="pre280499" style="margin-top: 0px;" processed="true" class="notranslate" lang="c++"><span class="code-comment">//</span><span class="code-comment"> NOTE: Error-checking omitted!</span>
+IDispatch  *objPtr;
+DISPID     dispid, dispPropPut;
+OLECHAR    *varName;
+DISPPARAMS dspp;
+VARIANT    arg;
+
+<span class="code-comment">//</span><span class="code-comment"> Get the IDispatch for "MyMacro" named item</span>
+EngineActiveScript-&gt;lpVtbl-&gt;GetScriptDispatch(EngineActiveScript,
+   <span class="code-string">"</span><span class="code-string">MyMacro"</span>, &amp;objPtr);
+
+<span class="code-comment">//</span><span class="code-comment"> Now get the DISPID for the "MyVariable" variable (ie, property)</span>
+varName = (OLECHAR *)L<span class="code-string">"</span><span class="code-string">MyVariable"</span>;
+objPtr-&gt;lpVtbl-&gt;GetIDsOfNames(objPtr, &amp;IID_NULL, &amp;varName, <span class="code-digit">1</span>,
+   LOCALE_USER_DEFAULT, &amp;dispid);
+
+<span class="code-comment">//</span><span class="code-comment"> Set the value to 10.</span>
+VariantInit(&amp;arg);
+ZeroMemory(&amp;dspp, <span class="code-keyword">sizeof</span>(DISPPARAMS));
+dspp.cArgs = dspp.cNamedArgs = <span class="code-digit">1</span>;
+dispPropPut = DISPID_PROPERTYPUT;
+dspp.rgdispidNamedArgs = &amp;dispPropPut;
+dspp.rgvarg = &amp;arg;
+arg.vt = VT_I4;
+arg.lVal = <span class="code-digit">10</span>;
+objPtr-&gt;lpVtbl-&gt;Invoke(objPtr, dispid, &amp;IID_NULL, LOCALE_USER_DEFAULT,
+  DISPATCH_PROPERTYPUT, &amp;dspp, <span class="code-digit">0</span>, <span class="code-digit">0</span>, <span class="code-digit">0</span>);
+VariantClear(&amp;arg);
+
+<span class="code-comment">//</span><span class="code-comment"> Release the IDispatch now that we made the call</span>
+objPtr-&gt;lpVtbl-&gt;Release(objPtr);</pre>
+<p>In the directory <strong>ScriptHost9</strong> is an example where we set the value of MyVariable and then call the main sub which displays this variable. </p>
+<h2><a name="MULTI">Interfacing different languages</a></h2>
+<p>It's possible to have a script written in one language call a script 
+written in another language. For example, let's assume we have the 
+following VBScript function that displays a message box: </p><div class="pre-action-link" id="premain281618" style="width:100%;display:block;"><span id="prehide281618" onclick="processCodeBlocks.togglePre(281618);">Hide</span>  &nbsp; <span id="copycode281618" onclick="return processCodeBlocks.copyCode(281618);">Copy Code</span></div><pre id="pre281618" style="margin-top: 0px;" class="notranslate">Sub SayHello
+   MsgBox "Hello World"
+End Sub</pre>
+<p>And let's assume we have the following JScript function that calls the above VBScript function: </p><div class="pre-action-link" id="premain387145" style="width:100%;display:block;"><span id="prehide387145" onclick="processCodeBlocks.togglePre(387145);">Hide</span>  &nbsp; <span id="copycode387145" onclick="return processCodeBlocks.copyCode(387145);">Copy Code</span></div><pre id="pre387145" style="margin-top: 0px;" class="notranslate">function main()
+{
+   SayHello();
+}</pre>
+
+<p>First of all, because we're going to be using scripts in two different languages, JScript and VBScript, then we need to call <code>CoCreateInstance</code>
+ twice; once to get the JScript engine's IActiveScript, and once to get 
+the VBScript engine's IActiveScript. Of course, we'll store those two 
+pointers in two separate variables (<code>JActiveScript</code> and <code>VBActiveScript</code> respectively). 
+</p><p>We also need to get the IActiveScriptParse for each engine. And we need to call each engine's <code>SetScriptSite</code>
+ to give it our IActivesScriptSite. (We could use a separate 
+IActivesScriptSite for each engine, but our purposes, we'll use the same
+ one for both engines since we won't be simultaneously running scripts 
+in both languages. Rather, the VB engine is going to be running a script
+ only when the JScript engine calls into that VBScript function). 
+</p>
+
+<p>In other words, <code>runScript</code> has to do all of the initialization that we must do to use a script engine, but do it once for each engine. 
+</p><p>Then, we have to call the JScript engine's <code>ParseScriptText</code> to add the above JScript code to the JScript engine, and call the VBScript engine's <code>ParseScriptText</code> to add the above VBScript code to the VBScript engine. We'll add the code to the respective engine's global named item. 
+</p>
+
+<p>To facilitate the JScript calling a VBScript, we need to create a 
+named object in the JScript engine that we'll associate with the 
+VBScript engine. We do this before we add the scripts to their engines. 
+Let's arbitrarily give this item a name of "VB". </p>
+
+<div class="pre-action-link" id="premain61790" style="width:100%;display:block;"><span id="prehide61790" onclick="processCodeBlocks.togglePre(61790);">Hide</span>  &nbsp; <span id="copycode61790" onclick="return processCodeBlocks.copyCode(61790);">Copy Code</span></div><pre id="pre61790" style="margin-top: 0px;" class="notranslate" lang="c++">JActiveScript-&gt;lpVtbl-&gt;AddNamedItem(JActiveScript, L<span class="code-string">"</span><span class="code-string">VB"</span>,
+   SCRIPTITEM_GLOBALMEMBERS|SCRIPTITEM_ISVISIBLE);</pre>
+
+<p>Let's examine what happens when the JScript engine runs our JScript 
+code above. The engine looks through all its JScript functions that 
+we've loaded into the JScript engine. It sees that there is no JScript 
+function named "SayHello". Since we've added some named item to the 
+JScript engine (with the <code>ISVISIBLE</code> flag), the engine says 
+to itself, "Hmmm. Maybe this SayHello function is inside of this named 
+item. I need to get an IDispatch for this named item so I can call its 
+GetIDsOfNames function, asking for a SayHello <code>DISPID</code>. If that IDispatch successfully gives me that DISPID, then I can call that IDispatch's Invoke to call that SayHello function." 
+</p>
+
+<p>And how does an engine get an IDispatch for a named item? By now, you should know that it calls our IActiveScriptSite's <code>GetItemInfo</code>.
+ In this case, the JScript engine is going to pass an item name of "VB".
+ Here's where it may seem a little confusing. When our GetItemInfo 
+detects that it is being asked for that particular item, we're going to 
+call the VBScript engine's <code>GetScriptDispatch</code> to get the VBscript engine's global named item. And that's what we're going to return to the JScript engine. 
+</p><p>Yes, you read that correctly. When the JScript engine asks for 
+the "VB" named item's IDispatch, we're actually going to return the 
+VBScript engine's global named item IDispatch. Why? Because our VBScript
+ SayHello function was added to the global named item, not some item 
+named "VB". In other words, we're using the "VB" item as a "placeholder"
+ in the JScript engine. The JScript engine doesn't need to know that 
+it's "VB" item is essentially going to be the VBScript engine's global 
+named item. 
+</p>
+
+<p>So, the JScript engine will call <code>GetIDsOfNames</code> of the VB engine's global named item IDispatch. And sure enough, the VB engine will return the <code>DISPID</code>
+ for its SayHello function. When JScript calls that IDispatch's Invoke, 
+it ends up calling into the VB engine to have the VB engine run the VB 
+SayHello function. 
+</p><p>Here then is our IActiveScriptSite's <code>GetItemInfo</code>: </p>
+
+<div class="pre-action-link" id="premain163751" style="width:100%;display:block;"><span id="prehide163751" onclick="processCodeBlocks.togglePre(163751);">Hide</span>  &nbsp; <span id="copycode163751" onclick="return processCodeBlocks.copyCode(163751);">Copy Code</span></div><pre id="pre163751" style="margin-top: 0px;" class="notranslate" lang="c++">STDMETHODIMP GetItemInfo(MyRealIActiveScriptSite *<span class="code-keyword">this</span>, LPCOLESTR
+   objectName, DWORD dwReturnMask, IUnknown **objPtr, ITypeInfo **typeInfo)
+{
+   HRESULT    hr;
+
+   hr = E_FAIL;
+
+   <span class="code-keyword">if</span> (dwReturnMask &amp; SCRIPTINFO_ITYPEINFO) *typeInfo = <span class="code-digit">0</span>;
+
+   <span class="code-keyword">if</span> (dwReturnMask &amp; SCRIPTINFO_IUNKNOWN)
+   {
+      *objPtr = <span class="code-digit">0</span>;
+
+      <span class="code-comment">//</span><span class="code-comment"> If the engine is asking for our "VB" named item we created,</span>
+      <span class="code-comment">//</span><span class="code-comment"> then we know this is the JScript engine calling. We need to</span>
+      <span class="code-comment">//</span><span class="code-comment"> return the IDispatch for VBScript's "global named item".</span>
+      <span class="code-keyword">if</span> (!lstrcmpW(objectName, L<span class="code-string">"</span><span class="code-string">VB"</span>))
+      {
+         hr = VBActiveScript-&gt;lpVtbl-&gt;GetScriptDispatch(VBActiveScript,
+            <span class="code-digit">0</span>, objPtr);
+      }
+   }
+
+   <span class="code-keyword">return</span>(hr);
+}</pre>
+
+<p>In the directory <strong>ScriptHost10</strong> is an example of JScript calling VBScript. 
+</p><p>Incidentally, you may be wondering about the <code>SCRIPTITEM_GLOBALMEMBERS</code>
+ flag. You may recall when we previously dealt with a named item, the 
+script had to reference that item's name as if it was an object name, 
+for example: </p><div class="pre-action-link" id="premain427330" style="width:100%;display:block;"><span id="prehide427330" onclick="processCodeBlocks.togglePre(427330);">Hide</span>  &nbsp; <span id="copycode427330" onclick="return processCodeBlocks.copyCode(427330);">Copy Code</span></div><pre id="pre427330" style="margin-top: 0px;" class="notranslate" lang="c++">VB.SayHello()</pre>
+<p>When you create an item with the <code>SCRIPTITEM_GLOBALMEMBERS</code> flag, then specifying the object name is optional. For example, either the above call works, or this also works: </p><div class="pre-action-link" id="premain576905" style="width:100%;display:block;"><span id="prehide576905" onclick="processCodeBlocks.togglePre(576905);">Hide</span>  &nbsp; <span id="copycode576905" onclick="return processCodeBlocks.copyCode(576905);">Copy Code</span></div><pre id="pre576905" style="margin-top: 0px;" class="notranslate" lang="c++">SayHello()</pre>
+<p>So what we're doing here is making it possible for JScript to call 
+SayHello as if it were just another "local" JScript function. In other 
+words, it's more or less a notional shortcut that hides the messy 
+details of named items. 
+</p><p>But there is a price to be paid for this convenience. There may now be name conflicts between any items with <code>SCRIPTITEM_GLOBALMEMBERS</code> flag, as well as the global named item.</p>
+
+
+						</div>
+						
+
+						<div class="float-right" style="margin:20px 0 0 10px;border:1px solid #ccc">
+						<div class="msg-300x250" data-format="300x250" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="Platforms-Frameworks-Libraries/COM-COMplus/ActiveX" data-country="US" data-loadonview="true" data-tags="VC6, C++, C, Windows, Visual-Studio, Dev, COM, Intermediate,rating4.5" data-cookieconsent="true"><noscript><a href="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=300x250&c=165418"><img src="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=300x250&c=165418"  width="300px" height="250px" target="_blank"/></a></noscript></div>
+						</div>
+                        
+                        
+						
+						<h2>License</h2>
+						<div id="LicenseTerms"><p>This article has no explicit license 
+attached to it but may contain usage terms in the article text or the 
+download files themselves. If in doubt please contact the author via the
+ discussion board below.</p><p>A list of licenses authors might use can be found <a href="https://www.codeproject.com/info/Licenses.aspx">here</a></p></div>
+						<h2>Share</h2>
+				        <div class="share-list">
+					        
+
+    <ul class="rrssb-buttons clearfix rrssb-1">
+        <li id="ctl00_SocialLike_Email" class="email compact">
+            <a href="mailto:?subject=COM%20in%20plain%20C%2c%20part%208%20-%20CodeProject&amp;body=Here%27s%20an%20interesting%20article%20on%20for%20you%20on%20codeproject.com%0a%0ahttps%3a%2f%2fwww.codeproject.com%2fArticles%2f17038%2fCOM-in-plain-C-part-8%0a">
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                        <g>
+                            <path d="M20.111 26.147c-2.336 1.051-4.361 1.401-7.125 1.401c-6.462 0-12.146-4.633-12.146-12.265 
+                                c0-7.94 5.762-14.833 14.561-14.833c6.853 0 11.8 4.7 11.8 11.252c0 5.684-3.194 9.265-7.399 
+                                9.3 c-1.829 0-3.153-0.934-3.347-2.997h-0.077c-1.208 1.986-2.96 2.997-5.023 2.997c-2.532 
+                                0-4.361-1.868-4.361-5.062 c0-4.749 3.504-9.071 9.111-9.071c1.713 0 3.7 0.4 4.6 0.973l-1.169 
+                                7.203c-0.388 2.298-0.116 3.3 1 3.4 c1.673 0 3.773-2.102 3.773-6.58c0-5.061-3.27-8.994-9.303-8.994c-5.957 
+                                0-11.175 4.673-11.175 12.1 c0 6.5 4.2 10.2 10 10.201c1.986 0 4.089-0.43 5.646-1.245L20.111 
+                                26.147z M16.646 10.1 c-0.311-0.078-0.701-0.155-1.207-0.155c-2.571 0-4.595 2.53-4.595 5.529c0 
+                                1.5 0.7 2.4 1.9 2.4 c1.441 0 2.959-1.828 3.311-4.087L16.646 10.068z"></path>
+                        </g>
+                    </svg>
+                </span>
+                
+            </a>
+        </li><li id="ctl00_SocialLike_Twitter" class="twitter compact">
+            <a href="http://twitter.com/home?status=COM+in+plain+C%2c+part+8+-+CodeProject+-+https%3a%2f%2fwww.codeproject.com%2fArticles%2f17038%2fCOM-in-plain-C-part-8" class="popup">
+                <span class="icon">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                    <path d="M24.253,8.756C24.689,17.08,18.297,24.182,9.97,24.62c-3.122,0.162-6.219-0.646-8.861-2.32
+                        c2.703,0.179,5.376-0.648,7.508-2.321c-2.072-0.247-3.818-1.661-4.489-3.638c0.801,0.128,1.62,0.076,2.399-0.155
+                        C4.045,15.72,2.215,13.6,2.115,11.077c0.688,0.275,1.426,0.407,2.168,0.386c-2.135-1.65-2.729-4.621-1.394-6.965
+                        C5.575,7.816,9.54,9.84,13.803,10.071c-0.842-2.739,0.694-5.64,3.434-6.482c2.018-0.623,4.212,0.044,5.546,1.683
+                        c1.186-0.213,2.318-0.662,3.329-1.317c-0.385,1.256-1.247,2.312-2.399,2.942c1.048-0.106,2.069-0.394,3.019-0.851
+                        C26.275,7.229,25.39,8.196,24.253,8.756z"></path>
+                    </svg>
+                </span>
+                
+            </a>
+        </li><li id="ctl00_SocialLike_Facebook" class="facebook compact">
+            
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.codeproject.com%2fArticles%2f17038%2fCOM-in-plain-C-part-8" class="popup">
+                <span class="icon">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                        <path d="M27.825,4.783c0-2.427-2.182-4.608-4.608-4.608H4.783c-2.422,0-4.608,2.182-4.608,4.608v18.434
+                            c0,2.427,2.181,4.608,4.608,4.608H14V17.379h-3.379v-4.608H14v-1.795c0-3.089,2.335-5.885,5.192-5.885h3.718v4.608h-3.726
+                            c-0.408,0-0.884,0.492-0.884,1.236v1.836h4.609v4.608h-4.609v10.446h4.916c2.422,0,4.608-2.188,4.608-4.608V4.783z"></path>
+                    </svg>
+                </span>
+                
+            </a>
+        </li><li id="ctl00_SocialLike_LinkedIn" class="linkedin compact">
+            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fwww.codeproject.com%2fArticles%2f17038%2fCOM-in-plain-C-part-8&amp;title=COM+in+plain+C%2c+part+8+-+CodeProject&amp;summary=&amp;source=codeproject.com" class="popup">
+                <span class="icon">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                        <path d="M25.424,15.887v8.447h-4.896v-7.882c0-1.979-0.709-3.331-2.48-3.331c-1.354,0-2.158,0.911-2.514,1.803
+                            c-0.129,0.315-0.162,0.753-0.162,1.194v8.216h-4.899c0,0,0.066-13.349,0-14.731h4.899v2.088c-0.01,0.016-0.023,0.032-0.033,0.048
+                            h0.033V11.69c0.65-1.002,1.812-2.435,4.414-2.435C23.008,9.254,25.424,11.361,25.424,15.887z M5.348,2.501
+                            c-1.676,0-2.772,1.092-2.772,2.539c0,1.421,1.066,2.538,2.717,2.546h0.032c1.709,0,2.771-1.132,2.771-2.546
+                            C8.054,3.593,7.019,2.501,5.343,2.501H5.348z M2.867,24.334h4.897V9.603H2.867V24.334z"></path>
+                    </svg>
+                </span>
+                
+            </a>
+        </li><li id="ctl00_SocialLike_Reddit" class="reddit compact">
+            <a href="http://www.reddit.com/submit?url=https%3a%2f%2fwww.codeproject.com%2fArticles%2f17038%2fCOM-in-plain-C-part-8&amp;title=COM+in+plain+C%2c+part+8+-+CodeProject">
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve"><g>
+                    <path d="M11.794 15.316c0-1.029-0.835-1.895-1.866-1.895c-1.03 0-1.893 0.865-1.893 1.895s0.863 1.9 1.9 1.9 C10.958 17.2 11.8 16.3 11.8 15.316z"></path>
+                    <path d="M18.1 13.422c-1.029 0-1.895 0.864-1.895 1.895c0 1 0.9 1.9 1.9 1.865c1.031 0 1.869-0.836 1.869-1.865 C19.969 14.3 19.1 13.4 18.1 13.422z"></path>
+                    <path d="M17.527 19.791c-0.678 0.678-1.826 1.006-3.514 1.006c-0.004 0-0.009 0-0.014 0c-0.004 0-0.01 0-0.015 0 
+                    c-1.686 0-2.834-0.328-3.51-1.005c-0.264-0.265-0.693-0.265-0.958 0c-0.264 0.265-0.264 0.7 0 1 c0.943 0.9 2.4 1.4 
+                    4.5 1.402c0.005 0 0 0 0 0c0.005 0 0 0 0 0c2.066 0 3.527-0.459 4.47-1.402 c0.265-0.264 0.265-0.693 0.002-0.958C18.221 
+                    19.5 17.8 19.5 17.5 19.791z"></path><path d="M27.707 13.267c0-1.785-1.453-3.237-3.236-3.237c-0.793 0-1.518 0.287-2.082 
+                    0.761c-2.039-1.295-4.646-2.069-7.438-2.219 l1.483-4.691l4.062 0.956c0.071 1.4 1.3 2.6 2.7 2.555c1.488 0 2.695-1.208 
+                    2.695-2.695C25.881 3.2 24.7 2 23.2 2 c-1.059 0-1.979 0.616-2.42 1.508l-4.633-1.091c-0.344-0.081-0.693 0.118-0.803 
+                    0.455l-1.793 5.7 C10.548 8.6 7.7 9.4 5.6 10.75C5.006 10.3 4.3 10 3.5 10.029c-1.785 0-3.237 1.452-3.237 3.2 c0 1.1 0.6 
+                    2.1 1.4 2.69c-0.04 0.272-0.061 0.551-0.061 0.831c0 2.3 1.3 4.4 3.7 5.9 c2.299 1.5 5.3 2.3 8.6 2.325c3.228 0 6.271-0.825 
+                    8.571-2.325c2.387-1.56 3.7-3.66 3.7-5.917 c0-0.26-0.016-0.514-0.051-0.768C27.088 15.5 27.7 14.4 27.7 13.267z M23.186 
+                    3.355c0.74 0 1.3 0.6 1.3 1.3 c0 0.738-0.6 1.34-1.34 1.34s-1.342-0.602-1.342-1.34C21.844 4 22.4 3.4 23.2 3.355z M1.648 
+                    13.3 c0-1.038 0.844-1.882 1.882-1.882c0.31 0 0.6 0.1 0.9 0.209c-1.049 0.868-1.813 1.861-2.26 2.9 C1.832 14.2 1.6 13.8 1.6 
+                    13.267z M21.773 21.57c-2.082 1.357-4.863 2.105-7.831 2.105c-2.967 0-5.747-0.748-7.828-2.105 
+                    c-1.991-1.301-3.088-3-3.088-4.782c0-1.784 1.097-3.484 3.088-4.784c2.081-1.358 4.861-2.106 7.828-2.106 c2.967 0 5.7 
+                    0.7 7.8 2.106c1.99 1.3 3.1 3 3.1 4.784C24.859 18.6 23.8 20.3 21.8 21.57z M25.787 14.6 
+                    c-0.432-1.084-1.191-2.095-2.244-2.977c0.273-0.156 0.59-0.245 0.928-0.245c1.035 0 1.9 0.8 1.9 1.9 
+                    C26.354 13.8 26.1 14.3 25.8 14.605z"></path></g></svg>
+                </span>
+                
+            </a>
+        </li><li id="ctl00_SocialLike_Pinterest" class="pinterest compact">
+            <a href="http://pinterest.com/pin/create/bookmarklet/?is_video=false&amp;url=https%3a%2f%2fwww.codeproject.com%2fArticles%2f17038%2fCOM-in-plain-C-part-8&amp;description=COM+in+plain+C%2c+part+8+-+CodeProject">
+                <span class="icon">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                    <path d="M14.021,1.57C6.96,1.57,1.236,7.293,1.236,14.355c0,7.062,5.724,12.785,12.785,12.785c7.061,0,12.785-5.725,12.785-12.785
+                        C26.807,7.294,21.082,1.57,14.021,1.57z M15.261,18.655c-1.161-0.09-1.649-0.666-2.559-1.219c-0.501,2.626-1.113,5.145-2.925,6.458
+                        c-0.559-3.971,0.822-6.951,1.462-10.116c-1.093-1.84,0.132-5.545,2.438-4.632c2.837,1.123-2.458,6.842,1.099,7.557
+                        c3.711,0.744,5.227-6.439,2.925-8.775c-3.325-3.374-9.678-0.077-8.897,4.754c0.19,1.178,1.408,1.538,0.489,3.168
+                        C7.165,15.378,6.53,13.7,6.611,11.462c0.131-3.662,3.291-6.227,6.46-6.582c4.007-0.448,7.771,1.474,8.29,5.239
+                        c0.579,4.255-1.816,8.865-6.102,8.533L15.261,18.655z"></path>
+                    </svg>
+                </span>
+                
+            </a>
+        </li>
+
+    </ul>
+
+
+
+				        </div> 
+    			        
+                        <h2 id="ctl00_AboutHeading">About the Author</h2>
+						    
+
+<div class="author-wrapper">
+
+    <div class="pic-wrapper"> 
+        <img id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberPhoto" class="profile-pic" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/member_unknown.gif" style="border-width:0px;transform:rotate(1deg);">
+    </div>
+
+    <div class="container-member">  
+        <b><a id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberProfileLink" class="author" href="https://www.codeproject.com/Members/Jeff-Glatt">Jeff Glatt</a></b>
+
+        <table>
+        <tbody><tr>
+            <td rowspan="2" valign="middle" nowrap="nowrap">
+            
+            </td>
+            <td nowrap="nowrap">
+                <div class="company">
+                    <span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberJobTitle"></span>
+	                <span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberCompany"></span>
+                </div>
+            </td>
+            <td rowspan="2" style="padding-left:15px">
+                <a id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_FollowMember_FollowBtn" title="" class="button unfollowed align-center invisible tooltip" data-enabletooltip="true" data-tooltip="Have the articles and posts from this member appear in your Timeline so you can stay up to date." style="display: inline-block;">Follow<div class="tiny-text" style="margin-top:-3px;">this Member</div><div class="speech-bubble-container-up" style="width:150px">  <div class="speech-bubble-up" style="text-align:center"> Have the articles and posts from this member appear in your Timeline so you can stay up to date.</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></a>
+	<a id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_FollowMember_UnfollowBtn" title="" class="button followed align-center invisible tooltip" data-enabletooltip="true" data-tooltip="Stop following this Member" style="display:none;">Unfollow<div class="speech-bubble-container-up" style="width:150px">  <div class="speech-bubble-up" style="text-align:center"> Stop following this Member</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></a>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span id="ctl00_AboutAuthorRptr_ctl00_AboutAuthor_memberLocation">United States <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/US.gif" alt="United States" width="16px" height="11px"></span>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+
+    <div class="description">
+        No Biography provided
+
+        
+    </div>
+
+</div><br>
+						
+						
+
+						<div class="clearfix"></div>
+
+						<div style="padding-top:8px">
+							
+						</div>
+
+					
+
+				    
+					</form>
+
+				</div>
+
+				
+				<div class="bottom-promo"> 
+				    <div class="msg-728x90" data-format="728x90" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="Platforms-Frameworks-Libraries/COM-COMplus/ActiveX" data-country="US" data-loadonview="true" data-tags="VC6, C++, C, Windows, Visual-Studio, Dev, COM, Intermediate,rating4.5,pos_bottom" data-cookieconsent="true"><noscript><a href="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=728x90&c=165418"><img src="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=728x90&c=165418"  width="728px" height="90px" target="_blank"/></a></noscript></div>
+				</div>
+				
+                
+                
+
+				
+				
+
+					<h2>Comments and Discussions</h2>
+					<a class="float-left" name="_comments" id="_comments">&nbsp;</a><div id="_MessageBoardctl00_MessageBoard" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(event, null)">
+<table id="ForumTable" class="forum relaxed" cellspacing="0" cellpadding="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="3px" border="0">
+<tbody><tr class="header1">
+<td colspan="2" style="white-space:nowrap;"><div class="container">
+<div class="button new-message compose float-left">
+<a rel="nofollow" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;floc=/Articles/17038/COM-in-plain-C-part-8" name="Frm_HoverNL" target="_top">Add a Comment or Question&nbsp;</a>
+</div><div class="admin-links float-left align-middle" style="width:90px;line-height:24px;margin-top:4px;">
+&nbsp;<a href="https://www.codeproject.com/KB/FAQs/MessageBoardsFAQ.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/help_sm.png" title="FAQ" alt="FAQ" style="border-width:0;width:16px;height:16px;vertical-align:middle;"></a>
+</div><div class="float-right">
+<form action="/Search.aspx?sbo=fm" method="get" class="searchbar">
+<input type="hidden" name="fid" value="373296"><input type="hidden" name="sbo" value="fm"><input id="search_forumCtrl_ctl00_MessageBoard" type="search" class="search subdue" autocomplete="off" name="qf" value="Search Comments"><input type="image" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/search.gif">
+</form>
+</div><div class="tooltip email-alert" id="ctl00_MessageBoard_SubscribeDiv">
+	<span class="nowrap medium-text">Email Alerts</span><div class="tooltip-flyout" style="width: 335px;margin-top: 24px;left: -270px;padding: 7px;">
+		<b>Email me</b><input type="checkbox" id="ctl00_MessageBoard_SubscribeNew"><label for="ctl00_MessageBoard_SubscribeNew">New Posts</label><input type="checkbox" id="ctl00_MessageBoard_SubscribeReplies"><label for="ctl00_MessageBoard_SubscribeReplies">Replies to Posts</label><br><br><b>Send them</b><input type="radio" name="ctl00$MessageBoard_SubscribeSchedule" id="ctl00_MessageBoard_SubscribeInstant"><label for="ctl00_MessageBoard_SubscribeInstant">Instantly</label><input type="radio" name="ctl00$MessageBoard_SubscribeSchedule" id="ctl00_MessageBoard_SubscribeDaily"><label for="ctl00_MessageBoard_SubscribeDaily">Daily</label>&nbsp; <b>For</b> <select id="ctl00_MessageBoard_MessageType" class="tiny-text" style="width:80px;">
+			<option value="0" selected="selected">
+				All Types
+			</option><option value="128">
+				Announcements
+			</option>
+		</select><button class="button safe float-right update">Update</button>
+	</div>
+</div>
+</div></td>
+</tr><tr class="header2">
+<td></td><td style="width:100%;"><div style="text-align:right;">
+<form action="/script/Forums/SetOptions.aspx?floc=%2fArticles%2f17038%2fCOM-in-plain-C-part-8&amp;fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;view=Normal&amp;spc=Relaxed&amp;prof=True" method="get" style="margin:0;padding:0;">
+<input type="hidden" name="fid" value="373296"><input type="hidden" name="currentQS" value="floc=%2fArticles%2f17038%2fCOM-in-plain-C-part-8&amp;fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;view=Normal&amp;spc=Relaxed&amp;prof=True"><input type="hidden" name="floc" value="/Articles/17038/COM-in-plain-C-part-8">Spacing<select size="1" class="dropdown" name="spc">
+<option selected="selected" value="Relaxed">Relaxed</option><option value="Compact">Compact</option><option value="Tight">Tight</option>
+</select>&nbsp;&nbsp;Layout<select size="1" class="dropdown" name="view">
+<option selected="selected" value="Normal">Normal</option><option value="Topic">Open Topics</option><option value="Expanded">Open All</option><option value="Thread">Thread View</option>
+</select>&nbsp;&nbsp;Per page<select size="1" class="dropdown" name="mpp">
+<option value="10">10</option><option selected="selected" value="25">25</option><option value="50">50</option>
+</select>&nbsp;&nbsp;&nbsp;<input type="submit" value="Update" name="SetOpt" class="button">
+</form>
+</div></td>
+</tr>
+</tbody></table></td>
+</tr><tr>
+<td><a name="xx0xx"></a><table width="100%" cellspacing="0" cellpadding="2px" border="0">
+<tbody><tr class="navbar">
+<td></td><td style="text-align:right;width:50%;"></td><td style="text-align:right;white-space:nowrap;"><span class="nav-link disabled">First</span> <span class="nav-link disabled">Prev</span> <span class="nav-link disabled">Next</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr>
+<td><table class="fixed-layout blank-background" width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr id="F3002176_h0" class="header hover-row root">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="20px"><a name="xx3002176xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="3002176" parent="0" thread="3002176" href="https://www.codeproject.com/Messages/3002176/Hey-you-series-of-tutorials-cleared-up-a-lot-of-do.aspx">Hey you series of tutorials cleared up a lot of doubts i had, can you write about ActiveX components too</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">samarjit01</span><span class="date">13-Apr-09  12:32</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=3213480">samarjit01</a></span></td><td class="date"><span>13-Apr-09  12:32&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F3002176_h1" class="content root selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:20px;"><span class="voteform vertical" ownerid="3213480" msgid="3002176" votingtype="GoodOrBad" done="true"><a href="#xx3002176xx" onclick="return rateItem(5, 3002176,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',3213480);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx3002176xx" onclick="return rateItem(1, 3002176,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',3213480);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2">I have seen the previous chapters, it cleared up many 
+doubts i had about COM. Its true that i couldnt understand everything as
+ I didn't find enough time to read some of the articles you have 
+written. But i am really eager to learn how COM can be extended into 
+full fledged ActiveX component.<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=3002176&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=3002176&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=3002176" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF3002176" data-ref="3_3002176" class="rating-label" name="RateItem_3002176"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/3002176/Hey-you-series-of-tutorials-cleared-up-a-lot-of-do.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_3002176"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="3213480" msgid="3002176"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F2673902_h0" class="header hover-row root">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="20px"><a name="xx2673902xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_question.gif" alt="Question" title="Question" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="2673902" parent="0" thread="2673902" href="https://www.codeproject.com/Messages/2673902/Activex-for-Web.aspx">Activex for Web</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">xfinger</span><span class="date">11-Aug-08  19:09</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=203993">xfinger</a></span></td><td class="date"><span>11-Aug-08  19:09&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F2673902_h1" class="content root selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:20px;"><span class="voteform vertical" ownerid="203993" msgid="2673902" votingtype="GoodOrBad" done="true"><a href="#xx2673902xx" onclick="return rateItem(5, 2673902,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',203993);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx2673902xx" onclick="return rateItem(1, 2673902,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',203993);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2">Hi Jeff,<br>
+<br>
+Any chance you would write/release information on how to <b>draw</b> on a surface in a <b>complete activex for IE</b> in C?<br>
+<br>
+regards,<br>
+xfinger<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=2673902&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=2673902&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2673902" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF2673902" data-ref="3_2673902" class="rating-label" name="RateItem_2673902"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/2673902/Activex-for-Web.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_2673902"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="203993" msgid="2673902"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F2128572_h0" class="header hover-row root">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="20px"><a name="xx2128572xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_question.gif" alt="Question" title="Question" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="2128572" parent="0" thread="2128572" href="https://www.codeproject.com/Messages/2128572/Missed-some-chapter.aspx">Missed some chapter</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">Jahanshahi</span><span class="date">13-Jul-07  7:53</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=2896030">Jahanshahi</a></span></td><td class="date"><span>13-Jul-07  7:53&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F2128572_h1" class="content root selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:20px;"><span class="voteform vertical" ownerid="2896030" msgid="2128572" votingtype="GoodOrBad" done="true"><a href="#xx2128572xx" onclick="return rateItem(5, 2128572,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',2896030);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx2128572xx" onclick="return rateItem(1, 2128572,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',2896030);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2">I've been following your articles closely up to part 5. 
+It seems that I lost some essential parts, namely 6 and 7. How can I get
+ them? <br>
+<br>
+<div class="ForumSig">Mohsen Jahanshahi</div><br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=2128572&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=2128572&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2128572" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF2128572" data-ref="3_2128572" class="rating-label" name="RateItem_2128572"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/2128572/Missed-some-chapter.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_2128572"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="2896030" msgid="2128572"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F2196740_h0" class="header hover-row">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="38px"><a name="xx2196740xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_answer.gif" alt="Answer" title="Answer" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="2196740" parent="2128572" thread="2128572" href="https://www.codeproject.com/Messages/2196740/Re-Missed-some-chapter.aspx">Re: Missed some chapter</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">Jeff Glatt</span><span class="date">23-Aug-07  18:01</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=88625">Jeff Glatt</a></span></td><td class="date"><span>23-Aug-07  18:01&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F2196740_h1" class="content selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:38px;"><span class="voteform vertical" ownerid="88625" msgid="2196740" votingtype="GoodOrBad" done="true"><a href="#xx2196740xx" onclick="return rateItem(5, 2196740,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',88625);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx2196740xx" onclick="return rateItem(1, 2196740,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',88625);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2"><div class="parent"><a rel="nofollow noopener" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(null,2128572);" href="https://www.codeproject.com/Messages/2128572/Missed-some-chapter.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up24.png" title="Go to Parent" style="width:16px;height:16px;border:0"></a></div>To view all of my CodeProject articles, go to the top of this page and click on the author's (ie, my) name.<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=2196740&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=2196740&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=2128572" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF2196740" data-ref="3_2196740" class="rating-label" name="RateItem_2196740"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/2196740/Re-Missed-some-chapter.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_2196740"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="88625" msgid="2196740"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1966405_h0" class="header hover-row root">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="20px"><a name="xx1966405xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1966405" parent="0" thread="1966405" href="https://www.codeproject.com/Messages/1966405/The-chinese-version.aspx">The chinese version</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">Black.Stone</span><span class="date">29-Mar-07  22:44</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=55612">Black.Stone</a></span></td><td class="date"><span>29-Mar-07  22:44&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1966405_h1" class="content root selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:20px;"><span class="voteform vertical" ownerid="55612" msgid="1966405" votingtype="GoodOrBad" done="true"><a href="#xx1966405xx" onclick="return rateItem(5, 1966405,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',55612);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1966405xx" onclick="return rateItem(1, 1966405,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',55612);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2">I had translated it into chinese.<br>
+<br>
+Here is the URL:<a href="http://blackstoneex.spaces.live.com/blog/cns!CF847CFBE3E3C6D7!280.entry" rel="nofollow noopener">http://blackstoneex.spaces.live.com/blog/cns!CF847CFBE3E3C6D7!280.entry</a>[<a href="http://blackstoneex.spaces.live.com/blog/cns!CF847CFBE3E3C6D7!280.entry" target="_blank" title="New Window" rel="nofollow noopener">^</a>]<br>
+<br>
+I had your license at <a href="http://www.codeproject.com/com/com_in_c7.asp?df=100&amp;forumid=329935&amp;select=1617623#xx1617623xx" rel="nofollow noopener">http://www.codeproject.com/com/com_in_c7.asp?df=100&amp;forumid=329935&amp;select=1617623#xx1617623xx</a>[<a href="http://www.codeproject.com/com/com_in_c7.asp?df=100&amp;forumid=329935&amp;select=1617623#xx1617623xx" target="_blank" title="New Window" rel="nofollow noopener">^</a>]<br>
+<br>
+Thanks again. <br>
+<br>
+ <br>
+<br>
+<div class="ForumSig">I'm sorry for my poor english!</div><br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1966405&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1966405&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1966405" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1966405" data-ref="3_1966405" class="rating-label" name="RateItem_1966405"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1966405/The-chinese-version.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1966405"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="55612" msgid="1966405"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1851880_h0" class="header hover-row root">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="20px"><a name="xx1851880xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1851880" parent="0" thread="1851880" href="https://www.codeproject.com/Messages/1851880/named-items-and-jScript-stack-overflow.aspx">named items and jScript - stack overflow !</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">petermaenator</span><span class="date">19-Jan-07  7:07</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=2701277">petermaenator</a></span></td><td class="date"><span>19-Jan-07  7:07&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1851880_h1" class="content root selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:20px;"><span class="voteform vertical" ownerid="2701277" msgid="1851880" votingtype="GoodOrBad" done="true"><a href="#xx1851880xx" onclick="return rateItem(5, 1851880,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',2701277);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1851880xx" onclick="return rateItem(1, 1851880,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',2701277);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2">Hi Jeff - thanks for sharing the knowledge !<br>
+<br>
+I'm working on project where we use Active scripting from C++ COM.<br>
+Your article inspired me to improve the way how we parse and invoke scripts. <br>
+I'm trying to put and execute script methods not in global namespace, but in named items - using the mechanism you described in <br>
+Script code and "Named Items" section. This way i can encapsulate blocks of script methods so they do not interfere. <br>
+<br>
+So I <br>
+- add new named item to the engine<br>
+- in GetItemInfo return engine's dispatch interface for the named item<br>
+- parse script into named item<br>
+- get named item dispatch and invoke my script<br>
+<br>
+This works ok for VBScript - but for jScript I'm always get Stack 
+overflow when I invoke my script method ! I don't know if this is 
+limitation of jScript, or I forgot to set some magic flags somewhere, or
+ what ...<br>
+  <br>
+I'd like to ask if you have any idea what could help here.<br>
+<br>
+thanks <br>
+Peter<br>
+<br><br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1851880&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1851880&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1851880" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1851880" data-ref="3_1851880" class="rating-label" name="RateItem_1851880"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1851880/named-items-and-jScript-stack-overflow.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1851880"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="2701277" msgid="1851880"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1852226_h0" class="header hover-row">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="38px"><a name="xx1852226xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1852226" parent="1851880" thread="1851880" href="https://www.codeproject.com/Messages/1852226/Re-named-items-and-jScript-stack-overflow.aspx">Re: named items and jScript - stack overflow !</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">petermaenator</span><span class="date">19-Jan-07  10:58</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=2701277">petermaenator</a></span></td><td class="date"><span>19-Jan-07  10:58&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1852226_h1" class="content selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:38px;"><span class="voteform vertical" ownerid="2701277" msgid="1852226" votingtype="GoodOrBad" done="true"><a href="#xx1852226xx" onclick="return rateItem(5, 1852226,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',2701277);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1852226xx" onclick="return rateItem(1, 1852226,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',2701277);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2"><div class="parent"><a rel="nofollow noopener" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(null,1851880);" href="https://www.codeproject.com/Messages/1851880/named-items-and-jScript-stack-overflow.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up24.png" title="Go to Parent" style="width:16px;height:16px;border:0"></a></div>Seems i found the reason of stack overflow issue:<br>
+<br>
+In GetItemInfo method, when system asks for newly added named item 
+dispatch, it is better to return root dispatch of the engine, instead of
+ named item's dispatch <br>
+<br>
+in other words:<br>
+<br>
+			m_spScript-&gt;GetScriptDispatch( NULL, &amp;spScriptDisp)<br>
+<br>
+instead of:<br>
+<br>
+			m_spScript-&gt;GetScriptDispatch( pstrName, &amp;spScriptDisp)<br>
+<br>
+Perhaps you can update the code snippet in the "Script code and Named Items section".<br>
+<br>
+Again, thanks for the inspirative article ! <br>
+<br><br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1852226&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1852226&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1851880" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1852226" data-ref="3_1852226" class="rating-label" name="RateItem_1852226"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1852226/Re-named-items-and-jScript-stack-overflow.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1852226"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="2701277" msgid="1852226"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1889106_h0" class="header hover-row">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="56px"><a name="xx1889106xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1889106" parent="1852226" thread="1851880" href="https://www.codeproject.com/Messages/1889106/Re-named-items-and-jScript-stack-overflow.aspx">Re: named items and jScript - stack overflow !</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">Jeff Glatt</span><span class="date">11-Feb-07  23:39</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=88625">Jeff Glatt</a></span></td><td class="date"><span>11-Feb-07  23:39&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1889106_h1" class="content selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:56px;"><span class="voteform vertical" ownerid="88625" msgid="1889106" votingtype="GoodOrBad" done="true"><a href="#xx1889106xx" onclick="return rateItem(5, 1889106,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',88625);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1889106xx" onclick="return rateItem(1, 1889106,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',88625);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2"><div class="parent"><a rel="nofollow noopener" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(null,1852226);" href="https://www.codeproject.com/Messages/1852226/Re-named-items-and-jScript-stack-overflow.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up24.png" title="Go to Parent" style="width:16px;height:16px;border:0"></a></div>How bizarre.<br>
+<br>
+Personally, I think that JScript is really broken and buggy (even moreso
+ than VBScript). I try to stay away from JScript for this reason. I 
+consider it an un-finished product.<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1889106&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1889106&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1851880" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1889106" data-ref="3_1889106" class="rating-label" name="RateItem_1889106"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1889106/Re-named-items-and-jScript-stack-overflow.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1889106"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="88625" msgid="1889106"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1834103_h0" class="header hover-row root">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="20px"><a name="xx1834103xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1834103" parent="0" thread="1834103" href="https://www.codeproject.com/Messages/1834103/Embed-ActiveX-in-HTML.aspx">Embed ActiveX in HTML</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">xfinger</span><span class="date">8-Jan-07  16:45</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=203993">xfinger</a></span></td><td class="date"><span>8-Jan-07  16:45&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1834103_h1" class="content root selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:20px;"><span class="voteform vertical" ownerid="203993" msgid="1834103" votingtype="GoodOrBad" done="true"><a href="#xx1834103xx" onclick="return rateItem(5, 1834103,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',203993);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1834103xx" onclick="return rateItem(1, 1834103,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',203993);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2">I was wondering if your next article could be ActiveX in plain C, part 9......<br>
+<br>
+Great article<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1834103&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1834103&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1834103" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1834103" data-ref="3_1834103" class="rating-label" name="RateItem_1834103"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1834103/Embed-ActiveX-in-HTML.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1834103"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="203993" msgid="1834103"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1834134_h0" class="header hover-row">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="38px"><a name="xx1834134xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1834134" parent="1834103" thread="1834103" href="https://www.codeproject.com/Messages/1834134/Re-Embed-ActiveX-in-HTML.aspx">Re: Embed ActiveX in HTML</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">xfinger</span><span class="date">8-Jan-07  17:08</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=203993">xfinger</a></span></td><td class="date"><span>8-Jan-07  17:08&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1834134_h1" class="content selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:38px;"><span class="voteform vertical" ownerid="203993" msgid="1834134" votingtype="GoodOrBad" done="true"><a href="#xx1834134xx" onclick="return rateItem(5, 1834134,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',203993);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1834134xx" onclick="return rateItem(1, 1834134,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',203993);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2"><div class="parent"><a rel="nofollow noopener" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(null,1834103);" href="https://www.codeproject.com/Messages/1834103/Embed-ActiveX-in-HTML.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up24.png" title="Go to Parent" style="width:16px;height:16px;border:0"></a></div>Sorry,<br>
+<br>
+I mean ActiveX plugin in HTML..<img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/smiley_redface.gif" alt="Blush | :O" align="top"><br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1834134&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1834134&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1834103" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1834134" data-ref="3_1834134" class="rating-label" name="RateItem_1834134"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1834134/Re-Embed-ActiveX-in-HTML.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1834134"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="203993" msgid="1834134"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1834282_h0" class="header hover-row">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="56px"><a name="xx1834282xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1834282" parent="1834134" thread="1834103" href="https://www.codeproject.com/Messages/1834282/Re-Embed-ActiveX-in-HTML.aspx">Re: Embed ActiveX in HTML</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">Jeff Glatt</span><span class="date">8-Jan-07  18:50</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=88625">Jeff Glatt</a></span></td><td class="date"><span>8-Jan-07  18:50&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1834282_h1" class="content selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:56px;"><span class="voteform vertical" ownerid="88625" msgid="1834282" votingtype="GoodOrBad" done="true"><a href="#xx1834282xx" onclick="return rateItem(5, 1834282,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',88625);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1834282xx" onclick="return rateItem(1, 1834282,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',88625);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2"><div class="parent"><a rel="nofollow noopener" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(null,1834134);" href="https://www.codeproject.com/Messages/1834134/Re-Embed-ActiveX-in-HTML.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up24.png" title="Go to Parent" style="width:16px;height:16px;border:0"></a></div>Not
+ sure what you mean by "HTML plugin". You can use any COM component that
+ supports a script language (ie, Article 2 of this series) in any script
+ code in an HTML SCRIPT tag.<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1834282&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1834282&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1834103" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1834282" data-ref="3_1834282" class="rating-label" name="RateItem_1834282"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1834282/Re-Embed-ActiveX-in-HTML.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1834282"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="88625" msgid="1834282"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1834419_h0" class="header hover-row">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="74px"><a name="xx1834419xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1834419" parent="1834282" thread="1834103" href="https://www.codeproject.com/Messages/1834419/Re-Embed-ActiveX-in-HTML.aspx">Re: Embed ActiveX in HTML</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">xfinger</span><span class="date">8-Jan-07  21:57</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=203993">xfinger</a></span></td><td class="date"><span>8-Jan-07  21:57&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1834419_h1" class="content selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:74px;"><span class="voteform vertical" ownerid="203993" msgid="1834419" votingtype="GoodOrBad" done="true"><a href="#xx1834419xx" onclick="return rateItem(5, 1834419,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',203993);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1834419xx" onclick="return rateItem(1, 1834419,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',203993);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2"><div class="parent"><a rel="nofollow noopener" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(null,1834282);" href="https://www.codeproject.com/Messages/1834282/Re-Embed-ActiveX-in-HTML.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up24.png" title="Go to Parent" style="width:16px;height:16px;border:0"></a></div>Just like Media Player.<br>
+<br>
+&lt;object id="MyActiveX" width="400" height="300<br>
+CLASSID="CLSID:92f6f312-b0f6-11d0-94ab-0080c74c7f95"<br>
+CODEBASE="http://192.168.10.100/activex/MyActiveX.cab"<br>
+STANDBY="Loading" myactivex..."<br>
+&lt;param="" name="MyParam1" value="1"&gt;<br>
+&lt;param name="MyParam2" value="true" /&gt;<br>
+<br>
+<br>
+How can i interact with PARAM tag?<br>
+Would you have a sample for this?<br>
+<br>
+Thanks<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1834419&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1834419&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1834103" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1834419" data-ref="3_1834419" class="rating-label" name="RateItem_1834419"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1834419/Re-Embed-ActiveX-in-HTML.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1834419"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="203993" msgid="1834419"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F4762023_h0" class="header hover-row">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="92px"><a name="xx4762023xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="4762023" parent="1834419" thread="1834103" href="https://www.codeproject.com/Messages/4762023/Re-Embed-ActiveX-in-HTML.aspx">Re: Embed ActiveX in HTML</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">Elmue</span><span class="date">18-Feb-14  18:21</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=480064">Elmue</a></span></td><td class="date"><span>18-Feb-14  18:21&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F4762023_h1" class="content selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:92px;"><span class="voteform vertical" ownerid="480064" msgid="4762023" votingtype="GoodOrBad" done="true"><a href="#xx4762023xx" onclick="return rateItem(5, 4762023,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',480064);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx4762023xx" onclick="return rateItem(1, 4762023,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',480064);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2"><div class="parent"><a rel="nofollow noopener" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(null,1834419);" href="https://www.codeproject.com/Messages/1834419/Re-Embed-ActiveX-in-HTML.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up24.png" title="Go to Parent" style="width:16px;height:16px;border:0"></a></div>That's easy.<br>
+You only have to read the documentation in the MSDN:<br>
+<br>
+<div class="pre-action-link" id="premain560192" style="width:100%;display:block;"><span id="prehide560192" onclick="processCodeBlocks.togglePre(560192);">Hide</span>  &nbsp; <span id="preShrink560192" onclick="processCodeBlocks.shrinkExpand(560192);">Shrink</span> <img id="preimg560192" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up-16.png" style="height:16px;width:16px" onclick="processCodeBlocks.shrinkExpand(560192);">  &nbsp; <span id="copycode560192" onclick="return processCodeBlocks.copyCode(560192);">Copy Code</span></div><pre id="pre560192" style="margin-top: 0px;" class="notranslate">IHtmlObjectElement-&gt;get_object()</pre><br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=4762023&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=4762023&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1834103" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF4762023" data-ref="3_4762023" class="rating-label" name="RateItem_4762023"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/4762023/Re-Embed-ActiveX-in-HTML.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_4762023"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="480064" msgid="4762023"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1832930_h0" class="header hover-row root">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="20px"><a name="xx1832930xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_news.gif" alt="News" title="News" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="1832930" parent="0" thread="1832930" href="https://www.codeproject.com/Messages/1832930/More-example-code-modified.aspx">More example code [modified]</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">Jeff Glatt</span><span class="date">8-Jan-07  3:20</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=88625">Jeff Glatt</a></span></td><td class="date"><span>8-Jan-07  3:20&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F1832930_h1" class="content root selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:20px;"><span class="voteform vertical" ownerid="88625" msgid="1832930" votingtype="GoodOrBad" done="true"><a href="#xx1832930xx" onclick="return rateItem(5, 1832930,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',88625);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx1832930xx" onclick="return rateItem(1, 1832930,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',88625);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2">I'm not sure when I'll get around to finishing the next 
+two planned installments of the series, so I'm releasing the source code
+ for those who wish to jump in without benefit of an accompanying 
+tutorial. (I very liberally comment code, so the examples should be 
+quite informative even without a tutorial).<br>
+<br>
+The next installment concerns writing your own Script Debugger. The code is at:<br>
+<br>
+http://home.roadrunner.com/~jgglatt/debughost.zip<br>
+<br>
+After this comes the big one -- writing an ActiveX Script Engine, with 
+debugging support, entirely in C. I originally looked at the 
+one-and-only, publically-available example source I've ever seen; an 
+engine called SampleScript from Microsoft.<br>
+<br>
+The sample is very, very... well, questionable. First of all, it leaks 
+memory like a broken faucet. Secondly, some very important 
+implementation was missing, such as no working InterruptScriptThread(), 
+not being able to assign a COM object to a script variable, etc. 
+Finally, a lot of the implementation was flat-out incorrect, such as 
+GetScriptThreadState(), GetScriptThreadID(), and some other 
+"free-threaded" functions being restricted to the base thread, 
+EnumCodeContextsOfPosition() not supporting numerous contexts, stack 
+frame enumeration not being reentrant nor working across "boundaries", 
+etc, etc, etc. It's really, really buggy code.<br>
+<br>
+I fixed all of the problems, incorrect implementation, and memory leaks I
+ could find. I also added some additional features to the engine, and 
+rechristened it CMinus (ie, a simplified version of C, minus struct 
+support, that can access COM objects).<br>
+<br>
+The code is at:<br>
+<br>
+http://home.roadrunner.com/~jgglatt/cminus.zip<br>
+<br>
+The CMinus engine works with the above Debugger, so you can see how 
+ActiveX debugging works right down through an example engine. (MS' 
+SampleScript engine crashes horribly with any script debugger. I'm not 
+sure how anyone actually tested this code).<br>
+<br>
+<br>
+<br>
+<br>
+ -- modified at 0:09 Tuesday 9th October, 2007<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1832930&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=1832930&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1832930" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF1832930" data-ref="3_1832930" class="rating-label" name="RateItem_1832930"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/1832930/More-example-code-modified.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_1832930"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="88625" msgid="1832930"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F3300997_h0" class="header hover-row">
+<td class="subject-line normal " width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td class="indent" width="38px"><a name="xx3300997xx"></a><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" title="General" width="16px" height="16px" align="top"></td><td class="subject hover-container"><a class="message-link" name="3300997" parent="1832930" thread="1832930" href="https://www.codeproject.com/Messages/3300997/Re-More-example-code.aspx">Re: More example code</a> <a onclick="return forumCtrl_ctl00_MessageBoard.Pin(this);" rel="nofollow" href="#" title="Click to pin message"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/pin.png" alt="Pin" width="13px" height="13px" border="0" align="top"></a><div class="mobile-only">
+	<span class="author">AlexXF</span><span class="date">11-Dec-09  10:38</span>
+</div></td><td class="icon"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/icn-member-16.gif" title="Member" alt="Member" height="16px" border="0"></td><td class="author"><span><a href="https://www.codeproject.com/script/Membership/View.aspx?mid=1260017">AlexXF</a></span></td><td class="date"><span>11-Dec-09  10:38&nbsp;</span></td>
+</tr>
+</tbody></table></td>
+</tr><tr id="F3300997_h1" class="content selected" style="display:none;">
+<td class="normal" width="100%"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr valign="top">
+<td class="indent align-right" style="width:38px;"><span class="voteform vertical" ownerid="1260017" msgid="3300997" votingtype="GoodOrBad" done="true"><a href="#xx3300997xx" onclick="return rateItem(5, 3300997,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',1260017);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/upvote16.png" alt="upvote" title="upvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+<br><a href="#xx3300997xx" onclick="return rateItem(1, 3300997,3,0, false, true, 0, 'TextOnly', 'GoodOrBad',1260017);" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/downvote16.png" alt="downvote" title="downvote" width="16px" height="16px" border="0" align="absmiddle"></a>
+</span></td><td class="text"><table width="100%" cellspacing="5px" cellpadding="0" border="0">
+<tbody><tr>
+<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td colspan="2"><div class="parent"><a rel="nofollow noopener" onclick="return forumCtrl_ctl00_MessageBoard.SwitchMessage(null,1832930);" href="https://www.codeproject.com/Messages/1832930/More-example-code-modified.aspx"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/arrow-up24.png" title="Go to Parent" style="width:16px;height:16px;border:0"></a></div>Sorry, but examples missing. Error 404<br></td>
+</tr><tr class="footer" style="vertical-align:top;">
+<td><a class="new-message" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=3300997&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=r" title="Reply" rel="nofollow noopener">Reply</a>·<wbr><a class="nav-link" href="https://www.codeproject.com/script/Forums/Edit.aspx?fid=373296&amp;select=3300997&amp;floc=/Articles/17038/COM-in-plain-C-part-8&amp;action=e" title="Send the author a private email" rel="nofollow noopener">Email</a>·<wbr><a href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;tid=1832930" title="View&nbsp;Thread" rel="nofollow noopener">View&nbsp;Thread</a></td><td style="text-align:right;"><span id="MVF3300997" data-ref="3_3300997" class="rating-label" name="RateItem_3300997"><span class="rating-result"><span></span></span></span><a href="https://www.codeproject.com/Messages/3300997/Re-More-example-code.aspx" title="Get permanent link" style="border:0 !important" rel="nofollow noopener"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/link32.png" style="width:14px;height:14px;border:0"></a>&nbsp;<span data-type="bookmark" data-size="small" data-ref="3_3300997"><span data-direction="up-right" title="" data-enabletooltip="true" data-tooltip="bookmark this" class="tooltip"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/bookmark32.png" style="width:16px;height:16px;border:none;cursor:pointer;"><div class="speech-bubble-container-up-right" style="width:150px">  <div class="speech-bubble-up-right" style="text-align:center"> bookmark this</div>  <div class="speech-bubble-pointer-up-right">    <div class="speech-bubble-pointer-up-right-inner"></div>  </div></div></span></span>&nbsp;<span class="reportform" ownerid="1260017" msgid="3300997"></span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table></td>
+</tr><tr>
+<td><table width="100%" cellspacing="0" cellpadding="2px">
+<tbody><tr class="footer">
+<td><span class="last-visit desktop-only tablet-only">Last Visit: 14-Jan-20  11:58 &nbsp; &nbsp; Last Update: 14-Jan-20  12:19</span></td><td><a rel="nofollow" href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;prof=True&amp;view=Normal">Refresh</a></td><td style="text-align:right;white-space:nowrap;"><input id="_mbnUrl" type="hidden" value="/Articles/17038/COM-in-plain-C-part-8?fid=373296&amp;df=90&amp;mpp=25&amp;sort=Position&amp;spc=Relaxed&amp;prof=True&amp;view=Normal&amp;fr=16"><span class="nav-link selected">1</span></td>
+</tr>
+</tbody></table></td>
+</tr>
+</tbody></table>
+</div><p class="small-text"><img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_general.gif" alt="General" width="16px" height="16px" align="top"> General &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_news.gif" alt="News" width="16px" height="16px" align="top"> News &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_idea.gif" alt="Suggestion" width="16px" height="16px" align="top"> Suggestion &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_question.gif" alt="Question" width="16px" height="16px" align="top"> Question &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_bug.gif" alt="Bug" width="16px" height="16px" align="top"> Bug &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_answer.gif" alt="Answer" width="16px" height="16px" align="top"> Answer &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_joke.gif" alt="Joke" width="16px" height="16px" align="top"> Joke &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_kudos.gif" alt="Praise" width="16px" height="16px" align="top"> Praise &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_rant.gif" alt="Rant" width="16px" height="16px" align="top"> Rant &nbsp;&nbsp; <img src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/msg_admin.gif" alt="Admin" width="16px" height="16px" align="top"> Admin &nbsp;&nbsp; </p><p class="small-text">Use Ctrl+Left/Right to switch messages, Ctrl+Up/Down to switch threads, Ctrl+Shift+Left/Right to switch pages.</p>
+				
+
+			</div>
+			
+
+			
+		    <div id="ctl00_LeftSideBar" class="article-left-sidebar">
+
+                <div id="ctl00_StickyBlock" class="article-left-sidebar-inner">
+                    
+    		        
+
+<div class="tabs">
+	<div class=" selected">Article</div>
+<div class="browse-code"><a href="https://www.codeproject.com/script/Articles/ViewDownloads.aspx?aid=17038">Browse Code</a></div>
+<div><a href="https://www.codeproject.com/script/Articles/Statistics.aspx?aid=17038">View Stats</a></div>
+<div><a href="https://www.codeproject.com/script/Articles/ListVersions.aspx?aid=17038">Revisions</a></div>
+<div><a href="#_comments">Comments (15)</a></div>
+<div>Posted 6 Jan 2007</div>
+
+
+    
+</div>
+
+
+
+			        
+
+			        <div>
+                        <h4 id="ctl00_TaggedAsWrapper">Tagged as</h4>
+			            <span id="ctl00_TagList_TagWrp" class="tags vertical">
+
+	
+	
+
+	
+	<span id="ctl00_TagList_VisibleTags"><div class="t tooltip" data-followinit="true" data-enabletooltip="true" data-tooltip="Click the star to follow this tag" data-width="125px" title=""><img class="follow" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/follow.png" width="12px" height="12px"><a rel="tag" href="https://www.codeproject.com/Tags/VC6" data-id="4">VC6</a><div class="speech-bubble-container-up" style="width:125px">  <div class="speech-bubble-up" style="text-align:center"> Click the star to follow this tag</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></div><div class="t tooltip" data-followinit="true" data-enabletooltip="true" data-tooltip="Click the star to follow this tag" data-width="125px" title=""><img class="follow" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/follow.png" width="12px" height="12px"><a rel="tag" href="https://www.codeproject.com/Tags/Cplusplus" data-id="78">C++</a><div class="speech-bubble-container-up" style="width:125px">  <div class="speech-bubble-up" style="text-align:center"> Click the star to follow this tag</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></div><div class="t tooltip" data-followinit="true" data-enabletooltip="true" data-tooltip="Click the star to follow this tag" data-width="125px" title=""><img class="follow" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/follow.png" width="12px" height="12px"><a rel="tag" href="https://www.codeproject.com/Tags/C" data-id="80">C</a><div class="speech-bubble-container-up" style="width:125px">  <div class="speech-bubble-up" style="text-align:center"> Click the star to follow this tag</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></div><div class="t tooltip" data-followinit="true" data-enabletooltip="true" data-tooltip="Click the star to follow this tag" data-width="125px" title=""><img class="follow" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/follow.png" width="12px" height="12px"><a rel="tag" href="https://www.codeproject.com/Tags/Windows" data-id="94">Windows</a><div class="speech-bubble-container-up" style="width:125px">  <div class="speech-bubble-up" style="text-align:center"> Click the star to follow this tag</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></div><div class="t tooltip" data-followinit="true" data-enabletooltip="true" data-tooltip="Click the star to follow this tag" data-width="125px" title=""><img class="follow" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/follow.png" width="12px" height="12px"><a rel="tag" href="https://www.codeproject.com/Tags/Visual-Studio" data-id="103">Visual-Studio</a><div class="speech-bubble-container-up" style="width:125px">  <div class="speech-bubble-up" style="text-align:center"> Click the star to follow this tag</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></div><div class="t tooltip" data-followinit="true" data-enabletooltip="true" data-tooltip="Click the star to follow this tag" data-width="125px" title=""><img class="follow" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/follow.png" width="12px" height="12px"><a rel="tag" href="https://www.codeproject.com/Tags/COM" data-id="130">COM</a><div class="speech-bubble-container-up" style="width:125px">  <div class="speech-bubble-up" style="text-align:center"> Click the star to follow this tag</div>  <div class="speech-bubble-pointer-up">    <div class="speech-bubble-pointer-up-inner"></div>  </div></div></div></span> 
+
+	
+	
+</span>
+
+
+			        </div>
+
+                    <div id="ctl00_VerticalStatsWrapper" class="stats">
+                    <h4>Stats</h4>
+                    <div id="ctl00_VerticalStats"><div class="stats"><div>99.4K views</div><div>2.1K downloads</div><div>107 bookmarked</div></div></div>
+                    </div>
+
+                    
+                </div>
+		    </div>
+            
+
+            
+            <div id="ctl00_RightSideBar" class="article-right-sidebar">
+
+                <div id="RHSticky" class="container-article-info-sticky">
+        		    
+
+<div class="article-summary">
+
+    <ul class="prize-list">
+<li>MFC/C++ Dec 2006 </li>
+</ul>
+    
+
+</div>
+
+				    <div id="ctl00_SectionSponsor" class="padded-top" style="width:160px;margin:10px auto">
+					    <div class="msg-160x200" data-format="160x200" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="Platforms-Frameworks-Libraries/COM-COMplus/ActiveX" data-country="US" data-showindicator="true" data-tags="VC6, C++, C, Windows, Visual-Studio, Dev, COM, Intermediate,rating4.5" data-cookieconsent="true"><noscript><a href="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=160x200&c=790140"><img src="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=160x200&c=790140"  width="160px" height="200px" target="_blank"/></a></noscript></div>
+				    </div>
+
+				    <div style="width:160px;margin: 10px auto;">
+					    <div class="msg-160x600" data-format="160x600" data-type="ad" data-publisher="lqm.codeproject.site" data-zone="Platforms-Frameworks-Libraries/COM-COMplus/ActiveX" data-country="US" data-tags="VC6, C++, C, Windows, Visual-Studio, Dev, COM, Intermediate,rating4.5" data-cookieconsent="true"><noscript><a href="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=160x600&c=790140"><img src="https://pubads.g.doubleclick.net/gampad/jump?iu=/6839/lqm.codeproject.site/Platforms-Frameworks-Libraries/COM-COMplus/ActiveX&sz=160x600&c=790140"  width="160px" height="600px" target="_blank"/></a></noscript></div>
+				    </div>
+
+                    
+
+				    
+
+				    
+
+                    <div class="anchorLink gototop" id="gototop">
+                        <a id="ctl00_GoToTop" href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8#_articleTop">Go to top</a>
+                    </div>
+
+			    </div>
+            </div>
+            
+
+        </div>
+        
+
+		
+		<div class="theme1-background" style="height:2px;margin:5px 0" id="stickyStop"></div>
+
+		<div class="site-footer">
+			<div class="align-left">
+				<a id="ctl00_PermaLink" href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8">Permalink</a><br>
+				<a id="ctl00_AdvertiseLink" href="http://developermedia.com/">Advertise </a><br>
+				<a id="ctl00_PrivacyLink" href="https://www.codeproject.com/info/privacy.aspx">Privacy</a><br>
+    			<a id="ctl00_CookiePolicyLink" href="https://www.codeproject.com/info/cookie.aspx">Cookies</a><br>
+                <a id="ctl00_TermsOfUseLink" href="https://www.codeproject.com/info/TermsOfUse.aspx">Terms of Use</a><br>
+			</div>
+
+            <div class="align-center">
+				
+
+
+<div class="page-width">
+    Layout: <a id="ctl00_PageWidth_FixedT" title="Fixed width layout" rel="nofollow" class=" active" href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?PageFlow=FixedWidth">fixed</a>
+    |
+    <a id="ctl00_PageWidth_FluidT" title="Fluid layout" rel="nofollow" href="https://www.codeproject.com/Articles/17038/COM-in-plain-C-part-8?PageFlow=Fluid">fluid</a>
+</div>
+
+
+				
+
+				
+
+	            
+
+                <br>
+			</div>
+                
+			<div class="align-right">
+				Article Copyright 2007 by Jeff Glatt<br>Everything else
+				Copyright © <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2020 <br>
+                <br>
+				Web03 
+				2.8.200113.1<br>
+			</div>
+		</div>
+		
+
+		<br clear="all">
+		
+			
+
+	</div> 
+	</div> 
+</div>
+
+
+
+<img id="ctl00_Audience" src="COM%20in%20plain%20C,%20part%208%20-%20CodeProject_files/DFPAudiencePixel.gif" style="border-width:0px;height:1px;width:1px;">
+
+
+
+<script type="text/javascript"> // IMMEDIATE script
+
+var readLaterList
+
+var notificationAlert
+
+var followService_ctl00_ActionLinks_ArticleFollow;
+
+var bookmark_medium_true_false_ = null;
+
+function PostBack_ctl00_RateArticle_RateItemWrapper() {
+  return rateItem(null, 17038,2,1,true,true,0,'LargeStars', null, 88625);
+}
+
+function getVotesHistogram(objectId, objectTypeId, containerId, loadingId) {
+                        if (!$('#' + containerId).attr('alreadyRequested')){
+                            $.ajax({
+                                url: '/script/Ratings/Ajax/Histogram.aspx?obid=' + objectId + '&obtid='+objectTypeId+'&wd=130',
+                            })
+                            .done(function (data) {
+                                $('#' + containerId).html(data);
+                                $('#' + loadingId).hide();
+                            });
+
+                            $('#' + containerId).attr('alreadyRequested', 'true');
+                        }
+                    }
+
+document.addEventListener('DOMContentLoaded', function() {
+  $('#ctl00_RateArticle_SubmitRateBtn').hide();
+});
+function ChkRtctl00_RateArticle(val) {
+}
+
+var followService_ctl00_AboutAuthorRptr_ctl00_AboutAuthor_FollowMember;
+
+var forumConfig_ctl00_MessageBoard;
+var forumCtrl_ctl00_MessageBoard;
+var forumCtrl_ctl00_MessageBoard_forumMsgFlag;
+
+var subscriptionConfig_ctl00_MessageBoard = {
+ ParentId      : 'ctl00_MessageBoard_SubscribeDiv',
+ NewId         : 'ctl00_MessageBoard_SubscribeNew',
+ ReplyId       : 'ctl00_MessageBoard_SubscribeReplies',
+ InstantId     : 'ctl00_MessageBoard_SubscribeInstant',
+ DailyId       : 'ctl00_MessageBoard_SubscribeDaily',
+ MessageTypeId : 'ctl00_MessageBoard_MessageType',
+ GetInfoUrl    : '/script/Forums/WebServices/ForumSubscriptionServices.aspx/GetSubscriptions',
+ UpdateInfoUrl : '/script/Forums/WebServices/ForumSubscriptionServices.aspx/UpdateSubscription',
+ ForumId       : 373296,
+};
+var subscriptions_ctl00_MessageBoard;
+</script>
+
+<script type="text/javascript"> // DEFERRED script
+
+document.addEventListener('DOMContentLoaded', function() {
+
+	processCodeBlocks.Initialise('#contentdiv');
+	
+	$('.author-wrapper .description').shorten({showChars: 400});
+	
+	anchorAnimate();
+	$('#RHSticky').sticky($('#stickyStop'));
+	$('#ctl00_StickyBlock').sticky($('#stickyStop'));
+	
+	$('#__EVENTVALIDATION').attr('autocomplete', 'off');
+	
+	readLaterList = new ReadLaterList('ReadLaterListIcon', 'ItemsToRead','/script/Bookmarks/WebServices/BookmarkService.aspx','https://codeproject.freetls.fastly.net/App_Themes/CodeProject/Img/','/script/Bookmarks/Ajax/Add.aspx?obrfgd=%5bObjectRefGuid%5d&bis=small',true);
+	readLaterList.initialise();
+	
+	notificationAlert = new NotificationAlert('ctl00_MemberBar_Messages_NotificationCount','Notifications','/script/Membership/Ajax/NotificationList.aspx');
+	notificationAlert.initialise();
+	
+	var oSrchFlt = false, oSrchBox=false, srchBoxFoc=false;
+	var sbar     = $('#sb_tb');
+	var sfilter  = $('#SearchFilter');
+	
+	if (typeof(InitWatermark) !== 'undefined')
+	  InitWatermark('sb_tb', 'Search for articles, questions, tips');
+	if (sbar && sfilter) {
+	  sfilter.removeClass('popup'); sfilter.hide(); sfilter.removeClass('open');
+	  sbar.blur(function() {
+	    if (!oSrchFlt) { sfilter.hide(); sfilter.removeClass('open'); }
+	    srchBoxFoc = false;
+	  });
+	  sbar.focus(function() {
+	    oSrchFlt   = false;
+	    srchBoxFoc = true;
+	    sfilter.show();
+	    sfilter.addClass('open');
+	  });
+	  sbar.mouseleave(function()    { oSrchBox = false; });
+	  sbar.mouseover(function()     { oSrchBox = true; });
+	  sfilter.mouseleave(function() {
+	    oSrchFlt=false;
+	    if (!srchBoxFoc && !oSrchBox) { sfilter.hide(); sfilter.removeClass('open'); }
+	  });
+	  sfilter.mouseover(function()  { oSrchFlt = true; });
+	}
+	
+	followService_ctl00_ActionLinks_ArticleFollow = new FollowService('/script/follow/webservices/followServices.aspx/', true);
+	followService_ctl00_ActionLinks_ArticleFollow.initFollowObjectButtons({
+	    item : { 
+	        objectTypeId   : 2,
+	        objectId       : 17038
+	    },
+	    followButtonId   : 'ctl00_ActionLinks_ArticleFollow_FollowBtn',
+	    unfollowButtonId : 'ctl00_ActionLinks_ArticleFollow_UnfollowBtn'
+	}, false);
+	
+	bookmark_medium_true_false_ = new Bookmark('[data-type="bookmark"]','https://codeproject.freetls.fastly.net/App_Themes/CodeProject/Img/','/script/Bookmarks/Ajax/Add.aspx?obrfgd=%5bObjectRefGuid%5d&bis=medium',false,true);
+	bookmark_medium_true_false_.Initialise();
+	
+	$('#clear-rate_ctl00_RateArticle_RCD').click(function () {    $('#ctl00_RateArticle_RCD').hide(); return false;});
+	
+	new starRating('#ctl00_RateArticle_RateItemWrapper', PostBack_ctl00_RateArticle_RateItemWrapper,'ctl00_RateArticle');
+	  $('#ctl00_RateArticle_VR').mouseenter(function() {     getVotesHistogram(17038,2   ,'ctl00_RateArticle_HistogramR','ctl00_RateArticle_LoadingR');
+	  });
+	
+	followService_ctl00_AboutAuthorRptr_ctl00_AboutAuthor_FollowMember = new FollowService('/script/follow/webservices/followServices.aspx/', true);
+	followService_ctl00_AboutAuthorRptr_ctl00_AboutAuthor_FollowMember.initFollowObjectButtons({
+	    item : { 
+	        objectTypeId   : 1,
+	        objectId       : 88625
+	    },
+	    followButtonId   : 'ctl00_AboutAuthorRptr_ctl00_AboutAuthor_FollowMember_FollowBtn',
+	    unfollowButtonId : 'ctl00_AboutAuthorRptr_ctl00_AboutAuthor_FollowMember_UnfollowBtn'
+	}, false);
+	
+	forumConfig_ctl00_MessageBoard = {
+	    objectName          : 'forumCtrl_ctl00_MessageBoard',
+	    messageTypeId       : 3,
+	    searchPrompt        : 'Search Comments',
+	    smoothScroll        : true,
+	    allowReporting      : false,
+	    allowRating         : true,
+	    allowRatingDisplay  : true,
+	    forumDir            : '/script/Forums/',
+	    staticServer        : 'https://codeproject.freetls.fastly.net',
+	    switchMsgCallback   : null,
+	    getVoteFormMethod   : getVoteFormHtml,
+	    getReportFormMethod : getReportFormHtml,
+	    voteHiThreshold     : 5 - 0.5,
+	    getRatingUrl        : '/script/Ratings/Ajax/GetRatings.aspx',
+	    getRatingRefKey     : 'obrs',
+	    reportOptions       : [
+	       { reportTypeId : 19, name : 'Abusive / Trolling'},
+	       { reportTypeId : 20, name : 'Inappropriate'},
+	       { reportTypeId : 5, name : 'Spam'},
+	    ],
+	};
+	forumCtrl_ctl00_MessageBoard = new ForumControl(forumConfig_ctl00_MessageBoard, -1);
+	forumCtrl_ctl00_MessageBoard.Initialise();
+	
+	subscriptions_ctl00_MessageBoard = new Subscriptions(subscriptionConfig_ctl00_MessageBoard);
+	subscriptions_ctl00_MessageBoard.initialise();
+	
+	var followService = new FollowService('/script/follow/webservices/followServices.aspx/', true);
+	var followAttributeIds = [];
+	followService.initAttributeUI(undefined, followAttributeIds);
+
+})
+</script>
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">.copied::after {  position: absolute;  display: inline-block;  content: 'copied'; color: #fff; background-color: #f90;  border-radius: 3px; padding:1px 3px; opacity: 0;  will-change: opacity, transform; animation: showcopied 1.5s ease; } @keyframes showcopied { 0% { opacity: 0; transform: translateX(-100%); } 70% { opacity: 1; transform: translateX(0); } 100% { opacity: 0; } } </style><style type="text/css">.copied::after {  position: absolute;  display: inline-block;  content: 'copied'; color: #fff; background-color: #f90;  border-radius: 3px; padding:1px 3px; opacity: 0;  will-change: opacity, transform; animation: showcopied 1.5s ease; } @keyframes showcopied { 0% { opacity: 0; transform: translateX(-100%); } 70% { opacity: 1; transform: translateX(0); } 100% { opacity: 0; } } </style><canvas id="cv1" width="1px" height="1px" style="position:absolute;left:0;top:0;pointer-events:none"></canvas><canvas id="cv2" width="1px" height="1px" style="position:absolute;left:0;top:0;pointer-events:none"></canvas><div id="MemberProfilePopupDiv" class="raised box" style="display: none; position: absolute;"></div><div id="MemberProfilePopupDiv" class="raised box" style="display: none; position: absolute;"></div><div id="MemberProfilePopupDiv" class="raised box" style="display: none; position: absolute;"></div></body></html>

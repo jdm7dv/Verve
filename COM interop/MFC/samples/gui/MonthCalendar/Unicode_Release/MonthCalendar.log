@@ -1,0 +1,3 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1189,5): warning MSB8012: TargetPath(E:\ntroot\MFC\Ultimate Toolbox\samples\gui\MonthCalendar\.\Unicode_Release\MonthCalendar.exe) does not match the Linker's OutputFile property value (E:\ntroot\MFC\Ultimate Toolbox\samples\gui\MonthCalendar\MonthCalendar.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+  MonthCalendar.vcxproj -> E:\ntroot\MFC\Ultimate Toolbox\samples\gui\MonthCalendar\.\Unicode_Release\MonthCalendar.exe
+  MonthCalendar.vcxproj -> .\Unicode_Release\MonthCalendar.pdb (Full PDB)

@@ -1,0 +1,203 @@
+﻿  StdAfx.cpp
+c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afx.h(38): warning C4996: 'MBCS_Support_Deprecated_In_MFC': MBCS support in MFC is deprecated and may be removed in a future version of MFC.
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afx.h(33): note: see declaration of 'MBCS_Support_Deprecated_In_MFC'
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  MainFrm.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1652): warning C4456: declaration of 'pNextBar' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1648): note: see declaration of 'pNextBar'
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1464): note: while compiling class template member function 'CSize COXMenuDockBar<PARENTDOCKBAR>::CalcFixedLayout(BOOL,BOOL)'
+          with
+          [
+              PARENTDOCKBAR=CDockBar
+          ]
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(2327): note: see reference to class template instantiation 'COXMenuDockBar<PARENTDOCKBAR>' being compiled
+          with
+          [
+              PARENTDOCKBAR=CDockBar
+          ]
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(2317): note: while compiling class template member function 'void COXMenuBarFrame<CFrameWnd,CDockBar>::EnableDocking(DWORD)'
+  e:\ntroot\mfc\ultimate toolbox\samples\advanced\fileexplorer\mainfrm.cpp(124): note: see reference to function template instantiation 'void COXMenuBarFrame<CFrameWnd,CDockBar>::EnableDocking(DWORD)' being compiled
+  e:\ntroot\mfc\ultimate toolbox\samples\advanced\fileexplorer\mainfrm.h(20): note: see reference to class template instantiation 'COXMenuBarFrame<CFrameWnd,CDockBar>' being compiled
+  LeftView.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1652): warning C4456: declaration of 'pNextBar' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1648): note: see declaration of 'pNextBar'
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1464): note: while compiling class template member function 'CSize COXMenuDockBar<PARENTDOCKBAR>::CalcFixedLayout(BOOL,BOOL)'
+          with
+          [
+              PARENTDOCKBAR=CDockBar
+          ]
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(2327): note: see reference to class template instantiation 'COXMenuDockBar<PARENTDOCKBAR>' being compiled
+          with
+          [
+              PARENTDOCKBAR=CDockBar
+          ]
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(2317): note: while compiling class template member function 'void COXMenuBarFrame<CFrameWnd,CDockBar>::EnableDocking(DWORD)'
+  e:\ntroot\mfc\ultimate toolbox\samples\advanced\fileexplorer\mainfrm.h(20): note: see reference to class template instantiation 'COXMenuBarFrame<CFrameWnd,CDockBar>' being compiled
+  FileExplorerView.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1652): warning C4456: declaration of 'pNextBar' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1648): note: see declaration of 'pNextBar'
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1464): note: while compiling class template member function 'CSize COXMenuDockBar<PARENTDOCKBAR>::CalcFixedLayout(BOOL,BOOL)'
+          with
+          [
+              PARENTDOCKBAR=CDockBar
+          ]
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(2327): note: see reference to class template instantiation 'COXMenuDockBar<PARENTDOCKBAR>' being compiled
+          with
+          [
+              PARENTDOCKBAR=CDockBar
+          ]
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(2317): note: while compiling class template member function 'void COXMenuBarFrame<CFrameWnd,CDockBar>::EnableDocking(DWORD)'
+  e:\ntroot\mfc\ultimate toolbox\samples\advanced\fileexplorer\mainfrm.h(20): note: see reference to class template instantiation 'COXMenuBarFrame<CFrameWnd,CDockBar>' being compiled
+  FileExplorerDoc.cpp
+  FileExplorer.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1652): warning C4456: declaration of 'pNextBar' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1648): note: see declaration of 'pNextBar'
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(1464): note: while compiling class template member function 'CSize COXMenuDockBar<PARENTDOCKBAR>::CalcFixedLayout(BOOL,BOOL)'
+          with
+          [
+              PARENTDOCKBAR=CDockBar
+          ]
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(2327): note: see reference to class template instantiation 'COXMenuDockBar<PARENTDOCKBAR>' being compiled
+          with
+          [
+              PARENTDOCKBAR=CDockBar
+          ]
+  e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(2317): note: while compiling class template member function 'void COXMenuBarFrame<CFrameWnd,CDockBar>::EnableDocking(DWORD)'
+  e:\ntroot\mfc\ultimate toolbox\samples\advanced\fileexplorer\mainfrm.h(20): note: see reference to class template instantiation 'COXMenuBarFrame<CFrameWnd,CDockBar>' being compiled
+  Xstatus4.cpp
+e:\ntroot\mfc\ultimate toolbox\source\xstatus4.cpp(511): warning C4456: declaration of 'rect' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\xstatus4.cpp(448): note: see declaration of 'rect'
+  UTSampleAbout.cpp
+  HtmlCtrl.cpp
+  UTBStrOp.cpp
+  OXWatchedDir.cpp
+  OXUxTheme.cpp
+  OXToolTipCtrl.cpp
+c:\program files (x86)\windows kits\8.1\include\um\multimon.h(185): warning C4996: 'GetVersionExA': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(433): note: see declaration of 'GetVersionExA'
+e:\ntroot\mfc\ultimate toolbox\source\oxtooltipctrl.cpp(212): warning C4456: declaration of 'pt' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxtooltipctrl.cpp(194): note: see declaration of 'pt'
+  OXTabClientWnd.cpp
+  OXSzMiniDockFrmWnd.cpp
+  OXSplitterRect.cpp
+  OXSkins.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(30): warning C4996: 'GetVersionExA': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(433): note: see declaration of 'GetVersionExA'
+e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(1024): warning C4996: 'GetVersion': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(1096): warning C4996: 'GetVersion': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(3979): warning C4996: 'GetVersion': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(8778): warning C4996: 'GetVersion': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(8815): warning C4996: 'GetVersion': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(9101): warning C4456: declaration of 'rectCombo' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(9080): note: see declaration of 'rectCombo'
+e:\ntroot\mfc\ultimate toolbox\source\oxskins.cpp(9219): warning C4996: 'GetVersion': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+  OXSkinnedTabCtrl.cpp
+  OXSkinnedSpinCtrl.cpp
+  OXSizeToolBar.cpp
+  OXSizeDockBar.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+e:\ntroot\mfc\ultimate toolbox\source\oxsizedockbar.cpp(509): warning C4456: declaration of 'pVoid' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxsizedockbar.cpp(238): note: see declaration of 'pVoid'
+e:\ntroot\mfc\ultimate toolbox\source\oxsizedockbar.cpp(510): warning C4456: declaration of 'pBar' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxsizedockbar.cpp(239): note: see declaration of 'pBar'
+e:\ntroot\mfc\ultimate toolbox\source\oxsizedockbar.cpp(1058): warning C4456: declaration of 'i' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxsizedockbar.cpp(997): note: see declaration of 'i'
+  Generating Code...
+  Compiling...
+  OXSizeCtrlBar.CPP
+e:\ntroot\mfc\ultimate toolbox\source\oxsizectrlbar.cpp(507): warning C4456: declaration of 'style' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxsizectrlbar.cpp(483): note: see declaration of 'style'
+  OXShortcutBar.cpp
+e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(1593): warning C4456: declaration of 'nItem' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(1574): note: see declaration of 'nItem'
+e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(1784): warning C4457: declaration of 'lParam' hides function parameter
+  e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(1732): note: see declaration of 'lParam'
+e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(1885): warning C4456: declaration of 'nmshb' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(1741): note: see declaration of 'nmshb'
+e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(1923): warning C4456: declaration of 'nmshb' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(1741): note: see declaration of 'nmshb'
+e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(7663): warning C4457: declaration of 'hGroup' hides function parameter
+  e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(7598): note: see declaration of 'hGroup'
+e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(7787): warning C4457: declaration of 'hGroup' hides function parameter
+  e:\ntroot\mfc\ultimate toolbox\source\oxshortcutbar.cpp(7710): note: see declaration of 'hGroup'
+  OXShellObjectList.cpp
+  OXShellNamespaceNavigator.cpp
+  OXShellFolderTree.cpp
+  OXRectTracker.cpp
+  OXMenuBar.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+e:\ntroot\mfc\ultimate toolbox\source\oxmenubar.cpp(267): warning C4018: '<': signed/unsigned mismatch
+e:\ntroot\mfc\ultimate toolbox\source\oxmenubar.cpp(2350): warning C4456: declaration of 'pos' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxmenubar.cpp(2338): note: see declaration of 'pos'
+e:\ntroot\mfc\ultimate toolbox\source\oxmenubar.cpp(2575): warning C4456: declaration of 'menuItemInfo' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxmenubar.cpp(2546): note: see declaration of 'menuItemInfo'
+  OXMDIFloatWnd.cpp
+  OXFrameWndDock.CPP
+e:\ntroot\mfc\ultimate toolbox\source\oxframewnddock.cpp(834): warning C4456: declaration of 'pSpcElt' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxframewnddock.cpp(789): note: see declaration of 'pSpcElt'
+  OXFileWatchNotifier.cpp
+  OXFileWatcher.cpp
+  OXDragDockContext.CPP
+  oxdocktabctrl.cpp
+e:\ntroot\mfc\ultimate toolbox\source\oxdocktabctrl.cpp(164): warning C4457: declaration of 'pBar' hides function parameter
+  e:\ntroot\mfc\ultimate toolbox\source\oxdocktabctrl.cpp(112): note: see declaration of 'pBar'
+e:\ntroot\mfc\ultimate toolbox\source\oxdocktabctrl.cpp(220): warning C4456: declaration of 'pSizeBar' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxdocktabctrl.cpp(195): note: see declaration of 'pSizeBar'
+  OXCoolToolBar.cpp
+e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(1178): warning C4456: declaration of 'descriptor' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(1168): note: see declaration of 'descriptor'
+e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(2999): warning C4996: 'GetVersionExA': was declared deprecated
+  c:\program files (x86)\windows kits\8.1\include\um\sysinfoapi.h(433): note: see declaration of 'GetVersionExA'
+e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(3471): warning C4456: declaration of 'i' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(3457): note: see declaration of 'i'
+e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(3516): warning C4456: declaration of 'i' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(3457): note: see declaration of 'i'
+e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(3839): warning C4456: declaration of 'pos' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxcooltoolbar.cpp(3831): note: see declaration of 'pos'
+  OXBitmapMenuOrganizer.cpp
+e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenuorganizer.cpp(1216): warning C4457: declaration of 'hWnd' hides function parameter
+  e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenuorganizer.cpp(1054): note: see declaration of 'hWnd'
+e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenuorganizer.cpp(1239): warning C4456: declaration of 'hWnd' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenuorganizer.cpp(1216): note: see declaration of 'hWnd'
+e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenuorganizer.cpp(2210): warning C4456: declaration of 'nIndex' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenuorganizer.cpp(2202): note: see declaration of 'nIndex'
+e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenuorganizer.cpp(2448): warning C4456: declaration of 'hWnd' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenuorganizer.cpp(2420): note: see declaration of 'hWnd'
+  OXBitmapMenu.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxmenubar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  c:\program files (x86)\microsoft visual studio 14.0\vc\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenu.cpp(755): warning C4456: declaration of 'bBefore' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenu.cpp(692): note: see declaration of 'bBefore'
+e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenu.cpp(1246): warning C4456: declaration of 'mii' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenu.cpp(1194): note: see declaration of 'mii'
+e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenu.cpp(1264): warning C4456: declaration of 'mii' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\oxbitmapmenu.cpp(1194): note: see declaration of 'mii'
+  OXAdvancedAssertMail.cpp
+  OXAdvancedAssert.cpp
+  OX3DTabView.cpp
+e:\ntroot\mfc\ultimate toolbox\source\ox3dtabview.cpp(407): warning C4456: declaration of 'pWnd' hides previous local declaration
+  e:\ntroot\mfc\ultimate toolbox\source\ox3dtabview.cpp(371): note: see declaration of 'pWnd'
+  MFCToolBar.cpp
+  Generating Code...
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1189,5): warning MSB8012: TargetPath(E:\ntroot\MFC\Ultimate Toolbox\samples\advanced\FileExplorer\.\Debug\FileExplorer.exe) does not match the Linker's OutputFile property value (E:\ntroot\MFC\Ultimate Toolbox\samples\advanced\FileExplorer\FileExplorer.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+MFCToolBar.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+  FileExplorer.vcxproj -> E:\ntroot\MFC\Ultimate Toolbox\samples\advanced\FileExplorer\.\Debug\FileExplorer.exe
+  FileExplorer.vcxproj -> .\Debug\FileExplorer.pdb (Full PDB)

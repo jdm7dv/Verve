@@ -1,0 +1,61 @@
+//======================================================================
+// Resource file
+//
+// Written for the book Programming Windows CE
+// Copyright (C) 2003 Douglas Boling
+//======================================================================
+#include "windows.h"
+#include "NoteDemo.h"                      // Program-specific stuff
+
+//----------------------------------------------------------------------
+// Icons and bitmaps
+//
+ID_ICON ICON   "NoteDemo.ico"              // Program icon
+
+//----------------------------------------------------------------------
+// Main window dialog template
+//
+NoteDemo DIALOG discardable  25, 5, 120,  98
+STYLE  WS_OVERLAPPED | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | 
+       DS_CENTER | DS_MODALFRAME 
+CAPTION "NoteDemo"
+BEGIN
+    LTEXT "",            IDD_OUTPUT,   2,   2, 115,  21
+    PUSHBUTTON "Set &User Notification",
+                         IDD_ADDUSERNOT,   2,  25, 115,  12, WS_TABSTOP
+    PUSHBUTTON "&Configure User Notification",
+                         IDD_CFGUSERNOT,   2,  39, 115,  12, WS_TABSTOP
+
+    PUSHBUTTON "Set &System Notification",
+                         IDD_ADDSYSNOT,    2,  53, 115,  12, WS_TABSTOP
+    PUSHBUTTON "Set &Timer Notification",
+                         IDD_ADDTIMENOT,   2,  67, 115,  12, WS_TABSTOP
+    PUSHBUTTON "Clear all my Notifications",
+                         IDD_CLEARNOT,     2,  81, 115,  12, WS_TABSTOP
+END
+//----------------------------------------------------------------------
+// Set system event notification dialog box dialog template.
+//
+SysNotifyConfig DIALOG DISCARDABLE  0, 0, 130, 89
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CAPTIONOKBTN
+CAPTION "Notify On..."
+BEGIN
+    AUTOCHECKBOX "Sync End",          IDC_SYNC_END,   7,   5, 121,  10, 
+                                           WS_TABSTOP
+    AUTOCHECKBOX "Device Change",IDC_DEVICE_CHANGE,   7,  17, 121,  10, 
+                                           WS_TABSTOP
+    AUTOCHECKBOX "Serial Connection Detected",
+                                 IDC_SERIAL_DETECT,   7,  29, 121,  10, 
+                                           WS_TABSTOP
+    AUTOCHECKBOX "System Time Change",
+                                   IDC_TIME_CHANGE,   7,  41, 121,  10, 
+                                           WS_TABSTOP
+    AUTOCHECKBOX "Restore End",    IDC_RESTORE_END,   7,  53, 121,  10, 
+                                           WS_TABSTOP
+    AUTOCHECKBOX "System Wake Up",    IDC_POWER_UP,   7,  65, 121,  10, 
+                                           WS_TABSTOP
+    AUTOCHECKBOX "Time Zone Change", IDC_TZ_CHANGE,   7,  77, 121,  10, 
+                                           WS_TABSTOP
+
+END

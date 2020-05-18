@@ -1,0 +1,81 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2325 (f8393956).
+//
+// t:\compdisc\builds\build001\chapter10\publisher\debug\simpleeventobject.tlh
+//
+// C++ source equivalent of Win32 type library SimpleEventObject.TLB
+// compiler-generated file created 12/19/02 at 14:11:40 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace SimpleEventObject {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("f43133ba-a74a-339b-844b-5e66d511bcae"))
+/* LIBID */ __SimpleEventObject;
+struct __declspec(uuid("0e4db900-60f3-4354-a89a-c90a962f468c"))
+/* dual interface */ ISendMsg;
+struct /* coclass */ SendMsg;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(ISendMsg, __uuidof(ISendMsg));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("0e4db900-60f3-4354-a89a-c90a962f468c"))
+ISendMsg : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT FireBroadcastMsg (
+        _bstr_t strMsg );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall raw_FireBroadcastMsg (
+        /*[in]*/ BSTR strMsg ) = 0;
+};
+
+struct __declspec(uuid("6a121716-471a-479f-b1de-97858fe95483"))
+SendMsg;
+    // interface _Object
+    // interface IRemoteDispatch
+    // interface IDisposable
+    // interface IManagedObject
+    // interface System_EnterpriseServices_IServicedComponentInfo
+    // [ default ] interface ISendMsg
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_SimpleEventObject =
+    {0xf43133ba,0xa74a,0x339b,{0x84,0x4b,0x5e,0x66,0xd5,0x11,0xbc,0xae}};
+extern "C" const GUID __declspec(selectany) IID_ISendMsg =
+    {0x0e4db900,0x60f3,0x4354,{0xa8,0x9a,0xc9,0x0a,0x96,0x2f,0x46,0x8c}};
+extern "C" const GUID __declspec(selectany) CLSID_SendMsg =
+    {0x6a121716,0x471a,0x479f,{0xb1,0xde,0x97,0x85,0x8f,0xe9,0x54,0x83}};
+
+//
+// Wrapper method implementations
+//
+
+#include "t:\compdisc\builds\build001\chapter10\publisher\debug\simpleeventobject.tli"
+
+} // namespace SimpleEventObject
+
+#pragma pack(pop)

@@ -1,0 +1,4 @@
+﻿  RegistryDemoDlg.cpp
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1189,5): warning MSB8012: TargetPath(E:\ntroot\MFC\Ultimate Toolbox\samples\utility\RegistryDemo\.\Unicode_Release\RegistryDemo.exe) does not match the Linker's OutputFile property value (E:\ntroot\MFC\Ultimate Toolbox\samples\utility\RegistryDemo\RegistryDemo.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+  RegistryDemo.vcxproj -> E:\ntroot\MFC\Ultimate Toolbox\samples\utility\RegistryDemo\.\Unicode_Release\RegistryDemo.exe
+  RegistryDemo.vcxproj -> .\Unicode_Release\RegistryDemo.pdb (Full PDB)

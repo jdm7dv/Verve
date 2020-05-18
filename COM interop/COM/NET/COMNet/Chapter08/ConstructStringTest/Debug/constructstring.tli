@@ -1,0 +1,19 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2325 (1f1954f9).
+//
+// e:\templcom\chapter08\constructstringtest\debug\constructstring.tli
+//
+// Wrapper implementations for Win32 type library ConstructString.TLB
+// compiler-generated file created 12/02/02 at 12:35:40 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface ICheckString wrapper method implementations
+//
+
+inline _bstr_t ICheckString::GetConstructorString ( ) {
+    BSTR _result = 0;
+    HRESULT _hr = raw_GetConstructorString(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}

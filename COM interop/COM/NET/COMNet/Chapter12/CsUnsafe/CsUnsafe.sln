@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsUnsafe", "CsUnsafe.csproj", "{E10F353F-5CF7-4909-8924-5243108CC19F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{E10F353F-5CF7-4909-8924-5243108CC19F}.Debug.ActiveCfg = Debug|.NET
+		{E10F353F-5CF7-4909-8924-5243108CC19F}.Debug.Build.0 = Debug|.NET
+		{E10F353F-5CF7-4909-8924-5243108CC19F}.Release.ActiveCfg = Release|.NET
+		{E10F353F-5CF7-4909-8924-5243108CC19F}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

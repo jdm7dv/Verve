@@ -1,0 +1,40 @@
+import "C:\Program Files\Microsoft Visual Studio .NET 2003\VC7\PlatformSDK\include\prsht.idl";
+import "C:\Program Files\Microsoft Visual Studio .NET 2003\VC7\PlatformSDK\include\mshtml.idl";
+import "c:\program files\microsoft visual studio .net 2003\vc7\platformsdk\include\dimm.idl";
+import "C:\Program Files\Microsoft Visual Studio .NET 2003\VC7\PlatformSDK\include\mshtmhst.idl";
+import "c:\program files\microsoft visual studio .net 2003\vc7\platformsdk\include\docobj.idl";
+import "C:\Program Files\Microsoft Visual Studio .NET 2003\VC7\PlatformSDK\include\exdisp.idl";
+import "C:\Program Files\Microsoft Visual Studio .NET 2003\VC7\PlatformSDK\include\objsafe.idl";
+
+[
+	object,
+	uuid(103FF9D9-8BC9-4ea8-8CD4-C1E627D04358),
+	dual,
+	helpstring("IObject1 Interface"),
+	pointer_default(unique)
+] 
+#line 15 "c:\\writing\\ms press\\com book\\6-attributes\\handcrafted\\myserver.cpp"
+interface ISimplest : IDispatch {
+#line 17 "c:\\writing\\ms press\\com book\\6-attributes\\handcrafted\\myserver.cpp"
+	HRESULT  Square([in] short val, [out,retval] long *pResult);
+};
+
+
+[ version(1.0), helpstring("MyServer 1.0 Type Library"), uuid(d46a93dd-97e0-3f9e-99c6-7ec11c3174cc) ]
+library MyServer
+{
+	importlib("stdole2.tlb");
+	importlib("olepro32.dll");
+
+	[
+		version(1.0),
+		uuid(15615078-523C-43A0-BE6F-651E78A89213),
+		helpstring("Object1 Class")
+	] 
+#line 30 "c:\\writing\\ms press\\com book\\6-attributes\\handcrafted\\myserver.cpp"
+	coclass CObject1 {
+		interface ISimplest;
+	};
+
+}
+

@@ -1,0 +1,1 @@
+RegSvcs /u HelpAccess.DLL

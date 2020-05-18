@@ -1,0 +1,19 @@
+﻿  StdAfx.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  OXWABook.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxwabook.h(45): fatal error C1083: Cannot open include file: 'mapiguid.h': No such file or directory
+  UTBStrOp.cpp
+  HtmlCtrl.cpp
+  UTSampleAbout.cpp
+e:\ntroot\mfc\ultimate toolbox\source\utsampleabout\utsampleabout.cpp(76): warning C4840: non-portable use of class 'ATL::CStringT<wchar_t,StrTraitMFC<wchar_t,ATL::ChTraitsCRT<wchar_t>>>' as an argument to a variadic function
+  e:\ntroot\mfc\ultimate toolbox\source\utsampleabout\utsampleabout.cpp(76): note: 'ATL::CStringT<wchar_t,StrTraitMFC<wchar_t,ATL::ChTraitsCRT<wchar_t>>>::CStringT' is non-trivial
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\atlmfc\include\cstringt.h(1026): note: see declaration of 'ATL::CStringT<wchar_t,StrTraitMFC<wchar_t,ATL::ChTraitsCRT<wchar_t>>>::CStringT'
+  e:\ntroot\mfc\ultimate toolbox\source\utsampleabout\utsampleabout.cpp(76): note: the constructor and destructor will not be called; a bitwise copy of the class will be passed as the argument
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\atlmfc\include\afxstr.h(103): note: see declaration of 'ATL::CStringT<wchar_t,StrTraitMFC<wchar_t,ATL::ChTraitsCRT<wchar_t>>>'
+  AddressBook.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxwabook.h(45): fatal error C1083: Cannot open include file: 'mapiguid.h': No such file or directory
+  AddressBookDlg.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxwabook.h(45): fatal error C1083: Cannot open include file: 'mapiguid.h': No such file or directory
+  OptionsDlg.cpp
+e:\ntroot\mfc\ultimate toolbox\include\oxwabook.h(45): fatal error C1083: Cannot open include file: 'mapiguid.h': No such file or directory
+  Generating Code...

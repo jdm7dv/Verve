@@ -1,0 +1,13 @@
+"00001     ","Finding Pins and Needles in a Haystack                  ","<H1>Introduction</H1>
+There are <b>many</b> ways to find a small pin in a haystack.  Some people have tried sitting on the haystack, which can produce good results, but doesn't usually help the person finding the pin very much.  There are other ways to locate the small pin and ensure that you put it in a safe place.
+<H2>Using a Magnet</H2>
+One of the better ways to find a small pin a haystack is to carefully run a magnet through the haystack.  Care must be taken to ensure you don't poke your finger with the small pin while performing this task.  The small pin will stick to the magnet as long as the magnet comes close enough to its position and is strong enough to hold the small pin.  Of course, this also assumes that the small pin is made of a ferrous metal and not something like aluminum."
+"00000     ","Main Help Desk Page                               ","<H2>How can I help today?</H2>
+<UL>
+     <LI>Learn about <A HREF=HelpDesk.ASP?Topic=00001>haystacks</A>.
+     <LI>Learn about <A HREF=HelpDesk.ASP?Topic=00002>bowling balls</A>.
+</UL>"
+"00002     ","Learning about Bowling Balls                      ","<H1>Introduction</H1>
+People have long wondered about bowling balls.  The first bowling balls were <A HREF=HelpDesk.ASP?Topic=10001>cube</A> shaped, which didn't work particularly well.  Of course, the cube shaped bowling ball has long since been replaced by the more familiar spherical bowling ball used today."
+"10001     ","Learning about Cube Shaped Bowling Balls          ","<H1>Failures Lead to Success</H1>
+Some people today underestimate the importance of failure.  When the originator of the cube shaped bowling ball saw that it didn't work, he tried other shapes.  The pyramid shaped bowling ball didn't work particularly well either, but the ancient Egyptians loved it so much that they made national monuments that relied on the shape.  It wasn't long, however, before the originator discovered the a spherical shape; although somewhat difficult to master, was the best shaped to use for bowling balls."

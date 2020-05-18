@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="urn:AtlWebSrvService" xmlns:soap12enc="http://www.w3.org/2002/06/soap-envelope" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="urn:AtlWebSrvService" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <s:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="urn:AtlWebSrvService">
+      <s:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+    </s:schema>
+  </types>
+  <message name="HelloWorldIn">
+    <part name="bstrInput" type="s:string" />
+  </message>
+  <message name="HelloWorldOut">
+    <part name="return" type="s:string" />
+  </message>
+  <message name="SquareIn">
+    <part name="nVal" type="s:short" />
+  </message>
+  <message name="SquareOut">
+    <part name="return" type="s:int" />
+  </message>
+  <portType name="AtlWebSrvServiceSoap">
+    <operation name="HelloWorld">
+      <input message="s0:HelloWorldIn" />
+      <output message="s0:HelloWorldOut" />
+    </operation>
+    <operation name="Square">
+      <input message="s0:SquareIn" />
+      <output message="s0:SquareOut" />
+    </operation>
+  </portType>
+  <binding name="AtlWebSrvServiceSoap" type="s0:AtlWebSrvServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="HelloWorld">
+      <soap:operation soapAction="#HelloWorld" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:AtlWebSrvService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:AtlWebSrvService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="Square">
+      <soap:operation soapAction="#Square" style="rpc" />
+      <input>
+        <soap:body use="encoded" namespace="urn:AtlWebSrvService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="urn:AtlWebSrvService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="AtlWebSrvService">
+    <port name="AtlWebSrvServiceSoap" binding="s0:AtlWebSrvServiceSoap">
+      <soap:address location="http://localhost:80/AtlWebSrv/AtlWebSrv.dll?Handler=Default" />
+    </port>
+  </service>
+</definitions>

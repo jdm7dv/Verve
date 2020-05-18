@@ -1,0 +1,8 @@
+; AtlWebAppIsapi.def : declares the module parameters for the DLL.
+
+LIBRARY	     "AtlWebAppIsapi"
+
+EXPORTS
+	HttpExtensionProc
+	GetExtensionVersion
+	TerminateExtension

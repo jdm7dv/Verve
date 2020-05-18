@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recorder", "Recorder.csproj", "{F10BC390-7BF5-4F1F-81DB-CFD9821CF7CF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F10BC390-7BF5-4F1F-81DB-CFD9821CF7CF}.Debug.ActiveCfg = Debug|.NET
+		{F10BC390-7BF5-4F1F-81DB-CFD9821CF7CF}.Debug.Build.0 = Debug|.NET
+		{F10BC390-7BF5-4F1F-81DB-CFD9821CF7CF}.Release.ActiveCfg = Release|.NET
+		{F10BC390-7BF5-4F1F-81DB-CFD9821CF7CF}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

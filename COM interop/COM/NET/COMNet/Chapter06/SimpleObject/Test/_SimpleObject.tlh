@@ -1,0 +1,76 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2215.1 (9d7d7a16).
+//
+// c:\writing\ms press\com book\6-attributes\simpleobject\test\_simpleobject.tlh
+//
+// C++ source equivalent of Win32 type library ..\_SimpleObject.tlb
+// compiler-generated file created 10/28/02 at 11:45:32 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("1d196988-3060-486e-a4ac-38f9685d3bf7"))
+/* LIBID */ __SimpleObject;
+struct /* coclass */ CSimplest;
+struct __declspec(uuid("fe19d164-db7d-4a17-8d99-dfd57fb69e02"))
+/* dual interface */ ISimplest;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(ISimplest, __uuidof(ISimplest));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("5bdce1e1-d79d-41e1-9500-e4ed3e64887a"))
+CSimplest;
+    // [ default ] interface ISimplest
+
+struct __declspec(uuid("fe19d164-db7d-4a17-8d99-dfd57fb69e02"))
+ISimplest : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetX,put=PutX))
+    short X;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    short GetX ( );
+    void PutX (
+        short pVal );
+    long Square (
+        short val );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall get_X (
+        /*[out,retval]*/ short * pVal ) = 0;
+      virtual HRESULT __stdcall put_X (
+        /*[in]*/ short pVal ) = 0;
+      virtual HRESULT __stdcall raw_Square (
+        /*[in]*/ short val,
+        /*[out,retval]*/ long * pResult ) = 0;
+};
+
+//
+// Wrapper method implementations
+//
+
+#include "c:\writing\ms press\com book\6-attributes\simpleobject\test\_simpleobject.tli"
+
+#pragma pack(pop)

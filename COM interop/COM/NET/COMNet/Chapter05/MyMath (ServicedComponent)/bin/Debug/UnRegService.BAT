@@ -1,0 +1,1 @@
+RegSvcs /u /appname:MyMathApp MyMath.DLL

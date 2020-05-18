@@ -1,0 +1,1 @@
+RegSvcs HelpAccess.DLL

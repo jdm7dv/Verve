@@ -1,0 +1,101 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2325 (92f04a48).
+//
+// e:\templcom\chapter08\mymathtest\debug\mymath.tlh
+//
+// C++ source equivalent of Win32 type library MyMath.TLB
+// compiler-generated file created 12/02/02 at 11:23:06 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace MyMath {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("ca40137d-9bed-3421-9b4b-d79e57bc0a93"))
+/* LIBID */ __MyMath;
+struct __declspec(uuid("ea82646c-2531-42ff-aabf-55028fe0b0b5"))
+/* dual interface */ IMathFunctions;
+struct /* coclass */ MathFunctions;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IMathFunctions, __uuidof(IMathFunctions));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("ea82646c-2531-42ff-aabf-55028fe0b0b5"))
+IMathFunctions : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    long DoAdd (
+        long Value1,
+        long Value2 );
+    long DoSubtract (
+        long Value1,
+        long Value2 );
+    long DoMultiply (
+        long Value1,
+        long Value2 );
+    long DoDivide (
+        long Value1,
+        long Value2 );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall raw_DoAdd (
+        /*[in]*/ long Value1,
+        /*[in]*/ long Value2,
+        /*[out,retval]*/ long * pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_DoSubtract (
+        /*[in]*/ long Value1,
+        /*[in]*/ long Value2,
+        /*[out,retval]*/ long * pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_DoMultiply (
+        /*[in]*/ long Value1,
+        /*[in]*/ long Value2,
+        /*[out,retval]*/ long * pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_DoDivide (
+        /*[in]*/ long Value1,
+        /*[in]*/ long Value2,
+        /*[out,retval]*/ long * pRetVal ) = 0;
+};
+
+struct __declspec(uuid("0c4340a2-c362-4287-9a03-8cdd3d1f80f6"))
+MathFunctions;
+    // interface _Object
+    // [ default ] interface IMathFunctions
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_MyMath =
+    {0xca40137d,0x9bed,0x3421,{0x9b,0x4b,0xd7,0x9e,0x57,0xbc,0x0a,0x93}};
+extern "C" const GUID __declspec(selectany) IID_IMathFunctions =
+    {0xea82646c,0x2531,0x42ff,{0xaa,0xbf,0x55,0x02,0x8f,0xe0,0xb0,0xb5}};
+extern "C" const GUID __declspec(selectany) CLSID_MathFunctions =
+    {0x0c4340a2,0xc362,0x4287,{0x9a,0x03,0x8c,0xdd,0x3d,0x1f,0x80,0xf6}};
+
+//
+// Wrapper method implementations
+//
+
+#include "e:\templcom\chapter08\mymathtest\debug\mymath.tli"
+
+} // namespace MyMath
+
+#pragma pack(pop)

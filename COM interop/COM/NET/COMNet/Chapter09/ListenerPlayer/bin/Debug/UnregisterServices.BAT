@@ -1,0 +1,1 @@
+RegSvcs /u ListenerPlayer.DLL

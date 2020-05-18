@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AtlMacros", "AtlMacros.vcproj", "{2A5DA755-2152-4324-AD2E-9AD5849C00AA}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{2A5DA755-2152-4324-AD2E-9AD5849C00AA}.Debug.ActiveCfg = Debug|Win32
+		{2A5DA755-2152-4324-AD2E-9AD5849C00AA}.Debug.Build.0 = Debug|Win32
+		{2A5DA755-2152-4324-AD2E-9AD5849C00AA}.Release.ActiveCfg = Release|Win32
+		{2A5DA755-2152-4324-AD2E-9AD5849C00AA}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

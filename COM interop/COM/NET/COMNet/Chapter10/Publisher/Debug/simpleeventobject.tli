@@ -1,0 +1,18 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2325 (f8393956).
+//
+// t:\compdisc\builds\build001\chapter10\publisher\debug\simpleeventobject.tli
+//
+// Wrapper implementations for Win32 type library SimpleEventObject.TLB
+// compiler-generated file created 12/19/02 at 14:11:40 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface ISendMsg wrapper method implementations
+//
+
+inline HRESULT ISendMsg::FireBroadcastMsg ( _bstr_t strMsg ) {
+    HRESULT _hr = raw_FireBroadcastMsg(strMsg);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _hr;
+}

@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions name='MathFunctions' targetNamespace='http://schemas.microsoft.com/clr/nsassem/MyMath/MyMath%2C%20Version%3D1.1.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3D21999781f0cc1fd7'
+            xmlns='http://schemas.xmlsoap.org/wsdl/'
+            xmlns:tns='http://schemas.microsoft.com/clr/nsassem/MyMath/MyMath%2C%20Version%3D1.1.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3D21999781f0cc1fd7'
+            xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+            xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+            xmlns:suds='http://www.w3.org/2000/wsdl/suds'
+            xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+            xmlns:soapenc='http://schemas.xmlsoap.org/soap/encoding/'
+            xmlns:ns0='http://schemas.microsoft.com/clr/nsassem/MyMath/MyMath%2C%20Version%3D1.1.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3D21999781f0cc1fd7'
+            xmlns:ns2='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath%2C%20Version%3D1.1.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3D21999781f0cc1fd7'
+            xmlns:ns3='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath%2C%20Version%3D1.1.0.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3D21999781f0cc1fd7'
+            xmlns:ns1='http://schemas.microsoft.com/clr/nsassem/System.EnterpriseServices/System.EnterpriseServices%2C%20Version%3D1.0.5000.0%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Db03f5f7f11d50a3a'
+            xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'>
+
+    <message name='MathFunctions.DoDivideInput'>
+        <part name='Value1' type='xsd:int'/>
+        <part name='Value2' type='xsd:int'/>
+    </message>
+    <message name='MathFunctions.DoDivideOutput'>
+        <part name='return' type='xsd:int'/>
+    </message>
+
+    <message name='MathFunctions.DoMultiplyInput'>
+        <part name='Value1' type='xsd:int'/>
+        <part name='Value2' type='xsd:int'/>
+    </message>
+    <message name='MathFunctions.DoMultiplyOutput'>
+        <part name='return' type='xsd:int'/>
+    </message>
+
+    <message name='MathFunctions.DoSubtractInput'>
+        <part name='Value1' type='xsd:int'/>
+        <part name='Value2' type='xsd:int'/>
+    </message>
+    <message name='MathFunctions.DoSubtractOutput'>
+        <part name='return' type='xsd:int'/>
+    </message>
+
+    <message name='MathFunctions.DoAddInput'>
+        <part name='Value1' type='xsd:int'/>
+        <part name='Value2' type='xsd:int'/>
+    </message>
+    <message name='MathFunctions.DoAddOutput'>
+        <part name='return' type='xsd:int'/>
+    </message>
+
+    <portType name='MathFunctionsPortType'>
+        <operation name='DoDivide' parameterOrder='Value1 Value2'>
+            <input name='DoDivideRequest' message='tns:MathFunctions.DoDivideInput'/>
+            <output name='DoDivideResponse' message='tns:MathFunctions.DoDivideOutput'/>
+        </operation>
+        <operation name='DoMultiply' parameterOrder='Value1 Value2'>
+            <input name='DoMultiplyRequest' message='tns:MathFunctions.DoMultiplyInput'/>
+            <output name='DoMultiplyResponse' message='tns:MathFunctions.DoMultiplyOutput'/>
+        </operation>
+        <operation name='DoSubtract' parameterOrder='Value1 Value2'>
+            <input name='DoSubtractRequest' message='tns:MathFunctions.DoSubtractInput'/>
+            <output name='DoSubtractResponse' message='tns:MathFunctions.DoSubtractOutput'/>
+        </operation>
+        <operation name='DoAdd' parameterOrder='Value1 Value2'>
+            <input name='DoAddRequest' message='tns:MathFunctions.DoAddInput'/>
+            <output name='DoAddResponse' message='tns:MathFunctions.DoAddOutput'/>
+        </operation>
+    </portType>
+
+    <binding name='MathFunctionsBinding' type='tns:MathFunctionsPortType'>
+        <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/>
+        <suds:class type='ns0:MathFunctions' rootType='ServicedComponent'>
+            <suds:implements type='ns0:IMathFunctions'/>
+        </suds:class>
+        <operation name='DoDivide'>
+            <soap:operation soapAction='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath#DoDivide'/>
+            <suds:method attributes='public virtual'/>
+            <input name='DoDivideRequest'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath'/>
+            </input>
+            <output name='DoDivideResponse'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath'/>
+            </output>
+        </operation>
+        <operation name='DoMultiply'>
+            <soap:operation soapAction='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath#DoMultiply'/>
+            <suds:method attributes='public virtual'/>
+            <input name='DoMultiplyRequest'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath'/>
+            </input>
+            <output name='DoMultiplyResponse'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath'/>
+            </output>
+        </operation>
+        <operation name='DoSubtract'>
+            <soap:operation soapAction='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath#DoSubtract'/>
+            <suds:method attributes='public virtual'/>
+            <input name='DoSubtractRequest'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath'/>
+            </input>
+            <output name='DoSubtractResponse'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath'/>
+            </output>
+        </operation>
+        <operation name='DoAdd'>
+            <soap:operation soapAction='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath#DoAdd'/>
+            <suds:method attributes='public virtual'/>
+            <input name='DoAddRequest'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath'/>
+            </input>
+            <output name='DoAddResponse'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.MathFunctions/MyMath'/>
+            </output>
+        </operation>
+    </binding>
+
+    <message name='IMathFunctions.DoDivideInput'>
+        <part name='Value1' type='xsd:int'/>
+        <part name='Value2' type='xsd:int'/>
+    </message>
+    <message name='IMathFunctions.DoDivideOutput'>
+        <part name='return' type='xsd:int'/>
+    </message>
+
+    <message name='IMathFunctions.DoMultiplyInput'>
+        <part name='Value1' type='xsd:int'/>
+        <part name='Value2' type='xsd:int'/>
+    </message>
+    <message name='IMathFunctions.DoMultiplyOutput'>
+        <part name='return' type='xsd:int'/>
+    </message>
+
+    <message name='IMathFunctions.DoSubtractInput'>
+        <part name='Value1' type='xsd:int'/>
+        <part name='Value2' type='xsd:int'/>
+    </message>
+    <message name='IMathFunctions.DoSubtractOutput'>
+        <part name='return' type='xsd:int'/>
+    </message>
+
+    <message name='IMathFunctions.DoAddInput'>
+        <part name='Value1' type='xsd:int'/>
+        <part name='Value2' type='xsd:int'/>
+    </message>
+    <message name='IMathFunctions.DoAddOutput'>
+        <part name='return' type='xsd:int'/>
+    </message>
+
+    <portType name='IMathFunctionsPortType'>
+        <operation name='DoDivide' parameterOrder='Value1 Value2'>
+            <input name='DoDivideRequest' message='tns:IMathFunctions.DoDivideInput'/>
+            <output name='DoDivideResponse' message='tns:IMathFunctions.DoDivideOutput'/>
+        </operation>
+        <operation name='DoMultiply' parameterOrder='Value1 Value2'>
+            <input name='DoMultiplyRequest' message='tns:IMathFunctions.DoMultiplyInput'/>
+            <output name='DoMultiplyResponse' message='tns:IMathFunctions.DoMultiplyOutput'/>
+        </operation>
+        <operation name='DoSubtract' parameterOrder='Value1 Value2'>
+            <input name='DoSubtractRequest' message='tns:IMathFunctions.DoSubtractInput'/>
+            <output name='DoSubtractResponse' message='tns:IMathFunctions.DoSubtractOutput'/>
+        </operation>
+        <operation name='DoAdd' parameterOrder='Value1 Value2'>
+            <input name='DoAddRequest' message='tns:IMathFunctions.DoAddInput'/>
+            <output name='DoAddResponse' message='tns:IMathFunctions.DoAddOutput'/>
+        </operation>
+    </portType>
+
+    <binding name='IMathFunctionsBinding' type='tns:IMathFunctionsPortType'>
+        <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/>
+        <suds:interface type='ns0:IMathFunctions'>
+        </suds:interface>
+        <operation name='DoDivide'>
+            <soap:operation soapAction='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath#DoDivide'/>
+            <input name='DoDivideRequest'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath'/>
+            </input>
+            <output name='DoDivideResponse'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath'/>
+            </output>
+        </operation>
+        <operation name='DoMultiply'>
+            <soap:operation soapAction='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath#DoMultiply'/>
+            <input name='DoMultiplyRequest'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath'/>
+            </input>
+            <output name='DoMultiplyResponse'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath'/>
+            </output>
+        </operation>
+        <operation name='DoSubtract'>
+            <soap:operation soapAction='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath#DoSubtract'/>
+            <input name='DoSubtractRequest'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath'/>
+            </input>
+            <output name='DoSubtractResponse'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath'/>
+            </output>
+        </operation>
+        <operation name='DoAdd'>
+            <soap:operation soapAction='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath#DoAdd'/>
+            <input name='DoAddRequest'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath'/>
+            </input>
+            <output name='DoAddResponse'>
+                <soap:body use='encoded' encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' namespace='http://schemas.microsoft.com/clr/nsassem/MyMath.IMathFunctions/MyMath'/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name='MathFunctionsService'>
+        <port name='MathFunctionsPort' binding='tns:MathFunctionsBinding'>
+            <soap:address location='http://localhost:80/MyMathMethod/MyMath.MathFunctions.soap'/>
+        </port>
+    </service>
+</definitions>

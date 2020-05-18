@@ -1,0 +1,17 @@
+<html>
+	<HEAD>
+	</HEAD>
+	<BODY>
+		<P>{{// use MSDN's "ATL Server Response File Reference" to learn about SRF files.}}
+		</P>
+		<P>{{handler AtlWebApp.dll/Default}}
+		</P>
+		<P>This is a test: {{Hello}}</P>
+		<P>Testing the square tag: {{PSquare(-4)}}</P>
+		<P>Testing echo: {{Echo(one, 5, true)}}</P>
+		<P>&nbsp;</P>
+		<P>
+			<br>
+			&nbsp;</P>
+	</BODY>
+</html>

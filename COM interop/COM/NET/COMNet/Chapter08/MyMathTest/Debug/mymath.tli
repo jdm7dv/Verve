@@ -1,0 +1,40 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2325 (92f04a48).
+//
+// e:\templcom\chapter08\mymathtest\debug\mymath.tli
+//
+// Wrapper implementations for Win32 type library MyMath.TLB
+// compiler-generated file created 12/02/02 at 11:23:06 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface IMathFunctions wrapper method implementations
+//
+
+inline long IMathFunctions::DoAdd ( long Value1, long Value2 ) {
+    long _result = 0;
+    HRESULT _hr = raw_DoAdd(Value1, Value2, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline long IMathFunctions::DoSubtract ( long Value1, long Value2 ) {
+    long _result = 0;
+    HRESULT _hr = raw_DoSubtract(Value1, Value2, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline long IMathFunctions::DoMultiply ( long Value1, long Value2 ) {
+    long _result = 0;
+    HRESULT _hr = raw_DoMultiply(Value1, Value2, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}
+
+inline long IMathFunctions::DoDivide ( long Value1, long Value2 ) {
+    long _result = 0;
+    HRESULT _hr = raw_DoDivide(Value1, Value2, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _result;
+}

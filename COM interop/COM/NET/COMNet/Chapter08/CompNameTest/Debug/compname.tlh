@@ -1,0 +1,98 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2325 (21b90e69).
+//
+// e:\templcom\chapter08\compnametest\debug\compname.tlh
+//
+// C++ source equivalent of Win32 type library CompName.TLB
+// compiler-generated file created 12/02/02 at 10:48:36 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace CompName {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("d01e3a8a-19b1-3c48-a2e5-22547c0b8ee6"))
+/* LIBID */ __CompName;
+enum COMPUTER_NAME_FORMAT;
+struct __declspec(uuid("ad65e427-a809-4ca0-b408-d364d25d619a"))
+/* dual interface */ IComputerName;
+struct /* coclass */ ComputerName;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IComputerName, __uuidof(IComputerName));
+
+//
+// Type library items
+//
+
+enum __declspec(uuid("6b6699d3-b1c7-3c64-a853-cbdeeb1c0d21"))
+COMPUTER_NAME_FORMAT
+{
+    COMPUTER_NAME_FORMAT_ComputerNameNetBIOS = 0,
+    COMPUTER_NAME_FORMAT_ComputerNameDnsHostname = 1,
+    COMPUTER_NAME_FORMAT_ComputerNameDnsDomain = 2,
+    COMPUTER_NAME_FORMAT_ComputerNameDnsFullyQualified = 3,
+    COMPUTER_NAME_FORMAT_ComputerNamePhysicalNetBIOS = 4,
+    COMPUTER_NAME_FORMAT_ComputerNamePhysicalDnsHostname = 5,
+    COMPUTER_NAME_FORMAT_ComputerNamePhysicalDnsDomain = 6,
+    COMPUTER_NAME_FORMAT_ComputerNamePhysicalDnsFullyQualified = 7,
+    COMPUTER_NAME_FORMAT_ComputerNameMax = 8
+};
+
+struct __declspec(uuid("ad65e427-a809-4ca0-b408-d364d25d619a"))
+IComputerName : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    _bstr_t GetSingleName (
+        enum COMPUTER_NAME_FORMAT NameType );
+    _bstr_t GetAllNames ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall raw_GetSingleName (
+        /*[in]*/ enum COMPUTER_NAME_FORMAT NameType,
+        /*[out,retval]*/ BSTR * pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_GetAllNames (
+        /*[out,retval]*/ BSTR * pRetVal ) = 0;
+};
+
+struct __declspec(uuid("ee24578a-29cc-4554-95f6-c8f4d4f73284"))
+ComputerName;
+    // interface _Object
+    // interface IComponent
+    // interface IDisposable
+    // [ default ] interface IComputerName
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_CompName =
+    {0xd01e3a8a,0x19b1,0x3c48,{0xa2,0xe5,0x22,0x54,0x7c,0x0b,0x8e,0xe6}};
+extern "C" const GUID __declspec(selectany) IID_IComputerName =
+    {0xad65e427,0xa809,0x4ca0,{0xb4,0x08,0xd3,0x64,0xd2,0x5d,0x61,0x9a}};
+extern "C" const GUID __declspec(selectany) CLSID_ComputerName =
+    {0xee24578a,0x29cc,0x4554,{0x95,0xf6,0xc8,0xf4,0xd4,0xf7,0x32,0x84}};
+
+//
+// Wrapper method implementations
+//
+
+#include "e:\templcom\chapter08\compnametest\debug\compname.tli"
+
+} // namespace CompName
+
+#pragma pack(pop)

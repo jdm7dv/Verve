@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeBox", "TimeBox.csproj", "{72E2AA99-615E-456F-A4EE-FEBE586F2B9E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "..\Tester\Tester.csproj", "{7BCAF4D9-7070-4F34-943C-F4AFAAFFFFCA}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{72E2AA99-615E-456F-A4EE-FEBE586F2B9E}.Debug.ActiveCfg = Debug|.NET
+		{72E2AA99-615E-456F-A4EE-FEBE586F2B9E}.Debug.Build.0 = Debug|.NET
+		{72E2AA99-615E-456F-A4EE-FEBE586F2B9E}.Release.ActiveCfg = Release|.NET
+		{72E2AA99-615E-456F-A4EE-FEBE586F2B9E}.Release.Build.0 = Release|.NET
+		{7BCAF4D9-7070-4F34-943C-F4AFAAFFFFCA}.Debug.ActiveCfg = Debug|.NET
+		{7BCAF4D9-7070-4F34-943C-F4AFAAFFFFCA}.Debug.Build.0 = Debug|.NET
+		{7BCAF4D9-7070-4F34-943C-F4AFAAFFFFCA}.Release.ActiveCfg = Release|.NET
+		{7BCAF4D9-7070-4F34-943C-F4AFAAFFFFCA}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

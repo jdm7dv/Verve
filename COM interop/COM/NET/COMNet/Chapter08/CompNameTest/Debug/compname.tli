@@ -1,0 +1,26 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2325 (21b90e69).
+//
+// e:\templcom\chapter08\compnametest\debug\compname.tli
+//
+// Wrapper implementations for Win32 type library CompName.TLB
+// compiler-generated file created 12/02/02 at 10:48:36 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface IComputerName wrapper method implementations
+//
+
+inline _bstr_t IComputerName::GetSingleName ( enum COMPUTER_NAME_FORMAT NameType ) {
+    BSTR _result = 0;
+    HRESULT _hr = raw_GetSingleName(NameType, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline _bstr_t IComputerName::GetAllNames ( ) {
+    BSTR _result = 0;
+    HRESULT _hr = raw_GetAllNames(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}

@@ -1,0 +1,80 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2325 (1f1954f9).
+//
+// e:\templcom\chapter08\constructstringtest\debug\constructstring.tlh
+//
+// C++ source equivalent of Win32 type library ConstructString.TLB
+// compiler-generated file created 12/02/02 at 12:35:40 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace ConstructString {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("8f0330b1-238a-30a9-9cff-a4155ba90ef4"))
+/* LIBID */ __ConstructString;
+struct __declspec(uuid("bb924921-68d6-4b14-8771-878edcfec8b2"))
+/* dual interface */ ICheckString;
+struct /* coclass */ CheckString;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(ICheckString, __uuidof(ICheckString));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("bb924921-68d6-4b14-8771-878edcfec8b2"))
+ICheckString : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    _bstr_t GetConstructorString ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall raw_GetConstructorString (
+        /*[out,retval]*/ BSTR * pRetVal ) = 0;
+};
+
+struct __declspec(uuid("93707e2d-7672-4d3f-a8f3-4fb934db9be1"))
+CheckString;
+    // interface _Object
+    // interface IRemoteDispatch
+    // interface IDisposable
+    // interface IManagedObject
+    // interface System_EnterpriseServices_IServicedComponentInfo
+    // [ default ] interface ICheckString
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_ConstructString =
+    {0x8f0330b1,0x238a,0x30a9,{0x9c,0xff,0xa4,0x15,0x5b,0xa9,0x0e,0xf4}};
+extern "C" const GUID __declspec(selectany) IID_ICheckString =
+    {0xbb924921,0x68d6,0x4b14,{0x87,0x71,0x87,0x8e,0xdc,0xfe,0xc8,0xb2}};
+extern "C" const GUID __declspec(selectany) CLSID_CheckString =
+    {0x93707e2d,0x7672,0x4d3f,{0xa8,0xf3,0x4f,0xb9,0x34,0xdb,0x9b,0xe1}};
+
+//
+// Wrapper method implementations
+//
+
+#include "e:\templcom\chapter08\constructstringtest\debug\constructstring.tli"
+
+} // namespace ConstructString
+
+#pragma pack(pop)

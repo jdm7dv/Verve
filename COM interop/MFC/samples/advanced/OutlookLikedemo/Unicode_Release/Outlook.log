@@ -1,0 +1,92 @@
+﻿  StdAfx.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  MFCToolBar.cpp
+  OX3DTabView.cpp
+  OXAdvancedAssert.cpp
+  OXAdvancedAssertMail.cpp
+  OXBitmapButton.cpp
+  OXBitmapMenu.cpp
+E:\ntroot\MFC\Ultimate Toolbox\include\OXMenuBar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+  OXBitmapMenuOrganizer.cpp
+  OXColorPickerButton.cpp
+  OXColorPickerCtrl.cpp
+  OXCoolToolBar.cpp
+..\..\..\source\OXCoolToolBar.cpp(2999): warning C4996: 'GetVersionExW': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\sysinfoapi.h(442): note: see declaration of 'GetVersionExW'
+  oxdocktabctrl.cpp
+  OXDragDockContext.CPP
+  OXFrameWndDock.CPP
+  OXMDIFloatWnd.cpp
+  OXMenuBar.cpp
+E:\ntroot\MFC\Ultimate Toolbox\include\OXMenuBar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+..\..\..\source\OXMenuBar.cpp(267): warning C4018: '<': signed/unsigned mismatch
+  OXPopupBarCtrl.cpp
+  OXRectTracker.cpp
+  OXShortcutBar.cpp
+  OXSizeCtrlBar.CPP
+  OXSizeDockBar.cpp
+E:\ntroot\MFC\Ultimate Toolbox\include\OXMenuBar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+  Generating Code...
+  Compiling...
+  OXSizeToolBar.cpp
+  OXSkinnedComboBox.cpp
+  OXSkinnedSpinCtrl.cpp
+  OXSkinnedTabCtrl.cpp
+  OXSkins.cpp
+E:\ntroot\MFC\Ultimate Toolbox\include\OXMenuBar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+..\..\..\source\OXSkins.cpp(30): warning C4996: 'GetVersionExW': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\sysinfoapi.h(442): note: see declaration of 'GetVersionExW'
+..\..\..\source\OXSkins.cpp(1024): warning C4996: 'GetVersion': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+..\..\..\source\OXSkins.cpp(1096): warning C4996: 'GetVersion': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+..\..\..\source\OXSkins.cpp(3979): warning C4996: 'GetVersion': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+..\..\..\source\OXSkins.cpp(8778): warning C4996: 'GetVersion': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+..\..\..\source\OXSkins.cpp(8815): warning C4996: 'GetVersion': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+..\..\..\source\OXSkins.cpp(9219): warning C4996: 'GetVersion': was declared deprecated
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\sysinfoapi.h(110): note: see declaration of 'GetVersion'
+  OXSplitterRect.cpp
+  OXStatic.cpp
+  OXSzMiniDockFrmWnd.cpp
+  OXTabClientWnd.cpp
+  OXToolTipCtrl.cpp
+  OXUxTheme.cpp
+  UTBStrOp.cpp
+  HtmlCtrl.cpp
+  UTSampleAbout.cpp
+  Xstatus4.cpp
+  MainFrm.cpp
+E:\ntroot\MFC\Ultimate Toolbox\include\OXMenuBar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+  Outlook.cpp
+E:\ntroot\MFC\Ultimate Toolbox\include\OXMenuBar.h(137): warning C4005: 'AFX_IDW_MENUBAR': macro redefinition
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\atlmfc\include\afxres.h(124): note: see previous definition of 'AFX_IDW_MENUBAR'
+  OutlookDoc.cpp
+  OutlookFormView.cpp
+  OutlookListView.cpp
+  Generating Code...
+  Compiling...
+  OutlookTreeView.cpp
+  OutlookView.cpp
+  SHBPropertiesDlg.cpp
+  Generating Code...
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1189,5): warning MSB8012: TargetPath(E:\ntroot\MFC\Ultimate Toolbox\samples\advanced\OutlookLikedemo\.\Unicode_Release\Outlook.exe) does not match the Linker's OutputFile property value (E:\ntroot\MFC\Ultimate Toolbox\samples\advanced\OutlookLikedemo\OutlookLikeDemo.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(1191,5): warning MSB8012: TargetName(Outlook) does not match the Linker's OutputFile property value (OutlookLikeDemo). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+uafxcw.lib(afxtoolbar.obj) : error LNK2005: "public: __thiscall CMFCToolBar::CMFCToolBar(void)" (??0CMFCToolBar@@QAE@XZ) already defined in MFCToolBar.obj
+uafxcw.lib(afxtoolbar.obj) : error LNK2005: "public: virtual __thiscall CMFCToolBar::~CMFCToolBar(void)" (??1CMFCToolBar@@UAE@XZ) already defined in MFCToolBar.obj
+uafxcw.lib(afxtoolbar.obj) : error LNK2005: "public: virtual int __thiscall CMFCToolBar::CreateEx(class CWnd *,unsigned long,unsigned long,class CRect,unsigned int)" (?CreateEx@CMFCToolBar@@UAEHPAVCWnd@@KKVCRect@@I@Z) already defined in MFCToolBar.obj
+uafxcw.lib(afxtoolbar.obj) : error LNK2005: "protected: virtual struct AFX_MSGMAP const * __thiscall CMFCToolBar::GetMessageMap(void)const " (?GetMessageMap@CMFCToolBar@@MBEPBUAFX_MSGMAP@@XZ) already defined in MFCToolBar.obj
+uafxcw.lib(afxtoolbar.obj) : error LNK2005: "public: virtual struct CRuntimeClass * __thiscall CMFCToolBar::GetRuntimeClass(void)const " (?GetRuntimeClass@CMFCToolBar@@UBEPAUCRuntimeClass@@XZ) already defined in MFCToolBar.obj
+uafxcw.lib(afxtoolbar.obj) : error LNK2005: "protected: static struct AFX_MSGMAP const * __stdcall CMFCToolBar::GetThisMessageMap(void)" (?GetThisMessageMap@CMFCToolBar@@KGPBUAFX_MSGMAP@@XZ) already defined in MFCToolBar.obj
+OXBitmapMenu.obj : error LNK2019: unresolved external symbol _xMonitorFromRect@8 referenced in function "private: static void __cdecl COXBitmapMenu::DeterminePosition(class CMenu *,struct tagRECT const *,unsigned long,class CPoint &,unsigned int &,unsigned int &)" (?DeterminePosition@COXBitmapMenu@@CAXPAVCMenu@@PBUtagRECT@@KAAVCPoint@@AAI3@Z)
+OXToolTipCtrl.obj : error LNK2001: unresolved external symbol _xMonitorFromRect@8
+OXBitmapMenu.obj : error LNK2019: unresolved external symbol _xGetMonitorInfo@8 referenced in function "private: static void __cdecl COXBitmapMenu::DeterminePosition(class CMenu *,struct tagRECT const *,unsigned long,class CPoint &,unsigned int &,unsigned int &)" (?DeterminePosition@COXBitmapMenu@@CAXPAVCMenu@@PBUtagRECT@@KAAVCPoint@@AAI3@Z)
+OXToolTipCtrl.obj : error LNK2001: unresolved external symbol _xGetMonitorInfo@8
+OutlookLikeDemo.exe : fatal error LNK1120: 2 unresolved externals

@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AddressBook", "AddressBook.vcxproj", "{B39403E9-0402-4019-8379-AD77A381949C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		DebugUnicode|x86 = DebugUnicode|x86
+		Release|x86 = Release|x86
+		ReleaseShared|x86 = ReleaseShared|x86
+		ReleaseUnicode|x86 = ReleaseUnicode|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B39403E9-0402-4019-8379-AD77A381949C}.Debug|x86.ActiveCfg = Debug|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.Debug|x86.Build.0 = Debug|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.DebugUnicode|x86.ActiveCfg = DebugUnicode|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.DebugUnicode|x86.Build.0 = DebugUnicode|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.Release|x86.ActiveCfg = Release|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.Release|x86.Build.0 = Release|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.ReleaseShared|x86.ActiveCfg = ReleaseShared|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.ReleaseShared|x86.Build.0 = ReleaseShared|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.ReleaseUnicode|x86.ActiveCfg = ReleaseUnicode|Win32
+		{B39403E9-0402-4019-8379-AD77A381949C}.ReleaseUnicode|x86.Build.0 = ReleaseUnicode|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE1E61F6-20A3-452A-BE5A-B25FDBDC3422}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,38 @@
+import "docobj.idl";
+
+[
+	dual,
+	uuid(d4efa6dc-bb8f-44f0-88cf-2ae663c76312)
+] 
+#line 6 "c:\\writing\\ms press\\com book\\6-attributes\\events\\src\\evtsrc.h"
+interface IEvents : IDispatch {
+	[id(1)] HRESULT  Values([in] short nVal1, [in] short nVal2);
+};
+
+[
+	dual,
+	uuid(a3b7fea2-7396-4727-9691-7dc55acca27a)
+] 
+#line 11 "c:\\writing\\ms press\\com book\\6-attributes\\events\\src\\evtsrc.h"
+interface ISource : IDispatch {
+	[id(1)] HRESULT  Fire();
+};
+
+
+[ version(1.0), uuid(aa59ab90-387e-3730-a19f-a2d89a27bb62) ]
+library EventTest
+{
+	importlib("stdole2.tlb");
+	importlib("olepro32.dll");
+
+	[
+		uuid(5F05EAEA-6B73-3EB0-9E54-97ADC8C97028),
+		version(1.0),
+		noncreatable
+	] 
+	coclass __Impl_IEvents {
+		interface IEvents;
+	};
+
+}
+

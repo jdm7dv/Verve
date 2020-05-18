@@ -1,0 +1,96 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2215.1 (c27b0c7d).
+//
+// c:\writing\ms press\com book\4-using_net_in_com\usenetcontrol\debug\littlestring.tlh
+//
+// C++ source equivalent of Win32 type library littlestring.tlb
+// compiler-generated file created 10/21/02 at 18:29:48 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("0d3db3cf-e739-3a2c-809d-59b74079b5dc"))
+/* LIBID */ __LittleString;
+struct __declspec(uuid("a1b26b91-9565-3d0d-9dec-dc3b2ae594fa"))
+/* dual interface */ IString;
+struct /* coclass */ LittleString;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IString, __uuidof(IString));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("a1b26b91-9565-3d0d-9dec-dc3b2ae594fa"))
+IString : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(get=GetText,put=PutText))
+    _bstr_t Text;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    _bstr_t GetText ( );
+    void PutText (
+        _bstr_t pRetVal );
+    _bstr_t ToUpper ( );
+    _bstr_t ToLower ( );
+    _bstr_t SubString (
+        long start,
+        long length );
+
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall get_Text (
+        /*[out,retval]*/ BSTR * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_Text (
+        /*[in]*/ BSTR pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_ToUpper (
+        /*[out,retval]*/ BSTR * pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_ToLower (
+        /*[out,retval]*/ BSTR * pRetVal ) = 0;
+      virtual HRESULT __stdcall raw_SubString (
+        /*[in]*/ long start,
+        /*[in]*/ long length,
+        /*[out,retval]*/ BSTR * pRetVal ) = 0;
+};
+
+struct __declspec(uuid("be9ce00e-2318-3b47-ac22-ca58c97eeaa9"))
+LittleString;
+    // interface _Object
+    // [ default ] interface IString
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_LittleString =
+    {0x0d3db3cf,0xe739,0x3a2c,{0x80,0x9d,0x59,0xb7,0x40,0x79,0xb5,0xdc}};
+extern "C" const GUID __declspec(selectany) IID_IString =
+    {0xa1b26b91,0x9565,0x3d0d,{0x9d,0xec,0xdc,0x3b,0x2a,0xe5,0x94,0xfa}};
+extern "C" const GUID __declspec(selectany) CLSID_LittleString =
+    {0xbe9ce00e,0x2318,0x3b47,{0xac,0x22,0xca,0x58,0xc9,0x7e,0xea,0xa9}};
+
+//
+// Wrapper method implementations
+//
+
+#include "c:\writing\ms press\com book\4-using_net_in_com\usenetcontrol\debug\littlestring.tli"
+
+#pragma pack(pop)

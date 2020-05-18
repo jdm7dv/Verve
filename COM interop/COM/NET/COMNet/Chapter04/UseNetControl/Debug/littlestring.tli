@@ -1,0 +1,45 @@
+// Created by Microsoft (R) C/C++ Compiler Version 13.10.2215.1 (c27b0c7d).
+//
+// c:\writing\ms press\com book\4-using_net_in_com\usenetcontrol\debug\littlestring.tli
+//
+// Wrapper implementations for Win32 type library littlestring.tlb
+// compiler-generated file created 10/21/02 at 18:29:48 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface IString wrapper method implementations
+//
+
+inline _bstr_t IString::GetText ( ) {
+    BSTR _result = 0;
+    HRESULT _hr = get_Text(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline void IString::PutText ( _bstr_t pRetVal ) {
+    HRESULT _hr = put_Text(pRetVal);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+}
+
+inline _bstr_t IString::ToUpper ( ) {
+    BSTR _result = 0;
+    HRESULT _hr = raw_ToUpper(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline _bstr_t IString::ToLower ( ) {
+    BSTR _result = 0;
+    HRESULT _hr = raw_ToLower(&_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
+
+inline _bstr_t IString::SubString ( long start, long length ) {
+    BSTR _result = 0;
+    HRESULT _hr = raw_SubString(start, length, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}
