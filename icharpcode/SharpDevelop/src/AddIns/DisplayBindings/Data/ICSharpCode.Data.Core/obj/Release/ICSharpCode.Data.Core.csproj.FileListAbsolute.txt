@@ -1,0 +1,7 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Core\bin\Release\ICSharpCode.Data.Core.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Core\bin\Release\ICSharpCode.Data.Core.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Core\obj\Release\ICSharpCode.Data.Core.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Core\obj\Release\ICSharpCode.Data.Core.Properties.Resources.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Core\obj\Release\ICSharpCode.Data.Core.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Core\obj\Release\ICSharpCode.Data.Core.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Core\obj\Release\ICSharpCode.Data.Core.pdb

@@ -1,0 +1,61 @@
+@charset "euc-jp";
+
+/*---- SkinSetting ----*/
+body{
+background:transparent url(/img/basic/common/bg_body_gray001.gif) repeat-x 0 0;
+}
+
+#page{
+background:#FFF;
+}
+
+#bodyArea.home{
+background:#FFF;
+}
+
+
+/*---- headerArea ----*/
+#headerArea{
+background:transparent url(/img/basic/common/header001.gif) no-repeat left top;
+}
+
+#headerArea .utilityNavigation a:link{color:#258fb8;}
+#headerArea .utilityNavigation a:visited{color:#258fb8;}
+#headerArea .utilityNavigation a:hover{color:#996600;}
+#headerArea .utilityNavigation a:active{color:#996600;}
+#headerArea .utilityNavigation a:focus{color:#996600;}
+
+#headerArea div.personalNavigation{
+background:url(/img/basic/common/personalnavi_bg003.gif) no-repeat 0 100%;
+}
+
+
+/*---- footerArea ----*/
+#footerArea{
+background:#FFF;
+}
+
+#footerArea a:link{color:#258fb8;}
+#footerArea a:visited{color:#258fb8;}
+#footerArea a:hover{color:#996600;}
+#footerArea a:active{color:#996600;}
+#footerArea a:focus{color:#996600;}
+
+#footerArea div.pagetopLink a:link{color:#258fb8;}
+#footerArea div.pagetopLink a:visited{color:#258fb8;}
+#footerArea div.pagetopLink a:hover{color:#996600;}
+#footerArea div.pagetopLink a:active{color:#996600;}
+#footerArea div.pagetopLink a:focus{color:#996600;}
+
+#footerArea div.footerMain{
+padding-top:0;
+background:#FFF;
+}
+
+#footerArea ul.footerNavigation01{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 0;
+}
+
+#footerArea #copyright{
+color:#666;
+}

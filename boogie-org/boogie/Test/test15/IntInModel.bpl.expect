@@ -1,0 +1,19 @@
+*** MODEL
+i -> 0
+ControlFlow -> {
+  0 0 -> 30
+  0 24 -> (- 31)
+  0 30 -> 24
+  else -> (- 31)
+}
+tickleBool -> {
+  false -> true
+  true -> true
+  else -> true
+}
+*** END_MODEL
+IntInModel.bpl(4,3): Error BP5001: This assertion might not hold.
+Execution trace:
+    IntInModel.bpl(4,3): anon0
+
+Boogie program verifier finished with 0 verified, 1 error

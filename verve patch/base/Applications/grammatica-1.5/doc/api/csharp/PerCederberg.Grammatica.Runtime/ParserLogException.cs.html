@@ -1,0 +1,156 @@
+<HTML>
+<HEAD>
+<TITLE>
+ParserLogException.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * ParserLogException.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2005 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A parser log exception. This class contains a list of all the
+     * parse errors encountered while parsing.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     * @since    1.1
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> ParserLogException <font color="black">:</font> Exception <font color="black">{</font>
+
+        <font color="green">/**
+         * The list of errors found.
+         */</font>
+        <font color="blue">private</font> ArrayList errors <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * Creates a new empty parser log exception.
+         */</font>
+        <font color="blue">public</font> ParserLogException<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The message property (read-only). This property contains
+         * the detailed exception error message.
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string Message <font color="black">{</font>
+            <font color="blue">get</font><font color="black">{</font>
+                StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>i <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        buffer.Append<font color="black">(</font><font color="maroon">"\n"</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                    buffer.Append<font color="black">(</font><font color="blue">this</font><font color="black">[</font>i<font color="black">]</font>.Message<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error count property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Count <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> errors.Count;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the number of errors in this log.
+         *
+         * @return the number of errors in this log
+         *
+         * @see #Count
+         *
+         * @deprecated Use the Count property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetErrorCount<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Count;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error index (read-only). This index contains all the
+         * errors in this error log.
+         *
+         * @param index          the error index, 0 &#60;= index &#60; Count
+         *
+         * @return the parse error requested
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> ParseException <font color="blue">this</font><font color="black">[</font><font color="blue">int</font> index<font color="black">]</font> <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="black">(</font>ParseException<font color="black">)</font> errors<font color="black">[</font>index<font color="black">]</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a specific error from the log.
+         *
+         * @param index          the error index, 0 &#60;= index &#60; count
+         *
+         * @return the parse error requested
+         *
+         * @deprecated Use the class indexer instead.
+         */</font>
+        <font color="blue">public</font> ParseException GetError<font color="black">(</font><font color="blue">int</font> index<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">this</font><font color="black">[</font>index<font color="black">]</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a parse error to the log.
+         *
+         * @param e              the parse error to add
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> AddError<font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+            errors.Add<font color="black">(</font>e<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the detailed error message. This message will contain
+         * the error messages from all errors in this log, separated by
+         * a newline.
+         *
+         * @return the detailed error message
+         *
+         * @see #Message
+         *
+         * @deprecated Use the Message property instead.
+         */</font>
+        <font color="blue">public</font> string GetMessage<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Message;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

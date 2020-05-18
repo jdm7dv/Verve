@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+<TITLE>
+RegExpException.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * RegExpException.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2005 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime.RE <font color="black">{</font>
+
+    <font color="green">/**
+     * A regular expression exception. This exception is thrown if a
+     * regular expression couldn't be processed (or "compiled")
+     * properly.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.0
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> RegExpException <font color="black">:</font> Exception <font color="black">{</font>
+
+        <font color="green">/**
+         * The error type enumeration.
+         */</font>
+        <font color="blue">public</font> <font color="blue">enum</font> ErrorType <font color="black">{</font>
+
+            <font color="green">/**
+             * The unexpected character error constant. This error is
+             * used when a character was read that didn't match the
+             * allowed set of characters at the given position.
+             */</font>
+            UNEXPECTED_CHARACTER,
+
+            <font color="green">/**
+             * The unterminated pattern error constant. This error is
+             * used when more characters were expected in the pattern.
+             */</font>
+            UNTERMINATED_PATTERN,
+
+            <font color="green">/**
+             * The unsupported special character error constant. This
+             * error is used when special regular expression
+             * characters are used in the pattern, but not supported
+             * in this implementation.
+             */</font>
+            UNSUPPORTED_SPECIAL_CHARACTER,
+
+            <font color="green">/**
+             * The unsupported escape character error constant. This
+             * error is used when an escape character construct is
+             * used in the pattern, but not supported in this
+             * implementation.
+             */</font>
+            UNSUPPORTED_ESCAPE_CHARACTER,
+
+            <font color="green">/**
+             * The invalid repeat count error constant. This error is
+             * used when a repetition count of zero is specified, or
+             * when the minimum exceeds the maximum.
+             */</font>
+            INVALID_REPEAT_COUNT
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error type constant.
+         */</font>
+        <font color="blue">private</font> ErrorType type;
+
+        <font color="green">/**
+         * The error position.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> position;
+
+        <font color="green">/**
+         * The regular expression pattern.
+         */</font>
+        <font color="blue">private</font> string pattern;
+
+        <font color="green">/**
+         * Creates a new regular expression exception.
+         *
+         * @param type           the error type constant
+         * @param pos            the error position
+         * @param pattern        the regular expression pattern
+         */</font>
+        <font color="blue">public</font> RegExpException<font color="black">(</font>ErrorType type, <font color="blue">int</font> pos, string pattern<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.type <font color="black">=</font> type;
+            <font color="blue">this</font>.position <font color="black">=</font> pos;
+            <font color="blue">this</font>.pattern <font color="black">=</font> pattern;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The message property. This property contains the detailed
+         * exception error message.
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string Message <font color="black">{</font>
+            <font color="blue">get</font><font color="black">{</font>
+                <font color="blue">return</font> GetMessage<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the exception error message.
+         *
+         * @return the exception error message
+         */</font>
+        <font color="blue">public</font> string GetMessage<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+            <font color="green">// Append error type name</font>
+            <font color="blue">switch</font> <font color="black">(</font>type<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> ErrorType.UNEXPECTED_CHARACTER<font color="black">:</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"unexpected character"</font><font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> ErrorType.UNTERMINATED_PATTERN<font color="black">:</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"unterminated pattern"</font><font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> ErrorType.UNSUPPORTED_SPECIAL_CHARACTER<font color="black">:</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"unsupported character"</font><font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> ErrorType.UNSUPPORTED_ESCAPE_CHARACTER<font color="black">:</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"unsupported escape character"</font><font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> ErrorType.INVALID_REPEAT_COUNT<font color="black">:</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"invalid repeat count"</font><font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"internal error"</font><font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Append erroneous character</font>
+            buffer.Append<font color="black">(</font><font color="maroon">": "</font><font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>position <font color="black">&#60;</font> pattern.Length<font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">'\''</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>pattern.Substring<font color="black">(</font>position<font color="black">)</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">'\''</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"&#60;end of pattern&#62;"</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Append position</font>
+            buffer.Append<font color="black">(</font><font color="maroon">" at position "</font><font color="black">)</font>;
+            buffer.Append<font color="black">(</font>position<font color="black">)</font>;
+
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

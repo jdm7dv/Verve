@@ -1,0 +1,283 @@
+<HTML>
+<HEAD>
+<TITLE>
+ProductionPatternElement.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * ProductionPatternElement.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2005 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A production pattern element. This class represents a reference to
+     * either a token or a production. Each element also contains minimum
+     * and maximum occurence counters, controlling the number of
+     * repetitions allowed. A production pattern element is always
+     * contained within a production pattern rule.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> ProductionPatternElement <font color="black">{</font>
+
+        <font color="green">/**
+         * The token flag. This flag is true for token elements, and
+         * false for production elements.
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> token;
+
+        <font color="green">/**
+         * The node identity.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> id;
+
+        <font color="green">/**
+         * The minimum occurance count.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> min;
+
+        <font color="green">/**
+         * The maximum occurance count.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> max;
+
+        <font color="green">/**
+         * The look-ahead set associated with this element.
+         */</font>
+        <font color="blue">private</font> LookAheadSet lookAhead;
+
+        <font color="green">/**
+         * Creates a new element. If the maximum value if zero (0) or
+         * negative, it will be set to Int32.MaxValue.
+         *
+         * @param isToken        the token flag
+         * @param id             the node identity
+         * @param min            the minimum number of occurancies
+         * @param max            the maximum number of occurancies, or
+         *                       negative for infinite
+         */</font>
+        <font color="blue">public</font> ProductionPatternElement<font color="black">(</font><font color="blue">bool</font> isToken,
+                                        <font color="blue">int</font> id,
+                                        <font color="blue">int</font> min,
+                                        <font color="blue">int</font> max<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">this</font>.token <font color="black">=</font> isToken;
+            <font color="blue">this</font>.id <font color="black">=</font> id;
+            <font color="blue">if</font> <font color="black">(</font>min <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                min <font color="black">=</font> <font color="maroon">0</font>;
+            <font color="black">}</font>
+            <font color="blue">this</font>.min <font color="black">=</font> min;
+            <font color="blue">if</font> <font color="black">(</font>max <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                max <font color="black">=</font> Int32.MaxValue;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>max <font color="black">&#60;</font> min<font color="black">)</font> <font color="black">{</font>
+                max <font color="black">=</font> min;
+            <font color="black">}</font>
+            <font color="blue">this</font>.max <font color="black">=</font> max;
+            <font color="blue">this</font>.lookAhead <font color="black">=</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The node identity property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Id <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> id;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the node identity.
+         *
+         * @return the node identity
+         *
+         * @see #Id
+         *
+         * @deprecated Use the Id property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetId<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Id;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The minimum occurence count property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> MinCount <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> min;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the minimum occurence count.
+         *
+         * @return the minimum occurence count
+         *
+         * @see #MinCount
+         *
+         * @deprecated Use the MinCount property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetMinCount<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> MinCount;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The maximum occurence count property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> MaxCount <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> max;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the maximum occurence count.
+         *
+         * @return the maximum occurence count
+         *
+         * @see #MaxCount
+         *
+         * @deprecated Use the MaxCount property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetMaxCount<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> MaxCount;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The look-ahead set property. This is the look-ahead set
+         * associated with this alternative.
+         */</font>
+        <font color="blue">internal</font> LookAheadSet LookAhead <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> lookAhead;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                lookAhead <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns true if this element represents a token.
+         *
+         * @return true if the element is a token, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsToken<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> token;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns true if this element represents a production.
+         *
+         * @return true if the element is a production, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsProduction<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="black">!</font>token;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if a specific token matches this element. This
+         * method will only return true if this element is a token
+         * element, and the token has the same id and this element.
+         *
+         * @param token          the token to check
+         *
+         * @return true if the token matches this element, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsMatch<font color="black">(</font>Token token<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> IsToken<font color="black">(</font><font color="black">)</font> <font color="black">&</font><font color="black">&</font> token <font color="black">!</font><font color="black">=</font> <font color="blue">null</font> <font color="black">&</font><font color="black">&</font> token.Id <font color="black">=</font><font color="black">=</font> id;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if this object is equal to another. This method only
+         * returns true for another identical production pattern
+         * element.
+         *
+         * @param obj            the object to compare with
+         *
+         * @return true if the object is identical to this one, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">bool</font> Equals<font color="black">(</font><font color="blue">object</font> obj<font color="black">)</font> <font color="black">{</font>
+            ProductionPatternElement  elem;
+
+            <font color="blue">if</font> <font color="black">(</font>obj <font color="blue">is</font> ProductionPatternElement<font color="black">)</font> <font color="black">{</font>
+                elem <font color="black">=</font> <font color="black">(</font>ProductionPatternElement<font color="black">)</font> obj;
+                <font color="blue">return</font> <font color="blue">this</font>.token <font color="black">=</font><font color="black">=</font> elem.token
+                    <font color="black">&</font><font color="black">&</font> <font color="blue">this</font>.id <font color="black">=</font><font color="black">=</font> elem.id
+                    <font color="black">&</font><font color="black">&</font> <font color="blue">this</font>.min <font color="black">=</font><font color="black">=</font> elem.min
+                    <font color="black">&</font><font color="black">&</font> <font color="blue">this</font>.max <font color="black">=</font><font color="black">=</font> elem.max;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">false</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a hash code for this object.
+         *
+         * @return a hash code for this object
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">int</font> GetHashCode<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">this</font>.id <font color="black">*</font> <font color="maroon">37</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of this object.
+         *
+         * @return a string representation of this object
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+            buffer.Append<font color="black">(</font>id<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>token<font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"(Token)"</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"(Production)"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>min <font color="black">!</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">|</font><font color="black">|</font> max <font color="black">!</font><font color="black">=</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"{"</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>min<font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">","</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>max<font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"}"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

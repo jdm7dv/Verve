@@ -1,0 +1,148 @@
+/*
+Grammar for JSON data, following http://www.json.org/
+and compliant with http://www.ietf.org/rfc/rfc4627
+
+"Start Symbol" = <Json>
+"Case Sensitive" = True
+"Character Mapping" = 'Unicode'
+
+! ------------------------------------------------- Sets
+
+{Unescaped} = {All Valid} - {&1 .. &19} - ["\]
+{Hex} = {Digit} + [ABCDEFabcdef]
+{Digit9} = {Digit} - [0]
+
+! ------------------------------------------------- Terminals
+
+Number = '-'?('0'|{Digit9}{Digit}*)('.'{Digit}+)?([Ee][+-]?{Digit}+)?
+String = '"'({Unescaped}|'\'(["\/bfnrt]|'u'{Hex}{Hex}{Hex}{Hex}))*'"'
+
+! ------------------------------------------------- Rules
+
+<Json> ::= <Object>
+         | <Array>
+
+<Object> ::= '{' '}'
+           | '{' <Members> '}'
+
+<Members> ::= <Pair>
+            | <Pair> ',' <Members>
+
+<Pair> ::= String ':' <Value>
+
+<Array> ::= '[' ']'
+          | '[' <Elements> ']'
+
+<Elements> ::= <Value>
+             | <Value> ',' <Elements>
+
+<Value> ::= String
+          | Number
+          | <Object>
+          | <Array>
+          | true
+          | false
+          | null
+
+*/
+
+SETTINGS
+
+  NameSpace            = 'Prolog'
+  ParserClassPrefix    = 'Json'
+  TerminalDescrPayload = 'object'
+  CrNoticeNr           = 2
+  CaseSensitive        = Y
+  CodeStringChar       = '|'
+  CommentStart         = '/*'
+  CommentEnd           = '*/'
+  SingleComment        = '%'
+  StringStart          = '"'
+  StringEnd            = '"'
+  StringEscape         = '\'
+  EOICheck             = Y
+
+
+TERMINALS
+
+  LSqBracket = '['
+  RSqBracket = ']'
+  LCuBracket = '{'
+  RCuBracket = '}'
+  Colon      = ':'
+  TrueSym    = 'true'
+  FalseSym   = 'false'
+  NullSym    = 'null'
+
+
+RULES
+
+  JsonStruct ->
+    (: JsonObject + |out jsonListTerm|
+    [] JsonArray + |out jsonListTerm|
+    :)
+  ---
+
+
+  JsonObject + |out BaseTerm t| ->
+    |BaseTerm e;|
+    |List<BaseTerm> listItems = new List<BaseTerm> ();|
+    LCuBracket
+    (: JsonPair + |out e|
+       |listItems.Add (e);|
+    :) CHAIN Comma OPTION
+    RCuBracket
+    |t = JsonTerm.FromArray (listItems.ToArray ());|
+  ---
+
+
+  JsonPair + |out BaseTerm t| ->
+    |BaseTerm t0, t1;|
+    StringLiteral
+    |t0 = new StringTerm (symbol.ToString ().Dequoted ());|
+    Colon
+    JsonValue + |out t1|
+    |t = new OperatorTerm (opTable, PrologParser.COLON, t0, t1);|
+  ---
+
+
+  JsonArray + |out BaseTerm t| ->
+    |BaseTerm e;|
+    |List<BaseTerm> listItems = new List<BaseTerm> ();|
+    LSqBracket
+    (: JsonValue + |out e|
+       |listItems.Add (e);|
+    :) CHAIN Comma OPTION
+    RSqBracket
+    |t = new CompoundTerm ("array", ListTerm.ListFromArray (listItems.ToArray (), BaseTerm.EMPTYLIST));|
+  ---
+
+
+  JsonValue + |out BaseTerm t| ->
+    (: JsonObject + |out t|
+    [] JsonArray + |out t|
+    [] JsonLiteral + |out t|
+    :)
+  ---
+
+
+  JsonLiteral + |out BaseTerm t| ->
+    (: (: IntLiteral [] RealLiteral :)
+       |t = new DecimalTerm (symbol.ToDecimal ());|
+    [] StringLiteral
+       |t = new StringTerm (symbol.ToString ().Dequoted ());|
+%?    [] Identifier % for hex numbers starting with a letter only
+%?       |t = new AtomTerm (symbol.ToString ().Dequoted ());|
+    [] TrueSym
+       |t = new AtomTerm ("true");|
+    [] FalseSym
+       |t = new AtomTerm ("false");|
+    [] NullSym
+       |t = new AtomTerm ("null");|
+    :)
+  ---
+
+
+ROOT
+
+  JsonStruct

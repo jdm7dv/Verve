@@ -1,0 +1,2458 @@
+5
+% HELP TEXTS - remarks:
+%
+% - Lines beginning with a % are considered comment lines.
+%
+% - Very first line (optional): number of columns displayed for ':- help.'
+%   Default is 5
+%
+% - Help items are started by a header line beginning with one or more
+%   '_', followed by <predicate name>/[<arity>|*], optionally followed by
+%   one or more '_' (cf. header Regex in Utils.CreateHelpResourceFile ()).
+%   This first line will not be part of the text that is displayed.
+%   The other lines are used verbatim: leading spaces are not removed.
+%
+% - Blank lines immediately before and after headers line are ignored.
+%
+%   The 'help.' command will display the help items in alphabetical order,
+%   so the order in this file will not necessarily be maintained.
+
+________________ parser/*
+
+The parser (defined in pl.grm, expanded by a preprocessor to pl.cs) splits the input
+in a sequence of tokens. These tokens are actually 'high level' tokens, because the
+parser already recursively reduces a number of syntactical constructs (functors with
+argument lists, terms in parentheses, ordinary lists and grammar lists in curly
+brackets, stand-alone operators) to single terms. This means that the parser can
+actually be regarded as a high level tokenizer, and that the token sequence it
+delivers only contains operators and single terms that have already been created in
+the recursion, and does (therefore) no longer contain parentheses, square brackets,
+and curly brackets. This significantly simplifies the subsequent analysis - in which
+syntax checking and operator overloading and precedence checking takes place.
+The thus-generated sequence of tokens conforms to the following grammar:
+
+(1) E -> F (zfz F)*         // zfz is an infix operator ...
+(2) F -> fz* E zf* | Term   // ... fz prefix, zf postfix
+
+Each token is analysed and compared with the previous token as soon as it has been
+parsed. Not only the order prescribed by the grammar is checked, but also which form
+of an overloaded operator must be chosen and whether consecutive operators have the
+appropriate associativity and precedence. It turns out that the lookahead of one
+symbol is enough to perform this process.
+
+Incoming tokens are pushed on a stack (Infix Stack, IS). There are eight types of
+token: Term, Infix (operator), Prefix, Postfix, Infix/Prefix, Infix/Postfix, and two
+pseudo-tokens: Beginning of Stream and End of Stream. This means that there are 64
+possibilities for the combination <stacktop token, new token>. A number of these
+combinations cannot occur in practice or denotes a syntax error. For a number of
+others, identical processing is required. The cases are dealt with in a large switch
+statement, in which the 64 cases have been written out and combined whenever possible.
+
+A slight complication occurs when an overloaded Infix/Postfix operator is added to the
+sequence. If the top token is a Term or Postfix operator, it cannot be decided which
+role (infix or postfix) must be chosen until the next token arrives. If the next token
+is a term, it must be an infix; if the next token is a postfix, it must be set to
+postfix. In doing so, however, the precedence and associativity must be compared with
+the precedence of the penultimate token (just below the top token).
+To make this slightly easier, a token variable ‘prevOd’ (Operator descriptor) has been
+introduced, which contains the precedence of the previous token.
+
+The above strategy will guarantee that:
+
+1. The sequence of prefix operators preceding a term have non-increasing precedences;
+
+2. The sequence of postfix operators following a term have non-decreasing precedences;
+
+3. The infix operators connecting the factors F in grammar rule (1) above have
+   precedence values and associativities that agree with the prefix / postfix operators
+   following / preceding them.
+
+The only remaining problem is that sofar no check has been carried out on the
+relations between the infix operators themselves. E.g. in 'T1 inf1 T2 inf2 T3'
+operators inf1 and inf2 may have irreconcilable associativities when their
+precedences are equal. In that case, xfy yfx is ambiguous and ?fx xf? denotes an
+operator clash. These checks are performed in InfixToPrefix().
+
+The above-described code can be found in file TokenSeqToTerm.cs.
+
+________________ csprolog_dll/*
+
+How to use a PrologEngine from within another program?
+
+The PrologEngine class offers two public methods for this purpose:
+
+- GetAllSolutions (...)
+- GetAllSolutionsXml (...)
+
+ public SolutionSet GetAllSolutions (string sourceFileName, string query, int maxSolutionCount)
+ public SolutionSet GetAllSolutions (string sourceFileName, string query)
+
+The purpose of this method is to find all solutions for query 'query', with a maximum number
+of solutions 'maxSolutionCount'. If the value of this parameter is <= 0, all solutions will
+be determined.
+
+'sourceFileName' may contain the name of a Prolog source file that is to be consulted prior
+to the execution of the query. Enter a null-value if no such source file is present.
+
+The solutions that are found, are collected in an instance of the public 'SolutionSet' class.
+A SolutionSet contains a list of variables of the 'Solution' class type, where each solution
+contains a list of variables of the 'Variable' class type. A Variable contain the name, data type
+and value of the Prolog variable that got instantiated as a result of executing the query.
+
+'SolutionSet' contains three other properties:
+
+- string Query  : the query you provided as parameter
+- bool Success  : true if the query succeeded, false if it did not
+- int Count     : the number of Solutions in SolutionSet. Notice that this number may be zero
+                  also if Success = true, i.e. the query succeeded, but no variables are available
+                  for output.
+- bool HasError : true if a runtime error occurred. A test on this is left out in the examples
+                  1 and 2 below, but this obviously should always be present.
+- string ErrMsg : the text of the error message.
+
+In addition, 'SolutionSet' exports a ToString() method showing the above information in a condensed form.
+
+ public string GetAllSolutionsXml (string sourceFileName, string destinFileName, string query, int maxSolutionCount)
+ public string GetAllSolutionsXml (string sourceFileName, string destinFileName, string query)
+
+These method are similar to there GetAllSolutions counterparts. The main difference is that
+the solution set is stored in an XML-structure. This structure is written to 'destinFileName' if
+such a name is provided, and returned as a string method result if 'destinFileName' is null.
+If a runtime error occurs, the text of the error will be stored in a node named <error>.
+
+The solution contains a console project PLx (containing a Reference to the CsProlog project), with
+a simple main program demonstrating the use of the above methods:
+
+|  static void Main (string [] args)
+|  {
+|    PrologEngine e = new PrologEngine ();
+|    // Example 1 -- the age/2 predicate is a builtin example; defined in Bootstrap.cs
+|
+|    Console.WriteLine ("Example 1");
+|    Console.WriteLine ();
+|
+|    SolutionSet ss = e.GetAllSolutions (null, "age(P,N)");
+|
+|    if (ss.Success)
+|    {
+|      for (int i = 0; i < ss.Count; i++ ) // or: foreach (Solution s in ss.NextSolution)
+|      {
+|        Solution s = ss [i];
+|        Console.WriteLine ("Solution {0}", i+1);
+|
+|        foreach (Variable v in s.NextVariable)
+|          Console.WriteLine (string.Format ("{0} ({1}) = {2}", v.Name, v.Type, v.Value));
+|      }
+|    }
+|    else
+|      Console.WriteLine ("Failure");
+|
+|    // Example 2 -- xml generation
+|
+|    Console.WriteLine ("Example 2");
+|    Console.WriteLine ();
+|
+|    string result = e.GetAllSolutionsXml (null, null, "age(P,N)");
+|    Console.WriteLine (result);
+|    Console.WriteLine ();
+|
+|    // Example 3 -- error
+|
+|    Console.WriteLine ("Example 3");
+|    Console.WriteLine ();
+|
+|    ss = e.GetAllSolutions (null, "age(P,))))))))))");
+|
+|    if (ss.HasError)
+|      Console.WriteLine ("An error occurred: {0}", ss.ErrMsg);
+|
+|    Console.WriteLine ("Press any key to exit");
+|    Console.ReadKey ();
+|  }
+
+Result of running this program:
+
+|  Example 1
+|
+|  Solution 1
+|  P (atom) = peter
+|  N (number) = 7
+|  Solution 2
+|  P (atom) = ann
+|  N (number) = 5
+|  Solution 3
+|  P (atom) = ann
+|  N (number) = 6
+|  Solution 4
+|  P (atom) = pat
+|  N (number) = 8
+|  Solution 5
+|  P (atom) = tom
+|  N (number) = 5
+|
+|  Example 2
+|
+|  <?xml version="1.0" encoding="Windows-1252"?>
+|  <solutions success="true">
+|    <query>age(P,N)</query>
+|    <solution>
+|      <variable name="P" type="atom">peter</variable>
+|      <variable name="N" type="number">7</variable>
+|    </solution>
+|    <solution>
+|      <variable name="P" type="atom">ann</variable>
+|      <variable name="N" type="number">5</variable>
+|    </solution>
+|    <solution>
+|      <variable name="P" type="atom">ann</variable>
+|      <variable name="N" type="number">6</variable>
+|    </solution>
+|    <solution>
+|      <variable name="P" type="atom">pat</variable>
+|      <variable name="N" type="number">8</variable>
+|    </solution>
+|    <solution>
+|      <variable name="P" type="atom">tom</variable>
+|      <variable name="N" type="number">5</variable>
+|    </solution>
+|  </solutions>
+|
+|  Example 3
+|
+|  An error occurred:
+|  *** input string: line 1 position 7
+|  age(P,)))))))))).
+|  *** Unexpected symbol: ")"
+|  *** Expected one of: (, <Identifier>, <IntLiteral>, <RealLiteral>, <ImagLiteral>
+|  , <StringLiteral>, **, /\, <<, /, spy, xor, -, ?=, @>=, @>, >=, >, =\=, =:, ;, :
+|  -, '{}', ^, mod, >>, //, nospy, \/, #, :, =.., @=<, @<, =<, <, =:=, :=, ->, \+,
+|  once, help, =, ==, is, \==, \=, not, <Atom>, <Anonymous>, <CutSym>, [, {, <ListP
+|  atternOpen>, TRY, {=, =}, <AltListOpen>, <AltListClose>, <VerbatimStringLiteral>
+|
+|  Press any key to exit
+
+________________ howto_create_predicate/*
+
+How to create a new predicate
+
+The easiest way to do this is by studying an existing predicate that is more or less
+similar in number, type and mode (in/out/inout) to your predicate. Anyway, you will
+have to do the following at least:
+
+1. Create an entry in BOOTSTRAP.CS. The format of such an entry is
+   <predicate name>( <list of aruments>) :== <BI enum entry>.
+
+2. Add a value BI.<BI enum entry> to the BI enum in BUILTINS.CS.
+
+3. Create the code for your predicate in the switch-statement in BUILTINS.CS.
+
+Backtrackable predicates
+
+These are all implemented according to the same pattern: a predicate with an extra
+first State argument is introduced. This argument maintains the state between two
+successive backtracking calls. It is initialized at the first call, and reset to an
+unbound variable after the last successful call. UserClassTerm (in DerivedTerms.cs)
+can be used for creating a State term with an arbitrary class type content. In my
+experience, an enumerator is eminently suited for this task, since in fact it can
+be considered a finite state engine that yields one value at a time and saves state
+between calls. See Bootstrap.cs for examples, or study the implementation of the
+permutation/2 predicate for an example.
+
+Options
+
+There is a class called PredicateCallOptions which has an instance predicateCallOptions
+that you can use to easily access a list of options that specify the behaviour of a predicate.
+
+Example: json_term( ..., [indent(2,4), nocommas, noquotes]).
+
+To see how this feature is used, have a look at the implementation of json_term/2/3.
+
+________________ talk/*
+
+A demo program described in the following book:
+TALK (Fernando Pereira, Stuart Shieber)
+Prolog and Natural Language Analysis
+pp. 149+
+
+A PDF-version of this book (obtained from Internet after googling
+"Fernando Pereira TALK-program") can be found in the TALK directory.
+
+talk :- ['TALK\\talk'].
+
+Start the program by entering 'go.'; end by entering an empty line.
+
+Sample dialog (TALK-responses not shown) (notice: no terminating dots):
+
+>> principia is a book
+>> bertrand wrote every book
+>> what did bertrand write
+
+________________ '!if'/*
+
+Conditional definition symbols can be used to include or exclude portions of a source file.
+Available symbols are:
+
+!define <atom>
+!if <atom>
+!ifnot <atom>
+!else
+!elseif <atom>
+!endif
+!undefine <atom>
+
+A conditional definition symbol must be the first symbol on a line.
+Conditional definition directives must be written as sets consisting of, in order,
+an !if directive, zero or more !elseif directives, zero or one !else directive, and
+an !endif directive. Between the directives are conditional sections of source code.
+Each section is controlled by the immediately preceding directive.
+
+A conditional section may itself contain nested conditional definition directives
+provided these directives form complete sets.
+
+________________ chat80/*
+
+CHAT-80 (Fernando Pereira) (http://www.cis.upenn.edu/~pereira/oldies.html)
+
+See demo.txt and docu in the CHAT-directory for examples.
+Start CHAT by entering 'hi.', end by entering 'bye.'
+
+The CHAT-software is copyrighted !!!  (although I do not think Fernando
+Pereira still cares -- unfortunately he never responded to mails)
+
+________________ batch/*
+
+It is possible to call the Prolog engine from within a batch file, using pld.exe. When
+pld.exe is called with arguments, it is automatically assumed that Prolog must be
+started up in batch mode. The first argument specifies the query that should be
+carried out; the optional second argument specifies the number of times backtracking
+should be applied. The default is 0; if a * is specified, backtracking will take place
+as often as possible. If an error occurs, the error message is displayed on the console,
+and the DOS ExitCode is set to 1.
+
+Example:
+
+call pld.exe "[test], run_test( 12)" *
+
+This means that Prolog will consult TEST.PL, and then execute run_test(12). Backtracking
+will be carried out as often as possible.
+
+It is also possible to call plw.exe in batch mode. In that case, output is written to a
+log file in the subdirectory called BATCHLOGS of the directory in which the executable
+resides.
+
+The reason you might be wanting to use this is that certain Windows-mode operations
+will not run in console mode (e.g. writing to the clipboard).
+
+________________ try_catch/*
+
+It is possible to use a TRY/CATCH construct in a predicate.
+It has the following syntax:
+
+TRY
+(<terms>)
+CATCH [<exception class>] [, M]
+(<terms>)
+CATCH [<exception class>] [, M]
+(<terms>) ...
+
+So, a TRY/CATCH statement can have more than one CATCH-clauses, each labeled
+with the name of an 'exception class' that can be given freely by the user and
+that corresponds to the exception class name in the throw/2/3 predicate.
+
+When a throw is executed within a TRY-body, the list of CATCH-clauses is searched
+for one with the exception class specified in the throw, or for one without an
+exception class.
+
+In throw, a message can be specified. This message will be bound to the optional
+message variable M that a CATCH-clause can have.
+
+If the exception cannot be handled in the predicate in which the throw was done,
+the calling predicate is searched (provided the call was made in the body of a TRY).
+
+Example:
+
+tc_test :-
+  TRY
+  (
+    nested
+  )
+  CATCH outer, T
+  (
+    writelnf( "Now in tc_test CATCH outer, error message is '{0}'", T),
+    throw( foo, "No catch available")
+  ).
+
+nested :-
+  TRY
+  (
+    writeln("Now in nested TRY"),
+    throw( excp1, "excp1 thrown")
+  )
+  CATCH excp0, M
+  (
+    writelnf("Now in CATCH excp0, exception msg is '{0}'", M)
+  )
+  CATCH excp1, M
+  (
+    writelnf("Now in CATCH excp1, exception msg is '{0}'", M),
+    throw( outer, M)
+  )
+  CATCH outer
+  (
+    writeln( "Now in nested CATCH outer")
+  )
+  CATCH M
+  (
+    writeln( "Now in nested CATCH without exception class")
+  ).
+
+If tc_test is executed, the following output will appear:
+
+Now in nested TRY
+Now in CATCH excp1, exception msg is 'excp1 thrown'
+Now in tc_test CATCH outer, error message is 'excp1 thrown'
+
+*** error: No CATCH found for throw( foo, "No catch available")
+
+If a file-operation fails (e.g. file not found), a Prolog exception 'ioException'
+will be raised. Example:
+
+42 ?- TRY
+      ( see(fred) )
+      CATCH ioException, Msg
+      ( writelnf( "Now in CATCH; file not found, message was:\r\n{0}", Msg) ).
+
+Now in CATCH; file not found, message was:
+Error while opening file 'P:\CSProlog\PLd\bin\Debug\fred.pl' for input.
+Message was:
+Could not find file 'P:\CSProlog\PLd\bin\Debug\fred.pl'.
+
+yes
+
+43 ?-
+
+________________ listpattern/*
+
+  A ListPatternTerm is a list that is opened by [! and closed by !]. It is used
+  to specify a pattern (arrangement of list elements) that a regular list must
+  conform to in order to get unified with it. If the list conforms, variables in
+  the ListPatternTerm can be used for picking up specific terms or sublists.
+
+  Here are some examples:
+
+  % get the last element of a list.
+  % '..' denotes a 'gap' consisting of an arbitrary number of elements.
+
+  1 ?- [1,2,3,4] = [! .., L !].
+
+   L = 4
+
+  % A gap can also be specified as follows:
+  % {<minimum number of elements>, <maximum number of elements>}
+  % A gap can be prefixed with a variable, which will contain a list
+  % of the elements in the gap, e.g. X.. or X{1,6}
+
+  % Search in a list for sublist with a length between 2 and 5
+  % inclusive, that is bounded by the atom xxx at both sides.
+
+  2 ?- [! .., xxx, S{2,5}, xxx, ..!] = [a, xxx, 1,2,3,4, xxx, 5].
+
+   S = [1, 2, 3, 4]
+
+  % Search in an name=value list for the value of
+  % a specific attribute
+
+  3 ?- [! .., color=C, ..!] = [length=12, height=78, color=red, weight=100].
+
+   C = red
+
+  % A pattern can also be used in a predicate clause head.
+  % Suppose we have the following predicate definition:
+
+  x([! .., p(X)|q(X), .. !], X).
+
+  % The | is used for separating alternative matches.
+  % Now we can call it like this:
+
+  4 ?- x( [1, 2, 3, p(9), 4], Z).
+
+   Z = 9
+
+  % Max. 5 elements at the beginning, followed by a or b or c,
+  % followed by arbitrary elements.
+  % Y! means that the selected alternative must be unified with Y
+
+  5 ?- [! X{,5}, Y!a|b|c, .. !] = [1, 2, 4 ,b , 5,6].
+
+   X = [1, 2, 4]
+   Y = b
+
+  % A list of integers, containing N followed by precisely N
+  % elements, followed by N again.
+  
+  6 ?- [! 1, 2, N, X{N}, N !] = [1, 2, 3, a, b, c, 3].
+
+   N = 3
+   X = [a, b, c]
+
+________________ history/*
+
+  Command history commands:
+  ========================
+  !!                : show numbered list of previous commands
+  !                 : repeat previous command
+  !<n>              : repeat command number <n>
+  !/<old>/<new>/    : repeat previous command, with <old> replaced by <new>.
+                       / may be any char, and the end / may be omitted.
+  !<n>/<old>/<new>/ : same for command number <n>
+  !c                : clear the history
+  !?                : help (this text)
+
+  History commands must not be followed by a '.'
+
+________________ @</2
+
+X @< Y
+
+  Succeeds if X is less than Y in the standard ordening of terms.
+
+________________ @=</2
+
+X @=< Y
+
+  Succeeds if X is less than or equal to Y in the standard ordening of terms.
+
+________________ @>=/2
+
+X @>= Y
+
+  Succeeds if X is greater than or equal to Y in the standard ordening of terms.
+
+________________ @>/2
+
+X @> Y
+
+  Succeeds if X is greater than Y in the standard ordening of terms.
+
+________________ \+/1
+
+\+( +P)
+
+  Succeeds if predicate P fails. Same as not/1.
+
+________________ \==/2
+
+X \== Y
+
+  Succeeds if X and Y do not refer to the same term.
+
+________________ \=/2
+
+X \= Y
+
+  Succeeds if X can not be unified with Y.
+
+________________ </2
+
+X < Y
+
+  Succeeds if X the value of X is less than the value of Y
+  when both X and Y are evaluated as with is/2.
+
+________________ =../2
+
+?T =.. ?L
+
+  univ-predicate. L is the list with the functor of term T as its
+  first element and the arguments of T as the rest of the elements.
+  At least one argument must be instantiated.
+
+________________ =:=/2
+
+X =:= Y
+
+  Succeeds if X the value of X is equal to the value of Y
+  when both X and Y are evaluated as with is/2.
+
+________________ =\=/2
+
+X =\= Y
+
+  Succeeds if X the value of X is unequal to the value of Y
+  when both X and Y are evaluated as with is/2.
+
+________________ =</2
+
+X =< Y
+
+  Succeeds if X the value of X is equal to or less than the value of Y
+  when both X and Y are evaluated as with is/2.
+
+________________ ==/2
+
+X == Y
+
+  Succeeds if X and Y refer to the same term.
+
+________________ >=/2
+
+X >= Y
+
+  Succeeds if X the value of X is equal to or greater than the value of Y
+  when both X and Y are evaluated as with is/2.
+
+________________ >/2
+
+X > Y
+
+  Succeeds if X the value of X is greater than the value of Y
+  when both X and Y are evaluated as with is/2.
+
+________________ abolish/1
+
+abolish( +P/N)
+
+  Remove predicate P/N from the database.
+
+________________ append/3
+
+append( ?X, ?Y, ?Z)
+
+  Z is the list consisting of list X appended with list Y. Backtrackable.
+
+________________ append2/3
+
+append2( +X, +Y, -Z)
+
+  Z is the list consisting of list X appended with list Y.
+  Faster than append/2, but not backtrackable.
+
+________________ arg/3
+
+arg( ?N, ?T, ?A)
+
+  Succeeds if A is the Nth argument of T.
+
+________________ assert/1
+
+assert( +C)
+
+  Add clause C to the program database and succeed.
+  Equivalent to assertz/1
+
+________________ asserta/1
+
+asserta( +C)
+
+  Add clause C to the beginning of the program database and succeed.
+
+________________ assertz/1
+
+assertz( +C)
+
+  Add clause C to the end of the program database and succeed.
+
+________________ atom/1
+
+atom( ?A)
+
+  true if A is an atom, false otherwise.
+
+________________ atom_string/2
+
+atom_string( ?A, ?S)
+
+  Converts atom A to string S or vice versa.
+
+________________ atomic/1
+
+atom( ?A)
+
+  true if A is an atom or a number, false otherwise.
+
+________________ bagof/3
+
+bagof( +T, +P, -L)
+
+  L contains the list with terms X that satisfy P.
+  Duplicates will not be removed (cf. setof/3)
+
+________________ between/3
+
+between( +L, +H, -N)
+
+  Upon the first call, N is set equal to L. Upon backtracking, N
+  is increased by 1, and the predicate succeeds as long as N <= H.
+
+________________ bool/1
+
+bool( X)
+
+  Succeeds if X is a bool term.
+
+________________ bw_transform/2
+
+bw_transform( ?P, ?E, ?I)
+
+  Burrows-Wheeler Transform. For a description and explanation cf. internet,
+  e.g. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
+  P and E are strings, I integer. E is the transformed version of P.
+  I is the reference position (number of rotations) that comes out as a result 
+  of the encoding and that you need for the decoding.
+
+%________________ cache/1
+%
+%cache( +P)
+%
+%  Save the results of the evaluation of predicate P in a table, and use the
+%  cached results in subsequent evaluations. The cached results are cleared
+%  immediately after the query has been executed.
+%
+________________ call/1
+
+call( P)
+
+  Execute predicate P.
+
+________________ chat/0
+
+chat
+
+  Run the sample CHAT80 program.
+
+________________ clause/2
+
+clause( Head, Body)
+
+  Retrieve a clause with head Head and body Body from the program database.
+
+________________ clearall/0
+
+clearall
+
+  Reinitialize the Prolog engine.
+
+________________ clearprofile/0
+
+clearprofile
+
+  Reset all profilecount values to zero. See the profile/1 command
+
+________________ clipboard/1
+
+clipboard( +T)
+
+  Copy the string representation of term T to the clipboard.
+
+  This works reliably in the Windows version only; it appears
+  notoriouly difficult to get this to work in a console app
+  (sometimes it works, sometimes it doesn't)
+
+________________ cls/0
+
+cls
+
+  Clear the screen.
+
+________________ complexnumber/1
+
+complexnumber( ?N)
+
+  Returns true if N is a complex number of the format a+ib,
+  where a and b are real numbers; return false otherwise.
+
+________________ compound/1
+
+compound( +X)
+
+  Succeeds if X is a compound term, i.e. if it has arguments.
+
+________________ config_setting/2
+
+config_setting( ?N, ?V)
+
+  Shows the configuration file settings. N is name, V is value.
+  Upon backtracking, the next setting is obtained.
+
+________________ consult/1
+
+consult( +F)
+consult( [+F0, +F1, ...])
+
+  Consult a file or a list of files
+
+________________ copy_term/2
+
+copy_term( +X, -Y)
+
+  Y is a fresh copy of X
+
+________________ crossref/1
+
+crossref( filename[.csv])
+
+  Generate a cross reference table for all predicates making up
+  the 'program' and store the result as a (.csv) spreadsheet.
+
+________________ current_op/3
+
+current_op( ?P, ?F, ?N)
+
+  Succeeds if an operator exists with precedence P, 'fix' F (xfy etc.), and name N.
+
+________________ dayname/4
+
+dayname( Y, M, D, N)
+
+  N is the name of the day for date Y, M, D.
+
+________________ dayofweek/4
+
+dayofweek( Y, M, D, N)
+
+  N is the ordinal number of the day of the week for date Y, M, D (Sunday = 0).
+
+________________ dayofyear/4
+
+dayofyear( Y, M, D, N)
+
+  N is the ordinal number of the day of the year for date Y, M, D (January 1 = 1).
+
+________________ debug/0
+
+debug
+
+  Switch debugging on..
+
+________________ dec_counter/1
+
+dec_counter( +C)
+
+  Decrease global counter C (atom of positive integer) by 1
+  The counter must have been set by set_counter/1.
+
+________________ dec_counter/2
+
+dec_counter( +C, ?M)
+
+  Decrease global counter C (atom of positive integer) by 1 and try to unify the result with M.
+
+________________ display/1
+
+display( ?X)
+
+  Display term X, i.e. output it as <functor>(<list of arguments>).
+
+________________ environment/2
+
+environment( +E, ?V)
+
+  Get the value V of OS environment variable E. Possible values for E are:
+
+  applicationdata
+  commandline
+  cookies
+  currentdirectory
+  desktopdirectory
+  internetcache
+  localapplicationdata
+  machinename
+  newline
+  osversion
+  programfiles
+  stacktrace
+  startup
+  systemdirectory
+  tickcount
+  userdomainname
+  userinteractive
+  username
+  version
+  workingset
+
+________________ errorlevel/1
+
+errorlevel( +N)
+
+  Set DOS ERRORLEVEL environment variable to N
+
+________________ expand_term/2
+
+expand_term( P-->Q, R)
+
+  For DCG grammars. Consult the internet on this.
+
+________________ fail/0
+
+fail
+
+  Fail.
+
+________________ fail_if_undefined/1
+
+:- fail_if_undefined( Predicate/Arity)
+
+  Directive. Fails if Predicate/Arity is not defined
+  (normal behaviour would be to raise an exception).
+
+________________ fileexists/2
+
+fileexists( +F)
+
+  Succeeds if file F exists. Default extension is '.pl'.
+  If no path is provided, the working directory will be searched
+  (see workingdir/0/1).
+
+________________ findall/3
+
+findall( +T, +P, -L)
+
+  Currently identical to setof( T, P, L).
+
+________________ flat/2
+
+flat( +X, ?Y)
+
+  Y is X with all (nested) lists flattened.
+
+________________ float/1
+
+float( +X)
+
+  Succeeds if X is a (possibly signed) floating number.
+
+________________ format/3
+
+
+format( +S, +L, ?A)
+
+  Succeeds if A is the result of formatting string S with placeholders {0}, {1} etc.,
+  and a corresponding list of arguments in list L (or a single value if there is only
+  one argument). Formatting is identical to C#-formatting.
+
+________________ functor/3
+
+functor( ?T, ?F, ?N)
+
+  Succeeds if F is the principal functor of T and N is the arity of F.
+
+________________ gensym/1
+
+gensym( -V)
+
+  Return an atom with format v<n>, n an integer unique to the session.
+
+________________ gensym/2
+
+gensym( +A, -V)
+
+  A is an atom.
+  Return an atom with format A<n>, n an integer unique to the session.
+
+________________ get0/1
+
+get0( ?N)
+
+  Read the next character from the input stream and unify it with N (ASCII value)
+
+________________ display/1
+
+display( X)
+
+  Write X to the current output in function notation, e.g. a+b -> +( a, b)
+
+________________ get/1
+
+get( ?N)
+
+  Read the next character from the input stream and unify it with N (ASCII value).
+  In doing so, skip all non-printable charactes
+
+________________ get_counter/2
+
+get_counter( +C, ?V)
+
+  Get the value of global counter C and and unify it with V.
+
+________________ getenvvar/1
+
+getenvvar( +N, ?V)
+
+  Unify V with the value of environment variable N
+
+________________ ground/1
+
+ground( ?X)
+
+  Succeeds if X is a ground term (i.e. does not contain any unbound variables)
+
+________________ halt/0
+
+halt
+
+  Exits Prolog
+
+________________ help/0
+
+help
+
+  Show help on help
+
+________________ help/1
+
+help( +P)
+help( +P/N)
+
+  Show help for predicate P or P/N
+
+________________ string_datetime/2
+
+string_datetime( ?S, ?DT)
+
+  Convert a string term to a DateTime term or vice versa.
+
+
+________________ string_datetime/4
+
+string_datetime( ?S, ?Y, ?M, ?D)
+
+  Convert a string term to the constituent parts of a DateTime term or vice versa.
+
+________________ string_datetime/7
+
+string_datetime( ?S, ?Y, ?Mo, ?D, ?H, ?Mo, S)
+
+  Convert a string term to the constituent parts of a DateTime term or vice versa.
+
+________________ inc_counter/1
+
+inc_counter( +C)
+
+  Increase global counter C (atom of positive integer) by 1.
+  The counter must have been set by set_counter/1.
+
+________________ inc_counter/2
+
+inc_counter( +C, ?M)
+
+  Increase global counter C (atom of positive integer) by 1 and try to unify the result with M.
+
+________________ integer/1
+
+integer( +N)
+
+  Succeeds if N is a (possibly signed) integer
+
+________________ ip_address/1
+
+ip_address( ?A)
+
+  Returns a string with the computer's ip address
+
+________________ ip_address/2
+
+ip_address( ?A, ?L)
+
+  Same as ip_address/1; L is a list with A split into its digital components
+
+________________ list/1
+
+list( ?L)
+
+  Succeeds if L is a proper list.
+
+  In addition to proper lists, there are partial lists and pseudo lists. Examples:
+
+  - Partial list: [1,2|Z]
+  - Pseudo list : [1,2|3]
+  - Proper list : [1,2,3]
+
+  list/1 will fail for partial lists and pseudo lists.
+
+________________ functions/*
+
+  Enter 'help( is).' for seeing all available functions for expression evaluation with is/2.
+
+________________ is/2
+
+  X is Y
+
+  Expression evaluation.
+  If Y is a list, all list arguments are evaluated
+
+  LOGICAL
+
+    false                 Logical true
+    true                  Logical false
+    if( B, X, Y)          Returns term X if boolean expression B evaluates to true, Y otherwise
+
+  MATH -- Standard arithmetical operators and functions marked with a * also accept complex arguments
+
+    * + / - ^             Standard arithmetical operators. '+' concatenates strings
+    < <= = <> \= => >     Standard relational operators
+    X /\ Y                Logical OR of X and Y if X and Y boolean, bitwise OR if decimal
+    X \/ Y                Logical OR of X and Y if X and Y boolean, bitwise OR if decimal
+    \ X                   Logical NOT of X if X is boolean, bitwise NOT if X is decimal
+    N # D                 Remainder when dividing N by D
+    N..M                  List of integers [N, N+1, ...., M]
+    X << N                Decimal value of X bitwise shifted N positions to the left
+    X >> N                Decimal value of X bitwise shifted N positions to the right
+    pi                    Value of pi
+    e                     Value of e
+    i                     Value of imaginary unit
+  * abs( X)               Absolute value of X (sqrt(re^2 + im^2) for or complex number)
+  * acos( X)              Arccos value of X
+  * arg( X)               Arg of complex number X
+  * asin( X)              Arcsin value of X
+  * atan( X)              Arctan value of X
+  * atan2( X, Y)          Arctan value of X / Y
+    ceil( X)              Smallest integer value greater than or equal to X
+  * conj( X)              Complex conjugate of X
+  * cos( X)               Cos value of X
+  * cosh( X)              Cosh value of X
+  * exp( X)               Equivalent to e^X
+    floor( X)             Greatest integer value smaller than or equal to X
+  * im( X)                Imaginary part of complex number X
+  * log( X)               Natural logarithm of X
+  * log10( X)             10-logarithm of X
+  * magnitude( X)         Magnitude of complex number X
+    max( X, Y)            Maximum value of X and Y
+    min( X)               Minimum value of X and Y
+    mod( X, Y)            Value of X modulo Y
+    phase( X)             Same as arg( X)
+  * phi( X)               Same as arg( X)
+  * re( X)                Real part of complex number X
+    round( X)             Value of X rounded to the nearest integer
+    round( X, N)          Value of X rounded to N decimal places
+    sign( X)              Sign value of X (-1, 0 or +1)
+  * sin( X)               Sin value of X
+  * sinh( X)              Sinh value of X
+  * sqr( X)               Square value of X (equivalent to X*X or X^2)
+  * sqrt( X)              Square root value of X
+  * tan( X)               Tan value of X
+  * tanh( X)              Tanh value of X
+    trunc( X)             Integer part of X
+
+  STRING
+
+    chain( L, S)          Returns a string with all elements of list L chained together (concatenated)
+                          separated by string S. E.g. chain( [1, "A", b], "++") results in "1++A++b"
+    format( F, L)         Format a string. F contains place holders {0}, {1} etc., L is args list
+                          Arguments in L are evaluated (i.e. treated as arguments of an is/2 right hand side).
+                          Example: format("{0} {1}, [1+1, fred]) results in "2 fred".
+                          Also see format2/1
+    format2( F, L)        Formatstring. F contains place holders {0}, {1} etc., L is args list
+                          Arguments in L are not evaluated.
+                          Example: format("{0} {1}, [1+1, fred]) results in "1+1 fred".
+    indexof( S, P)        Index of first occurrance of P in S (0-based)
+    indexof( S, P)        Return position of first occurance of P in S (zero-based)
+    length( S)            Return length of string S
+    levdist( A, B)        Return value (float [0.0..1.0]) is the Levenshtein distance between strings A and B
+    lowcase( S)           Return lowercase version of string S
+    padleft( S, L)        Left-pad string S with L-length(S) spaces
+    padright( S, L)       Right-pad string S with L-length(S) spaces
+    remove( S, I, L)      String S with L characters starting at position I (0-based) removed
+    repeat( S, N)         String S repeated N times
+    replace( S, P, R)     String S with all occurrances of P replaced by R
+    reverse( S)           Return reversed version of string S
+    singleline( S)        Return S with newlines removed
+    split( S, Chars)      Split string S in the substrings that are separated by a character from string Chars.
+                          Return the list with those substrings.
+                          E.g. split( "abc.def,ghi", ".,") returns ["abc", "def", "ghi"].
+                          If Chars is an empty string, all individual characters are returned in a list of strings.
+    string( T)            Return the string representation of term T.  T is evaluated, e.g. string(1+1) results in "2"
+    string2( T)           Return the string representation of term T. T is not evaluated, e.g. string(1+1) results in "1+1"
+    substring( S, I)      Substring of string S, starting from position I (0-based) onwards
+    substring( S, I, L)   Substring of string S, starting at I (0-based), with length L
+    trim( S)              Return string S trimmed at both ends
+    trimend( S)           Return string S trimmed at the end
+    trimstart( S)         Return string S trimmed at the start
+    lowcase( S)           Return lowercase version of string S
+    upcase( S)            Return uppercase version of string S
+    upcase1( S)            Return string S with first character to uppercase; rest unchanged
+    wrap( S, N)           Divide words in string S over multiple lines of length N at most
+
+  DATE / TIME
+
+    adddays( D, N)        Return DateTime D with N days added
+    addhours( D, N)       Return DateTime D with N hours added
+    addminutes( D, N)     Return DateTime D with N minutes added
+    addmonths( D, N)      Return DateTime D with N months added
+    addseconds( D, N)     Return DateTime D with N seconds added
+    addyears( D, N)       Return DateTime D with N years added
+    date( YY, MM, DD)     Same as DateTime(...), DateTime term 'YY:MM:DD'
+    datetime( YY, MM, DD) DateTime term 'YY:MM:DD'
+    day( DateTime)        Day number in month of DateTime
+    dayname( DateTime)    Name of the day of DateTime
+    dayofweek( DateTime)  Day number in week of DateTime
+    dayofyear( DateTime)  Day number in year of DateTime
+    hour( DateTime)       Hour of DateTime
+    minute( DateTime)     Minute of DateTime
+    month( DateTime)      Month of DateTime
+    now                   Current date+time
+    second( DateTime)     Second of DateTime
+    ticks( DateTime)      Number of 'ticks' that represent DateTime
+    time( DD, MM, SS)     TimeSpan term DD:MM:SS
+    timeofday( DateTime)  Time part of DateTime
+    timespan( DD, MM, SS) Same as Time(...), TimeSpan term DD:MM:SS
+    today                 Current date
+    tomorrow              Date of tommorow
+    weekno( DateTime)     ISO week number of DateTime
+    year( DateTime)       Year of DateTime
+    yesterday             Date of yesterday
+
+________________ json_term/2
+
+json_term( ?J, ?T)
+
+  Converts JSON structure J to Prolog term T and vice versa.
+
+  (1) JSON to Prolog
+      J is a string containing a JSON structure, or a term 'see( <filename>)', where
+      <filename> is the name of a file containing a JSON structure (default extension is ".json").
+
+      IMPORTANT: In translating the string representation to a Prolog term, the following
+      transformation is carried out:
+      - The JSON object {t1, t2, ...} is converted to the Prolog list [t1, t2, ...]
+      - The JSON array [t1, t2, ...] is converted to the Prolog term 'array( [t1, t2, ...])'
+      The reason behind this is that the { } curly brackets have a different meaning in Prolog.
+
+      The result of the conversion is unified with term T.
+
+  (1) Prolog to JSON
+      T is an instantiated JSON-term (with the list format described above).
+      J is a term that will unified with the JSON structure, or a term 'tell( <filename>)',
+      where <filename> is the name of the file that will contain the JSON structure
+      (default extension is ".json").
+
+________________ json_term/3
+
+json_term( ?J, ?T, Options)
+
+  Same as json_term/2, but with additional options.
+  Options is a list containing one or more options separated by commas.
+
+  The following options are available (for json string/file generation only):
+
+  - indent( <indentDelta> [, <maxIndentLevel>])
+
+    <indentDelta> is an integer indicating the increment of the number of indentation spaces
+    preceding the next level. Default is 2.
+
+    <maxIndentLevel>
+    No more indentation will be done beyond level <maxIndentLevel> (zero-based). The text
+    for those levels will appear on a single line. Default is 'infinity'.
+
+  - nocommas
+    No commas will be placed between {} and [] list elements. Default is false (i.e. insert commas)
+
+  - noquotes
+    No doublequotes will be placed around JSON items that are normally quoted.
+    For improved readability only. Default is false (i.e. use quotes)
+
+  Example: you can format an unformatted JSO-file "unformatted.json" as follows:
+
+  ?- json_term( see( 'unformatted.json'), T), json_term( tell( 'formatted.json'), T, [indent(4), nocommas]).
+
+________________ date_part/2
+
+date_part( +D, ?P)
+
+  Unify P with the date part of DateTime D (time is set to 00:00:00)
+
+________________ datetime/1
+
+datetime( ?X)
+
+  Succeeds if X is a Prolog term of type DateTime
+
+________________ datetime/4
+
+datetime( ?DT, ?Y, ?Mo, ?D)
+
+  If DT is an instantiated DateTime term, the interpreter will attempt to
+  bind its constituent parts (Year, Month, etc) to the remaining arguments.
+
+  Id DT is a var, the other arguments must all be instantiated, and these
+  will be used to populate a DateTime term that will be bound to DT.
+
+  In all other cases, datetime/4 will fail.
+
+________________ datetime/7
+
+datetime( ?DT, ?Y, ?Mo, ?D, ?H, ?Mi, ?S)
+
+  If DT is an instantiated DateTime term, the interpreter will attempt to
+  bind its constituent parts (Year, Month, etc) to the remaining arguments.
+
+  Id DT is a var, the other arguments must all be instantiated, and these
+  will be used to populate a DateTime term that will be bound to DT.
+
+  In all other cases, datetime/7 will fail.
+
+________________ timespan/1
+
+timespan( ?X)
+
+  Succeeds if X is a Prolog term of type TimeSpan
+
+________________ timespan/4
+
+timespan( ?T, ?H, ?M, ?S)
+
+  If DT is an instantiated TimeSpan term, the interpreter will attempt to bind
+  its constituent parts (Hours, Minutes, Seconds) to the remaining arguments.
+
+  Id DT is a var, the other arguments must all be instantiated, and these
+  will be used to populate a TimeSpan term that will be bound to DT.
+
+  In all other cases, timespan/4 will fail.
+
+________________ keysort/2
+
+keysort( +L, ?R)
+
+  List R is the sorted version of list L
+
+________________ leapyear/1
+
+leapyear( +Y)
+
+  Succeeds if Y is a leap year
+
+________________ length/2
+
+length( ?L, ?N)
+
+  N is length of list L. At least one of both arguments must be instantiated
+
+________________ license/0
+
+license.
+
+  Show the GNU license
+
+________________ listing0/1
+
+  Listing of system predicates
+
+  listing0( +P/N)  -- listing of predicate P with arity N
+  listing0( +P)    -- listing of predicate P for all arities
+  listing0        -- listing of all predicated
+
+________________ listing/1
+
+  Listing of user-defined predicates
+
+  listing( +P/N)  -- listing of predicate P with arity N
+  listing( +P)    -- listing of predicate P for all arities
+  listing        -- listing of all predicated
+
+________________ make_help_resx/0
+
+make_help_resx
+
+  Create the resource file 'CsPrologHelp.resx' for this help file.
+  Exclude the previous version from the project, add it again, and build.
+
+________________ maplist/3
+
+maplist(+Goal, +List1, ?List2)
+
+  True if Goal can successfully be applied to all
+  successive pairs of elements from List1 and List2.
+
+________________ maxwritedepth/1
+
+maxwritedepth( +N)
+
+  When showing terms, nested terms beyond level N are shown as ...
+
+________________ member/2
+
+member( X, +L)
+
+  Tests whether X is a member of list L. Backtracking.
+
+________________ memberchk/2
+
+memberchk( +X, +L)
+
+  Non-backtracking membership test (faster than member/2 one)
+
+________________ name/2
+
+name( A, L)
+
+  Atom a is converted to a list of characters L (or vice versa)
+
+________________ nl/0
+
+nl
+
+  Output a newline
+
+%________________ nocache/1
+%
+%nocache( +P/N)
+%nocache( +P)
+%
+%  Do no longer cache predicate P/N or predicate P for all arities.
+%
+%________________ nocacheall/0
+%
+%nocacheall
+%
+%  Do no longer cache any predicate.
+%
+________________ nodebug/0
+
+nodebug
+
+  Switch off debugging.
+
+________________ noprofile/0
+
+noprofile
+
+  Switch off profiling.
+
+________________ nonvar/1
+
+nonvar( ?X)
+
+  Succeeds if X is not a variable.
+
+
+________________ nospy/1
+
+nospy( +P/N)
+nospy( +P)
+
+  Switch off spying for predicate P/N or predicate P for all arities.
+
+________________ nospyall/0
+
+nospyall
+
+  Switch off spying for all predicates.
+
+________________ not/1
+
+not( P)
+
+  Succeeds if P fails and vice versa
+
+________________ notrace/0
+
+notrace
+
+  Switch off tracing.
+
+________________ now/3
+
+now( ?H, ?M, ?S)
+
+    Return the current time in H, M and S.
+
+________________ number/1
+
+number( +X)
+
+  Succeed if X is a (possible signed) (complex) number.
+
+________________ numbervars/3
+
+numbervars(+X, +B, -E)
+
+  This predicate provides a mechanism for grounding term X, so that it
+  may be analyzed.
+
+  Each variable in X is instantiated to a term of the form '$VAR'(N),
+  where N is an integer starting from B. B is used as the value of N
+  for the first variable in Term (starting from the left).
+
+  The value of E is 1 + the last value of N.
+
+________________ numcols/1
+
+numcols( ...)
+
+  Number of columns in (i.e. width of) the DOS-box
+
+________________ once/1
+
+once( +P)
+
+  Run predicate P once only, so skip it upon backtracking.
+
+________________ op/3
+
+op( ?P, ?A, ?N)
+
+  Atom N is an operator with precedence P (1 <= P < 1200) and
+  associativity A (fx, fy, xfx, xfy, yfx, fx, fy).
+
+  Also see wrap/2/3
+
+  You can 'undo' an operator definition by using a '!' as first argument:
+
+|  46 ?- op( 600, xfy, fred).
+|
+|  yes
+|
+|  47 ?- X = a fred b.
+|
+|   X = a fred b
+|
+|  48 ?- op( !, xfy, fred).
+|
+|  yes
+|
+|  49 ?- X = a fred b.
+|
+|  *** error: Syntax error -- a may not be followed by fred
+
+________________ wrap/1
+
+wrap( +LB)
+
+  A wrap is a pair of user-defined brackets.
+
+  In some cases it can be useful (and contribute to increased readability) to use pairs of
+  brackets that are different from the standard '(', '{', '[' and '<' bracket pairs. You
+  can achieve this with the wrap/1/2/3 predicate/directive. The argument of wrap/1 is the
+  left bracket you want to define; the corresponding right bracket is formed by reversing
+  the left bracket string representation, thereby replacing any '(' by ')', '[' by ']', etc.
+  See the example below.
+
+  Internally, a wrap is treated similarly to an operator that is formed by concatenating
+  the left bracket with the right bracket, with two dots '..' in the middle.
+
+|  1 ?- wrap( '(!').
+|
+|  yes
+|
+|  2 ?- L = (! 1, 2, 3 !).
+|
+|   L = (! 1, 2, 3 !)
+|
+|  3 ?- (! 1, 2, 3 !) =.. L.
+|
+|   L = ['(!..!)', 1, 2, 3]
+
+________________ wrap/2
+
+(1) wrap( +LB, +RB)
+
+   The functionality is identical to wrap/1, but here you define the right bracket explicitly.
+
+(2) wrap( +LB, |).
+
+   The functionality is identical to wrap/1, but the resulting structure will internally be a
+   list structure that (therefore) has a head and a tail. See the examples below.
+
+|  4 ?- wrap('(!', |).
+|
+|  yes
+|
+|  5 ?- (! 1, 2, 3 !) = (! H | T !).
+|
+|   H = 1
+|   T = (! 2, 3 !)
+|
+|  6 ?- wrap('(!').  % no list structure this time
+|
+|  yes
+|
+|  7 ?- (! 1, 2, 3 !) = (! H | T !).
+|
+|  *** input string: line 1 position 22
+|  (! 1, 2, 3 !) = (! H | T !).
+|  *** Unexpected symbol: "|"
+|  *** Expected one of: ... % left out
+|
+|  8 ?- wrap('(!', '!}').
+|
+|  yes
+|
+|  9 ?- X = (! a, b, c !}.
+|
+|   X = (! a, b, c !}
+|
+|  10 ?- (! a, b, c !} =.. L.
+|
+|   L = ['(!..!}', a, b, c]
+|
+
+________________ wrap/3
+
+wrap( +LB, |, +RB).
+
+  This form is identical in functionality to the list form of wrap/2, but with the right bracket
+  given explicitly. See the example below.
+
+|  11 ?- wrap('(!', |, '!}').
+|
+|  yes
+|
+|  12 ?- X = (! a, b, c !}.
+|
+|   X = (! a, b, c !}
+|
+|  13 ?- (! a, b, c !} =.. L.
+|
+|   L = ['(!..!}', a, (! b,c !}]
+|
+
+________________ pp_defines/1
+
+pp_defines( -D)
+
+  Show the preprocessor definitions.
+
+________________ combination/3
+
+combination( +L1, +K, ?L2)
+
+  Backtrackable predicate. L2 is the list with a K-combination of the elements in list L1.
+  Backtracking yields all possible combinations. 
+
+  The predicate fails when called after the last combination, or when the result of a
+  permutation cannot be unified with L2.
+
+________________ permutation/2
+
+permutation( +L1, ?L2)
+
+  Backtrackable predicate. L2 is the list with a permutation of the elements in list L1.
+  Backtracking yields all possible permutations. The very first permutation yields list
+  L1 with all elements sorted in standard order.
+
+  The predicate fails when called after the last permutation, or when the result of a
+  permutation cannot be unified with L2.
+
+________________ predicate/1
+
+predicate( +P/+N)
+
+  Succeeds if P is a predicate with arity N
+
+________________ profile/0
+
+profile
+
+  Switch profiling on, i.e. start the registration of how many times each predicate
+  is called during execution.  Result can be made visible with showprofile/0/1.
+  Profiling has a slight impact on performance. It can be switched off with noprofile/1.
+
+________________ print/1
+
+print( +X)
+
+  Output term X to the standard output.
+
+________________ put/1
+
+put( +N)
+
+  Write the character represented by integer N to the standard output.
+
+________________ query_timeout/1
+
+query_timeout( +N)
+
+  Terminate queries after they have run for N milliseconds.
+
+________________ read/1
+
+read( ?T)
+
+  Read a term T from current input. Terms must be followed by a dot that
+  is the last non-white symbol on a line. A term may extend over more than
+  one line.
+
+  Also see readln/1.
+
+________________ readatom/1
+
+readatom( ?T)
+
+  Read text from current input up to the end of line, and return it as a single atom.
+
+________________ readatoms/1
+
+readatoms( ?L)
+
+  Read a line of text from current input to the end of line, convert each
+  individual word to an atom, and return the resulting atoms in list L.
+
+________________ readeof/2
+
+readeof( +F, ?S)
+
+  Read the entire content of file named F into a string and unify it with S.
+
+________________ readln/1
+
+readln( ?S)
+
+  Read a line from standard input and return it as string S.
+  The predicate fails at end of file.
+
+  Notice that (in general) you cannot mix calls to read/1 and readln/1, since
+  read/1 is term-oriented and readln/1 is line-oriented.
+
+________________ regex_match/3
+
+regex_match( +S, +P, -L)
+
+  S is a string to be investigated, P is the regex pattern (following the C# syntax),
+  and the result L is a list containing the matching regex groups (subpatterns enclosed in
+  parentheses). A group in Prolog is represented as a label (group number or group name)
+  followed by a ':', followed by a list of strings (captures) belonging to that group.
+
+  Example:
+
+  regex_match("21-02-1951", @"(?<Day>\d{1,2})-(\d{1,2})-(?<Year>(?:\d{4}|\d{2}))", L).
+
+  L = [1:["02"], "Day":["21"], "Year":["1951"]]
+
+  - If there is only one group, only the group name and the list of captures will be returned;
+  - If the group has no name, its number will be returned instead;
+  - If no group was present in the pattern, the empty list will be returned in case of a match;
+  - If there was no match, the predicate will fail.
+
+________________ regex_match/4
+
+regex_match( +S, +P, -L, +O)
+
+  Identical to regex_match/3. In addition, O is a list containing C#-style regex options.
+  The following options are supported:
+  - ignorecase
+  - multiline
+  - singleline
+  - explicitcapture
+  - cultureinvariant
+
+  Cf. C# for further explanation of these options. Default is (C#) RegexOptions.None.
+
+________________ regex_replace/4
+
+regex_replace( +S, +P, +R, ?T)
+
+  String T is the result of replacing all occurances of pattern P in S with R.
+
+  Example:
+
+  regex_replace("  abra  ", @"^\s*(.*?)\s*$", "$1", R).  % strip leading and trailing spaces
+
+  R = "abra"
+
+________________ repeat/0
+
+repeat
+
+  This predicate will always succeed on backtracking.
+
+________________ retract/1
+
+retract( +C)
+
+  Remove asserted clause C from the program database.
+
+________________ retractall/1
+
+retractall( +P)
+
+  Remove all asserted clauses for predicate P.
+
+________________ reverse/2
+
+reverse( ?L, ?R)
+
+  List R is the reversed version of list L.
+  At least one argument must be nonvar.
+
+________________ sendmail/3
+
+sendmail( +ToAddr, +Subject, +Body)
+
+  Send an email to ToAddr, subject is Subject, message body is Body.
+  All arguments are strings.
+
+________________ sendmail/4
+
+sendmail( +Smtp, +ToAddr, +Subject, +Body)
+
+  Send an email, same as sendmail/3, but with smtp name Smtp (string) added.
+
+________________ sendmail/5
+
+sendmail( +Smtp, +Port, +ToAddr, +Subject, +Body)
+
+  Send an email, same as sendmail/4, but with port number Port (integer) added.
+
+________________ see/1
+
+see( +F)
+
+  Use file F with name F as standard input device. The default extension is .pl.
+  F must exist. see( user) will set standard input to the console.
+
+  Multiple files can be open for reading simultaneously, and you can switch
+  between these by using see/1.
+
+  The input file currently open can be closed explicitly with seen/0.
+
+  All open input files are closed automatically when control is returned to
+  the user prompt.
+
+________________ seeing/1
+
+seeing( ?F)
+
+  Succeeds if file named F is the current input file set by see/1.
+
+________________ seen/0
+
+seen( +F)
+
+  Close file F.
+
+________________ set_counter/2
+
+set_counter( +C, +V)
+
+  Assign the integer value V to global counter C (atom of positive integer).
+  Also see inc_counter/1/2 and dec_counter/1/2.
+
+________________ setenvvar/1
+
+setenvvar( +N, +V)
+
+  Set the value of environment variable N to V.
+  You must have the right priviliges to do this.
+
+________________ setof/3
+
+setof( +X, +P, ?L)
+
+  L contains the list with terms X that satisfy P.
+  Duplicates will be removed from the list (cf. bagof/3)
+
+  Example: given age(ann, 12), age(pat, 23), age(peter, 4), age(tom, 48)
+
+  ?- setof( N, age(N, _), L).
+
+  L = [ann, pat, peter, tom]
+
+________________ shell/0
+
+shell.
+
+  Open a DOS-box
+
+________________ shell/1
+
+shell( dos(+Cmd))
+
+  Run (parameter-less) DOS-command Cmd.
+
+  The command is run asynchronously, i.e. the Prolog program is continued immediately
+  after the creation of the DOS box and does not wait for the DOS-box to be closed.
+
+________________ shell/2
+
+shell( dos(+Cmd), +Args)
+
+  Identical to shell( dos(Cmd)), but with arguments for Cmd in Args.
+  Args can be a single argument or a list of arguments.
+
+shell( +Cmd, +Args)
+
+  Run command or executable Cmd with argument Args.
+  Args can be a single argument or a list of multiple arguments.
+  The command is run asynchronously, i.e. the Prolog program is continued immediately
+  after the creation of the DOS box and does not wait for the DOS-box to be closed.
+
+shell( +Path / +Cmd, +Args)
+
+  Identical to shell( Cmd, Args); Path denotes the directory path where cmd is located.
+
+________________ shell/3
+
+shell( dos(+Cmd), +Args, ?E)
+
+  Identical to shell( dos(Cmd), Args), but Cmd is run in synchronous mode,
+  i.e. the Prolog program does not continue until the DOS box is closed.
+  E is unified with the %ERRORLEVEL% value set by the command.
+  Remark: In a .bat file you can achieve this with the exit statement:
+
+  EXIT /B <numeric exit code>
+
+shell( +Path / +Cmd, +Args, ?E)
+
+  Identical to shell( Path/Cmd, Args, E), but Cmd is run in synchronous mode,
+  i.e. the Prolog program does not continue until Cmd has terminated.
+
+shell( +Cmd, +Args, ?E)
+
+  Identical to shell( Cmd, Args, E), but Cmd is run in synchronous mode.
+  i.e. the Prolog program does not continue until Cmd has terminated.
+
+________________ showfile/1
+
+showfile( +F)
+
+  Output the contents of file F to the standard output file.
+
+
+________________ showprofile/0
+
+showprofile
+
+  Show profile counts: a list of all predicates that were executed since
+  'profile/0' was executed, and the number of times each predicate was called.
+
+________________ showprofile/1
+
+showprofile( +N)
+
+  Profile counts: top N values only.
+
+________________ sort/2
+
+sort( +L, ?R)
+
+   List R is the sorted version of list L.
+
+________________ spy/1
+
+spy( +P/N)
+spy( +P)
+
+  Put a spy point on predicate P/N or on all predicates P,
+  and switch debugging on.
+
+________________ spy/2
+
+spy( +P/N, +Port)
+spy( +P, +Port)
+
+  Same as spy/1, but with port (call, exit, redo, fail) specified.
+
+________________ spypoints/0
+
+spypoints
+
+  Show all spypoints.
+
+________________ sql_command/2
+
+sql_command( +ConnectionInfo, +S)
+
+  Execute the SQL-command given in string S.
+  A connection must have been established first, cf. sql_connect.
+
+________________ sql_command/3
+
+sql_command( +ConnectionInfo, +S, ?N)
+
+  Execute the SQL-command given in string S.
+  N will contain the number of rows affected.
+
+  A connection must have been established first, cf. sql_connect.
+
+________________ sql_connect/3
+
+sql_connect( +Key, +ConnectStringParameters, -ConnectionInfo)
+
+  Purpose: to obtain a connection ConnectionInfo to a database.
+
+  !! WARNING: if you run this command on an x64 machine and you get the following message:
+  !! "The 'Microsoft.Jet.OLEDB.4.0' provider is not registered on the local machine"
+  !! then one way to repair this is to right-click on all projects -> Properties -> Build
+  !! and change from target 'Any cpu' to target 'x86'.
+  !! Do this for all projects in the solution.
+  !! There might be more elegant ways, but I have not sorted this out yet.
+
+  Key: an atom that indicates which DataProvider and ConnectString will be used.
+  The DataProvider and ConnectString for a connection must be present in the
+  configuration file (csprolog.exe.config). Example of a configuration file entry:
+
+    <add key="excel" value="System.Data.OleDb|Provider=Microsoft.Jet.OLEDB.4.0;
+     Data Source={0};Extended Properties='Excel 8.0;HDR={1};IMEX=1'" />
+
+  where:
+
+  DataProvider  = "System.Data.OleDb"
+  ConnectString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1};IMEX=1'"
+
+  DataProvider and ConnectString must be separated by a '|'.
+
+  ConnectStringParameters provides the parameters that are to be substituted in
+  the ConnectString.
+
+  The output parameter ConnectionInfo will contain the information that is required
+  as input parameter for the predicates sql_select/3, sql_select2/3 and sql_command/2/3.
+
+  Examples:
+
+  sql_connect( msaccess, 'SQL\\Northwind.mdb', CI).
+  sql_connect( excel, ['SQL\\Names.xls', 'Yes'], CI).
+
+  WARNING:
+
+  Not all the key/value-pairs in the config file have been tested !!!
+
+  Technically, ConnectionInfo contains an instance of a C# DbCommand. The CommandText for
+  this DbCommand is set by the sql_select/3, sql_select2/3 or sql_command/2/3.
+
+________________ sql_disconnect/1
+
+sql_disconnect( +ConnectionInfo)
+
+  Close the database connection stored in ConnectionInfo.
+  ConnectionInfo must be a term that was obtained as the 3rd parameter of sql_connect/3
+
+  This command will rarely be needed, as all database connections are automatically
+  closed after the execution of a query. Use it if you have an excessive (> 64) number of
+  open connections only.
+
+________________ sql_connection/3
+
+sql_connection( +ConnectionInfo, ?Connectstring, ?CommnendText)
+
+  This command gives the Provider and current CommandText (SQL-statement) for ConnectionInfo term.
+
+________________ sql_select/3
+
+sql_select( +ConnectionInfo, +S, ?R)
+
+  Execute SELECT statement S, and return the first/next record of the result set in R. Example:
+
+  1 ?- sql_connect( msaccess, "SQL\\Northwind.mdb", ConnectionInfo).
+
+  yes
+
+  2 ?- sql_select( ConnectionInfo, 'SELECT * FROM Customers', S).
+
+   S = ['ALFKI', 'Alfreds Futterkiste', 'Maria Anders', 'Sales Representative', 'Obere Str. 57',
+   'Berlin', db_null, '12209', 'Germany', '030-0074321', '030-0076545']  more? (y/n)
+
+
+  3 ?- sql_connect( excel, ['SQL\\Names.xls', 'Yes'], ConnectionInfo).
+
+  yes
+
+  4 ?- sql_select( ConnectionInfo, "SELECT * FROM Range1 WHERE Length > 190", S).
+
+    Record = ['John', '1951-02-21 00:00:00', 192, m]  more? (y/n) ;
+
+  no
+________________ sql_select2/3
+
+sql_select2( +ConnectionInfo, +S, ?R)
+
+  Same as sql_select/3, but with column names prefixed to the values in each row of R.
+
+________________ statistics/2
+
+statistics( _, _)
+
+  Does actually do nothing extremely useful yet.
+
+
+________________ string_words/2
+
+string_words( ?S, ?L)
+
+  Converts a string to a list of 'words', or vice versa.
+
+________________ string/1
+
+string( ?S)
+
+  Succeeds if S is a string; fails otherwise.
+
+________________ stringstyle/1
+
+stringstyle( ?S)
+
+  If S is one of the atoms 'csharp' or 'iso', the way strings are represented will
+  be set accordingly. In Standard Prolog, strings are represented as lists of character
+  codes ('iso'). With 'csharp', strings are represented as, eh, well, as regular strings.
+  If S is a variable, it will be given the value of the current setting.
+
+  Example:
+
+  |  1 ?- stringstyle( iso).
+  |
+  |  yes
+  |
+  |  2 ?- X = "hello, world".
+  |
+  |   X = [104, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100]  /*hello, world*/
+  |
+  |  3 ?- stringstyle( csharp).
+  |
+  |  yes
+  |
+  |  4 ?- X = "hello, world".
+  |
+  |   X = "hello, world"
+  |
+  |  5 ?- stringstyle( S).
+  |
+  |   S = csharp
+
+  The default value, which can be overruled in the config file (key = "CSharpStrings"),
+  is 'csharp'.
+
+________________ string_term/2
+
+string_term( ?S, ?T)
+
+  convert string S to Prolog term T and v.v.
+
+________________ succ/2
+
+succ( ?N0, ?N1)
+
+  Integer N1 is equal to N0+1. At least one of the arguments must be instantiated.
+
+________________ tab/1
+
+tab( +N)
+
+  Outputs N spaces to the current output.
+
+________________ tell/1
+
+tell( +F)
+
+  Use file F with name F as standard output device. The default extension is .pl.
+  If F exists and tell/1 is called for the first time, the file's content will be
+  deleted. If F does not exist, it will be created.
+  tell( user) will set standard output to the console.
+
+  Multiple files can be open for writing simultaneously, and you can switch
+  between these by using tell/1.
+
+  The output file currently open can be closed explicitly with told/0.
+
+  All open output files are closed automatically when control is returned to
+  the user prompt.
+
+________________ telling/1
+
+telling( ?F)
+
+  Succeeds if file named F is the current output file set by tell/1.
+
+________________ term_pattern/2
+
+term_pattern( +T, +P)
+
+  Search T for subterms that unify with P.
+  Single variable subterms are exluded
+  from unification with P, except when P itself is a term with arity 0.
+  Variables in P are instantiated.
+  Use backtracking in order to find all matches.
+
+________________ term_pattern/3
+
+term_pattern( +T, +P, -Loc)
+
+  Identical to term_pattern/2; Loc is a list of integers uniquely identifying
+  the location in the term (e.g. [2, 4] means: the argument 4 of argument 2 of T).
+
+________________ term_pattern/4
+
+term_pattern( +T, +P, +Dmin, +Dmax)
+
+  Identical to term_pattern/2, but with the added possibility to
+  specify the depths (levels) in T where P may be searched for.
+
+________________ term_pattern/5
+
+term_pattern( +T, +P, +Dmin, +Dmax, -Loc)
+
+  Identical to term_pattern/4, but with the added possibility to
+  return the location where P was found.
+
+________________ stacktrace/1
+
+stacktrace( ?Mode)
+
+  stacktrace/1 controls whether a C# stacktrace is provided with each error message.
+  Mode can be one of the atoms 'on' or 'off'. Default is 'off'.
+
+  This predicate can also be used as a directive in a file to be consulted, e.g.:
+
+  :- stacktrace( on).
+
+________________ throw/2
+
+  throw( +E, +S)
+  throw( +S, +A)
+
+  Raise an exception and display string S.
+  S is a C#-style format string; the list A contains the arguments.
+
+  throw/2 will cause the execution to be handed over to a CATCH-clause
+  belonging to the TRY in which throw was performed, or to an enclosing
+  CATCH-clause of an enclosing (calling) predicate.
+  An exception class atom E can be specified in order to search for a
+  similarly named CATCH-clause.
+
+________________ throw/3
+
+  throw( +E, +S, +A)
+
+  Raise an exception and display string S.
+  S is a C#-style format string; the list A contains the arguments.
+
+  throw/3 will cause the execution to be handed over to a CATCH-clause
+  belonging to the TRY in which throw was performed, or to an enclosing
+  CATCH-clause of an enclosing (calling) predicate.
+  An exception class atom E can be specified in order to search for a
+  similarly named CATCH-clause.
+
+________________ today/3
+
+today( ?Y, ?M, ?D)
+
+  Return today's date in Y, M, D.
+
+________________ told/0
+
+told( +F)
+
+  Close file F.
+
+________________ trace/0
+
+trace
+
+  Switch on tracing.
+
+________________ treeprint/1
+
+treeprint( +T)
+
+  Print term T in tree format
+
+________________ true/0
+
+true
+
+  Succeed
+
+________________ undefineds/0
+
+undefineds
+
+  Output the names of the predicates that are currently undefined (all
+  predicate clauses currently in the predicate database are scanned).
+
+________________ unifiable/2
+
+unifiable( ?X, ?Y)
+
+  Succeeds if X can be unified with Y, but actual unification
+  does not take place.
+
+________________ username/1
+
+username( ?N)
+
+  Returns the OS username.
+
+________________ userroles/1
+
+userroles( -L)
+
+  Returns a list of OS roles the user has.
+
+________________ validdate/3
+
+validdate( +Y, +M, +D)
+
+  Succeeds if Y, M, D represents a valid date.
+
+________________ validtime/3
+
+validtime( +H, +M, +S)
+
+  Succeeds if H, M, S represents a valid time.
+
+________________ var/1
+
+var( ?X)
+
+  Succeeds if X is an unbound variable.
+
+
+________________ var/2
+
+var( ?X, ?N)
+
+  Succeeds if X is an unbound variable and N is the name "X" of X.
+
+________________ version/2
+
+version( -V, -D)
+
+  Show the version and the build date.
+
+________________ weekno/1
+
+weekno( ?N)
+
+  Gives the number of the current week, according to the ISO definition.
+
+
+________________ weekno/4
+
+weekno( +Y, +M, +D, ?N)
+
+  Gives the number of the week in which Y, M, D lies,
+  according to the ISO definition
+
+________________ workingdir/0
+
+workingdir
+
+  Resets the working directory to the default value as found in the config
+  file, or, if missing, to the directory in which CsProlog.exe resides.
+
+________________ workingdir/1
+
+workingdir( ?D)
+
+  Get or set the working directory, i.e. the default directory
+  for consulting, reading and writing.
+
+  Special symbols are:
+  '%desktop' : the Desktop directory
+  '%exedir'  : the directory in which CsProlog.exe resides
+
+  The default value can be set in the config file.
+
+  :- workingdir( +D) can also be used as directive in a consulted file.
+
+________________ console/1
+
+console( ?X)
+
+  Write term X to the console (standard output if set by tell/1 is ignored).
+  The output is terminated with a newline.
+
+________________ console/2
+
+console( S, L)
+
+  Write C#-style format string S with arguments in list A to the console.
+  The output is terminated with a newline.
+
+________________ write/1
+
+write( ?X)
+
+  Output term X to standard output.
+
+________________ writef/2
+
+writef( S, L)
+
+  Output C#-style format string S with arguments in list L.
+  If there is just one argument, it does not have to be in a list.
+
+________________ writeln/1
+
+writeln( ?X)
+
+  Same as write( X), but output is terminated with a newline.
+
+________________ writeln/1
+
+writelnf( S, L)
+
+  Same as writef( X), but output is terminated with a newline.
+
+________________ xml_term/2
+
+xml_term( ?Xml, ?T)
+  Converts xml-structure Xml to Prolog term Term and vice versa.
+
+  Xml can be a string, but can also be a file specification:
+
+  - see( F)  : File F is opened for reading and its XML content is
+               transformed to Prolog term T
+
+  - tell( F) : File F is opened for writing, and Prolog term T is
+               transformed to an XML strucure and written to F.
+
+  The best way to understand how to use this predicate is to study a
+  number of examples and see how the conversion is done. Basically,
+  an XML-term <tag attr1=value1, ...> nested node1, ... </tag> is converted
+  into a term tag( [attr1=value, ...], [nested node1, ...]).
+
+________________ xml_term/3
+
+xml_term( ?Xml, ?T, +Options)
+
+  Same as xml_term/2, but with a list of possible options that can be specified.
+  Options is a list of options:
+
+  encoding( <Encoding type> ) : Encoding (integer or atom) to appear in XML-declaration,
+                                e.g. 65001 = 'utf-8'. For both xml -> term and term -> xml.
+                                See source file simpleDOMParser.cs (GetEncodingFromString)
+                                for the complete list of possible encodings.
+
+  whitespace( <treatment> )   : how to handle whitespace in the text. Possible values are:
+                                none, all, significant
+
+  comment( <treatment> )      : how to handle comment found in the text. Possible values are:
+                                on (convert comment to Prolog term), off (ignore comment).
+
+  For xml file generation only:
+
+  indent( <bool>)             : Indent the element content.
+
+________________ xml_transform/3
+
+xml_transform( +Xml, +Xsl, +Html)
+
+  Xml, Xsl and Html are instantiated strings containing file names.
+  Stylesheet Xsl is applied to XML-file Xml yielding HTML-file Html
+
+________________ xml_transform/2
+
+xml_transform( +Xml, +Xsl)
+
+  Xml, Xsl are instantiated strings containing file names.
+  Stylesheet Xsl is applied to XML-file Xml. The result is written to an HTML-file
+  with the same name as the XML-file, but with extension .html
+
+________________ xml_transform/1
+
+xml_transform( +Xml)
+
+  Xml is an instantiated strings containing the name of an XML-file, to which a stylesheet is applied.
+  The stylesheet name is assumed to be identical to the XML-file name, but with extension .xsl.
+  The name of the resulting file is assumed to be identical to the XML-file name, but with extension .html.
+
+________________ xmltrace/1
+
+xmltrace( +F)
+
+  Send the execution tree of the next command to file F.
+
+________________ xmltrace/2
+
+xmltrace( +F, +N)
+
+  Send the execution tree of the next command to file F, but the first N elements only.

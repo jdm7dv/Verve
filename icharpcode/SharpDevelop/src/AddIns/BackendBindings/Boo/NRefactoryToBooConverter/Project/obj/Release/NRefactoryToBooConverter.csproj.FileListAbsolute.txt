@@ -1,0 +1,5 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\Boo\NRefactoryToBooConverter\Project\bin\Release\NRefactoryToBooConverter.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\Boo\NRefactoryToBooConverter\Project\bin\Release\Boo.Lang.Compiler.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\Boo\NRefactoryToBooConverter\Project\bin\Release\Boo.Lang.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\Boo\NRefactoryToBooConverter\Project\obj\Release\NRefactoryToBooConverter.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\Boo\NRefactoryToBooConverter\Project\obj\Release\NRefactoryToBooConverter.dll

@@ -1,0 +1,14 @@
+D:\Projects\C#Prolog SF4.0\PLd\bin\Debug\PLd.exe
+D:\Projects\C#Prolog SF4.0\PLd\bin\Debug\PLd.pdb
+D:\Projects\C#Prolog SF4.0\PLd\bin\Debug\CSProlog.dll
+D:\Projects\C#Prolog SF4.0\PLd\bin\Debug\CSProlog.pdb
+D:\Projects\C#Prolog SF4.0\PLd\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\C#Prolog SF4.0\PLd\obj\Debug\PLd.exe
+D:\Projects\C#Prolog SF4.0\PLd\obj\Debug\PLd.pdb
+C:\Users\Jonathan_Moore\research\jdm7dv\iron\C#Prolog SF4.1\PLd\obj\Debug\PLd.exe
+C:\Users\Jonathan_Moore\research\jdm7dv\iron\C#Prolog SF4.1\PLd\obj\Debug\PLd.pdb
+C:\Users\Jonathan_Moore\research\jdm7dv\iron\C#Prolog SF4.1\PLd\bin\Debug\PLd.exe
+C:\Users\Jonathan_Moore\research\jdm7dv\iron\C#Prolog SF4.1\PLd\bin\Debug\PLd.pdb
+C:\Users\Jonathan_Moore\research\jdm7dv\iron\C#Prolog SF4.1\PLd\bin\Debug\CSProlog.dll
+C:\Users\Jonathan_Moore\research\jdm7dv\iron\C#Prolog SF4.1\PLd\bin\Debug\CSProlog.pdb
+C:\Users\Jonathan_Moore\research\jdm7dv\iron\C#Prolog SF4.1\PLd\obj\Debug\PLd.csprojResolveAssemblyReference.cache

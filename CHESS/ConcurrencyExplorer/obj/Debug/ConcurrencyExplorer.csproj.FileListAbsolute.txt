@@ -1,0 +1,10 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\ConcurrencyExplorer.exe
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\ConcurrencyExplorer.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyExplorer\obj\Debug\ConcurrencyExplorer.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyExplorer\obj\Debug\Microsoft.ConcurrencyExplorer.CommandPanel.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyExplorer\obj\Debug\Microsoft.ConcurrencyExplorer.MultiThreadView.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyExplorer\obj\Debug\Microsoft.ConcurrencyExplorer.OneThreadView.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyExplorer\obj\Debug\ConcurrencyExplorer.Properties.Resources.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyExplorer\obj\Debug\ConcurrencyExplorer.csproj.GenerateResource.Cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyExplorer\obj\Debug\ConcurrencyExplorer.exe
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyExplorer\obj\Debug\ConcurrencyExplorer.pdb

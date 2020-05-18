@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="CreateInstaller">
+  
+  <Import Project="cbtools/cbtools.targets"/>
+
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <ProgramFiles32>$(MSBuildExtensionsPath32)\..</ProgramFiles32>
+    <AlpacaInstallerDir>$(MSBuildProjectDirectory)\..</AlpacaInstallerDir>
+    <ChessDevMainDirectory>$(AlpacaInstallerDir)\..</ChessDevMainDirectory>
+    <ChessWixDirectory>$(AlpacaInstallerDir)\Wix</ChessWixDirectory>
+    <ChessBinDirectory>$(ChessDevMainDirectory)\bin</ChessBinDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AllSolution Include="$(ChessDevMainDirectory)\All.sln" />
+  </ItemGroup>
+
+  <Target Name="CreateDoc">
+    <!-- get wiki files 
+      Then add wiki.wxs to your list of .wxs files in the Wix task, should just work.
+    -->
+    <CreateItem
+      Include="$(DocPath)\*;
+        $(DocPath)\*_files\*"
+      Exclude="
+        $(DocPath)\*.xaml;
+        $(DocPath)\*.xml">
+      <Output TaskParameter="Include" ItemName="Doc"/>
+    </CreateItem>
+    <CreateWixComponent
+      FeatureName="Doc"
+      FeatureTitle="Documentation"
+      DirectoryId="INSTALLDOCLOCATION"
+      Files="@(Doc)"
+      ShortcutNames="CHESShome.doc"
+      ShortcutDirectoryId="ProgramMenuDir"
+      ShortcutIcon="chess.ico"
+      Win64="Win64"
+      OutputFile="$(ChessWixDirectory)\doc.wxs"
+      GuidFileName="$(ChessWixDirectory)\docguids.xml"
+      />
+  </Target>
+  
+  <PropertyGroup>
+    <WixDir>$(ProgramFiles32)\Windows Installer XML v3.5</WixDir>
+    <WixFiles>
+      ..\Wix\alpaca.wxs;
+      ..\Wix\managedchess.wxs;
+      ..\Wix\net40.wxs;
+      ..\Wix\dev10.wxs;
+    </WixFiles>
+    <WixVariables>
+      WixUIDialogBmp="..\installerdialog.bmp";
+      WixUIBannerBmp="..\installerbanner.bmp";
+    </WixVariables>
+    <AcademicLicense>
+      WixUILicenseRtf="..\MSRLicense.rtf"
+    </AcademicLicense>
+    <AlpacaMsi>Alpaca.msi</AlpacaMsi>
+  </PropertyGroup>
+  
+  <Target Name="CreateInstaller">
+    <CreateGuid><Output TaskParameter="Guid" PropertyName="AlpacaGuid"/></CreateGuid>
+    <CreateGuid><Output TaskParameter="Guid" PropertyName="ALpacaDebugGuid"/></CreateGuid> 
+    <MSBuild
+       Projects="@(AllSolution)"
+       StopOnFirstFailure="true"
+       Targets="Build"
+       Properties="Configuration=$(Configuration);DisableDevInstall=true" />
+    <Wix
+      WixDirectory="$(WixDir)\bin"
+      Files="$(WixFiles);"
+      UseBuiltinExtensions="true"
+      OutputFile="$(AlpacaMsi)"
+      Variables="
+        $(WixVariables);
+        $(AcademicLicense);
+        ProductGuid=$(AlpacaGuid);
+        VersionNumber=$(AssemblyFileVersion);
+        Flavor=Release;
+        BinDirectory=$(ChessBinDirectory);
+        InstallerDirectory=..;
+        Win64=no;
+        Public=no;
+        PowerTool=no;
+      " />
+  </Target>
+          
+  <Target Name="TestInstaller">
+    <!-- remove the directories -->
+    <Exec
+      WorkingDirectory="$(ChessEnlistment)"
+      Command="rmdir /s /q ChessInstallerTest" />
+    <!--
+    <Exec
+      WorkingDirectory="$(ExtendedReflectionDirectory)"
+      Command="$(UnregisterERCommand)"
+      ContinueOnError="true" />
+    -->
+    <MsiExec
+       Install="true"
+       Installers="$(ChessMsi)"
+       Passive="true"
+       LogFile="chess.install.log.txt"
+       />
+
+    <MsiExec
+       Install="false"
+       Installers="$(ChessMsi)"
+       Passive="true"
+       LogFile="chess.uninstall.log.txt"
+       />
+  </Target>
+
+</Project>

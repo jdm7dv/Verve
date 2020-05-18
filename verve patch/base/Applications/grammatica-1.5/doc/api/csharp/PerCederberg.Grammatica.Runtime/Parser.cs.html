@@ -1,0 +1,788 @@
+<HTML>
+<HEAD>
+<TITLE>
+Parser.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * Parser.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.IO;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A base parser class. This class provides the standard parser
+     * interface, as well as token handling.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">abstract</font> <font color="blue">class</font> Parser <font color="black">{</font>
+
+        <font color="green">/**
+         * The parser initialization flag.
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> initialized <font color="black">=</font> <font color="blue">false</font>;
+
+        <font color="green">/**
+         * The tokenizer to use.
+         */</font>
+        <font color="blue">private</font> Tokenizer tokenizer;
+
+        <font color="green">/**
+         * The analyzer to use for callbacks.
+         */</font>
+        <font color="blue">private</font> Analyzer analyzer;
+
+        <font color="green">/**
+         * The list of production patterns.
+         */</font>
+        <font color="blue">private</font> ArrayList patterns <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * The map with production patterns and their id:s. This map
+         * contains the production patterns indexed by their id:s.
+         */</font>
+        <font color="blue">private</font> Hashtable patternIds <font color="black">=</font> <font color="blue">new</font> Hashtable<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * The list of buffered tokens. This list will contain tokens that
+         * have been read from the tokenizer, but not yet consumed.
+         */</font>
+        <font color="blue">private</font> ArrayList tokens <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * The error log. All parse errors will be added to this log as
+         * the parser attempts to recover from the error. If the error
+         * count is higher than zero (0), this log will be thrown as the
+         * result from the parse() method.
+         */</font>
+        <font color="blue">private</font> ParserLogException errorLog <font color="black">=</font> <font color="blue">new</font> ParserLogException<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * The error recovery counter. This counter is initially set to a
+         * negative value to indicate that no error requiring recovery
+         * has been encountered. When a parse error is found, the counter
+         * is set to three (3), and is then decreased by one for each
+         * correctly read token until it reaches zero (0).
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> errorRecovery <font color="black">=</font> <font color="maroon">-1</font>;
+
+        <font color="green">/**
+         * Creates a new parser.
+         *
+         * @param input          the input stream to read from
+         *
+         * @throws ParserCreationException if the tokenizer couldn't be
+         *             initialized correctly
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">internal</font> Parser<font color="black">(</font>TextReader <font color="blue">input</font><font color="black">)</font> <font color="black">:</font> <font color="blue">this</font><font color="black">(</font><font color="blue">input</font>, <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parser.
+         *
+         * @param input          the input stream to read from
+         * @param analyzer       the analyzer callback to use
+         *
+         * @throws ParserCreationException if the tokenizer couldn't be
+         *             initialized correctly
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">internal</font> Parser<font color="black">(</font>TextReader <font color="blue">input</font>, Analyzer analyzer<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.tokenizer <font color="black">=</font> NewTokenizer<font color="black">(</font><font color="blue">input</font><font color="black">)</font>;
+            <font color="blue">this</font>.analyzer <font color="black">=</font> <font color="black">(</font>analyzer <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> ? NewAnalyzer<font color="black">(</font><font color="black">)</font> <font color="black">:</font> analyzer;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parser.
+         *
+         * @param tokenizer       the tokenizer to use
+         */</font>
+        <font color="blue">internal</font> Parser<font color="black">(</font>Tokenizer tokenizer<font color="black">)</font> <font color="black">:</font> <font color="blue">this</font><font color="black">(</font>tokenizer, <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parser.
+         *
+         * @param tokenizer       the tokenizer to use
+         * @param analyzer        the analyzer callback to use
+         */</font>
+        <font color="blue">internal</font> Parser<font color="black">(</font>Tokenizer tokenizer, Analyzer analyzer<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.tokenizer <font color="black">=</font> tokenizer;
+            <font color="blue">this</font>.analyzer <font color="black">=</font> <font color="black">(</font>analyzer <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> ? NewAnalyzer<font color="black">(</font><font color="black">)</font> <font color="black">:</font> analyzer;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new tokenizer for this parser. Can be overridden by
+         * a subclass to provide a custom implementation.
+         *
+         * @param in             the input stream to read from
+         *
+         * @return the tokenizer created
+         *
+         * @throws ParserCreationException if the tokenizer couldn't be
+         *             initialized correctly
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">protected</font> <font color="blue">virtual</font> Tokenizer NewTokenizer<font color="black">(</font>TextReader <font color="blue">input</font><font color="black">)</font> <font color="black">{</font>
+            <font color="green">// TODO: This method should really be abstract, but it isn't in this</font>
+            <font color="green">//       version due to backwards compatibility requirements.</font>
+            <font color="blue">return</font> <font color="blue">new</font> Tokenizer<font color="black">(</font><font color="blue">input</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new analyzer for this parser. Can be overridden by a
+         * subclass to provide a custom implementation.
+         *
+         * @return the analyzer created
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">protected</font> <font color="blue">virtual</font> Analyzer NewAnalyzer<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="green">// TODO: This method should really be abstract, but it isn't in this</font>
+            <font color="green">//       version due to backwards compatibility requirements.</font>
+            <font color="blue">return</font> <font color="blue">new</font> Analyzer<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The tokenizer property (read-only). This property contains
+         * the tokenizer in use by this parser.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> Tokenizer Tokenizer <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> tokenizer;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The analyzer property (read-only). This property contains
+         * the analyzer in use by this parser.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> Analyzer Analyzer <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> analyzer;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the tokenizer in use by this parser.
+         *
+         * @return the tokenizer in use by this parser
+         *
+         * @since 1.4
+         *
+         * @see #Tokenizer
+         *
+         * @deprecated Use the Tokenizer property instead.
+         */</font>
+        <font color="blue">public</font> Tokenizer GetTokenizer<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Tokenizer;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the analyzer in use by this parser.
+         *
+         * @return the analyzer in use by this parser
+         *
+         * @since 1.4
+         *
+         * @see #Analyzer
+         *
+         * @deprecated Use the Analyzer property instead.
+         */</font>
+        <font color="blue">public</font> Analyzer GetAnalyzer<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Analyzer;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Sets the parser initialized flag. Normally this flag is set by
+         * the prepare() method, but this method allows further
+         * modifications to it.
+         *
+         * @param initialized    the new initialized flag
+         */</font>
+        <font color="blue">internal</font> <font color="blue">void</font> SetInitialized<font color="black">(</font><font color="blue">bool</font> initialized<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.initialized <font color="black">=</font> initialized;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a new production pattern to the parser. The first pattern
+         * added is assumed to be the starting point in the grammar. The
+         * patterns added may be validated to some extent.
+         *
+         * @param pattern        the pattern to add
+         *
+         * @throws ParserCreationException if the pattern couldn't be
+         *             added correctly to the parser
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">void</font> AddPattern<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>pattern.Count <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INVALID_PRODUCTION,
+                    pattern.Name,
+                    <font color="maroon">"no production alternatives are present (must have at "</font> <font color="black">+</font>
+                    <font color="maroon">"least one)"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>patternIds.ContainsKey<font color="black">(</font>pattern.Id<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INVALID_PRODUCTION,
+                    pattern.Name,
+                    <font color="maroon">"another pattern with the same id ("</font> <font color="black">+</font> pattern.Id <font color="black">+</font>
+                    <font color="maroon">") has already been added"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            patterns.Add<font color="black">(</font>pattern<font color="black">)</font>;
+            patternIds.Add<font color="black">(</font>pattern.Id, pattern<font color="black">)</font>;
+            SetInitialized<font color="black">(</font><font color="blue">false</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Initializes the parser. All the added production patterns will
+         * be analyzed for ambiguities and errors. This method also
+         * initializes internal data structures used during the parsing.
+         *
+         * @throws ParserCreationException if the parser couldn't be
+         *             initialized correctly
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">void</font> Prepare<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>patterns.Count <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INVALID_PARSER,
+                    <font color="maroon">"no production patterns have been added"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> patterns.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                CheckPattern<font color="black">(</font><font color="black">(</font>ProductionPattern<font color="black">)</font> patterns<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+            <font color="black">}</font>
+            SetInitialized<font color="black">(</font><font color="blue">true</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks a production pattern for completeness. If some rule
+         * in the pattern referenced an production pattern not added
+         * to this parser, a parser creation exception will be thrown.
+         *
+         * @param pattern        the production pattern to check
+         *
+         * @throws ParserCreationException if the pattern referenced a
+         *             pattern not added to this parser
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> CheckPattern<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                CheckAlternative<font color="black">(</font>pattern.Name, pattern<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks a production pattern alternative for completeness.
+         * If some element in the alternative referenced a production
+         * pattern not added to this parser, a parser creation
+         * exception will be thrown.
+         *
+         * @param name           the name of the pattern being checked
+         * @param alt            the production pattern alternative
+         *
+         * @throws ParserCreationException if the alternative
+         *             referenced a pattern not added to this parser
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> CheckAlternative<font color="black">(</font>string <font color="blue">name</font>,
+                                      ProductionPatternAlternative alt<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> alt.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                CheckElement<font color="black">(</font><font color="blue">name</font>, alt<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks a production pattern element for completeness. If
+         * the element references a production pattern not added to
+         * this parser, a parser creation exception will be thrown.
+         *
+         * @param name           the name of the pattern being checked
+         * @param elem           the production pattern element to check
+         *
+         * @throws ParserCreationException if the element referenced a
+         *             pattern not added to this parser
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> CheckElement<font color="black">(</font>string <font color="blue">name</font>,
+                                  ProductionPatternElement elem<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">if</font> <font color="black">(</font>elem.IsProduction<font color="black">(</font><font color="black">)</font> <font color="black">&</font><font color="black">&</font> GetPattern<font color="black">(</font>elem.Id<font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INVALID_PRODUCTION,
+                    <font color="blue">name</font>,
+                    <font color="maroon">"an undefined production pattern id ("</font> <font color="black">+</font> elem.Id <font color="black">+</font>
+                    <font color="maroon">") is referenced"</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Resets this parser for usage with another input stream. The
+         * associated tokenizer and analyzer will also be reset. This
+         * method will clear all the internal state and the error log in
+         * the parser. It is normally called in order to reuse a parser
+         * and tokenizer pair with multiple input streams, thereby
+         * avoiding the cost of re-analyzing the grammar structures.
+         *
+         * @param input          the new input stream to read
+         *
+         * @see Tokenizer#Reset
+         * @see Analyzer#Reset
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> Reset<font color="black">(</font>TextReader <font color="blue">input</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.tokenizer.Reset<font color="black">(</font><font color="blue">input</font><font color="black">)</font>;
+            <font color="blue">this</font>.analyzer.Reset<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses the token stream and returns a parse tree. This
+         * method will call Prepare() if not previously called. It
+         * will also call the Reset() method, to make sure that only
+         * the Tokenizer.Reset() method must be explicitly called in
+         * order to reuse a parser for multiple input streams. In case
+         * of a parse error, the parser will attempt to recover and
+         * throw all the errors found in a parser log exception in the
+         * end.
+         *
+         * @return the parse tree
+         *
+         * @throws ParserCreationException if the parser couldn't be
+         *             initialized correctly
+         * @throws ParserLogException if the input couldn't be parsed
+         *             correctly
+         *
+         * @see #Prepare
+         * @see #Reset
+         * @see Tokenizer#Reset
+         */</font>
+        <font color="blue">public</font> Node Parse<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Node  root <font color="black">=</font> <font color="blue">null</font>;
+
+            <font color="green">// Initialize parser</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="black">!</font>initialized<font color="black">)</font> <font color="black">{</font>
+                Prepare<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">this</font>.tokens.Clear<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">this</font>.errorLog <font color="black">=</font> <font color="blue">new</font> ParserLogException<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">this</font>.errorRecovery <font color="black">=</font> <font color="maroon">-1</font>;
+
+            <font color="green">// Parse input</font>
+            try <font color="black">{</font>
+                root <font color="black">=</font> ParseStart<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                AddError<font color="black">(</font>e, <font color="blue">true</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Check for errors</font>
+            <font color="blue">if</font> <font color="black">(</font>errorLog.Count <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> errorLog;
+            <font color="black">}</font>
+
+            <font color="blue">return</font> root;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses the token stream and returns a parse tree.
+         *
+         * @return the parse tree
+         *
+         * @throws ParseException if the input couldn't be parsed
+         *             correctly
+         */</font>
+        <font color="blue">protected</font> <font color="blue">abstract</font> Node ParseStart<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * Factory method to create a new production node. This method
+         * can be overridden to provide other production implementations
+         * than the default one.
+         *
+         * @param pattern        the production pattern
+         *
+         * @return the new production node
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">protected</font> <font color="blue">virtual</font> Production NewProduction<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> analyzer.NewProduction<font color="black">(</font>pattern<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds an error to the error log. If the parser is in error
+         * recovery mode, the error will not be added to the log. If the
+         * recovery flag is set, this method will set the error recovery
+         * counter thus enter error recovery mode. Only lexical or
+         * syntactical errors require recovery, so this flag shouldn't be
+         * set otherwise.
+         *
+         * @param e              the error to add
+         * @param recovery       the recover flag
+         */</font>
+        <font color="blue">internal</font> <font color="blue">void</font> AddError<font color="black">(</font>ParseException e, <font color="blue">bool</font> recovery<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>errorRecovery <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                errorLog.AddError<font color="black">(</font>e<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>recovery<font color="black">)</font> <font color="black">{</font>
+                errorRecovery <font color="black">=</font> <font color="maroon">3</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the production pattern with the specified id.
+         *
+         * @param id             the production pattern id
+         *
+         * @return the production pattern found, or
+         *         null if non-existent
+         */</font>
+        <font color="blue">internal</font> ProductionPattern GetPattern<font color="black">(</font><font color="blue">int</font> id<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="black">(</font>ProductionPattern<font color="black">)</font> patternIds<font color="black">[</font>id<font color="black">]</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the production pattern for the starting production.
+         *
+         * @return the start production pattern, or
+         *         null if no patterns have been added
+         */</font>
+        <font color="blue">internal</font> ProductionPattern GetStartPattern<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>patterns.Count <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">null</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="black">(</font>ProductionPattern<font color="black">)</font> patterns<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the ordered set of production patterns.
+         *
+         * @return the ordered set of production patterns
+         */</font>
+        <font color="blue">internal</font> ICollection GetPatterns<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> patterns;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Handles the parser entering a production. This method calls the
+         * appropriate analyzer callback if the node is not hidden. Note
+         * that this method will not call any callback if an error
+         * requiring recovery has ocurred.
+         *
+         * @param node           the parse tree node
+         */</font>
+        <font color="blue">internal</font> <font color="blue">void</font> EnterNode<font color="black">(</font>Node node<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="black">!</font>node.IsHidden<font color="black">(</font><font color="black">)</font> <font color="black">&</font><font color="black">&</font> errorRecovery <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                try <font color="black">{</font>
+                    analyzer.Enter<font color="black">(</font>node<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    AddError<font color="black">(</font>e, <font color="blue">false</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Handles the parser leaving a production. This method calls the
+         * appropriate analyzer callback if the node is not hidden, and
+         * returns the result. Note that this method will not call any
+         * callback if an error requiring recovery has ocurred.
+         *
+         * @param node           the parse tree node
+         *
+         * @return the parse tree node, or
+         *         null if no parse tree should be created
+         */</font>
+        <font color="blue">internal</font> Node ExitNode<font color="black">(</font>Node node<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="black">!</font>node.IsHidden<font color="black">(</font><font color="black">)</font> <font color="black">&</font><font color="black">&</font> errorRecovery <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                try <font color="black">{</font>
+                    <font color="blue">return</font> analyzer.Exit<font color="black">(</font>node<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    AddError<font color="black">(</font>e, <font color="blue">false</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> node;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Handles the parser adding a child node to a production. This
+         * method calls the appropriate analyzer callback. Note that this
+         * method will not call any callback if an error requiring
+         * recovery has ocurred.
+         *
+         * @param node           the parent parse tree node
+         * @param child          the child parse tree node, or null
+         */</font>
+        <font color="blue">internal</font> <font color="blue">void</font> AddNode<font color="black">(</font>Production node, Node child<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>errorRecovery <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="green">// Do nothing</font>
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>node.IsHidden<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                node.AddChild<font color="black">(</font>child<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>child <font color="black">!</font><font color="black">=</font> <font color="blue">null</font> <font color="black">&</font><font color="black">&</font> child.IsHidden<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> child.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    AddNode<font color="black">(</font>node, child<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                try <font color="black">{</font>
+                    analyzer.Child<font color="black">(</font>node, child<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    AddError<font color="black">(</font>e, <font color="blue">false</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads and consumes the next token in the queue. If no token
+         * was available for consumation, a parse error will be
+         * thrown.
+         *
+         * @return the token consumed
+         *
+         * @throws ParseException if the input stream couldn't be read or
+         *             parsed correctly
+         */</font>
+        <font color="blue">internal</font> Token NextToken<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Token  token <font color="black">=</font> PeekToken<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+
+            <font color="blue">if</font> <font color="black">(</font>token <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                tokens.RemoveAt<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                <font color="blue">return</font> token;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.UNEXPECTED_EOF,
+                    <font color="blue">null</font>,
+                    tokenizer.GetCurrentLine<font color="black">(</font><font color="black">)</font>,
+                    tokenizer.GetCurrentColumn<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads and consumes the next token in the queue. If no token was
+         * available for consumation, a parse error will be thrown. A
+         * parse error will also be thrown if the token id didn't match
+         * the specified one.
+         *
+         * @param id             the expected token id
+         *
+         * @return the token consumed
+         *
+         * @throws ParseException if the input stream couldn't be parsed
+         *             correctly, or if the token wasn't expected
+         */</font>
+        <font color="blue">internal</font> Token NextToken<font color="black">(</font><font color="blue">int</font> id<font color="black">)</font> <font color="black">{</font>
+            Token      token <font color="black">=</font> NextToken<font color="black">(</font><font color="black">)</font>;
+            ArrayList  list;
+
+            <font color="blue">if</font> <font color="black">(</font>token.Id <font color="black">=</font><font color="black">=</font> id<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>errorRecovery <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    errorRecovery<font color="black">-</font><font color="black">-</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> token;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                list <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="maroon">1</font><font color="black">)</font>;
+                list.Add<font color="black">(</font>tokenizer.GetPatternDescription<font color="black">(</font>id<font color="black">)</font><font color="black">)</font>;
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.UNEXPECTED_TOKEN,
+                    token.ToShortString<font color="black">(</font><font color="black">)</font>,
+                    list,
+                    token.StartLine,
+                    token.StartColumn<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a token from the queue. This method is used to check
+         * coming tokens before they have been consumed. Any number of
+         * tokens forward can be checked.
+         *
+         * @param steps          the token queue number, zero (0) for first
+         *
+         * @return the token in the queue, or
+         *         null if no more tokens in the queue
+         */</font>
+        <font color="blue">internal</font> Token PeekToken<font color="black">(</font><font color="blue">int</font> steps<font color="black">)</font> <font color="black">{</font>
+            Token  token;
+
+            <font color="blue">while</font> <font color="black">(</font>steps <font color="black">&#62;</font><font color="black">=</font> tokens.Count<font color="black">)</font> <font color="black">{</font>
+                try <font color="black">{</font>
+                    token <font color="black">=</font> tokenizer.Next<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>token <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> <font color="blue">null</font>;
+                    <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                        tokens.Add<font color="black">(</font>token<font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    AddError<font color="black">(</font>e, <font color="blue">true</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="black">(</font>Token<font color="black">)</font> tokens<font color="black">[</font>steps<font color="black">]</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of this parser. The string will
+         * contain all the production definitions and various additional
+         * information.
+         *
+         * @return a detailed string representation of this parser
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> patterns.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font>ToString<font color="black">(</font><font color="black">(</font>ProductionPattern<font color="black">)</font> patterns<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"\n"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of a production pattern.
+         *
+         * @param prod           the production pattern
+         *
+         * @return a detailed string representation of the pattern
+         */</font>
+        <font color="blue">private</font> string ToString<font color="black">(</font>ProductionPattern prod<font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            StringBuilder  indent <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            LookAheadSet   <font color="blue">set</font>;
+            <font color="blue">int</font>            i;
+
+            buffer.Append<font color="black">(</font>prod.Name<font color="black">)</font>;
+            buffer.Append<font color="black">(</font><font color="maroon">" ("</font><font color="black">)</font>;
+            buffer.Append<font color="black">(</font>prod.Id<font color="black">)</font>;
+            buffer.Append<font color="black">(</font><font color="maroon">") "</font><font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> buffer.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                indent.Append<font color="black">(</font><font color="maroon">" "</font><font color="black">)</font>;
+            <font color="black">}</font>
+            buffer.Append<font color="black">(</font><font color="maroon">"= "</font><font color="black">)</font>;
+            indent.Append<font color="black">(</font><font color="maroon">"| "</font><font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> prod.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>i <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font>indent<font color="black">)</font>;
+                <font color="black">}</font>
+                buffer.Append<font color="black">(</font>ToString<font color="black">(</font>prod<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"\n"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> prod.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">set</font> <font color="black">=</font> prod<font color="black">[</font>i<font color="black">]</font>.LookAhead;
+                <font color="blue">if</font> <font color="black">(</font><font color="blue">set</font>.GetMaxLength<font color="black">(</font><font color="black">)</font> <font color="black">&#62;</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"Using "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="blue">set</font>.GetMaxLength<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">" token look-ahead for alternative "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>i <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">": "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="blue">set</font>.ToString<font color="black">(</font>tokenizer<font color="black">)</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"\n"</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of a production pattern
+         * alternative.
+         *
+         * @param alt            the production pattern alternative
+         *
+         * @return a detailed string representation of the alternative
+         */</font>
+        <font color="blue">private</font> string ToString<font color="black">(</font>ProductionPatternAlternative alt<font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> alt.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>i <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">" "</font><font color="black">)</font>;
+                <font color="black">}</font>
+                buffer.Append<font color="black">(</font>ToString<font color="black">(</font>alt<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of a production pattern
+         * element.
+         *
+         * @param elem           the production pattern element
+         *
+         * @return a detailed string representation of the element
+         */</font>
+        <font color="blue">private</font> string ToString<font color="black">(</font>ProductionPatternElement elem<font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">int</font>            min <font color="black">=</font> elem.MinCount;
+            <font color="blue">int</font>            max <font color="black">=</font> elem.MaxCount;
+
+            <font color="blue">if</font> <font color="black">(</font>min <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> max <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"["</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>elem.IsToken<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font>GetTokenDescription<font color="black">(</font>elem.Id<font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font>GetPattern<font color="black">(</font>elem.Id<font color="black">)</font>.Name<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>min <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> max <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"]"</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>min <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> max <font color="black">=</font><font color="black">=</font> Int32.MaxValue<font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"*"</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>min <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">&</font><font color="black">&</font> max <font color="black">=</font><font color="black">=</font> Int32.MaxValue<font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"+"</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>min <font color="black">!</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">|</font><font color="black">|</font> max <font color="black">!</font><font color="black">=</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"{"</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>min<font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">","</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>max<font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"}"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a token description for a specified token.
+         *
+         * @param token          the token to describe
+         *
+         * @return the token description
+         */</font>
+        <font color="blue">internal</font> string GetTokenDescription<font color="black">(</font><font color="blue">int</font> token<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>tokenizer <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="maroon">""</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> tokenizer.GetPatternDescription<font color="black">(</font>token<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

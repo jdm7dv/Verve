@@ -1,0 +1,2415 @@
+Microsoft (R) Macro Assembler Version 8.00.50727.762	    03/15/20 04:18:21
+blentry16.asm						     Page 1 - 1
+
+
+				;++
+				;
+				; Copyright (c) Microsoft Corporation
+				;
+				; Module Name:
+				;
+				;     blentry16.asm (x64)
+				;
+				; Abstract:
+				;
+				;     This module implements the 16-bit entry point for the boot loader.
+				;
+				; Environment:
+				;
+				;     Boot loader.
+				;
+				;--
+
+
+				.model tiny, c
+
+				OPTION SCOPED
+
+				include bl.inc
+			      C ;++
+			      C ;
+			      C ; Copyright (c) Microsoft Corporation
+			      C ;
+			      C ; Module Name:
+			      C ;
+			      C ;     bl.inc
+			      C ;
+			      C ; Abstract:
+			      C ;
+			      C ;     This module contains definitions for the boot loader.
+			      C ;
+			      C ; Environment:
+			      C ;
+			      C ;     Boot loader.
+			      C ;
+			      C ;--
+			      C 
+			      C ;
+			      C ; Boot sources.
+			      C ;
+			      C 
+ = 0001			      C CD_BOOT                 equ     00001h
+ = 0002			      C FAT16_BOOT              equ     00002h
+ = 0003			      C FAT32_BOOT              equ     00003h
+ = 0004			      C PXE_BOOT                equ     00004h
+ = 0005			      C FLASH_BOOT              equ     00005h
+			      C 
+			      C ;
+			      C ; Segment selectors.
+			      C ;
+			      C 
+ = 0000			      C NULL_SELECTOR           equ     000h
+ = 0008			      C RM_VIDEO_SELECTOR       equ     008h
+ = 0010			      C RM_CODE_SELECTOR        equ     010h
+ = 0018			      C RM_DATA_SELECTOR        equ     018h
+ = 0020			      C PM_CODE_SELECTOR        equ     020h
+ = 0028			      C PM_DATA_SELECTOR        equ     028h    
+ = 0030			      C LM_CODE_SELECTOR        equ     030h
+ = 0038			      C LM_DATA_SELECTOR        equ     038h
+ = 0040			      C UM_CODE_SELECTOR        equ     040h
+ = 0048			      C UM_DATA_SELECTOR        equ     048h
+ = 0050			      C PROCESSOR_SELECTOR      equ     050h
+ = 0058			      C UNUSED_SELECTOR         equ     058h
+ = 0060			      C TSS_SELECTOR            equ     060h
+			      C         
+			      C ;
+			      C ; CR0 flags.
+			      C ;
+			      C 
+ = 0001			      C CR0_PE                  equ     000000001h
+ = 0020			      C CR0_NE                  equ     000000020h
+ = 80000000		      C CR0_PG                  equ     080000000h
+			      C 
+			      C ;
+			      C ; CR4 flags.
+			      C ;
+			      C 
+ = 0010			      C CR4_PSE                 equ     000000010h
+ = 0020			      C CR4_PAE                 equ     000000020h
+ = 0100			      C CR4_PCE                 equ     000000100h
+ = 0200			      C CR4_OSFXSR              equ     000000200h
+			      C 
+			      C ;
+			      C ; Initial stack pointer values.
+			      C ;
+			      C 
+ = 1000			      C RM_INITIAL_SS           equ     01000h
+ = FFF8			      C RM_INITIAL_SP           equ     0FFF8h
+ = 00020000		      C PM_INITIAL_ESP          equ     000020000h
+ = 00080000		      C BL_ENTRY_SP             equ     000080000h
+			      C 
+			      C ;
+			      C ; Page table addresses.
+			      C ;
+			      C 
+ = 00021000		      C LM_PML4T_ADDRESS        equ     000021000h
+ = 00022000		      C PM_PDPT_ADDRESS         equ     000022000h
+ = 00023000		      C PM_PDT_ADDRESS          equ     000023000h
+			      C 
+			      C ;
+			      C ; Page table entry flags.
+			      C ;
+			      C 
+ = 0001			      C PTE_PRESENT             equ     000000001h
+ = 0002			      C PTE_WRITEABLE           equ     000000002h
+ = 0020			      C PTE_ACCESSED            equ     000000020h
+ = 0080			      C PTE_2MB                 equ     000000080h
+			      C 
+			      C ;
+			      C ; EFER MSR index. (Long Mode)
+			      C ;
+			      C 
+ = C0000080		      C EFER_MSR_INDEX          equ     0C0000080h
+			      C 
+			      C ;
+			      C ; EFER flags. (Long Mode)
+			      C ;
+			      C 
+ = 0100			      C EFER_LME                equ     000000100h
+ = 0800			      C EFER_NXE                equ     000000800h
+			      C 
+			      C ;
+			      C ; Image target address.
+			      C ;
+			      C 
+ = 00040000		      C IMAGE_ADDRESS           equ     000040000h
+			      C 
+			      C ;
+			      C ; Boot environment block (BEB).
+			      C ;
+			      C 
+ = 0002F000		      C BEB_BASE                equ     00002F000h
+ = 2F00			      C BEB_SEG16               equ     02F00h
+ = 0000			      C BEB_OFF16               equ     00000h
+			      C 
+ 0064			      C BEB     struct
+			      C 
+ 0000  00000000		      C         BootType                dd      ?
+ 0004  00000000		      C         BootDriveNumber         dd      ?
+ 0008  00000000		      C         FlashImage              dd      ?
+ 000C  00000000		      C         SmapAddr                dd      ?
+ 0010  00000000		      C         SmapSize                dd      ?
+ 0014  00000000		      C         LegacyCallAddress       dd      ?
+ 0018  00000000		      C         LegacyReturnAddress     dd      ?
+ 001C  00000000		      C         LegacyReturnCr3         dd      ?
+ 0020  00000000		      C         LegacyCall_OpCode       dd      ?
+ 0024  00000000		      C         LegacyCall_Vector       dd      ?
+ 0028  00000000		      C         LegacyCall_eax          dd      ?
+ 002C  00000000		      C         LegacyCall_ebx          dd      ?
+ 0030  00000000		      C         LegacyCall_ecx          dd      ?
+ 0034  00000000		      C         LegacyCall_edx          dd      ?
+ 0038  00000000		      C         LegacyCall_esi          dd      ?
+ 003C  00000000		      C         LegacyCall_edi          dd      ?
+ 0040  00000000		      C         LegacyCall_ds           dd      ?
+ 0044  00000000		      C         LegacyCall_es           dd      ?
+ 0048  00000000		      C         LegacyCall_eflags       dd      ?
+ 004C  00000000		      C         LegacyCall_FramePtr     dd      ?
+ 0050  00000000		      C         LegacyCall_FrameSize    dd      ?
+ 0054  00000000		      C         LegacyCall_FuncPtr      dd      ?
+ 0058  00000000		      C         ApEntry16               dd      ?
+ 005C  00000000		      C         ApEntry                 dd      ?
+ 0060  00000000		      C         ApStartupLock           dd      ?
+			      C 
+			      C BEB     ends
+			      C 
+			      C ;
+			      C ; Trap Context
+			      C ;
+			      C 
+ 0038			      C BL_TRAP_CONTEXT struct
+			      C 
+			      C ifdef BOOT_X86
+			      C         
+ 0000  00000000		      C         TrapCr2         dd      ?
+ 0004  00000000		      C         TrapEsp         dd      ?
+ 0008  00000000		      C         TrapEbp         dd      ?
+ 000C  00000000		      C         TrapEdi         dd      ?
+ 0010  00000000		      C         TrapEsi         dd      ?
+ 0014  00000000		      C         TrapEdx         dd      ?
+ 0018  00000000		      C         TrapEcx         dd      ?
+ 001C  00000000		      C         TrapEbx         dd      ?
+ 0020  00000000		      C         TrapEax         dd      ?
+ 0024  00000000		      C         TrapNum         dd      ?
+ 0028  00000000		      C         TrapErr         dd      ?
+ 002C  00000000		      C         TrapEip         dd      ?
+ 0030  00000000		      C         TrapCs0         dd      ?
+ 0034  00000000		      C         TrapEfl         dd      ?
+			      C         
+			      C endif
+			      C         
+			      C ifdef BOOT_X64
+			      C endif        
+			      C 
+			      C BL_TRAP_CONTEXT ends
+			      C 
+			      C ;
+			      C ; Legacy call opcodes.
+			      C ;
+			      C 
+ = 0000			      C LC_NOP                          equ     00000h
+ = 0001			      C LC_INTXX                        equ     00001h
+ = 0002			      C LC_FARCALL                      equ     00002h
+			      C 
+			      C ;
+			      C ; PE/COFF structures.
+			      C ;
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_DOS_HEADER {      // DOS .EXE header
+			      C ;     WORD   e_magic;                     // Magic number
+			      C ;     WORD   e_cblp;                      // Bytes on last page of file
+			      C ;     WORD   e_cp;                        // Pages in file
+			      C ;     WORD   e_crlc;                      // Relocations
+			      C ;     WORD   e_cparhdr;                   // Size of header in paragraphs
+			      C ;     WORD   e_minalloc;                  // Minimum extra paragraphs needed
+			      C ;     WORD   e_maxalloc;                  // Maximum extra paragraphs needed
+			      C ;     WORD   e_ss;                        // Initial (relative) SS value
+			      C ;     WORD   e_sp;                        // Initial SP value
+			      C ;     WORD   e_csum;                      // Checksum
+			      C ;     WORD   e_ip;                        // Initial IP value
+			      C ;     WORD   e_cs;                        // Initial (relative) CS value
+			      C ;     WORD   e_lfarlc;                    // File address of relocation table
+			      C ;     WORD   e_ovno;                      // Overlay number
+			      C ;     WORD   e_res[4];                    // Reserved words
+			      C ;     WORD   e_oemid;                     // OEM identifier (for e_oeminfo)
+			      C ;     WORD   e_oeminfo;                   // OEM information; e_oemid specific
+			      C ;     WORD   e_res2[10];                  // Reserved words
+			      C ;     LONG   e_lfanew;                    // File address of new exe header
+			      C ;   } IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;
+			      C ;
+			      C 
+ = 003C			      C IDH_NT_HEADER_OFFSET            equ     00000003Ch
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_FILE_HEADER {
+			      C ;     WORD    Machine;
+			      C ;     WORD    NumberOfSections;
+			      C ;     DWORD   TimeDateStamp;
+			      C ;     DWORD   PointerToSymbolTable;
+			      C ;     DWORD   NumberOfSymbols;
+			      C ;     WORD    SizeOfOptionalHeader;
+			      C ;     WORD    Characteristics;
+			      C ; } IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
+			      C ;
+			      C 
+ = 0002			      C IFH_NUMBER_OF_SECTIONS          equ     000000002h
+ = 0010			      C IFH_SIZE_OF_OPTIONAL_HEADER     equ     000000010h
+			      C 
+			      C ifdef BOOT_X86
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_OPTIONAL_HEADER32 {
+			      C ;     WORD    Magic;
+			      C ;     BYTE    MajorLinkerVersion;
+			      C ;     BYTE    MinorLinkerVersion;
+			      C ;     DWORD   SizeOfCode;
+			      C ;     DWORD   SizeOfInitializedData;
+			      C ;     DWORD   SizeOfUninitializedData;
+			      C ;     DWORD   AddressOfEntryPoint;
+			      C ;     DWORD   BaseOfCode;
+			      C ;     DWORD   BaseOfData;
+			      C ;     DWORD   ImageBase;
+			      C ;     DWORD   SectionAlignment;
+			      C ;     DWORD   FileAlignment;
+			      C ;     WORD    MajorOperatingSystemVersion;
+			      C ;     WORD    MinorOperatingSystemVersion;
+			      C ;     WORD    MajorImageVersion;
+			      C ;     WORD    MinorImageVersion;
+			      C ;     WORD    MajorSubsystemVersion;
+			      C ;     WORD    MinorSubsystemVersion;
+			      C ;     DWORD   Win32VersionValue;
+			      C ;     DWORD   SizeOfImage;
+			      C ;     DWORD   SizeOfHeaders;
+			      C ;     DWORD   CheckSum;
+			      C ;     WORD    Subsystem;
+			      C ;     WORD    DllCharacteristics;
+			      C ;     DWORD   SizeOfStackReserve;
+			      C ;     DWORD   SizeOfStackCommit;
+			      C ;     DWORD   SizeOfHeapReserve;
+			      C ;     DWORD   SizeOfHeapCommit;
+			      C ;     DWORD   LoaderFlags;
+			      C ;     DWORD   NumberOfRvaAndSizes;
+			      C ;     IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
+			      C ; } IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;
+			      C ;
+			      C 
+ = 001C			      C IOH32_IMAGE_BASE                equ     00000001Ch
+			      C 
+			      C endif
+			      C 
+			      C ifdef BOOT_X64
+			      C endif
+			      C         
+ = 0010			      C IOH_ADDRESS_OF_ENTRY_POINT      equ     000000010h
+ = 003C			      C IOH_SIZE_OF_HEADERS             equ     00000003Ch
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_NT_HEADERS32/64 {
+			      C ;     DWORD Signature;
+			      C ;     IMAGE_FILE_HEADER FileHeader;
+			      C ;     IMAGE_OPTIONAL_HEADER32/64 OptionalHeader;
+			      C ; } IMAGE_NT_HEADERS32/64, *PIMAGE_NT_HEADERS32/64;
+			      C ;
+			      C 
+ = 0000			      C INH_SIGNATURE                   equ     000000000h
+ = 0004			      C INH_FILE_HEADER                 equ     000000004h
+ = 0018			      C INH_OPTIONAL_HEADER             equ     000000018h
+			      C 
+			      C ;
+			      C ; Signatures.
+			      C ;
+			      C 
+ = 5A4D			      C IMAGE_DOS_SIGNATURE             equ     05A4Dh          ; MZ
+ = 4550			      C IMAGE_NT_SIGNATURE              equ     000004550h      ; PE00
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_SECTION_HEADER {
+			      C ;     BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];
+			      C ;     union {
+			      C ;             DWORD   PhysicalAddress;
+			      C ;             DWORD   VirtualSize;
+			      C ;     } Misc;
+			      C ;     DWORD   VirtualAddress;
+			      C ;     DWORD   SizeOfRawData;
+			      C ;     DWORD   PointerToRawData;
+			      C ;     DWORD   PointerToRelocations;
+			      C ;     DWORD   PointerToLinenumbers;
+			      C ;     WORD    NumberOfRelocations;
+			      C ;     WORD    NumberOfLinenumbers;
+			      C ;     DWORD   Characteristics;
+			      C ; } IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
+			      C ;
+			      C 
+ = 0008			      C ISH_VIRTUAL_SIZE                equ     000000008h
+ = 000C			      C ISH_VIRTUAL_ADDRESS             equ     00000000Ch
+ = 0010			      C ISH_SIZE_OF_RAW_DATA            equ     000000010h
+ = 0014			      C ISH_POINTER_TO_RAW_DATA         equ     000000014h
+			      C 
+ = 0028			      C IMAGE_SECTION_HEADER_SIZE       equ     000000028h
+			      C 
+			      C 
+			      C 
+			      C 
+
+ = 7B00				REAL_MODE_BASE          equ     07b00h
+ = 000B8000			VIDEO_BASE              equ     0b8000h
+ = 1F00				BLUE                    equ     01f00h
+ = 2F00				RED                     equ     02f00h        
+ = 4F00				GREEN                   equ     04f00h
+				        
+ 0000				.code
+				.686p
+
+				JMPF16 MACRO SEG:REQ,OFF:REQ
+				        db      0eah
+				        dw      OFF
+				        dw      SEG
+				ENDM        
+
+				JMPF32 MACRO SEG:REQ,OFF:REQ
+				        db      0eah
+				        dd      OFF
+				        dw      SEG
+				ENDM
+
+ 0000				_TEXT16 segment page public use16 'CODE'
+
+				        org     100h
+
+				;++
+				;
+				; VOID
+				; BlEntry16(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function is the 16-bit entry point for the boot loader and it detects
+				;   the type of boot to perform and calls the appropriate function.
+				;
+				;--
+
+ 0100				BlEntry16       proc
+
+				;
+				; Disable interrupts.
+				;
+
+ 0100  FA			        cli
+
+ 0101  8B EC			        mov     bp, sp
+
+				        ;; Write a character to the screen.
+				        ;; Configure GS to point to the text-mode video console.
+ 0103  B8 B800			        mov     ax, 0b800h
+ 0106  8E E8			        mov     gs, ax
+
+ 0108  B8 4F41			        mov     ax, GREEN + 'A'
+ 010B  65: A3 0000		        mov     gs:[0], ax
+
+ 010F  B8 4F2D			        mov     ax, GREEN + '-'
+ 0112  65: A3 0002		        mov     gs:[2], ax
+				        
+				;
+				; If CS is 0x5000, then it indicates a CD or HD boot.
+				;
+
+ 0116  BB 0004			        mov     bx, PXE_BOOT
+ 0119  BA 0000			        mov     dx, 0
+ 011C  8C C8			        mov     ax, cs
+ 011E  3D 5000			        cmp     ax, 05000h
+ 0121  75 47			        jne     boot_ready
+
+				;
+				; Check for CD signature on the stack.
+				;
+
+ 0123  8B 56 08			        mov     dx, word ptr [bp + 8]
+ 0126  BB 0001			        mov     bx, CD_BOOT
+ 0129  81 7E 04 4344		        cmp     word ptr [bp + 4], 04344h
+ 012E  74 1D			        je      boot_needs_fixup
+
+				;
+				; Check for FAT16 signature on the stack.
+				;
+
+ 0130  BB 0002			        mov     bx, FAT16_BOOT
+ 0133  81 7E 04 4806		        cmp     word ptr [bp + 4], 04806h
+ 0138  74 13			        je      boot_needs_fixup
+
+				;
+				; Check for FAT32 signature on the stack.
+				;
+
+ 013A  BB 0003			        mov     bx, FAT32_BOOT
+ 013D  81 7E 04 4803		        cmp     word ptr [bp + 4], 04803h
+ 0142  74 09			        je      boot_needs_fixup
+
+				;
+				; Unknown boot device
+				;
+
+ 0144  B8 4F42			        mov     ax, GREEN + 'B'
+ 0147  65: A3 0002		        mov     gs:[2], ax
+ 014B				@@:
+ 014B  EB FE			        jmp @b
+
+				;
+				; Copy 64K from 57C0:0000 to 07C0:0000.
+				;
+
+ 014D				boot_needs_fixup:
+ 014D  B8 4F43			        mov     ax, GREEN + 'C'
+ 0150  65: A3 0004		        mov     gs:[4], ax
+				        
+ 0154  B8 57C0			        mov     ax, 057C0h
+ 0157  8E D8			        mov     ds, ax
+ 0159  BE 0000			        mov     si, 0
+ 015C  B8 07C0			        mov     ax, 007C0h
+ 015F  8E C0			        mov     es, ax
+ 0161  BF 0000			        mov     di, 0
+ 0164  B9 4000			        mov     cx, 04000h
+
+ 0167  F3/ 66| A5		        rep movsd
+
+				;
+				; Continue execution at the relocated block with known segment selector.
+				;
+
+ 016A				boot_ready:
+
+ 016A  B8 4F44			        mov     ax, GREEN + 'D'
+ 016D  65: A3 0006		        mov     gs:[6], ax
+				  
+				;
+				; Jump to relocated code.
+				;
+				        
+				        JMPF16  07b0h, @f
+ 0171  EA		     1	        db      0eah
+ 0172  0176 R		     1	        dw      @f
+ 0174  07B0		     1	        dw      07b0h
+ 0176				@@:      
+
+				        ;     bx = BootType
+				        ;     dx = BootDriveNumber
+
+				;
+				; Initialize DS, ES, SS, and SP for real mode.
+				;
+
+ 0176  8C C8			        mov     ax, cs
+ 0178  8E D8			        mov     ds, ax
+ 017A  8E C0			        mov     es, ax
+ 017C  B8 1000			        mov     ax, RM_INITIAL_SS
+ 017F  8E D0			        mov     ss, ax
+ 0181  BC FFF8			        mov     sp, RM_INITIAL_SP
+
+ 0184  B8 4F45			        mov     ax, GREEN + 'E'
+ 0187  65: A3 0008		        mov     gs:[8], ax
+				        
+				;
+				; Initialize boot environment block (pass bx & dx).
+				;
+
+ 018B  E8 0063			        call    BlInitializeBeb
+
+				;
+				; Initialize video.
+				;
+
+ 018E  E8 0034			        call    BlInitializeVideo
+
+				;
+				; Load GDT.
+				;
+
+ 0191  B8 4F46			        mov     ax, GREEN + 'F'
+ 0194  65: A3 000A		        mov     gs:[10], ax
+				        
+ 0198  BF 0346 R		        mov     di, OFFSET BlGDTS_Limit
+ 019B  0F 01 15			        lgdt    fword ptr ds:[di]
+
+ 019E  B8 0008			        mov     ax, RM_VIDEO_SELECTOR
+ 01A1  8E E8			        mov     gs, ax
+
+ 01A3  B8 4F47			        mov     ax, GREEN + 'G'
+ 01A6  65: A3 000C		        mov     gs:[12], ax
+				        
+				;
+				; Clear the real-mode segment registers.
+				;
+				        
+ 01AA  33 C0			        xor     ax, ax
+ 01AC  8E D8			        mov     ds, ax
+ 01AE  8E C0			        mov     es, ax
+ 01B0  8E D0			        mov     ss, ax
+ 01B2  8E E0			        mov     fs, ax
+ 01B4  8E E8			        mov     gs, ax
+				        
+				;
+				; Enable protected mode.
+				;
+
+ 01B6  0F 20 C0			        mov     eax, cr0
+ 01B9  66| 83 C8 21		        or      eax, CR0_PE OR CR0_NE
+ 01BD  0F 22 C0			        mov     cr0, eax
+
+				;
+				; Jump far to 32-bit protected-mode code.
+				;
+
+				        JMPF16  PM_CODE_SELECTOR, LOWWORD ( REAL_MODE_BASE + OFFSET BlEntry32 )
+ 01C0  EA		     1	        db      0eah
+ 01C1  7B00 R		     1	        dw      LOWWORD ( REAL_MODE_BASE + OFFSET BlEntry32 )
+ 01C3  0020		     1	        dw      PM_CODE_SELECTOR
+				        
+ 01C5				BlEntry16       endp
+
+				;++
+				;
+				; VOID
+				; BlInitializeVideo(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function initializes video support for the boot loader.
+				;
+				;--
+
+ 01C5				BlInitializeVideo       proc
+
+ 01C5  B8 1202			        mov     ax, 1202h       ; LINES_400_CONFIGURATION
+ 01C8  BB 0301			        mov     bx, 0301h       ; SELECT_SCAN_LINE
+ 01CB  CD 10			        int     10h
+
+ 01CD  B8 0003			        mov     ax, 3h          ; SET_80X25_16_COLOR_MODE
+ 01D0  BB 0000			        mov     bx, 0h          ; PAGE0
+ 01D3  CD 10			        int     10h
+
+ 01D5  B8 1112			        mov     ax, 1112h       ; LOAD_8X8_CHARACTER_SET
+ 01D8  BB 0000			        mov     bx, 0h
+ 01DB  CD 10			        int     10h
+
+ 01DD  B8 1003			        mov     ax, 1003h       ; Disable BLINK mode, enable background intensity.
+ 01E0  BB 0000			        mov     bx, 0h
+ 01E3  CD 10			        int     10h
+
+ 01E5  B8 0200			        mov     ax, 0200h       ; Set Cursor position to 0, 0
+ 01E8  BB 0000			        mov     bx, 0h
+ 01EB  BA 0000			        mov     dx, 0h
+ 01EE  CD 10			        int     10h
+
+ 01F0  C3			        ret
+
+ 01F1				BlInitializeVideo       endp
+
+				;++
+				;
+				; VOID
+				; BlInitializeBeb(
+				;     bx = BootType
+				;     dx = BootDriveNumber
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function initializes the boot environment block.
+				;
+				;--
+
+ 01F1				BlInitializeBeb proc
+
+ 01F1  06			        push    es
+ 01F2  57			        push    di
+
+ 01F3  BF 2F00			        mov     di, BEB_SEG16
+ 01F6  8E C7			        mov     es, di
+ 01F8  BF 0000			        mov     di, BEB_OFF16
+
+ 01FB  32 C0			        xor     al, al
+ 01FD  B9 1000			        mov     cx, 4096
+ 0200  F3/ AA			        rep stosb
+
+ 0202  BF 0000			        mov     di, BEB_OFF16
+
+				        ;;  See if we are booting from Flash
+				        
+ 0205  BE 0250 R		        mov     si, BlFlashImage
+ 0208  66| 8B 04		        mov     eax, [si]
+ 020B  66| 83 F8 00		        cmp     eax, 0
+ 020F  74 1E			        je      @f
+				        
+ 0211  66| 26: 89 45 08		        mov     dword ptr es:[di].BEB.FlashImage, eax
+ 0216  BE 0254 R		        mov     si, BlSmapAddr
+ 0219  66| 8B 04		        mov     eax, [si]
+ 021C  66| 26: 89 45 0C		        mov     dword ptr es:[di].BEB.SmapAddr, eax
+ 0221  BE 0258 R		        mov     si, BlSmapSize
+ 0224  66| 8B 04		        mov     eax, [si]
+ 0227  66| 26: 89 45 10		        mov     dword ptr es:[di].BEB.SmapSize, eax
+ 022C  BB 0005			        mov     bx, FLASH_BOOT
+ 022F				@@:     
+				                
+ 022F  26: 89 1D		        mov     word ptr es:[di].BEB.BootType, bx
+ 0232  26: 89 55 04		        mov     word ptr es:[di].BEB.BootDriveNumber, dx
+				ifdef BOOT_X64        
+				else
+ 0236  66| 26: C7 45 1C		        mov     dword ptr es:[di].BEB.LegacyReturnCr3, PM_PDPT_ADDRESS
+       00022000
+				endif
+ 023F  8D 06 0500 R		        lea     ax, BlApEntry16
+ 0243  26: 89 45 58		        mov     word ptr es:[di].BEB.ApEntry16, ax
+ 0247  8C C8			        mov     ax, cs
+ 0249  26: 89 45 5A		        mov     word ptr es:[di].BEB.ApEntry16 + 2, ax
+
+ 024D  8D 06 048A R		        lea     ax, BlApStartupLock
+ 0251  26: 89 45 60		        mov     word ptr es:[di].BEB.ApStartupLock, ax
+ 0255  8C C8			        mov     ax, cs
+ 0257  26: 89 45 62		        mov     word ptr es:[di].BEB.ApStartupLock + 2, ax
+
+ 025B  5F			        pop     di
+ 025C  07			        pop     es
+ 025D  C3			        ret
+
+ 025E				BlInitializeBeb endp
+
+				;++
+				;
+				; Hardware Protection Configuration Data 
+				;
+				;--
+
+				;
+				; TSS.
+				;
+
+				ALIGN 16
+
+ 0260				BlTSS:
+
+ 0260  0066 [			        db      066h dup (0)
+        00
+       ]
+ 02C6  0068			        dw      068h
+
+				;
+				; Global Descriptor Table (GDT).
+				;
+
+				ALIGN 16
+
+ 02D0				BlGDTStart:
+
+ 02D0  0000000000000000		        dq      00000000000000000h      ; 00: NULL segment              [NULL_SELECTOR].
+ 02D8  0000930B8000FFFF		        dq      00000930B8000FFFFh      ; 08: 000B8000[0000FFFF] Data   [PM_VIDEO_SELECTOR].
+ 02E0  00009B007B00FFFF		        dq      000009B007B00FFFFh      ; 10: 00007800[0000FFFF] COde   [RM_CODE_SELECTOR].
+ 02E8  000093007B00FFFF		        dq      0000093007B00FFFFh      ; 18: 00007B00[0000FFFF] Data   [RM_DATA_SELECTOR].
+ 02F0  00CF9B000000FFFF		        dq      000CF9B000000FFFFh      ; 20: PM code segment           [PM_CODE_SELECTOR].
+ 02F8  00CF93000000FFFF		        dq      000CF93000000FFFFh      ; 28: PM data segment           [PM_DATA_SELECTOR].
+ 0300  00209B0000000000		        dq      000209B0000000000h      ; 30: LM code segment           [LM_CODE_SELECTOR].
+ 0308  0000930000000000		        dq      00000930000000000h      ; 38: LM data segment           [LM_DATA_SELECTOR].
+ 0310  0000000000000000		        dq      00000000000000000h      ; 40: PM user code segment      [UM_CODE_SELECTOR].
+ 0318  0000000000000000		        dq      00000000000000000h      ; 48: PM user data segment      [UM_DATA_SELECTOR].
+ 0320  0000000000000000		        dq      00000000000000000h      ; 50: FS/GS segment             [PROCESSOR_SELECTOR].
+ 0328  0000000000000000		        dq      00000000000000000h      ; 58:                           [UNUSED_SELECTOR]
+
+				;
+				; TSS segment.
+				;
+
+ 0330  0067			        dw      00067h
+ 0332  7D60 R			        dw      REAL_MODE_BASE + OFFSET BlTSS
+ 0334  00			        db      000h
+ 0335  89			        db      089h
+ 0336  0000			        dw      00000h
+				ifdef BOOT_X64        
+				endif        
+
+ 0338				BlGDTLimit:
+
+				;
+				; Global Descriptor Table Selector (GDTS).
+				;
+
+				ALIGN 16
+
+				;; Padding to align address (and limit to -2)
+ 0340  0000			        dw      00000h
+ 0342  0000			        dw      00000h
+ 0344  0000			        dw      00000h
+ 0346				BlGDTS_Limit:
+ 0346  0068			        dw      offset BlGDTLimit - offset BlGDTStart
+ 0348				BlGDTS_Address:
+ 0348  7DD0 R			        dw      REAL_MODE_BASE + OFFSET BlGDTStart
+ 034A  0000			        dw      0
+ 034C  00000000			        dd      0
+
+				;++
+				;
+				; VOID
+				; BlReturnToRealMode(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function switches the processor back to real mode to execute a real
+				;   mode request.
+				;
+				;--
+
+				ALIGN 16
+ 0350				BlReturnToRealMode      proc
+
+				;
+				; Zero all registers.
+				;
+
+ 0350  66| 33 DB		        xor     ebx, ebx
+ 0353  66| 33 C9		        xor     ecx, ecx
+ 0356  66| 33 D2		        xor     edx, edx
+ 0359  66| 33 F6		        xor     esi, esi
+ 035C  66| 33 FF		        xor     edi, edi
+ 035F  66| 33 E4		        xor     esp, esp
+ 0362  66| 33 ED		        xor     ebp, ebp
+
+ 0365  B8 0018			        mov     ax, RM_DATA_SELECTOR
+ 0368  8E D8			        mov     ds, ax
+ 036A  8E C0			        mov     es, ax
+ 036C  8E D0			        mov     ss, ax
+ 036E  8E E0			        mov     fs, ax
+ 0370  8E E8			        mov     gs, ax
+				;
+				; Disable protected mode.
+				;
+
+ 0372  0F 20 C0			        mov     eax, cr0
+ 0375  66| 83 E0 DE		        and     eax, NOT (CR0_PE OR CR0_NE)
+ 0379  0F 22 C0			        mov     cr0, eax
+
+				;
+				; Return to real mode.
+				;
+				        JMPF16  07b0h, OFFSET BlProcessRealModeRequest
+ 037C  EA		     1	        db      0eah
+ 037D  041F R		     1	        dw      OFFSET BlProcessRealModeRequest
+ 037F  07B0		     1	        dw      07b0h
+
+ 0381				BlReturnToRealMode      endp
+
+				;++
+				;
+				; VOID
+				; BlLeaveLrbPmToBoot(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function switches the processor back to real mode for boot.
+				;
+				;--
+
+				ALIGN 16
+ 0390				BlLeaveLrbPmToBoot      PROC
+
+ 0390  B8 0008			        mov     ax, RM_VIDEO_SELECTOR
+ 0393  8E E8			        mov     gs, ax
+				        ;; Write to position 0.
+ 0395  B8 2F54			        mov     ax, RED + 'T'
+ 0398  65: A3 000C		        mov     gs:[12], ax
+				        
+				; Zero all registers.
+				;
+
+ 039C  66| 33 DB		        xor     ebx, ebx
+ 039F  66| 33 C9		        xor     ecx, ecx
+ 03A2  66| 33 D2		        xor     edx, edx
+ 03A5  66| 33 F6		        xor     esi, esi
+ 03A8  66| 33 FF		        xor     edi, edi
+ 03AB  66| 33 E4		        xor     esp, esp
+ 03AE  66| 33 ED		        xor     ebp, ebp
+
+				;
+				; Disable paging.
+				;
+
+ 03B1  0F 20 C0			        mov     eax, cr0
+ 03B4  66| 25 7FFFFFFF		        and     eax, NOT (CR0_PG)
+ 03BA  0F 22 C0			        mov     cr0, eax
+				        
+ 03BD  66| 33 C0		        xor     eax, eax
+ 03C0  0F 22 D8			        mov     cr3, eax
+ 03C3  0F 22 E0			        mov     cr4, eax
+
+				;
+				; Disable long mode and return to legacy protected-mode.
+				;
+
+ 03C6  66| B9 C0000080		        mov     ecx, EFER_MSR_INDEX
+ 03CC  0F 32			        rdmsr
+ 03CE  66| 25 FFFFF6FF		        and     eax, NOT (EFER_LME OR EFER_NXE)
+ 03D4  0F 30			        wrmsr
+
+				;
+				; Disable protected mode.
+				;
+
+ 03D6  0F 20 C0			        mov     eax, cr0
+ 03D9  66| 83 E0 DE		        and     eax, NOT (CR0_PE OR CR0_NE)
+ 03DD  0F 22 C0			        mov     cr0, eax
+				        
+				;
+				; Return to real mode.
+				;
+				        JMPF16  07b0h, OFFSET @f
+ 03E0  EA		     1	        db      0eah
+ 03E1  03E5 R		     1	        dw      OFFSET @f
+ 03E3  07B0		     1	        dw      07b0h
+ 03E5				@@:     
+ 03E5  B8 B800			        mov     ax, 0b800h
+ 03E8  8E E8			        mov     gs, ax
+				        
+				        ;; Write to position 0.
+ 03EA  B8 2F55			        mov     ax, RED + 'U'
+ 03ED  65: A3 000E		        mov     gs:[14], ax
+
+ 03F1  8C C8			        mov     ax, cs
+ 03F3  8E D8			        mov     ds, ax
+ 03F5  8E C0			        mov     es, ax
+ 03F7  B8 1000			        mov     ax, RM_INITIAL_SS
+ 03FA  8E D0			        mov     ss, ax
+ 03FC  BC FFF8			        mov     sp, RM_INITIAL_SP
+				        
+				        ;; Write to position 0.
+ 03FF  B8 2F56			        mov     ax, RED + 'V'
+ 0402  65: A3 0010		        mov     gs:[16], ax
+
+				;
+				; Return to real mode boot entry.
+				;
+				        JMPF16  07b0h, OFFSET BlEntry16
+ 0406  EA		     1	        db      0eah
+ 0407  0100 R		     1	        dw      OFFSET BlEntry16
+ 0409  07B0		     1	        dw      07b0h
+
+ 040B				BlLeaveLrbPmToBoot  endp
+
+				;++
+				;
+				; VOID
+				; BlProcessRealModeRequest(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function performs the requested real mode operation and returns back to
+				;   protected mode as necessary.
+				;
+				;--
+
+				;
+				; Real-mode IDTR.
+				;
+
+ 040B				BlRealModeIdtr:
+
+ 040B  1000			        dw      01000h
+ 040D  0000000000000000		        dq      0
+
+				;
+				; Protected-mode IDTR.
+				;
+
+ 0415				BlProtModeIdtr:
+
+ 0415  1000			        dw      01000h
+ 0417  0000000000000000		        dq      0
+
+ 041F				BlProcessRealModeRequest        proc
+
+				;
+				; Set DS, ES, SS, SP, and SI for real-mode legacy call.
+				;
+
+ 041F  66| 33 C0		        xor     eax,eax
+ 0422  8C C8			        mov     ax, cs
+ 0424  8E D8			        mov     ds, ax
+ 0426  B8 2F00			        mov     ax, BEB_SEG16
+ 0429  8E C0			        mov     es, ax
+ 042B  B8 1000			        mov     ax, RM_INITIAL_SS
+ 042E  8E D0			        mov     ss, ax
+ 0430  BC FFF8			        mov     sp, RM_INITIAL_SP
+ 0433  BE 0000			        mov     si, BEB_OFF16
+
+				;
+				; Switch back to real-mode IDT.
+				;
+
+ 0436  66| 8D 06 040B R		        lea     eax, BlRealModeIdtr
+ 043B  67& 0F 01 18		        lidt    fword ptr ds:[eax]
+				                   
+ 043F  26: 83 7C 20 01		        cmp     word ptr es:[si].BEB.LegacyCall_OpCode, LC_INTXX
+ 0444  75 09			        jne     @f
+
+ 0446  26: 8A 4C 24		        mov     cl, byte ptr es:[si].BEB.LegacyCall_Vector
+ 044A  E8 0108			        call    BlProcessIntXx
+ 044D  EB 0C			        jmp     BlProcessRealModeRequest_Exit
+
+ 044F				@@:
+
+ 044F  26: 83 7C 20 02		        cmp     word ptr es:[si].BEB.LegacyCall_OpCode, LC_FARCALL
+ 0454  75 05			        jne     @f
+
+ 0456  E8 01A7			        call    BlProcessFarCall
+ 0459  EB 00			        jmp     BlProcessRealModeRequest_Exit
+
+ 045B				@@:
+
+ 045B				BlProcessRealModeRequest_Exit:
+
+				;
+				; Restore DS, ES, SS, and SP to their initial real-mode values.
+				;
+
+ 045B  8C C8			        mov     ax, cs
+ 045D  8E D8			        mov     ds, ax
+ 045F  8E C0			        mov     es, ax
+ 0461  B8 1000			        mov     ax, RM_INITIAL_SS
+ 0464  8E D0			        mov     ss, ax
+ 0466  BC FFF8			        mov     sp, RM_INITIAL_SP
+
+				;
+				; Load GDT.
+				;
+
+ 0469  BF 0346 R		        mov     di, OFFSET BlGDTS_Limit
+ 046C  0F 01 15			        lgdt    fword ptr ds:[di]
+
+				;
+				; Clear the real-mode segment registers.
+				;
+				        
+ 046F  33 C0			        xor     ax, ax
+ 0471  8E D8			        mov     ds, ax
+ 0473  8E C0			        mov     es, ax
+ 0475  8E D0			        mov     ss, ax
+ 0477  8E E0			        mov     fs, ax
+ 0479  8E E8			        mov     gs, ax
+				        
+				;
+				; Enable protected mode.
+				;
+
+ 047B  0F 20 C0			        mov     eax, cr0
+ 047E  66| 83 C8 21		        or      eax, CR0_PE OR CR0_NE
+ 0482  0F 22 C0			        mov     cr0, eax
+
+				;
+				; Jump far to 32-bit protected-mode code.
+				;
+				        
+				        JMPF16  PM_CODE_SELECTOR, LOWWORD ( REAL_MODE_BASE + OFFSET BlEnter32AfterRealModeRequest )
+ 0485  EA		     1	        db      0eah
+ 0486  7B70 R		     1	        dw      LOWWORD ( REAL_MODE_BASE + OFFSET BlEnter32AfterRealModeRequest )
+ 0488  0020		     1	        dw      PM_CODE_SELECTOR
+				        
+ 048A				BlProcessRealModeRequest        endp
+
+				;++
+				;
+				; Lock to protect shared access to real-mode boot stack.
+				;
+				;--
+				                
+ 048A				BlApStartupLock:
+
+ 048A  00000000			        dd      0
+
+ 048E DE AD BE EF		Bl16End db      0deh, 0adh, 0beh, 0efh
+
+				        
+				        org     500h
+
+				;++
+				;
+				; VOID
+				; BlApEntry16(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function implements the entry point for application processors
+				;   on a multi-processor system.
+				;
+				;--
+
+ 0500				BlApEntry16     proc
+
+				;
+				; Disable interrupts.
+				;
+
+ 0500  FA			        cli
+
+				;
+				; Set DS to access AP startup lock.
+				;
+
+ 0501  B8 07B0			        mov     ax, 07b0h
+ 0504  8E D8			        mov     ds, ax
+
+				;
+				; Acquire AP startup lock before touching any other memory or stack.
+				;
+
+ 0506				@@:
+ 0506  83 3E 048A R 00		        cmp     word ptr ds:[BlApStartupLock], 0
+ 050B  75 F9			        jne     @b
+
+ 050D  B8 0001			        mov     ax, 1
+ 0510  87 06 048A R		        xchg    word ptr ds:[BlApStartupLock], ax
+
+ 0514  83 F8 00			        cmp     ax, 0
+ 0517  75 ED			        jne     @b
+
+				;
+				; Set SS & SP and switch to 16-bit entry CS.
+				;
+
+ 0519  B8 1000			        mov     ax, RM_INITIAL_SS
+ 051C  8E D0			        mov     ss, ax
+ 051E  BC FFF8			        mov     sp, RM_INITIAL_SP
+
+				        JMPF16  07b0h, OFFSET @f
+ 0521  EA		     1	        db      0eah
+ 0522  0526 R		     1	        dw      OFFSET @f
+ 0524  07B0		     1	        dw      07b0h
+ 0526				@@:
+
+				;
+				; Initialize DS, ES, SS, and SP for real mode.
+				;
+
+ 0526  8C C8			        mov     ax, cs
+ 0528  8E D8			        mov     ds, ax
+ 052A  8E C0			        mov     es, ax
+ 052C  B8 1000			        mov     ax, RM_INITIAL_SS
+ 052F  8E D0			        mov     ss, ax
+ 0531  BC FFF8			        mov     sp, RM_INITIAL_SP
+
+				;
+				; Load GDT.
+				;
+
+ 0534  BF 0346 R		        mov     di, OFFSET BlGDTS_Limit
+ 0537  0F 01 15			        lgdt    fword ptr ds:[di]
+
+				;
+				; Clear the real-mode segment registers.
+				;
+				        
+ 053A  33 C0			        xor     ax, ax
+ 053C  8E D8			        mov     ds, ax
+ 053E  8E C0			        mov     es, ax
+ 0540  8E D0			        mov     ss, ax
+ 0542  8E E0			        mov     fs, ax
+ 0544  8E E8			        mov     gs, ax
+				        
+				;
+				; Enable protected mode.
+				;
+
+ 0546  0F 20 C0			        mov     eax, cr0
+ 0549  66| 83 C8 21		        or      eax, CR0_PE OR CR0_NE
+ 054D  0F 22 C0			        mov     cr0, eax
+
+				;
+				; Jump far to 32-bit protected-mode code.
+				;
+				        
+				        JMPF16  PM_CODE_SELECTOR, LOWWORD ( REAL_MODE_BASE + OFFSET BlApEntry32 )
+ 0550  EA		     1	        db      0eah
+ 0551  7CF1 R		     1	        dw      LOWWORD ( REAL_MODE_BASE + OFFSET BlApEntry32 )
+ 0553  0020		     1	        dw      PM_CODE_SELECTOR
+				        
+ 0555				BlApEntry16     endp
+
+				;
+				;
+				;
+				              
+				SAVE_CONTEXT_TO_STACK           macro
+
+				        push    eax
+				        push    ebx
+				        push    ecx
+				        push    edx
+				        push    esi
+				        push    edi
+				        push    ds
+				        push    es
+				        pushfd
+
+				endm
+
+				RESTORE_CONTEXT_FROM_STACK      macro
+
+				        popfd
+				        pop     es
+				        pop     ds
+				        pop     edi
+				        pop     esi
+				        pop     edx
+				        pop     ecx
+				        pop     ebx
+				        pop     eax
+
+				endm
+
+				SAVE_CALL_CONTEXT_TO_STACK      macro
+
+				        mov     ax, BEB_SEG16
+				        mov     es, ax
+				        mov     si, BEB_OFF16
+
+				        push    dword ptr es:[si].BEB.LegacyCall_eax
+				        push    dword ptr es:[si].BEB.LegacyCall_ebx
+				        push    dword ptr es:[si].BEB.LegacyCall_ecx
+				        push    dword ptr es:[si].BEB.LegacyCall_edx
+				        push    dword ptr es:[si].BEB.LegacyCall_esi
+				        push    dword ptr es:[si].BEB.LegacyCall_edi
+				        push    word ptr es:[si].BEB.LegacyCall_ds
+				        push    word ptr es:[si].BEB.LegacyCall_es
+				        pushfd
+
+				endm
+
+				RESTORE_CALL_CONTEXT_FROM_STACK macro
+
+				        mov     ax, BEB_SEG16
+				        mov     es, ax
+				        mov     si, BEB_OFF16
+
+				        pop     dword ptr es:[si].BEB.LegacyCall_eflags
+				        pop     word ptr es:[si].BEB.LegacyCall_es
+				        pop     word ptr es:[si].BEB.LegacyCall_ds
+				        pop     dword ptr es:[si].BEB.LegacyCall_edi
+				        pop     dword ptr es:[si].BEB.LegacyCall_esi
+				        pop     dword ptr es:[si].BEB.LegacyCall_edx
+				        pop     dword ptr es:[si].BEB.LegacyCall_ecx
+				        pop     dword ptr es:[si].BEB.LegacyCall_ebx
+				        pop     dword ptr es:[si].BEB.LegacyCall_eax
+
+				endm
+
+				;++
+				;
+				; VOID
+				; BlProcessIntXx(
+				;     UCHAR InterruptVector
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function processes INT XX requests.
+				;
+				; Arguments:
+				;
+				;   InterruptVector (cl) - Supplies the interrupt vector to invoke.
+				;
+				;--
+
+ 0555				BlProcessIntXx  proc
+
+ 0555  2E: 88 0E 05AB R		        mov     byte ptr @f, cl
+
+				        SAVE_CONTEXT_TO_STACK
+ 055A  66| 50		     1	        push    eax
+ 055C  66| 53		     1	        push    ebx
+ 055E  66| 51		     1	        push    ecx
+ 0560  66| 52		     1	        push    edx
+ 0562  66| 56		     1	        push    esi
+ 0564  66| 57		     1	        push    edi
+ 0566  1E		     1	        push    ds
+ 0567  06		     1	        push    es
+ 0568  66| 9C		     1	        pushfd
+
+				        SAVE_CALL_CONTEXT_TO_STACK
+ 056A  B8 2F00		     1	        mov     ax, BEB_SEG16
+ 056D  8E C0		     1	        mov     es, ax
+ 056F  BE 0000		     1	        mov     si, BEB_OFF16
+ 0572  66| 26: FF 74 28	     1	        push    dword ptr es:[si].BEB.LegacyCall_eax
+ 0577  66| 26: FF 74 2C	     1	        push    dword ptr es:[si].BEB.LegacyCall_ebx
+ 057C  66| 26: FF 74 30	     1	        push    dword ptr es:[si].BEB.LegacyCall_ecx
+ 0581  66| 26: FF 74 34	     1	        push    dword ptr es:[si].BEB.LegacyCall_edx
+ 0586  66| 26: FF 74 38	     1	        push    dword ptr es:[si].BEB.LegacyCall_esi
+ 058B  66| 26: FF 74 3C	     1	        push    dword ptr es:[si].BEB.LegacyCall_edi
+ 0590  26: FF 74 40	     1	        push    word ptr es:[si].BEB.LegacyCall_ds
+ 0594  26: FF 74 44	     1	        push    word ptr es:[si].BEB.LegacyCall_es
+ 0598  66| 9C		     1	        pushfd
+
+				        RESTORE_CONTEXT_FROM_STACK
+ 059A  66| 9D		     1	        popfd
+ 059C  07		     1	        pop     es
+ 059D  1F		     1	        pop     ds
+ 059E  66| 5F		     1	        pop     edi
+ 05A0  66| 5E		     1	        pop     esi
+ 05A2  66| 5A		     1	        pop     edx
+ 05A4  66| 59		     1	        pop     ecx
+ 05A6  66| 5B		     1	        pop     ebx
+ 05A8  66| 58		     1	        pop     eax
+
+				;
+				; INT XX instruction.
+				;
+
+ 05AA  CD			        db      0CDh
+
+ 05AB				@@:
+
+ 05AB  00			        db      000h
+
+				        SAVE_CONTEXT_TO_STACK
+ 05AC  66| 50		     1	        push    eax
+ 05AE  66| 53		     1	        push    ebx
+ 05B0  66| 51		     1	        push    ecx
+ 05B2  66| 52		     1	        push    edx
+ 05B4  66| 56		     1	        push    esi
+ 05B6  66| 57		     1	        push    edi
+ 05B8  1E		     1	        push    ds
+ 05B9  06		     1	        push    es
+ 05BA  66| 9C		     1	        pushfd
+
+				        RESTORE_CALL_CONTEXT_FROM_STACK
+ 05BC  B8 2F00		     1	        mov     ax, BEB_SEG16
+ 05BF  8E C0		     1	        mov     es, ax
+ 05C1  BE 0000		     1	        mov     si, BEB_OFF16
+ 05C4  66| 26: 8F 44 48	     1	        pop     dword ptr es:[si].BEB.LegacyCall_eflags
+ 05C9  26: 8F 44 44	     1	        pop     word ptr es:[si].BEB.LegacyCall_es
+ 05CD  26: 8F 44 40	     1	        pop     word ptr es:[si].BEB.LegacyCall_ds
+ 05D1  66| 26: 8F 44 3C	     1	        pop     dword ptr es:[si].BEB.LegacyCall_edi
+ 05D6  66| 26: 8F 44 38	     1	        pop     dword ptr es:[si].BEB.LegacyCall_esi
+ 05DB  66| 26: 8F 44 34	     1	        pop     dword ptr es:[si].BEB.LegacyCall_edx
+ 05E0  66| 26: 8F 44 30	     1	        pop     dword ptr es:[si].BEB.LegacyCall_ecx
+ 05E5  66| 26: 8F 44 2C	     1	        pop     dword ptr es:[si].BEB.LegacyCall_ebx
+ 05EA  66| 26: 8F 44 28	     1	        pop     dword ptr es:[si].BEB.LegacyCall_eax
+
+				        RESTORE_CONTEXT_FROM_STACK
+ 05EF  66| 9D		     1	        popfd
+ 05F1  07		     1	        pop     es
+ 05F2  1F		     1	        pop     ds
+ 05F3  66| 5F		     1	        pop     edi
+ 05F5  66| 5E		     1	        pop     esi
+ 05F7  66| 5A		     1	        pop     edx
+ 05F9  66| 59		     1	        pop     ecx
+ 05FB  66| 5B		     1	        pop     ebx
+ 05FD  66| 58		     1	        pop     eax
+
+ 05FF  C3			        ret
+
+ 0600				BlProcessIntXx  endp
+
+				;++
+				;
+				; VOID
+				; BlProcessFarCall(
+				;     UCHAR InterruptVector
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function processes far call requests.
+				;
+				;--
+
+ 0600				BlProcessFarCall        proc
+
+				        SAVE_CONTEXT_TO_STACK
+ 0600  66| 50		     1	        push    eax
+ 0602  66| 53		     1	        push    ebx
+ 0604  66| 51		     1	        push    ecx
+ 0606  66| 52		     1	        push    edx
+ 0608  66| 56		     1	        push    esi
+ 060A  66| 57		     1	        push    edi
+ 060C  1E		     1	        push    ds
+ 060D  06		     1	        push    es
+ 060E  66| 9C		     1	        pushfd
+
+ 0610  55			        push    bp
+ 0611  8B EC			        mov     bp, sp
+
+				;
+				; Copy the call frame to the stack.
+				;
+
+ 0613  B8 2F00			        mov     ax, BEB_SEG16
+ 0616  8E C0			        mov     es, ax
+ 0618  BE 0000			        mov     si, BEB_OFF16
+
+ 061B  26: 8B 44 4E		        mov     ax, word ptr es:[si].BEB.LegacyCall_FramePtr + 2
+ 061F  8E D8			        mov     ds, ax
+ 0621  26: 8B 5C 4C		        mov     bx, word ptr es:[si].BEB.LegacyCall_FramePtr
+
+ 0625  26: 8B 4C 50		        mov     cx, word ptr es:[si].BEB.LegacyCall_FrameSize
+ 0629  03 D9			        add     bx, cx
+ 062B  8B C1			        mov     ax, cx
+
+ 062D				@@:
+
+ 062D  83 F8 00			        cmp     ax, 0
+ 0630  74 0A			        je      @f
+
+ 0632  83 EB 02			        sub     bx, 2
+ 0635  FF 37			        push    word ptr ds:[bx]
+
+ 0637  83 E8 02			        sub     ax, 2
+ 063A  EB F1			        jmp     @b
+
+ 063C				@@:
+
+				;
+				; Set return address.
+				;
+
+ 063C  0E			        push    cs
+ 063D  68 0686 R		        push    @f
+
+				;
+				; Set call address.
+				;
+
+ 0640  66| 26: FF 74 54		        push    dword ptr es:[si].BEB.LegacyCall_FuncPtr
+
+				;
+				; Set caller provided context.
+				;
+
+				        SAVE_CALL_CONTEXT_TO_STACK
+ 0645  B8 2F00		     1	        mov     ax, BEB_SEG16
+ 0648  8E C0		     1	        mov     es, ax
+ 064A  BE 0000		     1	        mov     si, BEB_OFF16
+ 064D  66| 26: FF 74 28	     1	        push    dword ptr es:[si].BEB.LegacyCall_eax
+ 0652  66| 26: FF 74 2C	     1	        push    dword ptr es:[si].BEB.LegacyCall_ebx
+ 0657  66| 26: FF 74 30	     1	        push    dword ptr es:[si].BEB.LegacyCall_ecx
+ 065C  66| 26: FF 74 34	     1	        push    dword ptr es:[si].BEB.LegacyCall_edx
+ 0661  66| 26: FF 74 38	     1	        push    dword ptr es:[si].BEB.LegacyCall_esi
+ 0666  66| 26: FF 74 3C	     1	        push    dword ptr es:[si].BEB.LegacyCall_edi
+ 066B  26: FF 74 40	     1	        push    word ptr es:[si].BEB.LegacyCall_ds
+ 066F  26: FF 74 44	     1	        push    word ptr es:[si].BEB.LegacyCall_es
+ 0673  66| 9C		     1	        pushfd
+
+				        RESTORE_CONTEXT_FROM_STACK
+ 0675  66| 9D		     1	        popfd
+ 0677  07		     1	        pop     es
+ 0678  1F		     1	        pop     ds
+ 0679  66| 5F		     1	        pop     edi
+ 067B  66| 5E		     1	        pop     esi
+ 067D  66| 5A		     1	        pop     edx
+ 067F  66| 59		     1	        pop     ecx
+ 0681  66| 5B		     1	        pop     ebx
+ 0683  66| 58		     1	        pop     eax
+
+				;
+				; Call the specified function with a far return.
+				;
+
+ 0685  CB			        retf
+
+ 0686				@@:
+
+				;
+				; Copy the output context to BEB.
+				;
+
+				        SAVE_CONTEXT_TO_STACK
+ 0686  66| 50		     1	        push    eax
+ 0688  66| 53		     1	        push    ebx
+ 068A  66| 51		     1	        push    ecx
+ 068C  66| 52		     1	        push    edx
+ 068E  66| 56		     1	        push    esi
+ 0690  66| 57		     1	        push    edi
+ 0692  1E		     1	        push    ds
+ 0693  06		     1	        push    es
+ 0694  66| 9C		     1	        pushfd
+
+				        RESTORE_CALL_CONTEXT_FROM_STACK
+ 0696  B8 2F00		     1	        mov     ax, BEB_SEG16
+ 0699  8E C0		     1	        mov     es, ax
+ 069B  BE 0000		     1	        mov     si, BEB_OFF16
+ 069E  66| 26: 8F 44 48	     1	        pop     dword ptr es:[si].BEB.LegacyCall_eflags
+ 06A3  26: 8F 44 44	     1	        pop     word ptr es:[si].BEB.LegacyCall_es
+ 06A7  26: 8F 44 40	     1	        pop     word ptr es:[si].BEB.LegacyCall_ds
+ 06AB  66| 26: 8F 44 3C	     1	        pop     dword ptr es:[si].BEB.LegacyCall_edi
+ 06B0  66| 26: 8F 44 38	     1	        pop     dword ptr es:[si].BEB.LegacyCall_esi
+ 06B5  66| 26: 8F 44 34	     1	        pop     dword ptr es:[si].BEB.LegacyCall_edx
+ 06BA  66| 26: 8F 44 30	     1	        pop     dword ptr es:[si].BEB.LegacyCall_ecx
+ 06BF  66| 26: 8F 44 2C	     1	        pop     dword ptr es:[si].BEB.LegacyCall_ebx
+ 06C4  66| 26: 8F 44 28	     1	        pop     dword ptr es:[si].BEB.LegacyCall_eax
+
+ 06C9  8B E5			        mov     sp, bp
+ 06CB  5D			        pop     bp
+
+				        RESTORE_CONTEXT_FROM_STACK
+ 06CC  66| 9D		     1	        popfd
+ 06CE  07		     1	        pop     es
+ 06CF  1F		     1	        pop     ds
+ 06D0  66| 5F		     1	        pop     edi
+ 06D2  66| 5E		     1	        pop     esi
+ 06D4  66| 5A		     1	        pop     edx
+ 06D6  66| 59		     1	        pop     ecx
+ 06D8  66| 5B		     1	        pop     ebx
+ 06DA  66| 58		     1	        pop     eax
+
+ 06DC  C3			        ret
+
+ 06DD				BlProcessFarCall        endp
+				        
+ 0000				_TEXT16 ends
+
+ 00000000			_TEXT32 segment page public use32 'CODE'
+
+				;++
+				;
+				; VOID
+				; BlEntry32(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function implements the 32-bit entry point for the boot loader.
+				;
+				;--
+
+ 00000000			BlEntry32       proc
+
+				;
+				; Load the protected-mode segment registers.
+				;
+ 00000000  66| B8 0028		        mov     ax, PM_DATA_SELECTOR
+ 00000004  66| 8E D8		        mov     ds, ax
+ 00000007  66| 8E C0		        mov     es, ax
+ 0000000A  66| 8E D0		        mov     ss, ax
+ 0000000D  BC 00020000		        mov     esp, PM_INITIAL_ESP
+
+ 00000012  66| B8 0000		        mov     ax, NULL_SELECTOR
+ 00000016  66| 8E E0		        mov     fs, ax
+ 00000019  66| 8E E8		        mov     gs, ax
+
+ 0000001C  BE 000B800E		        mov     esi, VIDEO_BASE + 14
+ 00000021  66| 89 06		        mov     [esi], ax
+				   
+				ifdef BOOT_X64             
+				endif
+				        
+				;
+				; Initialize boot environment block.
+				;
+
+ 00000024  E8 000001B4		        call    BlRegisterExitAddress
+
+				;
+				; Prepare page tables.
+				;
+
+ 00000029  E8 00000096		        call    BlPreparePageTables
+
+ 0000002E  66| B8 4F49		        mov     ax, GREEN + 'I'
+ 00000032  BE 000B800E		        mov     esi, VIDEO_BASE + 14
+ 00000037  66| 89 06		        mov     [esi], ax
+				        
+				        
+				;
+				; Enable PSE, PAE, performance counters, and floating point support.
+				;
+
+ 0000003A  0F 20 E0		        mov     eax, cr4
+ 0000003D  0D 00000330		        or      eax, CR4_PSE OR CR4_PAE OR CR4_PCE OR CR4_OSFXSR
+ 00000042  0F 22 E0		        mov     cr4, eax
+
+				;
+				; Set root page table.
+				;
+
+				ifdef BOOT_X64
+				else
+ 00000045  B8 00022000		        mov     eax, PM_PDPT_ADDRESS
+				endif
+ 0000004A  0F 22 D8		        mov     cr3, eax
+
+				ifdef BOOT_X64        
+				endif        
+
+				;
+				; Enable paging.
+				;
+
+ 0000004D  0F 20 C0		        mov     eax, cr0
+ 00000050  0D 80000000		        or      eax, CR0_PG
+ 00000055  0F 22 C0		        mov     cr0, eax
+
+				;
+				; Load PE image.
+				;
+
+ 00000058  E8 000000D7		        call    BlLoadImage
+
+ 0000005D  66| BB 4F4A		        mov     bx, GREEN + 'J'
+ 00000061  BE 000B8010		        mov     esi, VIDEO_BASE + 16
+ 00000066  66| 89 1E		        mov     [esi], bx
+				        
+				ifdef BOOT_X64        
+				endif
+				                
+				;
+				; Switch to entry stack and call entry point.
+				;
+				        
+ 00000069  BC 00080000		        mov     esp, BL_ENTRY_SP
+ 0000006E  FF D0		        call    eax
+
+ 00000070			BlEntry32       endp
+
+				;++
+				;
+				; VOID
+				; BlEnter32AfterRealModeRequest(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function returns to normal mode after a legacy mode request was handled.
+				;
+				;--
+
+ 00000070			BlEnter32AfterRealModeRequest    proc
+
+				;
+				; Load the protected-mode segment registers.
+				;
+ 00000070  66| B8 0028		        mov     ax, PM_DATA_SELECTOR
+ 00000074  66| 8E D8		        mov     ds, ax
+ 00000077  66| 8E C0		        mov     es, ax
+ 0000007A  66| 8E D0		        mov     ss, ax
+ 0000007D  BC 00020000		        mov     esp, PM_INITIAL_ESP
+
+ 00000082  66| B8 0000		        mov     ax, NULL_SELECTOR
+ 00000086  66| 8E E0		        mov     fs, ax
+ 00000089  66| 8E E8		        mov     gs, ax
+
+				;
+				; Enable PSE, PAE, performance counters, and floating point support.
+				;
+
+ 0000008C  0F 20 E0		        mov     eax, cr4
+ 0000008F  0D 00000330		        or      eax, CR4_PSE OR CR4_PAE OR CR4_PCE OR CR4_OSFXSR
+ 00000094  0F 22 E0		        mov     cr4, eax
+
+				;
+				; Set root page table.
+				;
+
+ 00000097  B8 0002F000		        mov     eax, BEB_BASE
+ 0000009C  8B 40 1C		        mov     eax, dword ptr [eax].BEB.LegacyReturnCr3
+ 0000009F  0F 22 D8		        mov     cr3, eax
+
+				ifdef BOOT_X64
+				endif
+
+				;
+				; Restore the IDT
+				;
+
+ 000000A2  B8 00000415 R	        mov     eax, OFFSET BlProtModeIdtr
+ 000000A7  05 00007B00		        add     eax, REAL_MODE_BASE
+ 000000AC  0F 01 18		        lidt    fword ptr ds:[eax]
+				        
+				;
+				; Enable paging.
+				;
+
+ 000000AF  0F 20 C0		        mov     eax, cr0
+ 000000B2  0D 80000000		        or      eax, CR0_PG
+ 000000B7  0F 22 C0		        mov     cr0, eax
+
+				;
+				; Get return address from BEB.
+				;
+
+ 000000BA  B8 0002F000		        mov     eax, BEB_BASE
+ 000000BF  8B 40 18		        mov     eax, dword ptr [eax].BEB.LegacyReturnAddress
+
+				ifdef BOOT_X64
+				endif
+				        
+				;
+				; Return to normal code.
+				;
+				        
+ 000000C2  FF D0		        call    eax
+
+ 000000C4			BlEnter32AfterRealModeRequest    endp
+
+				;++
+				;
+				; VOID
+				; BlPreparePageTables(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function prepares page tables for long mode execution.
+				;
+				;--
+
+ 000000C4			BlPreparePageTables     proc
+
+				ifdef BOOT_X64
+				endif
+				        
+				;
+				; Clear all entries for 2nd and 3rd level tables.
+				;
+
+ 000000C4  33 C0		        xor     eax, eax
+ 000000C6  BF 00022000		        mov     edi, PM_PDPT_ADDRESS
+ 000000CB  B9 00000400		        mov     ecx, 0400h
+ 000000D0  F3/ AB		        rep stosd
+
+ 000000D2  33 C0		        xor     eax, eax
+ 000000D4  BF 00023000		        mov     edi, PM_PDT_ADDRESS
+ 000000D9  B9 00000400		        mov     ecx, 0400h
+ 000000DE  F3/ AB		        rep stosd
+
+				;
+				; Create a single 3rd level entry.
+				;
+
+ 000000E0  B8 00022000		        mov     eax, PM_PDPT_ADDRESS
+				ifdef BOOT_X64        
+				else
+				;;; See if these can't be the same.
+ 000000E5  C7 00 00023001	        mov     dword ptr [eax], PM_PDT_ADDRESS OR PTE_PRESENT
+				endif
+
+				;
+				; Create a single 2nd level entry to identity-map the first 2MB of memory.
+				;
+
+ 000000EB  B8 00023000		        mov     eax, PM_PDT_ADDRESS
+ 000000F0  C7 00 000000A3	        mov     dword ptr [eax], 0 OR PTE_PRESENT OR PTE_WRITEABLE OR PTE_ACCESSED OR PTE_2MB
+
+ 000000F6  C3			        ret
+
+ 000000F7			BlPreparePageTables     endp
+
+				ifdef BOOT_X64
+				endif
+
+				;++
+				;
+				; VOID
+				; BlHalt(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function halts execution.
+				;
+				;--
+
+ 000000F7			BlHalt  proc
+
+ 000000F7			@@:
+
+ 000000F7  EB FE		        jmp     @b
+
+ 000000F9			BlHalt  endp
+
+				;++
+				;
+				; VOID
+				; BlLeaveProtectedMode(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function leaves protected mode to perform a real mode operation.
+				;
+				;--
+
+				ALIGN 16        
+ 00000100			BlLeaveProtectedMode    proc
+
+				;
+				; Disable paging, reset root page table, and flush TLB.
+				;
+
+ 00000100  0F 20 C0		        mov     eax, cr0
+ 00000103  25 7FFFFFFF		        and     eax, NOT CR0_PG
+ 00000108  0F 22 C0		        mov     cr0, eax
+
+ 0000010B  33 C0		        xor     eax, eax
+ 0000010D  0F 22 D8		        mov     cr3, eax
+ 00000110  0F 22 E0		        mov     cr4, eax
+
+ 00000113  EB 0B		        jmp     @f
+				ALIGN 16
+ 00000120			@@:
+
+				;
+				; Save the IDT.
+				;
+				             
+ 00000120  B8 00000415 R	        mov     eax, OFFSET BlProtModeIdtr
+ 00000125  05 00007B00		        add     eax, REAL_MODE_BASE
+ 0000012A  0F 01 08		        sidt    fword ptr ds:[eax]
+				           
+				ifdef BOOT_X64        
+				endif
+				        
+				;
+				; Return to real-mode code.
+				;
+
+				        JMPF32  RM_CODE_SELECTOR, OFFSET BlReturnToRealMode
+ 0000012D  EA		     1	        db      0eah
+ 0000012E  0350 0000 R	     1	        dd      OFFSET BlReturnToRealMode
+ 00000132  0010		     1	        dw      RM_CODE_SELECTOR
+
+ 00000134			BlLeaveProtectedMode    endp
+
+				;++
+				;
+				; PVOID
+				; BlLoadImage(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function loads the higher-level boot loader image.
+				;
+				; Return Value:
+				;
+				;   Entry point address for the loaded image.
+				;
+				;--
+
+ 00000134			BlLoadImage     proc
+
+ 00000134  8D 2D 000002F0 R	        lea     ebp, OFFSET BlImageStart
+ 0000013A  81 C5 00007B00	        add     ebp, REAL_MODE_BASE
+
+				;
+				; Check DOS signature.
+				;
+
+ 00000140  66| 81 7D 00		        cmp     word ptr [ebp], IMAGE_DOS_SIGNATURE
+	   5A4D
+ 00000146  0F 85 0000008C	        jne     BlInvalidImage
+
+				;
+				; Calculate NT header address.
+				;
+
+ 0000014C  8B 5D 3C		        mov     ebx, dword ptr [ebp + IDH_NT_HEADER_OFFSET]
+ 0000014F  03 DD		        add     ebx, ebp
+
+				;
+				; Check NT signature.
+				;
+
+ 00000151  81 3B 00004550	        cmp     dword ptr [ebx + INH_SIGNATURE], IMAGE_NT_SIGNATURE
+ 00000157  75 7F		        jne     BlInvalidImage
+
+				;
+				; Check image base.
+				;
+
+				ifdef BOOT_X64        
+				else
+ 00000159  81 7B 34		        cmp     dword ptr [ebx + INH_OPTIONAL_HEADER + IOH32_IMAGE_BASE], IMAGE_ADDRESS
+	   00040000
+				endif
+ 00000160  75 76		        jne     BlInvalidImage
+
+				;
+				; Copy headers.
+				;
+
+ 00000162  8B F5		        mov     esi, ebp
+ 00000164  BF 00040000		        mov     edi, IMAGE_ADDRESS
+ 00000169  8B 4B 54		        mov     ecx, dword ptr [ebx + INH_OPTIONAL_HEADER + IOH_SIZE_OF_HEADERS]
+ 0000016C  F3/ A4		        rep movsb
+
+				;
+				; Calculate the address of first section header.
+				;
+				; SectionHeader = (PIMAGE_SECTION_HEADER) (((ULONG_PTR) &NtHeaders->OptionalHeader) + NtHeaders->FileHeader.SizeOfOptionalHeader)
+				;
+
+ 0000016E  33 F6		        xor     esi, esi
+ 00000170  66| 8B 73 14		        mov     si, word ptr [ebx + INH_FILE_HEADER + IFH_SIZE_OF_OPTIONAL_HEADER]
+ 00000174  83 C6 18		        add     esi, INH_OPTIONAL_HEADER
+ 00000177  03 F3		        add     esi, ebx
+
+ 00000179  33 C9		        xor     ecx, ecx
+ 0000017B  66| 8B 4B 06		        mov     cx, word ptr [ebx + INH_FILE_HEADER + IFH_NUMBER_OF_SECTIONS]
+ 0000017F  66| 83 F9 00		        cmp     cx, 0
+ 00000183  75 05		        jne     @f
+
+ 00000185  E8 0000004E		        call    BlInvalidImage
+
+				;
+				; for (Index = 0; Index < NtHeaders->FileHeader.NumberOfSections; Index += 1) {
+				;
+				;     BlCopySection(DosHeader, &SectionHeader[Index]);
+				; }
+				;
+
+ 0000018A			@@:
+
+ 0000018A  51			        push    ecx
+
+ 0000018B  8B CD		        mov     ecx, ebp
+ 0000018D  8B D6		        mov     edx, esi
+
+ 0000018F  E8 00000010		        call    BlCopySection
+
+ 00000194  59			        pop     ecx
+
+ 00000195  83 C6 28		        add     esi, IMAGE_SECTION_HEADER_SIZE
+
+ 00000198  49			        dec     ecx
+ 00000199  75 EF		        jnz     @b
+
+ 0000019B  8B 43 28		        mov     eax, dword ptr [ebx + INH_OPTIONAL_HEADER + IOH_ADDRESS_OF_ENTRY_POINT]
+ 0000019E  05 00040000		        add     eax, IMAGE_ADDRESS
+ 000001A3  C3			        ret
+
+ 000001A4			BlLoadImage     endp
+
+				;++
+				;
+				; VOID
+				; FASTCALL
+				; BlCopySection(
+				;     PIMAGE_DOS_HEADER DosHeader,
+				;     PIMAGE_SECTION_HEADER SectionHeader
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function copies the specified image section.
+				;
+				; Arguments:
+				;
+				;   DosHeader (ecx)     - Supplies a pointer to the source image to copy from.
+				;
+				;   SectionHeader (edx) - Supplies a pointer to the section header describing
+				;                         the section to copy.
+				;
+				;--
+
+ 000001A4			BlCopySection   proc
+
+				;
+				; Create call frame and save non-volatile registers that will be used.
+				;
+
+ 000001A4  55			        push    ebp
+ 000001A5  8B EC		        mov     ebp, esp
+
+ 000001A7  56			        push    esi
+ 000001A8  57			        push    edi
+
+				;
+				; Calculate source and destination address for the copy operation.
+				;
+
+ 000001A9  8B 72 14		        mov     esi, dword ptr [edx + ISH_POINTER_TO_RAW_DATA]
+ 000001AC  03 F1		        add     esi, ecx
+
+ 000001AE  8B 7A 0C		        mov     edi, dword ptr [edx + ISH_VIRTUAL_ADDRESS]
+ 000001B1  81 C7 00040000	        add     edi, IMAGE_ADDRESS
+
+				;
+				; Save source and destination addresses -- rep stosb below will use them.
+				;
+
+ 000001B7  56			        push    esi
+ 000001B8  57			        push    edi
+
+				;
+				; Zero the entire target virtual range.
+				;
+
+ 000001B9  B8 00000000		        mov     eax, 0
+ 000001BE  8B 4A 08		        mov     ecx, dword ptr [edx + ISH_VIRTUAL_SIZE]
+ 000001C1  F3/ AA		        rep stosb
+
+				;
+				; Restore source and destination addresses.
+				;
+
+ 000001C3  5F			        pop     edi
+ 000001C4  5E			        pop     esi
+
+				;
+				; BytesToCopy = min(SectionHeader->VirtualSize, SectionHeader->SizeOfRawData)
+				;
+ 000001C5  8B 4A 08		        mov     ecx, dword ptr [edx + ISH_VIRTUAL_SIZE]
+ 000001C8  3B 4A 10		        cmp     ecx, dword ptr [edx + ISH_SIZE_OF_RAW_DATA]
+ 000001CB  7C 03		        jl      @f
+
+ 000001CD  8B 4A 10		        mov     ecx, dword ptr [edx + ISH_SIZE_OF_RAW_DATA]
+
+ 000001D0			@@:
+
+				;
+				; Perform copy.
+				;
+
+ 000001D0  F3/ A4		        rep movsb
+
+				;
+				; Restore used non-volatile registers, base pointer, and return.
+				;
+
+ 000001D2  5F			        pop     edi
+ 000001D3  5E			        pop     esi
+ 000001D4  8B E5		        mov     esp, ebp
+ 000001D6  5D			        pop     ebp
+ 000001D7  C3			        ret
+
+ 000001D8			BlCopySection   endp
+
+				;++
+				;
+				; VOID
+				; BlInvalidImage(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function is called to halt execution if the embedded image is corrupted.
+				;
+				;--
+
+ 000001D8			BlInvalidImage  proc
+
+ 000001D8  E8 FFFFFF1A		        call    BlHalt
+
+ 000001DD			BlInvalidImage  endp
+
+				;++
+				;
+				; VOID
+				; BlRegisterExitAddress(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function registers the exit address in the boot environment block.
+				;
+				;--
+
+ 000001DD			BlRegisterExitAddress   proc
+
+ 000001DD  B9 0002F000		        mov     ecx, BEB_BASE
+
+ 000001E2  8D 05 00000100 R	        lea     eax, BlLeaveProtectedMode
+ 000001E8  05 00007B00		        add     eax, REAL_MODE_BASE
+
+ 000001ED  89 41 14		        mov     dword ptr [ecx].BEB.LegacyCallAddress, eax
+
+ 000001F0  C3			        ret
+
+ 000001F1			BlRegisterExitAddress   endp
+
+				;++
+				;
+				; VOID
+				; BlApEntry32(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function implements 32-bit entry point for application processors.
+				;
+				;--
+
+ 000001F1			BlApEntry32     proc
+
+				;
+				; Load the protected-mode segment registers.
+				;
+ 000001F1  66| B8 0028		        mov     ax, PM_DATA_SELECTOR
+ 000001F5  66| 8E D8		        mov     ds, ax
+ 000001F8  66| 8E C0		        mov     es, ax
+ 000001FB  66| 8E D0		        mov     ss, ax
+ 000001FE  BC 00020000		        mov     esp, PM_INITIAL_ESP
+
+ 00000203  66| B8 0000		        mov     ax, NULL_SELECTOR
+ 00000207  66| 8E E0		        mov     fs, ax
+ 0000020A  66| 8E E8		        mov     gs, ax
+
+				;
+				; Enable PSE, PAE, performance counters, and floating point support.
+				;
+
+ 0000020D  0F 20 E0		        mov     eax, cr4
+ 00000210  0D 00000330		        or      eax, CR4_PSE OR CR4_PAE OR CR4_PCE OR CR4_OSFXSR
+ 00000215  0F 22 E0		        mov     cr4, eax
+
+				;
+				; Set root page table.
+				;
+
+ 00000218  B8 0002F000		        mov     eax, BEB_BASE
+ 0000021D  8B 40 1C		        mov     eax, dword ptr [eax].BEB.LegacyReturnCr3
+ 00000220  0F 22 D8		        mov     cr3, eax
+
+				ifdef BOOT_X64        
+				endif
+				        
+				;
+				; Enable paging.
+				;
+
+ 00000223  0F 20 C0		        mov     eax, cr0
+ 00000226  0D 80000000		        or      eax, CR0_PG
+ 0000022B  0F 22 C0		        mov     cr0, eax
+
+				;
+				; Get entry address from BEB.
+				;
+
+ 0000022E  B8 0002F000		        mov     eax, BEB_BASE
+ 00000233  8B 40 5C		        mov     eax, dword ptr [eax].BEB.ApEntry
+
+				ifdef BOOT_X64
+				endif
+
+				;
+				; Switch to entry stack and call entry point.
+				;
+
+ 00000236  BC 00080000		        mov     esp, BL_ENTRY_SP
+ 0000023B  FF D0		        call    eax
+
+ 0000023D			BlApEntry32     endp
+
+				        
+				;++
+				;
+				; VOID
+				; BlLeaveLrb64ToBoot(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function leaves paging and protected mode to boot.
+				;
+				;--
+
+				ALIGN 16
+
+ 00000240  53 49 4E 47		        db      'S','I','N','G'
+ 00000244  4C 52 42 00		        db      'L','R','B',0
+ 00000248  F8 F9 FA FB		        db      0f8h, 0f9h, 0fah, 0fbh
+ 0000024C  FC FD FE FF		        db      0fch, 0fdh, 0feh, 0ffh
+ 00000250			BlFlashImage:         
+ 00000250  00000000		        dd      0
+ 00000254			BlSmapAddr:             
+ 00000254  00000000		        dd      0
+ 00000258			BlSmapSize:             
+ 00000258  00000000		        dd      0
+ 0000025C  00000000		        dd      0
+				        
+ 00000260			BlLeaveLrb64ToBoot    proc
+ 00000260  B8 00001F50		        mov     eax, BLUE + 'P'
+ 00000265  BE 000B8000		        mov     esi, VIDEO_BASE + 0
+ 0000026A  66| 89 06		        mov     [esi], ax
+				        
+ 0000026D  B8 00001F4F		        mov     eax, BLUE + 'O'
+ 00000272  BE 000B8002		        mov     esi, VIDEO_BASE + 2
+ 00000277  66| 89 06		        mov     [esi], ax
+
+ 0000027A  B8 00001F4E		        mov     eax, BLUE + 'N'
+ 0000027F  BE 000B8004		        mov     esi, VIDEO_BASE + 4
+ 00000284  66| 89 06		        mov     [esi], ax
+
+ 00000287  B8 00001F4D		        mov     eax, BLUE + 'M'
+ 0000028C  BE 000B8006		        mov     esi, VIDEO_BASE + 6
+ 00000291  66| 89 06		        mov     [esi], ax
+
+ 00000294  B8 00001F4C		        mov     eax, BLUE + 'L'
+ 00000299  BE 000B8008		        mov     esi, VIDEO_BASE + 8
+ 0000029E  66| 89 06		        mov     [esi], ax
+
+				;
+				; Prepare a known GDT.
+				;
+ 000002A1  B8 00001F4B		        mov     eax, BLUE + 'K'
+ 000002A6  BE 000B800A		        mov     esi, VIDEO_BASE + 10
+ 000002AB  66| 89 06		        mov     [esi], ax
+
+ 000002AE  B8 00001F4A		        mov     eax, BLUE + 'J'
+ 000002B3  BE 000B800C		        mov     esi, VIDEO_BASE + 12
+ 000002B8  66| 89 06		        mov     [esi], ax
+
+				;
+				; Load the known GDT.
+				;
+				        
+ 000002BB  BF 00000346 R	        mov     edi, BlGDTS_Limit
+ 000002C0  81 C7 00007B00	        add     edi, REAL_MODE_BASE
+ 000002C6  0F 01 17		        lgdt    fword ptr ds:[edi]
+				        
+ 000002C9  B8 00002F52		        mov     eax, RED + 'R'
+ 000002CE  BE 000B8008		        mov     esi, VIDEO_BASE + 8
+ 000002D3  66| 89 06		        mov     [esi], ax
+
+ 000002D6  B8 00002F53		        mov     eax, RED + 'S'
+ 000002DB  BE 000B800A		        mov     esi, VIDEO_BASE + 10
+ 000002E0  66| 89 06		        mov     [esi], ax
+
+ 000002E3  BF 00007DEA R	        mov     edi, REAL_MODE_BASE + offset target
+ 000002E8  FF 2F		        jmp     fword ptr [edi]
+ 000002EA			target: 
+ 000002EA  0390 0000 R		        dd      OFFSET BlLeaveLrbPmToBoot
+ 000002EE  0010			        dw      RM_CODE_SELECTOR
+				        
+ 000002F0			BlLeaveLrb64ToBoot    endp
+
+				;
+				; Align to 16-bytes before PE image is concatenated.
+				;
+				        
+				ALIGN 16
+
+ 000002F0			BlImageStart:
+
+ 0000				_TEXT32 ends
+
+				end BlEntry16
+Microsoft (R) Macro Assembler Version 8.00.50727.762	    03/15/20 04:18:21
+blentry16.asm						     Symbols 2 - 1
+
+
+
+
+Macros:
+
+                N a m e                 Type
+
+JMPF16 . . . . . . . . . . . . .	Proc
+JMPF32 . . . . . . . . . . . . .	Proc
+RESTORE_CALL_CONTEXT_FROM_STACK 	Proc
+RESTORE_CONTEXT_FROM_STACK . . .	Proc
+SAVE_CALL_CONTEXT_TO_STACK . . .	Proc
+SAVE_CONTEXT_TO_STACK  . . . . .	Proc
+
+
+Structures and Unions:
+
+                N a m e                  Size
+                                         Offset      Type
+
+BEB  . . . . . . . . . . . . . .	 0064
+  BootType . . . . . . . . . . .	 0000	     DWord
+  BootDriveNumber  . . . . . . .	 0004	     DWord
+  FlashImage . . . . . . . . . .	 0008	     DWord
+  SmapAddr . . . . . . . . . . .	 000C	     DWord
+  SmapSize . . . . . . . . . . .	 0010	     DWord
+  LegacyCallAddress  . . . . . .	 0014	     DWord
+  LegacyReturnAddress  . . . . .	 0018	     DWord
+  LegacyReturnCr3  . . . . . . .	 001C	     DWord
+  LegacyCall_OpCode  . . . . . .	 0020	     DWord
+  LegacyCall_Vector  . . . . . .	 0024	     DWord
+  LegacyCall_eax . . . . . . . .	 0028	     DWord
+  LegacyCall_ebx . . . . . . . .	 002C	     DWord
+  LegacyCall_ecx . . . . . . . .	 0030	     DWord
+  LegacyCall_edx . . . . . . . .	 0034	     DWord
+  LegacyCall_esi . . . . . . . .	 0038	     DWord
+  LegacyCall_edi . . . . . . . .	 003C	     DWord
+  LegacyCall_ds  . . . . . . . .	 0040	     DWord
+  LegacyCall_es  . . . . . . . .	 0044	     DWord
+  LegacyCall_eflags  . . . . . .	 0048	     DWord
+  LegacyCall_FramePtr  . . . . .	 004C	     DWord
+  LegacyCall_FrameSize . . . . .	 0050	     DWord
+  LegacyCall_FuncPtr . . . . . .	 0054	     DWord
+  ApEntry16  . . . . . . . . . .	 0058	     DWord
+  ApEntry  . . . . . . . . . . .	 005C	     DWord
+  ApStartupLock  . . . . . . . .	 0060	     DWord
+BL_TRAP_CONTEXT  . . . . . . . .	 0038
+  TrapCr2  . . . . . . . . . . .	 0000	     DWord
+  TrapEsp  . . . . . . . . . . .	 0004	     DWord
+  TrapEbp  . . . . . . . . . . .	 0008	     DWord
+  TrapEdi  . . . . . . . . . . .	 000C	     DWord
+  TrapEsi  . . . . . . . . . . .	 0010	     DWord
+  TrapEdx  . . . . . . . . . . .	 0014	     DWord
+  TrapEcx  . . . . . . . . . . .	 0018	     DWord
+  TrapEbx  . . . . . . . . . . .	 001C	     DWord
+  TrapEax  . . . . . . . . . . .	 0020	     DWord
+  TrapNum  . . . . . . . . . . .	 0024	     DWord
+  TrapErr  . . . . . . . . . . .	 0028	     DWord
+  TrapEip  . . . . . . . . . . .	 002C	     DWord
+  TrapCs0  . . . . . . . . . . .	 0030	     DWord
+  TrapEfl  . . . . . . . . . . .	 0034	     DWord
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_TEXT  . . . . . . . . . . . . .	16 Bit	 0000	  Word	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	16 Bit	 0000	  Word	  Public  'DATA'	
+_TEXT16  . . . . . . . . . . . .	16 Bit	 06DD	  Page	  Public  'CODE'	
+_TEXT32  . . . . . . . . . . . .	32 Bit	 02F0	  Page	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+BlApEntry16  . . . . . . . . . .	P Near	 0500	  _TEXT16	Length= 0055 Public C
+BlApEntry32  . . . . . . . . . .	P Near	 01F1	  _TEXT32	Length= 004C Public C
+BlCopySection  . . . . . . . . .	P Near	 01A4	  _TEXT32	Length= 0034 Public C
+BlEnter32AfterRealModeRequest  .	P Near	 0070	  _TEXT32	Length= 0054 Public C
+BlEntry16  . . . . . . . . . . .	P Near	 0100	  _TEXT16	Length= 00C5 Public C
+  boot_needs_fixup . . . . . . .	L Near	 014D	  _TEXT16	
+  boot_ready . . . . . . . . . .	L Near	 016A	  _TEXT16	
+BlEntry32  . . . . . . . . . . .	P Near	 0000	  _TEXT32	Length= 0070 Public C
+BlHalt . . . . . . . . . . . . .	P Near	 00F7	  _TEXT32	Length= 0002 Public C
+BlInitializeBeb  . . . . . . . .	P Near	 01F1	  _TEXT16	Length= 006D Public C
+BlInitializeVideo  . . . . . . .	P Near	 01C5	  _TEXT16	Length= 002C Public C
+BlInvalidImage . . . . . . . . .	P Near	 01D8	  _TEXT32	Length= 0005 Public C
+BlLeaveLrb64ToBoot . . . . . . .	P Near	 0260	  _TEXT32	Length= 0090 Public C
+  target . . . . . . . . . . . .	L Near	 02EA	  _TEXT32	
+BlLeaveLrbPmToBoot . . . . . . .	P Near	 0390	  _TEXT16	Length= 007B Public C
+BlLeaveProtectedMode . . . . . .	P Near	 0100	  _TEXT32	Length= 0034 Public C
+BlLoadImage  . . . . . . . . . .	P Near	 0134	  _TEXT32	Length= 0070 Public C
+BlPreparePageTables  . . . . . .	P Near	 00C4	  _TEXT32	Length= 0033 Public C
+BlProcessFarCall . . . . . . . .	P Near	 0600	  _TEXT16	Length= 00DD Public C
+BlProcessIntXx . . . . . . . . .	P Near	 0555	  _TEXT16	Length= 00AB Public C
+BlProcessRealModeRequest . . . .	P Near	 041F	  _TEXT16	Length= 006B Public C
+  BlProcessRealModeRequest_Exit 	L Near	 045B	  _TEXT16	
+BlRegisterExitAddress  . . . . .	P Near	 01DD	  _TEXT32	Length= 0014 Public C
+BlReturnToRealMode . . . . . . .	P Near	 0350	  _TEXT16	Length= 0031 Public C
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0001h	 
+@Model . . . . . . . . . . . . .	Number	 0001h	 
+@code  . . . . . . . . . . . . .	Text   	 DGROUP
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+BEB_BASE . . . . . . . . . . . .	Number	 0002F000h   
+BEB_OFF16  . . . . . . . . . . .	Number	 0000h	 
+BEB_SEG16  . . . . . . . . . . .	Number	 2F00h	 
+BLUE . . . . . . . . . . . . . .	Number	 1F00h	 
+BL_ENTRY_SP  . . . . . . . . . .	Number	 00080000h   
+BOOT_X86 . . . . . . . . . . . .	Text   	 
+Bl16End  . . . . . . . . . . . .	Byte	 048E	  _TEXT16	
+BlApStartupLock  . . . . . . . .	L Near	 048A	  _TEXT16	
+BlFlashImage . . . . . . . . . .	L Near	 0250	  _TEXT32	
+BlGDTLimit . . . . . . . . . . .	L Near	 0338	  _TEXT16	
+BlGDTS_Address . . . . . . . . .	L Near	 0348	  _TEXT16	
+BlGDTS_Limit . . . . . . . . . .	L Near	 0346	  _TEXT16	
+BlGDTStart . . . . . . . . . . .	L Near	 02D0	  _TEXT16	
+BlImageStart . . . . . . . . . .	L Near	 02F0	  _TEXT32	
+BlProtModeIdtr . . . . . . . . .	L Near	 0415	  _TEXT16	
+BlRealModeIdtr . . . . . . . . .	L Near	 040B	  _TEXT16	
+BlSmapAddr . . . . . . . . . . .	L Near	 0254	  _TEXT32	
+BlSmapSize . . . . . . . . . . .	L Near	 0258	  _TEXT32	
+BlTSS  . . . . . . . . . . . . .	L Near	 0260	  _TEXT16	
+CD_BOOT  . . . . . . . . . . . .	Number	 0001h	 
+CR0_NE . . . . . . . . . . . . .	Number	 0020h	 
+CR0_PE . . . . . . . . . . . . .	Number	 0001h	 
+CR0_PG . . . . . . . . . . . . .	Number	 -80000000h   
+CR4_OSFXSR . . . . . . . . . . .	Number	 0200h	 
+CR4_PAE  . . . . . . . . . . . .	Number	 0020h	 
+CR4_PCE  . . . . . . . . . . . .	Number	 0100h	 
+CR4_PSE  . . . . . . . . . . . .	Number	 0010h	 
+EFER_LME . . . . . . . . . . . .	Number	 0100h	 
+EFER_MSR_INDEX . . . . . . . . .	Number	 C0000080h   
+EFER_NXE . . . . . . . . . . . .	Number	 0800h	 
+FAT16_BOOT . . . . . . . . . . .	Number	 0002h	 
+FAT32_BOOT . . . . . . . . . . .	Number	 0003h	 
+FLASH_BOOT . . . . . . . . . . .	Number	 0005h	 
+GREEN  . . . . . . . . . . . . .	Number	 4F00h	 
+IDH_NT_HEADER_OFFSET . . . . . .	Number	 003Ch	 
+IFH_NUMBER_OF_SECTIONS . . . . .	Number	 0002h	 
+IFH_SIZE_OF_OPTIONAL_HEADER  . .	Number	 0010h	 
+IMAGE_ADDRESS  . . . . . . . . .	Number	 00040000h   
+IMAGE_DOS_SIGNATURE  . . . . . .	Number	 5A4Dh	 
+IMAGE_NT_SIGNATURE . . . . . . .	Number	 4550h	 
+IMAGE_SECTION_HEADER_SIZE  . . .	Number	 0028h	 
+INH_FILE_HEADER  . . . . . . . .	Number	 0004h	 
+INH_OPTIONAL_HEADER  . . . . . .	Number	 0018h	 
+INH_SIGNATURE  . . . . . . . . .	Number	 0000h	 
+IOH32_IMAGE_BASE . . . . . . . .	Number	 001Ch	 
+IOH_ADDRESS_OF_ENTRY_POINT . . .	Number	 0010h	 
+IOH_SIZE_OF_HEADERS  . . . . . .	Number	 003Ch	 
+ISH_POINTER_TO_RAW_DATA  . . . .	Number	 0014h	 
+ISH_SIZE_OF_RAW_DATA . . . . . .	Number	 0010h	 
+ISH_VIRTUAL_ADDRESS  . . . . . .	Number	 000Ch	 
+ISH_VIRTUAL_SIZE . . . . . . . .	Number	 0008h	 
+LC_FARCALL . . . . . . . . . . .	Number	 0002h	 
+LC_INTXX . . . . . . . . . . . .	Number	 0001h	 
+LC_NOP . . . . . . . . . . . . .	Number	 0000h	 
+LM_CODE_SELECTOR . . . . . . . .	Number	 0030h	 
+LM_DATA_SELECTOR . . . . . . . .	Number	 0038h	 
+LM_PML4T_ADDRESS . . . . . . . .	Number	 00021000h   
+NULL_SELECTOR  . . . . . . . . .	Number	 0000h	 
+PM_CODE_SELECTOR . . . . . . . .	Number	 0020h	 
+PM_DATA_SELECTOR . . . . . . . .	Number	 0028h	 
+PM_INITIAL_ESP . . . . . . . . .	Number	 00020000h   
+PM_PDPT_ADDRESS  . . . . . . . .	Number	 00022000h   
+PM_PDT_ADDRESS . . . . . . . . .	Number	 00023000h   
+PROCESSOR_SELECTOR . . . . . . .	Number	 0050h	 
+PTE_2MB  . . . . . . . . . . . .	Number	 0080h	 
+PTE_ACCESSED . . . . . . . . . .	Number	 0020h	 
+PTE_PRESENT  . . . . . . . . . .	Number	 0001h	 
+PTE_WRITEABLE  . . . . . . . . .	Number	 0002h	 
+PXE_BOOT . . . . . . . . . . . .	Number	 0004h	 
+REAL_MODE_BASE . . . . . . . . .	Number	 7B00h	 
+RED  . . . . . . . . . . . . . .	Number	 2F00h	 
+RM_CODE_SELECTOR . . . . . . . .	Number	 0010h	 
+RM_DATA_SELECTOR . . . . . . . .	Number	 0018h	 
+RM_INITIAL_SP  . . . . . . . . .	Number	 FFF8h	 
+RM_INITIAL_SS  . . . . . . . . .	Number	 1000h	 
+RM_VIDEO_SELECTOR  . . . . . . .	Number	 0008h	 
+TSS_SELECTOR . . . . . . . . . .	Number	 0060h	 
+UM_CODE_SELECTOR . . . . . . . .	Number	 0040h	 
+UM_DATA_SELECTOR . . . . . . . .	Number	 0048h	 
+UNUSED_SELECTOR  . . . . . . . .	Number	 0058h	 
+VIDEO_BASE . . . . . . . . . . .	Number	 000B8000h   
+
+	   0 Warnings
+	   0 Errors

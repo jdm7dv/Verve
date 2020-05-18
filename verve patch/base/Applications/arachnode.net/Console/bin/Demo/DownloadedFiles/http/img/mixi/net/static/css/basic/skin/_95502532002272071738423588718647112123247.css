@@ -1,0 +1,569 @@
+@charset "euc-jp";
+
+/*---- bodySubSection:common ----*/
+div.bodySubSection{
+background:url(/img/basic/skin/gray/common/bodysubsection_bg001.gif) no-repeat 0 100%;
+}
+
+div.bodySubSection div.heading01{
+background:url(/img/basic/skin/gray/heading/bodysubsection_head001.gif) no-repeat 0 0;
+}
+
+div.bodySubSection div.heading01 h2 a:link,
+div.bodySubSection div.heading01 h2 a:visited,
+div.bodySubSection div.heading01 h2 a:hover,
+div.bodySubSection div.heading01 h2 a:active,
+div.bodySubSection div.heading01 h2 a:focus{
+color:#333;
+}
+
+div.bodySubSection div.contents{
+border-right:1px solid #D0D0D1;
+border-left:1px solid #D0D0D1;
+background:#fff;
+}
+
+div.bodySubSection div.contents .moreLink01 a{
+background:url(/img/basic/icon/link_arrow002.gif) no-repeat 0 50%;
+}
+
+
+/*---- bodySubSection:home ----*/
+#bodySub02 div.bodySubSection{
+background:url(/img/basic/skin/gray/home/bodysubsection_bg001.gif) no-repeat 0 100%;
+}
+
+#bodySub02 div.bodySubSection div.heading01{
+background:url(/img/basic/skin/gray/heading/bodysubsection_head002.gif) no-repeat 0 0;
+}
+
+#bodySub02 div.bodySubSection div.heading01.private{
+background:url(/img/basic/skin/gray/heading/bodysubsection_head003.gif) no-repeat 0 0;
+}
+
+#bodySub02 div.bodySubSection div.heading01.private h2 a{
+color:#333;
+}
+
+#bodySub02 div.bodySubSection div.heading01 ul.utility02 li a{
+background:url(/img/basic/skin/gray/button/section_utility001.gif) no-repeat;
+}
+
+#bodySub02 div.bodySubSection div.heading01 ul.utility02 li.open a{
+background-position:-45px 0;
+}
+
+#bodySub02 div.bodySubSection div.heading01 ul.utility02 li.close a{
+background-position:-30px 0;
+}
+
+
+/*---- siteInfo:home ----*/
+#bodySub02 #siteInfo div.heading01{
+background-image:url(/img/basic/skin/gray/home/siteinfo_title001.gif);
+}
+
+#bodySub02 #siteInfo div.contents ul li{
+background:url(/img/basic/icon/list002.gif) no-repeat 0 0.8em;
+font-weight:bold;
+}
+
+#bodySub02 #siteInfo div.contents ul li.noEmphasis a{
+font-weight:normal;
+}
+
+
+/*---- mixiNews:home ----*/
+#bodySub02 #mixiNews div.contents ul.newsTabs{
+background:url(/img/basic/skin/gray/common/bg_cccccc001.gif) repeat-x 0 100%;
+}
+
+#bodySub02 #mixiNews div.contents ul.newsTabs li a{
+background:url(/img/basic/skin/gray/common/tab_bodysub001.gif) no-repeat 100% 0;
+color:#333;
+}
+
+#bodySub02 #mixiNews div.contents ul.newsTabs li a.on{
+background-position:0 0;
+}
+
+
+/*---- weather:home ----*/
+#bodySub02 #weather div.contents ul li p.day{
+color:#666;
+}
+
+#bodySub02 #weather div.contents ul li p.data span.max{
+color:#D00;
+}
+
+#bodySub02 #weather div.contents ul li p.data span.min{
+color:#099;
+}
+
+
+/*---- help ----*/
+#help ul li a{
+background:url(/img/basic/icon/list002.gif) no-repeat 0% 0.5em;
+}
+
+
+/*---- video ----*/
+#video div.contents ul.utilityLink li.edit{
+border-right:1px solid #dfdfdf;
+}
+
+#video div.contents p.moreLink01{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 0;
+}
+
+
+/*---- AppliWidget ----*/
+.appliWidget div.contents iframe{
+border:0;
+}
+
+div.simpleMessageArea222{
+background:none;
+}
+
+div.simpleMessageArea222 .simpleMessage{
+background:none;
+}
+
+div.simpleMessageArea222 .simpleMessage .main{
+background-image:url(/img/basic/common/simplealert_alert002.gif);
+}
+
+div.simpleMessageArea222 .simpleMessage .formButtons01{
+background:none;
+}
+
+
+/*---- prContents ----*/
+div.prContents{
+border-right:1px solid #D0D0D1;
+border-left:1px solid #D0D0D1;
+background-color:#FFF;
+}
+
+div.prContents div.precedingMegaContents{
+background:transparent url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 100%;
+}
+
+
+/*---- contentMatch ----*/
+div#contentMatch div.contents{
+border:1px solid #DEDEDE;
+}
+
+p.contentMatch a:link,
+p.contentMatch a:visited{
+color:#999;
+}
+
+p.contentMatch a:hover{
+color:#960;
+}
+
+dl#contentMatch{
+text-align:left;
+}
+
+dl#contentMatch dd a,
+dl#contentMatch dd a:hover{
+color:#000;
+}
+
+dl#contentMatch dd.siteHost a,
+dl#contentMatch dd.siteHost a:hover{
+color:#008000;
+}
+
+
+/*---- prContentsArea:NEWS ----*/
+#prContentsArea div.prContentsBottom{
+background:url(/img/basic/common/dotline_horizontal002.gif) repeat-x 0 0;
+}
+
+
+/*---- RelatedNews:関連ニュース ----*/
+div#relatedNews li{
+background:url(/img/basic/icon/list001.gif) no-repeat 0% 0.7em;
+}
+
+div#relatedNews li a:visited{
+color:#996699;
+}
+
+
+/*---- relationalMallItem:関連アイテム ----*/
+#relationalMallItem ul.pageList li .pageInfo .kininaru{
+background:url(/img/basic/icon/mall_kininaru001.gif) no-repeat 0 45%;
+color:#999;
+}
+
+#relationalMallItem ul.pageList li .pageInfo .price{
+color:#999;
+}
+
+
+/* ----- recommend:メンバーの参加コミュ ----- */
+div#recommend table.iconListTable02{
+background:url(/img/basic/skin/gray/common/dotline_vertical001.gif) repeat-y 50% 0%;
+}
+
+div#recommend table.iconListTable02 tr{
+background:url(/img/basic/skin/gray/common/bg_iconlist002.gif) repeat-x 0% 100%;
+}
+
+div#recommend table.iconListTable02 td a:link,
+div#recommend table.iconListTable02 td a:visited,
+div#recommend table.iconListTable02 td a:hover,
+div#recommend table.iconListTable02 td a:active,
+div#recommend table.iconListTable02 td a:focus{
+background-color:transparent;
+background-position:50% 50%;
+background-repeat:no-repeat;
+}
+
+
+/* ----- classmates:同級生一覧 ----- */
+div#classmates table.iconListTable02{
+background:url(/img/basic/skin/gray/common/dotline_vertical001.gif) repeat-y 50% 0%;
+}
+
+div#classmates table.iconListTable02 tr{
+background:url(/img/basic/skin/gray/common/bg_iconlist002.gif) repeat-x 0% 100%;
+}
+
+div#classmates table.iconListTable02 td a:link,
+div#classmates table.iconListTable02 td a:visited,
+div#classmates table.iconListTable02 td a:hover,
+div#classmates table.iconListTable02 td a:active,
+div#classmates table.iconListTable02 td a:focus{
+background-color:transparent;
+background-position:50% 50%;
+background-repeat:no-repeat;
+}
+
+
+/*---- sideRankingByMymixi:ランキング ---- */
+#sideRankingByMymixi table tr td.rank{
+background:url(/img/basic/official_account/rankicon_r01_03_001.gif) no-repeat 10px 50%;
+}
+
+#sideRankingByMymixi table tr.rank01 td.rank{background-position:10px 50%;}
+#sideRankingByMymixi table tr.rank02 td.rank{background-position:-50px 50%;}
+#sideRankingByMymixi table tr.rank03 td.rank{background-position:-110px 50%;}
+
+#sideRankingByMymixi ul li,
+#sideRankingByMymixi .moreLink01{
+background:url(/img/basic/skin/gray/common/dotline_horizontal001.gif) repeat-x 0 0;
+}
+
+#sideRankingByMymixi ul li span.rank{
+background:url(/img/basic/official_account/rankicon_r04_20_001.gif) no-repeat 0 0;
+}
+
+#sideRankingByMymixi ul li.rank04 span.rank{background-position:0 0;}
+#sideRankingByMymixi ul li.rank05 span.rank{background-position:-32px 0;}
+#sideRankingByMymixi ul li.rank06 span.rank{background-position:-64px 0;}
+#sideRankingByMymixi ul li.rank07 span.rank{background-position:-96px 0;}
+#sideRankingByMymixi ul li.rank08 span.rank{background-position:-128px 0;}
+#sideRankingByMymixi ul li.rank09 span.rank{background-position:-160px 0;}
+#sideRankingByMymixi ul li.rank10 span.rank{background-position:-192px 0;}
+#sideRankingByMymixi ul li.rank11 span.rank{background-position:-224px 0;}
+#sideRankingByMymixi ul li.rank12 span.rank{background-position:-256px 0;}
+#sideRankingByMymixi ul li.rank13 span.rank{background-position:-288px 0;}
+#sideRankingByMymixi ul li.rank14 span.rank{background-position:-320px 0;}
+#sideRankingByMymixi ul li.rank15 span.rank{background-position:-352px 0;}
+#sideRankingByMymixi ul li.rank16 span.rank{background-position:-384px 0;}
+#sideRankingByMymixi ul li.rank17 span.rank{background-position:-416px 0;}
+#sideRankingByMymixi ul li.rank18 span.rank{background-position:-448px 0;}
+#sideRankingByMymixi ul li.rank19 span.rank{background-position:-480px 0;}
+#sideRankingByMymixi ul li.rank20 span.rank{background-position:-512px 0;}
+
+
+/*---- userSchoolList:学校 ----*/
+#userSchoolList div.contents ul li{
+background-position:0 8px;
+background-repeat:no-repeat;
+}
+
+#userSchoolList div.contents ul li.cl01{background-image:url(/img/basic/icon/cl001.gif);}
+#userSchoolList div.contents ul li.cl02{background-image:url(/img/basic/icon/cl002.gif);}
+#userSchoolList div.contents ul li.cl03{background-image:url(/img/basic/icon/cl003.gif);}
+#userSchoolList div.contents ul li.cl04{background-image:url(/img/basic/icon/cl004.gif);}
+#userSchoolList div.contents ul li.cl05{background-image:url(/img/basic/icon/cl005.gif);}
+#userSchoolList div.contents ul li.cl06{background-image:url(/img/basic/icon/cl006.gif);}
+#userSchoolList div.contents ul li.cl07{background-image:url(/img/basic/icon/cl007.gif);}
+#userSchoolList div.contents ul li.cl08{background-image:url(/img/basic/icon/cl008.gif);}
+#userSchoolList div.contents ul li.cl09{background-image:url(/img/basic/icon/cl009.gif);}
+#userSchoolList div.contents ul li.cl10{background-image:url(/img/basic/icon/cl010.gif);}
+
+
+/*---- relationalCommunity:関連コミュニティ ----*/
+#relationalCommunity p.moreLink01{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 0;
+}
+
+
+/*-------- activityFeed:フィード --------*/
+#activityFeed ul.activityFeedList01 li{
+background-repeat:no-repeat;
+background-position:0 6px;
+}
+
+#activityFeed ul.activityFeedList01 li.birthday{
+background:url(/img/calendaricon2/i_bd.gif) no-repeat 0 6px;
+}
+
+#activityFeed ul.activityFeedList01 li.profile{
+background:url(/img/basic/icon/profile001.gif) no-repeat 2px 7px;
+}
+
+#activityFeed ul.activityFeedList01 li.mikukore{
+background:url(/img/basic/icon/mikukore001.gif) no-repeat 0 8px;
+}
+
+#activityFeed ul.activityFeedList01 li.photo{
+background:url(/img/basic/icon/photo003.gif) no-repeat 1px 6px;
+}
+
+#activityFeed ul.activityFeedList01 li.photo a.album{
+background:url(/img/basic/icon/album001.gif) no-repeat left top;
+}
+
+#activityFeed ul.activityFeedList01 li.diary{
+background:url(/img/basic/icon/diary002.gif) no-repeat 1px 7px;
+}
+
+#activityFeed ul.activityFeedList01 li.video{
+background:url(/img/basic/icon/video002.gif) no-repeat 0 7px;
+}
+
+#activityFeed ul.activityFeedList01 li.review{
+background:url(/img/basic/icon/review001.gif) no-repeat 0 6px;
+}
+
+#activityFeed ul.activityFeedList01 li span.image a{
+border:1px solid #DFDFDF;
+}
+
+#activityFeed ul.activityFeedList01 li.voice{
+background:url(/img/basic/icon/voice001.gif) no-repeat 0 6px;
+}
+
+
+/*---- voice:ボイスヘルプ ----*/
+#voiceHelp ul.voiceHelpList li a{
+background:url(/img/basic/icon/list002.gif) no-repeat 0% 0.5em;
+}
+
+
+/*---- recommendSide:あなたの友人かも ----*/
+#recommendSide .recommendMember{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 100%;
+}
+
+#recommendSide .recommendMember.last{
+background:none;
+}
+
+
+/*---- mixiAppliArea:アプリ情報 ----*/
+/*--- lPopularOne:人気アプリ1件紹介 ---*/
+#mixiAppliArea .lPopularOne .appliOutline{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 100%;
+}
+
+
+/*---- picupCommunity:注目のコミュニティ ----*/
+#picupCommunity .contents ul{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 100%;
+}
+
+#picupCommunity .contents ul li div.name{
+background:url(/img/basic/icon/hot001.gif) no-repeat 0 0;
+}
+
+
+/*---- picupReview:注目のレビュー ----*/
+#picupReview .contents ul{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 100%;
+}
+
+/*---- mallPickup ----*/
+#mallPickup .items .item{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 100%;
+}
+
+#mallPickup .items .item .body{
+color:#666;
+}
+
+
+/*---- mAd ----*/
+#mAdSiteInfo ul.infoList li a,
+#mAdHelp ul.infoList li a{
+background: url(/img/basic/icon/list002.gif) no-repeat 0 0.5em;
+}
+
+#mAd div.heading02{
+background:url(/img/basic/skin/gray/common/bodysubsection_top_bg001.gif) no-repeat 0 0;
+}
+
+#mAd div.contents p.guide{
+background:url(/img/basic/skin/gray/common/dotline_horizontal003.gif) repeat-x 0 100%;
+}
+
+div.adSpace{
+background:url(/img/basic/common/dotline_horizontal004.gif) repeat-x 0 0;
+}
+
+div.adSpace.madFirst{
+background:none;
+}
+
+div.adSpace h3.community{
+background:url(/img/basic/icon/topic001.gif) no-repeat 0 1px;
+}
+
+div.adSpace h3.mixiPage{
+background:url(/img/basic/icon/m_page002.gif) no-repeat 0 1px;
+}
+
+div.adSpace h3.mixi{
+background:url(/img/basic/icon/mixilogo001.gif) no-repeat 0 0;
+}
+
+div.adSpace p.adText a{
+color:#333;
+}
+
+div.adSpace p.member,
+#mAd div.contents p.guide a{
+color:#666;
+}
+
+div.adSpace p.adReport a,
+div.adSpace p.notice{
+color:#999;
+}
+
+
+/*---- pageFeed:communityFeed:最新書き込み ----*/
+#bodySub02 #communityFeed .contents ul li,
+#bodySub02 #pageFeed .contents ul li.mixiPageFeed{
+border-bottom:1px solid #D0D0D1;
+}
+
+#bodySub02 #communityFeed .contents ul li.active,
+#bodySub02 #pageFeed .contents ul li.mixiPageFeed .active{
+background-color:#F9F8F8;
+}
+
+#bodySub02 #communityFeed .contents ul li div.postData p.name a,
+#bodySub02 #pageFeed .contents ul li div.postData p.name a{
+color:#999;
+}
+
+#bodySub02 #pageFeed .contents ul li div.postData div.feedInfo p.photo{
+border:1px solid #DDD;
+}
+
+#bodySub02 #communityFeed .contents ul li.event div.postData p.title{
+background:url(/img/basic/icon/event002.gif) no-repeat 1px 0;
+}
+
+#bodySub02 #communityFeed .contents ul li.enquete div.postData p.title{
+background:url(/img/basic/icon/enquete001.gif) no-repeat 0 0;
+}
+
+#bodySub02 #communityFeed .contents ul li.bbs div.postData p.title{
+background:url(/img/basic/icon/topic001.gif) no-repeat 0 1px;
+}
+
+#bodySub02 #communityFeed .contents ul li.diary div.postData p.title{
+background:url(/img/basic/icon/diary004.gif) no-repeat 0 1px;
+}
+
+#bodySub02 #communityFeed .contents ul li div.postData p.title span,
+#bodySub02 #pageFeed .contents ul li div.postData div.utility ul li{
+color:#999;
+}
+
+#bodySub02 #pageFeed .contents ul li div.postData div.utility ul.source li.detailLink{
+border-left:1px solid #DDD;
+}
+
+#bodySub02 #pageFeed .contents ul li div.postData div.utility ul.listAction li .likedIcon{
+background:url(/img/basic/icon/iine_small002.gif) no-repeat 0 2px;
+}
+
+#bodySub02 #pageFeed .contents ul li div.postData div.utility ul.listAction li .commentIcon{
+background:url(/img/basic/icon/comment_small002.gif) no-repeat 0 3px;
+}
+
+#bodySub02 #pageFeed .contents ul li div.others{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) repeat-x 0 0;
+}
+
+#bodySub02 #pageFeed .contents ul li div.others a{
+background:url(/img/basic/icon/link_arrow002.gif) no-repeat 0 50%;
+}
+
+
+/*---- aboutMixiPage:mixiページについて ----*/
+#aboutMixiPage .contents ul li.guide a{
+background:url(/img/basic/icon/wakaba002.gif) no-repeat 1px 50%;
+}
+
+#aboutMixiPage .contents ul li.addPage a{
+background:url(/img/basic/icon/m_page003.gif) no-repeat 0 50%;
+}
+
+
+/*---- mixiPageMenu:mixiページメニュー ----*/
+#mixiPageMenu .contents dl dt a{
+background:url(/img/basic/icon/mixipage_icon001.gif) no-repeat;
+}
+
+#mixiPageMenu .contents dl dt.newPage a.pageIcon{background-position:0 -270px;}
+#mixiPageMenu .contents dl dt.manage a.pageIcon{background-position:0 0;}
+#mixiPageMenu .contents dl dt.promotion a.pageIcon{background-position:0 -220px;}
+#mixiPageMenu .contents dl dt.pageNavi a.pageIcon{background-position:0 -320px;}
+
+#mixiPageMenu .contents dl dd{
+color:#999;
+}
+
+
+/*---- prContentFrame:注目のアプリ 注目のmixiページ ----*/
+#prContentFrame .follow .button a,
+#prContentFrame .follow .button span{
+background:url(/img/basic/button/follow_ad_banner001.gif) no-repeat;
+}
+
+#prContentFrame .follow .button a{
+background-position:0 0;
+}
+
+#prContentFrame .follow .button span{
+background-position:0 100%;
+}
+
+
+/*---- mallLog:モール閲覧履歴 ----*/
+#mallLog .contents .itemList .item{
+background:url(/img/basic/skin/gray/common/border_dot_horizontal001.gif) 0 100% repeat-x;
+}
+
+#mallLog .contents .itemList .item .shop{
+color:#999;
+}
+
+#mallLog .contents .itemList .item .delete{
+background:url(/img/basic/icon/message_trash002.gif) no-repeat 0 50%;
+}

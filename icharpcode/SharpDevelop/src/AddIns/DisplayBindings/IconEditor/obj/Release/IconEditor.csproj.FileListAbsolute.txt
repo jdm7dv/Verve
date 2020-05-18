@@ -1,0 +1,6 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\IconEditor\IconEditor.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\IconEditor\ICSharpCode.IconEditor.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\IconEditor\ICSharpCode.IconEditor.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\IconEditor\obj\Release\IconEditor.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\IconEditor\obj\Release\ICSharpCode.IconEditor.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\IconEditor\obj\Release\ICSharpCode.IconEditor.pdb

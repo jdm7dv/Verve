@@ -1,0 +1,678 @@
+<HTML>
+<HEAD>
+<TITLE>
+RegExp.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * RegExp.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.IO;
+<font color="blue">using</font> System.Globalization;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">using</font> PerCederberg.Grammatica.Runtime;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime.RE <font color="black">{</font>
+
+    <font color="green">/**
+     * A regular expression. This class creates and holds an internal
+     * data structure representing a regular expression. It also
+     * allows creating matchers. This class is thread-safe. Multiple
+     * matchers may operate simultanously on the same regular
+     * expression.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> RegExp <font color="black">{</font>
+
+        <font color="green">/**
+         * The base regular expression element.
+         */</font>
+        <font color="blue">private</font> Element element;
+
+        <font color="green">/**
+         * The regular expression pattern.
+         */</font>
+        <font color="blue">private</font> string pattern;
+
+        <font color="green">/**
+         * The character case ignore flag.
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> ignoreCase;
+
+        <font color="green">/**
+         * The current position in the pattern. This variable is used by
+         * the parsing methods.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> pos;
+
+        <font color="green">/**
+         * Creates a new case-sensitive regular expression.
+         *
+         * @param pattern        the regular expression pattern
+         *
+         * @throws RegExpException if the regular expression couldn't be
+         *             parsed correctly
+         */</font>
+        <font color="blue">public</font> RegExp<font color="black">(</font>string pattern<font color="black">)</font>
+            <font color="black">:</font> <font color="blue">this</font><font color="black">(</font>pattern, <font color="blue">false</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new regular expression. The regular expression
+         * can be either case-sensitive or case-insensitive.
+         *
+         * @param pattern        the regular expression pattern
+         * @param ignoreCase     the character case ignore flag
+         *
+         * @throws RegExpException if the regular expression couldn't be
+         *             parsed correctly
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> RegExp<font color="black">(</font>string pattern, <font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.pattern <font color="black">=</font> pattern;
+            <font color="blue">this</font>.ignoreCase <font color="black">=</font> ignoreCase;
+            <font color="blue">this</font>.pos <font color="black">=</font> <font color="maroon">0</font>;
+            <font color="blue">this</font>.element <font color="black">=</font> ParseExpr<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>pos <font color="black">&#60;</font> pattern.Length<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new matcher for the specified string.
+         *
+         * @param str            the string to work with
+         *
+         * @return the regular expresion matcher
+         */</font>
+        <font color="blue">public</font> Matcher Matcher<font color="black">(</font>string str<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Matcher<font color="black">(</font><font color="blue">new</font> ReaderBuffer<font color="black">(</font><font color="blue">new</font> StringReader<font color="black">(</font>str<font color="black">)</font><font color="black">)</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new matcher for the specified look-ahead
+         * character input stream.
+         *
+         * @param buffer         the character input buffer
+         *
+         * @return the regular expresion matcher
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> Matcher Matcher<font color="black">(</font>ReaderBuffer buffer<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">new</font> Matcher<font color="black">(</font><font color="black">(</font>Element<font color="black">)</font> element.Clone<font color="black">(</font><font color="black">)</font>, buffer, ignoreCase<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of the regular expression.
+         *
+         * @return a string representation of the regular expression
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringWriter  str;
+
+            str <font color="black">=</font> <font color="blue">new</font> StringWriter<font color="black">(</font><font color="black">)</font>;
+            str.WriteLine<font color="black">(</font><font color="maroon">"Regular Expression"</font><font color="black">)</font>;
+            str.WriteLine<font color="black">(</font><font color="maroon">"  Pattern: "</font> <font color="black">+</font> pattern<font color="black">)</font>;
+            str.Write<font color="black">(</font><font color="maroon">"  Flags:"</font><font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>ignoreCase<font color="black">)</font> <font color="black">{</font>
+                str.Write<font color="black">(</font><font color="maroon">" caseignore"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            str.WriteLine<font color="black">(</font><font color="black">)</font>;
+            str.WriteLine<font color="black">(</font><font color="maroon">"  Compiled:"</font><font color="black">)</font>;
+            element.PrintTo<font color="black">(</font>str, <font color="maroon">"    "</font><font color="black">)</font>;
+            <font color="blue">return</font> str.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression. This method handles the Expr
+         * production in the grammar (see regexp.grammar).
+         *
+         * @return the element representing this expression
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> Element ParseExpr<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Element  first;
+            Element  second;
+
+            first <font color="black">=</font> ParseTerm<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="maroon">'|'</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> first;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                ReadChar<font color="black">(</font><font color="maroon">'|'</font><font color="black">)</font>;
+                second <font color="black">=</font> ParseExpr<font color="black">(</font><font color="black">)</font>;
+                <font color="blue">return</font> <font color="blue">new</font> AlternativeElement<font color="black">(</font>first, second<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression term. This method handles the
+         * Term production in the grammar (see regexp.grammar).
+         *
+         * @return the element representing this term
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> Element ParseTerm<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            ArrayList  list <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+
+            list.Add<font color="black">(</font>ParseFact<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+            <font color="blue">while</font> <font color="black">(</font><font color="blue">true</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">switch</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">case</font> <font color="maroon">-1</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">')'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">']'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'{'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'}'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'?'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'+'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'|'</font><font color="black">:</font>
+                    <font color="blue">return</font> CombineElements<font color="black">(</font>list<font color="black">)</font>;
+                <font color="blue">default</font><font color="black">:</font>
+                    list.Add<font color="black">(</font>ParseFact<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression factor. This method handles the
+         * Fact production in the grammar (see regexp.grammar).
+         *
+         * @return the element representing this factor
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> Element ParseFact<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Element  elem;
+
+            elem <font color="black">=</font> ParseAtom<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">switch</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'?'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'*'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'+'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'{'</font><font color="black">:</font>
+                <font color="blue">return</font> ParseAtomModifier<font color="black">(</font>elem<font color="black">)</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">return</font> elem;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression atom. This method handles the
+         * Atom production in the grammar (see regexp.grammar).
+         *
+         * @return the element representing this atom
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> Element ParseAtom<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Element  elem;
+
+            <font color="blue">switch</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'.'</font><font color="black">:</font>
+                ReadChar<font color="black">(</font><font color="maroon">'.'</font><font color="black">)</font>;
+                <font color="blue">return</font> CharacterSetElement.DOT;
+            <font color="blue">case</font> <font color="maroon">'('</font><font color="black">:</font>
+                ReadChar<font color="black">(</font><font color="maroon">'('</font><font color="black">)</font>;
+                elem <font color="black">=</font> ParseExpr<font color="black">(</font><font color="black">)</font>;
+                ReadChar<font color="black">(</font><font color="maroon">')'</font><font color="black">)</font>;
+                <font color="blue">return</font> elem;
+            <font color="blue">case</font> <font color="maroon">'['</font><font color="black">:</font>
+                ReadChar<font color="black">(</font><font color="maroon">'['</font><font color="black">)</font>;
+                elem <font color="black">=</font> ParseCharSet<font color="black">(</font><font color="black">)</font>;
+                ReadChar<font color="black">(</font><font color="maroon">']'</font><font color="black">)</font>;
+                <font color="blue">return</font> elem;
+            <font color="blue">case</font> <font color="maroon">-1</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">')'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">']'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'{'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'}'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'?'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'*'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'+'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'|'</font><font color="black">:</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">return</font> ParseChar<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression atom modifier. This method handles
+         * the AtomModifier production in the grammar (see regexp.grammar).
+         *
+         * @param elem           the element to modify
+         *
+         * @return the modified element
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> Element ParseAtomModifier<font color="black">(</font>Element elem<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">int</font>                       min <font color="black">=</font> <font color="maroon">0</font>;
+            <font color="blue">int</font>                       max <font color="black">=</font> <font color="maroon">-1</font>;
+            RepeatElement.RepeatType  type;
+            <font color="blue">int</font>                       firstPos;
+
+            <font color="green">// Read min and max</font>
+            type <font color="black">=</font> RepeatElement.RepeatType.GREEDY;
+            <font color="blue">switch</font> <font color="black">(</font>ReadChar<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'?'</font><font color="black">:</font>
+                min <font color="black">=</font> <font color="maroon">0</font>;
+                max <font color="black">=</font> <font color="maroon">1</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> <font color="maroon">'*'</font><font color="black">:</font>
+                min <font color="black">=</font> <font color="maroon">0</font>;
+                max <font color="black">=</font> <font color="maroon">-1</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> <font color="maroon">'+'</font><font color="black">:</font>
+                min <font color="black">=</font> <font color="maroon">1</font>;
+                max <font color="black">=</font> <font color="maroon">-1</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> <font color="maroon">'{'</font><font color="black">:</font>
+                firstPos <font color="black">=</font> pos <font color="maroon">-1</font>;
+                min <font color="black">=</font> ReadNumber<font color="black">(</font><font color="black">)</font>;
+                max <font color="black">=</font> min;
+                <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">','</font><font color="black">)</font> <font color="black">{</font>
+                    ReadChar<font color="black">(</font><font color="maroon">','</font><font color="black">)</font>;
+                    max <font color="black">=</font> <font color="maroon">-1</font>;
+                    <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="maroon">'}'</font><font color="black">)</font> <font color="black">{</font>
+                        max <font color="black">=</font> ReadNumber<font color="black">(</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                ReadChar<font color="black">(</font><font color="maroon">'}'</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>max <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">|</font><font color="black">|</font> <font color="black">(</font>max <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> min <font color="black">&#62;</font> max<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.INVALID_REPEAT_COUNT,
+                        firstPos,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">break</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos <font color="maroon">-1</font>,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Read operator mode</font>
+            <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'?'</font><font color="black">)</font> <font color="black">{</font>
+                ReadChar<font color="black">(</font><font color="maroon">'?'</font><font color="black">)</font>;
+                type <font color="black">=</font> RepeatElement.RepeatType.RELUCTANT;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'+'</font><font color="black">)</font> <font color="black">{</font>
+                ReadChar<font color="black">(</font><font color="maroon">'+'</font><font color="black">)</font>;
+                type <font color="black">=</font> RepeatElement.RepeatType.POSSESSIVE;
+            <font color="black">}</font>
+
+            <font color="blue">return</font> <font color="blue">new</font> RepeatElement<font color="black">(</font>elem, min, max, type<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression character set. This method handles
+         * the contents of the '[...]' construct in a regular expression.
+         *
+         * @return the element representing this character set
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> Element ParseCharSet<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            CharacterSetElement  charset;
+            Element              elem;
+            <font color="blue">bool</font>                 repeat <font color="black">=</font> <font color="blue">true</font>;
+            <font color="blue">char</font>                 start;
+            <font color="blue">char</font>                 end;
+
+            <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'^'</font><font color="black">)</font> <font color="black">{</font>
+                ReadChar<font color="black">(</font><font color="maroon">'^'</font><font color="black">)</font>;
+                charset <font color="black">=</font> <font color="blue">new</font> CharacterSetElement<font color="black">(</font><font color="blue">true</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                charset <font color="black">=</font> <font color="blue">new</font> CharacterSetElement<font color="black">(</font><font color="blue">false</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="blue">while</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> repeat<font color="black">)</font> <font color="black">{</font>
+                start <font color="black">=</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                <font color="blue">switch</font> <font color="black">(</font>start<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">case</font> <font color="maroon">']'</font><font color="black">:</font>
+                    repeat <font color="black">=</font> <font color="blue">false</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> <font color="maroon">'\\'</font><font color="black">:</font>
+                    elem <font color="black">=</font> ParseEscapeChar<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>elem <font color="blue">is</font> StringElement<font color="black">)</font> <font color="black">{</font>
+                        charset.AddCharacters<font color="black">(</font><font color="black">(</font>StringElement<font color="black">)</font> elem<font color="black">)</font>;
+                    <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                        charset.AddCharacterSet<font color="black">(</font><font color="black">(</font>CharacterSetElement<font color="black">)</font> elem<font color="black">)</font>;
+                    <font color="black">}</font>
+                    <font color="blue">break</font>;
+                <font color="blue">default</font><font color="black">:</font>
+                    ReadChar<font color="black">(</font>start<font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'-'</font>
+                        <font color="black">&</font><font color="black">&</font> PeekChar<font color="black">(</font><font color="maroon">1</font><font color="black">)</font> <font color="black">&#62;</font> <font color="maroon">0</font>
+                        <font color="black">&</font><font color="black">&</font> PeekChar<font color="black">(</font><font color="maroon">1</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="maroon">']'</font><font color="black">)</font> <font color="black">{</font>
+
+                        ReadChar<font color="black">(</font><font color="maroon">'-'</font><font color="black">)</font>;
+                        end <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>;
+                        charset.AddRange<font color="black">(</font>FixChar<font color="black">(</font>start<font color="black">)</font>, FixChar<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                    <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                        charset.AddCharacter<font color="black">(</font>FixChar<font color="black">(</font>start<font color="black">)</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                    <font color="blue">break</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+
+            <font color="blue">return</font> charset;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression character. This method handles
+         * a single normal character in a regular expression.
+         *
+         * @return the element representing this character
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> Element ParseChar<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">switch</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'\\'</font><font color="black">:</font>
+                <font color="blue">return</font> ParseEscapeChar<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'^'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'$'</font><font color="black">:</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNSUPPORTED_SPECIAL_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font>FixChar<font color="black">(</font>ReadChar<font color="black">(</font><font color="black">)</font><font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression character escape. This method
+         * handles a single character escape in a regular expression.
+         *
+         * @return the element representing this character escape
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> Element ParseEscapeChar<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">char</font>    c;
+            string  str;
+            <font color="blue">int</font>     <font color="blue">value</font>;
+
+            ReadChar<font color="black">(</font><font color="maroon">'\\'</font><font color="black">)</font>;
+            c <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">switch</font> <font color="black">(</font>c<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'0'</font><font color="black">:</font>
+                c <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>c <font color="black">&#60;</font> <font color="maroon">'0'</font> <font color="black">|</font><font color="black">|</font> c <font color="black">&#62;</font> <font color="maroon">'3'</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
+                        pos <font color="maroon">-3</font>,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">value</font> <font color="black">=</font> c <font color="black">-</font><font color="maroon">'0'</font>;
+                c <font color="black">=</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font><font color="maroon">'0'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'7'</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">value</font> <font color="black">*</font><font color="black">=</font> <font color="maroon">8</font>;
+                    <font color="blue">value</font> <font color="black">+</font><font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font> <font color="black">-</font><font color="maroon">'0'</font>;
+                    c <font color="black">=</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font><font color="maroon">'0'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'7'</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">value</font> <font color="black">*</font><font color="black">=</font> <font color="maroon">8</font>;
+                        <font color="blue">value</font> <font color="black">+</font><font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font> <font color="black">-</font><font color="maroon">'0'</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font>FixChar<font color="black">(</font><font color="black">(</font><font color="blue">char</font><font color="black">)</font> <font color="blue">value</font><font color="black">)</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'x'</font><font color="black">:</font>
+                str <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font> <font color="black">+</font>
+                      ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font>;
+                try <font color="black">{</font>
+                    <font color="blue">value</font> <font color="black">=</font> Int32.Parse<font color="black">(</font>str,
+                                        NumberStyles.AllowHexSpecifier<font color="black">)</font>;
+                    <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font>FixChar<font color="black">(</font><font color="black">(</font><font color="blue">char</font><font color="black">)</font> <font color="blue">value</font><font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>FormatException<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
+                        pos <font color="black">-</font>str.Length <font color="maroon">-2</font>,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="blue">case</font> <font color="maroon">'u'</font><font color="black">:</font>
+                str <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font> <font color="black">+</font>
+                      ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font> <font color="black">+</font>
+                      ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font> <font color="black">+</font>
+                      ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font>;
+                try <font color="black">{</font>
+                    <font color="blue">value</font> <font color="black">=</font> Int32.Parse<font color="black">(</font>str,
+                                        NumberStyles.AllowHexSpecifier<font color="black">)</font>;
+                    <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font>FixChar<font color="black">(</font><font color="black">(</font><font color="blue">char</font><font color="black">)</font> <font color="blue">value</font><font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>FormatException<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
+                        pos <font color="black">-</font>str.Length <font color="maroon">-2</font>,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="blue">case</font> <font color="maroon">'t'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font><font color="maroon">'\t'</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'n'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font><font color="maroon">'\n'</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'r'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font><font color="maroon">'\r'</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'f'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font><font color="maroon">'\f'</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'a'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font><font color="maroon">'\u0007'</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'e'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font><font color="maroon">'\u001B'</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'d'</font><font color="black">:</font>
+                <font color="blue">return</font> CharacterSetElement.DIGIT;
+            <font color="blue">case</font> <font color="maroon">'D'</font><font color="black">:</font>
+                <font color="blue">return</font> CharacterSetElement.NON_DIGIT;
+            <font color="blue">case</font> <font color="maroon">'s'</font><font color="black">:</font>
+                <font color="blue">return</font> CharacterSetElement.WHITESPACE;
+            <font color="blue">case</font> <font color="maroon">'S'</font><font color="black">:</font>
+                <font color="blue">return</font> CharacterSetElement.NON_WHITESPACE;
+            <font color="blue">case</font> <font color="maroon">'w'</font><font color="black">:</font>
+                <font color="blue">return</font> CharacterSetElement.WORD;
+            <font color="blue">case</font> <font color="maroon">'W'</font><font color="black">:</font>
+                <font color="blue">return</font> CharacterSetElement.NON_WORD;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">if</font> <font color="black">(</font><font color="black">(</font><font color="maroon">'A'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'Z'</font><font color="black">)</font> <font color="black">|</font><font color="black">|</font> <font color="black">(</font><font color="maroon">'a'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'z'</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
+                        pos <font color="maroon">-2</font>,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="blue">new</font> StringElement<font color="black">(</font>FixChar<font color="black">(</font>c<font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adjusts a character for inclusion in a string or character
+         * set element. For case-insensitive regular expressions, this
+         * transforms the character to lower-case.
+         *
+         * @param c               the input character
+         *
+         * @return the adjusted character
+         */</font>
+        <font color="blue">private</font> <font color="blue">char</font> FixChar<font color="black">(</font><font color="blue">char</font> c<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> ignoreCase ? Char.ToLower<font color="black">(</font>c<font color="black">)</font> <font color="black">:</font> c;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads a number from the pattern. If the next character isn't a
+         * numeric character, an exception is thrown. This method reads
+         * several consecutive numeric characters.
+         *
+         * @return the numeric value read
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> ReadNumber<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buf <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">int</font>            c;
+
+            c <font color="black">=</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            <font color="blue">while</font> <font color="black">(</font><font color="maroon">'0'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'9'</font><font color="black">)</font> <font color="black">{</font>
+                buf.Append<font color="black">(</font>ReadChar<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+                c <font color="black">=</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>buf.Length <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> Int32.Parse<font color="black">(</font>buf.ToString<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads the next character in the pattern. If no next character
+         * exists, an exception is thrown.
+         *
+         * @return the character read
+         *
+         * @throws RegExpException if no next character was available in
+         *             the pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">char</font> ReadChar<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">int</font>  c <font color="black">=</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+
+            <font color="blue">if</font> <font color="black">(</font>c <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNTERMINATED_PATTERN,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                pos<font color="black">+</font><font color="black">+</font>;
+                <font color="blue">return</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> c;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads the next character in the pattern. If the character
+         * wasn't the specified one, an exception is thrown.
+         *
+         * @param c              the character to read
+         *
+         * @return the character read
+         *
+         * @throws RegExpException if the character read didn't match the
+         *             specified one, or if no next character was
+         *             available in the pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">char</font> ReadChar<font color="black">(</font><font color="blue">char</font> c<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>c <font color="black">!</font><font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos <font color="maroon">-1</font>,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> c;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a character that has not yet been read from the
+         * pattern. If the requested position is beyond the end of the
+         * pattern string, -1 is returned.
+         *
+         * @param count          the preview position, from zero (0)
+         *
+         * @return the character found, or
+         *         -1 if beyond the end of the pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> PeekChar<font color="black">(</font><font color="blue">int</font> count<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>pos <font color="black">+</font> count <font color="black">&#60;</font> pattern.Length<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> pattern<font color="black">[</font>pos <font color="black">+</font> count<font color="black">]</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="maroon">-1</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Combines a list of elements. This method takes care to always
+         * concatenate adjacent string elements into a single string
+         * element.
+         *
+         * @param list           the list with elements
+         *
+         * @return the combined element
+         */</font>
+        <font color="blue">private</font> Element CombineElements<font color="black">(</font>ArrayList list<font color="black">)</font> <font color="black">{</font>
+            Element  prev;
+            Element  elem;
+            string   str;
+            <font color="blue">int</font>      i;
+
+            <font color="green">// Concatenate string elements</font>
+            prev <font color="black">=</font> <font color="black">(</font>Element<font color="black">)</font> list<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>;
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">1</font>; i <font color="black">&#60;</font> list.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                elem <font color="black">=</font> <font color="black">(</font>Element<font color="black">)</font> list<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>prev <font color="blue">is</font> StringElement
+                 <font color="black">&</font><font color="black">&</font> elem <font color="blue">is</font> StringElement<font color="black">)</font> <font color="black">{</font>
+
+                    str <font color="black">=</font> <font color="black">(</font><font color="black">(</font>StringElement<font color="black">)</font> prev<font color="black">)</font>.GetString<font color="black">(</font><font color="black">)</font> <font color="black">+</font>
+                          <font color="black">(</font><font color="black">(</font>StringElement<font color="black">)</font> elem<font color="black">)</font>.GetString<font color="black">(</font><font color="black">)</font>;
+                    elem <font color="black">=</font> <font color="blue">new</font> StringElement<font color="black">(</font>str<font color="black">)</font>;
+                    list.RemoveAt<font color="black">(</font>i<font color="black">)</font>;
+                    list<font color="black">[</font>i <font color="maroon">-1</font><font color="black">]</font> <font color="black">=</font> elem;
+                    i<font color="black">-</font><font color="black">-</font>;
+                <font color="black">}</font>
+                prev <font color="black">=</font> elem;
+            <font color="black">}</font>
+
+            <font color="green">// Combine all remaining elements</font>
+            elem <font color="black">=</font> <font color="black">(</font>Element<font color="black">)</font> list<font color="black">[</font>list.Count <font color="maroon">-1</font><font color="black">]</font>;
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> list.Count <font color="maroon">-2</font>; i <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font>; i<font color="black">-</font><font color="black">-</font><font color="black">)</font> <font color="black">{</font>
+                prev <font color="black">=</font> <font color="black">(</font>Element<font color="black">)</font> list<font color="black">[</font>i<font color="black">]</font>;
+                elem <font color="black">=</font> <font color="blue">new</font> CombineElement<font color="black">(</font>prev, elem<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="blue">return</font> elem;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

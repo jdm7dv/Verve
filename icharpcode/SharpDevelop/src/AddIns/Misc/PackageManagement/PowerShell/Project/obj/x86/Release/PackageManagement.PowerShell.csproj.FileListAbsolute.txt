@@ -1,0 +1,3 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\PackageManagement\PackageManagement.PowerShell.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\PackageManagement\PowerShell\Project\obj\x86\Release\PackageManagement.PowerShell.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\PackageManagement\PowerShell\Project\obj\x86\Release\PackageManagement.PowerShell.dll

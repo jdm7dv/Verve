@@ -1,0 +1,10 @@
+{ (* You can add your helper functions here *) }
+
+rule convertHtml chan = parse
+ | '<'    { Printf.fprintf chan "&lt;";
+            convertHtml chan lexbuf }
+ | '>'    { Printf.fprintf chan "&gt;";
+            convertHtml chan lexbuf }
+ | eof    { () }
+ | _      { Printf.fprintf chan "%s" (Lexing.lexeme lexbuf);
+            convertHtml chan lexbuf }

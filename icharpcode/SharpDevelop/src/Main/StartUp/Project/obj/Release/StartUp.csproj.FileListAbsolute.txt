@@ -1,0 +1,7 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.SharpDevelop.Sda.dll.config
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\SharpDevelop.exe.config
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\SharpDevelop.exe
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\StartUp\Project\obj\Release\StartUp.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\StartUp\Project\obj\Release\Resources.StringResources.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\StartUp\Project\obj\Release\StartUp.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\StartUp\Project\obj\Release\SharpDevelop.exe

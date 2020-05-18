@@ -1,0 +1,9 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\WpfDesign\ICSharpCode.WpfDesign.xml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\WpfDesign\ICSharpCode.WpfDesign.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign\Project\obj\Release\PropertyGrid\Editors\ComboBoxEditor.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign\Project\obj\Release\PropertyGrid\Editors\TextBoxEditor.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign\Project\obj\Release\PropertyGrid\Editors\ComboBoxEditor.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign\Project\obj\Release\PropertyGrid\Editors\TextBoxEditor.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign\Project\obj\Release\ICSharpCode.WpfDesign_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign\Project\obj\Release\ICSharpCode.WpfDesign.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign\Project\obj\Release\ICSharpCode.WpfDesign.dll

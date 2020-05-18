@@ -1,0 +1,7 @@
+﻿<Solution Format="0.0.0.3">
+  <Version>2012-11-30T22:43:29.8151056Z</Version>
+  <Project Path="C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\Csy.csproj">
+    <Reference Path="C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\CSymphony\CSymphonyLib.csproj" />
+  </Project>
+  <Project Path="C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\CSymphony\CSymphonyLib.csproj" />
+</Solution>

@@ -1,0 +1,6 @@
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Proxy\bin\Demo\Arachnode.Proxy.dll.config
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Proxy\bin\Demo\Arachnode.Proxy.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Proxy\bin\Demo\Arachnode.Proxy.pdb
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Proxy\bin\Demo\Arachnode.Proxy.XML
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Proxy\obj\Demo\Arachnode.Proxy.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Proxy\obj\Demo\Arachnode.Proxy.pdb

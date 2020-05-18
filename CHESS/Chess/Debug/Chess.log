@@ -1,0 +1,120 @@
+﻿Build started 2/12/2020 9:48:00 PM.
+     1>Project "D:\Microsoft\VERVE\CHESS\Chess\Chess.vcxproj" on node 2 (rebuild target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\Chess.unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\CommLib /I..\Win32Chess /Zi /nologo /W3 /WX /Od /Ob2 /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D CHESS_EXPORTS /D _WINDLL /Gm- /EHsc /MDd /GS- /fp:precise /Zc:wchar_t /Zc:forScope /GR- /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AtomicityMonitor.cpp BestFirstExecution.cpp BestFirstFringe.cpp BestFirstStrategy.cpp BitVector.cpp CacheRaceMonitor.cpp CBStrategy.cpp Chess.cpp ChessAssert.cpp ChessExecution.cpp ChessMonitorTest.cpp ChessOptions.cpp ChessProfilerTimer.cpp ChessProgressTracker.cpp ChessTransition.cpp ContextSwitch.cpp DBStrategy.cpp DeRandomizedPCTExecution.cpp DeRandomizedPCTStrategy.cpp DfsStrategy.cpp Dpor.cpp EnabledSet.cpp ErrorInfo.cpp ExecPrinter.cpp ExecStreamPrinter.cpp ExecutionSummary.cpp HashFunction.cpp HBMonitor.cpp NondeterminismHandler.cpp Observation.cpp ObservationMonitor.cpp ObservationSet.cpp PCTExecution.cpp PCTStrategy.cpp PCTwithVBExecution.cpp PriorityFunction.cpp ResultsPrinter.cpp SleepSetCBStrategy.cpp SleepSets.cpp SSEstimator.cpp StateMonitor.cpp StatsMonitor.cpp SyncVarManager.cpp SyncVarOp.cpp TracePrinter.cpp UnitTests.cpp VBPruning.cpp VClock.cpp
+         AtomicityMonitor.cpp
+         BestFirstExecution.cpp
+         BestFirstFringe.cpp
+         BestFirstStrategy.cpp
+         BitVector.cpp
+         CacheRaceMonitor.cpp
+         CBStrategy.cpp
+         Chess.cpp
+         ChessAssert.cpp
+         ChessExecution.cpp
+         ChessMonitorTest.cpp
+         ChessOptions.cpp
+         ChessProfilerTimer.cpp
+         ChessProgressTracker.cpp
+         ChessTransition.cpp
+         ContextSwitch.cpp
+         DBStrategy.cpp
+         DeRandomizedPCTExecution.cpp
+         DeRandomizedPCTStrategy.cpp
+         DfsStrategy.cpp
+         Generating Code...
+         Compiling...
+         Dpor.cpp
+         EnabledSet.cpp
+         ErrorInfo.cpp
+         ExecPrinter.cpp
+         ExecStreamPrinter.cpp
+         ExecutionSummary.cpp
+         HashFunction.cpp
+         HBMonitor.cpp
+         NondeterminismHandler.cpp
+         Observation.cpp
+         ObservationMonitor.cpp
+         ObservationSet.cpp
+         PCTExecution.cpp
+         PCTStrategy.cpp
+         PCTwithVBExecution.cpp
+         PriorityFunction.cpp
+         ResultsPrinter.cpp
+         SleepSetCBStrategy.cpp
+         SleepSets.cpp
+         SSEstimator.cpp
+         Generating Code...
+         Compiling...
+         StateMonitor.cpp
+         StatsMonitor.cpp
+         SyncVarManager.cpp
+         SyncVarOp.cpp
+         TracePrinter.cpp
+         UnitTests.cpp
+         VBPruning.cpp
+         VClock.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Microsoft\VERVE\CHESS\Debug\Chess.dll" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Chess.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\Microsoft\VERVE\CHESS\Debug\Chess.pdb" /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"D:\Microsoft\VERVE\CHESS\Debug\Chess.lib" /MACHINE:X86 /PROFILE /DLL Debug\AtomicityMonitor.obj
+         Debug\BestFirstExecution.obj
+         Debug\BestFirstFringe.obj
+         Debug\BestFirstStrategy.obj
+         Debug\BitVector.obj
+         Debug\CacheRaceMonitor.obj
+         Debug\CBStrategy.obj
+         Debug\Chess.obj
+         Debug\ChessAssert.obj
+         Debug\ChessExecution.obj
+         Debug\ChessMonitorTest.obj
+         Debug\ChessOptions.obj
+         Debug\ChessProfilerTimer.obj
+         Debug\ChessProgressTracker.obj
+         Debug\ChessTransition.obj
+         Debug\ContextSwitch.obj
+         Debug\DBStrategy.obj
+         Debug\DeRandomizedPCTExecution.obj
+         Debug\DeRandomizedPCTStrategy.obj
+         Debug\DfsStrategy.obj
+         Debug\Dpor.obj
+         Debug\EnabledSet.obj
+         Debug\ErrorInfo.obj
+         Debug\ExecPrinter.obj
+         Debug\ExecStreamPrinter.obj
+         Debug\ExecutionSummary.obj
+         Debug\HashFunction.obj
+         Debug\HBMonitor.obj
+         Debug\NondeterminismHandler.obj
+         Debug\Observation.obj
+         Debug\ObservationMonitor.obj
+         Debug\ObservationSet.obj
+         Debug\PCTExecution.obj
+         Debug\PCTStrategy.obj
+         Debug\PCTwithVBExecution.obj
+         Debug\PriorityFunction.obj
+         Debug\ResultsPrinter.obj
+         Debug\SleepSetCBStrategy.obj
+         Debug\SleepSets.obj
+         Debug\SSEstimator.obj
+         Debug\StateMonitor.obj
+         Debug\StatsMonitor.obj
+         Debug\SyncVarManager.obj
+         Debug\SyncVarOp.obj
+         Debug\TracePrinter.obj
+         Debug\UnitTests.obj
+         Debug\VBPruning.obj
+         Debug\VClock.obj
+            Creating library D:\Microsoft\VERVE\CHESS\Debug\Chess.lib and object D:\Microsoft\VERVE\CHESS\Debug\Chess.exp
+         Chess.vcxproj -> D:\Microsoft\VERVE\CHESS\Debug\Chess.dll
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"D:\Microsoft\VERVE\CHESS\Debug\Chess.dll;#2" /manifest Debug\Chess.dll.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Debug\Chess.unsuccessfulbuild".
+         Touching "Debug\Chess.lastbuildstate".
+     1>Done Building Project "D:\Microsoft\VERVE\CHESS\Chess\Chess.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:59.58

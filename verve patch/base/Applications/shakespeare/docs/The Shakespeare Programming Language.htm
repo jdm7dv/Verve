@@ -1,0 +1,949 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<html><head>
+<title>The Shakespeare Programming Language</title>
+<meta name="description" content="The Shakespeare Programming Language">
+<meta name="keywords" content="shakespeare">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="Generator" content="LaTeX2HTML v2K.1beta">
+<meta http-equiv="Content-Style-Type" content="text/css">
+
+<link rel="STYLESHEET" href="The%20Shakespeare%20Programming%20Language_files/shakespeare.css">
+
+</head><div class="oneNoteWebClipperIsInstalledOnThisBrowser" style="display: none;"></div>
+
+<body>
+
+<p>
+
+</p><h1 align="CENTER"><font size="+4">The Shakespeare Programming Language</font></h1>
+<p align="CENTER"><strong><font size="+1">Karl Hasselström     
+<br>        <font size="+1">Jon Åslund           
+<br></font></font></strong></p>
+<p align="CENTER"><strong>Document was last rebuilt August 21, 2001</strong></p>
+
+<p>
+<br>
+
+</p><h2><a name="SECTION00010000000000000000">
+Contents</a>
+</h2>
+<!--Table of Contents-->
+
+<ul>
+<li><a name="tex2html37" href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html">Introduction</a>
+</li><li><a name="tex2html38" href="#SECTION00030000000000000000">Design Goals</a>
+</li><li><a name="tex2html39" href="#SECTION00040000000000000000">Hello World!</a>
+<ul>
+<li><a name="tex2html40" href="#SECTION00041000000000000000">Title</a>
+</li><li><a name="tex2html41" href="#SECTION00042000000000000000">Dramatis Personæ</a>
+</li><li><a name="tex2html42" href="#SECTION00043000000000000000">Acts and Scenes</a>
+</li><li><a name="tex2html43" href="#SECTION00044000000000000000">Enter, Exit and Exeunt</a>
+</li><li><a name="tex2html44" href="#SECTION00045000000000000000">Lines</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html45" href="#SECTION00050000000000000000">A Slightly Less Trivial Example</a>
+<ul>
+<li><a name="tex2html46" href="#SECTION00051000000000000000">Input</a>
+</li><li><a name="tex2html47" href="#SECTION00052000000000000000">Gotos</a>
+</li><li><a name="tex2html48" href="#SECTION00053000000000000000">Conditional statements</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html49" href="#SECTION00060000000000000000">A Slightly Less Trivial Example</a>
+<ul>
+<li><a name="tex2html50" href="#SECTION00061000000000000000">Stacks</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html51" href="#SECTION00070000000000000000">How To Compile Your SPL Program</a>
+</li><li><a name="tex2html52" href="#SECTION00080000000000000000">How We Compiled the SPL Translator</a>
+</li><li><a name="tex2html53" href="#SECTION00090000000000000000">Examples</a>
+<ul>
+<li><a name="tex2html54" href="#SECTION00091000000000000000">Hello World!</a>
+</li><li><a name="tex2html55" href="#SECTION00092000000000000000">Primes</a>
+</li><li><a name="tex2html56" href="#SECTION00093000000000000000">Reverse</a>
+</li></ul>
+<br>
+</li><li><a name="tex2html57" href="#SECTION000100000000000000000">First contact</a>
+</li><li><a name="tex2html58" href="#SECTION000110000000000000000">About this document ...</a>
+</li></ul>
+<!--End of Table of Contents-->
+<p>
+
+</p><h1><a name="SECTION00020000000000000000">
+Introduction</a>
+</h1>
+
+<p>
+Late at night sometime in Februari, Kalle Hasselström and Jon Åslund
+(that is us, we, the authors) were sitting with a programming
+assignment due for demonstration at nine the following morning. It was
+assignment number four in our Syntax Analysis course and we were
+pretty tired with it. The last assignment, on the other hand, seemed
+like much more fun, because you were allowed to do pretty much
+whatever you wanted as long as it involved lexical and syntactical
+analysis. So instead of finishing the fourth assignment, we started
+making up some great ideas for the fifth, the kind you only conceive
+of when you really should be asleep.
+
+</p><p>
+A few weeks earlier we had discovered a number of truly fascinating
+programming languages, such as
+Java2k<a name="tex2html1" href="#foot116"><sup>1</sup></a>,
+Sorted!<a name="tex2html2" href="#foot117"><sup>2</sup></a>,
+Brainfuck<a name="tex2html3" href="#foot118"><sup>3</sup></a> and
+Malbolge<a name="tex2html4" href="#foot119"><sup>4</sup></a>,
+and we wanted to make our own. We have no idea why, but that night we
+were also thinking about Shakespeare in general, and Shakespearian
+insults in particular and three hours later we had come up with this
+amazing idea: the Shakespeare Programming Language, SPL.
+
+</p><p>
+This is the documentation of the language and how we made it.
+
+</p><p>
+
+</p><h1><a name="SECTION00030000000000000000">
+Design Goals</a>
+</h1>
+
+<p>
+The design goal was to make a language with beautiful source code that
+resembled Shakespeare plays. There are no fancy data or control
+structures, just basic arithmetic and gotos. You could say we have
+combined the expressiveness of BASIC with the user-friendliness of
+assembly language.
+
+</p><p>
+The course was about syntactic analysis, not compiler construction.
+Thus, we didn't make an SPL compiler, just an SPL to C converter. This
+proved to be fairly simple, since SPL can be translated directly to C,
+one statement at a time.
+
+</p><p>
+
+</p><h1><a name="SECTION00040000000000000000">
+Hello World!</a>
+</h1>
+
+<p>
+Since we don't want to break with ancient tradition, let's begin with
+a simple example: a Hello World program. Though it might seem
+otherwise, the <i>sole</i> purpose of this program is to print the
+string ``Hello World!''. It resides in the file <tt>hello.spl</tt>,
+and also in appendix <a href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#sec:hello"><img alt="[*]" src="The%20Shakespeare%20Programming%20Language_files/crossref.gif" border="1" align="BOTTOM"></a>. If you want to run it yourself,
+consult section <a href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#sec:myprogram"><img alt="[*]" src="The%20Shakespeare%20Programming%20Language_files/crossref.gif" border="1" align="BOTTOM"></a>.
+
+</p><p>
+Let's dissect the program and see how it works.
+
+</p><p>
+
+</p><h2><a name="SECTION00041000000000000000">
+Title</a>
+</h2>
+
+<p>
+The first line of every SPL program is the title. Or actually,
+everything up until the first period is the title, whether it's one
+line, three lines, or half a line. You're generally free to insert
+space and newlines wherever you want in the code, but we <i>urge</i>
+you to <i>please</i> indent tastefully.
+
+</p><p>
+The title serves only aesthetic purposes. From the parser's point of
+view, it's a comment.
+
+</p><p>
+
+</p><h2><a name="SECTION00042000000000000000">
+Dramatis Personæ</a>
+</h2>
+
+<p>
+The next few lines are a list of all characters in the play. Think of
+them as variables, capable of holding a signed integer value. You must
+declare every character you intend to use, or the program won't
+compile.
+
+</p><p>
+A declaration consists of a name, followed by a description of the
+character (which is ignored by the parser). You can't pick just any
+name, however; you must use a real Shakespeare character name, such as
+Romeo, Juliet, or the Ghost (Hamlet's deceased father).
+
+</p><p>
+
+</p><h2><a name="SECTION00043000000000000000">
+Acts and Scenes</a>
+</h2>
+
+<p>
+The purpose of acts and scenes is to divide the play into smaller
+parts. A play consists of one or more acts, each act consists of one
+or more scenes, and each scene consists of lines (where the characters
+say something) and enter and exit statements, which cause characters
+to get on and off the stage.
+
+</p><p>
+Acts and scenes are numbered with roman numerals. They begin with the
+word ``Act'' or ``Scene'', then the number, and then a description of
+what happens in that act or scene. Just as with the title and the
+character descriptions, these descriptions are ignored by the parser.
+
+</p><p>
+Besides being beautiful and descriptive, acts and scenes also serve as
+labels, which can be jumped to using goto statements. There are no
+gotos in the Hello World program, however, so we'll talk about that
+later.
+
+</p><p>
+
+</p><h2><a name="SECTION00044000000000000000">
+Enter, Exit and Exeunt</a>
+</h2>
+
+<p>
+To be able to speak their lines, characters must be on stage. The
+character they address as ``you'' (or ``thou'' or any other
+second-person pronoun) must also be on stage. But if there is yet
+another character on stage, it's not clear which one is intended. This
+is frowned upon by the parser.
+
+</p><p>
+Enter Enter and Exit<a name="tex2html5" href="#foot35"><sup>5</sup></a>. These directives cause characters to get on
+and off stage. ``Enter'' is followed by a list of one or more
+characters. ``Exit'' is followed by exactly one character. The plural
+of Exit is ``Exeunt'', which is followed by a list of at least two
+characters - or none, in which case everyone leaves.
+
+</p><p>
+An Enter directive given to a character already on stage, or the other
+way around, will cause a runtime error.
+
+</p><p>
+
+</p><h2><a name="SECTION00045000000000000000">
+Lines</a>
+</h2>
+
+<p>
+A line consists of the name of a character, a colon, and one or more
+sentences. In the Hello World program, only two kinds of sentences are
+used: output, which causes output to the screen, and statements, which
+cause the second person to assume a certain value.
+
+</p><p>
+
+</p><h3><a name="SECTION00045100000000000000">
+Constants</a>
+</h3>
+
+<p>
+First, we'll explain how constants (that is, constant numbers, such as
+17 and 4711) are expressed.
+
+</p><p>
+Any noun is a constant with the value 1 or <img src="The%20Shakespeare%20Programming%20Language_files/img1.gif" alt="$-1$" width="27" height="30" border="0" align="MIDDLE">, depending on whether
+it's nice or not. For example, ``flower'' has the value 1 because
+flowers are nice, but ``pig'' has the value <img src="The%20Shakespeare%20Programming%20Language_files/img1.gif" alt="$-1$" width="27" height="30" border="0" align="MIDDLE"> because pigs are
+dirty (which doesn't prevent most people from eating them). Neutral
+nouns, such as ``tree'', count as 1 as well.
+
+</p><p>
+By prefixing a noun with an adjective, you multiply it by two. Another
+adjective, and it is multiplied by two again, and so on. That way, you
+can easily construct any power of two or its negation. From there,
+it's easy to construct arbitrary integers using basic arithmetic, such
+as ``the sum of <img src="The%20Shakespeare%20Programming%20Language_files/img2.gif" alt="$X$" width="20" height="15" border="0" align="BOTTOM"> and <img src="The%20Shakespeare%20Programming%20Language_files/img3.gif" alt="$Y$" width="18" height="15" border="0" align="BOTTOM">'', where <img src="The%20Shakespeare%20Programming%20Language_files/img2.gif" alt="$X$" width="20" height="15" border="0" align="BOTTOM"> and <img src="The%20Shakespeare%20Programming%20Language_files/img3.gif" alt="$Y$" width="18" height="15" border="0" align="BOTTOM"> are themselves
+arbitrary integers.
+
+</p><p>
+For example, ``the difference between the square of the difference
+between my little pony and your big hairy hound and the cube of your
+sorry little codpiece''. Substituting the simple constants with
+numbers, we get ``the difference between the square of the difference
+between 2 and 4 and the cube of -4''. Now, since the difference
+between 2 and 4 is <img src="The%20Shakespeare%20Programming%20Language_files/img4.gif" alt="$2 - 4 = -2$" width="89" height="30" border="0" align="MIDDLE">, and the cube of <img src="The%20Shakespeare%20Programming%20Language_files/img5.gif" alt="$-4$" width="27" height="30" border="0" align="MIDDLE"> is <img src="The%20Shakespeare%20Programming%20Language_files/img6.gif" alt="$(-4)^3 =
+-64$" width="102" height="37" border="0" align="MIDDLE">, this is equal to ``the difference between the square of <img src="The%20Shakespeare%20Programming%20Language_files/img7.gif" alt="$-2$" width="27" height="30" border="0" align="MIDDLE"> and
+<img src="The%20Shakespeare%20Programming%20Language_files/img8.gif" alt="$-64$" width="35" height="30" border="0" align="MIDDLE">''. The square of <img src="The%20Shakespeare%20Programming%20Language_files/img7.gif" alt="$-2$" width="27" height="30" border="0" align="MIDDLE"> is <img src="The%20Shakespeare%20Programming%20Language_files/img9.gif" alt="$(-2)^2 = 4$" width="80" height="37" border="0" align="MIDDLE">, and the difference of 4
+and <img src="The%20Shakespeare%20Programming%20Language_files/img8.gif" alt="$-64$" width="35" height="30" border="0" align="MIDDLE"> is 60. Thus, ``the difference between the square of the
+difference between my little pony and your big hairy hound and the
+cube of your sorry little codpiece'' means 60.
+
+</p><p>
+As you see, this way of writing constants gives you much more poetic
+freedom than in other programming languages.
+
+</p><p>
+
+</p><h3><a name="SECTION00045200000000000000">
+Assignment of Values</a>
+</h3>
+
+<p>
+Now, how do we use those numbers? Well, just have a look at the two
+statements ``You lying stupid fatherless big smelly half-witted
+coward!'' and ``You are as stupid as the difference between a handsome
+rich brave hero and thyself!''
+
+</p><p>
+The first one is simple: A second person pronoun, followed by a
+number. The effect of this statement is to assign the value of that
+number (in this case, <img src="The%20Shakespeare%20Programming%20Language_files/img8.gif" alt="$-64$" width="35" height="30" border="0" align="MIDDLE">) to the character being spoken to. Think
+``<img src="The%20Shakespeare%20Programming%20Language_files/img10.gif" alt="$X=-64$" width="74" height="32" border="0" align="MIDDLE">''.
+
+</p><p>
+The second one is slightly more complicated. For starters, what is the
+value of ``thyself''? That's not a noun, that's a reflexive pronoun.
+It's value is the current value of the character being spoken to. So
+the number in the second statement is <img src="The%20Shakespeare%20Programming%20Language_files/img11.gif" alt="$8 - X$" width="50" height="32" border="0" align="MIDDLE">, where <img src="The%20Shakespeare%20Programming%20Language_files/img2.gif" alt="$X$" width="20" height="15" border="0" align="BOTTOM"> is the value
+of the character being spoken to. And just as you might expect from
+your experience with English, the second statement is just another
+assignment. Think ``<img src="The%20Shakespeare%20Programming%20Language_files/img2.gif" alt="$X$" width="20" height="15" border="0" align="BOTTOM"> = 8 - <img src="The%20Shakespeare%20Programming%20Language_files/img2.gif" alt="$X$" width="20" height="15" border="0" align="BOTTOM">''. Being ``as bas as'', ``as good
+as'', or as [any adjective] as something else, means being
+<i>equal</i> to that something.
+
+</p><p>
+
+</p><h3><a name="SECTION00045300000000000000">
+Output</a>
+</h3>
+
+<p>
+The other kind of sentence used in the Hello World program is output.
+There are two different output sentences, ``Open your heart'' and
+``Speak your mind''. The first causes the character being spoken to to
+output her or his value in numerical form, and the other, being more
+literal, outputs the corresponding letter, digit, or other character,
+according to the character set being used by your computer.
+
+</p><p>
+In this program, we use only the second form. The whole program is a
+long sequence of constructing a number, writing the corresponding
+character, constructing the next number, writing the corresponding
+character, and so on.
+
+</p><p>
+
+</p><h1><a name="SECTION00050000000000000000">
+A Slightly Less Trivial Example</a>
+</h1>
+
+<p>
+Now for a slightly less trivial example: computing prime numbers. In
+the file <tt>primes.spl</tt>, and in appendix <a href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#sec:primes"><img alt="[*]" src="The%20Shakespeare%20Programming%20Language_files/crossref.gif" border="1" align="BOTTOM"></a>, is a
+program that asks the user for a number, then prints all primes less
+than or equal to that number.
+
+</p><p>
+There are three things in this program that we havn't seen before:
+input, gotos, and conditional statements.
+
+</p><p>
+
+</p><h2><a name="SECTION00051000000000000000">
+Input</a>
+</h2>
+
+<p>
+The input statements work just like the output statements, except that
+they read instead of write. To read a number, as in this program, use
+the sentence ``Listen to your heart.'' To read a character, use ``Open
+your mind.'' The value will be assigned to the character being spoken
+to, as usual.
+
+</p><p>
+
+</p><h2><a name="SECTION00052000000000000000">
+Gotos</a>
+</h2>
+
+<p>
+A sentence like ``Let us return to scene III'' means simply ``goto
+scene III''. Instead of ``let us'', you may use ``we shall'' or ``we
+must'', and instead of ``return to'', you may use ``proceed to''. If
+you specify a scene, it refers to that scene in the current act. There
+is no way to refer to a specific scene in another act - you have to
+settle for jumping to the act itself.
+
+</p><p>
+
+</p><h2><a name="SECTION00053000000000000000">
+Conditional statements</a>
+</h2>
+
+<p>
+Conditional statements come in two easy steps, as illustrated by the
+following code fragment:
+
+</p><p>
+</p><pre>Juliet:
+ Am I better than you?
+
+Hamlet:
+ If so, let us proceed to scene III.
+</pre>
+
+<p>
+First, someone voices a question. This is some sort of comparison,
+which will be either true or false. But more on that later.
+
+</p><p>
+Then comes, at some later point, a conditional statement. This is
+constructed by putting either ``if so'' (or ``if not'') and a comma in
+front of any sentence - that sentence is only executed if the
+answer to the last question was yes (or no).
+
+</p><p>
+This is pretty much like how you would do conditional jumps and things
+in many assembly languages.
+
+</p><p>
+
+</p><h3><a name="SECTION00053100000000000000">
+Comparisons</a>
+</h3>
+
+<p>
+Comparisons are constructed the way you would expect: ``is <img src="The%20Shakespeare%20Programming%20Language_files/img2.gif" alt="$X$" width="20" height="15" border="0" align="BOTTOM"> as good
+as <img src="The%20Shakespeare%20Programming%20Language_files/img3.gif" alt="$Y$" width="18" height="15" border="0" align="BOTTOM">'' tests for equality, with <img src="The%20Shakespeare%20Programming%20Language_files/img2.gif" alt="$X$" width="20" height="15" border="0" align="BOTTOM"> and <img src="The%20Shakespeare%20Programming%20Language_files/img3.gif" alt="$Y$" width="18" height="15" border="0" align="BOTTOM"> being arbitrary values.
+You may substitute ``good'' with any adjective. ``is <img src="The%20Shakespeare%20Programming%20Language_files/img2.gif" alt="$X$" width="20" height="15" border="0" align="BOTTOM"> better than
+<img src="The%20Shakespeare%20Programming%20Language_files/img3.gif" alt="$Y$" width="18" height="15" border="0" align="BOTTOM">'' tests if <img src="The%20Shakespeare%20Programming%20Language_files/img12.gif" alt="$X &gt; Y$" width="58" height="32" border="0" align="MIDDLE">. This works for any positive comparative. If
+you want to test whether <img src="The%20Shakespeare%20Programming%20Language_files/img13.gif" alt="$X &lt; Y$" width="58" height="32" border="0" align="MIDDLE">, use a negative comparative, such as
+``worse''.
+
+</p><p>
+If you want to invert the test, say ``not as good as'' or ``not better
+than''.
+
+</p><p>
+
+</p><h1><a name="SECTION00060000000000000000">
+A Slightly Less Trivial Example</a>
+</h1>
+
+<p>
+One might almost say that the language described this far ought to be
+able to do anything that can be done with other programming languages,
+albeit more flowery, were it not for the fact that the storage
+capacity is severely limited. There are only so many Shakespeare
+characters (some one hundred of them are recognized by the parser),
+and each of them can only store an integer of finite size. Thus the
+storage capacity is finite, and it follows that SPL can only handle
+problems of finite size.
+
+</p><p>
+Realizing this, we added stacks to the language. We'll describe them
+in just a minute; but first, have a look at how they can be used. The
+program in the file <tt>reverse.spl</tt> - which can also be found in
+appendix <a href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#sec:reverse"><img alt="[*]" src="The%20Shakespeare%20Programming%20Language_files/crossref.gif" border="1" align="BOTTOM"></a> - reads any number of characters, and then
+spits them out again in reverse order.
+
+</p><p>
+
+</p><h2><a name="SECTION00061000000000000000">
+Stacks</a>
+</h2>
+
+<p>
+Characters in the Shakespeare Programming Language are not
+simple-minded, limited to remember just one number. Like normal
+people, they can actually remember several. In accord with modern,
+highly experimental psychological research, this is implemented with
+stacks.
+
+</p><p>
+Every character can push integers onto their memory, and pop them out
+again at a later time. Pushing is done like this: 
+
+</p><p>
+</p><pre>Lady Macbeth:
+ Remember me.
+</pre>
+
+<p>
+This of course causes whoever Lady Macbeth is speaking to to push the
+value of Lady Macbeth onto his or her stack. Popping is even simpler:
+
+</p><p>
+</p><pre>Lady Macbeth:
+ Recall your imminent death!
+</pre>
+
+<p>
+The only significant word here is ``recall''; everything that follows
+is artistic fluff. This piece of code causes whoever Lady Macbeth is
+speaking to to pop an integer from his or her stack and assume that
+value for him- or herself.
+
+</p><p>
+Trying to pop when the stack is empty is a sure sign that the author
+has not yet perfected her storytelling skills, and will severly
+disappoint the runtime system.
+
+</p><p>
+
+</p><h1><a name="SECTION00070000000000000000"></a>
+<a name="sec:myprogram"></a>
+<br>
+How To Compile Your SPL Program
+</h1>
+
+<p>
+There is no SPL compiler. We do encourage you to write one, but at
+present there is only a translator, which translates SPL to C. The C
+file is then compiled and linked the usual way.
+
+</p><p>
+
+</p><p></p>
+<div align="CENTER"><a name="fig:makehello"></a><a name="69"></a>
+<table>
+<caption align="BOTTOM"><strong>Figure:</strong>
+Flow chart of how SPL programs are compiled.</caption>
+<tbody><tr><td>
+<div align="CENTER">
+<!-- MATH
+ $\includegraphics[width=1.0\textwidth]{makehello.eps}$
+ -->
+<img src="The%20Shakespeare%20Programming%20Language_files/img14.gif" alt="\includegraphics[width=1.0\textwidth]{makehello.eps}" width="551" height="85" border="0" align="BOTTOM">
+</div></td></tr>
+</tbody></table>
+</div><p></p>
+
+<p>
+The entire process is visualized in figure <a href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#fig:makehello"><img alt="[*]" src="The%20Shakespeare%20Programming%20Language_files/crossref.gif" border="1" align="BOTTOM"></a>. There
+are two things to note. First, <tt>spl2c</tt> reads from <tt>stdin</tt>
+and writes to <tt>stdout</tt>, so to accomplish what you see in the
+figure, you would write&nbsp;<tt>spl2c &lt; hello.spl &gt; hello.c</tt>. Second,
+the object file must be linked with the library <tt>libspl.a</tt>, which
+contains such stuff as dreams are made on.
+
+</p><p>
+
+</p><h1><a name="SECTION00080000000000000000">
+How We Compiled the SPL Translator</a>
+</h1>
+
+<p>
+The SPL to C translator was built using
+Flex<a name="tex2html7" href="#foot120"><sup>6</sup></a> and
+Bison<a name="tex2html8" href="#foot121"><sup>7</sup></a>. Flex creates
+a lexical analyzer, which eats source code and spits out tokens. Bison
+creates a parser that builds a parse tree out of these tokens,
+whereupon it is converted to C code.
+
+</p><p>
+We did not write the lexical analyzer specification by hand, since it
+contains a large number of very simple, very similar statements.
+Instead, we wrote a small program to do it for us.
+
+</p><p>
+The lexical analyzer and the parser are linked into the same
+executable, along with some string manipulation utilities that the
+parser uses a lot.
+
+</p><p>
+Last, we also build a library containing all the functions used in the
+C files generated by the translator.
+
+</p><p>
+
+</p><p></p>
+<div align="CENTER"><a name="fig:makespl"></a><a name="85"></a>
+<table>
+<caption align="BOTTOM"><strong>Figure:</strong>
+Flow chart of how the SPL translator is compiled.</caption>
+<tbody><tr><td>
+<div align="CENTER">
+<!-- MATH
+ $\includegraphics[width=1.0\textwidth]{makespl.eps}$
+ -->
+<img src="The%20Shakespeare%20Programming%20Language_files/img15.gif" alt="\includegraphics[width=1.0\textwidth]{makespl.eps}" width="543" height="400" border="0" align="BOTTOM">
+</div></td></tr>
+</tbody></table>
+</div><p></p>
+
+<p>
+Figure <a href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#fig:makespl"><img alt="[*]" src="The%20Shakespeare%20Programming%20Language_files/crossref.gif" border="1" align="BOTTOM"></a> depicts the build process. <tt>makescanner</tt>
+is the program that creates the lexical analyzer specification
+(<tt>scanner.l</tt>). It reads a number of word list files, which list
+all SPL certified nouns, adjectives, character names, and so on.
+
+</p><p>
+
+</p><p>
+
+</p><h1><a name="SECTION00090000000000000000">
+Examples</a>
+</h1>
+
+<h2><a name="SECTION00091000000000000000"></a>
+<a name="sec:hello"></a>
+<br>
+Hello World!
+</h2>
+
+<p>
+(This is the contents of the file <tt>hello.spl</tt>.)
+
+</p><p>
+<br>
+</p><pre>The Infamous Hello World Program.
+
+Romeo, a young man with a remarkable patience.
+Juliet, a likewise young woman of remarkable grace.
+Ophelia, a remarkable woman much in dispute with Hamlet.
+Hamlet, the flatterer of Andersen Insulting A/S.
+
+
+                    Act I: Hamlet's insults and flattery.
+
+                    Scene I: The insulting of Romeo.
+
+[Enter Hamlet and Romeo]
+
+Hamlet:
+ You lying stupid fatherless big smelly half-witted coward!
+ You are as stupid as the difference between a handsome rich brave
+ hero and thyself! Speak your mind!
+
+ You are as brave as the sum of your fat little stuffed misused dusty
+ old rotten codpiece and a beautiful fair warm peaceful sunny summer's
+ day. You are as healthy as the difference between the sum of the
+ sweetest reddest rose and my father and yourself! Speak your mind!
+
+ You are as cowardly as the sum of yourself and the difference
+ between a big mighty proud kingdom and a horse. Speak your mind.
+
+ Speak your mind!
+
+[Exit Romeo]
+
+                    Scene II: The praising of Juliet.
+
+[Enter Juliet]
+
+Hamlet:
+ Thou art as sweet as the sum of the sum of Romeo and his horse and his
+ black cat! Speak thy mind!
+
+[Exit Juliet]
+
+                    Scene III: The praising of Ophelia.
+
+[Enter Ophelia]
+
+Hamlet:
+ Thou art as lovely as the product of a large rural town and my amazing
+ bottomless embroidered purse. Speak thy mind!
+
+ Thou art as loving as the product of the bluest clearest sweetest sky
+ and the sum of a squirrel and a white horse. Thou art as beautiful as
+ the difference between Juliet and thyself. Speak thy mind!
+
+[Exeunt Ophelia and Hamlet]
+
+
+                    Act II: Behind Hamlet's back.
+
+                    Scene I: Romeo and Juliet's conversation.
+
+[Enter Romeo and Juliet]
+
+Romeo:
+ Speak your mind. You are as worried as the sum of yourself and the
+ difference between my small smooth hamster and my nose. Speak your
+ mind!
+
+Juliet:
+ Speak YOUR mind! You are as bad as Hamlet! You are as small as the
+ difference between the square of the difference between my little pony
+ and your big hairy hound and the cube of your sorry little
+ codpiece. Speak your mind!
+
+[Exit Romeo]
+
+                    Scene II: Juliet and Ophelia's conversation.
+
+[Enter Ophelia]
+
+Juliet:
+ Thou art as good as the quotient between Romeo and the sum of a small
+ furry animal and a leech. Speak your mind!
+
+Ophelia:
+ Thou art as disgusting as the quotient between Romeo and twice the
+ difference between a mistletoe and an oozing infected blister! Speak
+ your mind!
+
+[Exeunt]
+</pre>
+
+<p>
+
+</p><h2><a name="SECTION00092000000000000000"></a>
+<a name="sec:primes"></a>
+<br>
+Primes
+</h2>
+
+<p>
+(This is the contents of the file <tt>primes.spl</tt>.)
+
+</p><p>
+<br>
+</p><pre>Prime Number Computation in Copenhagen.
+
+Romeo, a young man of Verona.
+Juliet, a young woman.
+Hamlet, a temporary variable from Denmark.
+The Ghost, a limiting factor (and by a remarkable coincidence also
+        Hamlet's father).
+
+
+                    Act I: Interview with the other side.
+
+                    Scene I: At the last hour before dawn.
+
+[Enter the Ghost and Juliet]
+
+The Ghost:
+ You pretty little warm thing! Thou art as prompt as the difference
+ between the square of thyself and your golden hair. Speak your mind.
+
+Juliet:
+ Listen to your heart!
+
+[Exit the Ghost]
+
+[Enter Romeo]
+
+Juliet:
+ Thou art as sweet as a sunny summer's day!
+
+
+                    Act II: Determining divisibility.
+
+                    Scene I: A private conversation.
+
+Juliet:
+ Art thou more cunning than the Ghost?
+
+Romeo:
+ If so, let us proceed to scene V.
+
+[Exit Romeo]
+
+[Enter Hamlet]
+
+Juliet:
+ You are as villainous as the square root of Romeo!
+
+Hamlet:
+ You are as lovely as a red rose.
+
+                    Scene II: Questions and the consequences thereof.
+
+Juliet:
+ Am I better than you?
+
+Hamlet:
+ If so, let us proceed to scene III.
+
+Juliet:
+ Is the remainder of the quotient between Romeo and me as good as
+ nothing?
+
+Hamlet:
+ If so, let us proceed to scene IV.
+ Thou art as bold as the sum of thyself and a roman.
+
+Juliet:
+ Let us return to scene II.
+
+                    Scene III: Romeo must die!
+
+[Exit Hamlet]
+
+[Enter Romeo]
+
+Juliet:
+ Open your heart.
+
+[Exit Juliet]
+
+[Enter Hamlet]
+
+Romeo:
+ Thou art as rotten as the difference between nothing and the sum of a
+ snotty stinking half-witted hog and a small toad!
+ Speak your mind!
+
+[Exit Romeo]
+
+[Enter Juliet]
+
+                    Scene IV: One small dog at a time.
+
+[Exit Hamlet]
+
+[Enter Romeo]
+
+Juliet:
+ Thou art as handsome as the sum of thyself and my chihuahua!
+ Let us return to scene I.
+
+                    Scene V: Fin.
+
+[Exeunt]
+</pre>
+
+<p>
+
+</p><h2><a name="SECTION00093000000000000000"></a>
+<a name="sec:reverse"></a>
+<br>
+Reverse
+</h2>
+
+<p>
+(This is the contents of the file <tt>reverse.spl</tt>.)
+
+</p><p>
+<br>
+</p><pre>Outputting Input Reversedly.
+
+Othello, a stacky man.
+Lady Macbeth, who pushes him around till he pops.
+
+
+                    Act I: The one and only.
+
+                    Scene I: In the beginning, there was nothing.
+
+[Enter Othello and Lady Macbeth]
+
+Othello:
+ You are nothing!
+
+                    Scene II: Pushing to the very end.
+
+Lady Macbeth:
+ Open your mind! Remember yourself.
+
+Othello:
+ You are as hard as the sum of yourself and a stone wall. Am I as
+ horrid as a flirt-gill?
+
+Lady Macbeth:
+ If not, let us return to scene II. Recall your imminent death!
+
+Othello:
+ You are as small as the difference between yourself and a hair!
+
+                    Scene III: Once you pop, you can't stop!
+
+Lady Macbeth:
+ Recall your unhappy childhood. Speak your mind!
+
+Othello:
+ You are as vile as the sum of yourself and a toad! Are you better
+ than nothing?
+
+Lady Macbeth:
+ If so, let us return to scene III.
+
+                    Scene IV: The end.
+
+[Exeunt]
+</pre>
+
+<p>
+
+</p><h1><a name="SECTION000100000000000000000">
+First contact</a>
+</h1>
+
+<p>
+In order to make first contact with the authors, you may find the
+addresses d98-jas@nada.kth.se and d98-kha@nada.kth.seuseful. Mail posted to them will reach Jon and Karl, respectively.
+
+</p><p>
+We appreciate <i>any</i> feedback - even if all we get is an
+extensive collection of four-letter words, at least we know
+<i>someone</i> loves us.
+
+</p><p>
+The Shakespeare Programming Language has its own WikiWikiWeb at
+http://www.d.kth.se/~d98-kha/shakespeare/. You may find all
+sorts of fascinating information there, including this document and
+the <tt>spl2c</tt> translator, complete with source code!
+
+</p><p>
+
+</p><h1><a name="SECTION000110000000000000000">
+About this document ...</a>
+</h1>
+ <strong><font size="+4">The Shakespeare Programming Language</font></strong><p>
+This document was generated using the
+<a href="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/"><strong>LaTeX</strong>2<tt>HTML</tt></a> translator Version 2K.1beta (1.47)
+</p><p>
+Copyright © 1993, 1994, 1995, 1996,
+<a href="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</a>, 
+Computer Based Learning Unit, University of Leeds.
+<br>
+Copyright © 1997, 1998, 1999,
+<a href="http://www.maths.mq.edu.au/%7Eross/">Ross Moore</a>, 
+Mathematics Department, Macquarie University, Sydney.
+</p><p>
+The command line arguments were: <br>
+ <strong>latex2html</strong> <tt>-dir shakespeare -no_navigation -split 0 shakespeare.tex</tt>
+</p><p>
+The translation was initiated by Karl Hasselström on 2001-08-21
+<br></p><hr><h4>Footnotes</h4>
+<dl>
+<dt><a name="foot116">...
+Java2k</a><a name="foot116" href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#tex2html1"><sup>1</sup></a>
+</dt><dd>http://www.p-nand-q.com/java2k.htm
+
+</dd><dt><a name="foot117">...
+Sorted!</a><a name="foot117" href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#tex2html2"><sup>2</sup></a>
+</dt><dd>http://www.p-nand-q.com/sorted.htm
+
+</dd><dt><a name="foot118">...
+Brainfuck</a><a name="foot118" href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#tex2html3"><sup>3</sup></a>
+</dt><dd>http://www.catseye.mb.ca/esoteric/bf/
+
+</dd><dt><a name="foot119">...
+Malbolge</a><a name="foot119" href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#tex2html4"><sup>4</sup></a>
+</dt><dd>http://www.mines.edu/students/b/bolmstea/malbolge/
+
+</dd><dt><a name="foot35">... Exit</a><a name="foot35" href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#tex2html5"><sup>5</sup></a>
+</dt><dd>If you don't get the joke, you can mail
+  the authors and ask.
+
+</dd><dt><a name="foot120">...
+Flex</a><a name="foot120" href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#tex2html7"><sup>6</sup></a>
+</dt><dd>http://www.gnu.org/software/flex/
+
+</dd><dt><a name="foot121">...
+Bison</a><a name="foot121" href="http://shakespearelang.sourceforge.net/report/shakespeare/shakespeare.html#tex2html8"><sup>7</sup></a>
+</dt><dd>http://www.gnu.org/software/bison/
+
+</dd></dl>
+<br><hr>
+<address>
+Karl Hasselström
+2001-08-21
+</address>
+
+
+</body></html>

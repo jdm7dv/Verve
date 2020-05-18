@@ -1,0 +1,11 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\bin\Debug\MiniMPI.AlpacaTestProject.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\bin\Debug\MiniMPI.AlpacaTestProject.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\bin\Debug\Microsoft.Concurrency.UnitTestingFramework.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\bin\Debug\MiniMPI.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\bin\Debug\Microsoft.Concurrency.UnitTestingFramework.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\bin\Debug\Microsoft.Concurrency.UnitTestingFramework.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\bin\Debug\MiniMPI.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\bin\Debug\MiniMPI.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\obj\Debug\AlpacaTestProject.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\obj\Debug\MiniMPI.AlpacaTestProject.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\AlpacaTestProject\obj\Debug\MiniMPI.AlpacaTestProject.pdb

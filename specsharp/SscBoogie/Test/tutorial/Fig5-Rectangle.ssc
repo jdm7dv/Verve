@@ -1,0 +1,42 @@
+public class Rectangle {
+  public int X, Y;
+  public int Dx, Dy;
+
+  public void MoveToOrigin()
+    ensures X == 0 && Y == 0;
+    ensures Dx == old(Dx) && Dy == old(Dy);
+  {
+    X = 0;  Y = 0;
+  }
+
+  public void Transpose()
+    modifies Dx, Dy;
+    ensures Dx == old(Dy) && Dy == old(Dx);
+  {
+    int tmp = Dx;  Dx = Dy;  Dy = tmp;
+  }
+
+  public void Disturb(Rectangle r)
+    modifies r.*;
+  {
+    X = r.Y;  r.X = Y;
+    Dx = min{Dx, r.Dx};
+    r.Dy = max{X, Dy + r.Dy, 100};
+  }
+
+  public void CopyPositionTo(Rectangle r)
+    modifies this.0, r.X, r.Y;
+  {
+    r.X = X;  r.Y = Y;
+  }
+  
+  public Rectangle Clone()
+  {
+    Rectangle res = new Rectangle();
+    res.X = X;
+    res.Y = Y;
+    res.Dx = Dx;
+    res.Dy = Dy;
+    return res;
+  }
+}

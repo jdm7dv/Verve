@@ -1,0 +1,9 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CSharpBinding\CSharpBinding.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CSharpBinding\CSharpBinding.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CSharpBinding\Project\obj\Release\CSharpBinding.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CSharpBinding\Project\obj\Release\Src\OptionPanels\BuildOptions.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CSharpBinding\Project\obj\Release\CSharpBinding_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CSharpBinding\Project\obj\Release\CSharpBinding_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CSharpBinding\Project\obj\Release\Src\OptionPanels\BuildOptions.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CSharpBinding\Project\obj\Release\CSharpBinding.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CSharpBinding\Project\obj\Release\CSharpBinding.dll

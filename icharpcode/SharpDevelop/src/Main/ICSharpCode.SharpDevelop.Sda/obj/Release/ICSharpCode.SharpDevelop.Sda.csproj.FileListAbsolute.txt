@@ -1,0 +1,5 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.SharpDevelop.Sda.dll.config
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.SharpDevelop.Sda.xml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.SharpDevelop.Sda.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Sda\obj\Release\ICSharpCode.SharpDevelop.Sda.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Sda\obj\Release\ICSharpCode.SharpDevelop.Sda.dll

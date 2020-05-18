@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SimpleSamples
+</name>
+</assembly>
+<members>
+<member name="T:CodeGen.SimpleSamples.Dataset1">
+<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member>
+<member name="T:CodeGen.SimpleSamples.Dataset1.CustomersDataTable">
+<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member>
+<member name="T:CodeGen.SimpleSamples.Dataset1.CustomersRow">
+<summary>
+Represents strongly named DataRow class.
+</summary>
+</member>
+<member name="T:CodeGen.SimpleSamples.Dataset1.CustomersRowChangeEvent">
+<summary>
+Row event argument class
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,49 @@
+using Microsoft.Contracts;
+using System;
+
+public class Sequence {
+  protected int[] seq;
+  protected int count;
+  invariant 0 <= count && count <= seq.Length;
+
+  public Sequence()
+    ensures seq != null;
+  {
+    seq = new int[32];
+    /* assign some numbers to elements of seq and set count */
+  }
+}
+
+public class SequenceWithMax : Sequence {
+  public int max;
+
+  public SequenceWithMax() {
+    int m = Int32.MinValue;
+    for (int i = 0; i < count; i++)
+      invariant seq != null;  // necessary because "this" is delayed inside the constructor; note that superclass invariant is assumed after implicit base call
+    {
+      if (m < seq[i])
+        m = seq[i];
+    }
+    max = m;
+  }
+
+  public SequenceWithMax(int x) {  // Alternative constructor using the helper method GetMax
+    max = GetMax();  // precondition follows from postcondition of superclass constructor and superclass invariant, which is assumed after implicit base call
+  }
+
+  [Delayed]  // necessary because method is called on delayed receiver
+  private int GetMax()
+    requires seq != null && count <= seq.Length;  // necessary because non-nullness and invariant of delayed receiver cannot be assumed
+    modifies this.0;
+  {
+    int m = Int32.MinValue;
+    for (int i = 0; i < count; i++)
+      invariant seq != null && count <= seq.Length; // necessary because non-nullness and invariant of delayed receiver cannot be assumed
+    {
+      if (m < seq[i])
+        m = seq[i];
+    }
+    return m;
+  }
+}

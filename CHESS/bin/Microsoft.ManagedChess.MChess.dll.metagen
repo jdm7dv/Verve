@@ -1,0 +1,249 @@
+  Chess.dll - 0, Chess.dll
+ImageRuntimeVersion: v4.0.30319
+Assembly Microsoft.ManagedChess.MChess, Version=1.1.0.0, Culture=neutral, PublicKeyToken=76a274db078248c8: 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class Microsoft.ManagedChess.MErrorInfo: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(System.Exception): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.String Message : Public
+    System.String ExType : Public
+    System.String StackTrace : Public
+    Microsoft.ManagedChess.MErrorInfo[] InnerErrors : Public
+Class Microsoft.ManagedChess.MChessOptions: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 delayBound : Public
+    Int32 PCT_num_of_runs : Public
+    Int32 PCT_bug_depth : Public
+    Int32 PCT_seed : Public
+    Int32 var_bound : Public
+    Int32 preemptionBound : Public
+    Boolean PCT : Public
+    Boolean PCT_VB : Public
+    Boolean DeRandomizedPCT : Public
+    Boolean loadSchedule : Public
+    Boolean recoverSchedule : Public
+    System.String xmlCommandline : Public
+    System.String outputPrefix : Public
+    System.String loadScheduleFile : Public
+    System.String observationMode : Public
+    System.String enumerateObservations : Public
+    System.String checkObservations : Public
+    System.String varLabels : Public
+    Boolean breakOnAssert : Public
+    Boolean breakOnDeadlock : Public
+    Boolean breakOnTimeout : Public
+    Boolean breakOnPreemptions : Public
+    Boolean breakOnContextSwitch : Public
+    Boolean breakAfterPreemptions : Public
+    Boolean breakAfterContextSwitch : Public
+    Boolean breakOnTaskResume : Public
+    Boolean breakOnRace : Public
+    Boolean dieOnNonidempotence : Public
+    Int32 maxStackSize : Public
+    Int32 maxExecTime : Public
+    Int32 maxChessTime : Public
+    Boolean debugOutputFlag : Public
+    Int32 maxExecutions : Public
+    Boolean useExecPrinter : Public
+    Boolean handleNondeterminism : Public
+    Int32 fairnessParameter : Public
+    Boolean doIdfs : Public
+    Int32 depthBound : Public
+    Int32 idfsBound : Public
+    Boolean doRandom : Public
+    Int32 randomSeed : Public
+    Boolean doSleepSets : Public
+    Boolean doDpor : Public
+    Boolean bestFirst : Public
+    Boolean fairPor : Public
+    Boolean bounded : Public
+    Int32 prioritizedVar : Public
+    System.String boundedPriority : Public
+    System.String bestFirstPriority : Public
+    Boolean notime : Public
+    Boolean printSchedOnError : Public
+    Boolean nopopups : Public
+    Boolean quiescence : Public
+    Boolean sober : Public
+    Boolean soberDataRacesOnly : Public
+    Int32 soberTargetrace : Public
+    Boolean gui : Public
+    Boolean logging : Public
+    Boolean trace : Public
+    Boolean showNlb : Public
+    Boolean showHbexecs : Public
+    Boolean showStackSplit : Public
+    Boolean showProgress : Public
+    Int32 showProgressStart : Public
+    Boolean loopAtEnd : Public
+    Int32 warmupRuns : Public
+    Int32 processorCount : Public
+    Boolean tolerateDeadlock : Public
+    Boolean recordPreemptMethods : Public
+    Boolean preemptAccesses : Public
+    System.String preemptionVars : Public
+    Boolean monitorVolatiles : Public
+    Boolean gcTrack : Public
+    Boolean monitorAccesses : Public
+    Boolean monitorCctors : Public
+    Boolean finesse : Public
+Class Microsoft.ManagedChess.MSyncManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Init(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    SetInitState(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    ScheduleTask(Int32, Boolean(HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Reset(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Shutdown(Exception): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Shutdown(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    TaskEnd(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    EnterChess(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    LeaveChess(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    DebugBreak(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    IsDebuggerPresent(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetCurrentStackTrace(Int32, List`1, List`1, List`1): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetFullyQualifiedTopProcedure(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetTaskName(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    GetDataVarLabel(Int32): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class Microsoft.ManagedChess.MEventId: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(EventId): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 tid : Public
+    Int32 nr : Public
+Class Microsoft.ManagedChess.MChessInt: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 i : Public
+Class Microsoft.ManagedChess.MChessChess: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Init(MSyncManager, MChessOptions IsConst): PrivateScope, Public, Static, HideBySig
+    Done(Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
+    GetCurrentTid(): PrivateScope, Public, Static, HideBySig
+    Choose(Int32): PrivateScope, Public, Static, HideBySig
+    PreemptionDisable(): PrivateScope, Public, Static, HideBySig
+    PreemptionEnable(): PrivateScope, Public, Static, HideBySig
+    PrioritizePreemptions(): PrivateScope, Public, Static, HideBySig
+    UnprioritizePreemptions(): PrivateScope, Public, Static, HideBySig
+    StartTest(): PrivateScope, Public, Static, HideBySig
+    EndTest(): PrivateScope, Public, Static, HideBySig
+    EnterChess(): PrivateScope, Public, Static, HideBySig
+    LeaveChess(): PrivateScope, Public, Static, HideBySig
+    LocalBacktrack(): PrivateScope, Public, Static, HideBySig
+    TaskResume(Int32): PrivateScope, Public, Static, HideBySig
+    TaskSuspend(Int32): PrivateScope, Public, Static, HideBySig
+    TaskBegin(): PrivateScope, Public, Static, HideBySig
+    TaskEnd(): PrivateScope, Public, Static, HideBySig
+    TaskYield(): PrivateScope, Public, Static, HideBySig
+    TaskFork(MChessInt): PrivateScope, Public, Static, HideBySig
+    CommitSyncVarAccess(): PrivateScope, Public, Static, HideBySig
+    MarkTimeout(): PrivateScope, Public, Static, HideBySig
+    WakeNextDeadlockedThread(Boolean(HasFieldMarshal), Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
+    AggregateSyncVarAccess(Int32[], MSyncVarOp): PrivateScope, Public, Static, HideBySig
+    SyncVarAccess(Int32, MSyncVarOp): PrivateScope, Public, Static, HideBySig
+    GetNextSyncVar(): PrivateScope, Public, Static, HideBySig
+    DataVarAccess(Int32, Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
+    MergeSyncAndDataVar(Int32, Int32): PrivateScope, Public, Static, HideBySig
+    SetNextEventAttribute(UInt32, String): PrivateScope, Public, Static, HideBySig
+    TraceEvent(String): PrivateScope, Public, Static, HideBySig
+    QueueOnErrorCallback(OnErrorCallbackDelegate): PrivateScope, Public, Static, HideBySig
+    GetExitCode(): PrivateScope, Public, Static, HideBySig
+    ReportWarning(String, String, Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
+    ReportError(String, String, MErrorInfo): PrivateScope, Public, Static, HideBySig
+    ReportFinalStatistics(Int32): PrivateScope, Public, Static, HideBySig
+    CloseResults(): PrivateScope, Public, Static, HideBySig
+    ObserveOperationCall(Int32 IsLong, String): PrivateScope, Public, Static, HideBySig
+    ObserveOperationReturn(): PrivateScope, Public, Static, HideBySig
+    ObserveCallback(Int32 IsLong, String): PrivateScope, Public, Static, HideBySig
+    ObserveCallbackReturn(): PrivateScope, Public, Static, HideBySig
+    ObserveIntValue(String, Int64): PrivateScope, Public, Static, HideBySig
+    ObservePointerValue(String, Int32 IsLong): PrivateScope, Public, Static, HideBySig
+    ObserveStringValue(String, String): PrivateScope, Public, Static, HideBySig
+    IsBreakingDeadlock(): PrivateScope, Public, Static, HideBySig
+    GetChessSchedule(): PrivateScope, Public, Static, HideBySig
+    SetChessSchedule(List`1): PrivateScope, Public, Static, HideBySig
+Class Microsoft.ManagedChess.MChessChess+OnErrorCallbackDelegate: AutoLayout, AnsiClass, Class, NestedPublic, Sealed, BeforeFieldInit
+  :System.MulticastDelegate
+    Void .ctor(System.Object, IntPtr): PrivateScope, Public, SpecialName, RTSpecialName
+  Methods:
+    Invoke(Int32, IntPtr): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    BeginInvoke(Int32, IntPtr, AsyncCallback, Object): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+    EndInvoke(IAsyncResult): PrivateScope, Public, Final, Virtual, VtableLayoutMask
+Class Microsoft.ManagedChess.MChessStats: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetNumExecutions(): PrivateScope, Public, HideBySig
+    GetMaxThreads(): PrivateScope, Public, HideBySig
+    GetMaxSteps(): PrivateScope, Public, HideBySig
+    GetTotalSteps(): PrivateScope, Public, HideBySig
+    GetMaxHBExecutions(): PrivateScope, Public, HideBySig
+    GetMaxContextSwitches(): PrivateScope, Public, HideBySig
+    GetTotalContextSwitches(): PrivateScope, Public, HideBySig
+    GetElapsedTimeMS(): PrivateScope, Public, HideBySig
+Struct MSyncVarOp: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MSyncVarOp NULL_OP = 0 : Public, Static, Literal, HasDefault
+    MSyncVarOp RWVAR_READWRITE = 1 : Public, Static, Literal, HasDefault
+    MSyncVarOp LOCK_ACQUIRE = 2 : Public, Static, Literal, HasDefault
+    MSyncVarOp LOCK_TRYACQUIRE = 3 : Public, Static, Literal, HasDefault
+    MSyncVarOp LOCK_RELEASE = 4 : Public, Static, Literal, HasDefault
+    MSyncVarOp TASK_FORK = 5 : Public, Static, Literal, HasDefault
+    MSyncVarOp TASK_BEGIN = 6 : Public, Static, Literal, HasDefault
+    MSyncVarOp TASK_END = 7 : Public, Static, Literal, HasDefault
+    MSyncVarOp TASK_JOIN = 8 : Public, Static, Literal, HasDefault
+    MSyncVarOp TASK_RESUME = 9 : Public, Static, Literal, HasDefault
+    MSyncVarOp TASK_SUSPEND = 10 : Public, Static, Literal, HasDefault
+    MSyncVarOp TASK_YIELD = 11 : Public, Static, Literal, HasDefault
+    MSyncVarOp WAIT_ANY = 12 : Public, Static, Literal, HasDefault
+    MSyncVarOp WAIT_ALL = 13 : Public, Static, Literal, HasDefault
+    MSyncVarOp RWAPCQ = 14 : Public, Static, Literal, HasDefault
+    MSyncVarOp RWIOCP = 15 : Public, Static, Literal, HasDefault
+    MSyncVarOp RWEVENT = 16 : Public, Static, Literal, HasDefault
+    MSyncVarOp FLT_RW = 17 : Public, Static, Literal, HasDefault
+    MSyncVarOp QUIESCENT_WAIT = 18 : Public, Static, Literal, HasDefault
+    MSyncVarOp RWVAR_READ = 19 : Public, Static, Literal, HasDefault
+    MSyncVarOp RWVAR_WRITE = 20 : Public, Static, Literal, HasDefault
+    MSyncVarOp SRWLOCK_ACQUIRE_EXCLUSIVE = 21 : Public, Static, Literal, HasDefault
+    MSyncVarOp SRWLOCK_RELEASE_EXCLUSIVE = 22 : Public, Static, Literal, HasDefault
+    MSyncVarOp SRWLOCK_ACQUIRE_SHARED = 23 : Public, Static, Literal, HasDefault
+    MSyncVarOp SRWLOCK_RELEASE_SHARED = 24 : Public, Static, Literal, HasDefault
+    MSyncVarOp DIO_RECEIVE = 25 : Public, Static, Literal, HasDefault
+    MSyncVarOp DIO_SEND = 26 : Public, Static, Literal, HasDefault
+    MSyncVarOp TASK_FENCE = 27 : Public, Static, Literal, HasDefault
+    MSyncVarOp DATA_READ = 28 : Public, Static, Literal, HasDefault
+    MSyncVarOp DATA_WRITE = 29 : Public, Static, Literal, HasDefault
+    MSyncVarOp CHOICE = 30 : Public, Static, Literal, HasDefault
+    MSyncVarOp TRACED_EVENT = 31 : Public, Static, Literal, HasDefault
+    MSyncVarOp MANUAL_SCHEDULE = 255 : Public, Static, Literal, HasDefault
+    MSyncVarOp UNKNOWN = 256 : Public, Static, Literal, HasDefault
+    MSyncVarOp INVALID = 257 : Public, Static, Literal, HasDefault
+Struct MChess.EventAttributeEnum: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    MChess.EventAttributeEnum VAR_OP = 1 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum VAR_ID = 2 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum STATUS = 3 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum INSTR_METHOD = 4 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum THREADNAME = 5 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum STACKTRACE = 6 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum DISPLAY_BOXED = 7 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum HBSTAMP = 8 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum EVT_SID = 9 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum ENABLE = 10 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum DISABLE = 11 : Public, Static, Literal, HasDefault
+    MChess.EventAttributeEnum LAST_ATTR = 12 : Public, Static, Literal, HasDefault

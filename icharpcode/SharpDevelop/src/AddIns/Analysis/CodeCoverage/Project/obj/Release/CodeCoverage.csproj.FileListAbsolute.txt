@@ -1,0 +1,10 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\CodeCoverage\CodeCoverage.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\CodeCoverage\CodeCoverage.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeCoverage\Project\obj\Release\CodeCoverage.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeCoverage\Project\obj\Release\Src\CodeCoverageOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeCoverage\Project\obj\Release\Src\CodeCoverageProjectOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeCoverage\Project\obj\Release\Src\CodeCoverageOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeCoverage\Project\obj\Release\Src\CodeCoverageProjectOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeCoverage\Project\obj\Release\CodeCoverage_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeCoverage\Project\obj\Release\CodeCoverage.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeCoverage\Project\obj\Release\CodeCoverage.dll

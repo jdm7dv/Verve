@@ -1,0 +1,14 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\WpfDesign\WpfDesign.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\WpfDesign\ICSharpCode.WpfDesign.AddIn.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\WpfDesign.AddIn.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\Src\WpfDocumentError.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\Src\ImageSourceEditor\ChooseImageDialog.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\Src\ImageSourceEditor\ImageSourceEditor.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\Src\ObjectEditor.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\Src\WpfDocumentError.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\Src\ImageSourceEditor\ChooseImageDialog.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\Src\ImageSourceEditor\ImageSourceEditor.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\Src\ObjectEditor.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\ICSharpCode.WpfDesign.AddIn_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\ICSharpCode.WpfDesign.AddIn.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\WpfDesign\WpfDesign.AddIn\obj\Release\ICSharpCode.WpfDesign.AddIn.dll

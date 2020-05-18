@@ -1,0 +1,13 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\UsageDataCollector\UsageDataCollector.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\UsageDataCollector.AddIn.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\CollectedDataView.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\CollectedDataView.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\OptionPage.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\StartPageMessage.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\UsageDataCollector.AddIn_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\UsageDataCollector.AddIn_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\OptionPage.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\StartPageMessage.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\UsageDataCollector.AddIn.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\UsageDataCollector\UsageDataCollector.AddIn\obj\Release\UsageDataCollector.AddIn.dll

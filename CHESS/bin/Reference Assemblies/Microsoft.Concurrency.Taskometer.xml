@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Concurrency.Taskometer</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Concurrency.TestTools.TaskoMeter.Metering">
+            <summary>
+            Utility class for starting and stopping metering along with showing an interactive
+            UI.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Metering.MeasureInteractively(System.Action,System.String)">
+            <summary>
+            Spans a thread that runs a UI for running and viewing the performance statistics
+            for some action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Metering.MeasureInteractively(System.Action,System.Int32,System.String)">
+            <summary>
+            Spans a thread that runs a UI for running and viewing the performance statistics
+            for some action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Metering.MeasureInteractively(System.Action,System.Int32,System.Action,System.Int32,System.String)">
+            <summary>
+            Spans a thread that runs a UI for running and viewing the performance statistics
+            for some action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Metering.Start">
+            <summary>Starts a metering session.</summary>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Metering.Start(System.String)">
+            <summary>Starts a metering session.</summary>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Metering.End">
+            <summary>Ends the metering session.</summary>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Metering.MeasureSpeedup(Microsoft.Concurrency.TestTools.UnitTesting.TaskMeter,Microsoft.Concurrency.TestTools.UnitTesting.TaskMeter)">
+            <summary>
+            Itentifies that a task meter should measure speadup compared to a test meter.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Concurrency.TestTools.TaskoMeter.Stats.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Stats.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Microsoft.Concurrency.TestTools.TaskoMeter.Stats.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

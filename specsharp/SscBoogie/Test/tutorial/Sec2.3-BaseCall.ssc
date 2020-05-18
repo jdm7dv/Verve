@@ -1,0 +1,28 @@
+using Microsoft.Contracts;
+
+public class Fraction {
+  int n, d;
+
+  invariant d != 0;
+
+  public Fraction() {
+    d = 1;
+  }
+
+  [Additive]  // This method is not delayed because it relies on invariant
+  public int Value() {
+    return n / d;
+  }
+}
+
+public class HistoryFraction : Fraction {
+  int[] history;
+
+  [NotDelayed]  // because it calls non-delayed method Value
+  public HistoryFraction() {
+    history = new int[32];  // non-null field must be initialized before base-call
+    base();                 // explicit base call
+    history[0] = Value();   // call no non-delayed method must occur after base-call (when Fraction's invariant has been established)
+  }
+}
+

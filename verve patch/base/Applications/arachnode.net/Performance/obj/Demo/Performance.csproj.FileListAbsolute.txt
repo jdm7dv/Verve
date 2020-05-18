@@ -1,0 +1,11 @@
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\bin\Demo\arachnode.net.keys
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\bin\Demo\ConnectionStrings.config
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\bin\Demo\Arachnode.Performance.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\bin\Demo\Arachnode.Performance.pdb
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\bin\Demo\Arachnode.Performance.XML
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\bin\Demo\Arachnode.Configuration.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\bin\Demo\Arachnode.Configuration.pdb
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\bin\Demo\Arachnode.Configuration.xml
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\obj\Demo\Performance.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\obj\Demo\Arachnode.Performance.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Performance\obj\Demo\Arachnode.Performance.pdb

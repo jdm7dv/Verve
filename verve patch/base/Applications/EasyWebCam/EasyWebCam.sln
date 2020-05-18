@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFCSharpWebCam", "WPFCSharpWebCam\WPFCSharpWebCam.csproj", "{4A6C6F94-80FA-470A-A6B8-580AE8EE1531}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormCharpWebCam", "WinFormCharpWebCam\WinFormCharpWebCam.csproj", "{0D809987-4FFC-4B3E-BD2E-F391A1FF48C0}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WPFVBWebCam", "WPFVBWebCam\WPFVBWebCam.vbproj", "{70E94EA4-03B5-4B62-B562-42C9E6347D42}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WinFormVBWebCam", "WinFormVBWebCam\WinFormVBWebCam.vbproj", "{11DE51BF-3AF3-416C-94DF-3BF3255ED2CA}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs02.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = WinFormCharpWebCam\\WinFormCharpWebCam.csproj
+		SccProjectName1 = WinFormCharpWebCam
+		SccLocalPath1 = WinFormCharpWebCam
+		SccProjectUniqueName2 = WinFormVBWebCam\\WinFormVBWebCam.vbproj
+		SccProjectName2 = WinFormVBWebCam
+		SccLocalPath2 = WinFormVBWebCam
+		SccProjectUniqueName3 = WPFCSharpWebCam\\WPFCSharpWebCam.csproj
+		SccProjectName3 = WPFCSharpWebCam
+		SccLocalPath3 = WPFCSharpWebCam
+		SccProjectUniqueName4 = WPFVBWebCam\\WPFVBWebCam.vbproj
+		SccProjectName4 = WPFVBWebCam
+		SccLocalPath4 = WPFVBWebCam
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A6C6F94-80FA-470A-A6B8-580AE8EE1531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A6C6F94-80FA-470A-A6B8-580AE8EE1531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A6C6F94-80FA-470A-A6B8-580AE8EE1531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A6C6F94-80FA-470A-A6B8-580AE8EE1531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D809987-4FFC-4B3E-BD2E-F391A1FF48C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D809987-4FFC-4B3E-BD2E-F391A1FF48C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D809987-4FFC-4B3E-BD2E-F391A1FF48C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D809987-4FFC-4B3E-BD2E-F391A1FF48C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70E94EA4-03B5-4B62-B562-42C9E6347D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70E94EA4-03B5-4B62-B562-42C9E6347D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70E94EA4-03B5-4B62-B562-42C9E6347D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70E94EA4-03B5-4B62-B562-42C9E6347D42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11DE51BF-3AF3-416C-94DF-3BF3255ED2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11DE51BF-3AF3-416C-94DF-3BF3255ED2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11DE51BF-3AF3-416C-94DF-3BF3255ED2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11DE51BF-3AF3-416C-94DF-3BF3255ED2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,5 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\Microsoft.ManagedChess.MiniMPIWrappers.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\Microsoft.ManagedChess.MiniMPIWrappers.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\MiniMPIWrappers\obj\Debug\MiniMPIWrappers.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\MiniMPIWrappers\obj\Debug\Microsoft.ManagedChess.MiniMPIWrappers.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\MiniMPIWrappers\obj\Debug\Microsoft.ManagedChess.MiniMPIWrappers.pdb

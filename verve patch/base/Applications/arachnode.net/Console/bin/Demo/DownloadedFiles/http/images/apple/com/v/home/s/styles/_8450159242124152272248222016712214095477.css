@@ -1,0 +1,22 @@
+#billboard { position:relative; z-index:1; margin:36px auto 6px; width:980px; height:760px; }
+#billboard .hero { width:980px; position:absolute; z-index:1; background:#fff; }
+#billboard .hero img { display:block; }
+#billboard.static { height:auto; *height:760px; }
+#billboard.static .hero { position:static; }
+
+#billboard .ipad { padding-top:5px; }
+#billboard .ipad h1 { padding-bottom:2px; }
+#billboard .ipad img { margin:0 auto 3px; }
+
+#billboard .iphone { padding-top:20px; }
+#billboard .iphone h1,
+#billboard .iphone .hero-image { position:relative; z-index:1; margin-left:auto; margin-right:auto; }
+#billboard .iphone h1 img { margin-left:auto; margin-right:auto; }
+#billboard .iphone .hero-image { margin-top:40px; margin-bottom:38px; }
+.promos .promo2,
+.promos .promo1 { position:absolute; z-index:1; }
+
+.promos ul li a .play { width:46px; height:46px; position:absolute; z-index:1; left:95px; top:80px; opacity:.8; background:url(http://images.apple.com/v/home/s/images/video_play_medium.png) 0 0 no-repeat; background-size:46px 92px; _behavior:url(/global/scripts/lib/iepngfix.htc); }
+@media only screen {
+	.promos ul li a .play { background-image:url(/v/home/s/images/video_play_medium.svg);
+}

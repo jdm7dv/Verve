@@ -1,0 +1,1844 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Proxy</name>
+    </assembly>
+    <members>
+        <member name="T:Arachnode.Proxy.Listeners.FtpListener">
+            <summary>Listens on a specific port on the proxy server and forwards all incoming FTP traffic to the appropriate server.</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.Value.AbstractClasses.Listener">
+            <summary>Specifies the basic methods and properties of a <c>Listener</c> object. This is an abstract class and must be inherited.</summary>
+            <remarks>The Listener class provides an abstract base class that represents a listening socket of the proxy server. Descendant classes further specify the protocol that is used between those two connections.</remarks>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Listener.m_Clients">
+            <summary>Holds the value of the Clients property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Listener.m_Address">
+            <summary>Holds the value of the Address property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Listener.m_IsDisposed">
+            <summary>Holds the value of the IsDisposed property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Listener.m_ListenSocket">
+            <summary>Holds the value of the ListenSocket property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Listener.m_Port">
+            <summary>Holds the value of the Port property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.#ctor(System.Int32,System.Net.IPAddress)">
+            <summary>Initializes a new instance of the Listener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="Address">The address to listen on. You can specify IPAddress.Any to listen on all installed network cards.</param>
+            <remarks>For the security of your server, try to avoid to listen on every network card (IPAddress.Any). Listening on a local IP address is usually sufficient and much more secure.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.Dispose">
+            <summary>Disposes of the resources (other than memory) used by the Listener.</summary>
+            <remarks>Stops listening and disposes <em>all</em> the client objects. Once disposed, this object should not be used anymore.</remarks>
+            <seealso cref="T:System.IDisposable"/>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.Start">
+            <summary>Starts listening on the selected IP address and port.</summary>
+            <exception cref="T:System.Net.Sockets.SocketException">There was an error while creating the listening socket.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.Restart">
+            <summary>Restarts listening on the selected IP address and port.</summary>
+            <remarks>This method is automatically called when the listening port or the listening IP address are changed.</remarks>
+            <exception cref="T:System.Net.Sockets.SocketException">There was an error while creating the listening socket.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.AddClient(Arachnode.Proxy.Value.AbstractClasses.Client)">
+            <summary>Adds the specified Client to the client list.</summary>
+            <remarks>A client will never be added twice to the list.</remarks>
+            <param name="client">The client to add to the client list.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.RemoveClient(Arachnode.Proxy.Value.AbstractClasses.Client)">
+            <summary>Removes the specified Client from the client list.</summary>
+            <param name="client">The client to remove from the client list.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.GetClientCount">
+            <summary>Returns the number of clients in the client list.</summary>
+            <returns>The number of connected clients.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.GetClientAt(System.Int32)">
+            <summary>Returns the requested client from the client list.</summary>
+            <param name="Index">The index of the requested client.</param>
+            <returns>The requested client.</returns>
+            <remarks>If the specified index is invalid, the GetClientAt method returns null.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.Finalize">
+            <summary>Finalizes the Listener.</summary>
+            <remarks>The destructor calls the Dispose method.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.GetLocalExternalIP">
+            <summary>Returns an external IP address of this computer, if present.</summary>
+            <returns>Returns an external IP address of this computer; if this computer does not have an external IP address, it returns the first local IP address it can find.</returns>
+            <remarks>If this computer does not have any configured IP address, this method returns the IP address 0.0.0.0.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.IsRemoteIP(System.Net.IPAddress)">
+            <summary>Checks whether the specified IP address is a remote IP address or not.</summary>
+            <param name="IP">The IP address to check.</param>
+            <returns>True if the specified IP address is a remote address, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.IsLocalIP(System.Net.IPAddress)">
+            <summary>Checks whether the specified IP address is a local IP address or not.</summary>
+            <param name="IP">The IP address to check.</param>
+            <returns>True if the specified IP address is a local address, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.GetLocalInternalIP">
+            <summary>Returns an internal IP address of this computer, if present.</summary>
+            <returns>Returns an internal IP address of this computer; if this computer does not have an internal IP address, it returns the first local IP address it can find.</returns>
+            <remarks>If this computer does not have any configured IP address, this method returns the IP address 0.0.0.0.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.OnAccept(System.IAsyncResult)">
+            <summary>Called when there's an incoming client connection waiting to be accepted.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Listener.ToString">
+            <summary>Returns a string representation of this object.</summary>
+            <returns>A string with information about this object.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Listener.Port">
+            <summary>Gets or sets the port number on which to listen on.</summary>
+            <value>An integer defining the port number to listen on.</value>
+            <seealso cref="P:Arachnode.Proxy.Value.AbstractClasses.Listener.Address"/>
+            <exception cref="T:System.ArgumentException">The specified value is less than or equal to zero.</exception>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Listener.Address">
+            <summary>Gets or sets the address on which to listen on.</summary>
+            <value>An IPAddress instance defining the IP address to listen on.</value>
+            <seealso cref="P:Arachnode.Proxy.Value.AbstractClasses.Listener.Port"/>
+            <exception cref="T:System.ArgumentNullException">The specified value is null.</exception>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Listener.ListenSocket">
+            <summary>Gets or sets the listening Socket.</summary>
+            <value>An instance of the Socket class that's used to listen for incoming connections.</value>
+            <exception cref="T:System.ArgumentNullException">The specified value is null.</exception>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Listener.Clients">
+            <summary>Gets the list of connected clients.</summary>
+            <value>An instance of the ArrayList class that's used to store all the connections.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Listener.IsDisposed">
+            <summary>Gets a value indicating whether the Listener has been disposed or not.</summary>
+            <value>An boolean that specifies whether the object has been disposed or not.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Listener.Listening">
+            <summary>Gets a value indicating whether the Listener is currently listening or not.</summary>
+            <value>A boolean that indicates whether the Listener is currently listening or not.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Listener.ConstructString">
+            <summary>Returns a string that holds all the construction information for this object.</summary>
+            <value>A string that holds all the construction information for this object.</value>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.FtpListener.#ctor(System.Int32)">
+            <summary>Initializes a new instance of the FtpListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <remarks>The FtpListener will start listening on all installed network cards.</remarks>
+            <exception cref="T:System.ArgumentException">Port is not positive.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.FtpListener.#ctor(System.Net.IPAddress,System.Int32)">
+            <summary>Initializes a new instance of the FtpListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="Address">The address to listen on. You can specify IPAddress.Any to listen on all installed network cards.</param>
+            <remarks>For the security of your server, try to avoid to listen on every network card (IPAddress.Any). Listening on a local IP address is usually sufficient and much more secure.</remarks>
+            <exception cref="T:System.ArgumentNullException">Address is null.</exception>
+            <exception cref="T:System.ArgumentException">Port is not positive.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.FtpListener.OnAccept(System.IAsyncResult)">
+            <summary>Called when there's an incoming client connection waiting to be accepted.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.FtpListener.ToString">
+            <summary>Returns a string representation of this object.</summary>
+            <returns>A string with information about this object.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Listeners.FtpListener.ConstructString">
+            <summary>Returns a string that holds all the construction information for this object.</summary>
+            <value>A string that holds all the construction information for this object.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Listeners.PortMapListener">
+            <summary>Listens on a specific port on the proxy server and forwards all incoming data to a specific port on another server.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Listeners.PortMapListener.m_MapTo">
+            <summary>Holds the value of the MapTo property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.PortMapListener.#ctor(System.Int32,System.Net.IPEndPoint)">
+            <summary>Initializes a new instance of the PortMapListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="MapToIP">The address to forward to.</param>
+            <remarks>The object will listen on all network addresses on the computer.</remarks>
+            <exception cref="T:System.ArgumentException"><paramref name="Port">Port</paramref> is not positive.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="MapToIP">MapToIP</paramref> is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.PortMapListener.#ctor(System.Net.IPAddress,System.Int32,System.Net.IPEndPoint)">
+            <summary>Initializes a new instance of the PortMapListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="Address">The network address to listen on.</param>
+            <param name="MapToIP">The address to forward to.</param>
+            <remarks>For security reasons, <paramref name="Address">Address</paramref> should not be IPAddress.Any.</remarks>
+            <exception cref="T:System.ArgumentNullException">Address or <paramref name="MapToIP">MapToIP</paramref> is null.</exception>
+            <exception cref="T:System.ArgumentException">Port is not positive.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.PortMapListener.#ctor(System.Net.IPAddress,System.Int32,System.Net.IPAddress,System.Int32)">
+            <summary>Initializes a new instance of the PortMapListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="Address">The network address to listen on.</param>
+            <param name="MapToPort">The port to forward to.</param>
+            <param name="MapToAddress">The IP address to forward to.</param>
+            <remarks>For security reasons, Address should not be IPAddress.Any.</remarks>
+            <exception cref="T:System.ArgumentNullException">Address or MapToAddress is null.</exception>
+            <exception cref="T:System.ArgumentException">Port or MapToPort is invalid.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.PortMapListener.OnAccept(System.IAsyncResult)">
+            <summary>Called when there's an incoming client connection waiting to be accepted.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.PortMapListener.ToString">
+            <summary>Returns a string representation of this object.</summary>
+            <returns>A string with information about this object.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Listeners.PortMapListener.MapTo">
+            <summary>Gets or sets the IP EndPoint to map all incoming traffic to.</summary>
+            <value>An IPEndPoint that holds the IP address and port to use when redirecting incoming traffic.</value>
+            <exception cref="T:System.ArgumentNullException">The specified value is null.</exception>
+            <returns>An IP EndPoint specifying the host and port to map all incoming traffic to.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Listeners.PortMapListener.ConstructString">
+            <summary>Returns a string that holds all the construction information for this object.</summary>
+            <value>A string that holds all the construction information for this object.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Handlers.Socks5Handler">
+            <summary>Implements the SOCKS5 protocol.</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.Handlers.SocksHandler">
+            <summary>Implements a specific version of the SOCKS protocol.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Handlers.SocksHandler.m_Buffer">
+            <summary>Holds the value of the Buffer property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Handlers.SocksHandler.Signaler">
+            <summary>Holds the address of the method to call when the SOCKS negotiation is complete.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Handlers.SocksHandler.m_Connection">
+            <summary>Holds the value of the Connection property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Handlers.SocksHandler.m_RemoteConnection">
+            <summary>Holds the value of the RemoteConnection property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Handlers.SocksHandler.m_Username">
+            <summary>Holds the value of the Username property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Handlers.NegotiationCompleteDelegate)">
+            <summary>Initializes a new instance of the SocksHandler class.</summary>
+            <param name="ClientConnection">The connection with the client.</param>
+            <param name="Callback">The method to call when the SOCKS negotiation is complete.</param>
+            <exception cref="T:System.ArgumentNullException"><c>Callback</c> is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.Dispose(System.Boolean)">
+            <summary>Closes the listening socket if present, and signals the parent object that SOCKS negotiation is complete.</summary>
+            <param name="Success">Indicates whether the SOCKS negotiation was successful or not.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.StartNegotiating">
+            <summary>Starts accepting bytes from the client.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.OnReceiveBytes(System.IAsyncResult)">
+            <summary>Called when we receive some bytes from the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.OnDisposeGood(System.IAsyncResult)">
+            <summary>Called when an OK reply has been sent to the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.OnDisposeBad(System.IAsyncResult)">
+            <summary>Called when a negative reply has been sent to the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.AddBytes(System.Byte[],System.Int32)">
+            <summary>Adds some bytes to a byte aray.</summary>
+            <param name="NewBytes">The new bytes to add.</param>
+            <param name="Cnt">The number of bytes to add.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.OnStartAccept(System.IAsyncResult)">
+            <summary>Called when the AcceptSocket should start accepting incoming connections.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.OnAccept(System.IAsyncResult)">
+            <summary>Called when there's an incoming connection in the AcceptSocket queue.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.Dispose(System.Byte)">
+            <summary>Sends a reply to the client connection and disposes it afterwards.</summary>
+            <param name="Value">A byte that contains the reply code to send to the client.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.IsValidRequest(System.Byte[])">
+            <summary>Checks whether a specific request is a valid SOCKS request or not.</summary>
+            <param name="Request">The request array to check.</param>
+            <returns>True is the specified request is valid, false otherwise</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.SocksHandler.ProcessRequest(System.Byte[])">
+            <summary>Processes a SOCKS request from a client.</summary>
+            <param name="Request">The request to process.</param>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.SocksHandler.Username">
+            <summary>Gets or sets the username of the SOCKS user.</summary>
+            <value>A String representing the username of the logged on user.</value>
+            <exception cref="T:System.ArgumentNullException">The specified value is null.</exception>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.SocksHandler.Connection">
+            <summary>Gets or sets the connection with the client.</summary>
+            <value>A Socket representing the connection between the proxy server and the SOCKS client.</value>
+            <exception cref="T:System.ArgumentNullException">The specified value is null.</exception>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.SocksHandler.Buffer">
+            <summary>Gets a buffer that can be used when receiving bytes from the client.</summary>
+            <value>A byte array that can be used when receiving bytes from the client.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.SocksHandler.Bytes">
+            <summary>Gets or sets a byte array that can be used to store received bytes from the client.</summary>
+            <value>A byte array that can be used to store bytes from the client.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.SocksHandler.RemoteConnection">
+            <summary>Gets or sets the connection with the remote host.</summary>
+            <value>A Socket representing the connection between the proxy server and the remote host.</value>
+            <exception cref="T:System.ArgumentNullException">The specified value is null.</exception>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.SocksHandler.AcceptSocket">
+            <summary>Gets or sets the socket that is used to accept incoming connections.</summary>
+            <value>A Socket that is used to accept incoming connections.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.SocksHandler.RemoteBindIP">
+            <summary>Gets or sets the IP address of the requested remote server.</summary>
+            <value>An IPAddress object specifying the address of the requested remote server.</value>
+        </member>
+        <member name="F:Arachnode.Proxy.Handlers.Socks5Handler.m_AuthenticationMethod">
+            <summary>Holds the value of the AuthenticationMethod property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Handlers.NegotiationCompleteDelegate,Arachnode.Proxy.Authentication.AuthenticationList)">
+            <summary>Initializes a new instance of the Socks5Handler class.</summary>
+            <param name="ClientConnection">The connection with the client.</param>
+            <param name="Callback">The method to call when the SOCKS negotiation is complete.</param>
+            <param name="AuthList">The authentication list to use when clients connect.</param>
+            <exception cref="T:System.ArgumentNullException"><c>Callback</c> is null.</exception>
+            <remarks>If the AuthList parameter is null, no authentication will be required when a client connects to the proxy server.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Handlers.NegotiationCompleteDelegate)">
+            <summary>Initializes a new instance of the Socks5Handler class.</summary>
+            <param name="ClientConnection">The connection with the client.</param>
+            <param name="Callback">The method to call when the SOCKS negotiation is complete.</param>
+            <exception cref="T:System.ArgumentNullException"><c>Callback</c> is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.IsValidRequest(System.Byte[])">
+            <summary>Checks whether a specific request is a valid SOCKS request or not.</summary>
+            <param name="Request">The request array to check.</param>
+            <returns>True is the specified request is valid, false otherwise</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.ProcessRequest(System.Byte[])">
+            <summary>Processes a SOCKS request from a client and selects an authentication method.</summary>
+            <param name="Request">The request to process.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.OnAuthSent(System.IAsyncResult)">
+            <summary>Called when client has been notified of the selected authentication method.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.OnAuthenticationComplete(System.Boolean)">
+            <summary>Called when the authentication is complete.</summary>
+            <param name="Success">Indicates whether the authentication was successful ot not.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.OnRecvRequest(System.IAsyncResult)">
+            <summary>Called when we received the request of the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.IsValidQuery(System.Byte[])">
+            <summary>Checks whether a specified query is a valid query or not.</summary>
+            <param name="Query">The query to check.</param>
+            <returns>True if the query is valid, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.ProcessQuery(System.Byte[])">
+            <summary>Processes a received query.</summary>
+            <param name="Query">The query to process.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.OnConnected(System.IAsyncResult)">
+            <summary>Called when we're successfully connected to the remote host.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.OnAccept(System.IAsyncResult)">
+            <summary>Called when there's an incoming connection in the AcceptSocket queue.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks5Handler.Dispose(System.Byte)">
+            <summary>Sends a reply to the client connection and disposes it afterwards.</summary>
+            <param name="Value">A byte that contains the reply code to send to the client.</param>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.Socks5Handler.AuthenticationMethod">
+            <summary>Gets or sets the the AuthenticationBase object to use when trying to authenticate the SOCKS client.</summary>
+            <value>The AuthenticationBase object to use when trying to authenticate the SOCKS client.</value>
+            <exception cref="T:System.ArgumentNullException">The specified value is null.</exception>
+        </member>
+        <member name="P:Arachnode.Proxy.Handlers.Socks5Handler.AuthList">
+            <summary>Gets or sets the AuthenticationList object to use when trying to authenticate the SOCKS client.</summary>
+            <value>The AuthenticationList object to use when trying to authenticate the SOCKS client.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.CONSOLE_CURSOR_INFO">
+            <summary>
+            The CONSOLE_CURSOR_INFO structure contains information about the console cursor.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.CONSOLE_CURSOR_INFO.dwSize">
+            <summary>Specifies a number between 1 and 100, indicating the percentage of the character cell that is filled by the cursor. The cursor appearance varies, ranging from completely filling the cell to showing up as a horizontal line at the bottom of the cell.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.CONSOLE_CURSOR_INFO.bVisible">
+            <summary>Specifies the visibility of the cursor. If the cursor is visible, this member is TRUE (nonzero).</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.COORD">
+            <summary>
+            The COORD structure defines the coordinates of a character cell in a console screen buffer. The origin of the coordinate system (0,0) is at the top, left cell of the buffer.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.COORD.x">
+            <summary>Horizontal or column value.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.COORD.y">
+            <summary>Vertical or row value.</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.SMALL_RECT">
+            <summary>
+            The SMALL_RECT structure defines the coordinates of the upper left and lower right corners of a rectangle.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.SMALL_RECT.Left">
+            <summary>Specifies the x-coordinate of the upper left corner of the rectangle.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.SMALL_RECT.Top">
+            <summary>Specifies the y-coordinate of the upper left corner of the rectangle.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.SMALL_RECT.Right">
+            <summary>Specifies the x-coordinate of the lower right corner of the rectangle.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.SMALL_RECT.Bottom">
+            <summary>Specifies the y-coordinate of the lower right corner of the rectangle.</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.CONSOLE_SCREEN_BUFFER_INFO">
+            <summary>
+            The CONSOLE_SCREEN_BUFFER_INFO structure contains information about a console screen buffer.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.CONSOLE_SCREEN_BUFFER_INFO.dwSize">
+            <summary>Specifies the size, in character columns and rows, of the screen buffer.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.CONSOLE_SCREEN_BUFFER_INFO.dwCursorPosition">
+            <summary>Specifies the column and row coordinates of the cursor in the screen buffer.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.CONSOLE_SCREEN_BUFFER_INFO.wAttributes">
+            <summary>Specifies the foreground (text) and background color attributes to be used for characters that are written to a screen buffer by the WriteFile and WriteConsole functions, or echoed to a screen buffer by the ReadFile and ReadConsole functions. The attribute values are some combination of the following values: FOREGROUND_BLUE, FOREGROUND_GREEN, FOREGROUND_RED, FOREGROUND_INTENSITY, BACKGROUND_BLUE, BACKGROUND_GREEN, BACKGROUND_RED, and BACKGROUND_INTENSITY.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.CONSOLE_SCREEN_BUFFER_INFO.srWindow">
+            <summary>Specifies a SMALL_RECT structure that contains the screen buffer coordinates of the upper-left and lower-right corners of the display window.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.CONSOLE_SCREEN_BUFFER_INFO.dwMaximumWindowSize">
+            <summary>Specifies the maximum size of the console window, given the current screen buffer size and font and the screen size.</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.ConsoleColor">
+            <summary>Enumerates all available colors for the forecolor or the backcolor of the console.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Black">
+            <summary>Black</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Red">
+            <summary>Red</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.LightRed">
+            <summary>Light red</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Green">
+            <summary>Green</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.LightGreen">
+            <summary>Light green</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Blue">
+            <summary>Blue</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.LightBlue">
+            <summary>Light blue</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Gold">
+            <summary>Gold</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Yellow">
+            <summary>Yellow</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Cyan">
+            <summary>Cyan</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.LightCyan">
+            <summary>Light cyan</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Purple">
+            <summary>Purple</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.LightPurple">
+            <summary>Light purple</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.Gray">
+            <summary>Gray</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleColor.White">
+            <summary>White</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.ConsoleAttributes">
+            <summary>The ConsoleAttributes class can change several attributes of your console window.</summary>
+            <example>
+            The following example wil change the forecolor of te console, disable 'EchoInput', ask for a string and show that string.
+            <code>
+            ConsoleAttributes.ForeColor = ConsoleColor.White;
+            Console.Write("Please enter your password: ");
+            ConsoleAttributes.EchoInput = false;
+            string ThePass = Console.ReadLine();
+            ConsoleAttributes.EchoInput = true;
+            ConsoleAttributes.ForeColor = ConsoleColor.Gray;
+            Console.WriteLine("");
+            Console.WriteLine("The password you entered was: " + ThePass);
+            Console.WriteLine("Press enter to exit...");
+            Console.Read();
+            </code>
+            </example>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.BacgroundColors">
+            <summary>
+            Lists all the possible background color values.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.ForegroundColors">
+            <summary>
+            Lists all the possible foreground color values.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.ENABLE_ECHO_INPUT">
+            <summary>Characters read by the ReadFile or ReadConsole function are written to the active screen buffer as they are read. This mode can be used only if the ENABLE_LINE_INPUT mode is also enabled.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.m_BackColor">
+            <summary>Holds the backcolor of the console window.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.m_CursorVisible">
+            <summary>Holds the value of the CursorVisible property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.m_EchoInput">
+            <summary>Holds the value of the EchoInput property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.m_ForeColor">
+            <summary>Holds the forecolor of the console window.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.m_OvrMode">
+            <summary>Holds the value of the OvrMode property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.STD_INPUT_HANDLE">
+            <summary>Standard input handle.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ConsoleAttributes.STD_OUTPUT_HANDLE">
+            <summary>Standard output handle.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.SetConsoleTextAttribute(System.Int32,System.Int32)">
+            <summary>
+            The SetConsoleTextAttribute function sets the foreground (text) and background color attributes of characters written to the screen buffer by the WriteFile or WriteConsole function, or echoed by the ReadFile or ReadConsole function. This function affects only text written after the function call.
+            </summary>
+            <param name="hConsoleOutput">Handle to a console screen buffer. The handle must have GENERIC_READ access.</param>
+            <param name="wAttributes">Specifies the foreground and background color attributes. Any combination of the following values can be specified: FOREGROUND_BLUE, FOREGROUND_GREEN, FOREGROUND_RED, FOREGROUND_INTENSITY, BACKGROUND_BLUE, BACKGROUND_GREEN, BACKGROUND_RED, and BACKGROUND_INTENSITY.</param>
+            <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.GetStdHandle(System.Int32)">
+            <summary>
+            The GetStdHandle function returns a handle for the standard input, standard output, or standard error device.
+            </summary>
+            <param name="nStdHandle">Specifies the device for which to return the handle. This parameter can have one of the following values:
+            <list type="bullet"> 
+            	<listheader>
+            		<value>Value</value>
+            		<meaning>Meaning</meaning>
+            	</listheader>
+            	<item>
+            		<value>STD_INPUT_HANDLE</value>
+            		<meaning>Standard input handle.</meaning>
+            	</item>
+            	<item>
+            		<value>STD_OUTPUT_HANDLE</value>
+            		<meaning>Standard output handle.</meaning>
+            	</item>
+            	<item>
+            		<value>STD_ERROR_HANDLE</value>
+            		<meaning>Standard error handle.</meaning>
+            	</item>
+            </list>
+            </param>
+            <returns>If the function succeeds, the return value is a handle to the specified device.<br></br><br>If the function fails, the return value is the INVALID_HANDLE_VALUE flag. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.SetConsoleCursorInfo(System.Int32,Arachnode.Proxy.CONSOLE_CURSOR_INFO@)">
+            <summary>
+            The SetConsoleCursorInfo function sets the size and visibility of the cursor for the specified console screen buffer.
+            </summary>
+            <param name="hConsoleOutput">Handle to a console screen buffer. The handle must have GENERIC_WRITE access.</param>
+            <param name="lpConsoleCursorInfo">Pointer to a CONSOLE_CURSOR_INFO structure containing the new specifications for the screen buffer's cursor.</param>
+            <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.GetConsoleMode(System.Int32,System.Int32@)">
+            <summary>
+            The GetConsoleMode function reports the current input mode of a console's input buffer or the current output mode of a console screen buffer.
+            </summary>
+            <param name="hConsoleHandle">Handle to a console input buffer or a screen buffer. The handle must have GENERIC_READ access.</param>
+            <param name="lpConsoleCursorInfo">
+            Pointer to a 32-bit variable that indicates the current mode of the specified buffer.<br>If the hConsoleHandle parameter is an input handle, the mode can be a combination of the following values. When a console is created, all input modes except ENABLE_WINDOW_INPUT are enabled by default.</br>
+            <list type="bullet">
+            	<listheader>
+            		<value>Value</value>
+            		<meaning>Meaning</meaning>
+            	</listheader>
+            	<item>
+            		<value>ENABLE_LINE_INPUT</value>
+            		<meaning>The ReadFile or ReadConsole function returns only when a carriage return character is read. If this mode is disabled, the functions return when one or more characters are available.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_ECHO_INPUT</value>
+            		<meaning>Characters read by the ReadFile or ReadConsole function are written to the active screen buffer as they are read. This mode can be used only if the ENABLE_LINE_INPUT mode is also enabled.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_PROCESSED_INPUT</value>
+            		<meaning>ctrl+c is processed by the system and is not placed in the input buffer. If the input buffer is being read by ReadFile or ReadConsole, other control keys are processed by the system and are not returned in the ReadFile or ReadConsole buffer. If the ENABLE_LINE_INPUT mode is also enabled, backspace, carriage return, and linefeed characters are handled by the system.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_WINDOW_INPUT</value>
+            		<meaning>User interactions that change the size of the console screen buffer are reported in the console's input buffer. Information about these events can be read from the input buffer by applications using the ReadConsoleInput function, but not by those using ReadFile or ReadConsole.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_MOUSE_INPUT</value>
+            		<meaning>If the mouse pointer is within the borders of the console window and the window has the keyboard focus, mouse events generated by mouse movement and button presses are placed in the input buffer. These events are discarded by ReadFile or ReadConsole, even when this mode is enabled.</meaning>
+            	</item>
+            </list>
+            If the hConsoleHandle parameter is a screen buffer handle, the mode can be a combination of the following values. When a screen buffer is created, both output modes are enabled by default.
+            <list type="bullet">
+            	<listheader>
+            		<value>Value</value>
+            		<meaning>Meaning</meaning>
+            	</listheader>
+            	<item>
+            		<value>ENABLE_PROCESSED_OUTPUT</value>
+            		<meaning>Characters written by the WriteFile or WriteConsole function or echoed by the ReadFile or ReadConsole function are parsed for ASCII control sequences, and the correct action is performed. Backspace, tab, bell, carriage return, and linefeed characters are processed.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_WRAP_AT_EOL_OUTPUT</value>
+            		<meaning>When writing with WriteFile or WriteConsole or echoing with ReadFile or ReadConsole, the cursor moves to the beginning of the next row when it reaches the end of the current row. This causes the rows displayed in the console window to scroll up automatically when the cursor advances beyond the last row in the window. It also causes the contents of the screen buffer to scroll up (discarding the top row of the screen buffer) when the cursor advances beyond the last row in the screen buffer. If this mode is disabled, the last character in the row is overwritten with any subsequent characters.</meaning>
+            	</item>
+            </list>
+            </param>
+            <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.SetConsoleMode(System.Int32,System.Int32)">
+            <summary>
+            The SetConsoleMode function sets the input mode of a console's input buffer or the output mode of a console screen buffer.
+            </summary>
+            <param name="hConsoleHandle">Handle to a console input buffer or a screen buffer. The handle must have GENERIC_WRITE access.</param>
+            <param name="lpConsoleCursorInfo">
+            Pointer to a 32-bit variable that indicates the current mode of the specified buffer.<br>If the hConsoleHandle parameter is an input handle, the mode can be a combination of the following values. When a console is created, all input modes except ENABLE_WINDOW_INPUT are enabled by default.</br>
+            <list type="bullet">
+            	<listheader>
+            		<value>Value</value>
+            		<meaning>Meaning</meaning>
+            	</listheader>
+            	<item>
+            		<value>ENABLE_LINE_INPUT</value>
+            		<meaning>The ReadFile or ReadConsole function returns only when a carriage return character is read. If this mode is disabled, the functions return when one or more characters are available.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_ECHO_INPUT</value>
+            		<meaning>Characters read by the ReadFile or ReadConsole function are written to the active screen buffer as they are read. This mode can be used only if the ENABLE_LINE_INPUT mode is also enabled.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_PROCESSED_INPUT</value>
+            		<meaning>ctrl+c is processed by the system and is not placed in the input buffer. If the input buffer is being read by ReadFile or ReadConsole, other control keys are processed by the system and are not returned in the ReadFile or ReadConsole buffer. If the ENABLE_LINE_INPUT mode is also enabled, backspace, carriage return, and linefeed characters are handled by the system.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_WINDOW_INPUT</value>
+            		<meaning>User interactions that change the size of the console screen buffer are reported in the console's input buffer. Information about these events can be read from the input buffer by applications using the ReadConsoleInput function, but not by those using ReadFile or ReadConsole.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_MOUSE_INPUT</value>
+            		<meaning>If the mouse pointer is within the borders of the console window and the window has the keyboard focus, mouse events generated by mouse movement and button presses are placed in the input buffer. These events are discarded by ReadFile or ReadConsole, even when this mode is enabled.</meaning>
+            	</item>
+            </list>
+            If the hConsoleHandle parameter is a screen buffer handle, the mode can be a combination of the following values. When a screen buffer is created, both output modes are enabled by default.
+            <list type="bullet">
+            	<listheader>
+            		<value>Value</value>
+            		<meaning>Meaning</meaning>
+            	</listheader>
+            	<item>
+            		<value>ENABLE_PROCESSED_OUTPUT</value>
+            		<meaning>Characters written by the WriteFile or WriteConsole function or echoed by the ReadFile or ReadConsole function are parsed for ASCII control sequences, and the correct action is performed. Backspace, tab, bell, carriage return, and linefeed characters are processed.</meaning>
+            	</item>
+            	<item>
+            		<value>ENABLE_WRAP_AT_EOL_OUTPUT</value>
+            		<meaning>When writing with WriteFile or WriteConsole or echoing with ReadFile or ReadConsole, the cursor moves to the beginning of the next row when it reaches the end of the current row. This causes the rows displayed in the console window to scroll up automatically when the cursor advances beyond the last row in the window. It also causes the contents of the screen buffer to scroll up (discarding the top row of the screen buffer) when the cursor advances beyond the last row in the screen buffer. If this mode is disabled, the last character in the row is overwritten with any subsequent characters.</meaning>
+            	</item>
+            </list>
+            </param>
+            <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.SetConsoleTitle(System.String)">
+            <summary>
+            The SetConsoleTitle function sets the title bar string for the current console window.
+            </summary>
+            <param name="lpConsoleTitle">Pointer to a null-terminated string that contains the string to appear in the title bar of the console window.</param>
+            <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.GetConsoleTitle(System.Text.StringBuilder,System.Int32)">
+            <summary>
+            The GetConsoleTitle function retrieves the title bar string for the current console window.
+            </summary>
+            <param name="lpConsoleTitle">Pointer to a buffer that receives a null-terminated string containing the text that appears in the title bar of the console window.</param>
+            <param name="nSize">Specifies the size, in characters, of the buffer pointed to by the lpConsoleTitle parameter.</param>
+            <returns>If the function succeeds, the return value is the length, in characters, of the string copied to the buffer.<br></br><br>If the function fails, the return value is zero. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.GetConsoleScreenBufferInfo(System.Int32,Arachnode.Proxy.CONSOLE_SCREEN_BUFFER_INFO@)">
+            <summary>
+            The GetConsoleScreenBufferInfo function retrieves information about the specified console screen buffer.
+            </summary>
+            <param name="hConsoleOutput">Handle to a console screen buffer. The handle must have GENERIC_READ access.</param>
+            <param name="lpConsoleScreenBufferInfo">Pointer to a CONSOLE_SCREEN_BUFFER_INFO structure in which the screen buffer information is returned.</param>
+            <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.SetConsoleCursorPosition(System.Int32,Arachnode.Proxy.COORD@)">
+            <summary>
+            The SetConsoleCursorPosition function sets the cursor position in the specified console screen buffer.
+            </summary>
+            <param name="hConsoleOutput">Handle to a console screen buffer. The handle must have GENERIC_WRITE access.</param>
+            <param name="dwCursorPosition">Specifies a COORD structure containing the new cursor position. The coordinates are the column and row of a screen buffer character cell. The coordinates must be within the boundaries of the screen buffer.</param>
+            <returns>If the function succeeds, the return value is nonzero.<br></br><br>If the function fails, the return value is zero. To get extended error information, call GetLastError.</br></returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.ChangeCursor">
+            <summary>Applies the current cursor settings.</summary>
+            <remarks>This method applies changes in the CursorVisible and OvrMode properties.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.ConsoleAttributes.MoveCursor(System.Int16,System.Int16)">
+            <summary>Moves the cursor to the specified location.</summary>
+            <param name="x">Specifies the x value of the new location.</param>
+            <param name="y">Specifies the y value of the new location.</param>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.ForeColor">
+            <summary>Gets or sets the color of the console font.</summary>
+            <value>A value of the ConsoleColor enum that specifies the color of the console font.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.BackColor">
+            <summary>Gets or sets the color of the console background.</summary>
+            <value>A value of the ConsoleColor enum that specifies the color of the console background.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.CursorVisible">
+            <summary>Gets or sets whether the cursor is visible or not.</summary>
+            <value>A boolean value that specifies the visibility of the cursor.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.OvrMode">
+            <summary>Gets or sets whether the cursor is in overwrite-mode or not.</summary>
+            <value>A boolean value that specifies the mode of the cursor.</value>
+            <remarks>In overwrite mode, the cursor size will be 50% of the character space instead of 25% in normal mode</remarks>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.EchoInput">
+            <summary>Gets or sets whether the console must echo the input or not.</summary>
+            <value>A boolean value that specifies the console must echo the input or not.</value>
+            <remarks>EchoInput is often turned off when the program asks the user to type in a password.</remarks>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.Caption">
+            <summary>Gets or sets the caption of the console.</summary>
+            <value>A String that specifies the caption of the console.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.CursorX">
+            <summary>Gets or sets the current cursos position on the x axis in the console.</summary>
+            <value>A short that specifies the current cursos position on the x axis in the console.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.CursorY">
+            <summary>Gets or sets the current cursos position on the y axis in the console.</summary>
+            <value>A short value that specifies the current cursos position on the y axis in the console.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.WindowWidth">
+            <summary>Gets the width (in characters) of the console window.</summary>
+            <value>An integer that holds the width of the console window in characters.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ConsoleAttributes.WindowHeight">
+            <summary>Gets the height (in characters) of the console window.</summary>
+            <value>An integer that holds the height of the console window in characters.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.ProxyConfig">
+            <summary>
+            Stores the configuration settings of this proxy server.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ProxyConfig.m_File">
+            <summary>Holds the value of the File property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ProxyConfig.m_Parent">
+            <summary>Holds the value of the Parent property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ProxyConfig.m_Settings">
+            <summary>Holds the value of the Settings property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ProxyConfig.m_UserList">
+            <summary>Holds the value of the UserList property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.#ctor(Arachnode.Proxy.Proxy,System.String)">
+            <summary>
+            Initializes a new ProxyConfig instance.
+            </summary>
+            <param name="parent">The parent of this ProxyCondif instance.</param>
+            <param name="file">The XML file to read data from and store data to.</param>
+            <exception cref="T:System.ArgumentNullException"><c>file</c> is null -or- <c>parent</c> is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.ReadString(System.String)">
+            <summary>
+            Reads a string from the settings section.
+            </summary>
+            <param name="name">The key to read from.</param>
+            <returns>The string value that corresponds with the specified key, or an empty string if the specified key was not found in the collection.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.ReadString(System.String,System.String)">
+            <summary>
+            Reads a string from the settings section.
+            </summary>
+            <param name="name">The key to read from.</param>
+            <param name="def">The default string to return.</param>
+            <returns>The string value that corresponds with the specified key, or <c>def</c> if the specified key was not found in the collection.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.ReadBytes(System.String)">
+            <summary>
+            Reads a byte array from the settings section.
+            </summary>
+            <param name="name">The key to read from.</param>
+            <returns>The array of bytes that corresponds with the specified key, or <c>null</c> if the specified key was not found in the collection.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.ReadInt(System.String)">
+            <summary>
+            Reads an integer from the settings section.
+            </summary>
+            <param name="name">The key to read from.</param>
+            <returns>The integer that corresponds with the specified key, or 0 if the specified key was not found in the collection.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.ReadInt(System.String,System.Int32)">
+            <summary>
+            Reads an integer from the settings section.
+            </summary>
+            <param name="name">The key to read from.</param>
+            <param name="def">The default integer to return.</param>
+            <returns>The integer that corresponds with the specified key, or <c>def</c> if the specified key was not found in the collection.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveSetting(System.String,System.String)">
+            <summary>
+            Saves a string to the settings section.
+            </summary>
+            <param name="name">The key of the setting.</param>
+            <param name="data">The string data of the setting.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveSetting(System.String,System.String,System.Boolean)">
+            <summary>
+            Saves a string to the settings section.
+            </summary>
+            <param name="name">The key of the setting.</param>
+            <param name="data">The string data of the setting.</param>
+            <param name="saveData">True if the data has to be written to the XML file, false otherwise.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveSetting(System.String,System.Int32)">
+            <summary>
+            Saves an integer to the settings section.
+            </summary>
+            <param name="name">The key of the setting.</param>
+            <param name="data">The integer data of the setting.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveSetting(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Saves an integer to the settings section.
+            </summary>
+            <param name="name">The key of the setting.</param>
+            <param name="data">The integer data of the setting.</param>
+            <param name="saveData">True if the data has to be written to the XML file, false otherwise.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveSetting(System.String,System.Byte[])">
+            <summary>
+            Saves an array of bytes to the settings section.
+            </summary>
+            <param name="name">The key of the setting.</param>
+            <param name="data">The byte data of the setting.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveSetting(System.String,System.Byte[],System.Boolean)">
+            <summary>
+            Saves an array of bytes to the settings section.
+            </summary>
+            <param name="name">The key of the setting.</param>
+            <param name="data">The byte data of the setting.</param>
+            <param name="saveData">True if the data has to be written to the XML file, false otherwise.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveUserPass(System.String,System.String)">
+            <summary>
+            Saves a username and password combination to the authentication list.
+            </summary>
+            <param name="username">The username to add.</param>
+            <param name="password">The password to add.</param>
+            <exception cref="T:System.ArgumentNullException"><c>username</c> is null -or- <c>password</c> is null.</exception>
+            <exception cref="T:System.ArgumentException">The specified username is invalid.</exception>
+            <remarks><p>If the user already exists in the collection, the old password will be changed to the new one.</p><p>The username 'users' is invalid because it is used internally to store the usernames.</p></remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveUserPass(System.String,System.String,System.Boolean)">
+            <summary>
+            Saves a username and password combination to the authentication list.
+            </summary>
+            <param name="username">The username to add.</param>
+            <param name="password">The password to add.</param>
+            <param name="saveData">True if the data has to be written to the XML file, false otherwise.</param>
+            <exception cref="T:System.ArgumentNullException"><c>username</c> is null -or- <c>password</c> is null.</exception>
+            <exception cref="T:System.ArgumentException">The specified username is invalid.</exception>
+            <remarks><p>If the user already exists in the collection, the old password will be changed to the new one.</p><p>The username 'users' is invalid because it is used internally to store the usernames.</p><p>The password will be hashed before it is stored in the authentication list.</p></remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveUserHash(System.String,System.String)">
+            <summary>
+            Saves a username and password hash combination to the authentication list.
+            </summary>
+            <param name="username">The username to add.</param>
+            <param name="passHash">The password hash to add.</param>
+            <exception cref="T:System.ArgumentNullException"><c>username</c> is null -or- <c>passHash</c> is null.</exception>
+            <exception cref="T:System.ArgumentException">The specified username is invalid.</exception>
+            <remarks><p>If the user already exists in the collection, the old password hash will be changed to the new one.</p><p>The username 'users' is invalid because it is used internally to store the usernames.</p><p>The password will <em>not</em> be hashed before it is stored in the authentication list. The user must make sure it is a valid MD5 hash.</p></remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveUserHash(System.String,System.String,System.Boolean)">
+            <summary>
+            Saves a username and password hash combination to the authentication list.
+            </summary>
+            <param name="username">The username to add.</param>
+            <param name="passHash">The password hash to add.</param>
+            <param name="saveData">True if the data has to be written to the XML file, false otherwise.</param>
+            <exception cref="T:System.ArgumentNullException"><c>username</c> is null -or- <c>passHash</c> is null.</exception>
+            <exception cref="T:System.ArgumentException">The specified username is invalid.</exception>
+            <remarks><p>If the user already exists in the collection, the old password hash will be changed to the new one.</p><p>The username 'users' is invalid because it is used internally to store the usernames.</p><p>The password will <em>not</em> be hashed before it is stored in the authentication list. The user must make sure it is a valid MD5 hash.</p></remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.RemoveUser(System.String)">
+            <summary>
+            Removes a user from the authentication list.
+            </summary>
+            <param name="user">The user to remove.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.RemoveUser(System.String,System.Boolean)">
+            <summary>
+            Removes a user from the authentication list.
+            </summary>
+            <param name="user">The user to remove.</param>
+            <param name="save">True if the data has to be written to the XML file, false otherwise.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveData">
+            <summary>
+            Saves the data in this class to an XML file.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveSettings(System.Xml.XmlTextWriter)">
+            <summary>
+            Saves the settings in this class to an XML writer.
+            </summary>
+            <param name="writer">The XML writer to save the data to.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveUsers(System.Xml.XmlTextWriter)">
+            <summary>
+            Saves the authentication list to an XML writer.
+            </summary>
+            <param name="writer">The XML writer to save the users to.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.SaveListeners(System.Xml.XmlTextWriter)">
+            <summary>
+            Saves the listeners to an XML writer.
+            </summary>
+            <param name="writer">The XML writer to save the users to.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.LoadData">
+            <summary>
+            Loads the data from an XML file.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.LoadSettings(System.Xml.XmlTextReader)">
+            <summary>
+            Loads the settings from an XML file.
+            </summary>
+            <param name="reader">The XML reader to read the settings from.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.LoadUsers(System.Xml.XmlTextReader)">
+            <summary>
+            Loads the userlist from an XML file.
+            </summary>
+            <param name="reader">The XML reader to read the users from.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.ProxyConfig.LoadListeners(System.Xml.XmlTextReader)">
+            <summary>
+            Loads the listeners list from an XML file.
+            </summary>
+            <param name="reader">The XML reader to read the users from.</param>
+        </member>
+        <member name="P:Arachnode.Proxy.ProxyConfig.File">
+            <summary>
+            Gets the full path to the XML data file.
+            </summary>
+            <value>A String that holds the full path to the XML data file.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ProxyConfig.Parent">
+            <summary>
+            Gets the parent object of this ProxyConfig class.
+            </summary>
+            <value>An instance of the Proxy class.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ProxyConfig.Settings">
+            <summary>
+            Gets the dictionary that holds the settings.
+            </summary>
+            <value>An instance of the StringDictionary class that holds the settings.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.ProxyConfig.UserList">
+            <summary>
+            Gets the userlist.
+            </summary>
+            <value>An instance of the AuthenticationList class that holds all the users and their corresponding password hashes.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Authentication.AuthUserPass">
+            <summary>Authenticates a user on a SOCKS5 server according to the username/password authentication subprotocol.</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase">
+            <summary>Authenticates a user on a SOCKS5 server according to the implemented subprotocol.</summary>
+            <remarks>This is an abstract class. The subprotocol that's used to authenticate a user is specified in the subclasses of this base class.</remarks>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase.m_Buffer">
+            <summary>Holds the value of the Buffer property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase.Callback">
+            <summary>The method to call when the authentication is complete.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase.m_Connection">
+            <summary>Holds the value of the Connection property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase.StartAuthentication(System.Net.Sockets.Socket,Arachnode.Proxy.Value.AbstractClasses.AuthenticationCompleteDelegate)">
+            <summary>Starts the authentication process.</summary>
+            <remarks>This abstract method must be implemented in the subclasses, according to the selected subprotocol.</remarks>
+            <param name="Connection">The connection with the SOCKS client.</param>
+            <param name="Callback">The method to call when the authentication is complete.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase.AddBytes(System.Byte[],System.Int32)">
+            <summary>Adds bytes to the array returned by the Bytes property.</summary>
+            <param name="NewBytes">The bytes to add.</param>
+            <param name="Cnt">The number of bytes to add.</param>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase.Connection">
+            <summary>Gets or sets the Socket connection between the proxy server and the SOCKS client.</summary>
+            <value>A Socket instance defining the connection between the proxy server and the local client.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase.Buffer">
+            <summary>Gets a buffer that can be used to receive data from the client connection.</summary>
+            <value>An array of bytes that can be used to receive data from the client connection.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.AuthenticationBase.Bytes">
+            <summary>Gets or sets an array of bytes that can be used to store all received data.</summary>
+            <value>An array of bytes that can be used to store all received data.</value>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthUserPass.#ctor(Arachnode.Proxy.Authentication.AuthenticationList)">
+            <summary>Initializes a new instance of the AuthUserPass class.</summary>
+            <param name="AuthList">An AuthenticationList object that contains the list of all valid username/password combinations.</param>
+            <remarks>If the AuthList parameter is null, any username/password combination will be accepted.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthUserPass.StartAuthentication(System.Net.Sockets.Socket,Arachnode.Proxy.Value.AbstractClasses.AuthenticationCompleteDelegate)">
+            <summary>Starts the authentication process.</summary>
+            <param name="Connection">The connection with the SOCKS client.</param>
+            <param name="Callback">The method to call when the authentication is complete.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthUserPass.OnRecvRequest(System.IAsyncResult)">
+            <summary>Called when we have received the initial authentication data from the SOCKS client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthUserPass.IsValidQuery(System.Byte[])">
+            <summary>Checks whether the specified authentication query is a valid one.</summary>
+            <param name="Query">The query to check.</param>
+            <returns>True if the query is a valid authentication query, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthUserPass.ProcessQuery(System.Byte[])">
+            <summary>Processes an authentication query.</summary>
+            <param name="Query">The query to process.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthUserPass.OnOkSent(System.IAsyncResult)">
+            <summary>Called when an OK reply has been sent to the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthUserPass.OnUhohSent(System.IAsyncResult)">
+            <summary>Called when a negatiev reply has been sent to the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="P:Arachnode.Proxy.Authentication.AuthUserPass.AuthList">
+            <summary>Gets or sets the AuthenticationList to use when a computer tries to authenticate on the proxy server.</summary>
+            <value>An instance of the AuthenticationList class that contains all the valid username/password combinations.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Listeners.HttpListener">
+            <summary>Listens on a specific port on the proxy server and forwards all incoming HTTP traffic to the appropriate server.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.HttpListener.#ctor(System.Int32)">
+            <summary>Initializes a new instance of the HttpListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <remarks>The HttpListener will start listening on all installed network cards.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.HttpListener.#ctor(System.Net.IPAddress,System.Int32)">
+            <summary>Initializes a new instance of the HttpListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="Address">The address to listen on. You can specify IPAddress.Any to listen on all installed network cards.</param>
+            <remarks>For the security of your server, try to avoid to listen on every network card (IPAddress.Any). Listening on a local IP address is usually sufficient and much more secure.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.HttpListener.OnAccept(System.IAsyncResult)">
+            <summary>Called when there's an incoming client connection waiting to be accepted.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.HttpListener.ToString">
+            <summary>Returns a string representation of this object.</summary>
+            <returns>A string with information about this object.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Listeners.HttpListener.ConstructString">
+            <summary>Returns a string that holds all the construction information for this object.</summary>
+            <value>A string that holds all the construction information for this object.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Connections.FtpDataConnection">
+            <summary>Relays FTP data between a remote host and a local client.</summary>
+        </member>
+        <member name="T:Arachnode.Proxy.Value.AbstractClasses.Client">
+            <summary>Specifies the basic methods and properties of a <c>Client</c> object. This is an abstract class and must be inherited.</summary>
+            <remarks>The Client class provides an abstract base class that represents a connection to a local client and a remote server. Descendant classes further specify the protocol that is used between those two connections.</remarks>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Client.Destroyer">
+            <summary>Holds the address of the method to call when this client is ready to be destroyed.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Client.m_Buffer">
+            <summary>Holds the value of the Buffer property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Client.m_RemoteBuffer">
+            <summary>Holds the value of the RemoteBuffer property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Client.m_ClientSocket">
+            <summary>Holds the value of the ClientSocket property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Value.AbstractClasses.Client.m_DestinationSocket">
+            <summary>Holds the value of the DestinationSocket property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Value.AbstractClasses.DestroyDelegate)">
+            <summary>Initializes a new instance of the Client class.</summary>
+            <param name="ClientSocket">The <see cref="T:System.Net.Sockets.Socket">Socket</see> connection between this proxy server and the local client.</param>
+            <param name="Destroyer">The callback method to be called when this Client object disconnects from the local client and the remote server.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.#ctor">
+            <summary>Initializes a new instance of the Client object.</summary>
+            <remarks>Both the ClientSocket property and the DestroyDelegate are initialized to null.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.Dispose">
+            <summary>Disposes of the resources (other than memory) used by the Client.</summary>
+            <remarks>Closes the connections with the local client and the remote host. Once <c>Dispose</c> has been called, this object should not be used anymore.</remarks>
+            <seealso cref="T:System.IDisposable"/>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.ToString">
+            <summary>Returns text information about this Client object.</summary>
+            <returns>A string representing this Client object.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.StartRelay">
+            <summary>Starts relaying data between the remote host and the local client.</summary>
+            <remarks>This method should only be called after all protocol specific communication has been finished.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.OnClientReceive(System.IAsyncResult)">
+            <summary>Called when we have received data from the local client.<br>Incoming data will immediately be forwarded to the remote host.</br></summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.OnRemoteSent(System.IAsyncResult)">
+            <summary>Called when we have sent data to the remote host.<br>When all the data has been sent, we will start receiving again from the local client.</br></summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.OnRemoteReceive(System.IAsyncResult)">
+            <summary>Called when we have received data from the remote host.<br>Incoming data will immediately be forwarded to the local client.</br></summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.OnClientSent(System.IAsyncResult)">
+            <summary>Called when we have sent data to the local client.<br>When all the data has been sent, we will start receiving again from the remote host.</br></summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Value.AbstractClasses.Client.StartHandshake">
+            <summary>Starts communication with the local client.</summary>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Client.ClientSocket">
+            <summary>Gets or sets the Socket connection between the proxy server and the local client.</summary>
+            <value>A Socket instance defining the connection between the proxy server and the local client.</value>
+            <seealso cref="P:Arachnode.Proxy.Value.AbstractClasses.Client.DestinationSocket"/>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Client.DestinationSocket">
+            <summary>Gets or sets the Socket connection between the proxy server and the remote host.</summary>
+            <value>A Socket instance defining the connection between the proxy server and the remote host.</value>
+            <seealso cref="P:Arachnode.Proxy.Value.AbstractClasses.Client.ClientSocket"/>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Client.Buffer">
+            <summary>Gets the buffer to store all the incoming data from the local client.</summary>
+            <value>An array of bytes that can be used to store all the incoming data from the local client.</value>
+            <seealso cref="P:Arachnode.Proxy.Value.AbstractClasses.Client.RemoteBuffer"/>
+        </member>
+        <member name="P:Arachnode.Proxy.Value.AbstractClasses.Client.RemoteBuffer">
+            <summary>Gets the buffer to store all the incoming data from the remote host.</summary>
+            <value>An array of bytes that can be used to store all the incoming data from the remote host.</value>
+            <seealso cref="P:Arachnode.Proxy.Value.AbstractClasses.Client.Buffer"/>
+        </member>
+        <member name="F:Arachnode.Proxy.Connections.FtpDataConnection.m_FtpReply">
+            <summary>Holds the value of the FtpReply property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Connections.FtpDataConnection.m_ListenSocket">
+            <summary>Holds the value of the ListenSocket property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.ProcessPort(System.Net.IPEndPoint)">
+            <summary>Initializes a new instance of the FtpDataConnection class.</summary>
+            <param name="RemoteAddress">The address on the local FTP client to connect to.</param>
+            <returns>The PORT command string to send to the FTP server.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.OnPortConnected(System.IAsyncResult)">
+            <summary>Called when we're connected to the data port on the local FTP client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.OnPortAccept(System.IAsyncResult)">
+            <summary>Called when there's a connection from the remote FTP server waiting to be accepted.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.StartHandshake">
+            <summary>Starts relaying data between the remote FTP server and the local FTP client.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.ProcessPasv(Arachnode.Proxy.Clients.FtpClient)">
+            <summary>Called when the proxy server processes a PASV command.</summary>
+            <param name="Parent">The parent FtpClient object.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.ProcessPasvReplyRecv(System.String)">
+            <summary>Called when the FtpClient receives a reply on the PASV command from the server.</summary>
+            <param name="Input">The received reply.</param>
+            <returns>True if the input has been processed successfully, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.ProcessPasvReply(System.String)">
+            <summary>Processes a PASV reply from the server.</summary>
+            <param name="Reply">The reply to process.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.ParsePasvIP(System.String)">
+            <summary>Parses a PASV reply into an instance of the IPEndPoint class.</summary>
+            <param name="Reply">The reply to parse into an IPEndPoint.</param>
+            <returns>An instance of the IPEndPoint class when successful, null otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.OnPasvConnected(System.IAsyncResult)">
+            <summary>Called when we're connected to the data port of the remote FTP server.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Connections.FtpDataConnection.OnPasvAccept(System.IAsyncResult)">
+            <summary>Called when there's a connection from the local FTP client waiting to be accepted.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="P:Arachnode.Proxy.Connections.FtpDataConnection.ListenSocket">
+            <summary>Gets or sets the Socket that's used to listen for incoming connections.</summary>
+            <value>A Socket that's used to listen for incoming connections.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Connections.FtpDataConnection.Parent">
+            <summary>Gets or sets the parent of this FtpDataConnection.</summary>
+            <value>The FtpClient object that's the parent of this FtpDataConnection object.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Connections.FtpDataConnection.FtpReply">
+            <summary>Gets or sets a string that stores the reply that has been sent from the remote FTP server.</summary>
+            <value>A string that stores the reply that has been sent from the remote FTP server.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Connections.FtpDataConnection.ExpectsReply">
+            <summary>Gets or sets a boolean value that indicates whether the FtpDataConnection expects a reply from the remote FTP server or not.</summary>
+            <value>A boolean value that indicates whether the FtpDataConnection expects a reply from the remote FTP server or not.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Listeners.SocksListener">
+            <summary>Listens on a specific port on the proxy server for incoming SOCKS4 and SOCKS5 requests.</summary>
+            <remarks>This class also implements the SOCKS4a protocol.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.SocksListener.#ctor(System.Int32)">
+            <summary>Initializes a new instance of the SocksListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <remarks>The SocksListener will listen on all available network cards and it will not use an AuthenticationList.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.SocksListener.#ctor(System.Net.IPAddress,System.Int32)">
+            <summary>Initializes a new instance of the SocksListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="Address">The address to listen on. You can specify IPAddress.Any to listen on all installed network cards.</param>
+            <remarks>For the security of your server, try to avoid to listen on every network card (IPAddress.Any). Listening on a local IP address is usually sufficient and much more secure.</remarks>
+            <remarks>The SocksListener object will not use an AuthenticationList.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.SocksListener.#ctor(System.Int32,Arachnode.Proxy.Authentication.AuthenticationList)">
+            <summary>Initializes a new instance of the SocksListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="AuthList">The list of valid login/password combinations. If you do not need password authentication, set this parameter to null.</param>
+            <remarks>The SocksListener will listen on all available network cards.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.SocksListener.#ctor(System.Net.IPAddress,System.Int32,Arachnode.Proxy.Authentication.AuthenticationList)">
+            <summary>Initializes a new instance of the SocksListener class.</summary>
+            <param name="Port">The port to listen on.</param>
+            <param name="Address">The address to listen on. You can specify IPAddress.Any to listen on all installed network cards.</param>
+            <param name="AuthList">The list of valid login/password combinations. If you do not need password authentication, set this parameter to null.</param>
+            <remarks>For the security of your server, try to avoid to listen on every network card (IPAddress.Any). Listening on a local IP address is usually sufficient and much more secure.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.SocksListener.OnAccept(System.IAsyncResult)">
+            <summary>Called when there's an incoming client connection waiting to be accepted.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Listeners.SocksListener.ToString">
+            <summary>Returns a string representation of this object.</summary>
+            <returns>A string with information about this object.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Listeners.SocksListener.AuthList">
+            <summary>Gets or sets the AuthenticationList to be used when a SOCKS5 client connects.</summary>
+            <value>An AuthenticationList that is to be used when a SOCKS5 client connects.</value>
+            <remarks>This value can be null.</remarks>
+        </member>
+        <member name="P:Arachnode.Proxy.Listeners.SocksListener.ConstructString">
+            <summary>Returns a string that holds all the construction information for this object.</summary>
+            <value>A string that holds all the construction information for this object.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Clients.PortMapClient">
+            <summary>Relays data between a remote host and a local client.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.PortMapClient.m_MapTo">
+            <summary>Holds the value of the MapTo property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.PortMapClient.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Value.AbstractClasses.DestroyDelegate,System.Net.IPEndPoint)">
+            <summary>Initializes a new instance of the PortMapClient class.</summary>
+            <param name="ClientSocket">The <see cref="T:System.Net.Sockets.Socket">Socket</see> connection between this proxy server and the local client.</param>
+            <param name="Destroyer">The callback method to be called when this Client object disconnects from the local client and the remote server.</param>
+            <param name="MapTo">The IP EndPoint to send the incoming data to.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.PortMapClient.StartHandshake">
+            <summary>Starts connecting to the remote host.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.PortMapClient.OnConnected(System.IAsyncResult)">
+            <summary>Called when the socket is connected to the remote host.</summary>
+            <remarks>When the socket is connected to the remote host, the PortMapClient begins relaying traffic between the host and the client, until one of them closes the connection.</remarks>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.PortMapClient.ToString">
+            <summary>Returns text information about this PortMapClient object.</summary>
+            <returns>A string representing this PortMapClient object.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.PortMapClient.MapTo">
+            <summary>Gets or sets the IP EndPoint to map all incoming traffic to.</summary>
+            <value>An IPEndPoint that holds the IP address and port to use when redirecting incoming traffic.</value>
+            <exception cref="T:System.ArgumentNullException">The specified value is null.</exception>
+            <returns>An IP EndPoint specifying the host and port to map all incoming traffic to.</returns>
+        </member>
+        <member name="T:Arachnode.Proxy.Handlers.Socks4Handler">
+            <summary>Implements the SOCKS4 and SOCKS4a protocols.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks4Handler.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Handlers.NegotiationCompleteDelegate)">
+            <summary>Initializes a new instance of the Socks4Handler class.</summary>
+            <param name="ClientConnection">The connection with the client.</param>
+            <param name="Callback">The method to call when the SOCKS negotiation is complete.</param>
+            <exception cref="T:System.ArgumentNullException"><c>Callback</c> is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks4Handler.IsValidRequest(System.Byte[])">
+            <summary>Checks whether a specific request is a valid SOCKS request or not.</summary>
+            <param name="Request">The request array to check.</param>
+            <returns>True is the specified request is valid, false otherwise</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks4Handler.ProcessRequest(System.Byte[])">
+            <summary>Processes a SOCKS request from a client.</summary>
+            <param name="Request">The request to process.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks4Handler.OnConnected(System.IAsyncResult)">
+            <summary>Called when we're successfully connected to the remote host.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks4Handler.Dispose(System.Byte)">
+            <summary>Sends a reply to the client connection and disposes it afterwards.</summary>
+            <param name="Value">A byte that contains the reply code to send to the client.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Handlers.Socks4Handler.OnAccept(System.IAsyncResult)">
+            <summary>Called when there's an incoming connection in the AcceptSocket queue.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="T:Arachnode.Proxy.Authentication.AuthNone">
+            <summary>Authenticates a user on a SOCKS5 server according to the 'No Authentication' subprotocol.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthNone.StartAuthentication(System.Net.Sockets.Socket,Arachnode.Proxy.Value.AbstractClasses.AuthenticationCompleteDelegate)">
+            <summary>Calls the parent class to inform it authentication is complete.</summary>
+            <param name="Connection">The connection with the SOCKS client.</param>
+            <param name="Callback">The method to call when the authentication is complete.</param>
+        </member>
+        <member name="T:Arachnode.Proxy.Handlers.NegotiationCompleteDelegate">
+            <summary>Defines the signature of the method that's called when the SOCKS negotiation is complete.</summary>
+            <param name="Success">Indicates whether the negotiation was successful or not.</param>
+            <param name="Remote">The connection with the remote server.</param>
+        </member>
+        <member name="T:Arachnode.Proxy.Value.AbstractClasses.DestroyDelegate">
+            <summary>References the callback method to be called when the <c>Client</c> object disconnects from the local client and the remote server.</summary>
+            <param name="client">The <c>Client</c> that has closed its connections.</param>
+        </member>
+        <member name="T:Arachnode.Proxy.Clients.SocksClient">
+            <summary>Relays data between a remote host and a local client, using the SOCKS protocols.</summary>
+            <remarks>This class implements the SOCKS4, SOCKS4a and SOCKS5 protocols.</remarks>
+            <remarks>If the MustAuthenticate property is set, only SOCKS5 connections are allowed and the AuthList parameter of the constructor should not be null.</remarks>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.SocksClient.m_Handler">
+            <summary>Holds the value of the Handler property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.SocksClient.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Value.AbstractClasses.DestroyDelegate,Arachnode.Proxy.Authentication.AuthenticationList)">
+            <summary>Initializes a new instance of the SocksClient class.</summary>
+            <param name="ClientSocket">The Socket connection between this proxy server and the local client.</param>
+            <param name="Destroyer">The method to be called when this SocksClient object disconnects from the local client and the remote server.</param>
+            <param name="AuthList">The list with valid username/password combinations.</param>
+            <remarks>If the AuthList is non-null, every client has to authenticate before he can use this proxy server to relay data. If it is null, the clients don't have to authenticate.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.SocksClient.StartHandshake">
+            <summary>Starts communication with the client.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.SocksClient.OnStartSocksProtocol(System.IAsyncResult)">
+            <summary>Called when we have received some data from the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.SocksClient.OnEndSocksProtocol(System.Boolean,System.Net.Sockets.Socket)">
+            <summary>Called when the SOCKS protocol has ended. We can no start relaying data, if the SOCKS authentication was successful.</summary>
+            <param name="Success">Specifies whether the SOCKS negotiation was successful or not.</param>
+            <param name="Remote">The connection with the remote server.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.SocksClient.ToString">
+            <summary>Returns text information about this SocksClient object.</summary>
+            <returns>A string representing this SocksClient object.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.SocksClient.Handler">
+            <summary>Gets or sets the SOCKS handler to be used when communicating with the client.</summary>
+            <value>The SocksHandler to be used when communicating with the client.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.SocksClient.MustAuthenticate">
+            <summary>Gets or sets the SOCKS handler to be used when communicating with the client.</summary>
+            <value>The SocksHandler to be used when communicating with the client.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.SocksClient.AuthList">
+            <summary>Gets or sets the AuthenticationList to use when a computer tries to authenticate on the proxy server.</summary>
+            <value>An instance of the AuthenticationList class that contains all the valid username/password combinations.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Authentication.AuthenticationList">
+            <summary>Stores a dictionary with username/password combinations.</summary>
+            <remarks>This class can be used by a SOCKS5 listener.</remarks>
+            <remarks>This class uses an MD5 has to store the passwords in a secure manner.</remarks>
+            <remarks>The username is treated in a case-insensitive manner, the password is treated case-sensitive.</remarks>
+        </member>
+        <member name="F:Arachnode.Proxy.Authentication.AuthenticationList.m_Listing">
+            <summary>Holds the value of the Listing property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthenticationList.AddItem(System.String,System.String)">
+            <summary>Adds an item to the list.</summary>
+            <param name="Username">The username to add.</param>
+            <param name="Password">The corresponding password to add.</param>
+            <exception cref="T:System.ArgumentNullException">Either Username or Password is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthenticationList.AddHash(System.String,System.String)">
+            <summary>Adds an item to the list.</summary>
+            <param name="Username">The username to add.</param>
+            <param name="PassHash">The hashed password to add.</param>
+            <exception cref="T:System.ArgumentNullException">Either Username or Password is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthenticationList.RemoveItem(System.String)">
+            <summary>Removes an item from the list.</summary>
+            <param name="Username">The username to remove.</param>
+            <exception cref="T:System.ArgumentNullException">Username is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthenticationList.IsItemPresent(System.String,System.String)">
+            <summary>Checks whether a user/pass combination is present in the collection or not.</summary>
+            <param name="Username">The username to search for.</param>
+            <param name="Password">The corresponding password to search for.</param>
+            <returns>True when the user/pass combination is present in the collection, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthenticationList.IsUserPresent(System.String)">
+            <summary>Checks whether a username is present in the collection or not.</summary>
+            <param name="Username">The username to search for.</param>
+            <returns>True when the username is present in the collection, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthenticationList.IsHashPresent(System.String,System.String)">
+            <summary>Checks whether a user/passhash combination is present in the collection or not.</summary>
+            <param name="Username">The username to search for.</param>
+            <param name="PassHash">The corresponding password hash to search for.</param>
+            <returns>True when the user/passhash combination is present in the collection, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Authentication.AuthenticationList.Clear">
+            <summary>Clears the authentication list.</summary>
+        </member>
+        <member name="P:Arachnode.Proxy.Authentication.AuthenticationList.Listing">
+            <summary>Gets the StringDictionary that's used to store the user/pass combinations.</summary>
+            <value>A StringDictionary object that's used to store the user/pass combinations.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Authentication.AuthenticationList.Keys">
+            <summary>Gets an array with all the keys in the authentication list.</summary>
+            <value>An array of strings containing all the keys in the authentication list.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Authentication.AuthenticationList.Hashes">
+            <summary>Gets an array with all the hashes in the authentication list.</summary>
+            <value>An array of strings containing all the hashes in the authentication list.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.ListenEntry">
+            <summary>
+            Represents an item in a Listeners collection.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ListenEntry.guid">
+            <summary>
+            The Listener's ID. It must be unique troughout the Listeners collection.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.ListenEntry.listener">
+            <summary>
+            The Listener object.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.ListenEntry.Equals(System.Object)">
+            <summary>
+            Determines whether the specified Object is equal to the current Object.
+            </summary>
+            <param name="obj">The Object to compare with the current Object.</param>
+            <returns>True if the specified Object is equal to the current Object; otherwise, false.</returns>
+        </member>
+        <member name="T:Arachnode.Proxy.Proxy">
+            <summary>
+            Defines the class that controls the settings and listener objects.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Proxy.m_Listeners">
+            <summary>Holds the value of the Listeners property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.#ctor(System.String)">
+            <summary>
+            Initializes a new Proxy instance.
+            </summary>
+            <param name="file">The XML configuration file to use.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.Main">
+            <summary>
+            Entry point of the application.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.Start">
+            <summary>
+            Starts a new Proxy server by reading the data from the configuration file and start listening on the specified ports.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowDelListener">
+            <summary>
+            Asks the user which listener to delete.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowListeners">
+            <summary>
+            Shows the Listeners list.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowAddListener">
+            <summary>
+            Asks the user which listener to add.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowHelp">
+            <summary>
+            Shows a list of commands in the console.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowUpTime">
+            <summary>
+            Shows the uptime of this proxy server.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowVersion">
+            <summary>
+            Shows the version number of this proxy server.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowAddUser">
+            <summary>
+            Asks the user which username to add.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowDelUser">
+            <summary>
+            Asks the user which username to delete.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.ShowUsers">
+            <summary>
+            Shows a list of usernames in the console.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.Stop">
+            <summary>
+            Stops the proxy server.
+            </summary>
+            <remarks>When this method is called, all listener and client objects will be disposed.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.AddListener(Arachnode.Proxy.Value.AbstractClasses.Listener)">
+            <summary>
+            Adds a listener to the Listeners list.
+            </summary>
+            <param name="newItem">The new Listener to add.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Proxy.CreateListener(System.String,System.String)">
+            <summary>
+            Creates a new Listener obejct from a given listener name and a given listener parameter string.
+            </summary>
+            <param name="type">The type of object to instantiate.</param>
+            <param name="cpars"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Proxy.Listeners">
+            <summary>
+            Gets the collection that contains all the Listener objects.
+            </summary>
+            <value>An ArrayList object that contains all the Listener objects.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Proxy.ListenerCount">
+            <summary>
+            Gets the number of Listener objects.
+            </summary>
+            <value>An integer specifying the number of Listener objects.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Proxy.Item(System.Int32)">
+            <summary>
+            Gets the Listener object at the specified position.
+            </summary>
+            <value>The Listener instance at position <c>index</c>.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Proxy.StartTime">
+            <summary>
+            Gets or sets the date when this Proxy server was first started.
+            </summary>
+            <value>A DateTime structure that indicates when this Proxy server was first started.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Proxy.Config">
+            <summary>
+            Gets or sets the configuration object for this Proxy server.
+            </summary>
+            <value>A ProxyConfig instance that represents the configuration object for this Proxy server.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Clients.FtpClient">
+            <summary>Relays FTP commands between a remote host and a local client.</summary>
+            <remarks>This class supports the 'OPEN' command, 'USER user@host:port' and 'USER user@host port'.</remarks>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.FtpClient.m_FtpCommand">
+            <summary>Holds the value of the FtpCommand property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.FtpClient.m_FtpReply">
+            <summary>Holds the value of the FtpReply property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.FtpClient.m_User">
+            <summary>Holds the value of the User property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Value.AbstractClasses.DestroyDelegate)">
+            <summary>Initializes a new instance of the FtpClient class.</summary>
+            <param name="ClientSocket">The Socket connection between this proxy server and the local client.</param>
+            <param name="Destroyer">The callback method to be called when this Client object disconnects from the local client and the remote server.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.StartHandshake">
+            <summary>Sends a welcome message to the client.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.OnHelloSent(System.IAsyncResult)">
+            <summary>Called when the welcome message has been sent to the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.OnReceiveCommand(System.IAsyncResult)">
+            <summary>Called when we have received some bytes from the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.ProcessCommand(System.String)">
+            <summary>Processes an FTP command, sent from the client.</summary>
+            <param name="Command">The command to process.</param>
+            <returns>True if the command may be sent to the server, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.ProcessPortCommand(System.String)">
+            <summary>Processes a PORT command, sent from the client.</summary>
+            <param name="Input">The parameters of the PORT command.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.ParseIPPort(System.String)">
+            <summary>Parses an IP address and port from a specified input string.</summary>
+            <remarks>The input string is of the following form:<br>  <c>HOST:PORT</c></br><br><em>or</em></br><br>  <c>HOST PORT</c></br></remarks>
+            <param name="Input">The string to parse.</param>
+            <returns>An instance of the IPEndPoint class if successful, null otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.ConnectTo(System.Net.IPEndPoint)">
+            <summary>Connects to the specified endpoint.</summary>
+            <param name="RemoteServer">The IPEndPoint to connect to.</param>
+            <exception cref="T:System.Net.Sockets.SocketException">There was an error connecting to the specified endpoint</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.OnRemoteConnected(System.IAsyncResult)">
+            <summary>Called when we're connected to the remote FTP server.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.OnIgnoreReply(System.IAsyncResult)">
+            <summary>Called when we receive a reply from the FTP server that should be ignored.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.OnCommandSent(System.IAsyncResult)">
+            <summary>Called when an FTP command has been successfully sent to the FTP server.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.OnReplyReceived(System.IAsyncResult)">
+            <summary>Called when we receive a reply from the FTP server.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.OnReplySent(System.IAsyncResult)">
+            <summary>Called when the reply from the FTP server has been sent to the local FTP client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.SendCommand(System.String)">
+            <summary>Sends a string to the local FTP client.</summary>
+            <param name="Command">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.IsValidCommand(System.String)">
+            <summary>Checks whether a specified command is a complete FTP command or not.</summary>
+            <param name="Command">A string containing the command to check.</param>
+            <returns>True if the command is complete, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.IsValidReply(System.String)">
+            <summary>Checks whether a specified reply is a complete FTP reply or not.</summary>
+            <param name="Input">A string containing the reply to check.</param>
+            <returns>True is the reply is complete, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.FtpClient.ToString">
+            <summary>Returns text information about this FtpClient object.</summary>
+            <returns>A string representing this FtpClient object.</returns>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.FtpClient.FtpCommand">
+            <summary>Gets or sets a property that can be used to store the received FTP command.</summary>
+            <value>A string that can be used to store the received FTP command.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.FtpClient.FtpReply">
+            <summary>Gets or sets a property that can be used to store the received FTP reply.</summary>
+            <value>A string that can be used to store the received FTP reply.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.FtpClient.User">
+            <summary>Gets or sets a string containing the logged on username.</summary>
+            <value>A string containing the logged on username.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.FtpClient.DataForward">
+            <summary>Gets or sets the dataconnection object used to transmit files and other data from and to the FTP server.</summary>
+            <value>An FtpDataConnection object that's used to transmit files and other data from and to the FTP server.</value>
+        </member>
+        <member name="T:Arachnode.Proxy.Value.AbstractClasses.AuthenticationCompleteDelegate">
+            <summary>Defines the signature of the method to be called when the authentication is complete.</summary>
+            <param name="Success">Specifies whether the authentication was successfull or not.</param>
+        </member>
+        <member name="T:Arachnode.Proxy.Clients.HttpClient">
+            <summary>Relays HTTP data between a remote host and a local client.</summary>
+            <remarks>This class supports both HTTP and HTTPS.</remarks>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.HttpClient.m_HttpPost">
+            <summary>Holds the POST data</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.HttpClient.m_CurrentHttpQuery">
+            <summary>Holds the value of the CurrentHttpQuery property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.HttpClient.m_AllHttpQueries">
+            <summary>Holds the value of the AllHttpQueries property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.HttpClient.m_HttpRequestType">
+            <summary>Holds the value of the HttpRequestType property.</summary>
+        </member>
+        <member name="F:Arachnode.Proxy.Clients.HttpClient.m_HttpVersion">
+            <summary>Holds the value of the HttpVersion property.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.#ctor(System.Net.Sockets.Socket,Arachnode.Proxy.Value.AbstractClasses.DestroyDelegate)">
+            <summary>Initializes a new instance of the HttpClient class.</summary>
+            <param name="ClientSocket">The <see cref="T:System.Net.Sockets.Socket">Socket</see> connection between this proxy server and the local client.</param>
+            <param name="Destroyer">The callback method to be called when this Client object disconnects from the local client and the remote server.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.StartHandshake">
+            <summary>Starts receiving data from the client connection.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.IsValidQuery(System.String)">
+            <summary>Checks whether a specified string is a valid HTTP query string.</summary>
+            <param name="Query">The query to check.</param>
+            <returns>True if the specified string is a valid HTTP query, false otherwise.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.ProcessQuery(System.String)">
+            <summary>Processes a specified query and connects to the requested HTTP web server.</summary>
+            <param name="Query">A string containing the query to process.</param>
+            <remarks>If there's an error while processing the HTTP request or when connecting to the remote server, the Proxy sends a "400 - Bad Request" error to the client.</remarks>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.ParseQuery(System.String)">
+            <summary>Parses a specified HTTP query into its header fields.</summary>
+            <param name="query">The HTTP query string to parse.</param>
+            <returns>A WebHeaderCollection object containing all the header fields with their data.</returns>
+            <exception cref="T:System.ArgumentNullException">The specified query is null.</exception>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.SendBadRequest">
+            <summary>Sends a "400 - Bad Request" error to the client.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.SendCancelledResponse">
+            <summary>Sends a "200 - Head Response" error to the client.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.SendHeadResponse">
+            <summary>Sends a "200 - Head Response" error to the client.</summary>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.RebuildQuery">
+            <summary>Rebuilds the HTTP query, starting from the HttpRequestType, RequestedPath, HttpVersion and HeaderFields properties.</summary>
+            <returns>A string representing the rebuilt HTTP query string.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.OnReceiveQuery(System.IAsyncResult)">
+            <summary>Called when we received some data from the client connection.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.OnErrorSent(System.IAsyncResult)">
+            <summary>Called when the Bad Request error has been sent to the client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.OnConnected(System.IAsyncResult)">
+            <summary>Called when we're connected to the requested remote host.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.OnQuerySent(System.IAsyncResult)">
+            <summary>Called when the HTTP query has been sent to the remote host.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.OnOkSent(System.IAsyncResult)">
+            <summary>Called when an OK reply has been sent to the local client.</summary>
+            <param name="ar">The result of the asynchronous operation.</param>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.ToString">
+            <summary>Returns text information about this HttpClient object.</summary>
+            <returns>A string representing this HttpClient object.</returns>
+        </member>
+        <member name="M:Arachnode.Proxy.Clients.HttpClient.ToString(System.Boolean)">
+            <summary>Returns text information about this HttpClient object.</summary>
+            <returns>A string representing this HttpClient object.</returns>
+            <param name="WithUrl">Specifies whether or not to include information about the requested URL.</param>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.HttpClient.HeaderFields">
+            <summary>Gets or sets a WebHeaderCollection that stores the header fields.</summary>
+            <value>A WebHeaderCollection that stores the header fields.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.HttpClient.HttpVersion">
+            <summary>Gets or sets the HTTP version the client uses.</summary>
+            <value>A string representing the requested HTTP version.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.HttpClient.HttpRequestType">
+            <summary>Gets or sets the HTTP request type.</summary>
+            <remarks>
+            Usually, this string is set to one of the three following values:
+            <list type="bullet">
+            <item>GET</item>
+            <item>POST</item>
+            <item>CONNECT</item>
+            </list>
+            </remarks>
+            <value>A string representing the HTTP request type.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.HttpClient.OriginallyRequestedAbsoluteUri">
+            <summary>Gets or sets the orginally requested AbsoluteUri.  Style sheets and other content may be returned in the same client instance.
+              This property track was the original Request was.</summary>
+            <value>A string representing the originally requested AbsoluteUri.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.HttpClient.RequestedAbsoluteUri">
+            <summary>Gets or sets the requested AbsoluteUri.</summary>
+            <value>A string representing the requested AbsoluteUri.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.HttpClient.RequestedPath">
+            <summary>Gets or sets the requested path.</summary>
+            <value>A string representing the requested path.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.HttpClient.CurrentHttpQuery">
+            <summary>Gets or sets the query string, received from the client.</summary>
+            <value>A string representing the HTTP query string.</value>
+        </member>
+        <member name="P:Arachnode.Proxy.Clients.HttpClient.AllHttpQueries">
+            <summary>Gets all query strings received from the client.</summary>
+            <value>A list of string representing all HTTP query strings.</value>
+        </member>
+    </members>
+</doc>

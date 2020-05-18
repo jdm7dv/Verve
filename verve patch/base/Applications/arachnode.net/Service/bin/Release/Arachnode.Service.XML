@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Service</name>
+    </assembly>
+    <members>
+        <member name="M:Arachnode.Service.Service1.#ctor">
+            <summary>
+            	Initializes a new instance of the <see cref="T:Arachnode.Service.Service1"/> class.
+            </summary> 
+        </member>
+        <member name="M:Arachnode.Service.Service1.OnStart(System.String[])">
+            <summary>
+            	When implemented in a derived class, executes when a Start command is sent to the service by the Service Control Manager (SCM) or when the operating system starts (for a service that starts automatically). Specifies actions to take when the service starts.
+            </summary>
+            <param name = "args">Data passed by the start command.</param>
+        </member>
+        <member name="M:Arachnode.Service.Service1.OnStop">
+            <summary>
+            	When implemented in a derived class, executes when a Stop command is sent to the service by the Service Control Manager (SCM). Specifies actions to take when a service stops running.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Service.Service1.Engine_CrawlCompleted(Arachnode.SiteCrawler.Core.Engine)">
+            <summary>
+            	Handles the OnCrawlCompleted event of the Engine control.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Service.Service1.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Service.Service1.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Arachnode.Service.Service1.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Service.Program.Main">
+            <summary>
+            	The main entry point for the application.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Service.ProjectInstaller.#ctor">
+            <summary>
+            	Initializes a new instance of the <see cref="T:Arachnode.Service.ProjectInstaller"/> class.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Service.ProjectInstaller.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Service.ProjectInstaller.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Arachnode.Service.ProjectInstaller.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

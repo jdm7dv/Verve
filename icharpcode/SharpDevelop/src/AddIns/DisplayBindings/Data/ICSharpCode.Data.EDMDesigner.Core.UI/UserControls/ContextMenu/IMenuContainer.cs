@@ -1,0 +1,16 @@
+﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
+// This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
+
+#region Usings
+
+using System;
+
+#endregion
+
+namespace ICSharpCode.Data.EDMDesigner.Core.UI.UserControls.ContextMenu
+{
+    public interface IMenuContainer
+    {
+        event Action ItemVisibleChanged;
+    }
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="/xsl/rss"?>
+<rss version="0.92">
+ <channel>
+  <title>IMDb Daily Poll</title>
+  <link>http://www.imdb.com/rg/rss/POLL-channel/poll</link>
+  <description>IMDb Daily Poll - RSS Feed</description>
+  <language>en</language>
+  <copyright>Copyright (C) 2013 IMDb.com, Inc. http://www.imdb.com/conditions</copyright>
+  <image>
+   <title>IMDb Daily Poll</title>
+   <url>http://i.imdb.com/logo.gif</url>
+   <link>http://www.imdb.com/rg/rss/POLL-channel/poll</link>
+  </image>
+  
+  
+  
+
+ </channel>
+</rss>

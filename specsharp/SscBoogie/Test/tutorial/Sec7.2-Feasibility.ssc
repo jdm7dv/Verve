@@ -1,0 +1,38 @@
+/*
+ * The program verifier guards against inconsistent axioms by a
+ * result-value feasibility check.  This comes down to finding a
+ * witness (a possible result value) that satisfies the
+ * postcondition.
+
+ * The program verifier's search for witnesses is heuristic and
+ * does not always find a witness even if one does exist. As
+ * hints, the heuristics look at some of the other subexpressions
+ * appearing in the specification and method body.
+
+ * Recall that property getters are pure by default. In some
+ * cases, for example when it has a non-null result type, the
+ * program verifier may fail to establish the consistency of a
+ * property getter.  If the property getter is not used in
+ * specifications, then there is a simple way to avoid the
+ * resulting errors: mark the property getter with [Pure(false)],
+ * which overrides the default that would have made it pure
+ * such that the consistency checks are not performed.
+ */
+
+using Microsoft.Contracts;
+
+public class Witness {
+  [Pure] int M(int n)
+    requires 1 <= n;  // required to ensure feasibility
+    ensures 0 <= result && result < n;
+  { 
+    return n/2;
+  }
+
+  public Witness Instance {
+    [Pure(false)]  // heuristic does not find witness
+    get {
+      return this;
+    }
+  }
+}

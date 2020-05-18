@@ -1,0 +1,38 @@
+using Microsoft.Contracts;
+
+namespace PurseInside {
+
+public class Purse {
+  public int amount; 
+  [Rep] private Charity charity = new Charity();
+
+  invariant 0 <= amount;
+  invariant amount % 100 == 0; // no coins
+
+  public void Pay(int a)
+    requires 0 <= a && a <= amount;
+    modifies amount;
+  {
+    expose (this) {
+      amount -= a;
+      Donate(amount % 100); // re-establish second invariant
+    }
+  }
+
+  [Inside]  // allows method to be called on mutable receiver
+  private void Donate(int a)
+    requires charity.IsPeerConsistent;  // required because implicit precondition about "this" is turned off
+    modifies amount, charity.*;  // charity.* is required because the object is not committed in the pre-state (even though it is a [Rep] of the receiver)
+    ensures amount == old(amount) - a;
+  {
+    amount -= a;
+    charity.Give(a);
+  }
+}
+
+public class Charity {
+  public void Give(int a) { 
+    /* ... */ 
+  }
+}
+}

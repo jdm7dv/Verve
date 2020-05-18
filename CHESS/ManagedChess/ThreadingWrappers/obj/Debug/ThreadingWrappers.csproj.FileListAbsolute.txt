@@ -1,0 +1,5 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\Microsoft.ManagedChess.ThreadingWrappers.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\Microsoft.ManagedChess.ThreadingWrappers.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\ThreadingWrappers\obj\Debug\ThreadingWrappers.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\ThreadingWrappers\obj\Debug\Microsoft.ManagedChess.ThreadingWrappers.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\ThreadingWrappers\obj\Debug\Microsoft.ManagedChess.ThreadingWrappers.pdb

@@ -1,0 +1,3 @@
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/nslookup/obj/Release/.NETFramework,Version=v4.6.AssemblyAttribute.cs
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/nslookup/bin/Release/nslookup.exe
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/nslookup/obj/Release/nslookup.exe

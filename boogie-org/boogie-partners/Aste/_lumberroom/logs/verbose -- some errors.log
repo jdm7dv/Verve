@@ -1,0 +1,464 @@
+
+
+[2010-06-26 11:40:05] C:\Program Files\SlikSvn\bin\svn.exe update C:\Temp\aste\SpecSharp --no-auth-cache --non-interactive
+At revision 54572.
+
+
+[2010-06-26 11:40:07] C:\Program Files\SlikSvn\bin\svn.exe info C:\Temp\aste\SpecSharp --no-auth-cache --non-interactive
+Path: C:\Temp\aste\SpecSharp
+URL: https://specsharp.svn.codeplex.com/svn/SpecSharp
+Repository Root: https://specsharp.svn.codeplex.com/svn
+Repository UUID: 768f3a04-76a6-432f-b7ac-274fd7b03e9c
+Revision: 54572
+Node Kind: directory
+Schedule: normal
+Last Changed Author: unknown
+Last Changed Rev: 54390
+Last Changed Date: 2010-06-21 15:19:51 +0200 (Mo, 21 Jun 2010)
+
+
+[2010-06-26 11:40:07] C:\Program Files\SlikSvn\bin\svn.exe update C:\Temp\aste\Boogie --no-auth-cache --non-interactive
+At revision 54572.
+
+
+[2010-06-26 11:40:10] C:\Program Files\SlikSvn\bin\svn.exe info C:\Temp\aste\Boogie --no-auth-cache --non-interactive
+Path: C:\Temp\aste\Boogie
+URL: https://boogie.svn.codeplex.com/svn
+Repository Root: https://boogie.svn.codeplex.com/svn
+Repository UUID: 768f3a04-76a6-432f-b7ac-274fd7b03e9c
+Revision: 54572
+Node Kind: directory
+Schedule: normal
+Last Changed Author: unknown
+Last Changed Rev: 54563
+Last Changed Date: 2010-06-25 23:07:18 +0200 (Fr, 25 Jun 2010)
+
+
+[2010-06-26 11:40:10] C:\Program Files\SlikSvn\bin\svn.exe update C:\Temp\aste\SscBoogie --no-auth-cache --non-interactive
+At revision 54572.
+
+
+[2010-06-26 11:40:12] C:\Program Files\SlikSvn\bin\svn.exe info C:\Temp\aste\SscBoogie --no-auth-cache --non-interactive
+Path: C:\Temp\aste\SscBoogie
+URL: https://specsharp.svn.codeplex.com/svn/SscBoogie
+Repository Root: https://specsharp.svn.codeplex.com/svn
+Repository UUID: 768f3a04-76a6-432f-b7ac-274fd7b03e9c
+Revision: 54572
+Node Kind: directory
+Schedule: normal
+Last Changed Author: unknown
+Last Changed Rev: 52534
+Last Changed Date: 2010-05-17 03:37:18 +0200 (Mo, 17 Mai 2010)
+
+
+[2010-06-26 11:40:12] chdir C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\LastKnownGood9
+
+
+[2010-06-26 11:40:12] Register.cmd Clean c:\Windows\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe 
+
+
+[2010-06-26 11:40:12] Register.cmd RegisterLKG c:\Windows\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe 
+Types registered successfully
+Types registered successfully
+Types registered successfully
+
+
+[2010-06-26 11:40:13] chdir C:\Temp\aste\SpecSharp
+
+
+[2010-06-26 11:40:13] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com SpecSharp.sln /Build DebugCommandLine
+Microsoft (R) Visual Studio Version 9.0.30729.1.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: System.Compiler.Runtime, Configuration: DebugCommandLine Any CPU ------
+1>System.Compiler.Runtime -> C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll
+2>------ Skipped Build: Project: TaskManagerUI, Configuration: Debug Win32 ------
+2>Project not selected to build for this solution configuration
+3>------ Build started: Project: Resources, Configuration: DebugCommandLine Win32 ------
+3>Performing Makefile project actions
+3>Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+3>Copyright (C) Microsoft Corporation.  All rights reserved.
+3>Build log was saved at "file://c:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Resources\DebugCommandLine\BuildLog.htm"
+3>Resources - 0 error(s), 0 warning(s)
+4>------ Build started: Project: System.Compiler, Configuration: DebugCommandLine Any CPU ------
+4>System.Compiler -> C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll
+5>------ Skipped Build: Project: Checkin Tests, Configuration: DebugCommandLine Win32 ------
+5>Project not selected to build for this solution configuration
+6>------ Skipped Build: Project: LastKnownGood, Configuration: Debug Win32 ------
+6>Project not selected to build for this solution configuration
+7>------ Build started: Project: Microsoft.VisualStudio.CodeTools.ITaskManager, Configuration: Debug Any CPU ------
+7>Microsoft.VisualStudio.CodeTools.ITaskManager -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll
+8>------ Build started: Project: System.Compiler.Framework, Configuration: DebugCommandLine Any CPU ------
+8>System.Compiler.Framework -> C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll
+9>------ Build started: Project: System.Contracts, Configuration: Debug .NET ------
+9>The project is up-to-date.
+10>------ Build started: Project: Mscorlib.Contracts, Configuration: Debug .NET ------
+10>The project is up-to-date.
+11>------ Build started: Project: Microsoft.VisualStudio.Package, Configuration: DebugCommandLine Any CPU ------
+11>Microsoft.VisualStudio.Package -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll
+12>------ Build started: Project: Microsoft.SpecSharp.Runtime, Configuration: Debug .NET ------
+12>The project is up-to-date.
+13>------ Build started: Project: Microsoft.VisualStudio.IntegrationHelper, Configuration: DebugCommandLine Any CPU ------
+13>Microsoft.VisualStudio.IntegrationHelper -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll
+14>------ Skipped Build: Project: Microsoft.VisualStudio.CodeTools.IPropertyPane, Configuration: Debug Any CPU ------
+14>Project not selected to build for this solution configuration
+15>------ Build started: Project: Microsoft.SpecSharp, Configuration: DebugCommandLine Any CPU ------
+15>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:TRACE;DEBUG;NoVS;WHIDBEY /reference:C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Engine.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Tasks.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Utilities.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll /debug+ /filealign:4096 /optimize- /out:obj\DebugCommandLine\Microsoft.SpecSharp.dll /resource:obj\DebugCommandLine\Microsoft.SpecSharp.ErrorMessages.resources /resource:Folders.bmp,Microsoft.SpecSharp.Folders.bmp /resource:Install.rgs,Microsoft.SpecSharp.Install.rgs /target:library /warnaserror- ..\Common\Include\version.cs AdmissibilityChecker.cs Analyzer.cs AssemblyInfo.cs Checker.cs Compiler.cs CustomChecker.cs Debugger.cs DebugTools.cs Declarer.cs Duplicator.cs Error.cs LanguageService.cs Looker.cs MsBuildTask.cs Nodes.cs Normalizer.cs Parser.cs Partitioner.cs Resolver.cs Runtime.cs Scanner.cs Scoper.cs SourceContextWriter.cs Specializer.cs TypeSystem.cs VisualStudioIntegration.cs
+Compile complete -- 0 errors, 0 warnings
+15>Microsoft.SpecSharp -> C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll
+16>------ Skipped Build: Project: PropertyPage, Configuration: Debug Any CPU ------
+16>Project not selected to build for this solution configuration
+17>------ Skipped Build: Project: ContractsPropertyPane, Configuration: Debug Any CPU ------
+17>Project not selected to build for this solution configuration
+18>------ Skipped Build: Project: TaskManager, Configuration: Debug Any CPU ------
+18>Project not selected to build for this solution configuration
+19>------ Build started: Project: System.Xml.Contracts, Configuration: Debug .NET ------
+19>The project is up-to-date.
+20>------ Build started: Project: ssc, Configuration: DebugCommandLine Any CPU ------
+20>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe+ /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:DEBUG;TRACE /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /debug+ /filealign:4096 /optimize- /out:obj\DebugCommandLine\ssc.exe /resource:obj\DebugCommandLine\ssc.Messages.resources /target:exe /warnaserror- ..\..\Common\Include\version.cs AssemblyInfo.cs Main.cs
+Compile complete -- 0 errors, 0 warnings
+20>ssc -> C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\CommandLineCompiler\bin\ssc.exe
+21>------ Build started: Project: IncrementalCompilationTests, Configuration: DebugCommandLine Any CPU ------
+21>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /debug+ /filealign:4096 /optimize- /out:obj\DebugCommandLine\IncrementalCompilationTests.exe /target:exe /warnaserror- main.cs
+Compile complete -- 0 errors, 0 warnings
+21>IncrementalCompilationTests -> C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\IncrementalCompilationTests\bin\IncrementalCompilationTests.exe
+22>------ Skipped Build: Project: SpecSharpRegistration, Configuration: DebugCommandLine Win32 ------
+22>Project not selected to build for this solution configuration
+23>------ Build started: Project: System.Compiler.Contracts, Configuration: Debug .NET ------
+23>The project is up-to-date.
+24>------ Build started: Project: System.Compiler.Framework.Contracts, Configuration: Debug .NET ------
+24>The project is up-to-date.
+========== Build: 16 succeeded, 0 failed, 1 up-to-date, 8 skipped ==========
+
+
+[2010-06-26 11:40:16] chdir C:\Temp\aste\SpecSharp
+
+
+[2010-06-26 11:40:16] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com SpecSharp.sln /Build Debug
+Microsoft (R) Visual Studio Version 9.0.30729.1.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: System.Compiler.Runtime, Configuration: Debug Any CPU ------
+1>System.Compiler.Runtime -> C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll
+2>------ Build started: Project: Resources, Configuration: Debug Win32 ------
+2>Performing Makefile project actions
+2>Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+2>Copyright (C) Microsoft Corporation.  All rights reserved.
+2>Build log was saved at "file://c:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Resources\Debug\BuildLog.htm"
+2>Resources - 0 error(s), 0 warning(s)
+3>------ Build started: Project: System.Compiler, Configuration: Debug Any CPU ------
+3>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe+ /checked- /nowarn:1591,1699,1701,1702 /nostdlib- /warn:4 /doc:System.Compiler.xml /baseaddress:0 /define:TRACE;DEBUG;ExtendedRuntime;WHIDBEY;WHIDBEYwithGenericsAndIEqualityComparer;AllowCsharpConstructorSyntax;ILOFFSETS /reference:C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll /debug+ /debug:full /filealign:4096 /keyfile:..\Common\InterimKey.snk /optimize- /out:obj\Debug\System.Compiler.dll /resource:obj\Debug\System.Compiler.ExceptionStrings.resources /target:library /warnaserror- ..\Common\Include\version.cs AssemblyCache.cs AssemblyInfo.cs Comparer.cs DoubleVisitor.cs Duplicator.cs ExceptionStrings.cs FastFileIO.cs ILGenerator.cs ListTemplate.cs MemoryMappedFile.cs Metadata.cs Nodes.cs OpCode.cs PDBreaderWriter\BitAccess.cs PDBreaderWriter\BitSet.cs PDBreaderWriter\CvInfo.cs PDBreaderWriter\DataStream.cs PDBreaderWriter\DbiDbgHdr.cs PDBreaderWriter\DbiHeader.cs PDBreaderWriter\DbiModuleInfo.cs PDBreaderWriter\DbiSecCon.cs PDBreaderWriter\IntHashTable.cs PDBreaderWriter\MsfDirectory.cs PDBreaderWriter\PdbDebugException.cs PDBreaderWriter\PdbException.cs PDBreaderWriter\PdbFile.cs PDBreaderWriter\PdbFileHeader.cs PDBreaderWriter\PdbFunction.cs PDBreaderWriter\PdbLine.cs PDBreaderWriter\PdbLines.cs PDBreaderWriter\PdbReader.cs PDBreaderWriter\PdbScope.cs PDBreaderWriter\PdbSlot.cs PDBreaderWriter\PdbSource.cs PDBreaderWriter\PdbWriter.cs Reader.cs Specializer.cs StandardIds.cs StandardVisitor.cs SystemTypes.cs Unstacker.cs Updater.cs Writer.cs
+Compile complete -- 0 errors, 0 warnings
+3>System.Compiler -> C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll
+4>------ Skipped Build: Project: Checkin Tests, Configuration: Debug Win32 ------
+4>Project not selected to build for this solution configuration
+5>------ Skipped Build: Project: LastKnownGood, Configuration: Debug Win32 ------
+5>Project not selected to build for this solution configuration
+6>------ Build started: Project: Microsoft.VisualStudio.CodeTools.ITaskManager, Configuration: Debug Any CPU ------
+6>Microsoft.VisualStudio.CodeTools.ITaskManager -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll
+7>------ Build started: Project: System.Compiler.Framework, Configuration: Debug Any CPU ------
+7>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe+ /checked- /nowarn:1595,1591,1587,1572,1573,1699,1701,1702 /nostdlib+ /warn:4 /doc:System.Compiler.Framework.xml /baseaddress:0 /define:TRACE;DEBUG;WHIDBEY /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Mscorlib.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\System.Compiler.Framework.dll /resource:obj\Debug\System.Compiler.Compiler.ErrorMessages.resources /target:library /warnaserror- ..\Common\Include\version.cs Analysis\CciUtils.cs Analysis\CFG.cs Analysis\CFGanalysis.cs Analysis\CodeFlattener.cs Analysis\CodePrinter.cs Analysis\ControlFlow.cs Analysis\DataStructUtils.cs Analysis\DefiniteAssignmentAnalysis.cs Analysis\EGraph.cs Analysis\EmptyVisitor.cs Analysis\ExposureAnalysis.cs Analysis\InstructionVisitor.cs Analysis\NonNullAnalysis.cs Analysis\ObjectConsistencyAnalysis.cs Analysis\ObjectExposureAnalysis.cs Analysis\PointsTo\CallGraph.cs Analysis\PointsTo\PointsToAnalysis.cs Analysis\PointsTo\PointsToAndEffectsAnnotations.cs Analysis\PointsTo\PTGraph.cs Analysis\PointsTo\Set.cs Analysis\PurityAnalysis.cs Analysis\ReentrancyAnalysis.cs Analysis\StackDepthAnalysis.cs Analysis\StronglyConnectedComps.cs AssemblyInfo.cs Analysis\Analyzer.cs Compiler\Checker.cs Compiler\CodeDom.cs Compiler\Compiler.cs Compiler\Declarer.cs Compiler\Error.cs Compiler\Evaluator.cs Compiler\Finders.cs Compiler\GuardedFieldAccessInstrumenter.cs Compiler\Looker.cs Compiler\Normalizer.cs Compiler\Optimizer.cs Compiler\Partitioner.cs Compiler\Passer.cs Compiler\PathWrapper.cs Compiler\Resolver.cs Compiler\Runtime.cs Compiler\Scoper.cs Compiler\TypeSystem.cs Compiler\Verifier.cs Debugger\Debugger.cs Debugger\ExpressionEval.cs LanguageService\LanguageService.cs LanguageService\Scanner.cs Query\QueryComposer.cs Query\TypeSystem.cs Query\XmlHelper.cs Serializer\DeserializerParser.cs Serializer\DeserializerScanner.cs Serializer\Serializer.cs
+Compile complete -- 0 errors, 0 warnings
+7>System.Compiler.Framework -> C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll
+8>------ Build started: Project: System.Contracts, Configuration: Debug .NET ------
+8>The project is up-to-date.
+9>------ Build started: Project: Mscorlib.Contracts, Configuration: Debug .NET ------
+9>The project is up-to-date.
+10>------ Build started: Project: Microsoft.VisualStudio.Package, Configuration: Debug Any CPU ------
+10>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:TRACE;DEBUG;WHIDBEY;WHIDBEYwithGenerics;ORCAS /reference:"c:\Program Files (x86)\Common Files\Microsoft Shared\MSEnv\PublicAssemblies\EnvDTE.dll" /reference:C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll /reference:..\Common\Bin\Microsoft.VisualStudio.Designer.Interfaces.dll /reference:..\Common\Bin\microsoft.visualstudio.ole.interop.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.Shell.Interop.8.0\8.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Shell.Interop.8.0.dll /reference:..\Common\Bin\Microsoft.VisualStudio.Shell.Interop.dll /reference:..\Common\Bin\Microsoft.VisualStudio.TextManager.Interop.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.XML.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\Microsoft.VisualStudio.Package.dll /resource:obj\Debug\Microsoft.VisualStudio.Package.Project.PropertySheet.resources /resource:obj\Debug\Microsoft.VisualStudio.Package.Project.UIStrings.resources /resource:LanguageService\completionset.bmp,Microsoft.VisualStudio.Package.LanguageService.completionset.bmp /resource:Project\folders.bmp,Microsoft.VisualStudio.Package.Project.folders.bmp /resource:Project\InstallDebugger.rgs,Microsoft.VisualStudio.Package.Project.InstallDebugger.rgs /resource:Project\InstallEditor.rgs,Microsoft.VisualStudio.Package.Project.InstallEditor.rgs /resource:Project\InstallLanguage.rgs,Microsoft.VisualStudio.Package.Project.InstallLanguage.rgs /resource:Project\InstallPackage.rgs,Microsoft.VisualStudio.Package.Project.InstallPackage.rgs /resource:Project\InstallProject.rgs,Microsoft.VisualStudio.Package.Project.InstallProject.rgs /resource:Project\InstallVSIPLicense.rgs,Microsoft.VisualStudio.Package.Project.InstallVSIPLicense.rgs /target:library /warnaserror- ..\common\include\version.cs AssemblyInfo.cs LanguageService\CodeWindowManager.cs LanguageService\Colorizer.cs LanguageService\EditorView.cs LanguageService\LanguageService.cs LanguageService\Scanner.cs LanguageService\Source.cs LanguageService\ViewFilter.cs Project\Automation.cs Project\configprovider.cs Project\DataObject.cs Project\EditorFactory.cs Project\Hierarchy.cs Project\hierarchyitem.cs Project\ImageList.cs Project\Package.cs Project\Project.cs Project\ProjectConfig.cs Project\ProjectFactory.cs Project\PropertyPages.cs Project\PropertySheet.cs Project\Registration.cs Project\RgsParser.cs Project\selection.cs Project\TaskItem.cs Project\tracing.cs Project\UIStrings.cs Project\Utilities.cs Project\VsCommands.cs
+Compile complete -- 0 errors, 0 warnings
+10>Microsoft.VisualStudio.Package -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll
+11>------ Build started: Project: Microsoft.SpecSharp.Runtime, Configuration: Debug .NET ------
+11>The project is up-to-date.
+12>------ Build started: Project: Microsoft.VisualStudio.IntegrationHelper, Configuration: Debug Any CPU ------
+12>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:DEBUG;TRACE;WHIDBEY /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Engine.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.OLE.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.OLE.Interop.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.Shell.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Shell.Interop.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.TextManager.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.TextManager.Interop.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.XML.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\Microsoft.VisualStudio.IntegrationHelper.dll /target:library /warnaserror- ..\common\include\version.cs AssemblyInfo.cs Debugger\DebuggerHelpers.cs Debugger\DebuggerInterop.cs Debugger\Nodes.cs Debugger\Symbol.cs Debugger\Values.cs Helpers.cs
+Compile complete -- 0 errors, 0 warnings
+12>Microsoft.VisualStudio.IntegrationHelper -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll
+13>------ Build started: Project: Microsoft.VisualStudio.CodeTools.IPropertyPane, Configuration: Debug Any CPU ------
+13>Microsoft.VisualStudio.CodeTools.IPropertyPane -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\IPropertyPane\bin\Debug\IPropertyPane.dll
+14>------ Build started: Project: Microsoft.SpecSharp, Configuration: Debug Any CPU ------
+14>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:DEBUG;TRACE;WHIDBEY /reference:C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Engine.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Tasks.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Utilities.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.OLE.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.OLE.Interop.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.Shell.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Shell.Interop.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.TextManager.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.TextManager.Interop.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\Microsoft.SpecSharp.dll /resource:obj\Debug\Microsoft.SpecSharp.ErrorMessages.resources /resource:Folders.bmp,Microsoft.SpecSharp.Folders.bmp /resource:Install.rgs,Microsoft.SpecSharp.Install.rgs /target:library /warnaserror- ..\Common\Include\version.cs AdmissibilityChecker.cs Analyzer.cs AssemblyInfo.cs Checker.cs Compiler.cs CustomChecker.cs Debugger.cs DebugTools.cs Declarer.cs Duplicator.cs Error.cs LanguageService.cs Looker.cs MsBuildTask.cs Nodes.cs Normalizer.cs Parser.cs Partitioner.cs Resolver.cs Runtime.cs Scanner.cs Scoper.cs SourceContextWriter.cs Specializer.cs TypeSystem.cs VisualStudioIntegration.cs
+Compile complete -- 0 errors, 0 warnings
+14>Microsoft.SpecSharp -> C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll
+15>------ Build started: Project: PropertyPage, Configuration: Debug Any CPU ------
+15>PropertyPage -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\PropertyPage\bin\Debug\PropertyPage.dll
+16>------ Build started: Project: ContractsPropertyPane, Configuration: Debug Any CPU ------
+16>ContractsPropertyPane -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ContractsPropertyPane\bin\Debug\ContractsPropertyPane.dll
+17>------ Build started: Project: TaskManager, Configuration: Debug Any CPU ------
+17>TaskManager -> C:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\TaskManager\bin\Debug\TaskManager.dll
+18>------ Build started: Project: System.Xml.Contracts, Configuration: Debug .NET ------
+18>The project is up-to-date.
+19>------ Build started: Project: ssc, Configuration: Debug Any CPU ------
+19>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe+ /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:DEBUG;TRACE /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\ssc.exe /resource:obj\Debug\ssc.Messages.resources /target:exe /warnaserror- ..\..\Common\Include\version.cs AssemblyInfo.cs Main.cs
+Compile complete -- 0 errors, 0 warnings
+19>ssc -> C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\CommandLineCompiler\bin\ssc.exe
+20>------ Build started: Project: IncrementalCompilationTests, Configuration: Debug Any CPU ------
+20>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1701,1702 /nostdlib- /warn:1 /baseaddress:285212672 /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll /reference:C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\IncrementalCompilationTests.exe /target:exe /warnaserror- main.cs
+Compile complete -- 0 errors, 0 warnings
+20>IncrementalCompilationTests -> C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\IncrementalCompilationTests\bin\IncrementalCompilationTests.exe
+21>------ Build started: Project: SpecSharpRegistration, Configuration: Debug Win32 ------
+21>Performing Makefile project actions
+21>Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+21>Copyright (C) Microsoft Corporation.  All rights reserved.
+21> Register ..\..\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll Microsoft.VisualStudio.Package.dll
+22>------ Build started: Project: System.Compiler.Contracts, Configuration: Debug .NET ------
+21>Types registered successfully
+21> CopyBits ..\..\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll Microsoft.VisualStudio.IntegrationHelper.dll
+21> CopyBits ..\..\System.Compiler\bin\System.Compiler.dll System.Compiler.dll
+21> CopyBits ..\..\System.Compiler.Framework\bin\System.Compiler.Framework.dll System.Compiler.Framework.dll
+21> RegInstall ..\bin\Microsoft.SpecSharp.dll Microsoft.SpecSharp.dll
+21>Types registered successfully
+21> CopyBits ..\..\Samples\OutOfBandContracts\System.Compiler.Framework\bin\System.Compiler.Framework.Contracts.dll System.Compiler.Framework.Contracts.dll
+21> CopyBits ..\CommandLineCompiler\bin\ssc.exe ssc.exe
+21>Build log was saved at "file://c:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Debug\BuildLog.htm"
+21>SpecSharpRegistration - 0 error(s), 0 warning(s)
+Build complete -- 0 errors, 0 warnings
+23>------ Build started: Project: System.Compiler.Framework.Contracts, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+========== Build: 21 succeeded, 0 failed, 2 up-to-date, 2 skipped ==========
+
+
+[2010-06-26 11:40:25] C:\Program Files\SlikSvn\bin\svn.exe update C:\scmalte\Aste\bolzer\ssc\_continuous_integration_results\summary.log --no-auth-cache --non-interactive --username r210fhge --password ********
+Restored 'C:\scmalte\Aste\bolzer\ssc\_continuous_integration_results\summary.log'
+At revision 354.
+
+
+[2010-06-26 11:40:26] Summary (project=SpecSharp) hasn't changed and won't be committed.
+
+
+[2010-06-26 11:40:26] chdir C:\Temp\aste\Boogie\Binaries
+
+
+[2010-06-26 11:40:26] C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\nmake.exe SPECSHARPROOT=C:\Temp\aste\SpecSharp
+Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\ITaskManager.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\ITaskManager.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Compiler.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Compiler.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Compiler.Framework.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Compiler.Framework.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Compiler.Runtime.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Compiler.Runtime.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Microsoft.SpecSharp.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Microsoft.SpecSharp.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Microsoft.SpecSharp.Runtime.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Microsoft.SpecSharp.Runtime.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Mscorlib.Contracts.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Contracts.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Xml.Contracts.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Compiler.Contracts.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\System.Compiler.Framework.Contracts.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Microsoft.VisualStudio.IntegrationHelper.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Microsoft.VisualStudio.IntegrationHelper.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Microsoft.VisualStudio.Package.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Microsoft.VisualStudio.Package.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\ssc.exe"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\ssc.pdb"
+        1 file(s) copied.
+
+
+[2010-06-26 11:40:26] chdir C:\Temp\aste\Boogie\Source
+
+
+[2010-06-26 11:40:26] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com Boogie.sln /Build Debug
+Microsoft (R) Visual Studio Version 9.0.30729.1.
+Copyright (C) Microsoft Corp. All rights reserved.
+------ Build started: Project: Basetypes, Configuration: Debug .NET ------
+The project is up-to-date.
+------ Build started: Project: Graph, Configuration: Debug .NET ------
+The project is up-to-date.
+------ Build started: Project: AIFramework, Configuration: Debug .NET ------
+The project is up-to-date.
+------ Build started: Project: Core, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: VCExpr, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: VCGeneration, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: Simplify, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: Isabelle, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: AbsInt, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: SMTLib, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: Z3, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: BoogieDriver, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+========== Build: 12 succeeded or up-to-date, 0 failed, 0 skipped ==========
+
+
+[2010-06-26 11:41:28] chdir C:\Temp\aste\Boogie\Source
+
+
+[2010-06-26 11:41:28] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com Dafny.sln /Build Debug
+Microsoft (R) Visual Studio Version 9.0.30729.1.
+Copyright (C) Microsoft Corp. All rights reserved.
+------ Build started: Project: Dafny, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+------ Build started: Project: DafnyDriver, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+========== Build: 2 succeeded or up-to-date, 0 failed, 0 skipped ==========
+
+
+[2010-06-26 11:41:45] C:\Program Files\SlikSvn\bin\svn.exe update C:\scmalte\Aste\bolzer\boogie\_continuous_integration_results\summary.log --no-auth-cache --non-interactive --username r210fhge --password ********
+Restored 'C:\scmalte\Aste\bolzer\boogie\_continuous_integration_results\summary.log'
+At revision 354.
+
+
+[2010-06-26 11:41:46] Summary (project=Boogie) has changed but won't be committed due to configuration flag 'Flags.UploadSummary'.
+
+
+[2010-06-26 11:41:46] chdir C:\Temp\aste\SscBoogie\Binaries
+
+
+[2010-06-26 11:41:46] C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin\nmake.exe BOOGIEROOT=C:\Temp\aste\Boogie
+Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+	rem Binaries and other files that make up Boogie:
+	copy /y "C:\Temp\aste\Boogie\Binaries\AbsInt.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\AbsInt.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\AIFramework.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\AIFramework.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Basetypes.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Basetypes.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Core.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Core.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Graph.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Graph.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Provers.Simplify.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Provers.Simplify.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Provers.SMTLib.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Provers.SMTLib.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Provers.Z3.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Provers.Z3.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\VCExpr.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\VCExpr.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\VCGeneration.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\VCGeneration.pdb"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\TypedUnivBackPred2.sx"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\UnivBackPred2.sx"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\UnivBackPred2.smt"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\FSharp.Core.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\FSharp.PowerPack.dll"
+        1 file(s) copied.
+	rem Things needed to build and run SscBoogie:
+	copy /y "C:\Temp\aste\Boogie\Binaries\ssc.exe"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\System.Compiler.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\System.Compiler.Contracts.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\System.Compiler.Framework.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\System.Contracts.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Mscorlib.Contracts.dll"
+        1 file(s) copied.
+	copy /y "C:\Temp\aste\Boogie\Binaries\Microsoft.SpecSharp.dll"
+        1 file(s) copied.
+
+
+[2010-06-26 11:41:47] chdir C:\Temp\aste\SscBoogie\Source
+
+
+[2010-06-26 11:41:47] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com SscBoogie.sln /Build Debug
+Microsoft (R) Visual Studio Version 9.0.30729.1.
+Copyright (C) Microsoft Corp. All rights reserved.
+------ Build started: Project: Prelude, Configuration: Debug .NET ------
+The project is up-to-date.
+------ Build started: Project: BytecodeTranslation, Configuration: Debug .NET ------
+C:\Temp\aste\SscBoogie\Source\BytecodeTranslation\Translator.ssc(801,11): error CS0246: The type or namespace name 'BoogiePL' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\BytecodeTranslation\Translator.ssc(802,11): error CS0246: The type or namespace name 'BoogiePL' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\BytecodeTranslation\Translator.ssc(804,28): error CS0246: The type or namespace name 'BoogiePL' could not be found (are you missing a using directive or an assembly reference?)
+Build complete -- 3 errors, 0 warnings
+------ Build started: Project: DriverHelper, Configuration: Debug .NET ------
+C:\Temp\aste\SscBoogie\Source\unknown file(1,1): error CS2005: File 'C:\Temp\aste\SscBoogie\Source\BytecodeTranslation\bin\Debug\BytecodeTranslation.dll' does not exist
+C:\Temp\aste\SscBoogie\Source\DriverHelper\ErrorReporting.ssc(21,41): error CS0246: The type or namespace name 'TranslatedProgram' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\DriverHelper\ErrorReporting.ssc(105,56): error CS0246: The type or namespace name 'Translator' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\DriverHelper\ErrorReporting.ssc(148,36): error CS0246: The type or namespace name 'Translator' could not be found (are you missing a using directive or an assembly reference?)
+Build complete -- 4 errors, 0 warnings
+------ Build started: Project: CompilerPlugin, Configuration: Debug .NET ------
+C:\Temp\aste\SscBoogie\Source\unknown file(1,1): error CS2005: File 'C:\Temp\aste\SscBoogie\Source\BytecodeTranslation\bin\Debug\BytecodeTranslation.dll' does not exist
+C:\Temp\aste\SscBoogie\Source\unknown file(1,1): error CS2005: File 'C:\Temp\aste\SscBoogie\Source\DriverHelper\bin\debug\DriverHelper.dll' does not exist
+C:\Temp\aste\SscBoogie\Source\CompilerPlugin\Plugin.ssc(133,13): error CS0246: The type or namespace name 'TranslatedProgram' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\CompilerPlugin\Plugin.ssc(277,13): error CS0246: The type or namespace name 'SplitConjunctsInContracts' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\CompilerPlugin\Plugin.ssc(478,23): error CS0246: The type or namespace name 'ErrorReporting' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\CompilerPlugin\Plugin.ssc(133,42): error CS0246: The type or namespace name 'CilTranslator' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\CompilerPlugin\Plugin.ssc(198,41): error CS0246: The type or namespace name 'CilTranslator' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\CompilerPlugin\Plugin.ssc(279,42): error CS0246: The type or namespace name 'CilTranslator' could not be found (are you missing a using directive or an assembly reference?)
+Build complete -- 8 errors, 0 warnings
+------ Build started: Project: SscBoogie, Configuration: Debug .NET ------
+C:\Temp\aste\SscBoogie\Source\unknown file(1,1): error CS2005: File 'C:\Temp\aste\SscBoogie\Source\BytecodeTranslation\bin\Debug\BytecodeTranslation.dll' does not exist
+C:\Temp\aste\SscBoogie\Source\unknown file(1,1): error CS2005: File 'C:\Temp\aste\SscBoogie\Source\DriverHelper\bin\debug\DriverHelper.dll' does not exist
+C:\Temp\aste\SscBoogie\Source\SscBoogie\Main.ssc(225,11): error CS0246: The type or namespace name 'TranslatedProgram' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\SscBoogie\Main.ssc(602,17): error CS0246: The type or namespace name 'ErrorReporting' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\SscBoogie\Main.ssc(225,40): error CS0246: The type or namespace name 'CilTranslator' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\SscBoogie\Main.ssc(344,7): error CS0246: The type or namespace name 'BoogiePL' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\SscBoogie\Main.ssc(360,24): error CS0246: The type or namespace name 'BoogiePL' could not be found (are you missing a using directive or an assembly reference?)
+C:\Temp\aste\SscBoogie\Source\SscBoogie\Main.ssc(362,67): error CS0246: The type or namespace name 'BoogiePL' could not be found (are you missing a using directive or an assembly reference?)
+Build complete -- 8 errors, 0 warnings
+========== Build: 1 succeeded or up-to-date, 4 failed, 0 skipped ==========
+
+
+[2010-06-26 11:42:07] [Error] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com SscBoogie.sln /Build Debug
+
+
+[2010-06-26 11:42:07] C:\Program Files\SlikSvn\bin\svn.exe update C:\scmalte\Aste\bolzer\sscboogie\_continuous_integration_results\summary.log --no-auth-cache --non-interactive --username r210fhge --password ********
+Restored 'C:\scmalte\Aste\bolzer\sscboogie\_continuous_integration_results\summary.log'
+At revision 354.
+
+
+[2010-06-26 11:42:07] Summary (project=SscBoogie) has changed but won't be committed due to configuration flag 'Flags.UploadSummary'.
+
+devenv -X: error CS0246: File 'C:\Temp\aste\SscBoogie\Source\BytecodeTranslation\bin\Debug\BytecodeTranslation.dll' does not exist
+
+
+[2010-06-26 11:42:10] Sent mail to ['Malte Schwerhoff <mschwerhoff@student.ethz.ch>'] with subject "[Aste] BuildError"

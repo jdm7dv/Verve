@@ -1,0 +1,82 @@
+
+-------------------- Fig0-NonNull.ssc --------------------
+Fig0-NonNull.ssc(11,29): warning CS2663: Possible null dereference
+Fig0-NonNull.ssc(11,29): warning CS2614: Receiver might be null (of type 'string')
+
+-------------------- Fig1-ISqrt.ssc --------------------
+
+-------------------- Fig10-Controller.ssc --------------------
+
+-------------------- Fig11-Dictionary.ssc --------------------
+
+-------------------- Fig12-Collection.ssc --------------------
+
+-------------------- Fig13-NonNullElements.ssc --------------------
+
+-------------------- Fig14-DrawingEngine-Array.ssc --------------------
+
+-------------------- Fig15-DrawingEngine-Generic.ssc --------------------
+
+-------------------- Fig16-Band.ssc --------------------
+Fig16-Band.ssc(45,5): warning CS2663: The call to BandCaptured.Guitar.Strum() requires target object to be peer consistent
+Fig16-Band.ssc(45,5): warning CS2663: The call to BandCaptured.Guitar.Strum() requires target object to be peer consistent (owner must not be valid)
+
+-------------------- Fig17-Iterator.ssc --------------------
+
+-------------------- Fig18-Counter.ssc --------------------
+
+-------------------- Fig19-Counter.ssc --------------------
+
+-------------------- Fig2-Counter.ssc --------------------
+Fig2-Counter.ssc(4,15): warning CS2663: Method Counter.Inc(), unsatisfied postcondition: old(x) < x
+
+-------------------- Fig20-Counter.ssc --------------------
+Fig20-Counter.ssc(32,15): warning CS2663: The consistency of this satisfies clause could not be verified
+
+-------------------- Fig3-LinearSearch.ssc --------------------
+
+-------------------- Fig4-BinarySearch.ssc --------------------
+
+-------------------- Fig5-Rectangle.ssc --------------------
+
+-------------------- Fig6-Swap.ssc --------------------
+
+-------------------- Fig7-Override.ssc --------------------
+Fig7-Override.ssc(33,24): error CS2622: 'GrowingCellError.Set(int)' : requires clause not allowed in override.
+
+-------------------- Fig8-Band.ssc --------------------
+
+-------------------- Sec1.4-ContrivedModification.ssc --------------------
+Sec1.4-ContrivedModification.ssc(17,5): warning CS2663: Assertion might not hold: Y == 125
+Sec1.4-ContrivedModification.ssc(16,5): warning CS2663:     (trace position)
+
+-------------------- Sec2.1-Visibility.ssc --------------------
+
+-------------------- Sec2.2-Additive.ssc --------------------
+
+-------------------- Sec2.3-BaseCall.ssc --------------------
+
+-------------------- Sec2.3-Delayed.ssc --------------------
+
+-------------------- Sec3.1-Inside.ssc --------------------
+
+-------------------- Sec3.1-PeerConsistency.ssc --------------------
+Sec3.1-PeerConsistency.ssc(21,5): warning CS2663: The call to Demo.M() requires target object to be peer consistent
+Sec3.1-PeerConsistency.ssc(21,5): warning CS2663: The call to Demo.M() requires target object to be peer consistent (owner must not be valid)
+Sec3.1-PeerConsistency.ssc(25,5): warning CS2663: The call to Demo.M() requires target object to be peer consistent (owner must not be valid)
+
+-------------------- Sec4.0-CovariantArrays.ssc --------------------
+Sec4.0-CovariantArrays.ssc(6,5): warning CS2663: RHS might not be a subtype of the element type of the array being assigned
+
+-------------------- Sec7.0-AdditiveCounter.ssc --------------------
+
+-------------------- Sec7.0-SealedCounter.ssc --------------------
+
+-------------------- Sec7.2-Dependencies.ssc --------------------
+
+-------------------- Sec7.2-Determinism.ssc --------------------
+
+-------------------- Sec7.2-Feasibility.ssc --------------------
+
+-------------------- Sec7.2-Recursion.ssc --------------------
+Sec7.2-Recursion.ssc(64,53): warning CS2663: Method call 'Sum' not admissible: could not find decreasing measure based on purity-level, receiver, and recursion termination value.

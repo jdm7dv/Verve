@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Renderer</name>
+    </assembly>
+    <members>
+        <member name="F:Arachnode.Renderer.BrowserOptions.None">
+            <summary>
+            No flags are set.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.AlwaysOffline">
+            <summary>
+            The browser will operate in offline mode. Equivalent to DLCTL_FORCEOFFLINE.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.BackgroundSounds">
+            <summary>
+            The browser will play background sounds. Equivalent to DLCTL_BGSOUNDS.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.DontRunActiveX">
+            <summary>
+            Specifies that the browser will not run Active-X controls. Use this setting
+            to disable Flash movies. Equivalent to DLCTL_NO_RUNACTIVEXCTLS.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.IgnoreCache">
+            <summary>
+             Specifies that the browser should fetch the content from the server. If the server's
+             content is the same as the cache, the cache is used.Equivalent to DLCTL_RESYNCHRONIZE.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.IgnoreProxy">
+            <summary>
+             The browser will force the request from the server, and ignore the proxy, even if the
+             proxy indicates the content is up to date.Equivalent to DLCTL_PRAGMA_NO_CACHE.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.Images">
+            <summary>
+             Specifies that the browser should download and display images. This is set by default.
+             Equivalent to DLCTL_DLIMAGES.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.NoActiveXDownload">
+            <summary>
+             Disables downloading and installing of Active-X controls.Equivalent to DLCTL_NO_DLACTIVEXCTLS.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.NoBehaviours">
+            <summary>
+             Disables web behaviours.Equivalent to DLCTL_NO_BEHAVIORS.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.NoCharSets">
+            <summary>
+             The browser suppresses any HTML charset specified.Equivalent to DLCTL_NO_METACHARSET.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.NoClientPull">
+            <summary>
+             Indicates the browser will ignore client pulls.Equivalent to DLCTL_NO_CLIENTPULL.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.NoJava">
+            <summary>
+             The browser will not download or display Java applets.Equivalent to DLCTL_NO_JAVA.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.NoFrameDownload">
+            <summary>
+             The browser will download framesets and parse them, but will not download the frames
+             contained inside those framesets.Equivalent to DLCTL_NO_FRAMEDOWNLOAD.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.NoScripts">
+            <summary>
+             The browser will not execute any scripts.Equivalent to DLCTL_NO_SCRIPTS.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.OfflineIfNotConnected">
+            <summary>
+             If the browser cannot detect any internet connection, this causes it to default to
+             offline mode.Equivalent to DLCTL_OFFLINEIFNOTCONNECTED.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.UTF8">
+            <summary>
+             Specifies that UTF8 should be used.Equivalent to DLCTL_URL_ENCODING_ENABLE_UTF8.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.BrowserOptions.Videos">
+            <summary>
+             The browser will download and display video media.Equivalent to DLCTL_VIDEOS.
+            </summary>
+        </member>
+        <member name="T:Arachnode.Renderer.tagCONTROLINFO">
+            <summary>
+            Contains parameters that describe a control's keyboard mnemonics and keyboard behavior.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.tagCONTROLINFO.cb">
+            <summary>
+            Size of the CONTROLINFO structure.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.tagCONTROLINFO.hAccel">
+            <summary>
+            Handle to an array of Windows ACCEL structures, each structure describing a keyboard mnemonic.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.tagCONTROLINFO.cAccel">
+            <summary>
+            Number of mnemonics described in the hAccel field.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.tagCONTROLINFO.dwFlags">
+            <summary>
+            Flags that indicate the keyboard behavior of the control.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Renderer.tagCONTROLINFO.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Arachnode.Renderer.tagCONTROLINFO"/> class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.Renderer.tagCTRLINFO">
+            <summary>
+            Flags that indicate the keyboard behavior of the control.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.tagCTRLINFO.CTRLINFO_EATS_RETURN">
+            <summary>
+            When the control has the focus, it will process the Return key.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.tagCTRLINFO.CTRLINFO_EATS_ESCAPE">
+            <summary>
+            When the control has the focus, it will process the Escape key.
+            </summary>
+        </member>
+        <member name="T:Arachnode.Renderer.IPropertyNotifySink">
+            <summary>
+            Standard notification interface that supports bindable and request-edit properties.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Renderer.IPropertyNotifySink.OnChanged(System.Int32)">
+            <summary>
+            Notifies a sink that the [bindable] property specified by <paramref name="dispID"/> has changed
+            </summary>
+            <param name="dispID">Dispatch identifier of the property that changed, or DISPID_UNKNOWN if multiple properties have changed.</param>
+        </member>
+        <member name="M:Arachnode.Renderer.IPropertyNotifySink.OnRequestEdit(System.Int32)">
+            <summary>
+            Notifies a sink that a [requestedit] property is about to change and that the object is asking the sink how to proceed.
+            </summary>
+            <param name="dispID">Dispatch identifier of the property that is about to change or DISPID_UNKNOWN if multiple properties are about to change.</param>
+        </member>
+        <member name="T:Arachnode.Renderer.IOleControl">
+            <summary>
+            Provides the features for supporting keyboard mnemonics (GetControlInfo, OnMnemonic), ambient properties (OnAmbientPropertyChange), and events (FreezeEvents) in control objects.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Renderer.IOleControl.GetControlInfo(Arachnode.Renderer.tagCONTROLINFO)">
+            <summary>
+            Fills in a CONTROLINFO structure with information about a control's keyboard mnemonics and keyboard behavior.
+            </summary>
+            <param name="pCI">Pointer to the caller-allocated CONTROLINFO structure to be filled in.</param>
+            <returns><see cref="F:NativeMethods.HRESULT.S_OK"/> if the structure was filled successfully; <see cref="F:NativeMethods.HRESULT.E_NOTIMPL"/> the control has no mnemonics.</returns>
+        </member>
+        <member name="M:Arachnode.Renderer.IOleControl.OnMnemonic(Arachnode.Renderer.MSG@)">
+            <summary>
+            Informs a control that the user has pressed a keystroke that matches one of the ACCEL entries in the mnemonic table returned through <see cref="M:Arachnode.Renderer.IOleControl.GetControlInfo(Arachnode.Renderer.tagCONTROLINFO)"/>. The control takes whatever action is appropriate for the keystroke.
+            </summary>
+            <param name="pMsg">Pointer to the <see cref="!:NativeMethods.MSG"/> structure describing the keystroke to be processed.</param>
+        </member>
+        <member name="M:Arachnode.Renderer.IOleControl.OnAmbientPropertyChange(System.Int32)">
+            <summary>
+            Informs a control that one or more of the container's ambient properties (available through the control site's IDispatch) has changed.
+            </summary>
+            <param name="dispID">Dispatch identifier of the ambient property that changed. If the dispID parameter is DISPID_UNKNOWN, it indicates that multiple properties changed.</param>
+        </member>
+        <member name="M:Arachnode.Renderer.IOleControl.FreezeEvents(System.Boolean)">
+            <summary>
+            Indicates whether the container is ignoring or accepting events from the control.
+            </summary>
+            <param name="bFreeze">Indicates whether the container will ignore (<see langword="true"/>) or now process (<see langword="false"/>) events from the control.</param>
+        </member>
+        <member name="T:Arachnode.Renderer.Iid_Clsids">
+            <summary>
+            GUID representation of IIDs and CLSIDs
+            </summary>
+        </member>
+        <member name="F:Arachnode.Renderer.Renderer.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Renderer.Renderer.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Arachnode.Renderer.Renderer.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Renderer.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:Arachnode.Renderer.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Arachnode.Renderer.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Arachnode.Renderer.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.Renderer.Value.Hresults">
+            <summary>
+            HRESULT constants
+            </summary>
+        </member>
+        <member name="T:Arachnode.Renderer.Value.Enums.RenderType">
+            <summary>
+            How should the page be rendered?
+            Render = As downloaded.
+            </summary>
+        </member>
+        <member name="T:Arachnode.Renderer.Value.Enums.RenderAction">
+            <summary>
+            Instructs the Renderer on the action type.
+            </summary>
+        </member>
+        <member name="T:Arachnode.Renderer.WinApis">
+            <summary>
+            Windows API constants and functions
+            </summary>
+        </member>
+        <member name="M:Arachnode.Renderer.WinApis.DeleteFromUrlCache(System.String)">
+            <summary>
+            Attempts to delete a cookie or cache entry
+            </summary>
+            <param name="url">INTERNET_CACHE_ENTRY_INFO.lpszSourceUrlName</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,2085 @@
+Microsoft (R) Macro Assembler Version 8.00.50727.762	    03/15/20 04:18:14
+x86\blcrtasm.asm					     Page 1 - 1
+
+
+				;++
+				;
+				; Copyright (c) Microsoft Corporation
+				;
+				; Module Name:
+				;
+				;     blcrt.asm
+				;
+				; Abstract:
+				;
+				;     This module implements utility functions for boot loader C runtime.
+				;
+				; Environment:
+				;
+				;     Boot loader.
+				;
+				;--
+
+				include bl.inc
+			      C ;++
+			      C ;
+			      C ; Copyright (c) Microsoft Corporation
+			      C ;
+			      C ; Module Name:
+			      C ;
+			      C ;     bl.inc
+			      C ;
+			      C ; Abstract:
+			      C ;
+			      C ;     This module contains definitions for the boot loader.
+			      C ;
+			      C ; Environment:
+			      C ;
+			      C ;     Boot loader.
+			      C ;
+			      C ;--
+			      C 
+			      C ;
+			      C ; Boot sources.
+			      C ;
+			      C 
+ = 00000001		      C CD_BOOT                 equ     00001h
+ = 00000002		      C FAT16_BOOT              equ     00002h
+ = 00000003		      C FAT32_BOOT              equ     00003h
+ = 00000004		      C PXE_BOOT                equ     00004h
+ = 00000005		      C FLASH_BOOT              equ     00005h
+			      C 
+			      C ;
+			      C ; Segment selectors.
+			      C ;
+			      C 
+ = 00000000		      C NULL_SELECTOR           equ     000h
+ = 00000008		      C RM_VIDEO_SELECTOR       equ     008h
+ = 00000010		      C RM_CODE_SELECTOR        equ     010h
+ = 00000018		      C RM_DATA_SELECTOR        equ     018h
+ = 00000020		      C PM_CODE_SELECTOR        equ     020h
+ = 00000028		      C PM_DATA_SELECTOR        equ     028h    
+ = 00000030		      C LM_CODE_SELECTOR        equ     030h
+ = 00000038		      C LM_DATA_SELECTOR        equ     038h
+ = 00000040		      C UM_CODE_SELECTOR        equ     040h
+ = 00000048		      C UM_DATA_SELECTOR        equ     048h
+ = 00000050		      C PROCESSOR_SELECTOR      equ     050h
+ = 00000058		      C UNUSED_SELECTOR         equ     058h
+ = 00000060		      C TSS_SELECTOR            equ     060h
+			      C         
+			      C ;
+			      C ; CR0 flags.
+			      C ;
+			      C 
+ = 00000001		      C CR0_PE                  equ     000000001h
+ = 00000020		      C CR0_NE                  equ     000000020h
+ = 80000000		      C CR0_PG                  equ     080000000h
+			      C 
+			      C ;
+			      C ; CR4 flags.
+			      C ;
+			      C 
+ = 00000010		      C CR4_PSE                 equ     000000010h
+ = 00000020		      C CR4_PAE                 equ     000000020h
+ = 00000100		      C CR4_PCE                 equ     000000100h
+ = 00000200		      C CR4_OSFXSR              equ     000000200h
+			      C 
+			      C ;
+			      C ; Initial stack pointer values.
+			      C ;
+			      C 
+ = 00001000		      C RM_INITIAL_SS           equ     01000h
+ = 0000FFF8		      C RM_INITIAL_SP           equ     0FFF8h
+ = 00020000		      C PM_INITIAL_ESP          equ     000020000h
+ = 00080000		      C BL_ENTRY_SP             equ     000080000h
+			      C 
+			      C ;
+			      C ; Page table addresses.
+			      C ;
+			      C 
+ = 00021000		      C LM_PML4T_ADDRESS        equ     000021000h
+ = 00022000		      C PM_PDPT_ADDRESS         equ     000022000h
+ = 00023000		      C PM_PDT_ADDRESS          equ     000023000h
+			      C 
+			      C ;
+			      C ; Page table entry flags.
+			      C ;
+			      C 
+ = 00000001		      C PTE_PRESENT             equ     000000001h
+ = 00000002		      C PTE_WRITEABLE           equ     000000002h
+ = 00000020		      C PTE_ACCESSED            equ     000000020h
+ = 00000080		      C PTE_2MB                 equ     000000080h
+			      C 
+			      C ;
+			      C ; EFER MSR index. (Long Mode)
+			      C ;
+			      C 
+ = C0000080		      C EFER_MSR_INDEX          equ     0C0000080h
+			      C 
+			      C ;
+			      C ; EFER flags. (Long Mode)
+			      C ;
+			      C 
+ = 00000100		      C EFER_LME                equ     000000100h
+ = 00000800		      C EFER_NXE                equ     000000800h
+			      C 
+			      C ;
+			      C ; Image target address.
+			      C ;
+			      C 
+ = 00040000		      C IMAGE_ADDRESS           equ     000040000h
+			      C 
+			      C ;
+			      C ; Boot environment block (BEB).
+			      C ;
+			      C 
+ = 0002F000		      C BEB_BASE                equ     00002F000h
+ = 00002F00		      C BEB_SEG16               equ     02F00h
+ = 00000000		      C BEB_OFF16               equ     00000h
+			      C 
+ 00000064		      C BEB     struct
+			      C 
+ 00000000  00000000	      C         BootType                dd      ?
+ 00000004  00000000	      C         BootDriveNumber         dd      ?
+ 00000008  00000000	      C         FlashImage              dd      ?
+ 0000000C  00000000	      C         SmapAddr                dd      ?
+ 00000010  00000000	      C         SmapSize                dd      ?
+ 00000014  00000000	      C         LegacyCallAddress       dd      ?
+ 00000018  00000000	      C         LegacyReturnAddress     dd      ?
+ 0000001C  00000000	      C         LegacyReturnCr3         dd      ?
+ 00000020  00000000	      C         LegacyCall_OpCode       dd      ?
+ 00000024  00000000	      C         LegacyCall_Vector       dd      ?
+ 00000028  00000000	      C         LegacyCall_eax          dd      ?
+ 0000002C  00000000	      C         LegacyCall_ebx          dd      ?
+ 00000030  00000000	      C         LegacyCall_ecx          dd      ?
+ 00000034  00000000	      C         LegacyCall_edx          dd      ?
+ 00000038  00000000	      C         LegacyCall_esi          dd      ?
+ 0000003C  00000000	      C         LegacyCall_edi          dd      ?
+ 00000040  00000000	      C         LegacyCall_ds           dd      ?
+ 00000044  00000000	      C         LegacyCall_es           dd      ?
+ 00000048  00000000	      C         LegacyCall_eflags       dd      ?
+ 0000004C  00000000	      C         LegacyCall_FramePtr     dd      ?
+ 00000050  00000000	      C         LegacyCall_FrameSize    dd      ?
+ 00000054  00000000	      C         LegacyCall_FuncPtr      dd      ?
+ 00000058  00000000	      C         ApEntry16               dd      ?
+ 0000005C  00000000	      C         ApEntry                 dd      ?
+ 00000060  00000000	      C         ApStartupLock           dd      ?
+			      C 
+			      C BEB     ends
+			      C 
+			      C ;
+			      C ; Trap Context
+			      C ;
+			      C 
+ 00000038		      C BL_TRAP_CONTEXT struct
+			      C 
+			      C ifdef BOOT_X86
+			      C         
+ 00000000  00000000	      C         TrapCr2         dd      ?
+ 00000004  00000000	      C         TrapEsp         dd      ?
+ 00000008  00000000	      C         TrapEbp         dd      ?
+ 0000000C  00000000	      C         TrapEdi         dd      ?
+ 00000010  00000000	      C         TrapEsi         dd      ?
+ 00000014  00000000	      C         TrapEdx         dd      ?
+ 00000018  00000000	      C         TrapEcx         dd      ?
+ 0000001C  00000000	      C         TrapEbx         dd      ?
+ 00000020  00000000	      C         TrapEax         dd      ?
+ 00000024  00000000	      C         TrapNum         dd      ?
+ 00000028  00000000	      C         TrapErr         dd      ?
+ 0000002C  00000000	      C         TrapEip         dd      ?
+ 00000030  00000000	      C         TrapCs0         dd      ?
+ 00000034  00000000	      C         TrapEfl         dd      ?
+			      C         
+			      C endif
+			      C         
+			      C ifdef BOOT_X64
+			      C endif        
+			      C 
+			      C BL_TRAP_CONTEXT ends
+			      C 
+			      C ;
+			      C ; Legacy call opcodes.
+			      C ;
+			      C 
+ = 00000000		      C LC_NOP                          equ     00000h
+ = 00000001		      C LC_INTXX                        equ     00001h
+ = 00000002		      C LC_FARCALL                      equ     00002h
+			      C 
+			      C ;
+			      C ; PE/COFF structures.
+			      C ;
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_DOS_HEADER {      // DOS .EXE header
+			      C ;     WORD   e_magic;                     // Magic number
+			      C ;     WORD   e_cblp;                      // Bytes on last page of file
+			      C ;     WORD   e_cp;                        // Pages in file
+			      C ;     WORD   e_crlc;                      // Relocations
+			      C ;     WORD   e_cparhdr;                   // Size of header in paragraphs
+			      C ;     WORD   e_minalloc;                  // Minimum extra paragraphs needed
+			      C ;     WORD   e_maxalloc;                  // Maximum extra paragraphs needed
+			      C ;     WORD   e_ss;                        // Initial (relative) SS value
+			      C ;     WORD   e_sp;                        // Initial SP value
+			      C ;     WORD   e_csum;                      // Checksum
+			      C ;     WORD   e_ip;                        // Initial IP value
+			      C ;     WORD   e_cs;                        // Initial (relative) CS value
+			      C ;     WORD   e_lfarlc;                    // File address of relocation table
+			      C ;     WORD   e_ovno;                      // Overlay number
+			      C ;     WORD   e_res[4];                    // Reserved words
+			      C ;     WORD   e_oemid;                     // OEM identifier (for e_oeminfo)
+			      C ;     WORD   e_oeminfo;                   // OEM information; e_oemid specific
+			      C ;     WORD   e_res2[10];                  // Reserved words
+			      C ;     LONG   e_lfanew;                    // File address of new exe header
+			      C ;   } IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;
+			      C ;
+			      C 
+ = 0000003C		      C IDH_NT_HEADER_OFFSET            equ     00000003Ch
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_FILE_HEADER {
+			      C ;     WORD    Machine;
+			      C ;     WORD    NumberOfSections;
+			      C ;     DWORD   TimeDateStamp;
+			      C ;     DWORD   PointerToSymbolTable;
+			      C ;     DWORD   NumberOfSymbols;
+			      C ;     WORD    SizeOfOptionalHeader;
+			      C ;     WORD    Characteristics;
+			      C ; } IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
+			      C ;
+			      C 
+ = 00000002		      C IFH_NUMBER_OF_SECTIONS          equ     000000002h
+ = 00000010		      C IFH_SIZE_OF_OPTIONAL_HEADER     equ     000000010h
+			      C 
+			      C ifdef BOOT_X86
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_OPTIONAL_HEADER32 {
+			      C ;     WORD    Magic;
+			      C ;     BYTE    MajorLinkerVersion;
+			      C ;     BYTE    MinorLinkerVersion;
+			      C ;     DWORD   SizeOfCode;
+			      C ;     DWORD   SizeOfInitializedData;
+			      C ;     DWORD   SizeOfUninitializedData;
+			      C ;     DWORD   AddressOfEntryPoint;
+			      C ;     DWORD   BaseOfCode;
+			      C ;     DWORD   BaseOfData;
+			      C ;     DWORD   ImageBase;
+			      C ;     DWORD   SectionAlignment;
+			      C ;     DWORD   FileAlignment;
+			      C ;     WORD    MajorOperatingSystemVersion;
+			      C ;     WORD    MinorOperatingSystemVersion;
+			      C ;     WORD    MajorImageVersion;
+			      C ;     WORD    MinorImageVersion;
+			      C ;     WORD    MajorSubsystemVersion;
+			      C ;     WORD    MinorSubsystemVersion;
+			      C ;     DWORD   Win32VersionValue;
+			      C ;     DWORD   SizeOfImage;
+			      C ;     DWORD   SizeOfHeaders;
+			      C ;     DWORD   CheckSum;
+			      C ;     WORD    Subsystem;
+			      C ;     WORD    DllCharacteristics;
+			      C ;     DWORD   SizeOfStackReserve;
+			      C ;     DWORD   SizeOfStackCommit;
+			      C ;     DWORD   SizeOfHeapReserve;
+			      C ;     DWORD   SizeOfHeapCommit;
+			      C ;     DWORD   LoaderFlags;
+			      C ;     DWORD   NumberOfRvaAndSizes;
+			      C ;     IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
+			      C ; } IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;
+			      C ;
+			      C 
+ = 0000001C		      C IOH32_IMAGE_BASE                equ     00000001Ch
+			      C 
+			      C endif
+			      C 
+			      C ifdef BOOT_X64
+			      C endif
+			      C         
+ = 00000010		      C IOH_ADDRESS_OF_ENTRY_POINT      equ     000000010h
+ = 0000003C		      C IOH_SIZE_OF_HEADERS             equ     00000003Ch
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_NT_HEADERS32/64 {
+			      C ;     DWORD Signature;
+			      C ;     IMAGE_FILE_HEADER FileHeader;
+			      C ;     IMAGE_OPTIONAL_HEADER32/64 OptionalHeader;
+			      C ; } IMAGE_NT_HEADERS32/64, *PIMAGE_NT_HEADERS32/64;
+			      C ;
+			      C 
+ = 00000000		      C INH_SIGNATURE                   equ     000000000h
+ = 00000004		      C INH_FILE_HEADER                 equ     000000004h
+ = 00000018		      C INH_OPTIONAL_HEADER             equ     000000018h
+			      C 
+			      C ;
+			      C ; Signatures.
+			      C ;
+			      C 
+ = 00005A4D		      C IMAGE_DOS_SIGNATURE             equ     05A4Dh          ; MZ
+ = 00004550		      C IMAGE_NT_SIGNATURE              equ     000004550h      ; PE00
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_SECTION_HEADER {
+			      C ;     BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];
+			      C ;     union {
+			      C ;             DWORD   PhysicalAddress;
+			      C ;             DWORD   VirtualSize;
+			      C ;     } Misc;
+			      C ;     DWORD   VirtualAddress;
+			      C ;     DWORD   SizeOfRawData;
+			      C ;     DWORD   PointerToRawData;
+			      C ;     DWORD   PointerToRelocations;
+			      C ;     DWORD   PointerToLinenumbers;
+			      C ;     WORD    NumberOfRelocations;
+			      C ;     WORD    NumberOfLinenumbers;
+			      C ;     DWORD   Characteristics;
+			      C ; } IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
+			      C ;
+			      C 
+ = 00000008		      C ISH_VIRTUAL_SIZE                equ     000000008h
+ = 0000000C		      C ISH_VIRTUAL_ADDRESS             equ     00000000Ch
+ = 00000010		      C ISH_SIZE_OF_RAW_DATA            equ     000000010h
+ = 00000014		      C ISH_POINTER_TO_RAW_DATA         equ     000000014h
+			      C 
+ = 00000028		      C IMAGE_SECTION_HEADER_SIZE       equ     000000028h
+			      C 
+			      C 
+			      C 
+			      C 
+
+				.686p
+				.model flat
+ 00000000			.code
+
+				assume ds:flat
+				assume es:flat
+				assume ss:flat
+				assume fs:flat
+
+ = 00000000			LOWORD  equ     [0]
+ = 00000004			HIWORD  equ     [4]
+
+				;***
+				;lldiv.asm - signed long divide routine
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       defines the signed long divide routine
+				;           __alldiv
+				;
+				;Revision History:
+				;       11-29-83  DFW   initial version
+				;       06-01-84  RN    modified to use cmacros
+				;       10-24-87  SKS   fixed off-by-1 error for dividend close to 2**32.
+				;       05-18-89  SKS   Remove redundant "MOV SP,BP" from epilog
+				;       11-28-89  GJF   Fixed copyright
+				;       11-19-93  SMK   Modified to work on 64 bit integers
+				;       01-17-94  GJF   Minor changes to build with NT's masm386.
+				;       07-22-94  GJF   Use esp-relative addressing for args. Shortened
+				;                       conditional jumps. Also, don't use xchg to do a
+				;                       simple move between regs.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;lldiv - signed long divide
+				;
+				;Purpose:
+				;       Does a signed long divide of the arguments.  Arguments are
+				;       not changed.
+				;
+				;Entry:
+				;       Arguments are passed on the stack:
+				;               1st pushed: divisor (QWORD)
+				;               2nd pushed: dividend (QWORD)
+				;
+				;Exit:
+				;       EDX:EAX contains the quotient (dividend/divisor)
+				;       NOTE: this routine removes the parameters from the stack.
+				;
+				;Uses:
+				;       ECX
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 00000000			__alldiv        PROC NEAR
+
+ 00000000  57			        push    edi
+ 00000001  56			        push    esi
+ 00000002  53			        push    ebx
+
+				; Set up the local stack and save the index registers.  When this is done
+				; the stack frame will look as follows (assuming that the expression a/b will
+				; generate a call to lldiv(a, b)):
+				;
+				;               -----------------
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--divisor (b)--|
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--dividend (a)-|
+				;               |               |
+				;               |---------------|
+				;               | return addr** |
+				;               |---------------|
+				;               |      EDI      |
+				;               |---------------|
+				;               |      ESI      |
+				;               |---------------|
+				;       ESP---->|      EBX      |
+				;               -----------------
+				;
+
+ = [esp + 16]			DVND    equ     [esp + 16]      ; stack address of dividend (a)
+ = [esp + 24]			DVSR    equ     [esp + 24]      ; stack address of divisor (b)
+
+
+				; Determine sign of the result (edi = 0 if result is positive, non-zero
+				; otherwise) and make operands positive.
+
+ 00000003  33 FF		        xor     edi,edi         ; result sign assumed positive
+
+ 00000005  8B 44 24 14		        mov     eax,HIWORD(DVND) ; hi word of a
+ 00000009  0B C0		        or      eax,eax         ; test to see if signed
+ 0000000B  7D 14		        jge     short L1        ; skip rest if a is already positive
+ 0000000D  47			        inc     edi             ; complement result sign flag
+ 0000000E  8B 54 24 10		        mov     edx,LOWORD(DVND) ; lo word of a
+ 00000012  F7 D8		        neg     eax             ; make a positive
+ 00000014  F7 DA		        neg     edx
+ 00000016  83 D8 00		        sbb     eax,0
+ 00000019  89 44 24 14		        mov     HIWORD(DVND),eax ; save positive value
+ 0000001D  89 54 24 10		        mov     LOWORD(DVND),edx
+ 00000021			L1:
+ 00000021  8B 44 24 1C		        mov     eax,HIWORD(DVSR) ; hi word of b
+ 00000025  0B C0		        or      eax,eax         ; test to see if signed
+ 00000027  7D 14		        jge     short L2        ; skip rest if b is already positive
+ 00000029  47			        inc     edi             ; complement the result sign flag
+ 0000002A  8B 54 24 18		        mov     edx,LOWORD(DVSR) ; lo word of a
+ 0000002E  F7 D8		        neg     eax             ; make b positive
+ 00000030  F7 DA		        neg     edx
+ 00000032  83 D8 00		        sbb     eax,0
+ 00000035  89 44 24 1C		        mov     HIWORD(DVSR),eax ; save positive value
+ 00000039  89 54 24 18		        mov     LOWORD(DVSR),edx
+ 0000003D			L2:
+
+				;
+				; Now do the divide.  First look to see if the divisor is less than 4194304K.
+				; If so, then we can use a simple algorithm with word divides, otherwise
+				; things get a little more complex.
+				;
+				; NOTE - eax currently contains the high order word of DVSR
+				;
+
+ 0000003D  0B C0		        or      eax,eax         ; check to see if divisor < 4194304K
+ 0000003F  75 18		        jnz     short L3        ; nope, gotta do this the hard way
+ 00000041  8B 4C 24 18		        mov     ecx,LOWORD(DVSR) ; load divisor
+ 00000045  8B 44 24 14		        mov     eax,HIWORD(DVND) ; load high word of dividend
+ 00000049  33 D2		        xor     edx,edx
+ 0000004B  F7 F1		        div     ecx             ; eax <- high order bits of quotient
+ 0000004D  8B D8		        mov     ebx,eax         ; save high bits of quotient
+ 0000004F  8B 44 24 10		        mov     eax,LOWORD(DVND) ; edx:eax <- remainder:lo word of dividend
+ 00000053  F7 F1		        div     ecx             ; eax <- low order bits of quotient
+ 00000055  8B D3		        mov     edx,ebx         ; edx:eax <- quotient
+ 00000057  EB 41		        jmp     short L4        ; set sign, restore stack and return
+
+				;
+				; Here we do it the hard way.  Remember, eax contains the high word of DVSR
+				;
+
+ 00000059			L3:
+ 00000059  8B D8		        mov     ebx,eax         ; ebx:ecx <- divisor
+ 0000005B  8B 4C 24 18		        mov     ecx,LOWORD(DVSR)
+ 0000005F  8B 54 24 14		        mov     edx,HIWORD(DVND) ; edx:eax <- dividend
+ 00000063  8B 44 24 10		        mov     eax,LOWORD(DVND)
+ 00000067			L5:
+ 00000067  D1 EB		        shr     ebx,1           ; shift divisor right one bit
+ 00000069  D1 D9		        rcr     ecx,1
+ 0000006B  D1 EA		        shr     edx,1           ; shift dividend right one bit
+ 0000006D  D1 D8		        rcr     eax,1
+ 0000006F  0B DB		        or      ebx,ebx
+ 00000071  75 F4		        jnz     short L5        ; loop until divisor < 4194304K
+ 00000073  F7 F1		        div     ecx             ; now divide, ignore remainder
+ 00000075  8B F0		        mov     esi,eax         ; save quotient
+
+				;
+				; We may be off by one, so to check, we will multiply the quotient
+				; by the divisor and check the result against the orignal dividend
+				; Note that we must also check for overflow, which can occur if the
+				; dividend is close to 2**64 and the quotient is off by 1.
+				;
+
+ 00000077  F7 64 24 1C		        mul     dword ptr HIWORD(DVSR) ; QUOT * HIWORD(DVSR)
+ 0000007B  8B C8		        mov     ecx,eax
+ 0000007D  8B 44 24 18		        mov     eax,LOWORD(DVSR)
+ 00000081  F7 E6		        mul     esi             ; QUOT * LOWORD(DVSR)
+ 00000083  03 D1		        add     edx,ecx         ; EDX:EAX = QUOT * DVSR
+ 00000085  72 0E		        jc      short L6        ; carry means Quotient is off by 1
+
+				;
+				; do long compare here between original dividend and the result of the
+				; multiply in edx:eax.  If original is larger or equal, we are ok, otherwise
+				; subtract one (1) from the quotient.
+				;
+
+ 00000087  3B 54 24 14		        cmp     edx,HIWORD(DVND) ; compare hi words of result and original
+ 0000008B  77 08		        ja      short L6        ; if result > original, do subtract
+ 0000008D  72 07		        jb      short L7        ; if result < original, we are ok
+ 0000008F  3B 44 24 10		        cmp     eax,LOWORD(DVND) ; hi words are equal, compare lo words
+ 00000093  76 01		        jbe     short L7        ; if less or equal we are ok, else subtract
+ 00000095			L6:
+ 00000095  4E			        dec     esi             ; subtract 1 from quotient
+ 00000096			L7:
+ 00000096  33 D2		        xor     edx,edx         ; edx:eax <- quotient
+ 00000098  8B C6		        mov     eax,esi
+
+				;
+				; Just the cleanup left to do.  edx:eax contains the quotient.  Set the sign
+				; according to the save value, cleanup the stack, and return.
+				;
+
+ 0000009A			L4:
+ 0000009A  4F			        dec     edi             ; check to see if result is negative
+ 0000009B  75 07		        jnz     short L8        ; if EDI == 0, result should be negative
+ 0000009D  F7 DA		        neg     edx             ; otherwise, negate the result
+ 0000009F  F7 D8		        neg     eax
+ 000000A1  83 DA 00		        sbb     edx,0
+
+				;
+				; Restore the saved registers and return.
+				;
+
+ 000000A4			L8:
+ 000000A4  5B			        pop     ebx
+ 000000A5  5E			        pop     esi
+ 000000A6  5F			        pop     edi
+
+ 000000A7  C2 0010		        ret     16
+
+ 000000AA			__alldiv        ENDP
+
+				;***
+				;lldvrm.asm - signed long divide and remainder routine
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       defines the signed long divide and remainder routine
+				;           __alldvrm
+				;
+				;Revision History:
+				;       10-06-98  SMK   Initial version.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;lldvrm - signed long divide and remainder
+				;
+				;Purpose:
+				;       Does a signed long divide and remainder of the arguments.  Arguments are
+				;       not changed.
+				;
+				;Entry:
+				;       Arguments are passed on the stack:
+				;               1st pushed: divisor (QWORD)
+				;               2nd pushed: dividend (QWORD)
+				;
+				;Exit:
+				;       EDX:EAX contains the quotient (dividend/divisor)
+				;       EBX:ECX contains the remainder (divided % divisor)
+				;       NOTE: this routine removes the parameters from the stack.
+				;
+				;Uses:
+				;       ECX
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 000000AA			__alldvrm PROC NEAR
+
+ 000000AA  57			        push    edi
+ 000000AB  56			        push    esi
+ 000000AC  55			        push    ebp
+
+				; Set up the local stack and save the index registers.  When this is done
+				; the stack frame will look as follows (assuming that the expression a/b will
+				; generate a call to alldvrm(a, b)):
+				;
+				;               -----------------
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--divisor (b)--|
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--dividend (a)-|
+				;               |               |
+				;               |---------------|
+				;               | return addr** |
+				;               |---------------|
+				;               |      EDI      |
+				;               |---------------|
+				;               |      ESI      |
+				;               |---------------|
+				;       ESP---->|      EBP      |
+				;               -----------------
+				;
+
+ = [esp + 16]			DVND    equ     [esp + 16]      ; stack address of dividend (a)
+ = [esp + 24]			DVSR    equ     [esp + 24]      ; stack address of divisor (b)
+
+
+				; Determine sign of the quotient (edi = 0 if result is positive, non-zero
+				; otherwise) and make operands positive.
+				; Sign of the remainder is kept in ebp.
+
+ 000000AD  33 FF		        xor     edi,edi         ; result sign assumed positive
+ 000000AF  33 ED		        xor     ebp,ebp         ; result sign assumed positive
+
+ 000000B1  8B 44 24 14		        mov     eax,HIWORD(DVND) ; hi word of a
+ 000000B5  0B C0		        or      eax,eax         ; test to see if signed
+ 000000B7  7D 15		        jge     short L1        ; skip rest if a is already positive
+ 000000B9  47			        inc     edi             ; complement result sign flag
+ 000000BA  45			        inc     ebp             ; complement result sign flag
+ 000000BB  8B 54 24 10		        mov     edx,LOWORD(DVND) ; lo word of a
+ 000000BF  F7 D8		        neg     eax             ; make a positive
+ 000000C1  F7 DA		        neg     edx
+ 000000C3  83 D8 00		        sbb     eax,0
+ 000000C6  89 44 24 14		        mov     HIWORD(DVND),eax ; save positive value
+ 000000CA  89 54 24 10		        mov     LOWORD(DVND),edx
+ 000000CE			L1:
+ 000000CE  8B 44 24 1C		        mov     eax,HIWORD(DVSR) ; hi word of b
+ 000000D2  0B C0		        or      eax,eax         ; test to see if signed
+ 000000D4  7D 14		        jge     short L2        ; skip rest if b is already positive
+ 000000D6  47			        inc     edi             ; complement the result sign flag
+ 000000D7  8B 54 24 18		        mov     edx,LOWORD(DVSR) ; lo word of a
+ 000000DB  F7 D8		        neg     eax             ; make b positive
+ 000000DD  F7 DA		        neg     edx
+ 000000DF  83 D8 00		        sbb     eax,0
+ 000000E2  89 44 24 1C		        mov     HIWORD(DVSR),eax ; save positive value
+ 000000E6  89 54 24 18		        mov     LOWORD(DVSR),edx
+ 000000EA			L2:
+
+				;
+				; Now do the divide.  First look to see if the divisor is less than 4194304K.
+				; If so, then we can use a simple algorithm with word divides, otherwise
+				; things get a little more complex.
+				;
+				; NOTE - eax currently contains the high order word of DVSR
+				;
+
+ 000000EA  0B C0		        or      eax,eax         ; check to see if divisor < 4194304K
+ 000000EC  75 28		        jnz     short L3        ; nope, gotta do this the hard way
+ 000000EE  8B 4C 24 18		        mov     ecx,LOWORD(DVSR) ; load divisor
+ 000000F2  8B 44 24 14		        mov     eax,HIWORD(DVND) ; load high word of dividend
+ 000000F6  33 D2		        xor     edx,edx
+ 000000F8  F7 F1		        div     ecx             ; eax <- high order bits of quotient
+ 000000FA  8B D8		        mov     ebx,eax         ; save high bits of quotient
+ 000000FC  8B 44 24 10		        mov     eax,LOWORD(DVND) ; edx:eax <- remainder:lo word of dividend
+ 00000100  F7 F1		        div     ecx             ; eax <- low order bits of quotient
+ 00000102  8B F0		        mov     esi,eax         ; ebx:esi <- quotient
+				;
+				; Now we need to do a multiply so that we can compute the remainder.
+				;
+ 00000104  8B C3		        mov     eax,ebx         ; set up high word of quotient
+ 00000106  F7 64 24 18		        mul     dword ptr LOWORD(DVSR) ; HIWORD(QUOT) * DVSR
+ 0000010A  8B C8		        mov     ecx,eax         ; save the result in ecx
+ 0000010C  8B C6		        mov     eax,esi         ; set up low word of quotient
+ 0000010E  F7 64 24 18		        mul     dword ptr LOWORD(DVSR) ; LOWORD(QUOT) * DVSR
+ 00000112  03 D1		        add     edx,ecx         ; EDX:EAX = QUOT * DVSR
+ 00000114  EB 47		        jmp     short L4        ; complete remainder calculation
+
+				;
+				; Here we do it the hard way.  Remember, eax contains the high word of DVSR
+				;
+
+ 00000116			L3:
+ 00000116  8B D8		        mov     ebx,eax         ; ebx:ecx <- divisor
+ 00000118  8B 4C 24 18		        mov     ecx,LOWORD(DVSR)
+ 0000011C  8B 54 24 14		        mov     edx,HIWORD(DVND) ; edx:eax <- dividend
+ 00000120  8B 44 24 10		        mov     eax,LOWORD(DVND)
+ 00000124			L5:
+ 00000124  D1 EB		        shr     ebx,1           ; shift divisor right one bit
+ 00000126  D1 D9		        rcr     ecx,1
+ 00000128  D1 EA		        shr     edx,1           ; shift dividend right one bit
+ 0000012A  D1 D8		        rcr     eax,1
+ 0000012C  0B DB		        or      ebx,ebx
+ 0000012E  75 F4		        jnz     short L5        ; loop until divisor < 4194304K
+ 00000130  F7 F1		        div     ecx             ; now divide, ignore remainder
+ 00000132  8B F0		        mov     esi,eax         ; save quotient
+
+				;
+				; We may be off by one, so to check, we will multiply the quotient
+				; by the divisor and check the result against the orignal dividend
+				; Note that we must also check for overflow, which can occur if the
+				; dividend is close to 2**64 and the quotient is off by 1.
+				;
+
+ 00000134  F7 64 24 1C		        mul     dword ptr HIWORD(DVSR) ; QUOT * HIWORD(DVSR)
+ 00000138  8B C8		        mov     ecx,eax
+ 0000013A  8B 44 24 18		        mov     eax,LOWORD(DVSR)
+ 0000013E  F7 E6		        mul     esi             ; QUOT * LOWORD(DVSR)
+ 00000140  03 D1		        add     edx,ecx         ; EDX:EAX = QUOT * DVSR
+ 00000142  72 0E		        jc      short L6        ; carry means Quotient is off by 1
+
+				;
+				; do long compare here between original dividend and the result of the
+				; multiply in edx:eax.  If original is larger or equal, we are ok, otherwise
+				; subtract one (1) from the quotient.
+				;
+
+ 00000144  3B 54 24 14		        cmp     edx,HIWORD(DVND) ; compare hi words of result and original
+ 00000148  77 08		        ja      short L6        ; if result > original, do subtract
+ 0000014A  72 0F		        jb      short L7        ; if result < original, we are ok
+ 0000014C  3B 44 24 10		        cmp     eax,LOWORD(DVND) ; hi words are equal, compare lo words
+ 00000150  76 09		        jbe     short L7        ; if less or equal we are ok, else subtract
+ 00000152			L6:
+ 00000152  4E			        dec     esi             ; subtract 1 from quotient
+ 00000153  2B 44 24 18		        sub     eax,LOWORD(DVSR) ; subtract divisor from result
+ 00000157  1B 54 24 1C		        sbb     edx,HIWORD(DVSR)
+ 0000015B			L7:
+ 0000015B  33 DB		        xor     ebx,ebx         ; ebx:esi <- quotient
+
+ 0000015D			L4:
+				;
+				; Calculate remainder by subtracting the result from the original dividend.
+				; Since the result is already in a register, we will do the subtract in the
+				; opposite direction and negate the result if necessary.
+				;
+
+ 0000015D  2B 44 24 10		        sub     eax,LOWORD(DVND) ; subtract dividend from result
+ 00000161  1B 54 24 14		        sbb     edx,HIWORD(DVND)
+
+				;
+				; Now check the result sign flag to see if the result is supposed to be positive
+				; or negative.  It is currently negated (because we subtracted in the 'wrong'
+				; direction), so if the sign flag is set we are done, otherwise we must negate
+				; the result to make it positive again.
+				;
+
+ 00000165  4D			        dec     ebp             ; check result sign flag
+ 00000166  79 07		        jns     short L9        ; result is ok, set up the quotient
+ 00000168  F7 DA		        neg     edx             ; otherwise, negate the result
+ 0000016A  F7 D8		        neg     eax
+ 0000016C  83 DA 00		        sbb     edx,0
+
+				;
+				; Now we need to get the quotient into edx:eax and the remainder into ebx:ecx.
+				;
+ 0000016F			L9:
+ 0000016F  8B CA		        mov     ecx,edx
+ 00000171  8B D3		        mov     edx,ebx
+ 00000173  8B D9		        mov     ebx,ecx
+ 00000175  8B C8		        mov     ecx,eax
+ 00000177  8B C6		        mov     eax,esi
+
+				;
+				; Just the cleanup left to do.  edx:eax contains the quotient.  Set the sign
+				; according to the save value, cleanup the stack, and return.
+				;
+
+ 00000179  4F			        dec     edi             ; check to see if result is negative
+ 0000017A  75 07		        jnz     short L8        ; if EDI == 0, result should be negative
+ 0000017C  F7 DA		        neg     edx             ; otherwise, negate the result
+ 0000017E  F7 D8		        neg     eax
+ 00000180  83 DA 00		        sbb     edx,0
+
+				;
+				; Restore the saved registers and return.
+				;
+
+ 00000183			L8:
+ 00000183  5D			        pop     ebp
+ 00000184  5E			        pop     esi
+ 00000185  5F			        pop     edi
+
+ 00000186  C2 0010		        ret     16
+
+ 00000189			__alldvrm ENDP
+
+				;***
+				;llmul.asm - long multiply routine
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       Defines long multiply routine
+				;       Both signed and unsigned routines are the same, since multiply's
+				;       work out the same in 2's complement
+				;       creates the following routine:
+				;           __allmul
+				;
+				;Revision History:
+				;       11-29-83  DFW   initial version
+				;       06-01-84  RN    modified to use cmacros
+				;       04-17-85  TC    ignore signs since they take care of themselves
+				;                       do a fast multiply if both hiwords of arguments are 0
+				;       10-10-86  MH    slightly faster implementation, for 0 in upper words
+				;       03-20-89  SKS   Remove redundant "MOV SP,BP" from epilogs
+				;       05-18-89  SKS   Preserve BX
+				;       11-28-89  GJF   Fixed copyright
+				;       11-19-93  SMK   Modified to work on 64 bit integers
+				;       01-17-94  GJF   Minor changes to build with NT's masm386.
+				;       07-22-94  GJF   Use esp-relative addressing for args. Shortened
+				;                       conditional jump.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;llmul - long multiply routine
+				;
+				;Purpose:
+				;       Does a long multiply (same for signed/unsigned)
+				;       Parameters are not changed.
+				;
+				;Entry:
+				;       Parameters are passed on the stack:
+				;               1st pushed: multiplier (QWORD)
+				;               2nd pushed: multiplicand (QWORD)
+				;
+				;Exit:
+				;       EDX:EAX - product of multiplier and multiplicand
+				;       NOTE: parameters are removed from the stack
+				;
+				;Uses:
+				;       ECX
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 00000189			__allmul        PROC NEAR
+
+ = [esp + 4]			A       EQU     [esp + 4]       ; stack address of a
+ = [esp + 12]			B       EQU     [esp + 12]      ; stack address of b
+
+				;
+				;       AHI, BHI : upper 32 bits of A and B
+				;       ALO, BLO : lower 32 bits of A and B
+				;
+				;             ALO * BLO
+				;       ALO * BHI
+				; +     BLO * AHI
+				; ---------------------
+				;
+
+ 00000189  8B 44 24 08		        mov     eax,HIWORD(A)
+ 0000018D  8B 4C 24 10		        mov     ecx,HIWORD(B)
+ 00000191  0B C8		        or      ecx,eax         ;test for both hiwords zero.
+ 00000193  8B 4C 24 0C		        mov     ecx,LOWORD(B)
+ 00000197  75 09		        jnz     short hard      ;both are zero, just mult ALO and BLO
+
+ 00000199  8B 44 24 04		        mov     eax,LOWORD(A)
+ 0000019D  F7 E1		        mul     ecx
+
+ 0000019F  C2 0010		        ret     16              ; callee restores the stack
+
+ 000001A2			hard:
+ 000001A2  53			        push    ebx
+
+				; must redefine A and B since esp has been altered
+
+ = [esp + 8]			A2      EQU     [esp + 8]       ; stack address of a
+ = [esp + 16]			B2      EQU     [esp + 16]      ; stack address of b
+
+ 000001A3  F7 E1		        mul     ecx             ;eax has AHI, ecx has BLO, so AHI * BLO
+ 000001A5  8B D8		        mov     ebx,eax         ;save result
+
+ 000001A7  8B 44 24 08		        mov     eax,LOWORD(A2)
+ 000001AB  F7 64 24 14		        mul     dword ptr HIWORD(B2) ;ALO * BHI
+ 000001AF  03 D8		        add     ebx,eax         ;ebx = ((ALO * BHI) + (AHI * BLO))
+
+ 000001B1  8B 44 24 08		        mov     eax,LOWORD(A2)  ;ecx = BLO
+ 000001B5  F7 E1		        mul     ecx             ;so edx:eax = ALO*BLO
+ 000001B7  03 D3		        add     edx,ebx         ;now edx has all the LO*HI stuff
+
+ 000001B9  5B			        pop     ebx
+
+ 000001BA  C2 0010		        ret     16              ; callee restores the stack
+
+ 000001BD			__allmul        ENDP
+
+				;***
+				;llrem.asm - signed long remainder routine
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       defines the signed long remainder routine
+				;           __allrem
+				;
+				;Revision History:
+				;       11-29-83  DFW   initial version
+				;       06-01-84  RN    modified to use cmacros
+				;       10-23-87  SKS   fixed off-by-1 error for dividend close to 2**32.
+				;       05-18-89  SKS   Remove redundant "MOV SP,BP" from epilog
+				;       11-28-89  GJF   Fixed copyright
+				;       11-19-93  SMK   Modified to work on 64 bit integers
+				;       01-17-94  GJF   Minor changes to build with NT's masm386.
+				;       07-22-94  GJF   Use esp-relative addressing for args. Shortened
+				;                       conditional jumps.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;llrem - signed long remainder
+				;
+				;Purpose:
+				;       Does a signed long remainder of the arguments.  Arguments are
+				;       not changed.
+				;
+				;Entry:
+				;       Arguments are passed on the stack:
+				;               1st pushed: divisor (QWORD)
+				;               2nd pushed: dividend (QWORD)
+				;
+				;Exit:
+				;       EDX:EAX contains the remainder (dividend%divisor)
+				;       NOTE: this routine removes the parameters from the stack.
+				;
+				;Uses:
+				;       ECX
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 000001BD			__allrem        PROC NEAR
+
+ 000001BD  53			        push    ebx
+ 000001BE  57			        push    edi
+
+				; Set up the local stack and save the index registers.  When this is done
+				; the stack frame will look as follows (assuming that the expression a%b will
+				; generate a call to lrem(a, b)):
+				;
+				;               -----------------
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--divisor (b)--|
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--dividend (a)-|
+				;               |               |
+				;               |---------------|
+				;               | return addr** |
+				;               |---------------|
+				;               |       EBX     |
+				;               |---------------|
+				;       ESP---->|       EDI     |
+				;               -----------------
+				;
+
+ = [esp + 12]			DVND    equ     [esp + 12]      ; stack address of dividend (a)
+ = [esp + 20]			DVSR    equ     [esp + 20]      ; stack address of divisor (b)
+
+
+				; Determine sign of the result (edi = 0 if result is positive, non-zero
+				; otherwise) and make operands positive.
+
+ 000001BF  33 FF		        xor     edi,edi         ; result sign assumed positive
+
+ 000001C1  8B 44 24 10		        mov     eax,HIWORD(DVND) ; hi word of a
+ 000001C5  0B C0		        or      eax,eax         ; test to see if signed
+ 000001C7  7D 14		        jge     short L1        ; skip rest if a is already positive
+ 000001C9  47			        inc     edi             ; complement result sign flag bit
+ 000001CA  8B 54 24 0C		        mov     edx,LOWORD(DVND) ; lo word of a
+ 000001CE  F7 D8		        neg     eax             ; make a positive
+ 000001D0  F7 DA		        neg     edx
+ 000001D2  83 D8 00		        sbb     eax,0
+ 000001D5  89 44 24 10		        mov     HIWORD(DVND),eax ; save positive value
+ 000001D9  89 54 24 0C		        mov     LOWORD(DVND),edx
+ 000001DD			L1:
+ 000001DD  8B 44 24 18		        mov     eax,HIWORD(DVSR) ; hi word of b
+ 000001E1  0B C0		        or      eax,eax         ; test to see if signed
+ 000001E3  7D 13		        jge     short L2        ; skip rest if b is already positive
+ 000001E5  8B 54 24 14		        mov     edx,LOWORD(DVSR) ; lo word of b
+ 000001E9  F7 D8		        neg     eax             ; make b positive
+ 000001EB  F7 DA		        neg     edx
+ 000001ED  83 D8 00		        sbb     eax,0
+ 000001F0  89 44 24 18		        mov     HIWORD(DVSR),eax ; save positive value
+ 000001F4  89 54 24 14		        mov     LOWORD(DVSR),edx
+ 000001F8			L2:
+
+				;
+				; Now do the divide.  First look to see if the divisor is less than 4194304K.
+				; If so, then we can use a simple algorithm with word divides, otherwise
+				; things get a little more complex.
+				;
+				; NOTE - eax currently contains the high order word of DVSR
+				;
+
+ 000001F8  0B C0		        or      eax,eax         ; check to see if divisor < 4194304K
+ 000001FA  75 1B		        jnz     short L3        ; nope, gotta do this the hard way
+ 000001FC  8B 4C 24 14		        mov     ecx,LOWORD(DVSR) ; load divisor
+ 00000200  8B 44 24 10		        mov     eax,HIWORD(DVND) ; load high word of dividend
+ 00000204  33 D2		        xor     edx,edx
+ 00000206  F7 F1		        div     ecx             ; edx <- remainder
+ 00000208  8B 44 24 0C		        mov     eax,LOWORD(DVND) ; edx:eax <- remainder:lo word of dividend
+ 0000020C  F7 F1		        div     ecx             ; edx <- final remainder
+ 0000020E  8B C2		        mov     eax,edx         ; edx:eax <- remainder
+ 00000210  33 D2		        xor     edx,edx
+ 00000212  4F			        dec     edi             ; check result sign flag
+ 00000213  79 4E		        jns     short L4        ; negate result, restore stack and return
+ 00000215  EB 53		        jmp     short L8        ; result sign ok, restore stack and return
+
+				;
+				; Here we do it the hard way.  Remember, eax contains the high word of DVSR
+				;
+
+ 00000217			L3:
+ 00000217  8B D8		        mov     ebx,eax         ; ebx:ecx <- divisor
+ 00000219  8B 4C 24 14		        mov     ecx,LOWORD(DVSR)
+ 0000021D  8B 54 24 10		        mov     edx,HIWORD(DVND) ; edx:eax <- dividend
+ 00000221  8B 44 24 0C		        mov     eax,LOWORD(DVND)
+ 00000225			L5:
+ 00000225  D1 EB		        shr     ebx,1           ; shift divisor right one bit
+ 00000227  D1 D9		        rcr     ecx,1
+ 00000229  D1 EA		        shr     edx,1           ; shift dividend right one bit
+ 0000022B  D1 D8		        rcr     eax,1
+ 0000022D  0B DB		        or      ebx,ebx
+ 0000022F  75 F4		        jnz     short L5        ; loop until divisor < 4194304K
+ 00000231  F7 F1		        div     ecx             ; now divide, ignore remainder
+
+				;
+				; We may be off by one, so to check, we will multiply the quotient
+				; by the divisor and check the result against the orignal dividend
+				; Note that we must also check for overflow, which can occur if the
+				; dividend is close to 2**64 and the quotient is off by 1.
+				;
+
+ 00000233  8B C8		        mov     ecx,eax         ; save a copy of quotient in ECX
+ 00000235  F7 64 24 18		        mul     dword ptr HIWORD(DVSR)
+ 00000239  91			        xchg    ecx,eax         ; save product, get quotient in EAX
+ 0000023A  F7 64 24 14		        mul     dword ptr LOWORD(DVSR)
+ 0000023E  03 D1		        add     edx,ecx         ; EDX:EAX = QUOT * DVSR
+ 00000240  72 0E		        jc      short L6        ; carry means Quotient is off by 1
+
+				;
+				; do long compare here between original dividend and the result of the
+				; multiply in edx:eax.  If original is larger or equal, we are ok, otherwise
+				; subtract the original divisor from the result.
+				;
+
+ 00000242  3B 54 24 10		        cmp     edx,HIWORD(DVND) ; compare hi words of result and original
+ 00000246  77 08		        ja      short L6        ; if result > original, do subtract
+ 00000248  72 0E		        jb      short L7        ; if result < original, we are ok
+ 0000024A  3B 44 24 0C		        cmp     eax,LOWORD(DVND) ; hi words are equal, compare lo words
+ 0000024E  76 08		        jbe     short L7        ; if less or equal we are ok, else subtract
+ 00000250			L6:
+ 00000250  2B 44 24 14		        sub     eax,LOWORD(DVSR) ; subtract divisor from result
+ 00000254  1B 54 24 18		        sbb     edx,HIWORD(DVSR)
+ 00000258			L7:
+
+				;
+				; Calculate remainder by subtracting the result from the original dividend.
+				; Since the result is already in a register, we will do the subtract in the
+				; opposite direction and negate the result if necessary.
+				;
+
+ 00000258  2B 44 24 0C		        sub     eax,LOWORD(DVND) ; subtract dividend from result
+ 0000025C  1B 54 24 10		        sbb     edx,HIWORD(DVND)
+
+				;
+				; Now check the result sign flag to see if the result is supposed to be positive
+				; or negative.  It is currently negated (because we subtracted in the 'wrong'
+				; direction), so if the sign flag is set we are done, otherwise we must negate
+				; the result to make it positive again.
+				;
+
+ 00000260  4F			        dec     edi             ; check result sign flag
+ 00000261  79 07		        jns     short L8        ; result is ok, restore stack and return
+ 00000263			L4:
+ 00000263  F7 DA		        neg     edx             ; otherwise, negate the result
+ 00000265  F7 D8		        neg     eax
+ 00000267  83 DA 00		        sbb     edx,0
+
+				;
+				; Just the cleanup left to do.  edx:eax contains the quotient.
+				; Restore the saved registers and return.
+				;
+
+ 0000026A			L8:
+ 0000026A  5F			        pop     edi
+ 0000026B  5B			        pop     ebx
+
+ 0000026C  C2 0010		        ret     16
+
+ 0000026F			__allrem        ENDP
+
+				;***
+				;llshl.asm - long shift left
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       define long shift left routine (signed and unsigned are same)
+				;           __allshl
+				;
+				;Revision History:
+				;       11-??-83  HS    initial version
+				;       11-30-83  DFW   added medium model support
+				;       03-12-84  DFW   broke apart; added long model support
+				;       06-01-84  RN    modified to use cmacros
+				;       11-28-89  GJF   Fixed copyright
+				;       11-19-93  SMK   Modified to work on 64 bit integers
+				;       01-17-94  GJF   Minor changes to build with NT's masm386.
+				;       07-08-94  GJF   Faster, fatter version for NT.
+				;       07-13-94  GJF   Further improvements from JonM.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;llshl - long shift left
+				;
+				;Purpose:
+				;       Does a Long Shift Left (signed and unsigned are identical)
+				;       Shifts a long left any number of bits.
+				;
+				;Entry:
+				;       EDX:EAX - long value to be shifted
+				;       CL    - number of bits to shift by
+				;
+				;Exit:
+				;       EDX:EAX - shifted value
+				;
+				;Uses:
+				;       CL is destroyed.
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 0000026F			__allshl        PROC NEAR
+
+				;
+				; Handle shifts of 64 or more bits (all get 0)
+				;
+ 0000026F  80 F9 40		        cmp     cl, 64
+ 00000272  73 15		        jae     short RETZERO
+
+				;
+				; Handle shifts of between 0 and 31 bits
+				;
+ 00000274  80 F9 20		        cmp     cl, 32
+ 00000277  73 06		        jae     short MORE32
+ 00000279  0F A5 C2		        shld    edx,eax,cl
+ 0000027C  D3 E0		        shl     eax,cl
+ 0000027E  C3			        ret
+
+				;
+				; Handle shifts of between 32 and 63 bits
+				;
+ 0000027F			MORE32:
+ 0000027F  8B D0		        mov     edx,eax
+ 00000281  33 C0		        xor     eax,eax
+ 00000283  80 E1 1F		        and     cl,31
+ 00000286  D3 E2		        shl     edx,cl
+ 00000288  C3			        ret
+
+				;
+				; return 0 in edx:eax
+				;
+ 00000289			RETZERO:
+ 00000289  33 C0		        xor     eax,eax
+ 0000028B  33 D2		        xor     edx,edx
+ 0000028D  C3			        ret
+
+ 0000028E			__allshl        ENDP
+
+				;***
+				;llshr.asm - long shift right
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       define signed long shift right routine
+				;           __allshr
+				;
+				;Revision History:
+				;       11-??-83  HS    initial version
+				;       11-30-83  DFW   added medium model support
+				;       03-12-84  DFW   broke apart; added long model support
+				;       06-01-84  RN    modified to use cmacros
+				;       11-28-89  GJF   Fixed copyright
+				;       11-19-93  SMK   Modified to work on 64 bit integers
+				;       01-17-94  GJF   Minor changes to build with NT's masm386.
+				;       07-08-94  GJF   Faster, fatter version for NT.
+				;       07-13-94  GJF   Further improvements from JonM.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;llshr - long shift right
+				;
+				;Purpose:
+				;       Does a signed Long Shift Right
+				;       Shifts a long right any number of bits.
+				;
+				;Entry:
+				;       EDX:EAX - long value to be shifted
+				;       CL    - number of bits to shift by
+				;
+				;Exit:
+				;       EDX:EAX - shifted value
+				;
+				;Uses:
+				;       CL is destroyed.
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 0000028E			__allshr        PROC NEAR
+
+				;
+				; Handle shifts of 64 bits or more (if shifting 64 bits or more, the result
+				; depends only on the high order bit of edx).
+				;
+ 0000028E  80 F9 40		        cmp     cl,64
+ 00000291  73 16		        jae     short RETSIGN
+
+				;
+				; Handle shifts of between 0 and 31 bits
+				;
+ 00000293  80 F9 20		        cmp     cl, 32
+ 00000296  73 06		        jae     short MORE32
+ 00000298  0F AD D0		        shrd    eax,edx,cl
+ 0000029B  D3 FA		        sar     edx,cl
+ 0000029D  C3			        ret
+
+				;
+				; Handle shifts of between 32 and 63 bits
+				;
+ 0000029E			MORE32:
+ 0000029E  8B C2		        mov     eax,edx
+ 000002A0  C1 FA 1F		        sar     edx,31
+ 000002A3  80 E1 1F		        and     cl,31
+ 000002A6  D3 F8		        sar     eax,cl
+ 000002A8  C3			        ret
+
+				;
+				; Return double precision 0 or -1, depending on the sign of edx
+				;
+ 000002A9			RETSIGN:
+ 000002A9  C1 FA 1F		        sar     edx,31
+ 000002AC  8B C2		        mov     eax,edx
+ 000002AE  C3			        ret
+
+ 000002AF			__allshr        ENDP
+
+				;***
+				;ulldiv.asm - unsigned long divide routine
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       defines the unsigned long divide routine
+				;           __aulldiv
+				;
+				;Revision History:
+				;       11-29-83  DFW   initial version
+				;       06-01-84  RN    modified to use cmacros
+				;       10-23-87  SKS   fixed off-by-1 error for dividend close to 2**32.
+				;       05-18-89  SKS   Remove redundant "MOV SP,BP" from epilog
+				;       11-28-89  GJF   Fixed copyright
+				;       11-19-93  SMK   Modified to work on 64 bit integers
+				;       01-17-94  GJF   Minor changes to build with NT's masm386.
+				;       07-22-94  GJF   Use esp-relative addressing for args. Shortened
+				;                       conditional jumps. Also, don't use xchg to do a
+				;                       simple move between regs.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;ulldiv - unsigned long divide
+				;
+				;Purpose:
+				;       Does a unsigned long divide of the arguments.  Arguments are
+				;       not changed.
+				;
+				;Entry:
+				;       Arguments are passed on the stack:
+				;               1st pushed: divisor (QWORD)
+				;               2nd pushed: dividend (QWORD)
+				;
+				;Exit:
+				;       EDX:EAX contains the quotient (dividend/divisor)
+				;       NOTE: this routine removes the parameters from the stack.
+				;
+				;Uses:
+				;       ECX
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 000002AF			__aulldiv       PROC NEAR
+
+ 000002AF  53			        push    ebx
+ 000002B0  56			        push    esi
+
+				; Set up the local stack and save the index registers.  When this is done
+				; the stack frame will look as follows (assuming that the expression a/b will
+				; generate a call to uldiv(a, b)):
+				;
+				;               -----------------
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--divisor (b)--|
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--dividend (a)-|
+				;               |               |
+				;               |---------------|
+				;               | return addr** |
+				;               |---------------|
+				;               |      EBX      |
+				;               |---------------|
+				;       ESP---->|      ESI      |
+				;               -----------------
+				;
+
+ = [esp + 12]			DVND    equ     [esp + 12]      ; stack address of dividend (a)
+ = [esp + 20]			DVSR    equ     [esp + 20]      ; stack address of divisor (b)
+
+				;
+				; Now do the divide.  First look to see if the divisor is less than 4194304K.
+				; If so, then we can use a simple algorithm with word divides, otherwise
+				; things get a little more complex.
+				;
+
+ 000002B1  8B 44 24 18		        mov     eax,HIWORD(DVSR) ; check to see if divisor < 4194304K
+ 000002B5  0B C0		        or      eax,eax
+ 000002B7  75 18		        jnz     short L1        ; nope, gotta do this the hard way
+ 000002B9  8B 4C 24 14		        mov     ecx,LOWORD(DVSR) ; load divisor
+ 000002BD  8B 44 24 10		        mov     eax,HIWORD(DVND) ; load high word of dividend
+ 000002C1  33 D2		        xor     edx,edx
+ 000002C3  F7 F1		        div     ecx             ; get high order bits of quotient
+ 000002C5  8B D8		        mov     ebx,eax         ; save high bits of quotient
+ 000002C7  8B 44 24 0C		        mov     eax,LOWORD(DVND) ; edx:eax <- remainder:lo word of dividend
+ 000002CB  F7 F1		        div     ecx             ; get low order bits of quotient
+ 000002CD  8B D3		        mov     edx,ebx         ; edx:eax <- quotient hi:quotient lo
+ 000002CF  EB 41		        jmp     short L2        ; restore stack and return
+
+				;
+				; Here we do it the hard way.  Remember, eax contains DVSRHI
+				;
+
+ 000002D1			L1:
+ 000002D1  8B C8		        mov     ecx,eax         ; ecx:ebx <- divisor
+ 000002D3  8B 5C 24 14		        mov     ebx,LOWORD(DVSR)
+ 000002D7  8B 54 24 10		        mov     edx,HIWORD(DVND) ; edx:eax <- dividend
+ 000002DB  8B 44 24 0C		        mov     eax,LOWORD(DVND)
+ 000002DF			L3:
+ 000002DF  D1 E9		        shr     ecx,1           ; shift divisor right one bit; hi bit <- 0
+ 000002E1  D1 DB		        rcr     ebx,1
+ 000002E3  D1 EA		        shr     edx,1           ; shift dividend right one bit; hi bit <- 0
+ 000002E5  D1 D8		        rcr     eax,1
+ 000002E7  0B C9		        or      ecx,ecx
+ 000002E9  75 F4		        jnz     short L3        ; loop until divisor < 4194304K
+ 000002EB  F7 F3		        div     ebx             ; now divide, ignore remainder
+ 000002ED  8B F0		        mov     esi,eax         ; save quotient
+
+				;
+				; We may be off by one, so to check, we will multiply the quotient
+				; by the divisor and check the result against the orignal dividend
+				; Note that we must also check for overflow, which can occur if the
+				; dividend is close to 2**64 and the quotient is off by 1.
+				;
+
+ 000002EF  F7 64 24 18		        mul     dword ptr HIWORD(DVSR) ; QUOT * HIWORD(DVSR)
+ 000002F3  8B C8		        mov     ecx,eax
+ 000002F5  8B 44 24 14		        mov     eax,LOWORD(DVSR)
+ 000002F9  F7 E6		        mul     esi             ; QUOT * LOWORD(DVSR)
+ 000002FB  03 D1		        add     edx,ecx         ; EDX:EAX = QUOT * DVSR
+ 000002FD  72 0E		        jc      short L4        ; carry means Quotient is off by 1
+
+				;
+				; do long compare here between original dividend and the result of the
+				; multiply in edx:eax.  If original is larger or equal, we are ok, otherwise
+				; subtract one (1) from the quotient.
+				;
+
+ 000002FF  3B 54 24 10		        cmp     edx,HIWORD(DVND) ; compare hi words of result and original
+ 00000303  77 08		        ja      short L4        ; if result > original, do subtract
+ 00000305  72 07		        jb      short L5        ; if result < original, we are ok
+ 00000307  3B 44 24 0C		        cmp     eax,LOWORD(DVND) ; hi words are equal, compare lo words
+ 0000030B  76 01		        jbe     short L5        ; if less or equal we are ok, else subtract
+ 0000030D			L4:
+ 0000030D  4E			        dec     esi             ; subtract 1 from quotient
+ 0000030E			L5:
+ 0000030E  33 D2		        xor     edx,edx         ; edx:eax <- quotient
+ 00000310  8B C6		        mov     eax,esi
+
+				;
+				; Just the cleanup left to do.  edx:eax contains the quotient.
+				; Restore the saved registers and return.
+				;
+
+ 00000312			L2:
+
+ 00000312  5E			        pop     esi
+ 00000313  5B			        pop     ebx
+
+ 00000314  C2 0010		        ret     16
+
+ 00000317			__aulldiv       ENDP
+
+				;***
+				;ulldvrm.asm - unsigned long divide and remainder routine
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       defines the unsigned long divide and remainder routine
+				;           __aulldvrm
+				;
+				;Revision History:
+				;       10-06-98  SMK   Initial version.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;ulldvrm - unsigned long divide and remainder
+				;
+				;Purpose:
+				;       Does a unsigned long divide and remainder of the arguments.  Arguments
+				;       are not changed.
+				;
+				;Entry:
+				;       Arguments are passed on the stack:
+				;               1st pushed: divisor (QWORD)
+				;               2nd pushed: dividend (QWORD)
+				;
+				;Exit:
+				;       EDX:EAX contains the quotient (dividend/divisor)
+				;       EBX:ECX contains the remainder (divided % divisor)
+				;       NOTE: this routine removes the parameters from the stack.
+				;
+				;Uses:
+				;       ECX
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 00000317			__aulldvrm PROC NEAR
+
+ 00000317  56			        push    esi
+
+				; Set up the local stack and save the index registers.  When this is done
+				; the stack frame will look as follows (assuming that the expression a/b will
+				; generate a call to aulldvrm(a, b)):
+				;
+				;               -----------------
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--divisor (b)--|
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--dividend (a)-|
+				;               |               |
+				;               |---------------|
+				;               | return addr** |
+				;               |---------------|
+				;       ESP---->|      ESI      |
+				;               -----------------
+				;
+
+ = [esp + 8]			DVND    equ     [esp + 8]       ; stack address of dividend (a)
+ = [esp + 16]			DVSR    equ     [esp + 16]      ; stack address of divisor (b)
+
+				;
+				; Now do the divide.  First look to see if the divisor is less than 4194304K.
+				; If so, then we can use a simple algorithm with word divides, otherwise
+				; things get a little more complex.
+				;
+
+ 00000318  8B 44 24 14		        mov     eax,HIWORD(DVSR) ; check to see if divisor < 4194304K
+ 0000031C  0B C0		        or      eax,eax
+ 0000031E  75 28		        jnz     short L1        ; nope, gotta do this the hard way
+ 00000320  8B 4C 24 10		        mov     ecx,LOWORD(DVSR) ; load divisor
+ 00000324  8B 44 24 0C		        mov     eax,HIWORD(DVND) ; load high word of dividend
+ 00000328  33 D2		        xor     edx,edx
+ 0000032A  F7 F1		        div     ecx             ; get high order bits of quotient
+ 0000032C  8B D8		        mov     ebx,eax         ; save high bits of quotient
+ 0000032E  8B 44 24 08		        mov     eax,LOWORD(DVND) ; edx:eax <- remainder:lo word of dividend
+ 00000332  F7 F1		        div     ecx             ; get low order bits of quotient
+ 00000334  8B F0		        mov     esi,eax         ; ebx:esi <- quotient
+
+				;
+				; Now we need to do a multiply so that we can compute the remainder.
+				;
+ 00000336  8B C3		        mov     eax,ebx         ; set up high word of quotient
+ 00000338  F7 64 24 10		        mul     dword ptr LOWORD(DVSR) ; HIWORD(QUOT) * DVSR
+ 0000033C  8B C8		        mov     ecx,eax         ; save the result in ecx
+ 0000033E  8B C6		        mov     eax,esi         ; set up low word of quotient
+ 00000340  F7 64 24 10		        mul     dword ptr LOWORD(DVSR) ; LOWORD(QUOT) * DVSR
+ 00000344  03 D1		        add     edx,ecx         ; EDX:EAX = QUOT * DVSR
+ 00000346  EB 47		        jmp     short L2        ; complete remainder calculation
+
+				;
+				; Here we do it the hard way.  Remember, eax contains DVSRHI
+				;
+
+ 00000348			L1:
+ 00000348  8B C8		        mov     ecx,eax         ; ecx:ebx <- divisor
+ 0000034A  8B 5C 24 10		        mov     ebx,LOWORD(DVSR)
+ 0000034E  8B 54 24 0C		        mov     edx,HIWORD(DVND) ; edx:eax <- dividend
+ 00000352  8B 44 24 08		        mov     eax,LOWORD(DVND)
+ 00000356			L3:
+ 00000356  D1 E9		        shr     ecx,1           ; shift divisor right one bit; hi bit <- 0
+ 00000358  D1 DB		        rcr     ebx,1
+ 0000035A  D1 EA		        shr     edx,1           ; shift dividend right one bit; hi bit <- 0
+ 0000035C  D1 D8		        rcr     eax,1
+ 0000035E  0B C9		        or      ecx,ecx
+ 00000360  75 F4		        jnz     short L3        ; loop until divisor < 4194304K
+ 00000362  F7 F3		        div     ebx             ; now divide, ignore remainder
+ 00000364  8B F0		        mov     esi,eax         ; save quotient
+
+				;
+				; We may be off by one, so to check, we will multiply the quotient
+				; by the divisor and check the result against the orignal dividend
+				; Note that we must also check for overflow, which can occur if the
+				; dividend is close to 2**64 and the quotient is off by 1.
+				;
+
+ 00000366  F7 64 24 14		        mul     dword ptr HIWORD(DVSR) ; QUOT * HIWORD(DVSR)
+ 0000036A  8B C8		        mov     ecx,eax
+ 0000036C  8B 44 24 10		        mov     eax,LOWORD(DVSR)
+ 00000370  F7 E6		        mul     esi             ; QUOT * LOWORD(DVSR)
+ 00000372  03 D1		        add     edx,ecx         ; EDX:EAX = QUOT * DVSR
+ 00000374  72 0E		        jc      short L4        ; carry means Quotient is off by 1
+
+				;
+				; do long compare here between original dividend and the result of the
+				; multiply in edx:eax.  If original is larger or equal, we are ok, otherwise
+				; subtract one (1) from the quotient.
+				;
+
+ 00000376  3B 54 24 0C		        cmp     edx,HIWORD(DVND) ; compare hi words of result and original
+ 0000037A  77 08		        ja      short L4        ; if result > original, do subtract
+ 0000037C  72 0F		        jb      short L5        ; if result < original, we are ok
+ 0000037E  3B 44 24 08		        cmp     eax,LOWORD(DVND) ; hi words are equal, compare lo words
+ 00000382  76 09		        jbe     short L5        ; if less or equal we are ok, else subtract
+ 00000384			L4:
+ 00000384  4E			        dec     esi             ; subtract 1 from quotient
+ 00000385  2B 44 24 10		        sub     eax,LOWORD(DVSR) ; subtract divisor from result
+ 00000389  1B 54 24 14		        sbb     edx,HIWORD(DVSR)
+ 0000038D			L5:
+ 0000038D  33 DB		        xor     ebx,ebx         ; ebx:esi <- quotient
+
+ 0000038F			L2:
+				;
+				; Calculate remainder by subtracting the result from the original dividend.
+				; Since the result is already in a register, we will do the subtract in the
+				; opposite direction and negate the result.
+				;
+
+ 0000038F  2B 44 24 08		        sub     eax,LOWORD(DVND) ; subtract dividend from result
+ 00000393  1B 54 24 0C		        sbb     edx,HIWORD(DVND)
+ 00000397  F7 DA		        neg     edx             ; otherwise, negate the result
+ 00000399  F7 D8		        neg     eax
+ 0000039B  83 DA 00		        sbb     edx,0
+
+				;
+				; Now we need to get the quotient into edx:eax and the remainder into ebx:ecx.
+				;
+ 0000039E  8B CA		        mov     ecx,edx
+ 000003A0  8B D3		        mov     edx,ebx
+ 000003A2  8B D9		        mov     ebx,ecx
+ 000003A4  8B C8		        mov     ecx,eax
+ 000003A6  8B C6		        mov     eax,esi
+				;
+				; Just the cleanup left to do.  edx:eax contains the quotient.
+				; Restore the saved registers and return.
+				;
+
+ 000003A8  5E			        pop     esi
+
+ 000003A9  C2 0010		        ret     16
+
+ 000003AC			__aulldvrm ENDP
+
+				;***
+				;ullrem.asm - unsigned long remainder routine
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       defines the unsigned long remainder routine
+				;           __aullrem
+				;
+				;Revision History:
+				;       11-29-83  DFW   initial version
+				;       06-01-84  RN    modified to use cmacros
+				;       10-23-87  SKS   fixed off-by-1 error for dividend close to 2**32.
+				;       05-18-89  SKS   Remove redundant "MOV SP,BP" from epilog
+				;       11-28-89  GJF   Fixed copyright
+				;       11-19-93  SMK   Modified to work on 64 bit integers
+				;       01-17-94  GJF   Minor changes to build with NT's masm386.
+				;       07-22-94  GJF   Use esp-relative addressing for args. Shortened
+				;                       conditional jumps.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;ullrem - unsigned long remainder
+				;
+				;Purpose:
+				;       Does a unsigned long remainder of the arguments.  Arguments are
+				;       not changed.
+				;
+				;Entry:
+				;       Arguments are passed on the stack:
+				;               1st pushed: divisor (QWORD)
+				;               2nd pushed: dividend (QWORD)
+				;
+				;Exit:
+				;       EDX:EAX contains the remainder (dividend%divisor)
+				;       NOTE: this routine removes the parameters from the stack.
+				;
+				;Uses:
+				;       ECX
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 000003AC			__aullrem       PROC NEAR
+
+ 000003AC  53			        push    ebx
+
+				; Set up the local stack and save the index registers.  When this is done
+				; the stack frame will look as follows (assuming that the expression a%b will
+				; generate a call to ullrem(a, b)):
+				;
+				;               -----------------
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--divisor (b)--|
+				;               |               |
+				;               |---------------|
+				;               |               |
+				;               |--dividend (a)-|
+				;               |               |
+				;               |---------------|
+				;               | return addr** |
+				;               |---------------|
+				;       ESP---->|      EBX      |
+				;               -----------------
+				;
+
+ = [esp + 8]			DVND    equ     [esp + 8]       ; stack address of dividend (a)
+ = [esp + 16]			DVSR    equ     [esp + 16]      ; stack address of divisor (b)
+
+				; Now do the divide.  First look to see if the divisor is less than 4194304K.
+				; If so, then we can use a simple algorithm with word divides, otherwise
+				; things get a little more complex.
+				;
+
+ 000003AD  8B 44 24 14		        mov     eax,HIWORD(DVSR) ; check to see if divisor < 4194304K
+ 000003B1  0B C0		        or      eax,eax
+ 000003B3  75 18		        jnz     short L1        ; nope, gotta do this the hard way
+ 000003B5  8B 4C 24 10		        mov     ecx,LOWORD(DVSR) ; load divisor
+ 000003B9  8B 44 24 0C		        mov     eax,HIWORD(DVND) ; load high word of dividend
+ 000003BD  33 D2		        xor     edx,edx
+ 000003BF  F7 F1		        div     ecx             ; edx <- remainder, eax <- quotient
+ 000003C1  8B 44 24 08		        mov     eax,LOWORD(DVND) ; edx:eax <- remainder:lo word of dividend
+ 000003C5  F7 F1		        div     ecx             ; edx <- final remainder
+ 000003C7  8B C2		        mov     eax,edx         ; edx:eax <- remainder
+ 000003C9  33 D2		        xor     edx,edx
+ 000003CB  EB 50		        jmp     short L2        ; restore stack and return
+
+				;
+				; Here we do it the hard way.  Remember, eax contains DVSRHI
+				;
+
+ 000003CD			L1:
+ 000003CD  8B C8		        mov     ecx,eax         ; ecx:ebx <- divisor
+ 000003CF  8B 5C 24 10		        mov     ebx,LOWORD(DVSR)
+ 000003D3  8B 54 24 0C		        mov     edx,HIWORD(DVND) ; edx:eax <- dividend
+ 000003D7  8B 44 24 08		        mov     eax,LOWORD(DVND)
+ 000003DB			L3:
+ 000003DB  D1 E9		        shr     ecx,1           ; shift divisor right one bit; hi bit <- 0
+ 000003DD  D1 DB		        rcr     ebx,1
+ 000003DF  D1 EA		        shr     edx,1           ; shift dividend right one bit; hi bit <- 0
+ 000003E1  D1 D8		        rcr     eax,1
+ 000003E3  0B C9		        or      ecx,ecx
+ 000003E5  75 F4		        jnz     short L3        ; loop until divisor < 4194304K
+ 000003E7  F7 F3		        div     ebx             ; now divide, ignore remainder
+
+				;
+				; We may be off by one, so to check, we will multiply the quotient
+				; by the divisor and check the result against the orignal dividend
+				; Note that we must also check for overflow, which can occur if the
+				; dividend is close to 2**64 and the quotient is off by 1.
+				;
+
+ 000003E9  8B C8		        mov     ecx,eax         ; save a copy of quotient in ECX
+ 000003EB  F7 64 24 14		        mul     dword ptr HIWORD(DVSR)
+ 000003EF  91			        xchg    ecx,eax         ; put partial product in ECX, get quotient in EAX
+ 000003F0  F7 64 24 10		        mul     dword ptr LOWORD(DVSR)
+ 000003F4  03 D1		        add     edx,ecx         ; EDX:EAX = QUOT * DVSR
+ 000003F6  72 0E		        jc      short L4        ; carry means Quotient is off by 1
+
+				;
+				; do long compare here between original dividend and the result of the
+				; multiply in edx:eax.  If original is larger or equal, we're ok, otherwise
+				; subtract the original divisor from the result.
+				;
+
+ 000003F8  3B 54 24 0C		        cmp     edx,HIWORD(DVND) ; compare hi words of result and original
+ 000003FC  77 08		        ja      short L4        ; if result > original, do subtract
+ 000003FE  72 0E		        jb      short L5        ; if result < original, we're ok
+ 00000400  3B 44 24 08		        cmp     eax,LOWORD(DVND) ; hi words are equal, compare lo words
+ 00000404  76 08		        jbe     short L5        ; if less or equal we're ok, else subtract
+ 00000406			L4:
+ 00000406  2B 44 24 10		        sub     eax,LOWORD(DVSR) ; subtract divisor from result
+ 0000040A  1B 54 24 14		        sbb     edx,HIWORD(DVSR)
+ 0000040E			L5:
+
+				;
+				; Calculate remainder by subtracting the result from the original dividend.
+				; Since the result is already in a register, we will perform the subtract in
+				; the opposite direction and negate the result to make it positive.
+				;
+
+ 0000040E  2B 44 24 08		        sub     eax,LOWORD(DVND) ; subtract original dividend from result
+ 00000412  1B 54 24 0C		        sbb     edx,HIWORD(DVND)
+ 00000416  F7 DA		        neg     edx             ; and negate it
+ 00000418  F7 D8		        neg     eax
+ 0000041A  83 DA 00		        sbb     edx,0
+
+				;
+				; Just the cleanup left to do.  dx:ax contains the remainder.
+				; Restore the saved registers and return.
+				;
+
+ 0000041D			L2:
+
+ 0000041D  5B			        pop     ebx
+
+ 0000041E  C2 0010		        ret     16
+
+ 00000421			__aullrem       ENDP
+
+				;***
+				;ullshr.asm - long shift right
+				;
+				;       Copyright (c) Microsoft Corporation. All rights reserved.
+				;
+				;Purpose:
+				;       define unsigned long shift right routine
+				;           __aullshr
+				;
+				;Revision History:
+				;       11-??-83  HS    initial version
+				;       11-30-83  DFW   added medium model support
+				;       03-12-84  DFW   broke apart; added long model support
+				;       06-01-84  RN    modified to use cmacros
+				;       11-28-89  GJF   Fixed copyright
+				;       11-19-93  SMK   Modified to work on 64 bit integers
+				;       01-17-94  GJF   Minor changes to build with NT's masm386.
+				;       07-08-94  GJF   Faster, fatter version for NT.
+				;       07-13-94  GJF   Further improvements from JonM.
+				;
+				;*******************************************************************************
+
+
+				;***
+				;ullshr - long shift right
+				;
+				;Purpose:
+				;       Does a unsigned Long Shift Right
+				;       Shifts a long right any number of bits.
+				;
+				;Entry:
+				;       EDX:EAX - long value to be shifted
+				;       CL    - number of bits to shift by
+				;
+				;Exit:
+				;       EDX:EAX - shifted value
+				;
+				;Uses:
+				;       CL is destroyed.
+				;
+				;Exceptions:
+				;
+				;*******************************************************************************
+
+ 00000421			__aullshr       PROC NEAR
+
+				;
+				; Handle shifts of 64 bits or more (if shifting 64 bits or more, the result
+				; depends only on the high order bit of edx).
+				;
+ 00000421  80 F9 40		        cmp     cl,64
+ 00000424  73 15		        jae     short RETZERO
+
+				;
+				; Handle shifts of between 0 and 31 bits
+				;
+ 00000426  80 F9 20		        cmp     cl, 32
+ 00000429  73 06		        jae     short MORE32
+ 0000042B  0F AD D0		        shrd    eax,edx,cl
+ 0000042E  D3 EA		        shr     edx,cl
+ 00000430  C3			        ret
+
+				;
+				; Handle shifts of between 32 and 63 bits
+				;
+ 00000431			MORE32:
+ 00000431  8B C2		        mov     eax,edx
+ 00000433  33 D2		        xor     edx,edx
+ 00000435  80 E1 1F		        and     cl,31
+ 00000438  D3 E8		        shr     eax,cl
+ 0000043A  C3			        ret
+
+				;
+				; return 0 in edx:eax
+				;
+ 0000043B			RETZERO:
+ 0000043B  33 C0		        xor     eax,eax
+ 0000043D  33 D2		        xor     edx,edx
+ 0000043F  C3			        ret
+
+ 00000440			__aullshr       ENDP
+
+				end
+Microsoft (R) Macro Assembler Version 8.00.50727.762	    03/15/20 04:18:14
+x86\blcrtasm.asm					     Symbols 2 - 1
+
+
+
+
+Structures and Unions:
+
+                N a m e                  Size
+                                         Offset      Type
+
+BEB  . . . . . . . . . . . . . .	 00000064
+  BootType . . . . . . . . . . .	 00000000	 DWord
+  BootDriveNumber  . . . . . . .	 00000004	 DWord
+  FlashImage . . . . . . . . . .	 00000008	 DWord
+  SmapAddr . . . . . . . . . . .	 0000000C	 DWord
+  SmapSize . . . . . . . . . . .	 00000010	 DWord
+  LegacyCallAddress  . . . . . .	 00000014	 DWord
+  LegacyReturnAddress  . . . . .	 00000018	 DWord
+  LegacyReturnCr3  . . . . . . .	 0000001C	 DWord
+  LegacyCall_OpCode  . . . . . .	 00000020	 DWord
+  LegacyCall_Vector  . . . . . .	 00000024	 DWord
+  LegacyCall_eax . . . . . . . .	 00000028	 DWord
+  LegacyCall_ebx . . . . . . . .	 0000002C	 DWord
+  LegacyCall_ecx . . . . . . . .	 00000030	 DWord
+  LegacyCall_edx . . . . . . . .	 00000034	 DWord
+  LegacyCall_esi . . . . . . . .	 00000038	 DWord
+  LegacyCall_edi . . . . . . . .	 0000003C	 DWord
+  LegacyCall_ds  . . . . . . . .	 00000040	 DWord
+  LegacyCall_es  . . . . . . . .	 00000044	 DWord
+  LegacyCall_eflags  . . . . . .	 00000048	 DWord
+  LegacyCall_FramePtr  . . . . .	 0000004C	 DWord
+  LegacyCall_FrameSize . . . . .	 00000050	 DWord
+  LegacyCall_FuncPtr . . . . . .	 00000054	 DWord
+  ApEntry16  . . . . . . . . . .	 00000058	 DWord
+  ApEntry  . . . . . . . . . . .	 0000005C	 DWord
+  ApStartupLock  . . . . . . . .	 00000060	 DWord
+BL_TRAP_CONTEXT  . . . . . . . .	 00000038
+  TrapCr2  . . . . . . . . . . .	 00000000	 DWord
+  TrapEsp  . . . . . . . . . . .	 00000004	 DWord
+  TrapEbp  . . . . . . . . . . .	 00000008	 DWord
+  TrapEdi  . . . . . . . . . . .	 0000000C	 DWord
+  TrapEsi  . . . . . . . . . . .	 00000010	 DWord
+  TrapEdx  . . . . . . . . . . .	 00000014	 DWord
+  TrapEcx  . . . . . . . . . . .	 00000018	 DWord
+  TrapEbx  . . . . . . . . . . .	 0000001C	 DWord
+  TrapEax  . . . . . . . . . . .	 00000020	 DWord
+  TrapNum  . . . . . . . . . . .	 00000024	 DWord
+  TrapErr  . . . . . . . . . . .	 00000028	 DWord
+  TrapEip  . . . . . . . . . . .	 0000002C	 DWord
+  TrapCs0  . . . . . . . . . . .	 00000030	 DWord
+  TrapEfl  . . . . . . . . . . .	 00000034	 DWord
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000440 Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+__alldiv . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 000000AA Public
+  L1 . . . . . . . . . . . . . .	L Near	 00000021 _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000003D _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 00000059 _TEXT	
+  L5 . . . . . . . . . . . . . .	L Near	 00000067 _TEXT	
+  L6 . . . . . . . . . . . . . .	L Near	 00000095 _TEXT	
+  L7 . . . . . . . . . . . . . .	L Near	 00000096 _TEXT	
+  L4 . . . . . . . . . . . . . .	L Near	 0000009A _TEXT	
+  L8 . . . . . . . . . . . . . .	L Near	 000000A4 _TEXT	
+__alldvrm  . . . . . . . . . . .	P Near	 000000AA _TEXT	Length= 000000DF Public
+  L1 . . . . . . . . . . . . . .	L Near	 000000CE _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 000000EA _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 00000116 _TEXT	
+  L5 . . . . . . . . . . . . . .	L Near	 00000124 _TEXT	
+  L6 . . . . . . . . . . . . . .	L Near	 00000152 _TEXT	
+  L7 . . . . . . . . . . . . . .	L Near	 0000015B _TEXT	
+  L4 . . . . . . . . . . . . . .	L Near	 0000015D _TEXT	
+  L9 . . . . . . . . . . . . . .	L Near	 0000016F _TEXT	
+  L8 . . . . . . . . . . . . . .	L Near	 00000183 _TEXT	
+__allmul . . . . . . . . . . . .	P Near	 00000189 _TEXT	Length= 00000034 Public
+  hard . . . . . . . . . . . . .	L Near	 000001A2 _TEXT	
+__allrem . . . . . . . . . . . .	P Near	 000001BD _TEXT	Length= 000000B2 Public
+  L1 . . . . . . . . . . . . . .	L Near	 000001DD _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 000001F8 _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 00000217 _TEXT	
+  L5 . . . . . . . . . . . . . .	L Near	 00000225 _TEXT	
+  L6 . . . . . . . . . . . . . .	L Near	 00000250 _TEXT	
+  L7 . . . . . . . . . . . . . .	L Near	 00000258 _TEXT	
+  L4 . . . . . . . . . . . . . .	L Near	 00000263 _TEXT	
+  L8 . . . . . . . . . . . . . .	L Near	 0000026A _TEXT	
+__allshl . . . . . . . . . . . .	P Near	 0000026F _TEXT	Length= 0000001F Public
+  MORE32 . . . . . . . . . . . .	L Near	 0000027F _TEXT	
+  RETZERO  . . . . . . . . . . .	L Near	 00000289 _TEXT	
+__allshr . . . . . . . . . . . .	P Near	 0000028E _TEXT	Length= 00000021 Public
+  MORE32 . . . . . . . . . . . .	L Near	 0000029E _TEXT	
+  RETSIGN  . . . . . . . . . . .	L Near	 000002A9 _TEXT	
+__aulldiv  . . . . . . . . . . .	P Near	 000002AF _TEXT	Length= 00000068 Public
+  L1 . . . . . . . . . . . . . .	L Near	 000002D1 _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 000002DF _TEXT	
+  L4 . . . . . . . . . . . . . .	L Near	 0000030D _TEXT	
+  L5 . . . . . . . . . . . . . .	L Near	 0000030E _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 00000312 _TEXT	
+__aulldvrm . . . . . . . . . . .	P Near	 00000317 _TEXT	Length= 00000095 Public
+  L1 . . . . . . . . . . . . . .	L Near	 00000348 _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 00000356 _TEXT	
+  L4 . . . . . . . . . . . . . .	L Near	 00000384 _TEXT	
+  L5 . . . . . . . . . . . . . .	L Near	 0000038D _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000038F _TEXT	
+__aullrem  . . . . . . . . . . .	P Near	 000003AC _TEXT	Length= 00000075 Public
+  L1 . . . . . . . . . . . . . .	L Near	 000003CD _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 000003DB _TEXT	
+  L4 . . . . . . . . . . . . . .	L Near	 00000406 _TEXT	
+  L5 . . . . . . . . . . . . . .	L Near	 0000040E _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000041D _TEXT	
+__aullshr  . . . . . . . . . . .	P Near	 00000421 _TEXT	Length= 0000001F Public
+  MORE32 . . . . . . . . . . . .	L Near	 00000431 _TEXT	
+  RETZERO  . . . . . . . . . . .	L Near	 0000043B _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000000h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+A2 . . . . . . . . . . . . . . .	Text   	 [esp + 8]
+A  . . . . . . . . . . . . . . .	Text   	 [esp + 4]
+B2 . . . . . . . . . . . . . . .	Text   	 [esp + 16]
+BEB_BASE . . . . . . . . . . . .	Number	 0002F000h   
+BEB_OFF16  . . . . . . . . . . .	Number	 00000000h   
+BEB_SEG16  . . . . . . . . . . .	Number	 00002F00h   
+BL_ENTRY_SP  . . . . . . . . . .	Number	 00080000h   
+BOOT_X86 . . . . . . . . . . . .	Text   	 
+B  . . . . . . . . . . . . . . .	Text   	 [esp + 12]
+CD_BOOT  . . . . . . . . . . . .	Number	 00000001h   
+CR0_NE . . . . . . . . . . . . .	Number	 00000020h   
+CR0_PE . . . . . . . . . . . . .	Number	 00000001h   
+CR0_PG . . . . . . . . . . . . .	Number	 -80000000h   
+CR4_OSFXSR . . . . . . . . . . .	Number	 00000200h   
+CR4_PAE  . . . . . . . . . . . .	Number	 00000020h   
+CR4_PCE  . . . . . . . . . . . .	Number	 00000100h   
+CR4_PSE  . . . . . . . . . . . .	Number	 00000010h   
+DVND . . . . . . . . . . . . . .	Text   	 [esp + 8]
+DVSR . . . . . . . . . . . . . .	Text   	 [esp + 16]
+EFER_LME . . . . . . . . . . . .	Number	 00000100h   
+EFER_MSR_INDEX . . . . . . . . .	Number	 C0000080h   
+EFER_NXE . . . . . . . . . . . .	Number	 00000800h   
+FAT16_BOOT . . . . . . . . . . .	Number	 00000002h   
+FAT32_BOOT . . . . . . . . . . .	Number	 00000003h   
+FLASH_BOOT . . . . . . . . . . .	Number	 00000005h   
+HIWORD . . . . . . . . . . . . .	Number	 00000004h   
+IDH_NT_HEADER_OFFSET . . . . . .	Number	 0000003Ch   
+IFH_NUMBER_OF_SECTIONS . . . . .	Number	 00000002h   
+IFH_SIZE_OF_OPTIONAL_HEADER  . .	Number	 00000010h   
+IMAGE_ADDRESS  . . . . . . . . .	Number	 00040000h   
+IMAGE_DOS_SIGNATURE  . . . . . .	Number	 00005A4Dh   
+IMAGE_NT_SIGNATURE . . . . . . .	Number	 00004550h   
+IMAGE_SECTION_HEADER_SIZE  . . .	Number	 00000028h   
+INH_FILE_HEADER  . . . . . . . .	Number	 00000004h   
+INH_OPTIONAL_HEADER  . . . . . .	Number	 00000018h   
+INH_SIGNATURE  . . . . . . . . .	Number	 00000000h   
+IOH32_IMAGE_BASE . . . . . . . .	Number	 0000001Ch   
+IOH_ADDRESS_OF_ENTRY_POINT . . .	Number	 00000010h   
+IOH_SIZE_OF_HEADERS  . . . . . .	Number	 0000003Ch   
+ISH_POINTER_TO_RAW_DATA  . . . .	Number	 00000014h   
+ISH_SIZE_OF_RAW_DATA . . . . . .	Number	 00000010h   
+ISH_VIRTUAL_ADDRESS  . . . . . .	Number	 0000000Ch   
+ISH_VIRTUAL_SIZE . . . . . . . .	Number	 00000008h   
+LC_FARCALL . . . . . . . . . . .	Number	 00000002h   
+LC_INTXX . . . . . . . . . . . .	Number	 00000001h   
+LC_NOP . . . . . . . . . . . . .	Number	 00000000h   
+LM_CODE_SELECTOR . . . . . . . .	Number	 00000030h   
+LM_DATA_SELECTOR . . . . . . . .	Number	 00000038h   
+LM_PML4T_ADDRESS . . . . . . . .	Number	 00021000h   
+LOWORD . . . . . . . . . . . . .	Number	 00000000h   
+NULL_SELECTOR  . . . . . . . . .	Number	 00000000h   
+PM_CODE_SELECTOR . . . . . . . .	Number	 00000020h   
+PM_DATA_SELECTOR . . . . . . . .	Number	 00000028h   
+PM_INITIAL_ESP . . . . . . . . .	Number	 00020000h   
+PM_PDPT_ADDRESS  . . . . . . . .	Number	 00022000h   
+PM_PDT_ADDRESS . . . . . . . . .	Number	 00023000h   
+PROCESSOR_SELECTOR . . . . . . .	Number	 00000050h   
+PTE_2MB  . . . . . . . . . . . .	Number	 00000080h   
+PTE_ACCESSED . . . . . . . . . .	Number	 00000020h   
+PTE_PRESENT  . . . . . . . . . .	Number	 00000001h   
+PTE_WRITEABLE  . . . . . . . . .	Number	 00000002h   
+PXE_BOOT . . . . . . . . . . . .	Number	 00000004h   
+RM_CODE_SELECTOR . . . . . . . .	Number	 00000010h   
+RM_DATA_SELECTOR . . . . . . . .	Number	 00000018h   
+RM_INITIAL_SP  . . . . . . . . .	Number	 0000FFF8h   
+RM_INITIAL_SS  . . . . . . . . .	Number	 00001000h   
+RM_VIDEO_SELECTOR  . . . . . . .	Number	 00000008h   
+TSS_SELECTOR . . . . . . . . . .	Number	 00000060h   
+UM_CODE_SELECTOR . . . . . . . .	Number	 00000040h   
+UM_DATA_SELECTOR . . . . . . . .	Number	 00000048h   
+UNUSED_SELECTOR  . . . . . . . .	Number	 00000058h   
+
+	   0 Warnings
+	   0 Errors

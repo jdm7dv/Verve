@@ -1,0 +1,931 @@
+<HTML>
+<HEAD>
+<TITLE>
+RecursiveDescentParser.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * RecursiveDescentParser.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.IO;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A recursive descent parser. This parser handles LL(n) grammars,
+     * selecting the appropriate pattern to parse based on the next few
+     * tokens. The parser is more efficient the fewer look-ahead tokens
+     * that is has to consider.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> RecursiveDescentParser <font color="black">:</font> Parser <font color="black">{</font>
+
+        <font color="green">/**
+         * Creates a new parser.
+         *
+         * @param input          the input stream to read from
+         *
+         * @throws ParserCreationException if the tokenizer couldn't be
+         *             initialized correctly
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> RecursiveDescentParser<font color="black">(</font>TextReader <font color="blue">input</font><font color="black">)</font> <font color="black">:</font> <font color="blue">base</font><font color="black">(</font><font color="blue">input</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parser.
+         *
+         * @param input          the input stream to read from
+         * @param analyzer       the analyzer callback to use
+         *
+         * @throws ParserCreationException if the tokenizer couldn't be
+         *             initialized correctly
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> RecursiveDescentParser<font color="black">(</font>TextReader <font color="blue">input</font>, Analyzer analyzer<font color="black">)</font>
+            <font color="black">:</font> <font color="blue">base</font><font color="black">(</font><font color="blue">input</font>, analyzer<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parser.
+         *
+         * @param tokenizer      the tokenizer to use
+         */</font>
+        <font color="blue">public</font> RecursiveDescentParser<font color="black">(</font>Tokenizer tokenizer<font color="black">)</font>
+            <font color="black">:</font> <font color="blue">base</font><font color="black">(</font>tokenizer<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parser.
+         *
+         * @param tokenizer      the tokenizer to use
+         * @param analyzer       the analyzer callback to use
+         */</font>
+        <font color="blue">public</font> RecursiveDescentParser<font color="black">(</font>Tokenizer tokenizer,
+                                      Analyzer analyzer<font color="black">)</font>
+            <font color="black">:</font> <font color="blue">base</font><font color="black">(</font>tokenizer, analyzer<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a new production pattern to the parser. The pattern
+         * will be added last in the list. The first pattern added is
+         * assumed to be the starting point in the grammar. The
+         * pattern will be validated against the grammar type to some
+         * extent.
+         *
+         * @param pattern        the pattern to add
+         *
+         * @throws ParserCreationException if the pattern couldn't be
+         *             added correctly to the parser
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> AddPattern<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+
+            <font color="green">// Check for empty matches</font>
+            <font color="blue">if</font> <font color="black">(</font>pattern.IsMatchingEmpty<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INVALID_PRODUCTION,
+                    pattern.Name,
+                    <font color="maroon">"zero elements can be matched (minimum is one)"</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Check for left-recusive patterns</font>
+            <font color="blue">if</font> <font color="black">(</font>pattern.IsLeftRecursive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INVALID_PRODUCTION,
+                    pattern.Name,
+                    <font color="maroon">"left recursive patterns are not allowed"</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Add pattern</font>
+            <font color="blue">base</font>.AddPattern<font color="black">(</font>pattern<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Initializes the parser. All the added production patterns
+         * will be analyzed for ambiguities and errors. This method
+         * also initializes the internal data structures used during
+         * the parsing.
+         *
+         * @throws ParserCreationException if the parser couldn't be
+         *             initialized correctly
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> Prepare<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            IEnumerator  e;
+
+            <font color="green">// Performs production pattern checks</font>
+            <font color="blue">base</font>.Prepare<font color="black">(</font><font color="black">)</font>;
+            SetInitialized<font color="black">(</font><font color="blue">false</font><font color="black">)</font>;
+
+            <font color="green">// Calculate production look-ahead sets</font>
+            e <font color="black">=</font> GetPatterns<font color="black">(</font><font color="black">)</font>.GetEnumerator<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">while</font> <font color="black">(</font>e.MoveNext<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                CalculateLookAhead<font color="black">(</font><font color="black">(</font>ProductionPattern<font color="black">)</font> e.Current<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Set initialized flag</font>
+            SetInitialized<font color="black">(</font><font color="blue">true</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses the input stream and creates a parse tree.
+         *
+         * @return the parse tree
+         *
+         * @throws ParseException if the input couldn't be parsed
+         *             correctly
+         */</font>
+        <font color="blue">protected</font> <font color="blue">override</font> Node ParseStart<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Token      token;
+            Node       node;
+            ArrayList  list;
+
+            node <font color="black">=</font> ParsePattern<font color="black">(</font>GetStartPattern<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+            token <font color="black">=</font> PeekToken<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>token <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                list <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="maroon">1</font><font color="black">)</font>;
+                list.Add<font color="black">(</font><font color="maroon">"&#60;EOF&#62;"</font><font color="black">)</font>;
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.UNEXPECTED_TOKEN,
+                    token.ToShortString<font color="black">(</font><font color="black">)</font>,
+                    list,
+                    token.StartLine,
+                    token.StartColumn<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> node;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a production pattern. A parse tree node may or may
+         * not be created depending on the analyzer callbacks.
+         *
+         * @param pattern        the production pattern to parse
+         *
+         * @return the parse tree node created, or null
+         *
+         * @throws ParseException if the input couldn't be parsed
+         *             correctly
+         */</font>
+        <font color="blue">private</font> Node ParsePattern<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+            ProductionPatternAlternative  alt;
+            ProductionPatternAlternative  defaultAlt;
+
+            defaultAlt <font color="black">=</font> pattern.DefaultAlternative;
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                alt <font color="black">=</font> pattern<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>defaultAlt <font color="black">!</font><font color="black">=</font> alt <font color="black">&</font><font color="black">&</font> IsNext<font color="black">(</font>alt<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> ParseAlternative<font color="black">(</font>alt<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>defaultAlt <font color="black">=</font><font color="black">=</font> <font color="blue">null</font> <font color="black">|</font><font color="black">|</font> <font color="black">!</font>IsNext<font color="black">(</font>defaultAlt<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                ThrowParseException<font color="black">(</font>FindUnion<font color="black">(</font>pattern<font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> ParseAlternative<font color="black">(</font>defaultAlt<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a production pattern alternative. A parse tree node
+         * may or may not be created depending on the analyzer
+         * callbacks.
+         *
+         * @param alt            the production pattern alternative
+         *
+         * @return the parse tree node created, or null
+         *
+         * @throws ParseException if the input couldn't be parsed
+         *             correctly
+         */</font>
+        <font color="blue">private</font> Node ParseAlternative<font color="black">(</font>ProductionPatternAlternative alt<font color="black">)</font> <font color="black">{</font>
+            Production  node;
+
+            node <font color="black">=</font> NewProduction<font color="black">(</font>alt.Pattern<font color="black">)</font>;
+            EnterNode<font color="black">(</font>node<font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> alt.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                try <font color="black">{</font>
+                    ParseElement<font color="black">(</font>node, alt<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    AddError<font color="black">(</font>e, <font color="blue">true</font><font color="black">)</font>;
+                    NextToken<font color="black">(</font><font color="black">)</font>;
+                    i<font color="black">-</font><font color="black">-</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> ExitNode<font color="black">(</font>node<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a production pattern element. All nodes parsed may
+         * or may not be added to the parse tree node specified,
+         * depending on the analyzer callbacks.
+         *
+         * @param node           the production parse tree node
+         * @param elem           the production pattern element to parse
+         *
+         * @throws ParseException if the input couldn't be parsed
+         *             correctly
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> ParseElement<font color="black">(</font>Production node,
+                                  ProductionPatternElement elem<font color="black">)</font> <font color="black">{</font>
+
+            Node  child;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elem.MaxCount; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>i <font color="black">&#60;</font> elem.MinCount <font color="black">|</font><font color="black">|</font> IsNext<font color="black">(</font>elem<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>elem.IsToken<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                        child <font color="black">=</font> NextToken<font color="black">(</font>elem.Id<font color="black">)</font>;
+                        EnterNode<font color="black">(</font>child<font color="black">)</font>;
+                        AddNode<font color="black">(</font>node, ExitNode<font color="black">(</font>child<font color="black">)</font><font color="black">)</font>;
+                    <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                        child <font color="black">=</font> ParsePattern<font color="black">(</font>GetPattern<font color="black">(</font>elem.Id<font color="black">)</font><font color="black">)</font>;
+                        AddNode<font color="black">(</font>node, child<font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    <font color="blue">break</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the next tokens match a production pattern. The
+         * pattern look-ahead set will be used if existing, otherwise
+         * this method returns false.
+         *
+         * @param pattern        the pattern to check
+         *
+         * @return true if the next tokens match, or
+         *         false otherwise
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> IsNext<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  <font color="blue">set</font> <font color="black">=</font> pattern.LookAhead;
+
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">set</font> <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">false</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">set</font>.IsNext<font color="black">(</font><font color="blue">this</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the next tokens match a production pattern
+         * alternative. The pattern alternative look-ahead set will be
+         * used if existing, otherwise this method returns false.
+         *
+         * @param alt            the pattern alternative to check
+         *
+         * @return true if the next tokens match, or
+         *         false otherwise
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> IsNext<font color="black">(</font>ProductionPatternAlternative alt<font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  <font color="blue">set</font> <font color="black">=</font> alt.LookAhead;
+
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">set</font> <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">false</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">set</font>.IsNext<font color="black">(</font><font color="blue">this</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the next tokens match a production pattern
+         * element. If the element has a look-ahead set it will be
+         * used, otherwise the look-ahead set of the referenced
+         * production or token will be used.
+         *
+         * @param elem           the pattern element to check
+         *
+         * @return true if the next tokens match, or
+         *         false otherwise
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> IsNext<font color="black">(</font>ProductionPatternElement elem<font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  <font color="blue">set</font> <font color="black">=</font> elem.LookAhead;
+
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">set</font> <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">set</font>.IsNext<font color="black">(</font><font color="blue">this</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>elem.IsToken<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> elem.IsMatch<font color="black">(</font>PeekToken<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> IsNext<font color="black">(</font>GetPattern<font color="black">(</font>elem.Id<font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Calculates the look-ahead needed for the specified production
+         * pattern. This method attempts to resolve any conflicts and
+         * stores the results in the pattern look-ahead object.
+         *
+         * @param pattern        the production pattern
+         *
+         * @throws ParserCreationException if the look-ahead set couldn't
+         *             be determined due to inherent ambiguities
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> CalculateLookAhead<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+            ProductionPatternAlternative  alt;
+            LookAheadSet                  result;
+            LookAheadSet<font color="black">[</font><font color="black">]</font>                alternatives;
+            LookAheadSet                  conflicts;
+            LookAheadSet                  previous <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            <font color="blue">int</font>                           length <font color="black">=</font> <font color="maroon">1</font>;
+            <font color="blue">int</font>                           i;
+            CallStack                     stack <font color="black">=</font> <font color="blue">new</font> CallStack<font color="black">(</font><font color="black">)</font>;
+
+            <font color="green">// Calculate simple look-ahead</font>
+            stack.Push<font color="black">(</font>pattern.Name, <font color="maroon">1</font><font color="black">)</font>;
+            result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font><font color="maroon">1</font><font color="black">)</font>;
+            alternatives <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">[</font>pattern.Count<font color="black">]</font>;
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                alt <font color="black">=</font> pattern<font color="black">[</font>i<font color="black">]</font>;
+                alternatives<font color="black">[</font>i<font color="black">]</font> <font color="black">=</font> FindLookAhead<font color="black">(</font>alt, <font color="maroon">1</font>, <font color="maroon">0</font>, stack, <font color="blue">null</font><font color="black">)</font>;
+                alt.LookAhead <font color="black">=</font> alternatives<font color="black">[</font>i<font color="black">]</font>;
+                result.AddAll<font color="black">(</font>alternatives<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>pattern.LookAhead <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                pattern.LookAhead <font color="black">=</font> result;
+            <font color="black">}</font>
+            conflicts <font color="black">=</font> FindConflicts<font color="black">(</font>pattern, <font color="maroon">1</font><font color="black">)</font>;
+
+            <font color="green">// Resolve conflicts</font>
+            <font color="blue">while</font> <font color="black">(</font>conflicts.Size<font color="black">(</font><font color="black">)</font> <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                length<font color="black">+</font><font color="black">+</font>;
+                stack.Clear<font color="black">(</font><font color="black">)</font>;
+                stack.Push<font color="black">(</font>pattern.Name, length<font color="black">)</font>;
+                conflicts.AddAll<font color="black">(</font>previous<font color="black">)</font>;
+                <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    alt <font color="black">=</font> pattern<font color="black">[</font>i<font color="black">]</font>;
+                    <font color="blue">if</font> <font color="black">(</font>alternatives<font color="black">[</font>i<font color="black">]</font>.Intersects<font color="black">(</font>conflicts<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                        alternatives<font color="black">[</font>i<font color="black">]</font> <font color="black">=</font> FindLookAhead<font color="black">(</font>alt,
+                                                        length,
+                                                        <font color="maroon">0</font>,
+                                                        stack,
+                                                        conflicts<font color="black">)</font>;
+                        alt.LookAhead <font color="black">=</font> alternatives<font color="black">[</font>i<font color="black">]</font>;
+                    <font color="black">}</font>
+                    <font color="blue">if</font> <font color="black">(</font>alternatives<font color="black">[</font>i<font color="black">]</font>.Intersects<font color="black">(</font>conflicts<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">if</font> <font color="black">(</font>pattern.DefaultAlternative <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                            pattern.DefaultAlternative <font color="black">=</font> alt;
+                        <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>pattern.DefaultAlternative <font color="black">!</font><font color="black">=</font> alt<font color="black">)</font> <font color="black">{</font>
+                            result <font color="black">=</font> alternatives<font color="black">[</font>i<font color="black">]</font>.CreateIntersection<font color="black">(</font>conflicts<font color="black">)</font>;
+                            ThrowAmbiguityException<font color="black">(</font>pattern.Name,
+                                                    <font color="blue">null</font>,
+                                                    result<font color="black">)</font>;
+                        <font color="black">}</font>
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                previous <font color="black">=</font> conflicts;
+                conflicts <font color="black">=</font> FindConflicts<font color="black">(</font>pattern, length<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Resolve conflicts inside rules</font>
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                CalculateLookAhead<font color="black">(</font>pattern<font color="black">[</font>i<font color="black">]</font>, <font color="maroon">0</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Calculates the look-aheads needed for the specified pattern
+         * alternative. This method attempts to resolve any conflicts in
+         * optional elements by recalculating look-aheads for referenced
+         * productions.
+         *
+         * @param alt            the production pattern alternative
+         * @param pos            the pattern element position
+         *
+         * @throws ParserCreationException if the look-ahead set couldn't
+         *             be determined due to inherent ambiguities
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> CalculateLookAhead<font color="black">(</font>ProductionPatternAlternative alt,
+                                        <font color="blue">int</font> pos<font color="black">)</font> <font color="black">{</font>
+
+            ProductionPattern         pattern;
+            ProductionPatternElement  elem;
+            LookAheadSet              first;
+            LookAheadSet              follow;
+            LookAheadSet              conflicts;
+            LookAheadSet              previous <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            String                    location;
+            <font color="blue">int</font>                       length <font color="black">=</font> <font color="maroon">1</font>;
+
+            <font color="green">// Check trivial cases</font>
+            <font color="blue">if</font> <font color="black">(</font>pos <font color="black">&#62;</font><font color="black">=</font> alt.Count<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Check for non-optional element</font>
+            pattern <font color="black">=</font> alt.Pattern;
+            elem <font color="black">=</font> alt<font color="black">[</font>pos<font color="black">]</font>;
+            <font color="blue">if</font> <font color="black">(</font>elem.MinCount <font color="black">=</font><font color="black">=</font> elem.MaxCount<font color="black">)</font> <font color="black">{</font>
+                CalculateLookAhead<font color="black">(</font>alt, pos <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+                <font color="blue">return</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Calculate simple look-aheads</font>
+            first <font color="black">=</font> FindLookAhead<font color="black">(</font>elem, <font color="maroon">1</font>, <font color="blue">new</font> CallStack<font color="black">(</font><font color="black">)</font>, <font color="blue">null</font><font color="black">)</font>;
+            follow <font color="black">=</font> FindLookAhead<font color="black">(</font>alt, <font color="maroon">1</font>, pos <font color="black">+</font> <font color="maroon">1</font>, <font color="blue">new</font> CallStack<font color="black">(</font><font color="black">)</font>, <font color="blue">null</font><font color="black">)</font>;
+
+            <font color="green">// Resolve conflicts</font>
+            location <font color="black">=</font> <font color="maroon">"at position "</font> <font color="black">+</font> <font color="black">(</font>pos <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+            conflicts <font color="black">=</font> FindConflicts<font color="black">(</font>pattern.Name,
+                                      location,
+                                      first,
+                                      follow<font color="black">)</font>;
+            <font color="blue">while</font> <font color="black">(</font>conflicts.Size<font color="black">(</font><font color="black">)</font> <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                length<font color="black">+</font><font color="black">+</font>;
+                conflicts.AddAll<font color="black">(</font>previous<font color="black">)</font>;
+                first <font color="black">=</font> FindLookAhead<font color="black">(</font>elem,
+                                      length,
+                                      <font color="blue">new</font> CallStack<font color="black">(</font><font color="black">)</font>,
+                                      conflicts<font color="black">)</font>;
+                follow <font color="black">=</font> FindLookAhead<font color="black">(</font>alt,
+                                       length,
+                                       pos <font color="black">+</font> <font color="maroon">1</font>,
+                                       <font color="blue">new</font> CallStack<font color="black">(</font><font color="black">)</font>,
+                                       conflicts<font color="black">)</font>;
+                first <font color="black">=</font> first.CreateCombination<font color="black">(</font>follow<font color="black">)</font>;
+                elem.LookAhead <font color="black">=</font> first;
+                <font color="blue">if</font> <font color="black">(</font>first.Intersects<font color="black">(</font>conflicts<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    first <font color="black">=</font> first.CreateIntersection<font color="black">(</font>conflicts<font color="black">)</font>;
+                    ThrowAmbiguityException<font color="black">(</font>pattern.Name, location, first<font color="black">)</font>;
+                <font color="black">}</font>
+                previous <font color="black">=</font> conflicts;
+                conflicts <font color="black">=</font> FindConflicts<font color="black">(</font>pattern.Name,
+                                          location,
+                                          first,
+                                          follow<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Check remaining elements</font>
+            CalculateLookAhead<font color="black">(</font>alt, pos <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Finds the look-ahead set for a production pattern. The maximum
+         * look-ahead length must be specified. It is also possible to
+         * specify a look-ahead set filter, which will make sure that
+         * unnecessary token sequences will be avoided.
+         *
+         * @param pattern        the production pattern
+         * @param length         the maximum look-ahead length
+         * @param stack          the call stack used for loop detection
+         * @param filter         the look-ahead set filter
+         *
+         * @return the look-ahead set for the production pattern
+         *
+         * @throws ParserCreationException if an infinite loop was found
+         *             in the grammar
+         */</font>
+        <font color="blue">private</font> LookAheadSet FindLookAhead<font color="black">(</font>ProductionPattern pattern,
+                                           <font color="blue">int</font> length,
+                                           CallStack stack,
+                                           LookAheadSet filter<font color="black">)</font> <font color="black">{</font>
+
+            LookAheadSet  result;
+            LookAheadSet  temp;
+
+            <font color="green">// Check for infinite loop</font>
+            <font color="blue">if</font> <font color="black">(</font>stack.Contains<font color="black">(</font>pattern.Name, length<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INFINITE_LOOP,
+                    pattern.Name,
+                    <font color="black">(</font>String<font color="black">)</font> <font color="blue">null</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Find pattern look-ahead</font>
+            stack.Push<font color="black">(</font>pattern.Name, length<font color="black">)</font>;
+            result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>length<font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                temp <font color="black">=</font> FindLookAhead<font color="black">(</font>pattern<font color="black">[</font>i<font color="black">]</font>,
+                                     length,
+                                     <font color="maroon">0</font>,
+                                     stack,
+                                     filter<font color="black">)</font>;
+                result.AddAll<font color="black">(</font>temp<font color="black">)</font>;
+            <font color="black">}</font>
+            stack.Pop<font color="black">(</font><font color="black">)</font>;
+
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Finds the look-ahead set for a production pattern alternative.
+         * The pattern position and maximum look-ahead length must be
+         * specified. It is also possible to specify a look-ahead set
+         * filter, which will make sure that unnecessary token sequences
+         * will be avoided.
+         *
+         * @param alt            the production pattern alternative
+         * @param length         the maximum look-ahead length
+         * @param pos            the pattern element position
+         * @param stack          the call stack used for loop detection
+         * @param filter         the look-ahead set filter
+         *
+         * @return the look-ahead set for the pattern alternative
+         *
+         * @throws ParserCreationException if an infinite loop was found
+         *             in the grammar
+         */</font>
+        <font color="blue">private</font> LookAheadSet FindLookAhead<font color="black">(</font>ProductionPatternAlternative alt,
+                                           <font color="blue">int</font> length,
+                                           <font color="blue">int</font> pos,
+                                           CallStack stack,
+                                           LookAheadSet filter<font color="black">)</font> <font color="black">{</font>
+
+            LookAheadSet  first;
+            LookAheadSet  follow;
+            LookAheadSet  overlaps;
+
+            <font color="green">// Check trivial cases</font>
+            <font color="blue">if</font> <font color="black">(</font>length <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">|</font><font color="black">|</font> pos <font color="black">&#62;</font><font color="black">=</font> alt.Count<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Find look-ahead for this element</font>
+            first <font color="black">=</font> FindLookAhead<font color="black">(</font>alt<font color="black">[</font>pos<font color="black">]</font>, length, stack, filter<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>alt<font color="black">[</font>pos<font color="black">]</font>.MinCount <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                first.AddEmpty<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Find remaining look-ahead</font>
+            <font color="blue">if</font> <font color="black">(</font>filter <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                length <font color="black">-</font><font color="black">=</font> first.GetMinLength<font color="black">(</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>length <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    follow <font color="black">=</font> FindLookAhead<font color="black">(</font>alt, length, pos <font color="black">+</font> <font color="maroon">1</font>, stack, <font color="blue">null</font><font color="black">)</font>;
+                    first <font color="black">=</font> first.CreateCombination<font color="black">(</font>follow<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>filter.IsOverlap<font color="black">(</font>first<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                overlaps <font color="black">=</font> first.CreateOverlaps<font color="black">(</font>filter<font color="black">)</font>;
+                length <font color="black">-</font><font color="black">=</font> overlaps.GetMinLength<font color="black">(</font><font color="black">)</font>;
+                filter <font color="black">=</font> filter.CreateFilter<font color="black">(</font>overlaps<font color="black">)</font>;
+                follow <font color="black">=</font> FindLookAhead<font color="black">(</font>alt, length, pos <font color="black">+</font> <font color="maroon">1</font>, stack, filter<font color="black">)</font>;
+                first.RemoveAll<font color="black">(</font>overlaps<font color="black">)</font>;
+                first.AddAll<font color="black">(</font>overlaps.CreateCombination<font color="black">(</font>follow<font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="blue">return</font> first;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Finds the look-ahead set for a production pattern element. The
+         * maximum look-ahead length must be specified. This method takes
+         * the element repeats into consideration when creating the
+         * look-ahead set, but does NOT include an empty sequence even if
+         * the minimum count is zero (0). It is also possible to specify a
+         * look-ahead set filter, which will make sure that unnecessary
+         * token sequences will be avoided.
+         *
+         * @param elem           the production pattern element
+         * @param length         the maximum look-ahead length
+         * @param stack          the call stack used for loop detection
+         * @param filter         the look-ahead set filter
+         *
+         * @return the look-ahead set for the pattern element
+         *
+         * @throws ParserCreationException if an infinite loop was found
+         *             in the grammar
+         */</font>
+        <font color="blue">private</font> LookAheadSet FindLookAhead<font color="black">(</font>ProductionPatternElement elem,
+                                           <font color="blue">int</font> length,
+                                           CallStack stack,
+                                           LookAheadSet filter<font color="black">)</font> <font color="black">{</font>
+
+            LookAheadSet  result;
+            LookAheadSet  first;
+            LookAheadSet  follow;
+            <font color="blue">int</font>           max;
+
+            <font color="green">// Find initial element look-ahead</font>
+            first <font color="black">=</font> FindLookAhead<font color="black">(</font>elem, length, <font color="maroon">0</font>, stack, filter<font color="black">)</font>;
+            result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>length<font color="black">)</font>;
+            result.AddAll<font color="black">(</font>first<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>filter <font color="black">=</font><font color="black">=</font> <font color="blue">null</font> <font color="black">|</font><font color="black">|</font> <font color="black">!</font>filter.IsOverlap<font color="black">(</font>result<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> result;
+            <font color="black">}</font>
+
+            <font color="green">// Handle element repetitions</font>
+            <font color="blue">if</font> <font color="black">(</font>elem.MaxCount <font color="black">=</font><font color="black">=</font> Int32.MaxValue<font color="black">)</font> <font color="black">{</font>
+                first <font color="black">=</font> first.CreateRepetitive<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+            max <font color="black">=</font> elem.MaxCount;
+            <font color="blue">if</font> <font color="black">(</font>length <font color="black">&#60;</font> max<font color="black">)</font> <font color="black">{</font>
+                max <font color="black">=</font> length;
+            <font color="black">}</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">1</font>; i <font color="black">&#60;</font> max; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                first <font color="black">=</font> first.CreateOverlaps<font color="black">(</font>filter<font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>first.Size<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">|</font><font color="black">|</font> first.GetMinLength<font color="black">(</font><font color="black">)</font> <font color="black">&#62;</font><font color="black">=</font> length<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">break</font>;
+                <font color="black">}</font>
+                follow <font color="black">=</font> FindLookAhead<font color="black">(</font>elem,
+                                       length,
+                                       <font color="maroon">0</font>,
+                                       stack,
+                                       filter.CreateFilter<font color="black">(</font>first<font color="black">)</font><font color="black">)</font>;
+                first <font color="black">=</font> first.CreateCombination<font color="black">(</font>follow<font color="black">)</font>;
+                result.AddAll<font color="black">(</font>first<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Finds the look-ahead set for a production pattern element. The
+         * maximum look-ahead length must be specified. This method does
+         * NOT take the element repeat into consideration when creating
+         * the look-ahead set. It is also possible to specify a look-ahead
+         * set filter, which will make sure that unnecessary token
+         * sequences will be avoided.
+         *
+         * @param elem           the production pattern element
+         * @param length         the maximum look-ahead length
+         * @param dummy          a parameter to distinguish the method
+         * @param stack          the call stack used for loop detection
+         * @param filter         the look-ahead set filter
+         *
+         * @return the look-ahead set for the pattern element
+         *
+         * @throws ParserCreationException if an infinite loop was found
+         *             in the grammar
+         */</font>
+        <font color="blue">private</font> LookAheadSet FindLookAhead<font color="black">(</font>ProductionPatternElement elem,
+                                           <font color="blue">int</font> length,
+                                           <font color="blue">int</font> dummy,
+                                           CallStack stack,
+                                           LookAheadSet filter<font color="black">)</font> <font color="black">{</font>
+
+            LookAheadSet       result;
+            ProductionPattern  pattern;
+
+            <font color="blue">if</font> <font color="black">(</font>elem.IsToken<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>length<font color="black">)</font>;
+                result.Add<font color="black">(</font>elem.Id<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                pattern <font color="black">=</font> GetPattern<font color="black">(</font>elem.Id<font color="black">)</font>;
+                result <font color="black">=</font> FindLookAhead<font color="black">(</font>pattern, length, stack, filter<font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>stack.Contains<font color="black">(</font>pattern.Name<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    result <font color="black">=</font> result.CreateRepetitive<font color="black">(</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a look-ahead set with all conflics between
+         * alternatives in a production pattern.
+         *
+         * @param pattern        the production pattern
+         * @param maxLength      the maximum token sequence length
+         *
+         * @return a look-ahead set with the conflicts found
+         *
+         * @throws ParserCreationException if an inherent ambiguity was
+         *             found among the look-ahead sets
+         */</font>
+        <font color="blue">private</font> LookAheadSet FindConflicts<font color="black">(</font>ProductionPattern pattern,
+                                           <font color="blue">int</font> maxLength<font color="black">)</font> <font color="black">{</font>
+
+            LookAheadSet  result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>maxLength<font color="black">)</font>;
+            LookAheadSet  set1;
+            LookAheadSet  set2;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                set1 <font color="black">=</font> pattern<font color="black">[</font>i<font color="black">]</font>.LookAhead;
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> j <font color="black">=</font> <font color="maroon">0</font>; j <font color="black">&#60;</font> i; j<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    set2 <font color="black">=</font> pattern<font color="black">[</font>j<font color="black">]</font>.LookAhead;
+                    result.AddAll<font color="black">(</font>set1.CreateIntersection<font color="black">(</font>set2<font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>result.IsRepetitive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                ThrowAmbiguityException<font color="black">(</font>pattern.Name, <font color="blue">null</font>, result<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a look-ahead set with all conflicts between two
+         * look-ahead sets.
+         *
+         * @param pattern        the pattern name being analyzed
+         * @param location       the pattern location
+         * @param set1           the first look-ahead set
+         * @param set2           the second look-ahead set
+         *
+         * @return a look-ahead set with the conflicts found
+         *
+         * @throws ParserCreationException if an inherent ambiguity was
+         *             found among the look-ahead sets
+         */</font>
+        <font color="blue">private</font> LookAheadSet FindConflicts<font color="black">(</font>string pattern,
+                                           string location,
+                                           LookAheadSet set1,
+                                           LookAheadSet set2<font color="black">)</font> <font color="black">{</font>
+
+            LookAheadSet  result;
+
+            result <font color="black">=</font> set1.CreateIntersection<font color="black">(</font>set2<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>result.IsRepetitive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                ThrowAmbiguityException<font color="black">(</font>pattern, location, result<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the union of all alternative look-ahead sets in a
+         * production pattern.
+         *
+         * @param pattern        the production pattern
+         *
+         * @return a unified look-ahead set
+         */</font>
+        <font color="blue">private</font> LookAheadSet FindUnion<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  result;
+            <font color="blue">int</font>           length <font color="black">=</font> <font color="maroon">0</font>;
+            <font color="blue">int</font>           i;
+
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                result <font color="black">=</font> pattern<font color="black">[</font>i<font color="black">]</font>.LookAhead;
+                <font color="blue">if</font> <font color="black">(</font>result.GetMaxLength<font color="black">(</font><font color="black">)</font> <font color="black">&#62;</font> length<font color="black">)</font> <font color="black">{</font>
+                    length <font color="black">=</font> result.GetMaxLength<font color="black">(</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>length<font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> pattern.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                result.AddAll<font color="black">(</font>pattern<font color="black">[</font>i<font color="black">]</font>.LookAhead<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Throws a parse exception that matches the specified look-ahead
+         * set. This method will take into account any initial matching
+         * tokens in the look-ahead set.
+         *
+         * @param set            the look-ahead set to match
+         *
+         * @throws ParseException always thrown by this method
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> ThrowParseException<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            Token      token;
+            ArrayList  list <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">int</font><font color="black">[</font><font color="black">]</font>      initials;
+
+            <font color="green">// Read tokens until mismatch</font>
+            <font color="blue">while</font> <font color="black">(</font><font color="blue">set</font>.IsNext<font color="black">(</font><font color="blue">this</font>, <font color="maroon">1</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">set</font> <font color="black">=</font> <font color="blue">set</font>.CreateNextSet<font color="black">(</font>NextToken<font color="black">(</font><font color="black">)</font>.Id<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Find next token descriptions</font>
+            initials <font color="black">=</font> <font color="blue">set</font>.GetInitialTokens<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> initials.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                list.Add<font color="black">(</font>GetTokenDescription<font color="black">(</font>initials<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Create exception</font>
+            token <font color="black">=</font> NextToken<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>ParseException.ErrorType.UNEXPECTED_TOKEN,
+                                     token.ToShortString<font color="black">(</font><font color="black">)</font>,
+                                     list,
+                                     token.StartLine,
+                                     token.StartColumn<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Throws a parser creation exception for an ambiguity. The
+         * specified look-ahead set contains the token conflicts to be
+         * reported.
+         *
+         * @param pattern        the production pattern name
+         * @param location       the production pattern location, or null
+         * @param set            the look-ahead set with conflicts
+         *
+         * @throws ParserCreationException always thrown by this method
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> ThrowAmbiguityException<font color="black">(</font>string pattern,
+                                             string location,
+                                             LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+
+            ArrayList  list <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">int</font><font color="black">[</font><font color="black">]</font>      initials;
+
+            <font color="green">// Find next token descriptions</font>
+            initials <font color="black">=</font> <font color="blue">set</font>.GetInitialTokens<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> initials.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                list.Add<font color="black">(</font>GetTokenDescription<font color="black">(</font>initials<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Create exception</font>
+            <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                ParserCreationException.ErrorType.INHERENT_AMBIGUITY,
+                pattern,
+                location,
+                list<font color="black">)</font>;
+        <font color="black">}</font>
+
+
+        <font color="green">/**
+         * A name value stack. This stack is used to detect loops and
+         * repetitions of the same production during look-ahead analysis.
+         */</font>
+        <font color="blue">private</font> <font color="blue">class</font> CallStack <font color="black">{</font>
+
+            <font color="green">/**
+             * A stack with names.
+             */</font>
+            <font color="blue">private</font> ArrayList nameStack <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+
+            <font color="green">/**
+             * A stack with values.
+             */</font>
+            <font color="blue">private</font> ArrayList valueStack <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+
+            <font color="green">/**
+             * Checks if the specified name is on the stack.
+             *
+             * @param name           the name to search for
+             *
+             * @return true if the name is on the stack, or
+             *         false otherwise
+             */</font>
+            <font color="blue">public</font> <font color="blue">bool</font> Contains<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> nameStack.Contains<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Checks if the specified name and value combination is on
+             * the stack.
+             *
+             * @param name           the name to search for
+             * @param value          the value to search for
+             *
+             * @return true if the combination is on the stack, or
+             *         false otherwise
+             */</font>
+            <font color="blue">public</font> <font color="blue">bool</font> Contains<font color="black">(</font>string <font color="blue">name</font>, <font color="blue">int</font> <font color="blue">value</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> nameStack.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>nameStack<font color="black">[</font>i<font color="black">]</font>.Equals<font color="black">(</font><font color="blue">name</font><font color="black">)</font>
+                     <font color="black">&</font><font color="black">&</font> valueStack<font color="black">[</font>i<font color="black">]</font>.Equals<font color="black">(</font><font color="blue">value</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+
+                        <font color="blue">return</font> <font color="blue">true</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="blue">false</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Clears the stack. This method removes all elements on
+             * the stack.
+             */</font>
+            <font color="blue">public</font> <font color="blue">void</font> Clear<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+                nameStack.Clear<font color="black">(</font><font color="black">)</font>;
+                valueStack.Clear<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Adds a new element to the top of the stack.
+             *
+             * @param name           the stack name
+             * @param value          the stack value
+             */</font>
+            <font color="blue">public</font> <font color="blue">void</font> Push<font color="black">(</font>string <font color="blue">name</font>, <font color="blue">int</font> <font color="blue">value</font><font color="black">)</font> <font color="black">{</font>
+                nameStack.Add<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+                valueStack.Add<font color="black">(</font><font color="blue">value</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Removes the top element of the stack.
+             */</font>
+            <font color="blue">public</font> <font color="blue">void</font> Pop<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>nameStack.Count <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    nameStack.RemoveAt<font color="black">(</font>nameStack.Count <font color="maroon">-1</font><font color="black">)</font>;
+                    valueStack.RemoveAt<font color="black">(</font>valueStack.Count <font color="maroon">-1</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

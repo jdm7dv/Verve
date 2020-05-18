@@ -1,0 +1,76 @@
+/*
+ * Pure methods are usually used as if they had all the
+ * properties of mathematical functions.  But unlike a
+ * mathematical function, a pure method is not necessarily
+ * deterministic.  That is, if invoked twice from what the caller
+ * views as being the same state, the pure method may return
+ * different values.  This arises from the fact that a pure
+ * method may allocate new objects, and it may happen to return a
+ * newly allocated object.
+ */
+
+
+using Microsoft.Contracts;
+namespace Purity {
+
+public class Person {
+  public string givenName;
+  public string familyName;
+
+  [Pure] 
+  public string FullName() {
+    return familyName + ", " + givenName;
+  }
+
+  [Pure]
+  [ResultNotNewlyAllocated]  // required since result is passed to a pure method that might compare references
+  public string GivenName() {
+    return givenName;
+  }
+
+  [Pure]
+  [ResultNotNewlyAllocated]  // required since result is passed to a pure method that might compare references
+  public string FamilyName() {
+    return familyName;
+  }
+
+
+  [Pure][Reads(ReadsAttribute.Reads.Everything)] 
+  bool HandledByBibliographicServices()
+    ensures result == Person.HandledByBibliographicServices(GivenName(), FamilyName());
+  {
+    return Person.HandledByBibliographicServices(givenName, familyName);
+  }
+
+
+  /* The following method cannot be marked with
+   * [NoReferenceComparison] because Spec#'s analysis is too
+   * conservative to confirm this claim. If for instance, for
+   * some superior bibliographic service, the result was
+   * constantly true, the method could be marked with
+   * [NoReferenceComparison] and would then be allowed to operate
+   * on arguments that are possibly newly allocated.  In that
+   * case, GivenName() and FamilyName() would not need
+   * [ResultNotNewlyAllocated], which would allow them to
+   * create and return a new string (for instance, by trimming
+   * the string before returning it).
+   */
+  [Pure][Reads(ReadsAttribute.Reads.Everything)]
+  static bool HandledByBibliographicServices(string given, string family)
+    ensures result ==> family.IndexOf('ü') == -1;
+    ensures result ==> given.IndexOf(' ') == -1;
+  {
+    if (family.IndexOf('ü') != -1)
+      return false;  // how hard is it to handle an umlaut?
+    if (given.IndexOf(' ') != -1)
+      return false;  // how hard is it to handle multiple given names?
+    return true;  // let's be optimistic
+  }
+
+
+  public Person(string g, string f) {
+    givenName = g;
+    familyName = f;
+  }
+}
+}

@@ -1,0 +1,94 @@
+﻿@using System
+@{
+    CachePage.WhenNotLocal(Context);
+}
+@functions
+{
+}
+@helper RenderActiveClassFor(string expectedPath)
+{
+    if (0 == String.Compare(Request.Url.AbsolutePath, expectedPath, StringComparison.OrdinalIgnoreCase))
+    {
+        @: class="active"
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Page.Title</title>
+    @RenderSection("head", required: false)
+
+    <meta name="keywords" content="@Page.Keywords" />
+    <meta name="description" content="@Page.Description" />
+    <meta name="robots" content="index,follow">
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <!-- Bootstrap -->
+    <link href="~/dist/bootswatch-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/styles/site.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body style="padding-top: 40px">
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Refactoring Essentials</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li @RenderActiveClassFor("/Install")><a href="@Constants.VsixUrl2015">Install 2015</a></li>
+                    <li @RenderActiveClassFor("/Install")><a href="@Constants.VsixUrl2017">Install 2017</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Features <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="~/Features/Refactorings-CSharp">C# Refactorings</a></li>
+                            <li><a href="~/Features/Analyzers-CSharp">C# Analyzers</a></li>
+                            <li class="divider"></li>
+                            @*<li class="dropdown-header">Nav header</li>*@
+                            <li><a href="/Features/Refactorings-VB">VB Refactorings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="~/Features/CodeConverters">Code Converters</a></li>
+                            <li class="divider"></li>
+                            <li><a href="~/Features/All">All Features</a></li>
+                        </ul>
+                    </li>
+                    <li @RenderActiveClassFor("/Changelog")><a href="~/Changelog">Change log</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li @RenderActiveClassFor("/About")><a href="~/About">About</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Part of the SharpDevelop OSS project. MIT-licensed.</p>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="@Href("~/dist/bootswatch-dist/js/bootstrap.min.js")"></script>
+    
+    @RenderSection("scripts", false)
+</body>
+</html>

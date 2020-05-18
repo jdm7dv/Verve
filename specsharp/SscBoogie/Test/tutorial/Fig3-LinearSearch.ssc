@@ -1,0 +1,17 @@
+class Fig3 {
+  bool LinearSearch(int[] a, int key)
+    ensures result == exists{int i in (0: a.Length); a[i] == key};
+  {
+    int n = a.Length;
+    do
+      invariant 0 <= n && n <= a.Length;
+      invariant forall{int i in (n: a.Length); a[i] != key};
+    {
+      n--;
+      if (n < 0) {
+        break;
+      }
+    } while (a[n] != key);
+    return 0 <= n;
+  }
+}

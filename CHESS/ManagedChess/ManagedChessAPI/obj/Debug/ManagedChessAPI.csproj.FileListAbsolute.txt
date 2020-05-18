@@ -1,0 +1,4 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.ManagedChessAPI.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.ManagedChessAPI.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\ManagedChessAPI\obj\Debug\Microsoft.ManagedChessAPI.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\ManagedChessAPI\obj\Debug\Microsoft.ManagedChessAPI.pdb

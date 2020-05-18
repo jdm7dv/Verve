@@ -1,0 +1,4 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\JavaScriptBinding\JavaScriptBinding.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\JavaScriptBinding\JavaScriptBinding.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\JavaScriptBinding\Project\obj\x86\Release\JavaScriptBinding.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\JavaScriptBinding\Project\obj\x86\Release\JavaScriptBinding.dll

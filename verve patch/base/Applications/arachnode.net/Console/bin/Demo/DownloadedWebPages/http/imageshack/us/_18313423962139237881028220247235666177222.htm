@@ -1,0 +1,725 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="EmulateIE7"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>ImageShack&#174; - Online Photo and Video Hosting</title>
+<meta name="copyright" content="Copyright 2010 ImageShack"/>
+<meta name="google-site-verification" content="gFE6jG6VX-EGA3a-RV5ICuiGS5o3Xxnec4cgcmy8WPM" />
+
+
+<meta name="description" content="ImageShack offers image hosting, free photo sharing and video sharing. Upload your photos, host your videos, and share them with friends and family."/>
+<meta name="keywords" content="ImageShack, free image hosting, free video hosting, image hosting, video hosting, photo image hosting site, video hosting site "/>
+<meta name="robots" content="index,follow"/>
+
+<link href="/css/blue_round.css?v=4" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="/css/jNotify.jquery.css" media="screen" />
+
+<link rel="stylesheet" type="text/css" href="/css/home.css?v=14"/>
+<link rel="stylesheet" type="text/css" href="/css/newuploader.css"/>
+
+
+
+
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+<!-- PUT THIS TAG IN THE head SECTION -->
+<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js">
+</script>
+<script type="text/javascript">
+    GS_googleAddAdSenseService("ca-pub-7137941865592088");
+    GS_googleEnableAllServices();
+</script>
+<script type="text/javascript">
+
+                GA_googleAddSlot("ca-pub-7137941865592088", "Imageshack_HomePage_Top");
+        GA_googleAddSlot("ca-pub-7137941865592088", "Imageshack_HomePage_Bottom_728x90");
+    GA_googleAddSlot("ca-pub-7137941865592088", "Imageshack_HomePage_Bottom");
+    
+</script>
+
+<script type="text/javascript">
+    GA_googleFetchAds();
+</script>
+<!-- END OF TAG FOR head SECTION -->
+
+<script type="text/javascript" src="http://pixel.quantserve.com/api/segments.json?a=p-65DrxcUXjcWq6&callback=qc_results"></script>
+
+
+<script type ="text/javascript">
+    var login_error = "";
+</script>
+
+
+</head>
+<body >
+
+<div id="fb-root"></div>
+<script>
+    // Additional JS functions here
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '124304810915979', // App ID
+            channelUrl : '//www.imageshack.us/channel.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+        });
+    };
+
+    // Load the SDK Asynchronously
+    (function(d){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+</script>
+<!-- Start Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-6232220-1");
+    pageTracker._setDomainName(".imageshack.us");
+    pageTracker._setSampleRate("80");
+    _gaq.push(['b._setAccount', 'UA-6232220-1']);
+    _gaq.push(['b._setDomainName', '.imageshack.us']);
+
+
+    pageTracker._setCustomVar(1, 'page_type', 'homepage', 3);
+        
+
+
+    pageTracker._trackEvent('page-speed', 'homepage', '0.001');
+
+    } catch(err) {}
+
+// trackPageview
+      pageTracker._trackPageview("/homepage/logged_out");
+      
+</script>
+<!-- End Google Analytics -->
+
+
+<div class="layout">
+    <div class="indent">
+    <div id="top">       
+         <div class="top_form right">
+                        <div id="signOut" class="signOut">
+                <a href="http://register.imageshack.us/" onClick="pageTracker._trackEvent('new-header-click','header-register');">Sign Up</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:;" id="btnlogin" onClick="pageTracker._trackEvent('new-header-click','header-signin');">Login</a>
+
+                 <span id="login-top">
+                     <form action="/auth.php" method="post" style="display:inline!important;">
+                        <input type='hidden' name='format' value="redirect">
+                        <input type='text' name='username' id='username' placeholder="Username/Email">&nbsp;
+                        <input type='password' name='password' id='password' placeholder="password">
+                        <input type="submit" name="login" id="login" value="login" onClick="pageTracker._trackEvent('new-header-click','login-ok');"/>
+                        <br>
+                         <div class="login-options">
+                             <label id="stay_logged_in_label" for="stay_logged_in">Keep me logged in</label>
+                             <input type="checkbox" id="stay_logged_in" name="stay_logged_in" checked="checked" />
+                             <a id="forgot-password" href="/registration/passwordrecovery.php">Forgot Password?</a>
+                         </div>
+                     </form>
+                 </span>
+                 <a id="global-facebook-login"></a> 
+            </div>
+            <!-- Search -->            
+            <div class="search-box right" style="cursor:nohand; background:transparent;">
+                <form id="searchform" >
+                  <div class="left">
+                                        <input name="q" id="searchfield" style="height:18px; padding-top:3px; font-family:Verdana,Arial,sans-serif; font-size:12px;" 
+                     
+                      onfocus="focussearch(this, 'Search'); pageTracker._trackEvent('new-header-click','header-search');" value="Search"
+                     />&nbsp;&nbsp;
+                  </div>
+                  <div class="left" style="margin-top: 4px">
+                    <a id="searchbutton" href="#" style="margin:0; padding:0; border:none;" onClick="pageTracker._trackEvent('new-header-click','header-search-btn');">
+                    <img src="http://imageshack.us/images/blue/arrow-right-round.gif" width="21px" height="20px" /></a>
+                  </div>
+                 </form>
+            </div>     
+         </div>
+         <div class="logo"><h1><a href="http://imageshack.us/" onClick="pageTracker._trackEvent('new-header-click','header-logo');">ImageShack</a></h1></div>      
+
+        <div class="facebook-like"><iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FImageShack%2F133510786684471&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe></div>
+
+         <div class="clear"></div>         
+     </div>
+<!-- Main Menu  -->
+<div id="menu">
+    <ul class="sf-menu">
+        <li class="current"><a class="topanchor" href="http://imageshack.us/">Media Upload</a></li>                                                             
+        <!--<li style="width:329px; cursor:nohand; background:transparent;">
+        </li>-->        
+        <li id="menu_signupgrade" style="width:251px;"
+            class="">
+                    <a class="topanchor" href="http://register.imageshack.us/" onClick="pageTracker._trackEvent('new-header-click','header-menu-register');">Sign Up</a>
+                  </li>                                                             
+        <li class=""><a class="topanchor" href="http://imageshack.us/p/features/" onClick="pageTracker._trackEvent('new-header-click','header-menu-tools');">Tools</a></li>                                                             
+        <li id="menu_myimages" class="">
+                              <a class="topanchor" href="http://imageshack.us/v_images.php" onClick="pageTracker._trackEvent('new-header-click','header-menu-myimages');"
+                style="border-right:none" 
+                 
+                >My Images</a>
+                             
+                     </li>                                                          
+    </ul>
+</div>      
+
+<div class="clear"></div><!-- Start Google Analytics Tag -->
+  <script type="text/javascript">pageTracker._setVar('HomePage');</script>
+<!-- End Google Analytics tag -->
+
+<div style="float:left;width:100%;text-align:center;display:none;">
+
+  
+  <script type="text/javascript"><!--
+   if(window.location.hash !=''){
+  //    alert('http://' + window.location.host + '/' + window.location.pathname);
+    window.location ='http://'+ window.location.host +  window.location.pathname;
+   }
+  //--></script>
+  
+
+</div>
+
+<div class="clear"></div>
+
+<div class="column-left" id="column-left">
+
+<form method="post" action="/toolbar/pictures.php" id="swfpostform">
+    <input type="hidden" name="hideregister" id="hideregister" value=""/>
+    <input type="hidden" name="email" id="swf_email_input" value=""/>
+        <div id="swfpostcontainer" style="display:none"></div>
+</form>
+
+<div id='upload_canvas' style='display: none; padding:10px 15px 0px;'>
+<form method="post" action="http://post.imageshack.us/" enctype="multipart/form-data" onsubmit="return checkemail()" id="upform">
+  <div style="font:bold 20px Arial, Helvetica, sans-serif; text-align:center; margin:5px auto;">
+      Browse, select, upload now!    </div>
+  <div id="ff30_hack" style="text-align:center; font-weight:bold; display:none; color:blue;"><a href='http://getfirefox.com'>To enable multiple uploads, please upgrade to the latest Firefox.</a></div>
+  <div id="linux_hack" style="text-align:center; font-weight:bold; display:none; color:blue;"><a href='http://imageshack.us/p/uploader&platform=linux'>To enable multiple uploads, please use ImageShack Uploader.</a></div>
+  <div id="oldflash_hack" style="text-align:center; font-weight:bold; display:none; color:blue;"><a href='http://www.adobe.com/go/getflashplayer'>Please upgrade to the latest Flash Player.</a></div>
+  <div id="filetypeerror" style="text-align:center; font-weight:bold; display:none; color:red; margin-bottom:-13px;">Please select only one of the supported file types:</div>
+  <script type="text/javascript" src="/scripts/common/magicbutton.js"></script>
+
+  <div id="uploadform" style="padding-left:100px; margin-top:5px">
+  <div style="float:left; margin-bottom:8px">
+      <div id="uploadspacer" >
+            <span style="font-weight:bold; font-size:16px; vertical-align: bottom">Upload:</span>
+            <span id='opt_t0' style="display: none;">
+             <input type="radio" id='toggle0' name="uploadtype" onclick="toggleuploadmode(0); pageTracker._trackEvent('new-home-click','homepage-image-radio-btn');" style="vertical-align: bottom"> <a href="#" onclick="toggleuploadmode(0); pageTracker._trackEvent('new-home-click','homepage-image-radio-btn');" title="upload an image" checked style="color:#333333; vertical-align: bottom">image / video</a>
+            </span>
+            <span id='opt_t3'>
+                            <input type="radio" id='toggle3' name="uploadtype" onclick="toggleuploadmode(3); pageTracker._trackEvent('new-home-click','homepage-imagesvideos-radio-btn');" style="vertical-align: bottom"> <a href="#" onclick="toggleuploadmode(3); pageTracker._trackEvent('new-home-click','homepage-imagesvideos-radio-btn');" title="upload multiple images / videos" checked style="color:#333333; vertical-align: bottom">images / videos</a>
+                        </span>   
+               
+            <input type="radio" id="toggle1" name="uploadtype" onclick="toggleuploadmode(1); pageTracker._trackEvent('new-home-click','homepage-url-radio-btn');" style="vertical-align: bottom"> <a href="javascript:;" onclick="toggleuploadmode(1); pageTracker._trackEvent('new-home-click','homepage-url-radio-btn');" title="transload an image from a url" style="color:#333333; vertical-align: bottom">url</a> 
+                      <!--</div>-->
+      </div>
+      <div id="uploadspacer2" style="display:none; font-weight:bold; font-size:16px;">Uploading ...</div>
+      <div style="width:100%; height:5px">&nbsp;</div>
+      <div>
+        <div>
+           <div id="upfile" style="display:none;">
+              <input type="file" name="fileupload" size="58" style="height:22px; border:1px #c7c7c7 solid; margin-bottom:1px;" onchange="showoptions(this)" id="fileupload"/>
+           </div>
+           <div id="upurl" style="display: none;"><input type="text" id="transurl" value="Paste image url here" style="color:#bbbbbb; font-style:italic; height:18px; width:374px; border:1px #c7c7c7 solid;" onchange="showoptions(this)" onfocus="focusoption(this)" name="url" />&nbsp;</div>
+           <div id="upvideo" style="display: none">
+              <input type="text" value="" disabled="DISABLED" size="50" style="height:20px"/>&nbsp;<script type="text/javascript">_magic_button('height:20px;width:70px;background-color:#cccccc;')</script>
+          </div>
+                     <div id="noflash" style="font-weight: bold;display: none; border: 1px solid #F00; padding: 10px; margin-bottom:5px; width:310px"><a href='http://imageshack.us/?no_multi=1' onClick="pageTracker._trackEvent('new-home-click','homepage-noflash');">SORRY, IT APPEARS YOU HAVE NO FLASH SUPPORT,<br/>PLEASE CLICK HERE TO UPLOAD WITHOUT FLASH.</a></div>
+           <div id="upflash" >
+                                			<div id="uploadbox_header" style="display:none; border:1px solid #C7C7C7; border-bottom:none; width:365px; height:15px; position:relative;" class="uploadbox">
+        				<span class="filename">Filename</span>
+        				<span id="upload_filesize" class="filesize" style="">Size</span>
+        			</div>
+        			<div id="fsUploadProgress" class="fieldset flash" style="float:left; height:20px;" >
+        			</div>
+        			<div id="spanButtonPlaceHolder" style="float:left;width:78px; height:20px;">Browse</div>
+        			<!--
+        			<div style="float:left; width:82px">
+        				<input id="btnCancel" style="display: none; cursor:pointer; margin-top:5px; font-size:12px;" type="button" value="Cancel All" onclick="pageTracker._trackEvent('new-home-click','homepage-cancelall-btn')" style="margin: 6px 0 0 2px; font-size: 8pt; height: 29px;" />
+        			</div>
+        			-->
+        			<div id="uploadbox_footer" style="display:none; float:left; border:1px solid #C7C7C7; border-top:none;" class="uploadbox">
+        				<span id="uploadbox_Files" style="position:relative; top:3px; font-weight:bold; float:left; width:220px;"></span>
+        				<span id="uploadbox_TotSize" style="position:relative; top:3px; float:left; font-weight:bold; width:62px;"></span>
+          			<span style="float:left; width:80px;">
+          				<!--<input id="btnCancel" style="cursor:pointer; font-size:12px;" type="button" value="Cancel All" onclick="pageTracker._trackEvent('new-home-click','homepage-cancelall-btn')" style="margin: 6px 0 0 2px; font-size: 8pt; height: 29px;" />-->
+          				<img id="btnCancel" src="http://imageshack.us/images/blue/upload_cancel.png" style="cursor:pointer; " onclick="pageTracker._trackEvent('new-home-click','homepage-cancelall-btn')" />
+          			</span>
+        			</div>
+        			
+      			  <div id="totalWrapper" class="progressWrapper" style="display:none; float:left; width:377px;">
+      			    <!--<div id="totalPercent" style="z-index:2; position:absolute; top: 8px; left:155px;"></div>-->
+      			    <div style="height:10px; margin-top:10px; border:1px solid #C7C7C7">
+      			      <div id="totalProgressBar" class="" style="">&nbsp;</div>
+      			    </div>
+      			  </div>
+                      
+           </div>
+        </div>
+      </div>    
+  </div>
+
+  <div id="optional_area1" style="width:540px; float:left">
+    <div id="regtags" cellspacing="0" cellpadding="0" border="0" >  
+                <div id="autoreg" >
+            <div style="font-weight:bold; font-size:16px;">Enter your email for an instant free account:&nbsp;&nbsp;<span id='email-check-loader' style="display:none"><img src='http://imageshack.us/images/ajax-small-loader.gif' width='16px' height='16px' style='padding:2px 8px 0'></span> </div>
+            <div id="error_msg" style="display:none; line-height:18px; position:relative; top:3px; font-weight:normal; font-size:14px; color:red;">
+              This email is already taken              <div style='display:inline'>
+                  <a href='#' id='btnlogin2'>Login</a> | <a href='http://my.imageshack.us/registration/passwordrecovery.php'>Forgot your password?</a>
+              </div>
+            </div>
+            <div style="margin-top:5px;"><input type="text" name="email" id="email-optional" style="width:374px; height:18px; color:#bbbbbb; border:1px #c7c7c7 solid; font-style:italic; font-size:12px;" maxlength="100" value="Check email inbox after upload to complete registration" onclick="setFocus_FF_MAC(this);" onfocus="focusoption(this); document.getElementById('error_msg').innerHTML=''; pageTracker._trackEvent('new-home-click','homepage-text-email');" onChange="document.getElementById('swf_email_input').value=this.value;" /></div>
+        </div>
+        <!--
+        <tr id="autoregdesc" >
+            <td nowrap="NOWRAP" style="text-align:right; color:#bbbbbb; font-style:italic;">
+                
+            </td>
+        </tr>-->
+        
+            </div>
+  </div>
+     
+    
+        
+    
+          
+  <input type="hidden" name="MAX_FILE_SIZE" value="13145728"/>
+  <input type="hidden" name="refer" value=""/>
+  <input type="hidden" name="brand" value=""/>
+  <input type="hidden" name="optimage" id="optimage" value="resample"/>
+  <input type="hidden" name="key" value="07AHPRSUb540e13d31461ec4d69d5fc122bd5ab7"/>
+
+    <div id="webcam_dialog" title="Record from Webcam" style="display:none;margin-top:0.5em;">
+        <div id="recorder" align="middle" style="height: 40px">
+            <span style="margin-top: 180px"><strong>Your flash player appears to be out of date.  Please upgrade it.</strong></span>
+        </div>
+        <div style=" border-top: solid 1px #666666; margin-top:10px;margin-left:7px;width:470px;">
+            <span style="float:left; padding: 15px 0 10px 0;margin-left:5px;"><a href="javascript:;" id="help_link">Need help?</a></span>
+            <span style="float:right; padding: 15px 0 10px 0;"><input id="webcam_close" type="button" style="font-size:10pt;background:url(http://imageshack.us/images/blue/button_grey.png) transparent no-repeat top; width:71px; height:20px; border:0;color:#ffffff;font-weight:bold;padding-bottom:2px;" value="Cancel"/></span>
+        </div>
+    </div>
+    
+    <div id="webcam_help_dialog" title="Webcam help" style="display:none">
+        <div id="help_text"></div>
+        <div style=" border-top: solid 1px #666666; margin-top:10px;margin-left:10px;width:535px;">
+            <span style="float:right; padding: 15px 0 10px 0;"><input id="webcam_help_close" type="button" style="font-size:10pt;background:url(http://imageshack.us/images/blue/button_grey.png) transparent no-repeat top; width:71px; height:20px; border:0;color:#ffffff;font-weight:bold;" value="Cancel"/></span>
+        </div>
+    </div>
+
+    <div id="optional_area2" style="width:540px; float:left; ">
+
+                <div class="upload-options" style="margin-bottom: 15px;">
+            <div id="resizeoptions" style="padding-top: 0px; margin-top:5px; ">
+              <div class="upload-options">
+                  <div class="" style="float:left; padding-top:3px; margin:0 10px 5px 0;">Image resize:&nbsp;
+                                    <!--<a href="#" class="tt" style="cursor:help"><img src="/images/blue/help.gif" width="17" height="16" style="vertical-align:middle"/><span class="tooltip"><span class="top"></span><span class="middle"></span><span class="bottom"></span></span></a>
+-->
+                  </div>
+                  <div style="margin-bottom:5px;">
+                    <select name="optsize" id="optsize" style="height:20px" onchange="change_optsize(this); pageTracker._trackEvent('new-home-click','homepage-click-optsize-'+this.value);">
+                      <option value="100x100" >100x75 (avatar)</option>
+                      <option value="150x150" >150x112 (thumbnail)</option>
+                      <option value="320x320" >320x240 (for websites and email)</option>
+                      <option value="640x640" >640x480 (for message boards)</option>
+                      <option value="800x800" selected>800x600 (15-inch monitor)</option>
+                      <option value="1024x1024" >1024x768 (17-inch monitor)</option>
+                      <option value="1280x1280" >1280x1024 (19-inch monitor)</option>
+                      <option value="1600x1600" >1600x1200 (21-inch monitor)</option>
+                      <option value="optimize" >Optimize without resize</option>
+                      <option value="resample" >Do not resize</option>
+                    </select>
+                  </div>
+                  <div class="" style="float:left; padding-top:3px; margin:0 10px 5px 0;">Label thumb:&nbsp;
+                                    <!--<a href="#" class="tt" style="cursor:help"><img src="/images/blue/help.gif" width="17" height="16" style="vertical-align:middle"/><span class="tooltip"><span class="top"></span><span class="middle"></span><span class="bottom"></span></span></a>
+-->
+                  </div>
+                  <div class="">
+                                        <input type="radio" id="rembar1" name="rembar" checked value="0" onclick="change_rembar(this); pageTracker._trackEvent('new-home-click','homepage-label-thumb-'+this.value);" style="vertical-align: bottom"> Yes                    <input type="radio" id="rembar2" name="rembar"  value="1" onclick="change_rembar(this); pageTracker._trackEvent('new-home-click','homepage-label-thumb-'+this.value);" style="vertical-align: bottom"> No 
+                  </div>
+              </div>
+            </div>
+            
+        
+            <div class="upload-options" style="margin: 2px 0; position:relative">
+            <span id="butan_wrap" style="display: none"><!-- url -->
+                <!--<input id="butan" type="image" src="http://imageshack.us/images/blue/uploadnow_btn.png" width="152" height="35" alt="UPLOAD NOW"/>-->
+                <a href="javascript:void(0)" onclick="pageTracker._trackEvent('new-home-click','homepage-click-upload-btn');"><div id="butan" class="btn"><div id="bg"><div id="text">UPLOAD NOW</div></div><div id="right"></div></div></a>
+            </span>
+            <span id="swfbutan"><!-- image -->
+                <!--<a href="javascript:void(0)" onclick="uploadstart();  pageTracker._trackEvent('new-home-click','homepage-click-upload-btn');"><img src="http://imageshack.us/images/blue/uploadnow_btn.png" width="152" height="35" alt="UPLOAD NOW"/></a>-->
+                <a id="uploadstart" href="javascript:void(0)" onclick="pageTracker._trackEvent('new-home-click','homepage-click-upload-btn');"><div class="btn"><div id="bg"><div id="text">UPLOAD NOW</div></div><div id="right"></div></div></a>
+            </span>
+                        <span class="html-upload"><a href="http://imageshack.us/?no_multi=1" onclick="pageTracker._trackEvent('new-home-click','homepage-cannot-upload-btn');" >Can't Upload?&nbsp;Try This.</a></span>
+                        <span id="getsat-widget-link">Need help?</span>
+            </div>
+        </div>        
+        
+        <div style="padding-top:10px; width:300px; display:none; color:#993300" id="help-area" > <!-- Help -->
+            <div class="roundedBox" id="round-blue" style="margin-top:10px; width:275px; _width:274px; " >
+                <div id="help-text"></div>
+                <div class="corner topLeft"></div><div class="corner topRight"></div><div class="corner bottomLeft"></div><div class="corner bottomRight"></div>
+            </div>
+        </div>
+    </div>
+    
+  <br/>
+  
+  </div>  <!-- div.uploadform -->
+</form>
+</div>
+<!-- Display uploader section. We should display the section using Javascript because of noscript case. -->
+<script type="text/javascript">
+  document.getElementById('upload_canvas').style.display="block";
+</script>
+
+<noscript>
+<br/>
+<center>
+    <div style='border: 1px solid #DDF; background: #FF8; padding: 5px; font-weight: bold; margin:20px auto;'><span style='font-size: 8pt; color: #F00;'>!</span> Please enable javascript for optimum ImageShack experience</div>
+    <form method="post" action="http://post.imageshack.us/" enctype="multipart/form-data" id="upform_nojs">
+    <input type="hidden" name="MAX_FILE_SIZE" value="13145728">
+    <input type="hidden" name="refer" value="no_js_">
+    <input type="hidden" name="brand" value="">
+    <input type="hidden" name="optimage" id="optimage" value="resample"/>
+
+    <div style="float:left; width:550px;">
+        <table cellspacing="0" cellpadding="0" border="0" style="width:500px;">
+        <tr height="30px">
+          <td style="width:200px" align="right">Image resize:&nbsp;</td>
+          <td style="margin-bottom:5px" align="left">
+              <select name="optsize" id="optsize" style="height:20px">
+                <option value="100x100" >100x75 (avatar)</option>
+                <option value="150x150" >150x112 (thumbnail)</option>
+                <option value="320x320" >320x240 (for websites and email)</option>
+                <option value="640x640" >640x480 (for message boards)</option>
+                <option value="800x800" selected>800x600 (15-inch monitor)</option>
+                <option value="1024x1024" >1024x768 (17-inch monitor)</option>
+                <option value="1280x1280" >1280x1024 (19-inch monitor)</option>
+                <option value="1600x1600" >1600x1200 (21-inch monitor)</option>
+                <option value="optimize" >Optimize without resize</option>
+                <option value="resample" >Do not resize</option>
+              </select>
+          </td>
+        </tr>
+        <tr height="30px">
+            <td style="width:200px" align="right">Label thumb:&nbsp;</div>
+            <td style="" align="left">
+                            <input type="radio" id="rembar1" name="rembar" checked value="0" style="vertical-align: bottom"> Yes              <input type="radio" id="rembar2" name="rembar"  value="1" style="vertical-align: bottom"> No 
+            </td>
+        </tr>
+        </table>
+    </div>
+    <br />
+    <input type="file" name="fileupload" size="50" style="margin: 10px auto; height:20px;" id="fileupload"/><br/>
+    <input type="submit" value="Host It" style="width:135px;border:2px solid #FF6600;cursor:pointer;"/>
+    </form>
+</center>
+</noscript>
+<p>
+
+
+
+    <div class="clear"></div> 
+
+
+</div>    
+
+    
+    
+<div class="column-right">
+
+  <div id="ad" align="center" style="margin-left:2px; height:250px">
+    <iframe id="newuploader_ad_top" marginwidth="0" marginheight="0" cellspacing="0" cellpadding="0" src="" width="300px" height="250px" style="width:300px; height:250px;" scrolling="no" frameborder="no"></iframe>
+  </div>
+</div> <!-- end of right -->
+
+<!-- Panel -->
+
+  <div id="panel" class="panel">
+  	<div id="title"><h2>Recent Images</h2></div>
+    	<table> 
+            <tr> 
+            	<td id="rel-1"></td> 
+                <td id="rel-2"></td> 
+                <td id="rel-3"></td> 
+                <td id="rel-4"></td> 
+                <td id="rel-5"></td> 
+                <td id="rel-6"></td> 
+                <td id="rel-7"></td> 
+                <td id="rel-8"></td> 
+                <td id="rel-9"></td> 
+                <td id="rel-10"></td> 
+            </tr> 
+        </table> 
+    	<table> 
+        	<tr> 
+            	<td id="rel-11"></td> 
+                <td id="rel-12"></td> 
+                <td id="rel-13"></td> 
+                <td id="rel-14"></td> 
+                <td id="rel-15"></td> 
+                <td id="rel-16"></td> 
+                <td id="rel-17"></td> 
+                <td id="rel-18"></td> 
+                <td id="rel-19"></td> 
+                <td id="rel-20"></td> 
+            </tr> 
+        </table> 
+  </div>
+  <!--
+  <div id="panel" class="panel">
+    <div class="panel-item">
+      <div id="title"><h2>More Ways to Upload</h2></div>
+      <div id="upload-tools0" style="display:none"> 
+        <div id="image"><a href="http://imageshack.us/p/uploader/" onClick="pageTracker._trackEvent('new-home-click','homepage-click-bulkuploader-icon');"><img src="http://imageshack.us/images/blue/cooltool.png" alt="Windows Bulk Uploader"/></a></div>
+        <div id="right" class="text" >
+          <a href="http://imageshack.us/p/uploader/" onClick="pageTracker._trackEvent('new-home-click','homepage-click-bulkuploader-title');" style="font-weight:bold">Bulk Uploader</a><br /><br />
+          Upload multiple images and videos.<br />
+          Supports Windows, Mac, and Linux.<br />
+        </div>
+      </div>
+      <div id="upload-tools1" style="display:none"> 
+        <div id="image"><a href="http://toolbar.imageshack.us" onClick="pageTracker._trackEvent('new-home-click','homepage-click-toolbar-icon');"><img src="http://imageshack.us/images/blue/home_cooltool.png" alt="ImageShack Toolbar"/></a></div>
+        <div id="right" class="text">
+          <a href="http://toolbar.imageshack.us" onClick="pageTracker._trackEvent('new-home-click','homepage-click-toolbar-title');" style="font-weight:bold">ImageShack Toolbar</a><br /><br />
+          Supports Firefox<br />
+          and Internet Explorer.<br />
+        </div>
+      </div>
+      <div id="right" class="link">
+        <a href="http://imageshack.us/p/features/" onClick="pageTracker._trackEvent('new-home-click','homepage-click-text-seeall');">See all &gt;&gt;</a>
+      </div>
+    </div>
+
+    <div id="register-upgrade-lightbox">
+      <div class="panel-item" id="register-upgrade" style="border-right:0;"> 
+        <div style="height:160px">
+                  <div id="title"><h2>Register</h2></div>
+          <div id="image"><a href="http://register.imageshack.us/" onClick="pageTracker._trackEvent('new-home-click','homepage-click-register-icon');"><img src="http://imageshack.us/images/blue/home_upgrade.png" alt="Create an Account"/></a></div>
+          <div id="right" class="text">
+            <a href="http://register.imageshack.us/" onClick="pageTracker._trackEvent('new-home-click','homepage-click-register-title');" style="font-weight:bold">Create an Account</a><br /><br />
+            - Join for free<br />
+            - Save your media<br />
+            - Get free tools<br />
+          </div>
+          <div id="right" class="link">
+            <a href="http://register.imageshack.us/" onClick="pageTracker._trackEvent('new-home-click','homepage-click-text-register');">Register to Join Now >></a>
+          </div>
+              
+        </div>
+        <div id="never-show-section" style="display:none; border:1px solid #999; height:20px; width:100%; background-color:white; ">
+          <div><input type="checkbox" onClick="pageTracker._trackEvent('new-done-click','never-show-btn');" value="y" checked="checked" id="never-show-btn" /> Never show again</div>
+        </div>
+        <div style="display:none"><a href="#" onClick="pageTracker._trackEvent('new-home-click','register-upgrade-popup');" rel="register-upgrade" id="register-upgrade-btn"></a></div>
+      </div>
+    </div>
+
+  </div> 
+-->
+  <div id="bottom_ad" align="center" style="">
+    <iframe id="Imageshack_HomePage_Bottom" marginwidth="0" marginheight="0" cellspacing="0" cellpadding="0" src="" width="300px" height="250px" style="width:300px; height:250px;" scrolling="no" frameborder="no"></iframe>
+  </div>
+
+<input type="hidden" id="c" value=""/>
+<input type="hidden" id="newhomepage" value="1"/>
+<input type="hidden" id="actionman" value="http://post.imageshack.us/"/>
+<input type="hidden" id="errormsg3" value="Invalid email address specified.">
+<input type="hidden" id="errormsg4" value="This email is already taken.">
+<input type="hidden" id="no_multi" value=""/>
+<input type="hidden" id="str_login" value="Login"/>
+<input type="hidden" id="str_forgotpass" value="Forgot your password?"/>
+<input type="hidden" id="sign_in_now" value=""/>
+
+<!-- footer -->       
+
+
+
+    <div class="clear"></div>
+   
+ <!-- Bottom Menu -->   
+     <div class="menu-bottom">
+         <div class="menu-header">      
+            <a href="http://blog.imageshack.com/about/" onClick="pageTracker._trackEvent('new-footer-click','footer-about');" title="About Us" class="menu-bottom-link">About</a>|
+            <a href="/p/advertising/" onClick="pageTracker._trackEvent('new-footer-click','footer-advertising');" title="Advertise on ImageShack" class="menu-bottom-link">Advertising</a>|
+            <a href="http://imageshack.us/content.php?page=email&q=customer" onClick="pageTracker._trackEvent('new-footer-click','footer-contact');" title="Report Lost or Missing Images" class="menu-bottom-link">Contact</a>|
+            <a href="http://imageshack.us/content.php?page=email&amp;q=abuse" onClick="pageTracker._trackEvent('new-footer-click','footer-reportabuse');" title="Report Abuse or Request Deletion" class="menu-bottom-link">Report Abuse</a>|
+            <a href="/p/developer/" onClick="pageTracker._trackEvent('new-footer-click','footer-api');" title="API" class="menu-bottom-link">API</a>|
+            <a href="/p/features/" onClick="pageTracker._trackEvent('new-footer-click','footer-tools');" title="Tools" class="menu-bottom-link">Tools</a>|
+            <a href="/p/rules/" onClick="pageTracker._trackEvent('new-footer-click','footer-tos');" title="ToS" class="menu-bottom-link">ToS</a>|
+            <a href="/p/privacy/" onClick="pageTracker._trackEvent('new-footer-click','footer-privacy');" title="Privacy" class="menu-bottom-link">Privacy</a>|
+            <a href="/sitemap/" title="Sitemap" onClick="pageTracker._trackEvent('new-footer-click','footer-sitemap');" class="menu-bottom-link">Sitemap</a>|
+            <a href="http://blog.imageshack.com" title="Blog" onClick="pageTracker._trackEvent('new-footer-click','footer-blog');" class="menu-bottom-link">Blog</a>|     
+            <a href="http://blog.yfrog.com/jobs/" onClick="pageTracker._trackEvent('new-footer-click','footer-jobs');" title="Jobs" class="menu-bottom-link">Jobs</a>|
+            <a href="http://kb.imageshack.us/is/article?22=faq" onClick="pageTracker._trackEvent('new-footer-click','footer-help');" title="Help" class="menu-bottom-link">Help</a>
+	    				| <a href="/?no_flash=y" onClick="pageTracker._trackEvent('new-footer-click','html-version');" title="HTML Version" class="menu-bottom-link">HTML Version</a>
+			             </div>    
+     </div>           
+     <div id="copyright">
+         &copy; 2003-2013 ImageShack Corp. All rights reserved.     </div>
+     
+
+                  <div align="center">
+        <form name="langForm" id="langForm" method="post" >
+            <select class="lang" id="language" name="language" onChange="pageTracker._trackEvent('new-header-click','lang-'+this.value);" onmouseover="showBottomAd(false)" onmouseout="showBottomAd(true)"> 
+              <option value="en" selected="selected">English</option>
+              <option value="de">Deutsch</option>
+              <option value="es">Español Ibérico</option>
+              <option value="es_MX">Español latinoamericano</option>
+              <option value="fr">Français</option>
+              <option value="it">Italiano</option>
+              <option value="pl">Polski</option>
+              <option value="pt">Português do Brasil</option>
+              <option value="tr">Türkçe</option>
+              <option value="ru">Русский</option>
+            </select> 
+        </form>
+      </div>
+           
+    </div> <!-- div.indent -->         
+</div>  <!-- div.layout -->
+
+<div id="login_dialog" title="Login" style="display:none">
+    Login with your Imageshack username or email:    <table cellpadding="0" cellpadding="0" border="0" style="width:100%">
+        <tr>
+            <td style="width:100px; text-align:right;">
+                &nbsp;
+            </td>
+            <td style="text-align:left;">
+                <div style="width:245px;">
+                    <div id="l_no_user_error" class="error" style="display:none; color:#D34209;font-weight:bold;"><i>Please enter your username or email address</i></div>
+                    <div id="l_no_pass_error" class="error" style="display:none; color:#D34209;font-weight:bold;"><i>Please enter your password</i></div>
+                    <div id="l_auth_failed_error" class="error" style="display:none; color:#D34209;font-weight:bold;"><i>Authentication failed. Please check username and password entered</i></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                Email:            </td>
+            <td style="text-align:left;">
+                <form name="login" id="login" action="blank.html" onsubmit="return false;">
+                <input id="l_login" style="font-style:italic;"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                Password:            </td>
+            <td style="text-align:left;">
+                <input type="password" id="l_password"/>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                &nbsp;
+            </td>
+            <td style="text-align:left;">
+                <input type="checkbox" id="stay_logged_in" checked="checked" /><label for="stay_logged_in" style="font-size: 8pt;">Remember me</label>
+                <input type="submit" id="okbtn_login" style="cursor:pointer; margin-top:5px; margin-left:15px;" value="OK" onClick="pageTracker._trackEvent('new-header-click','login-ok');"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <!--<input type="button" id="okbtn_login" style="cursor:pointer; margin-top:5px;" value="OK" onClick="pageTracker._trackEvent('new-header-click','login-ok');"/>-->
+    <!--<input type="button" id="cancelbtn_login" value="Cancel" onClick="pageTracker._trackEvent('new-header-click','login-cancel');"/>-->
+    <div align="left">    
+       <a class="ser" href="http://my.imageshack.us/registration/passwordrecovery.php" onClick="pageTracker._trackEvent('new-header-click','login-forgot-password');" style="font-style:italic;font-size:8pt;">Forgot your password?</a>
+    </div>
+    <hr/>
+    <p style="font-size:8pt;text-align:left;">If you are already registered with ImageShack, but do not have a password, please log in using your registration link and click on &quot;Preferences&quot; to create your new password.</p>
+</div>
+<!-- Repleaf -->
+
+<script type='text/javascript' src='/scripts/jquery/jquery-1.8.2.min.js'></script>
+<script type="text/javascript" src="/scripts/jquery/jquery-ui-1.8.24.custom.min.js"></script>
+<script type="text/javascript" src="/scripts/jquery/jNotify.jquery.min.js"></script>
+<script type="text/javascript" src="/scripts/common/core.js?v=7"></script>
+
+<script type="text/javascript">
+    FacebookLogin.setAPIKey('5SQW7ZT1dec0922325c83383377e7e557d97fe7a');
+</script>
+
+<script type="text/javascript" src="/swfupload/swfupload.min.js"></script>
+<script type="text/javascript" src="/scripts/blue/uploadhandlers.js"></script>
+<script type="text/javascript" src="/scripts/common/AC_OETags.js" ></script>
+<script type="text/javascript" src="/scripts/blue/home.js?v=1"></script>
+<!-- upload selection -->
+<script type="text/javascript">    
+
+    function focusoption(fl) 
+    {
+
+      if (fl && (fl.value=="Paste image url here" || fl.value=="Check email inbox after upload to complete registration" || fl.value=="Example: ipod, love, art")) 
+
+      { 
+        fl.value='';
+        fl.style.color='black';
+        fl.style.fontStyle='normal';
+      }
+    }  
+
+
+
+      if (!FlashDetect.installed ) {
+           show('noflash'); hide('optional_area2');           show('opt_t0');
+          hide('opt_t3');
+          toggleuploadmode( 0 );
+      } else {
+          show('opt_t3');
+          hide('opt_t0');
+          toggleuploadmode( 3 );
+      }
+
+</script>
+
+
+<input type="hidden" id="Quantcast_label" value="HomePage">
+
+<!-- Quantcast & comScore tags -->
+<script type="text/javascript" src="/scripts/common/is-comscore.js"></script>
+
+<!-- Start Quantcast tag -->
+<noscript>
+<a href="http://www.quantcast.com/p-65DrxcUXjcWq6" target="_blank"><img src="http://pixel.quantserve.com/pixel/p-65DrxcUXjcWq6.gif?labels=Homepage" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/></a>
+</noscript>
+<!-- End Quantcast tag -->
+
+    <div id='bigfootaddiv' style='display:none'>
+        <div align='right'>
+            img631 208.94.2.18<br />
+            <div style='color: #f7f7f7'>
+                
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+<div id="ymaddiv" align="center">
+  <iframe id="newuploader_ad_bottom" marginwidth="0" marginheight="0" cellspacing="0" cellpadding="0" src="" width="728px" height="90px" style="width:728px; height:90px; margin:10px auto" scrolling="no" frameborder="no"></iframe>
+</div>
+<div id="getsat-widget">
+  <div id="getsat-widget-container" class="widget-hidden">
+    <div id="getsat-widget-close"><a id="getsat-widget-close">Close</a></div>
+    <div id="getsat-widget-3204"></div>
+  </div>
+</div>
+
+<p />
+
+<script type="text/javascript" src="/scripts/blue/home-popular.js"></script>
+
+<!-- getSatisfaction -->
+<script type="text/javascript" src="https://loader.engage.gsfn.us/loader.js"></script>

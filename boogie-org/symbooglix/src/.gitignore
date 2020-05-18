@@ -1,0 +1,19 @@
+# Binaries
+BoogieTests/bin/
+BoogieTests/obj/
+Symbooglix/bin/
+Symbooglix/obj/
+SymbooglixDriver/bin/
+SymbooglixDriver/obj/
+ExprBuilderTests/bin/
+ExprBuilderTests/obj/
+SymbooglixPassRunner/bin/
+SymbooglixPassRunner/obj/
+
+
+# Monodevelop files
+Symbooglix.userprefs
+
+# NuGet packages
+packages/
+.nuget

@@ -1,0 +1,13 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\FormsDesigner\FormsDesigner.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\FormsDesigner.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\Src\Gui\OptionPanels\GeneralOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\Src\Gui\OptionPanels\GridOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\Src\Gui\OptionPanels\LocalizationModelOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\Src\Gui\OptionPanels\GeneralOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\Src\Gui\OptionPanels\GridOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\Src\Gui\OptionPanels\LocalizationModelOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\FormsDesigner_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\FormsDesigner.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\ICSharpCode.FormsDesigner.Gui.ImageResourceEditorDialog.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\FormsDesigner.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\FormsDesigner\Project\obj\Release\FormsDesigner.dll

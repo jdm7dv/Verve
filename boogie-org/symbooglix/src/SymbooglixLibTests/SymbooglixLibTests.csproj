@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F2D05CFA-9CF9-4853-8230-2C9566216DC0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SymbooglixLibTests</RootNamespace>
+    <AssemblyName>SymbooglixLibTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SymbolicOnEntry.cs" />
+    <Compile Include="Concretise.cs" />
+    <Compile Include="RequiresConcreteOnEntryToMain.cs" />
+    <Compile Include="GlobalConstant.cs" />
+    <Compile Include="AssertionTextWriterTraceListener.cs" />
+    <Compile Include="SymbooglixTest.cs" />
+    <Compile Include="Goto.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="RequiresConstrainedLocal.cs" />
+    <Compile Include="TerminationReporting.cs" />
+    <Compile Include="ExprSMTLIB\Literal.cs" />
+    <Compile Include="MapExtensionality.cs" />
+    <Compile Include="AithmeticCoercion.cs" />
+    <Compile Include="FunctionAsAxiom.cs" />
+    <Compile Include="Transforms\Inline.cs" />
+    <Compile Include="OnlyOneSolverCall.cs" />
+    <Compile Include="PossiblyFailingRequires.cs" />
+    <Compile Include="SimpleCallSummary.cs" />
+    <Compile Include="CallAssignsTo.cs" />
+    <Compile Include="InconsistentAxioms.cs" />
+    <Compile Include="InvalidEntryPoint.cs" />
+    <Compile Include="ExprSMTLIB\TypeSynonym.cs" />
+    <Compile Include="TypeSynonym.cs" />
+    <Compile Include="RequiresWithConstantEqualityConstraint.cs" />
+    <Compile Include="AlreadyConcrete.cs" />
+    <Compile Include="Transforms\NestedFunctionsToInline.cs" />
+    <Compile Include="Transforms\OldExprCanonicalise.cs" />
+    <Compile Include="OldExprCall.cs" />
+    <Compile Include="CallInconsistentSpecification.cs" />
+    <Compile Include="WhereExpr.cs" />
+    <Compile Include="SpeculativeExecution.cs" />
+    <Compile Include="ExprSMTLIB\UninterpretedFunction.cs" />
+    <Compile Include="TerminationType.cs" />
+    <Compile Include="ExecutorTerminatedEvent.cs" />
+    <Compile Include="InstructionPrinter.cs" />
+    <Compile Include="BlockCmdIterator.cs" />
+    <Compile Include="GotoAssumeLookAhead.cs" />
+    <Compile Include="GotoNaive.cs" />
+    <Compile Include="Transforms\ExecutorContextChangeEvent.cs" />
+    <Compile Include="ExecutorExplicitBranchDepth.cs" />
+    <Compile Include="ExecutorStartedEvent.cs" />
+    <Compile Include="Transforms\ProgramLocationAnnotation.cs" />
+    <Compile Include="Transforms\InstructionStatisticsAnnotation.cs" />
+    <Compile Include="InstructionStatisticsTests.cs" />
+    <Compile Include="EntryPoints.cs" />
+    <Compile Include="StateScheduling.cs" />
+    <Compile Include="ExecutorTimeout.cs" />
+    <Compile Include="ExecutorNonTerminatedStateRemovedEvent.cs" />
+    <Compile Include="ExprSMTLIB\NotEq.cs" />
+    <Compile Include="ExprSMTLIB\Iff.cs" />
+    <Compile Include="GPUVerify.cs" />
+    <Compile Include="Assignment.cs" />
+    <Compile Include="ExprSMTLIB\TypeCtor.cs" />
+    <Compile Include="Transforms\GlobalDDE.cs" />
+    <Compile Include="UniqueVariables.cs" />
+    <Compile Include="Solver\IndependenceSolverTests.cs" />
+    <Compile Include="FailureLimit.cs" />
+    <Compile Include="AddIdenticalConstraint.cs" />
+    <Compile Include="ForkAtPredicatedAssignment.cs" />
+    <Compile Include="Ensures.cs" />
+    <Compile Include="EnterAndLeaveProcedureImplementationEvents.cs" />
+    <Compile Include="Havoc.cs" />
+    <Compile Include="TerminateInitialState.cs" />
+    <Compile Include="ExprSMTLIB\Distinct.cs" />
+    <Compile Include="Solver\SimpleSolverTests.cs" />
+    <Compile Include="LineCoverge.cs" />
+    <Compile Include="CachingSymbolicPoolTests.cs" />
+    <Compile Include="VariableStoreTests.cs" />
+    <Compile Include="MapProxyTests.cs" />
+    <Compile Include="ConstraintTests.cs" />
+    <Compile Include="ConstraintManagerTests.cs" />
+    <Compile Include="Transforms\QueryTests.cs" />
+    <Compile Include="ExprSMTLIB\Quantifiers.cs" />
+    <Compile Include="ExprSMTLIB\ExprSMTLIBTestBase.cs" />
+    <Compile Include="ExecutorForkEvent.cs" />
+    <Compile Include="ExecutorTransferBBEvent.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="programs\Concretise.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\SymbolicOnEntry.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\RequiresConcreteLocal.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\RequiresConcreteGlobal.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GlobalSymbolicConstant.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GlobalConstantWithAxiom.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GotoSinglePath.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GotoMultiplePaths.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\2DMap.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\SimpleMap.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\RequiresConcreteLocalBool.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GlobalConstantWithWeakerAxiom.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\RequiresConstrainedLocal.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\assert_false.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\assert_true.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\assume_false.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\MapExtensionality.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\RealToInt.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\IntToReal.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\functionAsAxiom.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Transforms\programs\simple_function_inline.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\OnlyOneSolverCall.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\PossiblyFailingRequires.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\SimpleCallSummary.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\CallAssignsToGlobal.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\CallAssignsToLocal.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\InconsistentAxioms.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\TypeSynonym.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\RequiresWithConstantEqualityConstraint.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\AlreadyConcrete.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Transforms\programs\NestedFunctionsToInline.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Transforms\programs\OldExprCanonicalise.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\OldExprCallImpl.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\OldExprCallProc.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\CallInconsistentSpecification.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\WhereExpr.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GlobalWhereExpr.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\TwoPaths.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\UnsatisfiableEntryRequires.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\FailingRequires.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\FailingEnsures.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\UnsatisfiableEnsures.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\EntryWithImmediateGoto.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GotoUnsatTargets.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GotoAllSatTargets.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GotoAllTargetsWithoutAssumes.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GotoTargetsMixedAssumes.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\FailingAssertNonTrivial.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\FailingAndSucceedingAssert.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\FailingAndSucceedingRequires.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\FailingAndSucceedingEnsures.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\UnsatisfiableAssume.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\ConcreteLoop.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Transforms\programs\AnnotationPass.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\InstructionStatistics.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\MultipleForks.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\assert_nontrivial.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\assume_nontrivial.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\SimpleLoop.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\StateScheduleTest.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\InfiniteLoop.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Transforms\programs\InlineExists.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\GPUVerifyAxiomAssignmentTest.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="programs\TestLoopEscaping.bpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="programs\" />
+    <Folder Include="ExprSMTLIB\" />
+    <Folder Include="Transforms\" />
+    <Folder Include="Transforms\programs\" />
+    <Folder Include="Solver\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Basetypes\Basetypes.csproj">
+      <Project>{43DFAD18-3E35-4558-9BE2-CAFF6B5BA8A0}</Project>
+      <Name>Basetypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\ParserHelper\ParserHelper.csproj">
+      <Project>{FCD3AC7F-9DFD-46C8-AB1E-09F0B0F16DC5}</Project>
+      <Name>ParserHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Core\Core.csproj">
+      <Project>{B230A69C-C466-4065-B9C1-84D80E76D802}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Provers\SMTLib\SMTLib.csproj">
+      <Project>{9B163AA3-36BC-4AFB-88AB-79BC9E97E401}</Project>
+      <Name>SMTLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Symbooglix\Symbooglix.csproj">
+      <Project>{69F04878-1CD0-454C-87A6-6B155D2D4855}</Project>
+      <Name>Symbooglix</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

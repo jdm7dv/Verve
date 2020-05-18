@@ -1,0 +1,1 @@
+csc /target:library /out:bin\CSymphonyLib.Dll  GraphUnit.cs Types.cs AssemblyInfo.cs

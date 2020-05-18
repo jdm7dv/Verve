@@ -1,0 +1,5 @@
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Cache\bin\Demo\Arachnode.Cache.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Cache\bin\Demo\Arachnode.Cache.pdb
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Cache\bin\Demo\Arachnode.Cache.XML
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Cache\obj\Demo\Arachnode.Cache.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Cache\obj\Demo\Arachnode.Cache.pdb

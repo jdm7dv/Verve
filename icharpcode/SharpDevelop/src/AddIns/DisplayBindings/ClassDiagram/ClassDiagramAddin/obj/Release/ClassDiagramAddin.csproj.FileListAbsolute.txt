@@ -1,0 +1,5 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\ClassDiagram\Resources\Bitmaps.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\ClassDiagram\ClassDiagramAddin.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\ClassDiagram\ClassDiagramAddin.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\ClassDiagramAddin\obj\Release\ClassDiagramAddin.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\ClassDiagramAddin\obj\Release\ClassDiagramAddin.dll

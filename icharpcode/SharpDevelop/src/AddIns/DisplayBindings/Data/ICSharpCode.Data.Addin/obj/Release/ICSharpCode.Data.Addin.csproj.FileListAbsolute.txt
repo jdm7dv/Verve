@@ -1,0 +1,9 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\Data\ICSharpCode.Data.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\Data\Templates\Files\CSharp.EDMX.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\Data\ICSharpCode.Data.Addin.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Addin\obj\Release\ICSharpCode.Data.Addin.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Addin\obj\Release\Pad\DatabasesTreeViewUserControl.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Addin\obj\Release\Pad\DatabasesTreeViewUserControl.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Addin\obj\Release\ICSharpCode.Data.Addin_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Addin\obj\Release\ICSharpCode.Data.Addin.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.Addin\obj\Release\ICSharpCode.Data.Addin.dll

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  build.xml
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public License
+  as published by the Free Software Foundation; either version 3
+  of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free
+  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+  MA 02111-1307, USA.
+
+  Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+-->
+
+<project name="grammatica" default="package">
+
+<!-- INITIALIZATION -->
+  <property name="build.name" value="${ant.project.name}" />
+  <property name="build.title" value="Grammatica" />
+  <property name="build.java.package" value="net.percederberg.grammatica" />
+  <tstamp>
+    <format property="build.printdate" pattern="yyyy-MM-dd" />
+  </tstamp>
+  <property name="build.version" value="${DSTAMP}" />
+  <property name="build.date" value="${DSTAMP}" />
+  <path id="project.class.path">
+    <fileset dir="lib" includes="**/*.jar" />
+  </path>
+
+
+<!-- CODE GENERATION TARGETS -->
+  <target name="codegen">
+    <antcall target="compile-clean" />
+    <antcall target="compile-java" />
+    <taskdef resource="ant-grammatica.properties" classpath="classes" />
+    <grammatica grammar="src/grammar/grammar.grammar">
+      <java dir="src/java" package="${build.java.package}" />
+    </grammatica>
+  </target>
+
+
+<!-- COMPILATION TARGETS -->
+  <target name="compile" description="Builds the project from source code"
+          depends="codegen,compile-clean,compile-info,compile-java,compile-csharp">
+    <jar jarfile="lib/${build.name}-${build.version}.jar">
+      <manifest>
+        <attribute name="Main-Class" value="${build.java.package}.Grammatica" />
+      </manifest>
+      <fileset dir="." includes="LICENSE.txt" />
+      <fileset dir="classes" />
+    </jar>
+  </target>
+
+  <target name="compile-clean">
+    <delete quiet="true">
+      <fileset dir="classes" />
+      <fileset dir="lib" includes="${build.name}-*" />
+    </delete>
+    <mkdir dir="classes" />
+    <mkdir dir="lib" />
+  </target>
+
+  <target name="compile-info" unless="build.dotnet">
+    <echo>WARNING: Use -Dbuild.dotnet=1 to compile C#/.NET version</echo>
+  </target>
+
+  <target name="compile-java">
+    <javac srcdir="src/java"
+           destdir="classes"
+           classpathref="project.class.path"
+           source="1.4"
+           target="1.5"
+           debug="on"
+           deprecation="on" />
+  	<copy todir="classes">
+  	  <fileset dir="src/java" excludes="**/*.java" />
+  	</copy>
+  </target>
+
+  <target name="compile-csharp" if="build.dotnet">
+    <exec executable="gmcs" dir="src/csharp" failonerror="true">
+      <arg value="-target:library" />
+      <arg value="-out:${basedir}/lib/${build.name}-${build.version}.dll" />
+      <arg value="-debug" />
+      <arg value="-recurse:*.cs" />
+    </exec>
+  </target>
+
+
+<!-- TEST TARGETS -->
+  <target name="test" description="Runs all automated tests for the project"
+  	      depends="compile,test-codegen,test-java,test-csharp">
+  </target>
+
+  <target name="test-codegen">
+    <grammatica grammar="test/src/grammar/arithmetic.grammar">
+      <java dir="test/src/java"
+            package="${build.java.package}.test" />
+      <csharp dir="test/src/csharp/PerCederberg.Grammatica.Test"
+              namespace="PerCederberg.Grammatica.Test" />
+    </grammatica>
+    <grammatica grammar="test/src/grammar/regexp.grammar">
+      <java dir="test/src/java"
+            package="${build.java.package}.test" />
+      <csharp dir="test/src/csharp/PerCederberg.Grammatica.Test"
+              namespace="PerCederberg.Grammatica.Test" />
+    </grammatica>
+  </target>
+
+  <target name="test-java">
+    <javac srcdir="test/src/java"
+           destdir="classes"
+           classpathref="project.class.path"
+           source="1.4"
+           target="1.5"
+           debug="on"
+           deprecation="on" />
+    <junit haltonfailure="on">
+      <batchtest>
+        <fileset dir="test/src/java" includes="**/Test*.java" />
+      </batchtest>
+      <formatter type="plain" usefile="false" />
+      <classpath>
+        <pathelement location="classes" />
+      	<path refid="project.class.path" />
+      </classpath>
+     </junit>
+  </target>
+
+  <target name="test-csharp" if="build.dotnet">
+    <exec executable="gmcs" dir="test/src/csharp" failonerror="true">
+      <arg value="-target:exe" />
+      <arg value="-out:${basedir}/lib/cstestall.exe" />
+      <arg value="-main:TestAll" />
+      <arg value="-reference:${basedir}/lib/${build.name}-${build.version}.dll" />
+      <arg value="-debug-" />
+      <arg value="-recurse:*.cs" />
+    </exec>
+    <echo level="info" message="running C# test cases with Mono..." />
+    <exec executable="mono"
+          failonerror="true">
+      <arg value="lib/cstestall.exe" />
+    </exec>
+    <delete file="lib/cstestall.exe" />
+  </target>
+
+
+<!-- DOCUMENTATION TARGETS -->
+  <target name="doc" description="Generates the project documentation"
+          depends="doc-clean,doc-text,doc-html,doc-java,doc-csharp">
+  </target>
+
+  <target name="doc-clean">
+    <delete quiet="true" dir="doc" />
+    <mkdir dir="doc" />
+    <mkdir dir="doc/manual" />
+    <mkdir dir="doc/api/java" />
+    <mkdir dir="doc/api/csharp" />
+  </target>
+
+  <target name="doc-text">
+    <xslt style="src/doc/txt.xsl"
+          basedir="src/doc/release"
+          destdir="doc"
+          extension=".txt"
+          includes="*.xml">
+      <param name="version" expression="${build.version}" />
+      <param name="date" expression="${build.printdate}" />
+    </xslt>
+  </target>
+
+  <target name="doc-html">
+    <copy file="src/doc/style.css"
+          todir="doc" />
+    <xslt style="src/doc/html.xsl"
+          basedir="src/doc/release"
+          destdir="doc"
+          extension=".html"
+          includes="*.xml">
+      <param name="version" expression="${build.version}" />
+      <param name="date" expression="${build.printdate}" />
+      <param name="style" expression="style.css" />
+    </xslt>
+    <xslt style="src/doc/html.xsl"
+          basedir="src/doc/manual"
+          destdir="doc/manual"
+          extension=".html"
+          includes="*.xml">
+      <param name="version" expression="${build.version}" />
+      <param name="date" expression="${build.printdate}" />
+      <param name="style" expression="../style.css" />
+    </xslt>
+  </target>
+
+  <target name="doc-java">
+    <javadoc packagenames="${build.java.package}.parser.*"
+             sourcepath="src/java"
+             destdir="doc/api/java"
+             classpath="classes"
+             classpathref="project.class.path"
+             version="false"
+             use="true"
+             author="false"
+             windowtitle="${build.title} ${build.version} Documentation"
+             failonerror="true" />
+  </target>
+
+  <target name="doc-csharp" if="build.dotnet">
+    <exec executable="cppdoc"
+          dir="doc/api/csharp"
+          failonerror="true">
+      <arg value="-classdir=." />
+      <arg value="-title=${build.title} ${build.version} Documentation" />
+      <arg value="${basedir}/src/csharp" />
+    </exec>
+  </target>
+
+
+<!-- PACKAGING TARGETS -->
+  <target name="package" description="Builds a complete distribution package"
+  	      depends="codegen,compile,test,doc">
+    <delete quiet="true">
+      <fileset dir="." includes="${build.name}-*.zip" />
+    </delete>
+    <zip destfile="${build.name}-${build.version}.zip">
+      <zipfileset dir="." prefix="${build.name}-${build.version}">
+        <include name="LICENSE.txt" />
+        <include name="README.txt" />
+        <include name="*.xml" />
+        <include name="lib/**" />
+        <include name="src/**" />
+        <include name="test/**" />
+        <include name="doc/**" />
+      </zipfileset>
+    </zip>
+  </target>
+
+</project>

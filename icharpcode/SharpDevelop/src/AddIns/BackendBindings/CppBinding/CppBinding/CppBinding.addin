@@ -1,0 +1,91 @@
+﻿<AddIn name        = "Cpp Binding"
+       author      = "Tomasz Tretkowski"
+       url         = ""
+       description = "Backing binding for C++"
+       addInManagerHidden="preinstalled">
+	
+	<Runtime>
+		<Import assembly =":ICSharpCode.SharpDevelop" />
+		<Import assembly = "CppBinding.dll"/>
+	</Runtime>
+	
+	<Manifest>
+		<Identity name="ICSharpCode.CppBinding" />
+	</Manifest>
+	
+	<Path path = "/SharpDevelop/BackendBindings/ProjectOptions/C++">
+		<OptionPanel id = "Application"
+		             label = "${res:Dialog.ProjectOptions.ApplicationSettings}"
+		             class = "ICSharpCode.CppBinding.Project.ApplicationOptions" />
+		
+		<OptionPanel id = "Preprocessor"
+				label = "${res:ICSharpCode.CppBinding.ProjectOptions.Preprocessor}"
+				class = "ICSharpCode.CppBinding.Project.PreprocessorOptions" />
+	
+		<OptionPanel id = "Linker"
+				label = "${res:ICSharpCode.CppBinding.ProjectOptions.Linker}"
+				class = "ICSharpCode.CppBinding.Project.LinkerOptions" />
+		
+		<Include id = "AllManaged" path="/SharpDevelop/BackendBindings/ProjectOptions/AllManaged"/>
+	</Path>	
+	
+	<Path name = "/SharpDevelop/BackendBindings/Templates">
+		<Directory id = "C++" path = "./Templates" />
+	</Path>
+
+	<Path name = "/SharpDevelop/BackendBindings/TemplateCommands">
+		<Class id="SpecifyCppCliRuntimeLibrary"
+		       class="ICSharpCode.CppBinding.Project.SpecifyCliRuntimeLibraryCommand"/>
+	</Path>
+
+	<Path name = "/SharpDevelop/Workbench/Ambiences">
+		<Class id    = "C++"
+		       class = "ICSharpCode.CppBinding.CppAmbience"/>
+	</Path>
+
+	<Path name="/SharpDevelop/Workbench/Combine/FileFilter">
+		<FileFilter id="C++Project"
+					insertbefore="AllFiles"
+					name="C++ project files (*.vcxproj)"
+					class="ICSharpCode.SharpDevelop.Project.LoadProject"
+					extensions="*.vcxproj" />
+	</Path>
+
+	<Path name="/SharpDevelop/Workbench/FileFilter"> 
+		<FileFilter id="C++"
+		            insertafter="C#"
+		            insertbefore="Resources"
+		            name="C++ files (*.cpp, *.h)"
+		            extensions="*.cpp;*.c;*.hpp;*.h"
+		            mimeType = "text/plain"/>
+	</Path>
+	
+	<Path name="/SharpDevelop/Workbench/ProjectBindings">
+		<ProjectBinding id="C++"
+		                 guid="{0E96FCFA-9DAC-4534-AC18-01A90C368873}"
+		                 supportedextensions=".cpp;.c;.hpp;.h"
+		                 projectfileextension=".vcxproj"
+		                 class="ICSharpCode.CppBinding.CppProjectBinding" />
+	</Path>
+	
+	<Path name = "/SharpDevelop/MSBuildEngine/CompileTaskNames">
+		<!-- Makes SharpDevelop show the text 'Compiling ProjectName...' when the task is started -->
+		<String id="cl" text = "cl"/>
+	</Path>
+	
+	<Path name="/SharpDevelop/Workbench/LanguageBindings">
+		<LanguageBinding
+	        id="C++"
+	        class="ICSharpCode.CppBinding.CppLanguageBinding"
+	        extensions=".cpp;.c;.hpp;.h" />
+	</Path>
+
+	<!--
+	<Path name="/Workspace/Parser">
+		<Parser id="C++"
+				supportedextensions=".cpp;.c;.hpp;.h"
+				projectfileextension="vcxproj"
+				class="ICSharpCode.CppBinding.Parser.CppParser" />
+	</Path>
+	-->
+</AddIn>

@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Structures</name>
+    </assembly>
+    <members>
+        <member name="M:Arachnode.Structures.PriorityQueue`1.#ctor">
+            <summary>
+            	Initializes a new instance of the <see cref="T:Arachnode.Structures.PriorityQueue`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Structures.PriorityQueue`1.System#Collections#Generic#IEnumerable{Arachnode#Structures#Value#PriorityQueueItem{TValue}}#GetEnumerator">
+            <summary>
+            	Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            	An <see cref = "T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Arachnode.Structures.PriorityQueue`1.GetEnumerator">
+            <summary>
+            	Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            	An <see cref = "T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Arachnode.Structures.PriorityQueue`1.Enqueue(`0,System.Double)">
+            <summary>
+            	Enqueues the specified value.
+            </summary>
+            <param name = "value">The value.</param>
+            <param name = "priority">The priority.</param>
+        </member>
+        <member name="M:Arachnode.Structures.PriorityQueue`1.Dequeue">
+            <summary>
+            	Dequeues this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Arachnode.Structures.PriorityQueue`1.Count">
+            <summary>
+            	Gets the count.
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="T:Arachnode.Structures.Value.PriorityQueueItem`1">
+            <summary>
+            </summary>
+            <typeparam name = "TValue">The type of the value.</typeparam>
+        </member>
+        <member name="M:Arachnode.Structures.Value.PriorityQueueItem`1.#ctor(`0,System.Double)">
+            <summary>
+            	Initializes a new instance of the <see cref="T:Arachnode.Structures.Value.PriorityQueueItem`1"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="priority">The priority.</param>
+        </member>
+        <member name="P:Arachnode.Structures.Value.PriorityQueueItem`1.HigherPriorityIndexMarker">
+            <summary>
+            	Gets or sets the higher priority index marker.
+            </summary>
+            <value>The higher priority index marker.</value>
+        </member>
+        <member name="P:Arachnode.Structures.Value.PriorityQueueItem`1.LowerPriorityIndexMarker">
+            <summary>
+            	Gets or sets the lower priority index marker.
+            </summary>
+            <value>The lower priority index marker.</value>
+        </member>
+        <member name="P:Arachnode.Structures.Value.PriorityQueueItem`1.Previous">
+            <summary>
+            	Gets or sets the previous.
+            </summary>
+            <value>The previous.</value>
+        </member>
+        <member name="P:Arachnode.Structures.Value.PriorityQueueItem`1.Last">
+            <summary>
+            	Gets or sets the last.
+            </summary>
+            <value>The last.</value>
+        </member>
+        <member name="P:Arachnode.Structures.Value.PriorityQueueItem`1.IsIndexMarker">
+            <summary>
+            	Gets or sets a value indicating whether this instance is index marker.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is index marker; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Arachnode.Structures.Value.PriorityQueueItem`1.Value">
+            <summary>
+            	Gets the value.
+            </summary>
+            <value>The value.</value>
+        </member>
+        <member name="P:Arachnode.Structures.Value.PriorityQueueItem`1.Priority">
+            <summary>
+            	Gets the priority.
+            </summary>
+            <value>The priority.</value>
+        </member>
+    </members>
+</doc>

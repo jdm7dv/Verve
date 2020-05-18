@@ -1,0 +1,8 @@
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/runtimeplus/Windows/Runtime+ Demo/obj/Release/.NETFramework,Version=v4.6.AssemblyAttribute.cs
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/runtimeplus/Windows/Runtime+ Demo/bin/Release/ConsoleApplication1.exe.config
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/runtimeplus/Windows/Runtime+ Demo/bin/Release/ConsoleApplication1.exe.mdb
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/runtimeplus/Windows/Runtime+ Demo/bin/Release/ConsoleApplication1.exe
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/runtimeplus/Windows/Runtime+ Demo/obj/Release/ConsoleApplication1.exe
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/runtimeplus/Windows/Runtime+ Demo/obj/Release/ConsoleApplication1.exe.mdb
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/runtimeplus/Windows/Runtime+ Demo/bin/Release/Runtime_Plus.dll
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/runtimeplus/Windows/Runtime+ Demo/bin/Release/Runtime_Plus.xml

@@ -1,0 +1,16 @@
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\bin\Debug\ConsoleApplication1.exe.config
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\bin\Debug\ConsoleApplication1.exe
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\bin\Debug\ConsoleApplication1.pdb
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\bin\Debug\Runtime_Plus.dll
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\bin\Debug\Runtime_Plus.pdb
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\obj\Debug\RuntimePlus_Demo.csprojAssemblyReference.cache
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\obj\Debug\RuntimePlus_Demo.csproj.CoreCompileInputs.cache
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\obj\Debug\RuntimePlus_Demo.csproj.CopyComplete
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\obj\Debug\ConsoleApplication1.exe
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\obj\Debug\ConsoleApplication1.pdb
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\bin\Debug\ConsoleApplication1.exe.CodeAnalysisLog.xml
+E:\msvc_ide\iisroot\Github\jdm7dv\runtime-plus\Windows\Runtime+ Demo\bin\Debug\ConsoleApplication1.exe.lastcodeanalysissucceeded
+E:\ntroot\research\RiSE\runtime-plus\Windows\Runtime+ Demo\obj\Debug\RuntimePlus_Demo.csprojAssemblyReference.cache
+E:\ntroot\research\RiSE\runtime-plus\Windows\Runtime+ Demo\obj\Debug\RuntimePlus_Demo.csproj.CoreCompileInputs.cache
+E:\ntroot\research\RiSE\runtime-plus\Windows\Runtime+ Demo\obj\Debug\ConsoleApplication1.exe
+E:\ntroot\research\RiSE\runtime-plus\Windows\Runtime+ Demo\obj\Debug\ConsoleApplication1.pdb

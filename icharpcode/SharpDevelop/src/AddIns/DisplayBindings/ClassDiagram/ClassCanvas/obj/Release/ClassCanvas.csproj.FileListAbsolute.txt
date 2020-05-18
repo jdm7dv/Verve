@@ -1,0 +1,6 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\ClassCanvas\bin\Release\ClassCanvas.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\ClassCanvas\bin\Release\Diagrams.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\ClassCanvas\obj\Release\ClassCanvas.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\ClassCanvas\obj\Release\ClassDiagram.ClassCanvas.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\ClassCanvas\obj\Release\ClassCanvas.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\ClassCanvas\obj\Release\ClassCanvas.dll

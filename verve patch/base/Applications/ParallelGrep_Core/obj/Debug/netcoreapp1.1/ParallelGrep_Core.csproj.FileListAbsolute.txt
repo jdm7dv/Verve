@@ -1,0 +1,9 @@
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\bin\Debug\netcoreapp1.1\ParallelGrep_Core.deps.json
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\bin\Debug\netcoreapp1.1\ParallelGrep_Core.runtimeconfig.json
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\bin\Debug\netcoreapp1.1\ParallelGrep_Core.runtimeconfig.dev.json
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\bin\Debug\netcoreapp1.1\ParallelGrep_Core.dll
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\bin\Debug\netcoreapp1.1\ParallelGrep_Core.pdb
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\obj\Debug\netcoreapp1.1\ParallelGrep_Core.csprojResolveAssemblyReference.cache
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\obj\Debug\netcoreapp1.1\ParallelGrep_Core.AssemblyInfo.cs
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\obj\Debug\netcoreapp1.1\ParallelGrep_Core.dll
+D:\Workspace\jdm7dv\research\verve patch\base\Applications\ParallelGrep_Core\obj\Debug\netcoreapp1.1\ParallelGrep_Core.pdb

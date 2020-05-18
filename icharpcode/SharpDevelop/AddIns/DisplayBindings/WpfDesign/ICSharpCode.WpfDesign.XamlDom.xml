@@ -1,0 +1,676 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ICSharpCode.WpfDesign.XamlDom</name>
+    </assembly>
+    <members>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.CollectionElementsCollection">
+            <summary>
+            The collection used by XamlProperty.CollectionElements
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.CollectionElementsCollection.AddInternal(ICSharpCode.WpfDesign.XamlDom.XamlPropertyValue)">
+            <summary>
+            Used by parser to construct the collection without changing the XmlDocument.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.CollectionSupport">
+            <summary>
+            Static class containing helper methods to work with collections (like the XamlParser does)
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.CollectionSupport.IsCollectionType(System.Type)">
+            <summary>
+            Gets if the type is considered a collection in XAML.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.CollectionSupport.CanCollectionAdd(System.Type,System.Type)">
+            <summary>
+            Gets if the collection type <paramref name="col"/> can accepts items of type
+            <paramref name="item"/>.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.CollectionSupport.CanCollectionAdd(System.Type,System.Collections.IEnumerable)">
+            <summary>
+            Gets if the collection type <paramref name="col"/> can accept the specified items.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.CollectionSupport.AddToCollection(System.Type,System.Object,ICSharpCode.WpfDesign.XamlDom.XamlPropertyValue)">
+            <summary>
+            Adds a value to the end of a collection.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.CollectionSupport.Insert(System.Type,System.Object,ICSharpCode.WpfDesign.XamlDom.XamlPropertyValue,System.Int32)">
+            <summary>
+            Adds a value at the specified index in the collection.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.CollectionSupport.RemoveItemAt(System.Type,System.Object,System.Int32)">
+            <summary>
+            Removes the item at the specified index of the collection.
+            </summary>
+            <returns>True if the removal succeeded, false if the collection type does not support RemoveAt.</returns>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.CollectionSupport.RemoveItem(System.Type,System.Object,System.Object)">
+            <summary>
+            Removes an item instance from the specified collection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.IXamlErrorSink">
+            <summary>
+            Interface where errors during XAML loading are reported.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.IXamlErrorSink.ReportError(System.String,System.Int32,System.Int32)">
+            <summary>
+            Reports a XAML load error.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.MarkupExtensionTokenizer">
+            <summary>
+            Tokenizer for markup extension attributes.
+            [MS-XAML 6.6.7.1]
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlMarkupExtensionParseException">
+            <summary>
+            Exception thrown when XAML loading fails because there is a syntax error in a markup extension.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlLoadException">
+            <summary>
+            Exception class used for xaml loading failures.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlLoadException.#ctor">
+            <summary>
+            Create a new XamlLoadException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlLoadException.#ctor(System.String)">
+            <summary>
+            Create a new XamlLoadException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlLoadException.#ctor(System.String,System.Exception)">
+            <summary>
+            Create a new XamlLoadException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlLoadException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Create a new XamlLoadException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlMarkupExtensionParseException.#ctor">
+            <summary>
+            Create a new XamlMarkupExtensionParseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlMarkupExtensionParseException.#ctor(System.String)">
+            <summary>
+            Create a new XamlMarkupExtensionParseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlMarkupExtensionParseException.#ctor(System.String,System.Exception)">
+            <summary>
+            Create a new XamlMarkupExtensionParseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlMarkupExtensionParseException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Create a new XamlMarkupExtensionParseException instance.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.MarkupExtensionParser">
+            <summary>
+            [MS-XAML 6.6.7.2]
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.MarkupExtensionPrinter">
+            <summary>
+            Static class that can generate XAML markup extension code ("{Binding Path=...}").
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.MarkupExtensionPrinter.CanPrint(ICSharpCode.WpfDesign.XamlDom.XamlObject)">
+            <summary>
+            Gets whether shorthand XAML markup extension code can be generated for the object.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.MarkupExtensionPrinter.Print(ICSharpCode.WpfDesign.XamlDom.XamlObject)">
+            <summary>
+            Generates XAML markup extension code for the object.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.PositionXmlDocument">
+            <summary>
+            Class derived from System.Xml.XmlDocument that remembers line/column information for elements and attributes
+            when loading from a <see cref="T:System.Xml.XmlTextReader"/> or other <see cref="T:System.Xml.IXmlLineInfo"/>-implementing reader.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.PositionXmlDocument.CreateElement(System.String,System.String,System.String)">
+            <summary>
+            Creates a PositionXmlElement.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.PositionXmlDocument.CreateAttribute(System.String,System.String,System.String)">
+            <summary>
+            Creates a PositionXmlAttribute.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.PositionXmlDocument.Load(System.Xml.XmlReader)">
+            <summary>
+            Loads the XML document from the specified <see cref="T:System.Xml.XmlReader"/>.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.PositionXmlElement">
+            <summary>
+            XML Element with line/column information.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.PositionXmlElement.HasLineInfo">
+            <summary>
+            Gets whether the element has line information.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.PositionXmlElement.LineNumber">
+            <summary>
+            Gets the line number.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.PositionXmlElement.LinePosition">
+            <summary>
+            Gets the line position (column).
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.PositionXmlAttribute">
+            <summary>
+            XML Attribute with line/column information.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.PositionXmlAttribute.HasLineInfo">
+            <summary>
+            Gets whether the element has line information.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.PositionXmlAttribute.LineNumber">
+            <summary>
+            Gets the line number.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.PositionXmlAttribute.LinePosition">
+            <summary>
+            Gets the line position (column).
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlConstants">
+            <summary>
+            Contains constants used by the Xaml parser.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.XamlDom.XamlConstants.XmlnsNamespace">
+            <summary>
+            The namespace used to identify "xmlns".
+            Value: "http://www.w3.org/2000/xmlns/"
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.XamlDom.XamlConstants.XamlNamespace">
+            <summary>
+            The namespace used for the XAML schema.
+            Value: "http://schemas.microsoft.com/winfx/2006/xaml"
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.XamlDom.XamlConstants.PresentationNamespace">
+            <summary>
+            The namespace used for the WPF schema.
+            Value: "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlDocument">
+            <summary>
+            Represents a .xaml document.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlDocument.GetTypeDescriptorContext(ICSharpCode.WpfDesign.XamlDom.XamlObject)">
+            <summary>
+            Gets the type descriptor context used for type conversions.
+            </summary>
+            <param name="containingObject">The containing object, used when the
+            type descriptor context needs to resolve an XML namespace.</param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlDocument.Save(System.Xml.XmlWriter)">
+            <summary>
+            Saves the xaml document into the <paramref name="writer"/>.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlDocument.#ctor(System.Xml.XmlDocument,ICSharpCode.WpfDesign.XamlDom.XamlParserSettings)">
+            <summary>
+            Internal constructor, used by XamlParser.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlDocument.ParseComplete(ICSharpCode.WpfDesign.XamlDom.XamlObject)">
+            <summary>
+            Called by XamlParser to finish initializing the document.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlDocument.CreateObject(System.Object)">
+            <summary>
+            Create an XamlObject from the instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlDocument.CreateNullValue">
+            <summary>
+            Creates a value that represents {x:Null}
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlDocument.CreatePropertyValue(System.Object,ICSharpCode.WpfDesign.XamlDom.XamlProperty)">
+            <summary>
+            Create a XamlPropertyValue for the specified value instance.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlDocument.TypeFinder">
+            <summary>
+            Gets the type finder used for this XAML document.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlDocument.ServiceProvider">
+            <summary>
+            Gets the service provider used for markup extensions in this document.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlDocument.RootElement">
+            <summary>
+            Gets the root xaml object.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlDocument.RootInstance">
+            <summary>
+            Gets the object instance created by the root xaml object.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlObject">
+            <summary>
+            Represents a xaml object element.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlPropertyValue">
+            <summary>
+            Used for the value of a <see cref="T:ICSharpCode.WpfDesign.XamlDom.XamlProperty"/>.
+            Can be a <see cref="T:ICSharpCode.WpfDesign.XamlDom.XamlTextValue"/> or a <see cref="T:ICSharpCode.WpfDesign.XamlDom.XamlObject"/>.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlPropertyValue.GetValueFor(ICSharpCode.WpfDesign.XamlDom.XamlPropertyInfo)">
+            <summary>
+            used internally by the XamlParser.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlPropertyValue.ParentProperty">
+            <summary>
+            Gets the parent property that this value is assigned to.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.XamlDom.XamlPropertyValue.ParentPropertyChanged">
+            <summary>
+            Occurs when the value of the ParentProperty property changes.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlObject.#ctor(ICSharpCode.WpfDesign.XamlDom.XamlDocument,System.Xml.XmlElement,System.Type,System.Object)">
+            <summary>For use by XamlParser only.</summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlObject.AddProperty(ICSharpCode.WpfDesign.XamlDom.XamlProperty)">
+            <summary>For use by XamlParser only.</summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlObject.FindOrCreateProperty(System.String)">
+            <summary>
+            Finds the specified property, or creates it if it doesn't exist.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlObject.FindOrCreateAttachedProperty(System.Type,System.String)">
+            <summary>
+            Finds the specified property, or creates it if it doesn't exist.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlObject.GetXamlAttribute(System.String)">
+            <summary>
+            Gets an attribute in the x:-namespace.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlObject.SetXamlAttribute(System.String,System.String)">
+            <summary>
+            Sets an attribute in the x:-namespace.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.ParentObject">
+            <summary>
+            Gets the parent object.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.OwnerDocument">
+            <summary>
+            Gets the XamlDocument where this XamlObject is declared in.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.Instance">
+            <summary>
+            Gets the instance created by this object element.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.IsMarkupExtension">
+            <summary>
+            Gets whether this instance represents a MarkupExtension.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.HasErrors">
+            <summary>
+            Gets whether there were load errors for this object.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.ElementType">
+            <summary>
+            Gets the type of this object element.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.Properties">
+            <summary>
+            Gets a read-only collection of properties set on this XamlObject.
+            This includes both attribute and element properties.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.ContentPropertyName">
+            <summary>
+            Gets the name of the content property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObject.ServiceProvider">
+            <summary>
+            Gets/Sets the <see cref="T:ICSharpCode.WpfDesign.XamlDom.XamlObjectServiceProvider"/> associated with this XamlObject.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlObjectServiceProvider">
+            <summary>
+            A service provider that provides the IProvideValueTarget and IXamlTypeResolver services.
+            No other services (e.g. from the document's service provider) are offered.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlObjectServiceProvider.#ctor(ICSharpCode.WpfDesign.XamlDom.XamlObject)">
+            <summary>
+            Creates a new XamlObjectServiceProvider instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlObjectServiceProvider.GetService(System.Type)">
+            <summary>
+            Retrieves the service of the specified type.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObjectServiceProvider.XamlObject">
+            <summary>
+            Gets the XamlObject that owns this service provider (e.g. the XamlObject that represents a markup extension).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObjectServiceProvider.TargetObject">
+            <summary>
+            Gets the target object (the DependencyObject instance on which a property should be set)
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlObjectServiceProvider.TargetProperty">
+            <summary>
+            Gets the target dependency property.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlParser">
+            <summary>
+            Class with static methods to parse XAML files and output a <see cref="T:ICSharpCode.WpfDesign.XamlDom.XamlDocument"/>.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlParser.Parse(System.IO.Stream)">
+            <summary>
+            Parses a XAML document using a stream.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlParser.Parse(System.IO.TextReader)">
+            <summary>
+            Parses a XAML document using a TextReader.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlParser.Parse(System.Xml.XmlReader)">
+            <summary>
+            Parses a XAML document using an XmlReader.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlParser.Parse(System.IO.Stream,ICSharpCode.WpfDesign.XamlDom.XamlParserSettings)">
+            <summary>
+            Parses a XAML document using a stream.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlParser.Parse(System.IO.TextReader,ICSharpCode.WpfDesign.XamlDom.XamlParserSettings)">
+            <summary>
+            Parses a XAML document using a TextReader.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlParser.Parse(System.Xml.XmlReader,ICSharpCode.WpfDesign.XamlDom.XamlParserSettings)">
+            <summary>
+            Parses a XAML document using an XmlReader.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlParser.Parse(System.Xml.XmlDocument,ICSharpCode.WpfDesign.XamlDom.XamlParserSettings)">
+            <summary>
+            Creates a XAML document from an existing XmlDocument.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlParser.ParseSnippet(ICSharpCode.WpfDesign.XamlDom.XamlObject,System.String,ICSharpCode.WpfDesign.XamlDom.XamlParserSettings)">
+            <summary>
+            Method use to parse a piece of Xaml.
+            </summary>
+            <param name="root">The Root XamlObject of the current document.</param>
+            <param name="xaml">The Xaml being parsed.</param>
+            <param name="settings">Parser settings used by <see cref="T:ICSharpCode.WpfDesign.XamlDom.XamlParser"/>.</param>
+            <returns>Returns the XamlObject of the parsed <paramref name="xaml"/>.</returns>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.CreateInstanceCallback">
+            <summary>
+            Delegate used for XamlParserSettings.CreateInstanceCallback.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlParserSettings">
+            <summary>
+            Settings used for the XamlParser.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlParserSettings.CreateInstanceCallback">
+            <summary>
+            Gets/Sets the method used to create object instances.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlParserSettings.TypeFinder">
+            <summary>
+            Gets/Sets the type finder to do type lookup.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlParserSettings.ServiceProvider">
+            <summary>
+            Gets/Sets the service provider to use to initialize markup extensions.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlProperty">
+            <summary>
+            Describes a property on a <see cref="T:ICSharpCode.WpfDesign.XamlDom.XamlObject"/>.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlProperty.Reset">
+            <summary>
+            Resets the properties value.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlProperty.ParserAddCollectionElement(System.Xml.XmlElement,ICSharpCode.WpfDesign.XamlDom.XamlPropertyValue)">
+            <summary>
+            used internally by the XamlParser.
+            Add a collection element that already is part of the XML DOM.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.ParentObject">
+            <summary>
+            Gets the parent object for which this property was declared.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.PropertyName">
+            <summary>
+            Gets the property name.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.PropertyTargetType">
+            <summary>
+            Gets the type the property is declared on.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.IsAttached">
+            <summary>
+            Gets if this property is an attached property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.IsEvent">
+            <summary>
+            Gets if this property is an event.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.ReturnType">
+            <summary>
+            Gets the return type of the property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.TypeConverter">
+            <summary>
+            Gets the type converter used to convert property values to/from string.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.Category">
+            <summary>
+            Gets the category of the property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.PropertyValue">
+            <summary>
+            Gets the value of the property. Can be null if the property is a collection property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.IsCollection">
+            <summary>
+            Gets if the property is a collection property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.CollectionElements">
+            <summary>
+            Gets the collection elements of the property. Is empty if the property is not a collection.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.IsSet">
+            <summary>
+            Gets if the property is set.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.XamlDom.XamlProperty.IsSetChanged">
+            <summary>
+            Occurs when the value of the IsSet property has changed.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.XamlDom.XamlProperty.ValueChanged">
+            <summary>
+            Occurs when the value of the property has changed.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.XamlDom.XamlProperty.ValueOnInstanceChanged">
+            <summary>
+            Occurs when MarkupExtension evaluated PropertyValue dosn't changed but ValueOnInstance does.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.ValueOnInstance">
+            <summary>
+            Gets/Sets the value of the property on the instance without updating the XAML document.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.IsAdvanced">
+            <summary>
+            Gets if this property is considered "advanced" and should be hidden by default in a property grid.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlProperty.DependencyProperty">
+            <summary>
+            Gets the dependency property.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlPropertyInfo">
+            <summary>
+            Represents a property assignable in XAML.
+            This can be a normal .NET property or an attached property.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlStaticTools">
+            <summary>
+            Static methods to help with designer operations which require access to internal Xaml elements.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlStaticTools.GetXaml(ICSharpCode.WpfDesign.XamlDom.XamlObject)">
+            <summary>
+            Gets the Xaml string of the <paramref name="xamlObject"/>
+            </summary>
+            <param name="xamlObject">The object whose Xaml is requested.</param>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlTextValue">
+            <summary>
+            A textual value in a .xaml file.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.XamlDom.XamlTextValue.Text">
+            <summary>
+            The text represented by the value.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder">
+            <summary>
+            Allows finding types in a set of assemblies.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder.GetType(System.String,System.String)">
+            <summary>
+            Gets a type referenced in XAML.
+            </summary>
+            <param name="xmlNamespace">The XML namespace to use to look up the type.
+            This can be a registered namespace or a 'clr-namespace' value.</param>
+            <param name="localName">The local name of the type to find.</param>
+            <returns>
+            The requested type, or null if it could not be found.
+            </returns>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder.GetXmlNamespaceFor(System.Reflection.Assembly,System.String)">
+            <summary>
+            Gets the XML namespace that can be used for the specified assembly/namespace combination.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder.RegisterAssembly(System.Reflection.Assembly)">
+            <summary>
+            Registers XAML namespaces defined in the <paramref name="assembly"/> for lookup.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder.LoadAssembly(System.String)">
+            <summary>
+            Load the assembly with the specified name.
+            You can override this method to implement custom assembly lookup.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder.Clone">
+            <summary>
+            Clones this XamlTypeFinder.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder.ImportFrom(ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder)">
+            <summary>
+            Import information from another XamlTypeFinder.
+            Use this if you override Clone().
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.XamlDom.XamlTypeFinder.CreateWpfTypeFinder">
+            <summary>
+            Creates a new XamlTypeFinder where the WPF namespaces are registered.
+            </summary>
+        </member>
+    </members>
+</doc>

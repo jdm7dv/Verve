@@ -1,0 +1,4 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.SharpDevelop.BuildWorker40.exe.config
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.SharpDevelop.BuildWorker40.exe
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.BuildWorker\obj\Release\ICSharpCode.SharpDevelop.BuildWorker.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.BuildWorker\obj\Release\ICSharpCode.SharpDevelop.BuildWorker40.exe

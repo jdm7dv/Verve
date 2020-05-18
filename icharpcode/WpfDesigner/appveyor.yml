@@ -1,0 +1,31 @@
+  branches:
+    only:
+      - master
+
+  version: 5.1.{build}
+
+  os: Visual Studio 2015
+  configuration: Debug
+ 
+  assembly_info:
+    patch: true
+    file: GlobalAssemblyInfo.*
+    assembly_version: '{version}'
+    assembly_file_version: '{version}'
+    assembly_informational_version: '{version}'
+
+  before_build:
+    - nuget restore
+
+  build:
+    project: WpfDesign.sln
+
+  after_build:
+    - ps: .\nuget\pack.ps1
+
+  test_script:
+    - cmd: nunit-console bin\UnitTests\ICSharpCode.WpfDesign.Tests.dll /framework:net-4.5
+
+  artifacts:
+    - path: 'ICSharpCode.WpfDesigner.*.nupkg'
+      name: NuGet

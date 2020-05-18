@@ -1,0 +1,12 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\ICSharpCode.Decompiler.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\ICSharpCode.Decompiler.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\ICSharpCode.NewNRefactory.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\ICSharpCode.NRefactory.CSharp.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\Mono.Cecil.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\Mono.Cecil.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\ICSharpCode.NRefactory.CSharp.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\ICSharpCode.NRefactory.CSharp.xml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\bin\Release\ICSharpCode.NewNRefactory.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\obj\Release\ICSharpCode.Decompiler.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\obj\Release\ICSharpCode.Decompiler.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Decompiler\obj\Release\ICSharpCode.Decompiler.pdb

@@ -1,0 +1,34 @@
+using System.Collections.Generic;
+using Microsoft.Contracts;
+
+namespace DrawingEngineGeneric {
+
+public class DrawingEngine {
+  [Rep][ElementsRep] List<Step> steps = new List<Step>();
+
+  public void AddStep(byte op, int argX, int argY) {
+    expose (this) {
+      Step s = new Step(op, argX, argY);
+      Owner.AssignSame(s, steps);
+      steps.Add(s);
+    }
+  }
+
+  public void Apply() {
+    for (int i = 0; i < steps.Count; i++) {
+      expose (this) { steps[i].DoWork(); }
+    }
+    steps = new List<Step>();
+  }
+}
+
+class Step {
+  public byte op;
+  public int argX, argY;
+  public Step(byte op, int x, int y) {
+    this.op = op;  argX = x;  argY = y;
+  }
+  public void DoWork() { /* ... */ }
+}
+
+}

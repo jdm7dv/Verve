@@ -1,0 +1,9 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer\obj\Release\ICSharpCode.Data.SQLServer.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer\obj\Release\ControlPanel\SQLServerControlPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer\obj\Release\ControlPanel\SQLServerControlPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer\obj\Release\ICSharpCode.Data.SQLServer_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer\obj\Release\ICSharpCode.Data.SQLServer.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer\obj\Release\ICSharpCode.Data.SQLServer.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.SQLServer\obj\Release\ICSharpCode.Data.SQLServer.pdb

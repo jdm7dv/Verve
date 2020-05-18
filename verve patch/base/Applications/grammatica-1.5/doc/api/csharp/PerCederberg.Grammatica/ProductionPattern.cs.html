@@ -1,0 +1,404 @@
+<HTML>
+<HEAD>
+<TITLE>
+ProductionPattern.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * ProductionPattern.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2005 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A production pattern. This class represents a set of production
+     * alternatives that together forms a single production. A
+     * production pattern is identified by an integer id and a name,
+     * both provided upon creation. The pattern id is used for
+     * referencing the production pattern from production pattern
+     * elements.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> ProductionPattern <font color="black">{</font>
+
+        <font color="green">/**
+         * The production pattern identity.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> id;
+
+        <font color="green">/**
+         * The production pattern name.
+         */</font>
+        <font color="blue">private</font> string <font color="blue">name</font>;
+
+        <font color="green">/**
+         * The synthectic production flag. If this flag is set, the
+         * production identified by this pattern has been artificially
+         * inserted into the grammar.
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> synthetic;
+
+        <font color="green">/**
+         * The list of production pattern alternatives.
+         */</font>
+        <font color="blue">private</font> ArrayList alternatives;
+
+        <font color="green">/**
+         * The default production pattern alternative. This alternative
+         * is used when no other alternatives match. It may be set to
+         * -1, meaning that there is no default (or fallback) alternative.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> defaultAlt;
+
+        <font color="green">/**
+         * The look-ahead set associated with this pattern.
+         */</font>
+        <font color="blue">private</font> LookAheadSet lookAhead;
+
+        <font color="green">/**
+         * Creates a new production pattern.
+         *
+         * @param id             the production pattern id
+         * @param name           the production pattern name
+         */</font>
+        <font color="blue">public</font> ProductionPattern<font color="black">(</font><font color="blue">int</font> id, string <font color="blue">name</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.id <font color="black">=</font> id;
+            <font color="blue">this</font>.<font color="blue">name</font> <font color="black">=</font> <font color="blue">name</font>;
+            <font color="blue">this</font>.synthetic <font color="black">=</font> <font color="blue">false</font>;
+            <font color="blue">this</font>.alternatives <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">this</font>.defaultAlt <font color="black">=</font> <font color="maroon">-1</font>;
+            <font color="blue">this</font>.lookAhead <font color="black">=</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The production pattern identity property (read-only). This
+         * property contains the unique identity value.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Id <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> id;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the unique production pattern identity value.
+         *
+         * @return the production pattern id
+         *
+         * @see #Id
+         *
+         * @deprecated Use the Id property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetId<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Id;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The production pattern name property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string Name <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">name</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the production pattern name.
+         *
+         * @return the production pattern name
+         *
+         * @see #Name
+         *
+         * @deprecated Use the Name property instead.
+         */</font>
+        <font color="blue">public</font> string GetName<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Name;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The synthetic production pattern property. If this property
+         * is set, the production identified by this pattern has been
+         * artificially inserted into the grammar. No parse tree nodes
+         * will be created for such nodes, instead the child nodes
+         * will be added directly to the parent node. By default this
+         * property is set to false.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> Synthetic <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> synthetic;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                synthetic <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the synthetic production flag is set. If this
+         * flag is set, the production identified by this pattern has
+         * been artificially inserted into the grammar. No parse tree
+         * nodes will be created for such nodes, instead the child
+         * nodes will be added directly to the parent node.
+         *
+         * @return true if this production pattern is synthetic, or
+         *         false otherwise
+         *
+         * @see #Synthetic
+         *
+         * @deprecated Use the Synthetic property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsSyntetic<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Synthetic;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Sets the synthetic production pattern flag. If this flag is set,
+         * the production identified by this pattern has been artificially
+         * inserted into the grammar. By default this flag is set to
+         * false.
+         *
+         * @param syntetic       the new value of the synthetic flag
+         *
+         * @see #Synthetic
+         *
+         * @deprecated Use the Synthetic property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> SetSyntetic<font color="black">(</font><font color="blue">bool</font> synthetic<font color="black">)</font> <font color="black">{</font>
+            Synthetic <font color="black">=</font> synthetic;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The look-ahead set property. This property contains the
+         * look-ahead set associated with this alternative.
+         */</font>
+        <font color="blue">internal</font> LookAheadSet LookAhead <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> lookAhead;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                lookAhead <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The default pattern alternative property. The default
+         * alternative is used when no other alternative matches. The
+         * default alternative must previously have been added to the
+         * list of alternatives. This property is set to null if no
+         * default pattern alternative has been set.
+         */</font>
+        <font color="blue">internal</font> ProductionPatternAlternative DefaultAlternative <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>defaultAlt <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">object</font> obj <font color="black">=</font> alternatives<font color="black">[</font>defaultAlt<font color="black">]</font>;
+                    <font color="blue">return</font> <font color="black">(</font>ProductionPatternAlternative<font color="black">)</font> obj;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">null</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                defaultAlt <font color="black">=</font> <font color="maroon">0</font>;
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> alternatives.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>alternatives<font color="black">[</font>i<font color="black">]</font> <font color="black">=</font><font color="black">=</font> <font color="blue">value</font><font color="black">)</font> <font color="black">{</font>
+                        defaultAlt <font color="black">=</font> i;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The production pattern alternative count property
+         * (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Count <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> alternatives.Count;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the number of alternatives in this pattern.
+         *
+         * @return the number of alternatives in this pattern
+         *
+         * @see #Count
+         *
+         * @deprecated Use the Count property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetAlternativeCount<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Count;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The production pattern alternative index (read-only).
+         *
+         * @param index          the alternative index, 0 &#60;= pos &#60; Count
+         *
+         * @return the alternative found
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> ProductionPatternAlternative <font color="blue">this</font><font color="black">[</font><font color="blue">int</font> index<font color="black">]</font> <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="black">(</font>ProductionPatternAlternative<font color="black">)</font> alternatives<font color="black">[</font>index<font color="black">]</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns an alternative in this pattern.
+         *
+         * @param pos            the alternative position, 0 &#60;= pos &#60; count
+         *
+         * @return the alternative found
+         *
+         * @deprecated Use the class indexer instead.
+         */</font>
+        <font color="blue">public</font> ProductionPatternAlternative GetAlternative<font color="black">(</font><font color="blue">int</font> pos<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">this</font><font color="black">[</font>pos<font color="black">]</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if this pattern is recursive on the left-hand side.
+         * This method checks if any of the production pattern
+         * alternatives is left-recursive.
+         *
+         * @return true if at least one alternative is left recursive, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsLeftRecursive<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            ProductionPatternAlternative  alt;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> alternatives.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                alt <font color="black">=</font> <font color="black">(</font>ProductionPatternAlternative<font color="black">)</font> alternatives<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>alt.IsLeftRecursive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if this pattern is recursive on the right-hand side.
+         * This method checks if any of the production pattern
+         * alternatives is right-recursive.
+         *
+         * @return true if at least one alternative is right recursive, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsRightRecursive<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            ProductionPatternAlternative  alt;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> alternatives.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                alt <font color="black">=</font> <font color="black">(</font>ProductionPatternAlternative<font color="black">)</font> alternatives<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>alt.IsRightRecursive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if this pattern would match an empty stream of
+         * tokens. This method checks if any one of the production
+         * pattern alternatives would match the empty token stream.
+         *
+         * @return true if at least one alternative match no tokens, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsMatchingEmpty<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            ProductionPatternAlternative  alt;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> alternatives.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                alt <font color="black">=</font> <font color="black">(</font>ProductionPatternAlternative<font color="black">)</font> alternatives<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>alt.IsMatchingEmpty<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a production pattern alternative.
+         *
+         * @param alt            the production pattern alternative to add
+         *
+         * @throws ParserCreationException if an identical alternative has
+         *             already been added
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> AddAlternative<font color="black">(</font>ProductionPatternAlternative alt<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>alternatives.Contains<font color="black">(</font>alt<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INVALID_PRODUCTION,
+                    <font color="blue">name</font>,
+                    <font color="maroon">"two identical alternatives exist"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            alt.SetPattern<font color="black">(</font><font color="blue">this</font><font color="black">)</font>;
+            alternatives.Add<font color="black">(</font>alt<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of this object.
+         *
+         * @return a token string representation
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            StringBuilder  indent <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">int</font>            i;
+
+            buffer.Append<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+            buffer.Append<font color="black">(</font><font color="maroon">"("</font><font color="black">)</font>;
+            buffer.Append<font color="black">(</font>id<font color="black">)</font>;
+            buffer.Append<font color="black">(</font><font color="maroon">") "</font><font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> buffer.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                indent.Append<font color="black">(</font><font color="maroon">" "</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> alternatives.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>i <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"= "</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"\n"</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>indent<font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"| "</font><font color="black">)</font>;
+                <font color="black">}</font>
+                buffer.Append<font color="black">(</font>alternatives<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

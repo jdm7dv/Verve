@@ -1,0 +1,190 @@
+/* files: stc/lj_base-ie.css,stc/horizon/ie.css 
+*/
+
+/* file: stc/lj_base-ie.css 
+----------------------------------------------------------------------------------*/
+/* ie6 and below css */
+
+.LJ_Placeholder_Container {
+    position: relative;
+}
+.LJ_Placeholder_Container img {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
+
+/* Vgift shop page */
+.vgift .vg_img {
+    height: 101px;
+    width: 101px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+*HTML .vgift-img-l {
+    zoom:expression(
+        function(t){
+            if (220 < t.scrollWidth && t.scrollWidth > t.scrollHeight) {
+                t.width = '220';
+            }
+            else if (220 < t.scrollHeight) {
+                t.height = '220';
+            }
+            t.runtimeStyle.zoom = 1;
+        }(this));
+    }
+*HTML .vgift-img-s {
+    zoom:expression(
+        function(t){
+            if (100 < t.scrollWidth && t.scrollWidth > t.scrollHeight) {
+                t.width = '100';
+            }
+            else if (100 < t.scrollHeight) {
+                t.height = '100';
+            }
+            t.runtimeStyle.zoom = 1;
+        }(this));
+    }
+
+/* singapoure news block */
+.sg-content UL {
+	display: block;
+}
+
+.sg-content LI {
+		width: 25%;
+		border-left: 1px solid #f9c5ab;
+		min-height: 10em;
+		display: block;
+		float: left;
+		margin-left: -3px;
+}
+*HTML .sg-content LI {
+		height: 220px;
+}
+
+/* Widgets
+--------------------------- */
+* HTML .appwidget .w-head {
+	zoom: 1;
+	}
+	* HTML .appwidget .w-head-corner  {
+		border-right: 5px solid #C7E0F6;
+		}
+
+
+
+
+/* Disabled block
+--------------------------- */
+/* Must be removed after implementation of Framework! */
+.st-disabled {
+    zoom:1;
+    }
+.b-blocker {
+    zoom:expression(
+        function(t){
+            t.runtimeStyle.zoom = 1;
+            t.insertAdjacentHTML('beforeBegin','<iframe class="b-blocker-iframe" src="about:blank"></iframe>')
+        }(this)
+    );
+    stretch:expression(
+        function(t){
+            var h = t.parentNode.offsetHeight;
+            if (t.h != h) {
+                t.style.height = t.h = h;
+            }           
+        }(this)
+    );
+    }
+.b-blocker-iframe {
+    position:absolute;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    display:none;
+    padding:0;
+    margin:0;
+    border:0;
+    opacity:0;
+    expression:expression(
+        function(t){
+            var L = t.nextSibling.offsetLeft;
+            var T = t.nextSibling.offsetTop;
+            var W = t.nextSibling.offsetWidth;
+            var H = t.nextSibling.offsetHeight;
+            if (t.L != L || t.T != T || t.W != W || t.H != H) {
+                t.runtimeStyle.left = t.L = L;
+                t.runtimeStyle.top = t.T = T;
+                t.runtimeStyle.width = t.W = W;
+                t.runtimeStyle.height = t.H = H;
+            }
+        }(this)
+    );
+    }
+    .st-disabled .b-blocker-iframe {
+        display:block;
+        }
+
+/* ONTD
+--------------------------- */
+#qotd_html_preview {
+	zoom:1;
+	}
+
+/* Donate button
+--------------------------- */
+.lj-button-light.donate-button .lj-button-b {
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#E1E2E4',GradientType=0 );
+	}
+.lj-button,
+.lj-button-wrapper,
+.lj-button-link,
+.lj-button-link .lj-button-a,
+.lj-button-link .lj-button-b,
+.lj-button-link .lj-button-c,
+.lj-button-link .lj-button-icon {
+	display: inline!important;
+	zoom: 1!important;
+	}
+
+
+/* file: stc/horizon/ie.css 
+----------------------------------------------------------------------------------*/
+/* Zoom: */
+.search-forms .search-type,
+.search-result-wrap .user-list .vcard,
+.tagged-list .details,
+.tagged-list DD,
+.tagged-list DT .ljuser .userpic,
+.tagged-list DT,
+.paging DD UL A,
+.search-precise .options A,
+.search-precise .options STRONG,
+.basic .options A,
+.search-forms .search-type A,
+.paging,
+.pages-list,
+.search-result-wrap,
+.search-forms,
+.search-result-extra,
+.search-precise {
+	zoom:1;
+	}
+
+.paging DD UL A {
+	line-height:1.2;
+	}
+
+.pages-list LI.last,
+.pages-list LI.cur-last {
+	margin-right: -2px;
+	}
+.pages-list LI A {
+	overflow: hidden;
+	}
+
+/* Singapour news block */
+.sg-content H4 {
+	font-size: 1.2em;
+	}

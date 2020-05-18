@@ -1,0 +1,9 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\StartPage\StartPage.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\StartPage\StartPage.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\StartPage\Project\obj\Release\Src\RecentProjectsControl.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\StartPage\Project\obj\Release\Src\StartPageControl.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\StartPage\Project\obj\Release\Src\RecentProjectsControl.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\StartPage\Project\obj\Release\Src\StartPageControl.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\StartPage\Project\obj\Release\StartPage_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\StartPage\Project\obj\Release\StartPage.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\StartPage\Project\obj\Release\StartPage.dll

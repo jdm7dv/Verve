@@ -1,0 +1,7 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\SearchAndReplace\SearchAndReplace.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\SearchAndReplace\SearchAndReplace.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\SearchAndReplace\Project\obj\Release\Gui\ResultsTreeView.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\SearchAndReplace\Project\obj\Release\Gui\ResultsTreeView.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\SearchAndReplace\Project\obj\Release\SearchAndReplace_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\SearchAndReplace\Project\obj\Release\SearchAndReplace.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\SearchAndReplace\Project\obj\Release\SearchAndReplace.dll

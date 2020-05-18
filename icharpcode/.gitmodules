@@ -1,0 +1,6 @@
+[submodule "StyleCop"]
+	path = StyleCop
+	url = https://github.com/StyleCop/StyleCop.git
+[submodule "NRefactory"]
+	path = NRefactory
+	url = https://github.com/icsharpcode/NRefactory.git

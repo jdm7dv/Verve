@@ -1,0 +1,128 @@
+<doc>
+  <head>
+    <title>Grammatica TODO-List</title>
+  </head>
+
+  <body>
+
+    <h1>Known Issues</h1>
+
+    <p>This is a list of the known issues as of the release of
+    version <param name="version" /> (<param name="date" />). Please 
+    verify that any new problem found is not in this list before 
+    sending a bug report.</p>
+
+    <list>
+      <item>
+        <title>Parser: Some grammar ambiguities may go undetected</title>
+        <text>When the last element of an alternative is optional, 
+        some ambiguities may go undetected. This is due to not 
+        properly comparing the tokens in the optional element with 
+        the tokens after the production. The ambiguious grammar 
+        <code>A = B ["x"];  B = "y" ["x"];</code> illustrates this.
+        In some cases this may also lead to parse errors as ambiguities
+        have not been resolved with the appropriate number of look-ahead
+        tokens. This error is present in all versions of Grammatica,
+        but occurs infrequently. <ref bug="4117"/></text>
+      </item>
+    </list>
+    
+
+    <h1>Suggested Improvements</h1>
+
+    <p>This is a list of the currently known suggested 
+    improvements.</p>
+
+    <list>
+      <item>
+        <title>Grammar: Add support for modular grammars</title>
+        <text>By allowing one grammar to reference another, it 
+        would be possible to create more complex modular parsers.
+        This feature also requires support for modular tokenizers
+        and parses, as well as the generation of modular code. 
+        <ref bug="3599"/></text>
+      </item>
+
+      <item>
+        <title>Grammar: Add localization support</title>
+        <text>This includes finding an architecture that works for 
+        grammar files, making it possible to localize the error 
+        messages without rewriting the grammar file. This 
+        architecture must support different methods depending on 
+        generated source (ResourceBundles in Java, Gnu Gettext in C 
+        &amp; C++). <ref bug="3600"/></text>
+      </item>
+
+      <item>
+        <title>Grammar: Production representation should be improved</title>
+        <text>The internal representation of a production makes it 
+        hard for several alternatives to share a several left-hand
+        side elements. This may cause inherent ambiguities to be
+        found, as the number of look-ahead tokens needed to separate
+        the alternatives is infinite. If these alternatives could 
+        share the first elements, this ambiguity would not require
+        a rewrite of the grammar. <ref bug="4322"/></text>
+      </item>
+
+      <item>
+        <title>Grammar: Identical productions should be unified</title>
+        <text>Identical syntetic productions are not indentified as 
+        such. Instead, a new syntetic production is added in each 
+        case. This will cause problems for LR parsers, and is 
+        generally inefficient. Identical syntetic productions should 
+        be unified. <ref bug="3602"/></text>
+      </item>
+
+      <item>
+        <title>Tokenizer: Add support for modes</title>
+        <text>When reading certain tokens the tokenizer should be 
+        able to enter some kind of "mode", limiting the set of tokens
+        that are considered for a match. This is highly useful in 
+        some grammars, where the token syntax isn't easily 
+        represented with regular expressions. <ref bug="3604"/></text>
+      </item>
+
+      <item>
+        <title>Parser: Add support for LR grammars</title>
+        <text>This probably means writing at least an LALR(1) parser, 
+        and probably also some kind of LR(k) parser.
+        <ref bug="3606"/></text>
+      </item>
+
+      <item>
+        <title>Parser: Add parsing through code callbacks</title>
+        <text>This would allow more complex grammars to be parsed 
+        where some productions cannot be expressed in EBNF. Instead a
+        callback method would be called to parse some specific 
+        productions. <ref bug="3607"/></text>
+      </item>
+    
+      <item>
+        <title>Analyzer: Allow node values propagating downwards</title>
+        <text>Improve the analyzer framework to handle node values 
+        propagating downwards or sideways in the tree as well.
+        <ref bug="3608"/></text>
+      </item>
+
+      <item>
+        <title>Code Generation: Support creation of a C parser</title>
+        <text>This requires the writing of a C runtime library.
+        <ref bug="3609"/></text>
+      </item>
+  
+      <item>
+        <title>Code Generation: Support creation of a C++ parser</title>
+        <text>This requires the writing of a C++ runtime library plus 
+        appropriate code generation classes. <ref bug="3610"/></text>
+      </item>
+      
+      <item>
+        <title>Error Handling: Add file reference in errors</title>
+        <text>The exceptions could be extended with a file location
+        object (a file reference) to simplify the error handling 
+        when several files are parsed. <ref bug="4180"/></text>
+      </item>
+    </list>
+
+  </body>
+</doc>

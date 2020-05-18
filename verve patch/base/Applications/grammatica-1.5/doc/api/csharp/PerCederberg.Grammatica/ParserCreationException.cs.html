@@ -1,0 +1,347 @@
+<HTML>
+<HEAD>
+<TITLE>
+ParserCreationException.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * ParserCreationException.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2005 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A parser creation exception. This exception is used for signalling
+     * an error in the token or production patterns, making it impossible
+     * to create a working parser or tokenizer.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> ParserCreationException <font color="black">:</font> Exception <font color="black">{</font>
+
+        <font color="green">/**
+         * The error type enumeration.
+         */</font>
+        <font color="blue">public</font> <font color="blue">enum</font> ErrorType <font color="black">{</font>
+
+            <font color="green">/**
+             * The internal error type is only used to signal an
+             * error that is a result of a bug in the parser or
+             * tokenizer code.
+             */</font>
+            INTERNAL,
+
+            <font color="green">/**
+             * The invalid parser error type is used when the parser
+             * as such is invalid. This error is typically caused by
+             * using a parser without any patterns.
+             */</font>
+            INVALID_PARSER,
+
+            <font color="green">/**
+             * The invalid token error type is used when a token
+             * pattern is erroneous. This error is typically caused
+             * by an invalid pattern type or an erroneous regular
+             * expression.
+             */</font>
+            INVALID_TOKEN,
+
+            <font color="green">/**
+             * The invalid production error type is used when a
+             * production pattern is erroneous. This error is
+             * typically caused by referencing undeclared productions,
+             * or violating some other production pattern constraint.
+             */</font>
+            INVALID_PRODUCTION,
+
+            <font color="green">/**
+             * The infinite loop error type is used when an infinite
+             * loop has been detected in the grammar. One of the
+             * productions in the loop will be reported.
+             */</font>
+            INFINITE_LOOP,
+
+            <font color="green">/**
+             * The inherent ambiguity error type is used when the set
+             * of production patterns (i.e. the grammar) contains
+             * ambiguities that cannot be resolved.
+             */</font>
+            INHERENT_AMBIGUITY
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error type.
+         */</font>
+        <font color="blue">private</font> ErrorType type;
+
+        <font color="green">/**
+         * The token or production pattern name. This variable is only
+         * set for some error types.
+         */</font>
+        <font color="blue">private</font> string <font color="blue">name</font>;
+
+        <font color="green">/**
+         * The additional error information string. This variable is only
+         * set for some error types.
+         */</font>
+        <font color="blue">private</font> string info;
+
+        <font color="green">/**
+         * The error details list. This variable is only set for some
+         * error types.
+         */</font>
+        <font color="blue">private</font> ArrayList details;
+
+        <font color="green">/**
+         * Creates a new parser creation exception.
+         *
+         * @param type           the parse error type
+         * @param info           the additional error information
+         */</font>
+        <font color="blue">public</font> ParserCreationException<font color="black">(</font>ErrorType type,
+                                       String info<font color="black">)</font>
+            <font color="black">:</font> <font color="blue">this</font><font color="black">(</font>type, <font color="blue">null</font>, info<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parser creation exception.
+         *
+         * @param type           the parse error type
+         * @param name           the token or production pattern name
+         * @param info           the additional error information
+         */</font>
+        <font color="blue">public</font> ParserCreationException<font color="black">(</font>ErrorType type,
+                                       String <font color="blue">name</font>,
+                                       String info<font color="black">)</font>
+            <font color="black">:</font> <font color="blue">this</font><font color="black">(</font>type, <font color="blue">name</font>, info, <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parser creation exception.
+         *
+         * @param type           the parse error type
+         * @param name           the token or production pattern name
+         * @param info           the additional error information
+         * @param details        the error details list
+         */</font>
+        <font color="blue">public</font> ParserCreationException<font color="black">(</font>ErrorType type,
+                                       String <font color="blue">name</font>,
+                                       String info,
+                                       ArrayList details<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">this</font>.type <font color="black">=</font> type;
+            <font color="blue">this</font>.<font color="blue">name</font> <font color="black">=</font> <font color="blue">name</font>;
+            <font color="blue">this</font>.info <font color="black">=</font> info;
+            <font color="blue">this</font>.details <font color="black">=</font> details;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error type property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> ErrorType Type <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> type;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the error type.
+         *
+         * @return the error type
+         *
+         * @see #Type
+         *
+         * @deprecated Use the Type property instead.
+         */</font>
+        <font color="blue">public</font> ErrorType GetErrorType<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Type;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token or production name property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string Name <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">name</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the token or production name.
+         *
+         * @return the token or production name
+         *
+         * @see #Name
+         *
+         * @deprecated Use the Name property instead.
+         */</font>
+        <font color="blue">public</font> string GetName<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Name;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The additional error information property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string Info <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> info;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the additional error information.
+         *
+         * @return the additional error information
+         *
+         * @see #Info
+         *
+         * @deprecated Use the Info property instead.
+         */</font>
+        <font color="blue">public</font> string GetInfo<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Info;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The detailed error information property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string Details <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+                <font color="blue">if</font> <font color="black">(</font>details <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">null</font>;
+                <font color="black">}</font>
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> details.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>i <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        buffer.Append<font color="black">(</font><font color="maroon">", "</font><font color="black">)</font>;
+                        <font color="blue">if</font> <font color="black">(</font>i <font color="black">+</font> <font color="maroon">1</font> <font color="black">=</font><font color="black">=</font> details.Count<font color="black">)</font> <font color="black">{</font>
+                            buffer.Append<font color="black">(</font><font color="maroon">"and "</font><font color="black">)</font>;
+                        <font color="black">}</font>
+                    <font color="black">}</font>
+                    buffer.Append<font color="black">(</font>details<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+                <font color="black">}</font>
+
+                <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the detailed error information as a string
+         *
+         * @return the detailed error information
+         *
+         * @see #Details
+         *
+         * @deprecated Use the Details property instead.
+         */</font>
+        <font color="blue">public</font> string GetDetails<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Details;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The message property (read-only). This property contains
+         * the detailed exception error message.
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string Message <font color="black">{</font>
+            <font color="blue">get</font><font color="black">{</font>
+                StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+                <font color="blue">switch</font> <font color="black">(</font>type<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">case</font> ErrorType.INVALID_PARSER<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"parser is invalid, as "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.INVALID_TOKEN<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"token '"</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"' is invalid, as "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.INVALID_PRODUCTION<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"production '"</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"' is invalid, as "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.INFINITE_LOOP<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"infinite loop found in production pattern '"</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"'"</font><font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.INHERENT_AMBIGUITY<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"inherent ambiguity in production '"</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"'"</font><font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>info <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                        buffer.Append<font color="black">(</font><font color="maroon">" "</font><font color="black">)</font>;
+                        buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="black">}</font>
+                    <font color="blue">if</font> <font color="black">(</font>details <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                        buffer.Append<font color="black">(</font><font color="maroon">" starting with "</font><font color="black">)</font>;
+                        <font color="blue">if</font> <font color="black">(</font>details.Count <font color="black">&#62;</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                            buffer.Append<font color="black">(</font><font color="maroon">"tokens "</font><font color="black">)</font>;
+                        <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                            buffer.Append<font color="black">(</font><font color="maroon">"token "</font><font color="black">)</font>;
+                        <font color="black">}</font>
+                        buffer.Append<font color="black">(</font>Details<font color="black">)</font>;
+                    <font color="black">}</font>
+                    <font color="blue">break</font>;
+                <font color="blue">default</font><font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"internal error"</font><font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the error message. This message will contain all the
+         * information available.
+         *
+         * @return the error message
+         *
+         * @see #Message
+         *
+         * @deprecated Use the Message property instead.
+         */</font>
+        <font color="blue">public</font> string GetMessage<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Message;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

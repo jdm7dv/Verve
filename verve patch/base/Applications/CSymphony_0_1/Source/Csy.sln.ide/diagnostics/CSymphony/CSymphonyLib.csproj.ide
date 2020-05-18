@@ -1,0 +1,28 @@
+﻿<Project Format="0.0.0.3">
+  <Version>2012-11-30T22:43:29.8151056Z</Version>
+  <Binding>True</Binding>
+  <Diagnostic>
+    <Code>660</Code>
+    <Id>CS0660</Id>
+    <Severity>Warning</Severity>
+    <Message>'CSymphony.Lib.OperandRef' defines operator == or operator != but does not override Object.Equals(object o)</Message>
+    <MappedFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\CSymphony\Types.cs</MappedFile>
+    <MappedLine>407</MappedLine>
+    <MappedColumn>23</MappedColumn>
+    <OriginalFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\CSymphony\Types.cs</OriginalFile>
+    <OriginalLine>407</OriginalLine>
+    <OriginalColumn>23</OriginalColumn>
+  </Diagnostic>
+  <Diagnostic>
+    <Code>661</Code>
+    <Id>CS0661</Id>
+    <Severity>Warning</Severity>
+    <Message>'CSymphony.Lib.OperandRef' defines operator == or operator != but does not override Object.GetHashCode()</Message>
+    <MappedFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\CSymphony\Types.cs</MappedFile>
+    <MappedLine>407</MappedLine>
+    <MappedColumn>23</MappedColumn>
+    <OriginalFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\CSymphony\Types.cs</OriginalFile>
+    <OriginalLine>407</OriginalLine>
+    <OriginalColumn>23</OriginalColumn>
+  </Diagnostic>
+</Project>

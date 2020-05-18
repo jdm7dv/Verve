@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CollectorModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="CollectorModelStoreContainer">
+          <EntitySet Name="ActivationMethods" EntityType="CollectorModel.Store.ActivationMethods" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CommitRelations" EntityType="CollectorModel.Store.CommitRelations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Commits" EntityType="CollectorModel.Store.Commits" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EnvironmentData" EntityType="CollectorModel.Store.EnvironmentData" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EnvironmentDataNames" EntityType="CollectorModel.Store.EnvironmentDataNames" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EnvironmentDataValues" EntityType="CollectorModel.Store.EnvironmentDataValues" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ExceptionGroups" EntityType="CollectorModel.Store.ExceptionGroups" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Exceptions" EntityType="CollectorModel.Store.Exceptions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Features" EntityType="CollectorModel.Store.Features" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FeatureUse" EntityType="CollectorModel.Store.FeatureUse" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sessions" EntityType="CollectorModel.Store.Sessions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TaggedCommits" EntityType="CollectorModel.Store.TaggedCommits" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="CollectorModel.Store.Users" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="ActivationMethods">
+          <Key>
+            <PropertyRef Name="ActivationMethodId" />
+          </Key>
+          <Property Name="ActivationMethodId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ActivationMethodName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CommitRelations">
+          <Key>
+            <PropertyRef Name="ParentCommit" />
+            <PropertyRef Name="ChildCommit" />
+          </Key>
+          <Property Name="ParentCommit" Type="int" Nullable="false" />
+          <Property Name="ChildCommit" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Commits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Hash" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CommitDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EnvironmentData">
+          <Key>
+            <PropertyRef Name="EnvironmentDataId" />
+          </Key>
+          <Property Name="EnvironmentDataId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="int" Nullable="false" />
+          <Property Name="EnvironmentDataNameId" Type="int" Nullable="false" />
+          <Property Name="EnvironmentDataValueId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EnvironmentDataNames">
+          <Key>
+            <PropertyRef Name="EnvironmentDataNameId" />
+          </Key>
+          <Property Name="EnvironmentDataNameId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EnvironmentDataName" Type="nvarchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="EnvironmentDataValues">
+          <Key>
+            <PropertyRef Name="EnvironmentDataValueId" />
+          </Key>
+          <Property Name="EnvironmentDataValueId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EnvironmentDataValue" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ExceptionGroups">
+          <Key>
+            <PropertyRef Name="ExceptionGroupId" />
+          </Key>
+          <Property Name="ExceptionGroupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TypeFingerprintSha256Hash" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="ExceptionType" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="ExceptionFingerprint" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ExceptionLocation" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserComment" Type="nvarchar(max)" />
+          <Property Name="UserFixedInCommit" Type="int" />
+        </EntityType>
+        <EntityType Name="Exceptions">
+          <Key>
+            <PropertyRef Name="ExceptionId" />
+          </Key>
+          <Property Name="ExceptionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="int" Nullable="false" />
+          <Property Name="ExceptionGroupId" Type="int" Nullable="false" />
+          <Property Name="ThrownAt" Type="datetime" Nullable="false" />
+          <Property Name="Stacktrace" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsFirstInSession" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Features">
+          <Key>
+            <PropertyRef Name="FeatureId" />
+          </Key>
+          <Property Name="FeatureId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FeatureName" Type="nvarchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="FeatureUse">
+          <Key>
+            <PropertyRef Name="FeatureUseId" />
+          </Key>
+          <Property Name="FeatureUseId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="int" Nullable="false" />
+          <Property Name="UseTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="FeatureId" Type="int" Nullable="false" />
+          <Property Name="ActivationMethodId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sessions">
+          <Key>
+            <PropertyRef Name="SessionId" />
+          </Key>
+          <Property Name="SessionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientSessionId" Type="bigint" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AppVersionMajor" Type="int" />
+          <Property Name="AppVersionMinor" Type="int" />
+          <Property Name="AppVersionBuild" Type="int" />
+          <Property Name="AppVersionRevision" Type="int" />
+          <Property Name="CommitId" Type="int" />
+          <Property Name="IsDebug" Type="bit" Nullable="false" />
+          <Property Name="FirstException" Type="datetime" />
+          <Property Name="LastFeatureUse" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TaggedCommits">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="TagId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CommitId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsRelease" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AssociatedGuid" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CollectorModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="UDCContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EnvironmentDataNames" EntityType="CollectorModel.EnvironmentDataName" />
+          <EntitySet Name="Features" EntityType="CollectorModel.Feature" />
+          <EntitySet Name="FeatureUses" EntityType="CollectorModel.FeatureUse" />
+          <EntitySet Name="Users" EntityType="CollectorModel.User" />
+          <EntitySet Name="ExceptionGroups" EntityType="CollectorModel.ExceptionGroup" />
+          <EntitySet Name="Exceptions" EntityType="CollectorModel.Exception" />
+          <EntitySet Name="ActivationMethods" EntityType="CollectorModel.ActivationMethod" />
+          <EntitySet Name="EnvironmentDatas" EntityType="CollectorModel.EnvironmentData" />
+          <EntitySet Name="EnvironmentDataValues" EntityType="CollectorModel.EnvironmentDataValue" />
+          <EntitySet Name="Sessions" EntityType="CollectorModel.Session" />
+          <EntitySet Name="Commits" EntityType="CollectorModel.Commit" />
+          <EntitySet Name="TaggedCommits" EntityType="CollectorModel.TaggedCommit" />
+          <EntitySet Name="CommitRelations" EntityType="CollectorModel.CommitRelation" />
+          </EntityContainer>
+        <EntityType Name="EnvironmentDataName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Feature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FeatureUse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="SessionId" Nullable="false" />
+          <Property Type="DateTime" Name="UseTime" Nullable="false" />
+          <Property Type="DateTime" Name="EndTime" />
+          <Property Type="Int32" Name="FeatureId" Nullable="false" />
+          <Property Type="Int32" Name="ActivationMethodId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="AssociatedGuid" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ExceptionGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="TypeFingerprintSha256Hash" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ExceptionType" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ExceptionFingerprint" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ExceptionLocation" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserComment" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserFixedInCommit" />
+        </EntityType>
+        <EntityType Name="Exception">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="SessionId" Nullable="false" />
+          <Property Type="Int32" Name="ExceptionGroupId" Nullable="false" />
+          <Property Type="DateTime" Name="ThrownAt" Nullable="false" />
+          <Property Type="String" Name="Stacktrace" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsFirstInSession" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ActivationMethod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EnvironmentData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="SessionId" Nullable="false" />
+          <Property Type="Int32" Name="EnvironmentDataNameId" Nullable="false" />
+          <Property Type="Int32" Name="EnvironmentDataValueId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EnvironmentDataValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="ClientSessionId" Nullable="false" />
+          <Property Type="DateTime" Name="StartTime" Nullable="false" />
+          <Property Type="DateTime" Name="EndTime" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="AppVersionMajor" />
+          <Property Type="Int32" Name="AppVersionMinor" />
+          <Property Type="Int32" Name="AppVersionBuild" />
+          <Property Type="Int32" Name="AppVersionRevision" />
+          <Property Type="Int32" Name="CommitId" />
+          <Property Type="Boolean" Name="IsDebug" Nullable="false" />
+          <Property Type="DateTime" Name="FirstException" />
+          <Property Type="DateTime" Name="LastFeatureUse" />
+        </EntityType>
+        <EntityType Name="Commit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Hash" Nullable="false" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="CommitDate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaggedCommit">
+          <Key>
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Type="Int32" Name="TagId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="CommitId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Type="Boolean" Name="IsRelease" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommitRelation">
+          <Key>
+            <PropertyRef Name="ParentCommit" />
+            <PropertyRef Name="ChildCommit" />
+          </Key>
+          <Property Type="Int32" Name="ParentCommit" Nullable="false" />
+          <Property Type="Int32" Name="ChildCommit" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CollectorModelStoreContainer" CdmEntityContainer="UDCContext">
+          <EntitySetMapping Name="EnvironmentDataNames">
+            <EntityTypeMapping TypeName="CollectorModel.EnvironmentDataName">
+              <MappingFragment StoreEntitySet="EnvironmentDataNames">
+                <ScalarProperty Name="Name" ColumnName="EnvironmentDataName" />
+                <ScalarProperty Name="Id" ColumnName="EnvironmentDataNameId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Features">
+            <EntityTypeMapping TypeName="CollectorModel.Feature">
+              <MappingFragment StoreEntitySet="Features">
+                <ScalarProperty Name="Name" ColumnName="FeatureName" />
+                <ScalarProperty Name="Id" ColumnName="FeatureId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeatureUses">
+            <EntityTypeMapping TypeName="CollectorModel.FeatureUse">
+              <MappingFragment StoreEntitySet="FeatureUse">
+                <ScalarProperty Name="ActivationMethodId" ColumnName="ActivationMethodId" />
+                <ScalarProperty Name="FeatureId" ColumnName="FeatureId" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="UseTime" ColumnName="UseTime" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="Id" ColumnName="FeatureUseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CollectorModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="AssociatedGuid" ColumnName="AssociatedGuid" />
+                <ScalarProperty Name="Id" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExceptionGroups">
+            <EntityTypeMapping TypeName="CollectorModel.ExceptionGroup">
+              <MappingFragment StoreEntitySet="ExceptionGroups">
+                <ScalarProperty Name="UserFixedInCommit" ColumnName="UserFixedInCommit" />
+                <ScalarProperty Name="UserComment" ColumnName="UserComment" />
+                <ScalarProperty Name="ExceptionLocation" ColumnName="ExceptionLocation" />
+                <ScalarProperty Name="ExceptionFingerprint" ColumnName="ExceptionFingerprint" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="TypeFingerprintSha256Hash" ColumnName="TypeFingerprintSha256Hash" />
+                <ScalarProperty Name="Id" ColumnName="ExceptionGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exceptions">
+            <EntityTypeMapping TypeName="CollectorModel.Exception">
+              <MappingFragment StoreEntitySet="Exceptions">
+                <ScalarProperty Name="IsFirstInSession" ColumnName="IsFirstInSession" />
+                <ScalarProperty Name="Stacktrace" ColumnName="Stacktrace" />
+                <ScalarProperty Name="ThrownAt" ColumnName="ThrownAt" />
+                <ScalarProperty Name="ExceptionGroupId" ColumnName="ExceptionGroupId" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="Id" ColumnName="ExceptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivationMethods">
+            <EntityTypeMapping TypeName="CollectorModel.ActivationMethod">
+              <MappingFragment StoreEntitySet="ActivationMethods">
+                <ScalarProperty Name="Name" ColumnName="ActivationMethodName" />
+                <ScalarProperty Name="Id" ColumnName="ActivationMethodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnvironmentDatas">
+            <EntityTypeMapping TypeName="CollectorModel.EnvironmentData">
+              <MappingFragment StoreEntitySet="EnvironmentData">
+                <ScalarProperty Name="EnvironmentDataValueId" ColumnName="EnvironmentDataValueId" />
+                <ScalarProperty Name="EnvironmentDataNameId" ColumnName="EnvironmentDataNameId" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="Id" ColumnName="EnvironmentDataId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnvironmentDataValues">
+            <EntityTypeMapping TypeName="CollectorModel.EnvironmentDataValue">
+              <MappingFragment StoreEntitySet="EnvironmentDataValues">
+                <ScalarProperty Name="Name" ColumnName="EnvironmentDataValue" />
+                <ScalarProperty Name="Id" ColumnName="EnvironmentDataValueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sessions">
+            <EntityTypeMapping TypeName="CollectorModel.Session">
+              <MappingFragment StoreEntitySet="Sessions">
+                <ScalarProperty Name="LastFeatureUse" ColumnName="LastFeatureUse" />
+                <ScalarProperty Name="FirstException" ColumnName="FirstException" />
+                <ScalarProperty Name="IsDebug" ColumnName="IsDebug" />
+                <ScalarProperty Name="CommitId" ColumnName="CommitId" />
+                <ScalarProperty Name="AppVersionRevision" ColumnName="AppVersionRevision" />
+                <ScalarProperty Name="AppVersionBuild" ColumnName="AppVersionBuild" />
+                <ScalarProperty Name="AppVersionMinor" ColumnName="AppVersionMinor" />
+                <ScalarProperty Name="AppVersionMajor" ColumnName="AppVersionMajor" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="ClientSessionId" ColumnName="ClientSessionId" />
+                <ScalarProperty Name="Id" ColumnName="SessionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commits">
+            <EntityTypeMapping TypeName="CollectorModel.Commit">
+              <MappingFragment StoreEntitySet="Commits">
+                <ScalarProperty Name="CommitDate" ColumnName="CommitDate" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaggedCommits">
+            <EntityTypeMapping TypeName="CollectorModel.TaggedCommit">
+              <MappingFragment StoreEntitySet="TaggedCommits">
+                <ScalarProperty Name="IsRelease" ColumnName="IsRelease" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CommitId" ColumnName="CommitId" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommitRelations">
+            <EntityTypeMapping TypeName="CollectorModel.CommitRelation">
+              <MappingFragment StoreEntitySet="CommitRelations">
+                <ScalarProperty Name="ChildCommit" ColumnName="ChildCommit" />
+                <ScalarProperty Name="ParentCommit" ColumnName="ParentCommit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="CollectorModel">
+        <EntityTypeShape EntityType="CollectorModel.EnvironmentDataName" Width="2.5" PointX="7.5" PointY="2" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="CollectorModel.Feature" Width="1.625" PointX="5.625" PointY="0.5" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="CollectorModel.FeatureUse" Width="1.5" PointX="1" PointY="3.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="CollectorModel.User" Width="1.5" PointX="0.875" PointY="0.5" Height="1.4033821614583388" />
+        <EntityTypeShape EntityType="CollectorModel.ExceptionGroup" Width="2.5" PointX="7.5" PointY="3.5" Height="2.0853483072916665" />
+        <EntityTypeShape EntityType="CollectorModel.Exception" Width="1.5" PointX="2.75" PointY="3.75" Height="2.1725878906250031" />
+        <EntityTypeShape EntityType="CollectorModel.ActivationMethod" Width="2.5" PointX="7.5" PointY="0.5" Height="1.4033821614583353" />
+        <EntityTypeShape EntityType="CollectorModel.EnvironmentData" Width="2.25" PointX="4.5" PointY="3.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="CollectorModel.EnvironmentDataValue" Width="2.5" PointX="7.5" PointY="6" Height="1.4033821614583353" />
+        <EntityTypeShape EntityType="CollectorModel.Session" Width="1.875" PointX="3.25" PointY="0.5" Height="2.7494921875000031" />
+        <EntityTypeShape EntityType="CollectorModel.Commit" Width="1.5" PointX="2.75" PointY="6.75" Height="1.4279589843750031" />
+        <EntityTypeShape EntityType="CollectorModel.TaggedCommit" Width="1.5" PointX="4.75" PointY="6.75" Height="1.5923063151041674" />
+        <EntityTypeShape EntityType="CollectorModel.CommitRelation" Width="1.5" PointX="0.875" PointY="6.875" Height="1.2636116536458388" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

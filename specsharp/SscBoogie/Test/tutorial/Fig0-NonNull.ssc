@@ -1,0 +1,13 @@
+class NonNull {
+  string aString = "Hello";
+  string anotherString;
+  string? maybeAString;
+
+  public NonNull() {
+    anotherString = "World";
+  }
+
+  public int GetCharCount() {
+    return aString.Length + maybeAString.Length; // error: add conditional, cast, or assertion
+  }  
+}

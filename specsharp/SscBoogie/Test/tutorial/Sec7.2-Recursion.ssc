@@ -1,0 +1,81 @@
+/* 
+ * Recursive pure method specifications must be well founded, because
+ * if the specifications of some pure methods are given in terms of
+ * each other, inconsistency is possible.  The restriction is that the
+ * postcondition of a pure method M can make a call p.N(...) only if p
+ * is a [Rep] field (or a sequence of [Rep] and [Peer] fields,
+ * starting with a [Rep] field) or if p is "this" and N has a lower
+ * recursion termination level.  The recursion termination level can
+ * be set by the [RecursionTermination] attribute; by default, it is
+ * 0, or in some very simple cases, 1 higher than the level of any
+ * method called.
+
+ * In most cases, the simple recursion-termination defaults suffice.
+ * However, these recursion checks are not flexible enough to define
+ * recursive pure methods like Factorial, where termination depends on
+ * some numerical argument being decreased in the recursive call.
+ * Such pure methods are currently not supported by Spec#.
+ */
+
+
+using Microsoft.Contracts;
+
+namespace PureRecursion {
+
+public class Node {
+  [Rep] Node? next;
+  [Peer] Node? peer;
+  int value;
+
+  // Default recursion termination level: 0 
+  [Pure] 
+  public int Value()
+    ensures result == value;
+  {
+    return value;
+  }
+
+  // Inferred recursion termination level: 1
+  // Call to this.Value is permitted because recursion termination level decreases
+  [Pure] 
+  public int AbsValue()
+    ensures result == (0 <= Value() ? Value() : -Value());
+  {
+    return (0 <= Value() ? Value() : -Value());
+  }
+
+
+  // Call to this.Value is permitted because recursion termination level decreases
+  // Call to next.Max is permitted because next is a [Rep] field
+  [Pure]
+  [RecursionTermination(3)]  // Specified recursion termination level: 3
+  public int Max()
+    ensures result == (next == null || next.Max() < Value()  ? Value() : next.Max());
+  {
+    return (next == null || value > next.Max() ? value : next.Max());
+  }
+
+
+  // Call to this.Value is permitted because recursion termination level decreases
+  // Call to peer.Sum is illegal because recursion termination level does not decrease and peer is not a [Rep] field
+  [Pure]
+  [Reads(ReadsAttribute.Reads.Everything)]
+  public int Sum()
+    ensures result == Value() + (peer == null ? 0 : peer.Sum());  // error
+  {
+    return value + (peer == null ? 0 : peer.Sum());
+  }
+
+
+  // Call to this.Value is permitted because recursion termination level decreases
+  // Call to this.Max is permitted because recursion termination level decreases
+  [Pure] 
+  [RecursionTermination(5)] // Specified recursion termination level: 5
+  public bool IsMax()
+    ensures result == (Value() == Max());
+  {
+    return value == Max();
+  }
+}
+
+}

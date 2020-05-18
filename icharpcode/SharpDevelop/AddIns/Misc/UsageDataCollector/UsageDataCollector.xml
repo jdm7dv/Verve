@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UsageDataCollector</name>
+    </assembly>
+    <members>
+        <member name="T:ICSharpCode.UsageDataCollector.Contracts.UsageDataMessage">
+            <summary>
+            Represents a message used to send data to the server.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataMessage.UserID">
+            <summary>
+            Unique identifier per user.
+            We need this to distinguish between 1 user using a feature 100 times, or 100 users using a feature 1 time.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataMessage.Sessions">
+            <summary>
+            Gets the sessions stored in this message.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.Contracts.UsageDataMessage.FindSession(System.Int64)">
+            <summary>
+            Finds the session with the specified session ID.
+            </summary>
+            <exception cref="T:System.ArgumentException">No session with the specified ID was found.</exception>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.Contracts.UsageDataSession">
+            <summary>
+            A UsageData session.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataSession.SessionID">
+            <summary>
+            ID of the session, usually unique per user (unless the user restores a backup of the database).
+            Could be used to detect duplicate uploads.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataSession.StartTime">
+            <summary>
+            Timestamp when the session was started.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataSession.EndTime">
+            <summary>
+            Timestamp when the session finished.
+            Nullable because the end time might not be recorded if the application crashed.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataSession.EnvironmentProperties">
+            <summary>
+            List of environment properties associated with the session.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataSession.FeatureUses">
+            <summary>
+            List of feature uses associated with the session.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataSession.Exceptions">
+            <summary>
+            List of exceptions associated with the session.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.Contracts.UsageDataEnvironmentProperty">
+            <summary>
+            A property storing a value about the environment (App version, OS Version etc.).
+            These are stored per session because the user might use different versions of an application in parallel,
+            or have multiple OS installations pointing to the same database (e.g. when SharpDevelop is used on an USB stick).
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataEnvironmentProperty.Name">
+            <summary>
+            Name of the property.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataEnvironmentProperty.Value">
+            <summary>
+            Value of the property.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.Contracts.UsageDataFeatureUse">
+            <summary>
+            Represents a feature being used.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataFeatureUse.Time">
+            <summary>
+            The time when the feature was used.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataFeatureUse.EndTime">
+            <summary>
+            End time of the feature use. Nullable because for some features, the no time span will be recorded.
+            Also, for features where the time span usually is recorded, crashes might cause the end time to be missing
+            in some cases.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataFeatureUse.FeatureName">
+            <summary>
+            Name of the feature.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataFeatureUse.ActivationMethod">
+            <summary>
+            How the feature was activated (Menu, Toolbar, Shortcut, etc.)
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.Contracts.UsageDataException">
+            <summary>
+            Represents an exception that was recorded.
+            Only ExceptionType and StackTrace are available because those don't contain personal information.
+            The exception message might e.g. contain names of the file the user is working on.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataException.Time">
+            <summary>
+            The time when the exception occurred.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataException.ExceptionType">
+            <summary>
+            The fully qualified typename of the exception.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.UsageDataCollector.Contracts.UsageDataException.StackTrace">
+            <summary>
+            The stack trace of the exception. The 'at'/'in' words are potentially localized.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.UsageDataSessionWriter">
+            <summary>
+            Creates a usage data session.
+            
+            This class is thread-safe.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.#ctor(System.String,System.Func{System.Guid})">
+            <summary>
+            Opens/Creates the database and starts writing a new session to it.
+            </summary>
+            <exception cref="T:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException">The database version is not compatible with this
+            version of the AnalyticsSessionWriter.</exception>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.Flush">
+            <summary>
+            Flushes changes that are not written yet.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.RetrieveUserId(System.String)">
+            <summary>
+            Retrieves the user ID from the specified database.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.InitializeTables(System.Func{System.Guid})">
+            <summary>
+            Creates or upgrades the database
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.GetDefaultEnvironmentData">
+            <summary>
+            Gets the default environment data.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.AddEnvironmentData(System.Collections.Generic.IEnumerable{ICSharpCode.UsageDataCollector.Contracts.UsageDataEnvironmentProperty})">
+            <summary>
+            Adds environment data to the current session.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.AddFeatureUse(System.String,System.String)">
+            <summary>
+            Adds a feature use to the session.
+            </summary>
+            <param name="featureName">Name of the feature.</param>
+            <param name="activationMethod">How the feature was activated (Menu, Toolbar, Shortcut, etc.)</param>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.AddException(System.Exception)">
+            <summary>
+            Adds an exception report to the session.
+            </summary>
+            <param name="exception">The exception instance.</param>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.AddException(System.String,System.String)">
+            <summary>
+            Adds an exception report to the session.
+            </summary>
+            <param name="exceptionType">Full .NET type name of the exception.</param>
+            <param name="stacktrace">Stacktrace</param>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.Dispose">
+            <summary>
+            Closes the session.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.UsageDataCollector.UsageDataSessionWriter.OnException">
+            <summary>
+            This delegate is called when an exception occurs on the background timer.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.FeatureUse">
+            <summary>
+            Represents a feature use that is currently being written.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.FeatureUse.TrackEndTime">
+            <summary>
+            Marks the end time for a feature use.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException">
+            <summary>
+            Thrown when the database used to internally store the usage data is incompatible with the DB version
+            expected by the UsageDataCollector library.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException.#ctor">
+            <summary>
+            Creates a new IncompatibleDatabaseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException.#ctor(System.String)">
+            <summary>
+            Creates a new IncompatibleDatabaseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new IncompatibleDatabaseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException.#ctor(System.Version,System.Version)">
+            <summary>
+            Creates a new IncompatibleDatabaseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserializes an IncompatibleDatabaseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException.ExpectedVersion">
+            <summary>
+            Expected database version.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException.ActualVersion">
+            <summary>
+            Actual database version.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.UsageDataUploader">
+            <summary>
+            Allows uploading collected data.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataUploader.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new UsageDataUploader.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataUploader.GetTextForStoredData">
+            <summary>
+            Retrieves all stored data as XML text.
+            </summary>
+            <exception cref="T:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException">The database version is not compatible with this
+            version of the AnalyticsSessionWriter.</exception>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataUploader.StartUpload(System.String)">
+            <summary>
+            Starts the upload of the usage data.
+            </summary>
+            <exception cref="T:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException">The database version is not compatible with this
+            version of the AnalyticsSessionWriter.</exception>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataUploader.StartUpload(System.ServiceModel.Channels.Binding,System.ServiceModel.EndpointAddress)">
+            <summary>
+            Starts the upload of the usage data.
+            </summary>
+            <exception cref="T:ICSharpCode.UsageDataCollector.IncompatibleDatabaseException">The database version is not compatible with this
+            version of the AnalyticsSessionWriter.</exception>
+        </member>
+        <member name="M:ICSharpCode.UsageDataCollector.UsageDataUploader.RemoveUploadedData(System.String)">
+            <summary>
+            Removes the data that was successfully uploaded and sets the 'lastUpload' property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.UsageDataCollector.UsageDataUploader.EnvironmentDataForDummySession">
+            <summary>
+            Gets/Sets environment data that is sent with the dummy session on the first upload.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.UsageDataCollector.UsageDataUploader.StringInterner">
+            <summary>
+            Helps keep the memory usage during data preparation down (there are lots of duplicate strings, and we don't
+            want to keep them in RAM repeatedly).
+            </summary>
+        </member>
+    </members>
+</doc>

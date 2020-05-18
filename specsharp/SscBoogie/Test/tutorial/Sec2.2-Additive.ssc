@@ -1,0 +1,36 @@
+using Microsoft.Contracts;
+
+public class Purse {
+  [Additive] public int amount;  // Can be mentioned in sublcass invariants
+
+  invariant 0 <= amount;
+
+  [Additive]  // generates default precondition to allow additive expose
+  public virtual void AddMoney(int a)
+    requires 0 <= a;
+    modifies amount;
+  {
+    additive expose (this) {  // required because amount is additive
+      amount += a;
+    }
+  }
+
+  public Purse()
+    ensures amount == 0;
+  {}
+}
+
+public class SwissPurse: Purse {
+  invariant amount % 5 == 0;
+
+  [Additive]  // generates default precondition to allow additive expose
+  public override void AddMoney(int a)
+  {
+    additive expose (this) {  // required because superclass methos is [Additive]
+      base.AddMoney(a);
+      additive expose ((Purse) this) { // required because amount is additive
+        amount -= (amount % 5);
+      }
+    }
+  }
+}

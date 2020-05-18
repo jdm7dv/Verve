@@ -1,0 +1,937 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title></title>
+</head>
+
+<body>
+<h1></h1>
+
+<H2 align=center>CsLex:<BR>A lexical analyzer generator for 
+C#<SUP><SMALL>(TM)</SMALL></SUP><BR></H1>
+<P align=center><STRONG>Brad Merrill<BR>
+<P align=center>Microsoft
+<BR></STRONG></P>
+<P align=center>Version 1.0, 20-Sep-1999</P>
+<P align=center>Manual revision 24-Sep-1999</P>
+<HR>
+
+
+
+<H1><A name=SECTION1>1. Introduction</A></H1>
+<P>
+A lexical analyzer breaks an input stream of characters into tokens.
+Writing lexical analyzers by hand can be a tedious process, so software tools have been developed to ease this task.
+
+<P>Perhaps the best known such utility is the original C-based Lex.
+Lex is a lexical analyzer generator for the UNIX operating system,
+targeted to the C programming language. 
+<P>
+Lex takes a specially-formatted specification file containing the details of a 
+lexical analyzer. This tool then creates a C source file for the associated 
+table-driven lexer. 
+<P>
+The CsLex utility is based upon the Lex lexical analyzer generator model.
+
+CsLex takes a specification file similar to that accepted by Lex,
+then creates a C# source file for the corresponding lexical analyzer.
+<p>
+CsLex is loosely based on the JLex tool, which was based on the Lex tool.
+This was a significant rewrite, so consequently any
+errors are solely the responsibility of the most recent author.
+See the credits section for more info.
+
+<H1>CsLex Specifications</H1>
+<P>
+A CsLex input file is organized into three sections, separated by 
+double-percent directives (``%%''). A proper CsLex specification has the 
+following format.
+<BR>
+<I>user code</I>
+<BR>%%
+<BR>
+<I>CsLex directives</I>
+<BR>
+%%<BR>
+<I>regular expression rules</I><BR>
+The ``%%'' directives distinguish sections of the input file and
+must be placed at the beginning of 
+their line. The remainder of the line containing the ``%%'' directives may be 
+discarded and should not be used to house additional declarations or code. 
+<P>
+The user code section - the first section of the specification file - is 
+copied directly into the resulting output file. This area of the specification 
+provides space for the implementation of utility classes or return types. 
+<P>
+The CsLex directives section is the second part of the input file. Here, 
+macros definitions are given and state names are declared. 
+<P>
+The third section contains the rules of lexical analysis, each of which 
+consists of three parts: an optional state list, a regular expression, and an 
+action. 
+<H2>User Code</H2>
+<P>
+User code precedes the first double-percent directive (``%%'). This code is 
+copied verbatim into the lexical analyzer source file that CsLex
+outputs, at the top of the file. Therefore, if the lexer source
+file needs to begin with a package declaration or with the
+importation of an external class, the user code section should
+begin with the corresponding declaration. This declaration will
+then be copied onto the top of the generated source file.  
+<H2>CsLex Directives</H2>
+
+The CsLex directive section begins after the first ``%%'' and continues until 
+the second ``%%'' delimiter. Each CsLex directive should be
+contained on a single line and should begin that line. 
+
+<H3>Internal Code to Lexical Analyzer Class</H3>
+<P>
+The <I>%{...%}</I> directive allows the user to write C# code to be copied 
+into the lexical analyzer class. This directive is used as follows.
+<BR>
+<I>%{ </I><BR>
+<I>&lt;code&gt; </I><BR>
+<I>%} </I><BR>
+
+To be properly recognized, the <I>%{ </I>and <I>%} </I>should
+each be situated at the beginning of a line. The specified C#
+code in <I>&lt;code&gt;</I> will be then copied into the lexical
+analyzer class created by CsLex.<BR>
+
+<I>class Yylex { </I><BR>
+<I>... &lt;code&gt; ... </I><BR>
+<I>} </I><BR>
+
+This permits the declaration of variables and functions 
+internal to the generated lexical analyzer class. Variable names
+beginning with <I>yy</I> should be avoided, as these are
+reserved for use by the generated lexical analyzer class. 
+
+<H3>Initialization Code for Lexical Analyzer Class</H3>
+The <I>%init{ ... %init}</I> directive allows the user to write C# code to 
+be copied into the constructor for the lexical analyzer class.<BR>
+
+<I>%init{ </I><BR>
+<I>&lt;code&gt;</I><BR>
+<I>%init} </I><BR>
+The <I>%init{</I> and <I>%init}</I> directives should be
+situated at the beginning of a line. The specified C# code in
+<I>&lt;code&gt;</I> will be then copied into the lexical
+analyzer class constructor.<BR> 
+
+<I>class Yylex { </I><BR>
+<I>Yylex () { </I><BR>
+<I>... &lt;code&gt; ... </I><BR>
+<I>} </I><BR>
+<I>} </I><BR>
+
+This directive permits one-time initializations of the lexical
+analyzer class from inside its constructor. Variable names
+beginning with <I>yy</I> should be avoided, as these are
+reserved for use by the generated lexical analyzer class.
+
+<H3>End-of-File Code for Lexical Analyzer Class</H3>
+
+The <I>%eof{ ... %eof}</I> directive allows the user to write C# code to be 
+copied into the lexical analyzer class for execution after the end-of-file is 
+reached.<BR>
+
+<I>%eof{ </I><BR>
+<I>&lt;code&gt;</I><BR>
+<I>%eof} </I><BR>
+
+The <I>%eof{</I> and <I>%eof}</I> directives should be situated
+at the beginning of a line. The specified C# code in
+<I>&lt;code&gt;</I> will be executed at most once, and
+immediately after the end-of-file is reached for the input file
+the lexical analyzer class is processing.  
+
+<H3>Macro Definitions</H3>
+
+Macro definitions are given in the CsLex directives section of
+the specification. Each macro definition is contained on a
+single line and consists of a macro name followed by an equal
+sign (=), then by its associated definition. The format can
+therefore be summarized as follows.
+<BR> 
+<I>&lt;name&gt;</I> = <I>&lt;definition&gt;</I><BR>
+
+Non-newline white space, e.g. blanks and tabs, is optional
+between the macro name and the equal sign and between the equal
+sign and the macro definition. Each macro definition should be
+contained on a single line.  
+
+<P>
+Macro names should be valid identifiers, e.g. sequences of
+letters, digits, and underscores beginning with a letter or
+underscore.
+
+<P>
+Macro definitions should be valid regular expressions, the
+details of which are described in another section below.
+
+<P>
+Macro definitions can contain other macro expansions, in the standard<BR>
+
+<I>{&lt;name&gt;} </I>format for macros within regular
+expressions.  However, the user should note that these
+expressions are macros - not functions or nonterminals - so
+mutually recursive constructs using macros are
+illegal. Therefore, cycles in macro definitions will have
+unpredictable results.
+
+<H3>State Declarations</H3>
+
+Lexical states are used to control when certain regular
+expressions are matched. These are declared in the CsLex
+directives in the following way.<BR> 
+
+<I>%state </I>state[0][<I>, state[1], state[2], ...</I>]<BR>
+
+Each declaration of a series of lexical states should be
+contained on a single line. Multiple declarations can be
+included in the same CsLex specification, so the declaration of
+many states can be broken into many declarations over multiple
+lines.
+
+<P>
+State names should be valid identifiers, e.g. sequences of
+letters, digits, and underscores beginning with a letter or
+underscore.
+
+<P>
+A single lexical state is implicitly declared by CsLex. This
+state is called <I>YYINITIAL</I>, and the generated lexer begins
+lexical analysis in this state.
+
+<P>
+Rules of lexical analysis begin with an optional state list. If
+a state list is given, the lexical rule is matched only when the
+lexical analyzer is in one of the specified states. If a state
+list is not given, the lexical rule is matched when the lexical
+analyzer is in any state.
+
+<P>
+If a CsLex specification does not make use of states, by neither
+declaring states nor preceding lexical rules with state lists,
+the resulting lexer will remain in state <I>YYINITIAL</I>
+throughout execution. Since lexical rules are not prefaced by
+state lists, these rules are matched in all existing states,
+including the implicitly declared state
+<I>YYINITIAL</I>. Therefore, everything works as expected if
+states are not used at all.  
+
+<P>
+States are declared as constant integers within the generated
+lexical analyzer class. The constant integer declared for a
+declared state has the same name as that state. The user should
+be careful to avoid name conflict between state names and
+variables declared in the action portion of rules or elsewhere
+within the lexical analyzer class. A convenient convention would
+be to declare state names in all capitals, as a reminder that
+these identifiers effectively become constants.
+
+<H3>Character Counting</H3>
+
+Character counting is turned off by default, but can be
+activated with the <I>%char</I> directive.<BR>
+
+<I>%char</I><BR>
+
+The zero-based character index of the first character in the
+matched region of text is then placed in the integer variable
+<I>yychar</I>.
+
+<H3>Line Counting</H3>
+
+Line counting is turned off by default, but can be activated
+with the <I>%line</I> directive.<BR>
+
+<I>%line</I><BR>
+
+The zero-based line index at the beginning of the matched region
+of text is then placed in the integer variable <I>yyline</I>.
+
+<H3>Lexical Analyzer Component Titles</H3>
+
+The following directives can be used to change the name of the
+generated lexical analyzer class, the namespace, the tokenizing function,
+and the token return type.
+
+<p>
+To change the name of the lexical analyzers namespace
+from <I>YyNameSpace</I>,
+use the <I>%namespace</I> directive.<BR> 
+
+<I>%namespace &lt;name&gt;</I><BR>
+
+To change the name of the lexical
+analyzer class from <I>Yylex</I>, use the <I>%class</I>
+directive.<BR> 
+
+<I>%class &lt;name&gt;</I><BR>
+
+<p>
+To change the name of the tokenizing function from <I>yylex</I>,
+use the <I>%function</I> directive.<BR> 
+
+<I>%function &lt;name&gt;</I><BR>
+
+<p>
+To change the name of the return type from the tokenizing
+function from <I>Yytoken</I>, use the <I>%type</I>
+directive.<BR>
+
+<I>%type &lt;name&gt;</I><BR>
+
+<p>
+If the default names are not altering using these directives,
+the tokenizing function is envoked with a call to
+<I>Yylex.yylex()</I>, which returns the <I>Ytoken</I> type.
+
+<P>
+To avoid scoping conflicts, names beginning with <I>yy</I> are
+normally reserved for lexical analyzer internal functions and
+variables.
+
+<H3>Default Token Type</H3>
+
+To return an integer type for the return type for the tokenizing function
+(and therefore the token type), use the <I>%intwrap</I>
+directive.<BR> 
+
+<I>%intwrap</I><BR>
+
+Under default settings, <I>Yytoken</I> is the return type of the
+tokenizing function<BR> 
+
+<I>Yylex.yylex()</I>, as in the following code fragment.<BR>
+<I>class Yylex { ... </I><BR>
+<I>public Yytoken yylex () {</I><BR>
+<I>... } </I><BR>
+
+The <I>%intwrap</I> directive replaces the previous code with a
+revised declaration, in which the token type has been changed to
+integer boxed Object.<BR>
+
+<I>class Yylex { ... </I><BR>
+<I>public object yylex () {</I><BR>
+<I>... } </I><BR>
+
+This declaration allows lexical actions to return wrapped
+integer codes, as in the following code fragment from a
+hypothetical lexical action.<BR>
+
+<I>{ ...</I><BR>
+<I>return ((object) i); </I><BR>
+<I>... } </I>
+
+<P>
+Notice that the effect of <I>%intwrap</I> directive can be
+equivalently accomplished using the <I>%type</I> directive, as
+follows.<BR>
+
+<I>%type object</I><BR>
+
+This manually changes the name of the return type from
+<I>Yylex.yylex()</I> to<BR>
+
+<I>object</I>. 
+
+
+
+<H3>YYEOF on End-of-File</H3>
+
+<P>
+The <I>%yyeof</I> directive causes the constant integer
+<I>Yylex.YYEOF</I> to be declared and returned upon
+end-of-file.<BR>
+
+<I>%yyeof</I><BR>
+
+This constant integer is discussed in more detail in a previous
+section. Note also that <I>Yylex.YYEOF</I> is a <I>int</I>, so
+the user should make sure that this return value is compatible
+with the return type of <I>Yylex.yylex()</I>.
+
+<H3>Character Sets</H3>
+
+The default settings support an alphabet of character codes
+between 0 and 127 inclusive. If the generated lexical analyzer
+receives an input character code that falls outside of these
+bounds, the lexer may fail.
+
+<P>
+The <I>%full</I> directive can be used to extend this alphabet
+to include all 8-bit values.<BR>
+
+<I>%full</I><BR>
+
+If the <I>%full</I> directive is given, CsLex will generate a
+lexical analyzer that supports an alphabet of character codes
+between 0 and 255 inclusive.
+
+<H3>Character Format To and From File</H3>
+
+Under the status quo, CsLex and the lexical analyzer it generates
+read from and write to Ascii text files, with byte sized
+characters. However, to support further extensions on the CsLex
+tool, all internal processing of characters is done using the
+16-bit C# character type, although the full range of 16-bit
+values is not supported.
+
+<H3>Specifying the Return Value on End-of-File</H3>
+
+The <I>%eofval{ ... %eofval}</I> directive specifies the return
+value on end-of-file. This directive allows the user to write
+C# code to be copied into the lexical analyzer tokenizing
+function <I>Yylex.yylex()</I> for execution when the end-of-file
+is reached. This code must return a value compatible with the
+type of the tokenizing function <I>Yylex.yylex()</I>.<BR>
+
+<I>%eofval{ </I><BR>
+<I>&lt;code&gt;</I><BR>
+<I>%eofval} </I><BR>
+
+The specified C# code in <I>&lt;code&gt;</I> determines the
+return value of <I>Yylex.yylex()</I> when the end-of-file is
+reached for the input file the lexical analyzer class is
+processing. This will also be the value returned by
+<I>Yylex.yylex()</I> each additional time this function is
+called after end-of-file is initially reached, so
+<I>&lt;code&gt;</I> may be executed more than once. Finally, the
+<I>%eofval{</I> and <I>%eofval}</I> directives should be
+situated at the beginning of a line.  
+
+<P>
+An example of usage is given below. Suppose the return value
+desired on end-of-file is <I>(new token(sym.EOF))</I> rather
+than the default value <I>null</I>. The user adds the following
+declaration to the specification file.<BR>
+
+<I>%eofval{ </I><BR>
+<I>return (new token(sym.EOF)); </I><BR>
+<I>%eofval} </I><BR>
+
+The code is then copied into <I>Yylex.yylex()</I> into the
+appropriate place.<BR>
+
+<I>public Yytoken yylex () { ... </I><BR>
+<I>return (new token(sym.EOF)); </I><BR>
+<I>... } </I><BR>
+
+The value returned by <I>Yylex.yylex()</I> upon end-of-file and
+from that point onward is now <I>(new token(sym.EOF))</I>.
+
+<H3>Specifying an interface to implement</H3>
+
+CsLex allows the user to specify an interface which the
+<I>Yylex</I> class will implement. By adding the following
+declaration to the input file:<BR>
+
+<I>%implements &lt;classname&gt;</I><BR>
+
+the user specifies that Yylex will implement
+<I>classname</I>. The generated parser class declaration will
+look like:<BR>
+
+<TT>class Yylex : <I>classname</I> { ... </TT>
+<P>
+<H3>Making the Generated Class Public</H3>
+
+The <I>%public</I> directive causes the lexical analyzer class
+generated by CsLex to be a public class.<BR>
+
+<I>%public</I><BR>
+
+The default behavior adds no access specifier to the generated
+class, resulting in the class being visible only from the
+current package.
+
+<H2>Regular Expression Rules</H2>
+
+The third part of the CsLex specification consists of a series of
+rules for breaking the input stream into tokens. These rules
+specify regular expressions, then associate these expressions
+with actions consisting of C# source code.
+
+<P>
+The rules have three distinct parts: the optional state list,
+the regular expression, and the associated action. This format
+is represented as follows.<BR>
+
+[<I>&lt;states&gt;</I>] <I>&lt;expression&gt; { &lt;action&gt; }</I><BR>
+
+Each part of the rule is discussed in a section below.
+
+<P>
+If more than one rule matches strings from its input, the
+generated lexer resolves conflicts between rules by greedily
+choosing the rule that matches the longest string. If more than
+one rule matches strings of the same length, the lexer will
+choose the rule that is given first in the CsLex
+specification. Therefore, rules appearing earlier in the
+specification are given a higher priority by the generated
+lexer.
+
+<P>
+The rules given in a CsLex specification should match all
+possible input. If the generated lexical analyzer receives input
+that does not match any of its rules, an error will be raised.
+
+<P>
+Therefore, all input should be matched by at least one
+rule. This can be guaranteed by placing the following rule at
+the bottom of a CsLex specification:<BR>
+
+<I>. { Console.WriteLine("Unmatched input: " + yytext()); }</I><BR>
+
+The dot (.), as described below, will match any input except for
+the newline.
+
+<H3>Lexical States</H3>
+
+An optional lexical state list preceeds each rule. This list
+should be in the following form:<BR>
+
+<I>&lt;</I>state[0][<I>, state[1], state[2], ...</I>]<I>&gt;</I><BR>
+
+The outer set of brackets ([]) indicate that multiple states are
+optional. The greater than (&lt;) and less than (&gt;) symbols
+represent themselves and should surround the state list,
+preceding the regular expression. The state list specifies under
+which initial states the rule can be matched.
+
+<P>
+For instance, if <I>yylex()</I> is called with the lexer at
+state <I>A</I>, the lexer will attempt to match the input only
+against those rules that have <I>A</I> in their state list.
+
+<P>
+If no state list is specified for a given rule, the rule is
+matched against in all lexical states.
+
+<H3>Regular Expressions</H3>
+
+Regular expressions should not contain any white space, as white
+space is interpreted as the end of the current regular
+expression. There is one exception; if (non-newline) white space
+characters appear from within double quotes, these characters
+are taken to represent themselves. For instance, `` '' is
+interpreted as a blank space.
+
+<P>
+The alphabet for CsLex is the Ascii character set, meaning
+character codes between 0 and 127 inclusive.
+
+<P>
+The following characters are metacharacters, with special
+meanings in CsLex regular expressions.<BR>
+
+<PRE><H4>? * + | ( ) ^ $ / ; . = &lt; &gt; [ ] { } " \</H4></PRE><BR>
+
+Otherwise, individual characters stand for themselves.
+
+<P>
+<I>ef</I> Consecutive regular expressions represents their concatenation. 
+<P>
+<I>e</I>|<I>f</I> The vertical bar (|) represents an option
+between the regular expressions that surround it, so matches
+either expression <I>e</I> or <I>f</I>.  
+
+<P>
+The following escape sequences are recognized and expanded: 
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD>\b</TD>
+    <TD>Backspace</TD></TR>
+  <TR>
+    <TD>\n</TD>
+    <TD>newline</TD></TR>
+  <TR>
+    <TD>\t</TD>
+    <TD>Tab</TD></TR>
+  <TR>
+    <TD>\f</TD>
+    <TD>Formfeed</TD></TR>
+  <TR>
+    <TD>\r</TD>
+    <TD>Carriage return</TD></TR>
+  <TR>
+    <TD>\<I>ddd</I></TD>
+    <TD>The character code corresponding to the number formed by three octal 
+      digits <I>ddd</I></TD></TR>
+  <TR>
+    <TD>\x<I>dd</I></TD>
+    <TD>The character code corresponding to the number formed by
+	two hexadecimal digits <I>dd</I></TD></TR> 
+  <TR>
+    <TD>\u<I>dddd</I></TD>
+    <TD>
+	The Unicode character code corresponding to the number
+	formed by four 	hexidecimal digits
+	<I>dddd</I>. <STRONG>The support of Unicode escape
+	sequences of this type is unimplemented.</STRONG>
+    </TD>
+  </TR>
+  <TR>
+    <TD>\^<I>C</I></TD>
+    <TD>Control character</TD></TR>
+  <TR>
+    <TD>\<I>c</I></TD>
+    <TD>A backslash followed by any other character <I>c</I>
+	matches itself
+    </TD>
+  </TR>
+  </TBODY>
+</TABLE>
+
+<table>
+  <tr>
+  <th>Symbol</th>
+  <th>Meaning</th>
+  </tr>
+  <tr>
+    <td> $ </td>
+    <td> The dollar sign ($) denotes the end of a line. If
+	the dollar sign ends a regular expression, the
+	expression is matched only at the end of a
+	line. </td>
+  </tr>
+  <tr>
+    <td> . </td>
+    <td> The dot (.) matches any character except the newline,
+	so this expression is equivalent to [^\n]. </td>
+  </tr>
+  <tr>
+    <td> "..." </td>
+    <td> Metacharacters lose their meaning within double quotes
+	and represent themselves. The sequence <CODE>\"</CODE>
+	(which represents the single character <CODE>"</CODE>)
+	is the only exception. </td>
+  </tr>
+  <tr>
+    <td> <I>{name}</I> </td>
+    <td> Curly braces denote a macro expansion, with <I>name</I>
+	the declared name of the associated macro. </td>
+  </tr>
+  <tr>
+    <td> * </td>
+    <td> The star (*) represents Kleene closure and matches zero
+	or more repetitions of the preceding regular
+	expression. </td>
+  </tr>
+  <tr>
+    <td> + </td>
+    <td> The plus (+) matches one or more repetitions of the
+	preceding regular expression, so <I>e</I>+ is equivalent
+	to <I>ee</I>*. </td>
+  </tr>
+  <tr>
+    <td> ? </td>
+    <td> The question mark (?) matches zero or one repetitions
+	of the preceding regular expression. </td>
+  </tr>
+  <tr>
+    <td> (...) </td>
+    <td> Parentheses are used for grouping within regular
+	expressions. </td>
+  </tr>
+  <tr valign=top>
+    <td> [...] </td>
+    <td> Square backets denote a class of characters and match
+	any one character enclosed in the backets. If the first
+	character following the left bracket ([) is the up arrow
+	(^), the set is negated and the expression matches any
+	character except those enclosed in the
+	backets. Different metacharacter rules hold inside the
+	backets, with the following expressions having special
+	meanings:  
+	<TABLE>
+	  <TR>
+	    <TD><I>{name}</I></TD>
+	    <TD>Macro expansion</TD>
+	  </TR>
+	  <TR>
+	    <TD><I>a</I> - <I>b</I></TD>
+	    <TD>Range of character codes from <I>a</I> to
+		<I>b</I> to be included in character set</TD> 
+	  </TR>
+	  <TR>
+	    <TD>"..."</TD>
+	    <TD>All metacharacters within double quotes lose
+		their special meanings. The sequence
+		<CODE>\"</CODE> (which represents the single
+		character <CODE>"</CODE>) is the only
+		exception.</TD>
+	  </TR>
+	  <TR>
+	    <TD>\</TD>
+	    <TD>Metacharacter following backslash(\) loses its
+		special meaning</TD>
+	  </TR>
+	  <tr>
+	  </tr>
+        </TABLE>
+
+	For example, [a-z] matches any lower-case letter, [^0-9]
+	matches anything except a digit, and [0-9a-fA-F] matches
+	any hexadecimal digit. Inside character class brackets,
+	a metacharacter following a backslash loses its special
+	meaning. Therefore, [\-\\] matches a dash or a
+	backslash. Likewise ["A-Z"] matches one of the three
+	characters A, dash, or Z. Leading and trailing dashes in
+	a character class also lose their special meanings, so
+	[+-] and [-+] do what you would expect them to (ie,
+	match only '+' and '-').
+    </td>
+  </tr>
+</table>
+	
+<H3>Associated Actions</H3>
+
+The action associated with a lexical rule consists of C# code
+enclosed inside block-delimiting curly braces.<BR> 
+
+<I>{ action; return null; } </I><BR>
+
+The C# code <I>action</I> is copied, as given, into the
+state-driven lexical analyzer method produced by Lex.
+
+<P>
+All curly braces contained in <I>action</I> not part of strings
+or comments should be balanced.
+
+<H4>Actions and Recursion:</H4>
+
+If a null return value is returned from an action, the lexical
+analyzer will loop, searching for the next match from the input
+stream and returning the value associated with that match.
+
+<P>
+The lexical analyzer can be made to recur explicitly with a call
+to <I>yylex()</I>, as in the following code fragment.<BR> 
+
+<I>{ ...</I> <BR>
+<I>return yylex();</I> <BR>
+<I>... } </I><BR>
+
+This code fragment causes the lexical analyzer to recur,
+searching for the next match in the input and returning the
+value associated with that match. The same effect can be had,
+however, by simply not returning from a given action. This
+results in the lexer searching for the next match, without the
+additional overhead of recursion.
+
+<P>
+The preceding code fragment is an example of tail recursion,
+since the recursive call comes at the end of the calling
+function's execution. The following code fragment is an example
+of a recursive call that is not tail recursive.<BR> 
+
+<I>{ ...</I> <BR>
+<I>next = yylex();</I> <BR>
+<I>return null;</I><BR>
+<I>... } </I><BR>
+
+Recursive actions that are not tail-recursive work in the
+expected way, except that variables such as <I>yyline</I> and
+<I>yychar</I> may be changed during recursion.
+
+<H4>State Transitions:</H4>
+
+If lexical states are declared in the CsLex directives section,
+transitions on these states can be declared within the regular
+expression actions. State transitions are made by the following
+function call.<BR>
+
+<I>yybegin(state);</I><BR>
+
+The void function <I>yybegin()</I> is passed the state name
+<I>state</I> and effects a transition to this lexical state.
+
+<P>
+The state <I>state</I> must be declared within the CsLex
+directives section, or this call will result in a compiler error
+in the generated source file. The one exception to this
+declaration requirement is state <I>YYINITIAL</I>, the lexical
+state implicitly declared by CsLex. The generated lexer begins
+lexical analysis in state <I>YYINITIAL</I> and remains in this
+state until a transition is made.
+
+<H4>Available Lexical Values:</H4>
+
+The following values, internal to the <I>Yylex</I> class, are
+available within the action portion of the lexical rules.
+
+<TABLE>
+  <TBODY>
+  <TR>
+    <TH align=left>Variable or Method</TH>
+    <TH align=left>ActivationDirective</TH>
+    <TH align=left>Description</TH>
+  </TR>
+  <TR>
+    <TD><I>System.String yytext();</I></TD>
+    <TD>Always active.</TD>
+    <TD>Matched portion of the character input stream.</TD>
+  </TR>
+  <TR>
+    <TD><I>int yychar;</I></TD>
+    <TD><I>%char</I></TD>
+    <TD>Zero-based character index of the first character in the matched 
+      portion of the input stream</TD>
+  </TR>
+  <TR>
+    <TD><I>int yyline;</I></TD>
+    <TD><I>%line</I></TD>
+    <TD>Zero-based line number of the start of the matched portion of the 
+      input stream</TD>
+  </TR>
+  </TBODY>
+</TABLE>
+
+<H2>Generated Lexical Analyzers</H1>
+
+CsLex will take a properly-formed specification and transform it
+into a C# source file for the corresponding lexical analyzer.
+
+<P>
+The generated lexical analayzer resides in the class
+<I>Yylex</I>. There are two constructors to this class, both
+requiring a single argument: the input stream to be
+tokenized. The input stream may either be of type
+System.IO.StreamReader or System.IO.FileReader.  
+
+<P>
+The access function to the lexer is <I>Yylex.yylex()</I>, which
+returns the next token from the input stream. The return type is
+<I>Yytoken</I> and the function is declared as follows.<BR>
+
+<I>class Yylex { ... </I><BR>
+<I>public Yytoken yylex () {</I><BR>
+<I>... } </I><BR>
+
+The user must declare the type of <I>Yytoken</I> and can
+accomplish this conveniently in the first section of the CsLex
+specification, the user code section. For instance, to make
+<I>Yylex.yylex()</I> return the boxed (Int32.Box) integer
+wrapper type, the user would enter the following code somewhere
+preceding the first ``%%''.<BR> 
+
+<I>class Yytoken { } </I><BR>
+
+Then, in the lexical actions, wrapped integers would be
+returned, in something like this way.<BR>
+
+<I>{ ...</I><BR>
+<I>return ((object) i); </I><BR>
+<I>... } </I><BR>
+
+Likewise, in the user code section, a class could be defined declaring 
+constants that correspond to each of the token types.<BR>
+
+<I>class TokenCodes { ... </I><BR>
+<I>public static final STRING = 0; </I><BR>
+<I>public static final INTEGER = 1; </I><BR>
+<I>... } </I><BR>
+
+Then, in the lexical actions, these token codes could be
+returned.<BR> 
+
+<I>{ ...</I><BR>
+<I>return ((object) STRING); </I><BR>
+<I>... } </I><BR>
+
+These are simplified examples; in actual use, one would probably
+define a token class containing more information than an integer
+code.
+
+<P>
+These examples begin to illustrate the object-oriented
+techniques a user could employ to define an arbitrarily complex
+token type to be returned by <I>Yylex.yylex()</I>. In
+particular, inheritance permits the user to return more than one
+token type. If a distinct token type was needed for strings and
+integers, the user could make the following declarations.<BR> 
+
+<I>class Yytoken { ... } </I><BR>
+<I>class IntegerToken extends Yytoken { ... }</I><BR>
+<I>class StringToken extends Yytoken { ... } </I><BR>
+
+Then the user could return both <I>IntegerToken</I> and
+<I>StringToken</I> types from the lexical actions.
+
+<P>
+The names of the lexical analyzer class, the tokening function,
+and its return type each may be altered using the CsLex
+directives.
+
+<H2>Credits</H2>
+
+CsLex is a derivative of the JLex implementation by Elliot
+Joel Berk and C. Scott Ananian.
+<p>
+The design and architecture of CsLex, written in C#, is based on
+a melding of the JLex implementation and the Lex functional
+specification.  JLex was written for the Java language, and it's
+direct antecedent Lex, designed and written for the C language.
+
+<p>
+CsLex distinguishes itself by incorporating a number of C#
+language constructs and services; refer to the design notes for
+CsLex for more details on C# specific features incorporated into
+the CsLex design. 
+
+<hr>
+<h4>CsLex COPYRIGHT NOTICE, LICENSE AND DISCLAIMER</h4>
+CsLex is Copyright 2000 by Brad Merrill
+<p>
+
+Permission to use, copy, modify, and distribute this software
+and its documentation for any purpose and without fee is hereby
+granted, provided that the above copyright notice appear in all
+copies and that both the copyright notice and this permission
+notice and warranty disclaimer appear in supporting
+documentation, and that the name of the authors or their
+employers not be used in advertising or publicity pertaining to
+distribution of the software without specific, written prior
+permission. 
+<p>
+
+The authors and their employers disclaim all warranties with
+regard to this software, including all implied warranties of
+merchantability and fitness. In no event shall the authors or
+their employers be liable for any special, indirect or
+consequential damages or any damages whatsoever resulting from
+loss of use, data or profits, whether in an action of contract,
+negligence or other tortious action, arising out of or in
+connection with the use or performance of this software.
+<p>
+
+C# is a trademark of Microsoft Corp. References to the C#
+programming language in relation to CsLex are not meant to imply
+that Microsoft endorses this product.
+<hr>
+
+<h4>JLEX COPYRIGHT NOTICE, LICENSE AND DISCLAIMER</h4>
+Copyright 1996-2000 by Elliot Joel Berk and C. Scott Ananian 
+<p>
+
+Permission to use, copy, modify, and distribute this software and its documentation for any purpose and without fee is hereby granted, provided that the above copyright notice appear in all copies and that both the copyright notice and this permission notice and warranty disclaimer appear in supporting documentation, and that the name of the authors or their employers not be used in advertising or publicity pertaining to distribution of the software without specific, written prior permission. 
+<p>
+
+The authors and their employers disclaim all warranties with regard to this software, including all implied warranties of merchantability and fitness. In no event shall the authors or their employers be liable for any special, indirect or consequential damages or any damages whatsoever resulting from loss of use, data or profits, whether in an action of contract, negligence or other tortious action, arising out of or in connection with the use or performance of this software. 
+
+<p>
+Java is a trademark of Sun Microsystems, Inc. References to the Java programming language in relation to JLex are not meant to imply that Sun endorses this product. 
+
+
+
+<hr>
+<address>
+<a href="http://drgdna/bmerrill">Brad Merrill</a>
+<a href="mailto:bmerrill@microsoft.com">&lt;bmerrill@microsoft.com&gt;</a>
+</address>
+<!-- hhmts start --> Last modified: Mon Sep 18 11:46:32 Pacific Daylight Time 2000 <!-- hhmts end -->
+</body> </html>

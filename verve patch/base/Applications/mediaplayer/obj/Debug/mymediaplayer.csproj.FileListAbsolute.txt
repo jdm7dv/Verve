@@ -1,0 +1,12 @@
+D:\Work\2016-present\base\Applications\mediaplayer\bin\Debug\mymediaplayer.exe
+D:\Work\2016-present\base\Applications\mediaplayer\bin\Debug\mymediaplayer.pdb
+D:\Work\2016-present\base\Applications\mediaplayer\bin\Debug\Interop.WMPLib.dll
+D:\Work\2016-present\base\Applications\mediaplayer\bin\Debug\AxInterop.WMPLib.dll
+D:\Work\2016-present\base\Applications\mediaplayer\obj\Debug\Interop.WMPLib.dll
+D:\Work\2016-present\base\Applications\mediaplayer\obj\Debug\AxInterop.WMPLib.dll
+D:\Work\2016-present\base\Applications\mediaplayer\obj\Debug\mymediaplayer.csproj.ResolveComReference.cache
+D:\Work\2016-present\base\Applications\mediaplayer\obj\Debug\mymediaplayer.Form1.resources
+D:\Work\2016-present\base\Applications\mediaplayer\obj\Debug\mymediaplayer.Properties.Resources.resources
+D:\Work\2016-present\base\Applications\mediaplayer\obj\Debug\mymediaplayer.csproj.GenerateResource.Cache
+D:\Work\2016-present\base\Applications\mediaplayer\obj\Debug\mymediaplayer.exe
+D:\Work\2016-present\base\Applications\mediaplayer\obj\Debug\mymediaplayer.pdb

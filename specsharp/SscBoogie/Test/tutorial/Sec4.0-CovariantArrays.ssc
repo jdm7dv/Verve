@@ -1,0 +1,8 @@
+public class Covariant {
+  void SetArrayElement(object[] a, int i)
+    requires 0 <= i && i < a.Length;
+    modifies a[i];
+  {
+    a[i] = new object();  // possible error
+  }
+}

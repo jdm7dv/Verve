@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "~/Shared/_Layout.cshtml";
+
+    Page.Title = "Refactoring Essentials for Visual Studio";
+    Page.Keywords = "refactoring,extension,community,free,open source,vsix,nuget";
+    Page.Description = "Refactoring Essentials is the free refactoring extension for Visual Studio 2015. Get it!";
+}
+
+<div class="jumbotron" style="padding-top: 30px; padding-bottom: 0">
+    <div class="container">
+
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="~/Images/refactoringessentials-logo.png" class="col-md-12" />
+                </div>
+                <div class="col-md-8">
+                    <h1 class="text-primary" style="margin: 0px 0px 13px !important;margin-top:-10px !important">Refactoring Essentials</h1>
+                    <h4> The premier free Visual Studio extension for C# and VB.NET refactorings, including code best practice analyzers/fixes to improve your projects. Code converters for C# and VB are built-in!</h4>
+                    <br />
+                    <p>
+                        <a class="btn btn-lg btn-default" href="@Constants.VsixUrl2015" role="button">Install in 2015 &raquo;</a>
+                        <a class="btn btn-lg btn-default" href="@Constants.VsixUrl2017" role="button">Install in 2017 &raquo;</a>
+                    </p>
+
+                    <div class="btn-social-network">
+                        <ul class="list-inline">
+                            <li>
+                                <iframe src="/github-btn.html?user=icsharpcode&repo=RefactoringEssentials&type=watch&count=true" height="30" width="118" frameborder="0" scrolling="0" style="width: 118px; height: 30px;" allowtransparency="true"></iframe>
+                            </li>
+                            <li>
+                                <iframe src="/github-btn.html?user=icsharpcode&repo=RefactoringEssentials&type=fork&count=true" height="30" width="118" frameborder="0" scrolling="0" style="width: 118px; height: 30px;" allowtransparency="true"></iframe>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://vsrefactoringessentials.com" data-via="vsrefactoring">Tweet</a>
+                                <script>
+                                    !function (d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                                        if (!d.getElementById(id)) {
+                                            js = d.createElement(s);
+                                            js.id = id;
+                                            js.src = p + '://platform.twitter.com/widgets.js';
+                                            fjs.parentNode.insertBefore(js, fjs);
+                                        }
+                                    }(document, 'script', 'twitter-wjs');
+                                </script>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <h2 class="glyphicon glyphicon-bullhorn text-primary"></h2>
+            <h4>Free</h4>
+            Works with any edition of Visual Studio - get the community's refactorings!</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2 class="glyphicon glyphicon-pencil text-primary"></h2>
+            <h4>Refactorings</h4>
+            Make your code better, easier to read and so much more. For C# and VB!</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2 class="glyphicon glyphicon-tags text-primary"></h2>
+            <h4>Analyzers &amp; Fixes</h4>
+            Get recommendations about how to improve the quality of your code - plus the fixes!</p>
+        </div>
+
+    </div>
+    <br /><br />
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <h2 class="glyphicon glyphicon-thumbs-up text-primary"></h2>
+            <h4>Open Source</h4>
+            Our code is MIT-licensed, feel free to look around and contribute!</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2 class="glyphicon glyphicon-user text-primary"></h2>
+            <h4>Contribute!</h4>
+            <a href="@Constants.TwitterUrl">Let us know</a> what to improve, rate us in the gallery!
+            For code-centric contributions, please go to our <a href="@Constants.GithubUrl">GitHub page</a></p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h2 class="glyphicon glyphicon-cog text-primary"></h2>
+            <h4>Runs on Your Build Server</h4>
+            The analyzers &amp; fixes are available as <a href="@Constants.NuGetUrl">NuGet package</a></p>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+

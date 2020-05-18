@@ -1,0 +1,5 @@
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Functions\bin\Demo\Arachnode.Functions.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Functions\bin\Demo\Arachnode.Functions.pdb
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Functions\bin\Demo\Arachnode.Functions.XML
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Functions\obj\Demo\Arachnode.Functions.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Functions\obj\Demo\Arachnode.Functions.pdb

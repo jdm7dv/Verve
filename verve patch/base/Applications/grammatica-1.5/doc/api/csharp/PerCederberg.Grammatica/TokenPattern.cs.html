@@ -1,0 +1,521 @@
+<HTML>
+<HEAD>
+<TITLE>
+TokenPattern.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * TokenPattern.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A token pattern. This class contains the definition of a token
+     * (i.e. it's pattern), and allows testing a string against this
+     * pattern. A token pattern is uniquely identified by an integer id,
+     * that must be provided upon creation.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> TokenPattern <font color="black">{</font>
+
+        <font color="green">/**
+         * The pattern type enumeration.
+         */</font>
+        <font color="blue">public</font> <font color="blue">enum</font> PatternType <font color="black">{</font>
+
+            <font color="green">/**
+             * The string pattern type is used for tokens that only
+             * match an exact string.
+             */</font>
+            STRING,
+
+            <font color="green">/**
+             * The regular expression pattern type is used for tokens
+             * that match a regular expression.
+             */</font>
+            REGEXP
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token pattern identity.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> id;
+
+        <font color="green">/**
+         * The token pattern name.
+         */</font>
+        <font color="blue">private</font> string <font color="blue">name</font>;
+
+        <font color="green">/**
+         * The token pattern type.
+         */</font>
+        <font color="blue">private</font> PatternType type;
+
+        <font color="green">/**
+         * The token pattern.
+         */</font>
+        <font color="blue">private</font> string pattern;
+
+        <font color="green">/**
+         * The token error flag. If this flag is set, it means that an
+         * error should be reported if the token is found. The error
+         * message is present in the errorMessage variable.
+         *
+         * @see #errorMessage
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> <font color="blue">error</font> <font color="black">=</font> <font color="blue">false</font>;
+
+        <font color="green">/**
+         * The token error message. This message will only be set if the
+         * token error flag is set.
+         *
+         * @see #error
+         */</font>
+        <font color="blue">private</font> string errorMessage <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+         * The token ignore flag. If this flag is set, it means that the
+         * token should be ignored if found. If an ignore message is
+         * present in the ignoreMessage variable, it will also be reported
+         * as a warning.
+         *
+         * @see #ignoreMessage
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> ignore <font color="black">=</font> <font color="blue">false</font>;
+
+        <font color="green">/**
+         * The token ignore message. If this message is set when the token
+         * ignore flag is also set, a warning message will be printed if
+         * the token is found.
+         *
+         * @see #ignore
+         */</font>
+        <font color="blue">private</font> string ignoreMessage <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+         * The optional debug information message. This is normally set
+         * when the token pattern is analyzed by the tokenizer.
+         */</font>
+        <font color="blue">private</font> string debugInfo <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+         * Creates a new token pattern.
+         *
+         * @param id             the token pattern id
+         * @param name           the token pattern name
+         * @param type           the token pattern type
+         * @param pattern        the token pattern
+         */</font>
+        <font color="blue">public</font> TokenPattern<font color="black">(</font><font color="blue">int</font> id,
+                            string <font color="blue">name</font>,
+                            PatternType type,
+                            string pattern<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">this</font>.id <font color="black">=</font> id;
+            <font color="blue">this</font>.<font color="blue">name</font> <font color="black">=</font> <font color="blue">name</font>;
+            <font color="blue">this</font>.type <font color="black">=</font> type;
+            <font color="blue">this</font>.pattern <font color="black">=</font> pattern;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token pattern identity property (read-only). This
+         * property contains the unique token pattern identity value.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Id <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> id;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the unique token pattern identity value.
+         *
+         * @return the token pattern id
+         *
+         * @see #Id
+         *
+         * @deprecated Use the Id property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetId<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> id;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token pattern name property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string Name <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">name</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the token pattern name.
+         *
+         * @return the token pattern name
+         *
+         * @see #Name
+         *
+         * @deprecated Use the Name property instead.
+         */</font>
+        <font color="blue">public</font> string GetName<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">name</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token pattern type property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> PatternType Type <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> type;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the token pattern type.
+         *
+         * @return the token pattern type
+         *
+         * @see #Type
+         *
+         * @deprecated Use the Type property instead.
+         */</font>
+        <font color="blue">public</font> PatternType GetPatternType<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> type;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token pattern property (read-only). This property
+         * contains the actual pattern (string or regexp) which have
+         * to be matched.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string Pattern <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> pattern;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns te token pattern.
+         *
+         * @return the token pattern
+         *
+         * @see #Pattern
+         *
+         * @deprecated Use the Pattern property instead.
+         */</font>
+        <font color="blue">public</font> string GetPattern<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> pattern;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error flag property. If this property is true, the
+         * token pattern corresponds to an error token and an error
+         * should be reported if a match is found. When setting this
+         * property to true, a default error message is created if
+         * none was previously set.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> Error <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">error</font>;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                <font color="blue">error</font> <font color="black">=</font> <font color="blue">value</font>;
+                <font color="blue">if</font> <font color="black">(</font><font color="blue">error</font> <font color="black">&</font><font color="black">&</font> errorMessage <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                    errorMessage <font color="black">=</font> <font color="maroon">"unrecognized token found"</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token error message property. The error message is
+         * printed whenever the token is matched. Setting the error
+         * message property also sets the error flag to true.
+         *
+         * @see #Error
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string ErrorMessage <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> errorMessage;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                <font color="blue">error</font> <font color="black">=</font> <font color="blue">true</font>;
+                errorMessage <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the pattern corresponds to an error token. If this
+         * is true, it means that an error should be reported if a
+         * matching token is found.
+         *
+         * @return true if the pattern maps to an error token, or
+         *         false otherwise
+         *
+         * @see #Error
+         *
+         * @deprecated Use the Error property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsError<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Error;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the token error message if the pattern corresponds to
+         * an error token.
+         *
+         * @return the token error message
+         *
+         * @see #ErrorMessage
+         *
+         * @deprecated Use the ErrorMessage property instead.
+         */</font>
+        <font color="blue">public</font> string GetErrorMessage<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> ErrorMessage;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Sets the token error flag and assigns a default error message.
+         *
+         * @see #Error
+         *
+         * @deprecated Use the Error property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> SetError<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Error <font color="black">=</font> <font color="blue">true</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Sets the token error flag and assigns the specified error
+         * message.
+         *
+         * @param message        the error message to display
+         *
+         * @see #ErrorMessage
+         *
+         * @deprecated Use the ErrorMessage property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> SetError<font color="black">(</font>string message<font color="black">)</font> <font color="black">{</font>
+            ErrorMessage <font color="black">=</font> message;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The ignore flag property. If this property is true, the
+         * token pattern corresponds to an ignore token and should be
+         * skipped if a match is found.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> Ignore <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> ignore;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                ignore <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token ignore message property. The ignore message is
+         * printed whenever the token is matched. Setting the ignore
+         * message property also sets the ignore flag to true.
+         *
+         * @see #Ignore
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string IgnoreMessage <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> ignoreMessage;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                ignore <font color="black">=</font> <font color="blue">true</font>;
+                ignoreMessage <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the pattern corresponds to an ignored token. If this
+         * is true, it means that the token should be ignored if found.
+         *
+         * @return true if the pattern maps to an ignored token, or
+         *         false otherwise
+         *
+         * @see #Ignore
+         *
+         * @deprecated Use the Ignore property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsIgnore<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Ignore;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the token ignore message if the pattern corresponds to
+         * an ignored token.
+         *
+         * @return the token ignore message
+         *
+         * @see #IgnoreMessage
+         *
+         * @deprecated Use the IgnoreMessage property instead.
+         */</font>
+        <font color="blue">public</font> string GetIgnoreMessage<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> IgnoreMessage;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Sets the token ignore flag and clears the ignore message.
+         *
+         * @see #Ignore
+         *
+         * @deprecated Use the Ignore property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> SetIgnore<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Ignore <font color="black">=</font> <font color="blue">true</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Sets the token ignore flag and assigns the specified ignore
+         * message.
+         *
+         * @param message        the ignore message to display
+         *
+         * @see #IgnoreMessage
+         *
+         * @deprecated Use the IgnoreMessage property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> SetIgnore<font color="black">(</font>string message<font color="black">)</font> <font color="black">{</font>
+            IgnoreMessage <font color="black">=</font> message;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token debug info message property. This is normally be
+         * set when the token pattern is analyzed by the tokenizer.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string DebugInfo <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> debugInfo;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                debugInfo <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of this object.
+         *
+         * @return a token pattern string representation
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+            buffer.Append<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+            buffer.Append<font color="black">(</font><font color="maroon">" ("</font><font color="black">)</font>;
+            buffer.Append<font color="black">(</font>id<font color="black">)</font>;
+            buffer.Append<font color="black">(</font><font color="maroon">"): "</font><font color="black">)</font>;
+            <font color="blue">switch</font> <font color="black">(</font>type<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> PatternType.STRING<font color="black">:</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"\""</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>pattern<font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"\""</font><font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> PatternType.REGEXP<font color="black">:</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"&#60;&#60;"</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>pattern<font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"&#62;&#62;"</font><font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">error</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">" ERROR: \""</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>errorMessage<font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"\""</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>ignore<font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">" IGNORE"</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>ignoreMessage <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">": \""</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>ignoreMessage<font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"\""</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>debugInfo <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"\n  "</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>debugInfo<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a short string representation of this object.
+         *
+         * @return a short string representation of this object
+         */</font>
+        <font color="blue">public</font> string ToShortString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">int</font>            newline <font color="black">=</font> pattern.IndexOf<font color="black">(</font><font color="maroon">'\n'</font><font color="black">)</font>;
+
+            <font color="blue">if</font> <font color="black">(</font>type <font color="black">=</font><font color="black">=</font> PatternType.STRING<font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"\""</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>newline <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>newline <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> pattern<font color="black">[</font>newline <font color="maroon">-1</font><font color="black">]</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'\r'</font><font color="black">)</font> <font color="black">{</font>
+                        newline<font color="black">-</font><font color="black">-</font>;
+                    <font color="black">}</font>
+                    buffer.Append<font color="black">(</font>pattern.Substring<font color="black">(</font><font color="maroon">0</font>, newline<font color="black">)</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"(...)"</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font>pattern<font color="black">)</font>;
+                <font color="black">}</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"\""</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font><font color="maroon">"&#60;"</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"&#62;"</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

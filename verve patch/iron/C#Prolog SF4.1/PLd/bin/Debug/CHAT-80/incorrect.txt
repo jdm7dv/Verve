@@ -1,0 +1,13 @@
+is paris in belgium? -> No
+is paris in france? -> Yes
+
+% John Pool - Wrong or incomplete answers from CHAT:
+
+is france a country? -> Yes
+is france a city? -> parse tree + Don't understand
+
+is paris a city -> Yes
+is paris a country -> parse tree + Don't understand
+
+is the danube a river -> Yes
+is the danube a city -> parse tree + Don't understand

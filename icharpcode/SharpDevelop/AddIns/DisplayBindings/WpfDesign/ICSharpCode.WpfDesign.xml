@@ -1,0 +1,2244 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ICSharpCode.WpfDesign</name>
+    </assembly>
+    <members>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.AdornerPanel">
+            <summary>
+            Manages display of adorners on the design surface.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerPanel.PlacementProperty">
+            <summary>
+            The dependency property used to store the placement of adorner visuals.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerPanel.GetPlacement(System.Windows.UIElement)">
+            <summary>
+            Gets the placement of the specified adorner.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerPanel.SetPlacement(System.Windows.UIElement,ICSharpCode.WpfDesign.Adorners.AdornerPlacement)">
+            <summary>
+            Sets the placement of the specified adorner.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerPanel.SetAdornedElement(System.Windows.UIElement,ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Sets the AdornedElement and AdornedDesignItem properties.
+            This method can be called only once.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerPanel.MeasureOverride(System.Windows.Size)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerPanel.ArrangeOverride(System.Windows.Size)">
+            <summary/>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.AdornerPanel.AdornedElement">
+            <summary>
+            Gets the element adorned by this AdornerPanel.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.AdornerPanel.AdornedDesignItem">
+            <summary>
+            Gets the design item adorned by this AdornerPanel.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.AdornerPanel.Order">
+            <summary>
+            Gets/Sets the order used to display the AdornerPanel relative to other AdornerPanels.
+            Do not change this property after the panel was added to an AdornerLayer!
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.AdornerOrder">
+            <summary>
+            Describes where an Adorner is positioned on the Z-Layer.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerOrder.Background">
+            <summary>
+            The adorner is in the background layer.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerOrder.Content">
+            <summary>
+            The adorner is in the content layer.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerOrder.BehindForeground">
+            <summary>
+            The adorner is in the layer behind the foreground but above the content. This layer
+            is used for the gray-out effect.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerOrder.Foreground">
+            <summary>
+            The adorner is in the foreground layer.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.GetHashCode">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.Equals(System.Object)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.Equals(ICSharpCode.WpfDesign.Adorners.AdornerOrder)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.CompareTo(ICSharpCode.WpfDesign.Adorners.AdornerOrder)">
+            <summary>
+            Compares the <see cref="T:ICSharpCode.WpfDesign.Adorners.AdornerOrder"/> to another AdornerOrder.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.op_Equality(ICSharpCode.WpfDesign.Adorners.AdornerOrder,ICSharpCode.WpfDesign.Adorners.AdornerOrder)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.op_Inequality(ICSharpCode.WpfDesign.Adorners.AdornerOrder,ICSharpCode.WpfDesign.Adorners.AdornerOrder)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.op_LessThan(ICSharpCode.WpfDesign.Adorners.AdornerOrder,ICSharpCode.WpfDesign.Adorners.AdornerOrder)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.op_LessThanOrEqual(ICSharpCode.WpfDesign.Adorners.AdornerOrder,ICSharpCode.WpfDesign.Adorners.AdornerOrder)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.op_GreaterThan(ICSharpCode.WpfDesign.Adorners.AdornerOrder,ICSharpCode.WpfDesign.Adorners.AdornerOrder)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerOrder.op_GreaterThanOrEqual(ICSharpCode.WpfDesign.Adorners.AdornerOrder,ICSharpCode.WpfDesign.Adorners.AdornerOrder)">
+            <summary/>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.AdornerPlacement">
+            <summary>
+            Defines how a design-time adorner is placed.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerPlacement.FillContent">
+            <summary>
+            A placement instance that places the adorner above the content, using the same bounds as the content.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerPlacement.Arrange(ICSharpCode.WpfDesign.Adorners.AdornerPanel,System.Windows.UIElement,System.Windows.Size)">
+            <summary>
+            Arranges the adorner element on the specified adorner panel.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.AdornerPlacementSpace">
+            <summary>
+            Describes the space in which an adorner is placed.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerPlacementSpace.Render">
+            <summary>
+            The adorner is affected by the render transform of the adorned element.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerPlacementSpace.Layout">
+            <summary>
+            The adorner is affected by the layout transform of the adorned element.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Adorners.AdornerPlacementSpace.Designer">
+            <summary>
+            The adorner is not affected by transforms of designed controls.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.AdornerProvider">
+            <summary>
+            Base class for extensions that present adorners on the screen.
+            </summary>
+            <remarks>
+            Cider adorner introduction:
+            http://blogs.msdn.com/jnak/archive/2006/04/24/580393.aspx
+            <quote>
+            Adorners are WPF elements that float on top of the design surface and track the
+            size and location of the elements they are adorning. All of the UI the designer
+            presents to the user, including snap lines, grab handles and grid rulers,
+            is composed of these adorners.
+            </quote>
+            About design-time adorners and their placement:
+            read http://myfun.spaces.live.com/blog/cns!AC1291870308F748!240.entry
+            and http://myfun.spaces.live.com/blog/cns!AC1291870308F748!242.entry
+            </remarks>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.DefaultExtension">
+            <summary>
+            Base class for extensions that have an parameter-less constructor and are initialized using the
+            OnInitialize method.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.Extension">
+            <summary>
+            Base class for all Extensions.
+            </summary>
+            <remarks>
+            The class design in the ICSharpCode.WpfDesign.Extensions namespace was made to match that of Cider
+            as described in the blog posts:
+            http://blogs.msdn.com/jnak/archive/2006/04/24/580393.aspx
+            http://blogs.msdn.com/jnak/archive/2006/08/04/687166.aspx
+            </remarks>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.DefaultExtension.OnInitialized">
+            <summary>
+            Is called after the ExtendedItem was set.
+            Override this method to register your behavior with the item.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.DefaultExtension.OnRemove">
+            <summary>
+            Is called when the extension is removed.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Extensions.DefaultExtension.ExtendedItem">
+            <summary>
+            Gets the item that is being extended by the BehaviorExtension.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Extensions.DefaultExtension.Context">
+            <summary>
+            Gets the design context of the extended item. "Context" is equivalent to "ExtendedItem.Context".
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Extensions.DefaultExtension.Services">
+            <summary>
+            Gets the service container of the extended item. "Services" is equivalent to "ExtendedItem.Services".
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.#ctor">
+            <summary>
+            Creates a new AdornerProvider instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.OnInitialized">
+            <summary>
+            Is called after the ExtendedItem was set.
+            This methods displays the registered adorners
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.OnRemove">
+            <summary>
+            Is called when the extension is removed.
+            This method hides the registered adorners.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.AddAdorner(ICSharpCode.WpfDesign.Adorners.AdornerPlacement,ICSharpCode.WpfDesign.Adorners.AdornerOrder,System.Windows.UIElement)">
+            <summary>
+            Adds an UIElement as adorner with the specified placement.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.AddAdorners(ICSharpCode.WpfDesign.Adorners.AdornerPlacement,System.Windows.UIElement[])">
+            <summary>
+            Adds several UIElements as adorners with the specified placement.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.AdornerProvider.Adorners">
+            <summary>
+            Gets the list of adorners displayed by this AdornerProvider.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.AdornerProvider.AdornerPanelCollection">
+            <summary>
+            Describes a collection of adorner visuals.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.AdornerPanelCollection.InsertItem(System.Int32,ICSharpCode.WpfDesign.Adorners.AdornerPanel)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.AdornerPanelCollection.RemoveItem(System.Int32)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.AdornerPanelCollection.SetItem(System.Int32,ICSharpCode.WpfDesign.Adorners.AdornerPanel)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.AdornerProvider.AdornerPanelCollection.ClearItems">
+            <summary/>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.PermanentAdornerProvider">
+            <summary>
+            An adorner extension that is attached permanently.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.SelectionAdornerProvider">
+            <summary>
+            An adorner extension that is attached to selected components.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.PrimarySelectionAdornerProvider">
+            <summary>
+            An adorner extension that is attached to the primary selection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.SecondarySelectionAdornerProvider">
+            <summary>
+            An adorner extension that is attached to the secondary selection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Adorners.RelativePlacement">
+            <summary>
+            Placement class providing properties for different kinds of relative placements.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.RelativePlacement.#ctor">
+            <summary>
+            Creates a new RelativePlacement instance. The default instance is a adorner with zero size, you
+            have to set some properties to define the placement.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.RelativePlacement.#ctor(System.Windows.HorizontalAlignment,System.Windows.VerticalAlignment)">
+            <summary>
+            Creates a new RelativePlacement instance from the specified horizontal and vertical alignments.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Adorners.RelativePlacement.Arrange(ICSharpCode.WpfDesign.Adorners.AdornerPanel,System.Windows.UIElement,System.Windows.Size)">
+            <summary>
+            Arranges the adorner element on the specified adorner panel.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.WidthRelativeToDesiredWidth">
+            <summary>
+            Gets/Sets the width of the adorner as factor relative to the desired adorner width.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.HeightRelativeToDesiredHeight">
+            <summary>
+            Gets/Sets the height of the adorner as factor relative to the desired adorner height.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.WidthRelativeToContentWidth">
+            <summary>
+            Gets/Sets the width of the adorner as factor relative to the width of the adorned item.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.HeightRelativeToContentHeight">
+            <summary>
+            Gets/Sets the height of the adorner as factor relative to the height of the adorned item.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.WidthOffset">
+            <summary>
+            Gets/Sets an offset that is added to the adorner width for the size calculation.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.HeightOffset">
+            <summary>
+            Gets/Sets an offset that is added to the adorner height for the size calculation.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.XOffset">
+            <summary>
+            Gets/Sets an offset that is added to the adorner position.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.YOffset">
+            <summary>
+            Gets/Sets an offset that is added to the adorner position.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.XRelativeToAdornerWidth">
+            <summary>
+            Gets/Sets the left border of the adorner element as factor relative to the width of the adorner.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.YRelativeToAdornerHeight">
+            <summary>
+            Gets/Sets the top border of the adorner element as factor relative to the height of the adorner.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.XRelativeToContentWidth">
+            <summary>
+            Gets/Sets the left border of the adorner element as factor relative to the width of the adorned content.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Adorners.RelativePlacement.YRelativeToContentHeight">
+            <summary>
+            Gets/Sets the top border of the adorner element as factor relative to the height of the adorned content.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ExtensionMethods">
+            <summary>
+            Extension methods used in the WPF designer.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ExtensionMethods.Round(System.Windows.Rect)">
+            <summary>
+            Rounds position and size of a Rect to PlacementInformation.BoundsPrecision digits. 
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Metadata">
+            <summary>
+            Contains helper methods for retrieving meta data.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.GetFullName(System.Windows.DependencyProperty)">
+            <summary>
+            Gets the full name of a dependency property (OwnerType.FullName + "." + Name).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.AddStandardValues(System.Type,System.Type)">
+            <summary>
+            Registers a set of standard values for a <paramref name="type"/> by using the
+            public static properties of the type <paramref name="valuesContainer"/>.
+            </summary>
+            <example>Metadata.AddStandardValues(typeof(Brush), typeof(Brushes));</example>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.AddStandardValues``1(System.Type,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Registers a set of standard <paramref name="values"/> for a <paramref name="type"/>.
+            </summary>
+            <remarks>You can call this method multiple times to add additional standard values.</remarks>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.GetStandardValues(System.Type)">
+            <summary>
+            Retrieves the standard values for the specified <paramref name="type"/>.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.HideProperty(System.Windows.DependencyProperty)">
+            <summary>
+            Hides the specified property (marks it as not browsable).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.HideProperty(System.Type,System.String)">
+            <summary>
+            Hides the specified property (marks it as not browsable).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.IsBrowsable(ICSharpCode.WpfDesign.DesignItemProperty)">
+            <summary>
+            Gets whether the specified property is browsable (should be visible in property grids).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.AddPopularProperty(System.Windows.DependencyProperty)">
+            <summary>
+            Registers a popular property (shown first in the property grid).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.AddPopularProperty(System.Type,System.String)">
+            <summary>
+            Registers a popular property (shown first in the property grid).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.IsPopularProperty(ICSharpCode.WpfDesign.DesignItemProperty)">
+            <summary>
+            Gets whether the specified property was registered as popular.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.AddPopularControl(System.Type)">
+            <summary>
+            Registers a popular control (visible in the default toolbox).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.GetPopularControls">
+            <summary>
+            Gets the list of popular controls.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.IsPopularControl(System.Type)">
+            <summary>
+            Gets whether the specified control was registered as popular.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.AddValueRange(System.Windows.DependencyProperty,System.Double,System.Double)">
+            <summary>
+            Registers the value range for the property.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.GetValueRange(ICSharpCode.WpfDesign.DesignItemProperty)">
+            <summary>
+            Gets the registered value range for the property, or null if no range was registered.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.DisablePlacement(System.Type)">
+            <summary>
+            Disables the default placement behaviour (setting the ContentProperty) for the type.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.IsPlacementDisabled(System.Type)">
+            <summary>
+            Gets whether thr default placement behaviour (setting the ContentProperty) was disabled for the type.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.AddDefaultSize(System.Type,System.Windows.Size)">
+            <summary>
+            Registers a default size for new controls of the specified type.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Metadata.GetDefaultSize(System.Type)">
+            <summary>
+            Gets the default size for new controls of the specified type,
+            or new Size(double.NaN, double.NaN) if no default size was registered.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.NumberRange">
+            <summary>
+            Represets the minimum and maximum valid value for a double property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.NumberRange.Min">
+            <summary>
+            Gets/Sets the minimum value.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.NumberRange.Max">
+            <summary>
+            Gets/Sets the maximum value.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PlacementInformation">
+            <summary>
+            Stores information about the placement of an individual item during a <see cref="T:ICSharpCode.WpfDesign.PlacementOperation"/>.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementInformation.BoundsPrecision">
+            <summary>
+            The designer rounds bounds to this number of digits to avoid floating point errors.
+            Value: 8
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementInformation.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementInformation.Item">
+            <summary>
+            The item being placed.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementInformation.Operation">
+            <summary>
+            The <see cref="T:ICSharpCode.WpfDesign.PlacementOperation"/> to which this PlacementInformation belongs.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementInformation.OriginalBounds">
+            <summary>
+            Gets/sets the original bounds.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementInformation.Bounds">
+            <summary>
+            Gets/sets the current bounds of the item.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementInformation.ResizeThumbAlignment">
+            <summary>
+            Gets/sets the alignment of the resize thumb used to start the operation.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IPlacementBehavior">
+            <summary>
+            Behavior interface implemented by container elements to support resizing
+            child elements.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.CanPlace(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem},ICSharpCode.WpfDesign.PlacementType,ICSharpCode.WpfDesign.PlacementAlignment)">
+            <summary>
+            Gets if the child element can be resized.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.BeginPlacement(ICSharpCode.WpfDesign.PlacementOperation)">
+            <summary>
+            Starts placement mode for this container.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.EndPlacement(ICSharpCode.WpfDesign.PlacementOperation)">
+            <summary>
+            Ends placement mode for this container.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.GetPosition(ICSharpCode.WpfDesign.PlacementOperation,ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets the original position of the child item.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.BeforeSetPosition(ICSharpCode.WpfDesign.PlacementOperation)">
+            <summary>
+            Is called before SetPosition is called for the placed items.
+            This may update the bounds on the placement operation (e.g. when snaplines are enabled).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.SetPosition(ICSharpCode.WpfDesign.PlacementInformation)">
+            <summary>
+            Updates the placement of the element specified in the placement operation.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.CanLeaveContainer(ICSharpCode.WpfDesign.PlacementOperation)">
+            <summary>
+            Gets if leaving this container is allowed for the specified operation.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.LeaveContainer(ICSharpCode.WpfDesign.PlacementOperation)">
+            <summary>
+            Remove the placed children from this container.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.CanEnterContainer(ICSharpCode.WpfDesign.PlacementOperation)">
+            <summary>
+            Gets if entering this container is allowed for the specified operation.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPlacementBehavior.EnterContainer(ICSharpCode.WpfDesign.PlacementOperation)">
+            <summary>
+            Let the placed children enter this container.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IRootPlacementBehavior">
+            <summary>
+            Behavior interface for root elements (elements where item.Parent is null).
+            Is used instead of <see cref="T:ICSharpCode.WpfDesign.IPlacementBehavior"/> to support resizing the root element.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IHandlePointerToolMouseDown">
+            <summary>
+            Behavior interface implemented by elements to handle the mouse down event
+            on them.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IHandlePointerToolMouseDown.HandleSelectionMouseDown(ICSharpCode.WpfDesign.IDesignPanel,System.Windows.Input.MouseButtonEventArgs,ICSharpCode.WpfDesign.DesignPanelHitTestResult)">
+            <summary>
+            Called to handle the mouse down event.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ChangeGroup">
+            <summary>
+            Base class for change groups.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ChangeGroup.Commit">
+            <summary>
+            Commits the change group.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ChangeGroup.Abort">
+            <summary>
+            Aborts the change group.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ChangeGroup.Dispose">
+            <summary>
+            Is called when the change group is disposed. Should Abort the change group if it is not already committed.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ChangeGroup.Title">
+            <summary>
+            Gets/Sets the title of the change group.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.DesignContext">
+            <summary>
+            The context that the designer uses.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignContext.#ctor">
+            <summary>
+            Creates a new DesignContext instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignContext.Save(System.Xml.XmlWriter)">
+            <summary>
+            Save the designed elements as XML.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignContext.OpenGroup(System.String,System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Opens a new change group used to batch several changes.
+            ChangeGroups work as transactions and are used to support the Undo/Redo system.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignContext.Services">
+            <summary>
+            Gets the <see cref="T:ICSharpCode.WpfDesign.ServiceContainer"/>.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignContext.RootItem">
+            <summary>
+            Gets the root design item.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.DesignItemProperty">
+            <summary>
+            Represents a property of a DesignItem.
+            All changes done via the DesignItemProperty class are represented in the underlying model (e.g. XAML).
+            All such changes are recorded in the currently running designer transaction (<see cref="T:ICSharpCode.WpfDesign.ChangeGroup"/>),
+            enabling Undo/Redo support.
+            Warning: Changes directly done to control instances might not be reflected in the model.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemProperty.SetValue(System.Object)">
+            <summary>
+            Sets the value of the property.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemProperty.Reset">
+            <summary>
+            Resets the property value to the default, possibly removing it from the list of properties.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.Name">
+            <summary>
+            Gets the property name.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.ReturnType">
+            <summary>
+            Gets the return type of the property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.DeclaringType">
+            <summary>
+            Gets the type that declares the property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.Category">
+            <summary>
+            Gets the category of the property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.TypeConverter">
+            <summary>
+            Gets the type converter used to convert property values to/from string.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.IsCollection">
+            <summary>
+            Gets if the property represents a collection.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.IsEvent">
+            <summary>
+            Gets if the property represents an event.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.CollectionElements">
+            <summary>
+            Gets the elements represented by the collection.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.Value">
+            <summary>
+            Gets the value of the property. This property returns null if the value is not set,
+            or if the value is set to a primitive value.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.DesignItemProperty.ValueChanged">
+            <summary>
+            Is raised when the value of the property changes (by calling <see cref="M:ICSharpCode.WpfDesign.DesignItemProperty.SetValue(System.Object)"/> or <see cref="M:ICSharpCode.WpfDesign.DesignItemProperty.Reset"/>).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.DesignItemProperty.ValueOnInstanceChanged">
+            <summary>
+            Is raised when the <see cref="P:ICSharpCode.WpfDesign.DesignItemProperty.ValueOnInstance"/> property changes.
+            This event is not raised when the value is changed without going through the designer infrastructure.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.ValueOnInstance">
+            <summary>
+            Gets/Sets the value of the property on the designed instance.
+            If the property is not set, this returns the default value.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.IsSet">
+            <summary>
+            Gets if the property is set on the design item.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.DesignItemProperty.IsSetChanged">
+            <summary>
+            Occurs when the value of the IsSet property changes.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.DesignItem">
+            <summary>
+            Gets the parent design item.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.DependencyProperty">
+            <summary>
+            Gets the dependency property, or null if this property does not represent a dependency property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.IsAdvanced">
+            <summary>
+            Gets if this property is considered "advanced" and should be hidden by default in a property grid.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.FullName">
+            <summary>
+            Gets the full name of the property (DeclaringType.FullName + "." + Name).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemProperty.DependencyFullName">
+            <summary>
+            Gets the full name of the dependency property. Returns the normal FullName if the property
+            isn't a dependency property.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.DesignItemPropertyCollection">
+            <summary>
+            Represents a collection of design item properties.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemPropertyCollection.GetProperty(System.String)">
+            <summary>
+            Gets the design item property with the specified name.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemPropertyCollection.GetAttachedProperty(System.Type,System.String)">
+            <summary>
+            Gets the attached property on the specified owner with the specified name.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemPropertyCollection.GetProperty(System.Windows.DependencyProperty)">
+            <summary>
+            Gets the design item property representing the specified dependency property.
+            The property must not be an attached property.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemPropertyCollection.GetAttachedProperty(System.Windows.DependencyProperty)">
+            <summary>
+            Gets the design item property representing the specified attached dependency property.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemPropertyCollection.GetEnumerator">
+            <summary>
+            Gets an enumerator to enumerate the properties that have a non-default value.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemPropertyCollection.Item(System.String)">
+            <summary>
+            Gets the property with the specified name.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemPropertyCollection.Item(System.Windows.DependencyProperty)">
+            <summary>
+            Gets the design item property representing the specified dependency property.
+            The property must not be an attached property.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.DesignPanelHitTestResult">
+            <summary>
+            Describes the result of a <see cref="M:ICSharpCode.WpfDesign.IDesignPanel.HitTest(System.Windows.Point,System.Boolean,System.Boolean)"/> call.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.DesignPanelHitTestResult.NoHit">
+            <summary>
+            Represents the result that nothing was hit.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignPanelHitTestResult.#ctor(System.Windows.Media.Visual)">
+            <summary>
+            Create a new DesignPanelHitTestResult instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignPanelHitTestResult.Equals(System.Object)">
+            <summary>
+            Tests if this hit test result equals the other result.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignPanelHitTestResult.Equals(ICSharpCode.WpfDesign.DesignPanelHitTestResult)">
+            <summary>
+            Tests if this hit test result equals the other result.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignPanelHitTestResult.GetHashCode">
+            <summary>
+            Gets the hash code.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignPanelHitTestResult.op_Equality(ICSharpCode.WpfDesign.DesignPanelHitTestResult,ICSharpCode.WpfDesign.DesignPanelHitTestResult)">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignPanelHitTestResult.op_Inequality(ICSharpCode.WpfDesign.DesignPanelHitTestResult,ICSharpCode.WpfDesign.DesignPanelHitTestResult)">
+            <summary/>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignPanelHitTestResult.VisualHit">
+            <summary>
+            The actual visual that was hit.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignPanelHitTestResult.AdornerHit">
+            <summary>
+            The adorner panel containing the adorner that was hit.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignPanelHitTestResult.ModelHit">
+            <summary>
+            The model item that was hit.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.DesignItemEventArgs">
+            <summary>
+            Event arguments specifying a component as parameter.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemEventArgs.#ctor(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Creates a new ComponentEventArgs instance.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemEventArgs.Item">
+            <summary>
+            The component affected by the event.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.DesignItemCollectionEventArgs">
+            <summary>
+            Event arguments specifying a component as parameter.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItemCollectionEventArgs.#ctor(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Creates a new ComponentCollectionEventArgs instance.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItemCollectionEventArgs.Items">
+            <summary>
+            The components affected by the event.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.DesignerException">
+            <summary>
+            Exception class used for designer failures.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignerException.#ctor">
+            <summary>
+            Create a new DesignerException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignerException.#ctor(System.String)">
+            <summary>
+            Create a new DesignerException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Create a new DesignerException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Create a new DesignerException instance.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.BehaviorExtension">
+            <summary>
+            Base class for extensions that provide a behavior interface for the designed item.
+            These extensions are always loaded. They must have an parameter-less constructor.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.CustomInstanceFactory">
+            <summary>
+            A special kind of extension that is used to create instances of objects when loading XAML inside
+            the designer.
+            </summary>
+            <remarks>
+            CustomInstanceFactory in Cider: http://blogs.msdn.com/jnak/archive/2006/04/10/572241.aspx
+            </remarks>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Extensions.CustomInstanceFactory.DefaultInstanceFactory">
+            <summary>
+            Gets a default instance factory that uses Activator.CreateInstance to create instances.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.CustomInstanceFactory.#ctor">
+            <summary>
+            Creates a new CustomInstanceFactory instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.CustomInstanceFactory.CreateInstance(System.Type,System.Object[])">
+            <summary>
+            Creates an instance of the specified type, passing the specified arguments to its constructor.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.ExtensionServer">
+            <summary>
+            An ExtensionServer manages a creating and removing extensions of the specific extension type.
+            For a given DesignContext, a ExtensionServer is created only once.
+            The ExtensionServer can handle events raised by services without having to unregister its events
+            handlers because the ExtensionServer runs for the lifetime of the DesignContext.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionServer.OnInitialized">
+            <summary>
+            Is called after the extension server is initialized and the <see cref="P:ICSharpCode.WpfDesign.Extensions.ExtensionServer.Context"/> property has been set.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionServer.ShouldApplyExtensions(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets if the extension manager should apply the extensions from this server to the specified item.
+            Is called by the ExtensionManager.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionServer.CreateExtension(System.Type,ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Create an extension of the specified type.
+            Is called by the ExtensionManager.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionServer.RemoveExtension(ICSharpCode.WpfDesign.Extensions.Extension)">
+            <summary>
+            This method is called before an extension is removed from its DesignItem because it should not be applied anymore.
+            Is called by the ExtensionManager.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Extensions.ExtensionServer.Context">
+            <summary>
+            Gets the context this extension server was created for.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Extensions.ExtensionServer.Services">
+            <summary>
+            Gets the service container of the current context. "x.Services" is equivalent to "x.Context.Services".
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Extensions.ExtensionServer.ShouldApplyExtensionsInvalidated">
+            <summary>
+            This event is raised when ShouldApplyExtensions is invalidated for a set of items.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.DefaultExtensionServer">
+            <summary>
+            Base class for extension servers that create extensions that derive from <see cref="T:ICSharpCode.WpfDesign.Extensions.DefaultExtension"/>.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.DefaultExtensionServer.CreateExtension(System.Type,ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Creates an instance of the DefaultExtension and calls OnInitialize on it.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.DefaultExtensionServer.RemoveExtension(ICSharpCode.WpfDesign.Extensions.Extension)">
+            <summary>
+            Calls OnRemove() on the DefaultExtension.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.DefaultExtensionServer.ReapplyExtensions(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Raise the ShouldApplyExtensionsInvalidated event for the specified set of design items.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Extensions.DefaultExtensionServer.ShouldApplyExtensionsInvalidated">
+            <summary>
+            This event is raised when ShouldApplyExtensions is invalidated for a set of items.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.DefaultInitializer">
+            <summary>
+            Base class for extensions that initialize new controls with default values.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.DefaultInitializer.InitializeDefaults(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Initializes the design item to default values.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.ExtensionForAttribute">
+            <summary>
+            Attribute to specify that the decorated class is a WPF extension for the specified item type.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionForAttribute.#ctor(System.Type)">
+            <summary>
+            Create a new ExtensionForAttribute that specifies that the decorated class
+            is a WPF extension for the specified item type.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Extensions.ExtensionForAttribute.DesignedItemType">
+            <summary>
+            Gets the type of the item that is designed using this extension.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Extensions.ExtensionForAttribute.OverrideExtension">
+            <summary>
+            Gets/Sets the type of another extension that this extension is overriding.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.ExtensionManager">
+            <summary>
+            Manages extension creation for a design context.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionManager.ReapplyExtensions(System.Collections.Generic.IEnumerable{ICSharpCode.WpfDesign.DesignItem},ICSharpCode.WpfDesign.Extensions.ExtensionServer)">
+            <summary>
+            Re-applies extensions from the ExtensionServer to the specified design items.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionManager.GetExtensionTypes(System.Type)">
+            <summary>
+            Gets all the types of all extensions that are applied to the specified item type.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionManager.RegisterAssembly(System.Reflection.Assembly)">
+            <summary>
+            Registers extensions from the specified assembly.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionManager.GetExtensionServer(ICSharpCode.WpfDesign.Extensions.ExtensionServerAttribute)">
+            <summary>
+            Gets the extension server for the specified extension server attribute.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionManager.CreateInstanceWithCustomInstanceFactory(System.Type,System.Object[])">
+            <summary>
+            Create an instance of the specified type using the specified arguments.
+            The instance is created using a CustomInstanceFactory registered for the type,
+            or using reflection if no instance factory is found.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionManager.ApplyDefaultInitializers(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Applies all DefaultInitializer extensions on the design item.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.ExtensionServerAttribute">
+            <summary>
+            Attribute to specify that the decorated class is an extension using the specified extension server.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.ExtensionServerAttribute.#ctor(System.Type)">
+            <summary>
+            Create a new ExtensionServerAttribute that specifies that the decorated extension
+            uses the specified extension server.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Extensions.ExtensionServerAttribute.ExtensionServerType">
+            <summary>
+            Gets the type of the item that is designed using this extension.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.LogicalOrExtensionServer`2">
+            <summary>
+            Combines two extension servers using a logical OR.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.LogicalOrExtensionServer`2.OnInitialized">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.LogicalOrExtensionServer`2.ShouldApplyExtensions(ICSharpCode.WpfDesign.DesignItem)">
+            <summary/>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.LogicalAndExtensionServer`2">
+            <summary>
+            Combines two extension servers using a logical AND.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.LogicalAndExtensionServer`2.OnInitialized">
+            <summary/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.LogicalAndExtensionServer`2.ShouldApplyExtensions(ICSharpCode.WpfDesign.DesignItem)">
+            <summary/>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.SelectionExtensionServer">
+            <summary>
+            Applies an extension to the selected components.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.SelectionExtensionServer.OnInitialized">
+            <summary>
+            Is called after the extension server is initialized and the Context property has been set.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.SelectionExtensionServer.ShouldApplyExtensions(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets if the item is selected.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.SecondarySelectionExtensionServer">
+            <summary>
+            Applies an extension to the selected components, but not to the primary selection.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.SecondarySelectionExtensionServer.ShouldApplyExtensions(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets if the item is in the secondary selection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.PrimarySelectionExtensionServer">
+            <summary>
+            Applies an extension to the primary selection.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.PrimarySelectionExtensionServer.OnInitialized">
+            <summary>
+            Is called after the extension server is initialized and the Context property has been set.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.PrimarySelectionExtensionServer.ShouldApplyExtensions(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets if the item is the primary selection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Extensions.PrimarySelectionParentExtensionServer">
+            <summary>
+            Applies an extension to the parent of the primary selection.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.PrimarySelectionParentExtensionServer.OnInitialized">
+            <summary>
+            Is called after the extension server is initialized and the Context property has been set.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Extensions.PrimarySelectionParentExtensionServer.ShouldApplyExtensions(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets if the item is the primary selection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PlacementOperation">
+            <summary>
+            Stores data about a placement operation.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementOperation.ChangeContainer(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Make the placed item switch the container.
+            This method assumes that you already have checked if changing the container is possible.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementOperation.DeleteItemsAndCommit">
+            <summary>
+            Deletes the items being placed, and commits the placement operation.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementOperation.Start(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem},ICSharpCode.WpfDesign.PlacementType)">
+            <summary>
+            Starts a new placement operation that changes the placement of <paramref name="placedItems"/>.
+            </summary>
+            <param name="placedItems">The items to be placed.</param>
+            <param name="type">The type of the placement.</param>
+            <returns>A PlacementOperation object.</returns>
+            <remarks>
+            You MUST call either <see cref="M:ICSharpCode.WpfDesign.PlacementOperation.Abort"/> or <see cref="M:ICSharpCode.WpfDesign.PlacementOperation.Commit"/> on the returned PlacementOperation
+            once you are done with it, otherwise a ChangeGroup will be left open and Undo/Redo will fail to work!
+            </remarks>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementOperation.GetPlacementBehavior(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Gets the placement behavior associated with the specified items.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementOperation.TryStartInsertNewComponents(ICSharpCode.WpfDesign.DesignItem,System.Collections.Generic.IList{ICSharpCode.WpfDesign.DesignItem},System.Collections.Generic.IList{System.Windows.Rect},ICSharpCode.WpfDesign.PlacementType)">
+            <summary>
+            Try to insert new components into the container.
+            </summary>
+            <param name="container">The container that should become the parent of the components.</param>
+            <param name="placedItems">The components to add to the container.</param>
+            <param name="positions">The rectangle specifying the position the element should get.</param>
+            <param name="type">The type </param>
+            <returns>The operation that inserts the new components, or null if inserting is not possible.</returns>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementOperation.Abort">
+            <summary>
+            Aborts the operation.
+            This aborts the underlying change group, reverting all changes done while the operation was running.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementOperation.Commit">
+            <summary>
+            Commits the operation.
+            This commits the underlying change group.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementOperation.PlacedItems">
+            <summary>
+            The items being placed.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementOperation.Type">
+            <summary>
+            The type of the placement being done.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementOperation.IsAborted">
+            <summary>
+            Gets if the placement operation was aborted.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementOperation.IsCommitted">
+            <summary>
+            Gets if the placement operation was committed.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementOperation.CurrentContainer">
+            <summary>
+            Gets the current container for the placement operation.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementOperation.CurrentContainerBehavior">
+            <summary>
+            Gets the placement behavior for the current container.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementOperation.Description">
+            <summary>
+            Gets/Sets the description of the underlying change group.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PlacementType">
+            <summary>
+            Describes how a placement is done.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementType.Resize">
+            <summary>
+            Placement is done by resizing an element in a drag'n'drop operation.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementType.Move">
+            <summary>
+            Placement is done by moving an element in a drag'n'drop operation.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementType.AddItem">
+            <summary>
+            Adding an element to a specified position in the container.
+            AddItem is used when dragging a toolbox item to the design surface.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementType.Delete">
+            <summary>
+            Not a "real" placement, but deleting the element.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementType.Register(System.String)">
+            <summary>
+            Creates a new unique PlacementKind.
+            </summary>
+            <param name="name">The name to return from a ToString() call.
+            Note that two PlacementTypes with the same name are NOT equal!</param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementType.ToString">
+            <summary>
+            Gets the name used to register this PlacementType.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PlacementAlignment">
+            <summary>
+            A combination of HorizontalAlignment/VerticalAlignment.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementAlignment.#ctor(System.Windows.HorizontalAlignment,System.Windows.VerticalAlignment)">
+            <summary>
+            Creates a new instance of the PlacementAlignment structure.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementAlignment.Equals(System.Object)">
+            <summary>Compares this to <paramref name="obj"/>.</summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementAlignment.Equals(ICSharpCode.WpfDesign.PlacementAlignment)">
+            <summary>Compares this to <paramref name="other"/>.</summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementAlignment.GetHashCode">
+            <summary>
+            Gets the hash code.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementAlignment.op_Equality(ICSharpCode.WpfDesign.PlacementAlignment,ICSharpCode.WpfDesign.PlacementAlignment)">
+            <summary>Compares <paramref name="lhs"/> to <paramref name="rhs"/>.</summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PlacementAlignment.op_Inequality(ICSharpCode.WpfDesign.PlacementAlignment,ICSharpCode.WpfDesign.PlacementAlignment)">
+            <summary>Compares <paramref name="lhs"/> to <paramref name="rhs"/>.</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.TopLeft">
+            <summary>Top left</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.Top">
+            <summary>Top center</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.TopRight">
+            <summary>Top right</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.Left">
+            <summary>Center left</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.Center">
+            <summary>Center center</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.Right">
+            <summary>Center right</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.BottomLeft">
+            <summary>Bottom left</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.Bottom">
+            <summary>Bottom center</summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.PlacementAlignment.BottomRight">
+            <summary>Bottom right</summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementAlignment.Horizontal">
+            <summary>
+            Gets the horizontal component.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PlacementAlignment.Vertical">
+            <summary>
+            Gets the vertical component.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.Category">
+            <summary>
+            View-Model class for a property grid category.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.EditorManager">
+            <summary>
+            Manages registered type and property editors.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.EditorManager.CreateEditor(ICSharpCode.WpfDesign.DesignItemProperty)">
+            <summary>
+            Creates a property editor for the specified <paramref name="property"/>
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.EditorManager.RegisterAssembly(System.Reflection.Assembly)">
+            <summary>
+            Registers property editors defined in the specified assembly.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.Editors.ComboBoxEditor">
+            <summary>
+            ComboBoxEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.Editors.ComboBoxEditor.#ctor">
+            <summary>
+            Create a new ComboBoxEditor instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.Editors.ComboBoxEditor.OnApplyTemplate">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.Editors.ComboBoxEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.Editors.TextBoxEditor">
+            <summary>
+            TextBoxEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.Editors.TextBoxEditor.#ctor">
+            <summary>
+            Creates a new TextBoxEditor instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.Editors.TextBoxEditor.OnKeyDown(System.Windows.Input.KeyEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.Editors.TextBoxEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.PropertyEditorAttribute">
+            <summary>
+            Attribute to specify that the decorated class is a editor for the specified property.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.PropertyEditorAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Creates a new PropertyEditorAttribute that specifies that the decorated class is a editor
+            for the "<paramref name="propertyDeclaringType"/>.<paramref name="propertyName"/>".
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyEditorAttribute.PropertyDeclaringType">
+            <summary>
+            Gets the type that declares the property that the decorated editor supports.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyEditorAttribute.PropertyName">
+            <summary>
+            Gets the name of the property that the decorated editor supports.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode">
+            <summary>
+            View-Model class for the property grid.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Reset">
+            <summary>
+            Resets the property.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.CreateBinding">
+            <summary>
+            Replaces the value of this node with a new binding.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.#ctor">
+            <summary>
+            Creates a new PropertyNode instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Load(ICSharpCode.WpfDesign.DesignItemProperty[])">
+            <summary>
+            Initializes this property node with the specified properties.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Properties">
+            <summary>
+            Gets the properties that are presented by this node.
+            This might be multiple properties if multiple controls are selected.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Name">
+            <summary>
+            Gets the name of the property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.IsEvent">
+            <summary>
+            Gets if this property node represents an event.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Context">
+            <summary>
+            Gets the design context associated with this set of properties.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Services">
+            <summary>
+            Gets the service container associated with this set of properties.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Editor">
+            <summary>
+            Gets the editor control that edits this property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.FirstProperty">
+            <summary>
+            Gets the first property (equivalent to Properties[0])
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Parent">
+            <summary>
+            For nested property nodes, gets the parent node.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Level">
+            <summary>
+            For nested property nodes, gets the level of this node.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Category">
+            <summary>
+            Gets the category of this node.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Children">
+            <summary>
+            Gets the list of child nodes.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.MoreChildren">
+            <summary>
+            Gets the list of advanced child nodes (not visible by default).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.IsExpanded">
+            <summary>
+            Gets whether this property node is currently expanded.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.HasChildren">
+            <summary>
+            Gets whether this property node has children.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Description">
+            <summary>
+            Gets the description object using the IPropertyDescriptionService.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.Value">
+            <summary>
+            Gets/Sets the value of this property.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.ValueString">
+            <summary>
+            Gets/Sets the value of this property in string form
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.IsEnabled">
+            <summary>
+            Gets whether the property node is enabled for editing.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.IsSet">
+            <summary>
+            Gets whether this property was set locally.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.NameForeground">
+            <summary>
+            Gets the color of the name.
+            Depends on the type of the value (binding/resource/etc.)
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.ValueItem">
+            <summary>
+            Returns the DesignItem that owns the property (= the DesignItem that is currently selected).
+            Returns null if multiple DesignItems are selected.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.IsAmbiguous">
+            <summary>
+            Gets whether the property value is ambiguous (multiple controls having different values are selected).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.IsVisible">
+            <summary>
+            Gets/Sets whether the property is visible.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.CanReset">
+            <summary>
+            Gets whether resetting the property is possible.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.PropertyGrid.PropertyNode.PropertyChanged">
+            <summary>
+            Occurs when a property has changed. Used to support WPF data binding.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.SortedObservableCollection`2">
+            <summary>
+            Extends ObservableCollection{T} with an AddSorted method to insert items in a sorted collection.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.SortedObservableCollection`2.#ctor(System.Func{`0,`1})">
+            <summary>
+            Creates a new SortedObservableCollection instance.
+            </summary>
+            <param name="keySelector">The function to select the sorting key.</param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.SortedObservableCollection`2.AddSorted(`0)">
+            <summary>
+            Adds an item to a sorted collection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.PropertyNodeCollection">
+            <summary>
+            A SortedObservableCollection{PropertyNode, string} that sorts by the PropertyNode's Name.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.PropertyNodeCollection.#ctor">
+            <summary>
+            Creates a new PropertyNodeCollection instance.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.TypeEditorAttribute">
+            <summary>
+            Attribute to specify that the decorated class is a editor for properties with the specified
+            return type.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.TypeEditorAttribute.#ctor(System.Type)">
+            <summary>
+            Creates a new TypeEditorAttribute that specifies that the decorated class is a editor
+            for properties with the return type "<paramref name="supportedPropertyType"/>".
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.PropertyGrid.TypeEditorAttribute.SupportedPropertyType">
+            <summary>
+            Gets the supported property type.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.PropertyGrid.TypeHelper">
+            <summary>
+            Helper class with static methods to get the list of available properties/events.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.TypeHelper.GetCommonAvailableProperties(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Gets the available properties common to all input types.
+            </summary>
+            <param name="types">List of input types. The list must have at least one element.</param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.TypeHelper.GetAvailableProperties(System.Type)">
+            <summary>
+            Gets the available properties for the type.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.TypeHelper.GetAvailableEvents(System.Type)">
+            <summary>
+            Gets the available events for the type.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.TypeHelper.GetAvailableProperties(System.Object)">
+            <summary>
+            Gets available properties for an object, includes attached properties also.
+            </summary>		
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.PropertyGrid.TypeHelper.GetCommonAvailableProperties(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Gets common properties between <paramref name="elements"/>. Includes attached properties too.
+            </summary>
+            <param name="elements"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ServiceContainer">
+            <summary>
+            The <see cref="T:ICSharpCode.WpfDesign.ServiceContainer"/> is a built-in service that manages the list of services.
+            You can only add services to it, removing or replacing services is not supported because
+            many designers depend on keeping their services available.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceContainer.AddService(System.Type,System.Object)">
+            <summary>
+            Adds a new service to the container.
+            </summary>
+            <param name="serviceInterface">
+            The type of the service interface to use as a key for the service.
+            </param>
+            <param name="serviceInstance">
+            The service instance implementing that interface.
+            </param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceContainer.GetService(System.Type)">
+            <summary>
+            Gets the service object of the specified type.
+            Returns null when the service is not available.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceContainer.GetService``1">
+            <summary>
+            Gets the service object of the type T.
+            Returns null when the service is not available.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceContainer.RunWhenAvailable``1(System.Action{``0})">
+            <summary>
+            Subscribes to the service of type T.
+            serviceAvailableAction will be called after the service gets available. If the service is already available,
+            the action will be called immediately.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceContainer.GetRequiredService``1">
+            <summary>
+            Gets a required service.
+            Never returns null; instead a ServiceRequiredException is thrown when the service cannot be found.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ServiceContainer.AllServices">
+            <summary>
+            Gets a collection of all registered services.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ServiceContainer.Selection">
+            <summary>
+            Gets the <see cref="T:ICSharpCode.WpfDesign.ISelectionService"/>.
+            Throws an exception if the service is not found.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ServiceContainer.Tool">
+            <summary>
+            Gets the <see cref="T:ICSharpCode.WpfDesign.IToolService"/>.
+            Throws an exception if the service is not found.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ServiceContainer.Component">
+            <summary>
+            Gets the <see cref="T:ICSharpCode.WpfDesign.IComponentService"/>.
+            Throws an exception if the service is not found.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ServiceContainer.View">
+            <summary>
+            Gets the <see cref="T:ICSharpCode.WpfDesign.ViewService"/>.
+            Throws an exception if the service is not found.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ServiceContainer.ExtensionManager">
+            <summary>
+            Gets the <see cref="P:ICSharpCode.WpfDesign.ServiceContainer.ExtensionManager"/>.
+            Throws an exception if the service is not found.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ServiceContainer.DesignPanel">
+            <summary>
+            Gets the <see cref="T:ICSharpCode.WpfDesign.IDesignPanel"/>.
+            Throws an exception if the service is not found.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.DesignItem">
+            <summary>
+            The DesignItem connects a component with the service system and the designers.
+            Equivalent to Cider's ModelItem.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItem.OpenGroup(System.String)">
+            <summary>
+            Opens a new change group used to batch several changes.
+            ChangeGroups work as transactions and are used to support the Undo/Redo system.
+            Note: the ChangeGroup applies to the whole <see cref="T:ICSharpCode.WpfDesign.DesignContext"/>, not just to
+            this item!
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItem.AddBehavior(System.Type,System.Object)">
+            <summary>
+            Adds a bevahior extension object to this design item.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItem.GetBehavior``1">
+            <summary>
+            Gets a bevahior extension object from the design item.
+            </summary>
+            <returns>The behavior object, or null if it was not found.</returns>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItem.OnPropertyChanged(System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:ICSharpCode.WpfDesign.DesignItem.PropertyChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItem.Remove">
+            <summary>
+            Removes this design item from its parent property/collection.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.DesignItem.Clone">
+            <summary>
+            Creates a copy of this design item.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.Component">
+            <summary>
+            Gets the component this DesignSite was created for.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.ComponentType">
+            <summary>
+            Gets the component type of this design site.
+            This value may be different from Component.GetType() if a CustomInstanceFactory created
+            an object using a different type (e.g. ComponentType=Window but Component.GetType()=WindowClone).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.View">
+            <summary>
+            Gets the view used for the component.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.Context">
+            <summary>
+            Gets the design context.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.Parent">
+            <summary>
+            Gets the parent design item.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.DesignItem.ParentChanged">
+            <summary>
+            Occurs when the parent of this design item changes.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.ParentProperty">
+            <summary>
+            Gets the property where this DesignItem is used as a value.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.Properties">
+            <summary>
+            Gets properties set on the design item.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.Name">
+            <summary>
+            Gets/Sets the name of the design item.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.DesignItem.NameChanged">
+            <summary>
+            Is raised when the name of the design item changes.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.Services">
+            <summary>
+            Gets an instance that provides convenience properties for the most-used designers.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.Extensions">
+            <summary>
+            Gets the extensions registered for this DesignItem.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.DesignItem.PropertyChanged">
+            <summary>
+            This event is raised whenever a model property on the DesignItem changes.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.ContentPropertyName">
+            <summary>
+            Gets the name of the content property (the property that contains the logical children)
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.DesignItem.ContentProperty">
+            <summary>
+            Gets the content property (the property that contains the logical children)
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ServiceRequiredException">
+            <summary>
+            Exception class used for designer failures.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceRequiredException.#ctor(System.Type)">
+            <summary>
+            Create a new ServiceRequiredException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceRequiredException.#ctor">
+            <summary>
+            Create a new ServiceRequiredException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceRequiredException.#ctor(System.String)">
+            <summary>
+            Create a new ServiceRequiredException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceRequiredException.#ctor(System.String,System.Exception)">
+            <summary>
+            Create a new ServiceRequiredException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceRequiredException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Create a new ServiceRequiredException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ServiceRequiredException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ServiceRequiredException.ServiceType">
+            <summary>
+            Gets the missing sevice.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.SelectionTypes">
+            <summary>
+            Defines the type how a selection can be changed.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.SelectionTypes.None">
+            <summary>
+            No selection type specified.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.SelectionTypes.Auto">
+            <summary>
+            Automatically determine the selection type using the currently pressed
+            modifier keys.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.SelectionTypes.Primary">
+            <summary>
+            Change the primary selection only.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.SelectionTypes.Toggle">
+            <summary>
+            Toggle the selection.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.SelectionTypes.Add">
+            <summary>
+            Add to the selection.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.SelectionTypes.Remove">
+            <summary>
+            Remove from the selection.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.SelectionTypes.Replace">
+            <summary>
+            Replace the selection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ISelectionService">
+            <summary>
+            Manages selecting components.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ISelectionService.IsComponentSelected(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets if the specified component is selected.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ISelectionService.SetSelectedComponents(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Replaces the current selection with the specified selection.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ISelectionService.SetSelectedComponents(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem},ICSharpCode.WpfDesign.SelectionTypes)">
+            <summary>
+            Modifies the current selection using the specified components and selectionType.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.ISelectionService.SelectionChanging">
+            <summary>Occurs when the current selection is about to change.</summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.ISelectionService.SelectionChanged">
+            <summary>Occurs after the current selection has changed.</summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.ISelectionService.PrimarySelectionChanging">
+            <summary>Occurs when the primary selection is about to change.</summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.ISelectionService.PrimarySelectionChanged">
+            <summary>Occurs after the primary selection has changed.</summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ISelectionService.SelectedItems">
+            <summary>
+            Gets the collection of selected components.
+            This is a copy of the actual selected components collection, the returned copy
+            of the collection will not reflect future changes to the selection.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ISelectionService.PrimarySelection">
+            <summary>Gets the object that is currently the primary selected object.</summary>
+            <returns>The object that is currently the primary selected object.</returns>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ISelectionService.SelectionCount">
+            <summary>Gets the count of selected objects.</summary>
+            <returns>The number of selected objects.</returns>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IComponentService">
+            <summary>Supports adding and removing components</summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IComponentService.GetDesignItem(System.Object)">
+            <summary>
+            Gets the site of an existing, registered component.
+            </summary>
+            <returns>
+            The site of the component, or null if the component is not registered.
+            </returns>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IComponentService.RegisterComponentForDesigner(System.Object)">
+            <summary>Registers a component for usage in the designer.</summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.IComponentService.ComponentRegistered">
+            <summary>Event raised whenever a component is registered</summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ViewService">
+            <summary>
+            Service for getting the view for a model or the model for a view.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ViewService.GetModel(System.Windows.DependencyObject)">
+            <summary>
+            Gets the model represented by the specified view element.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ViewService.GetView(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets the view for the specified model item.
+            This is equivalent to using <c>model.View</c>.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IPropertyDescriptionService">
+            <summary>
+            Used to get a description for properties.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IPropertyDescriptionService.GetDescription(ICSharpCode.WpfDesign.DesignItemProperty)">
+            <summary>
+            Gets a WPF object representing a graphical description of the property.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IErrorService">
+            <summary>
+            Service for showing error UI.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IErrorService.ShowErrorTooltip(System.Windows.FrameworkElement,System.Windows.UIElement)">
+            <summary>
+            Shows an error tool tip.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IEventHandlerService">
+            <summary>
+            Service for providing the designer with information about available event handlers.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IEventHandlerService.CreateEventHandler(ICSharpCode.WpfDesign.DesignItemProperty)">
+            <summary>
+            Creates an event handler for the specified event.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IEventHandlerService.GetDefaultEvent(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets the default event of the specified design item.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ITopLevelWindow">
+            <summary>
+            Represents a top level window.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ITopLevelWindow.SetOwner(System.Windows.Window)">
+            <summary>
+            Sets child.Owner to the top level window.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ITopLevelWindow.Activate">
+            <summary>
+            Activates the window.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ITopLevelWindowService">
+            <summary>
+            Provides a method to get the top-level-window of any UIElement.
+            If the WPF Designer is hosted inside a Windows.Forms application, the hosting environment
+            should specify a ITopLevelWindowService implementation that works with <b>both</b> WPF and Windows.Forms
+            top-level-windows.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ITopLevelWindowService.GetTopLevelWindow(System.Windows.UIElement)">
+            <summary>
+            Gets the top level window that contains the specified element.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IKeyBindingService">
+            <summary>
+            Service that handles all the key bindings in the designer.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IKeyBindingService.RegisterBinding(System.Windows.Input.KeyBinding)">
+            <summary>
+            Register <paramref name="binding"/> with <see cref="P:ICSharpCode.WpfDesign.IKeyBindingService.Owner"/>.
+            </summary>
+            <param name="binding">The binding to be applied.</param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IKeyBindingService.DeregisterBinding(System.Windows.Input.KeyBinding)">
+            <summary>
+            De-register <paramref name="binding"/> with <see cref="P:ICSharpCode.WpfDesign.IKeyBindingService.Owner"/>.
+            </summary>
+            <param name="binding">The binding to be applied.</param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IKeyBindingService.GetBinding(System.Windows.Input.KeyGesture)">
+            <summary>
+            Gets binding for the corresponding gesture otherwise returns null.
+            </summary>
+            <param name="gesture">The keyboard gesture requested.</param>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.IKeyBindingService.Owner">
+            <summary>
+            Gets the object to which the bindings are being applied
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.ITool">
+            <summary>
+            Describes a tool that can handle input on the design surface.
+            Modelled after the description on http://urbanpotato.net/Default.aspx/document/2300
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ITool.Activate(ICSharpCode.WpfDesign.IDesignPanel)">
+            <summary>
+            Activates the tool, attaching its event handlers to the design panel.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.ITool.Deactivate(ICSharpCode.WpfDesign.IDesignPanel)">
+            <summary>
+            Deactivates the tool, detaching its event handlers from the design panel.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.ITool.Cursor">
+            <summary>
+            Gets the cursor used by the tool.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IToolService">
+            <summary>
+            Service that manages tool selection.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.IToolService.PointerTool">
+            <summary>
+            Gets the 'pointer' tool.
+            The pointer tool is the default tool for selecting and moving elements.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.IToolService.CurrentTool">
+            <summary>
+            Gets/Sets the currently selected tool.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.IToolService.CurrentToolChanged">
+            <summary>
+            Is raised when the current tool changes.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.IDesignPanel">
+            <summary>
+            Interface for the design panel. The design panel is the UIElement containing the
+            designed elements and is responsible for handling mouse and keyboard events.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IDesignPanel.HitTest(System.Windows.Point,System.Boolean,System.Boolean)">
+            <summary>
+            Performs a hit test on the design surface.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.IDesignPanel.HitTest(System.Windows.Point,System.Boolean,System.Boolean,System.Predicate{ICSharpCode.WpfDesign.DesignPanelHitTestResult})">
+            <summary>
+            Performs a hit test on the design surface, raising <paramref name="callback"/> for each match.
+            Hit testing continues while the callback returns true.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.IDesignPanel.Context">
+            <summary>
+            Gets the design context used by the DesignPanel.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.IDesignPanel.IsContentHitTestVisible">
+            <summary>
+            Gets/Sets if the design content is visible for hit-testing purposes.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.IDesignPanel.IsAdornerLayerHitTestVisible">
+            <summary>
+            Gets/Sets if the adorner layer is visible for hit-testing purposes.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.IDesignPanel.Adorners">
+            <summary>
+            Gets the list of adorners displayed on the design panel.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.IDesignPanel.MouseDown">
+            <summary>
+            Occurs when a mouse button is pressed.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.IDesignPanel.MouseUp">
+            <summary>
+            Occurs when a mouse button is released.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.IDesignPanel.DragEnter">
+            <summary>
+            Occurs when a drag operation enters the design panel.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.IDesignPanel.DragOver">
+            <summary>
+            Occurs when a drag operation is over the design panel.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.IDesignPanel.DragLeave">
+            <summary>
+            Occurs when a drag operation leaves the design panel.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.IDesignPanel.Drop">
+            <summary>
+            Occurs when an element is dropped on the design panel.
+            </summary>
+        </member>
+    </members>
+</doc>

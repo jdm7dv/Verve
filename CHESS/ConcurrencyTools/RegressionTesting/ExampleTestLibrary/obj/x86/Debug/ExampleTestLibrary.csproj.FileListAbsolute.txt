@@ -1,0 +1,5 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\ExampleTestLibrary\bin\Debug\ExampleTestLibrary.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\ExampleTestLibrary\bin\Debug\ExampleTestLibrary.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\ExampleTestLibrary\obj\x86\Debug\ExampleTestLibrary.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\ExampleTestLibrary\obj\x86\Debug\ExampleTestLibrary.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\ExampleTestLibrary\obj\x86\Debug\ExampleTestLibrary.pdb

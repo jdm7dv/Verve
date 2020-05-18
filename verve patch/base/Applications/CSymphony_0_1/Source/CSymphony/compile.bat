@@ -1,0 +1,1 @@
+csc  /r:bin\CSymphonyLib.dll /target:exe /out:bin\CSy.exe csy.cs

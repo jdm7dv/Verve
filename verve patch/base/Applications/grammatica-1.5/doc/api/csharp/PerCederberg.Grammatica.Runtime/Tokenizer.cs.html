@@ -1,0 +1,812 @@
+<HTML>
+<HEAD>
+<TITLE>
+Tokenizer.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * Tokenizer.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.IO;
+<font color="blue">using</font> System.Text;
+<font color="blue">using</font> System.Text.RegularExpressions;
+<font color="blue">using</font> PerCederberg.Grammatica.Runtime.RE;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A character stream tokenizer. This class groups the characters read
+     * from the stream together into tokens ("words"). The grouping is
+     * controlled by token patterns that contain either a fixed string to
+     * search for, or a regular expression. If the stream of characters
+     * don't match any of the token patterns, a parse exception is thrown.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> Tokenizer <font color="black">{</font>
+
+        <font color="green">/**
+         * The token list feature flag.
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> useTokenList <font color="black">=</font> <font color="blue">false</font>;
+
+        <font color="green">/**
+         * The string DFA token matcher. This token matcher uses a
+         * deterministic finite automaton (DFA) implementation and is
+         * used for all string token patterns. It has a slight speed
+         * advantage to the NFA implementation, but should be equivalent
+         * on memory usage.
+         */</font>
+        <font color="blue">private</font> StringDFAMatcher stringDfaMatcher;
+
+        <font color="green">/**
+         * The regular expression NFA token matcher. This token matcher
+         * uses a non-deterministic finite automaton (DFA) implementation
+         * and is used for most regular expression token patterns. It is
+         * somewhat faster than the other recursive regular expression
+         * implementations available, but doesn't support the full
+         * syntax. It conserves memory by using a fast queue instead of
+         * the stack during processing (no stack overflow).
+         */</font>
+        <font color="blue">private</font> NFAMatcher nfaMatcher;
+
+        <font color="green">/**
+         * The regular expression token matcher. This token matcher is
+         * used for complex regular expressions, but should be avoided
+         * due to possibly degraded speed and memory usage compared to
+         * the automaton implementations.
+         */</font>
+        <font color="blue">private</font> RegExpMatcher regExpMatcher;
+
+        <font color="green">/**
+        * The character stream reader buffer.
+        */</font>
+        <font color="blue">private</font> ReaderBuffer buffer <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+        * The last token match found.
+        */</font>
+        <font color="blue">private</font> TokenMatch lastMatch <font color="black">=</font> <font color="blue">new</font> TokenMatch<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * The previous token in the token list.
+         */</font>
+        <font color="blue">private</font> Token previousToken <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+         * Creates a new case-sensitive tokenizer for the specified
+         * input stream.
+         *
+         * @param input          the input stream to read
+         */</font>
+        <font color="blue">public</font> Tokenizer<font color="black">(</font>TextReader <font color="blue">input</font><font color="black">)</font>
+            <font color="black">:</font> <font color="blue">this</font><font color="black">(</font><font color="blue">input</font>, <font color="blue">false</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new tokenizer for the specified input stream. The
+         * tokenizer can be set to process tokens either in
+         * case-sensitive or case-insensitive mode.
+         *
+         * @param input          the input stream to read
+         * @param ignoreCase     the character case ignore flag
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> Tokenizer<font color="black">(</font>TextReader <font color="blue">input</font>, <font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.stringDfaMatcher <font color="black">=</font> <font color="blue">new</font> StringDFAMatcher<font color="black">(</font>ignoreCase<font color="black">)</font>;
+            <font color="blue">this</font>.nfaMatcher <font color="black">=</font> <font color="blue">new</font> NFAMatcher<font color="black">(</font>ignoreCase<font color="black">)</font>;
+            <font color="blue">this</font>.regExpMatcher <font color="black">=</font> <font color="blue">new</font> RegExpMatcher<font color="black">(</font>ignoreCase<font color="black">)</font>;
+            <font color="blue">this</font>.buffer <font color="black">=</font> <font color="blue">new</font> ReaderBuffer<font color="black">(</font><font color="blue">input</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token list flag property. If the token list flag is
+         * set, all tokens (including ignored tokens) link to each
+         * other in a double-linked list. By default the token list
+         * flag is set to false.
+         *
+         * @see Token#Previous
+         * @see Token#Next
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> UseTokenList <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> useTokenList;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                useTokenList <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the token list feature is used. The token list
+         * feature makes all tokens (including ignored tokens) link to
+         * each other in a linked list. By default the token list feature
+         * is not used.
+         *
+         * @return true if the token list feature is used, or
+         *         false otherwise
+         *
+         * @see #UseTokenList
+         * @see #SetUseTokenList
+         * @see Token#GetPreviousToken
+         * @see Token#GetNextToken
+         *
+         * @since 1.4
+         *
+         * @deprecated Use the UseTokenList property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> GetUseTokenList<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> useTokenList;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Sets the token list feature flag. The token list feature makes
+         * all tokens (including ignored tokens) link to each other in a
+         * linked list when active. By default the token list feature is
+         * not used.
+         *
+         * @param useTokenList   the token list feature flag
+         *
+         * @see #UseTokenList
+         * @see #GetUseTokenList
+         * @see Token#GetPreviousToken
+         * @see Token#GetNextToken
+         *
+         * @since 1.4
+         *
+         * @deprecated Use the UseTokenList property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> SetUseTokenList<font color="black">(</font><font color="blue">bool</font> useTokenList<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.useTokenList <font color="black">=</font> useTokenList;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a description of the token pattern with the
+         * specified id.
+         *
+         * @param id             the token pattern id
+         *
+         * @return the token pattern description, or
+         *         null if not present
+         */</font>
+        <font color="blue">public</font> string GetPatternDescription<font color="black">(</font><font color="blue">int</font> id<font color="black">)</font> <font color="black">{</font>
+            TokenPattern  pattern;
+
+            pattern <font color="black">=</font> stringDfaMatcher.GetPattern<font color="black">(</font>id<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>pattern <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                pattern <font color="black">=</font> nfaMatcher.GetPattern<font color="black">(</font>id<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>pattern <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                pattern <font color="black">=</font> regExpMatcher.GetPattern<font color="black">(</font>id<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="black">(</font>pattern <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> ? <font color="blue">null</font> <font color="black">:</font> pattern.ToShortString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the current line number. This number will be the line
+         * number of the next token returned.
+         *
+         * @return the current line number
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetCurrentLine<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> buffer.LineNumber;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the current column number. This number will be the
+         * column number of the next token returned.
+         *
+         * @return the current column number
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetCurrentColumn<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> buffer.ColumnNumber;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a new token pattern to the tokenizer. The pattern will be
+         * added last in the list, choosing a previous token pattern in
+         * case two matches the same string.
+         *
+         * @param pattern        the pattern to add
+         *
+         * @throws ParserCreationException if the pattern couldn't be
+         *             added to the tokenizer
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> AddPattern<font color="black">(</font>TokenPattern pattern<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">switch</font> <font color="black">(</font>pattern.Type<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> TokenPattern.PatternType.STRING<font color="black">:</font>
+                try <font color="black">{</font>
+                    stringDfaMatcher.AddPattern<font color="black">(</font>pattern<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>Exception e<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                        ParserCreationException.ErrorType.INVALID_TOKEN,
+                        pattern.Name,
+                        <font color="maroon">"error adding string token: "</font> <font color="black">+</font>
+                        e.Message<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">break</font>;
+            <font color="blue">case</font> TokenPattern.PatternType.REGEXP<font color="black">:</font>
+                try <font color="black">{</font>
+                    nfaMatcher.AddPattern<font color="black">(</font>pattern<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>Exception<font color="black">)</font> <font color="black">{</font>
+                    try <font color="black">{</font>
+                        regExpMatcher.AddPattern<font color="black">(</font>pattern<font color="black">)</font>;
+                    <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>Exception e<font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                            ParserCreationException.ErrorType.INVALID_TOKEN,
+                            pattern.Name,
+                            <font color="maroon">"regular expression contains error(s): "</font> <font color="black">+</font>
+                            e.Message<font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">break</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParserCreationException<font color="black">(</font>
+                    ParserCreationException.ErrorType.INVALID_TOKEN,
+                    pattern.Name,
+                    <font color="maroon">"pattern type "</font> <font color="black">+</font> pattern.Type <font color="black">+</font>
+                    <font color="maroon">" is undefined"</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Resets this tokenizer for usage with another input stream.
+         * This method will clear all the internal state in the
+         * tokenizer as well as close the previous input stream. It
+         * is normally called in order to reuse a parser and
+         * tokenizer pair with multiple input streams, thereby
+         * avoiding the cost of re-analyzing the grammar structures.
+         *
+         * @param input          the new input stream to read
+         *
+         * @see Parser#reset(Reader)
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> Reset<font color="black">(</font>TextReader <font color="blue">input</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.buffer.Dispose<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">this</font>.buffer <font color="black">=</font> <font color="blue">new</font> ReaderBuffer<font color="black">(</font><font color="blue">input</font><font color="black">)</font>;
+            <font color="blue">this</font>.previousToken <font color="black">=</font> <font color="blue">null</font>;
+            <font color="blue">this</font>.lastMatch.Clear<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Finds the next token on the stream. This method will return
+         * null when end of file has been reached. It will return a
+         * parse exception if no token matched the input stream, or if
+         * a token pattern with the error flag set matched. Any tokens
+         * matching a token pattern with the ignore flag set will be
+         * silently ignored and the next token will be returned.
+         *
+         * @return the next token found, or
+         *         null if end of file was encountered
+         *
+         * @throws ParseException if the input stream couldn't be read or
+         *             parsed correctly
+         */</font>
+        <font color="blue">public</font> Token Next<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Token  token <font color="black">=</font> <font color="blue">null</font>;
+
+            <font color="blue">do</font> <font color="black">{</font>
+                token <font color="black">=</font> NextToken<font color="black">(</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>token <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">null</font>;
+                <font color="black">}</font>
+                <font color="blue">if</font> <font color="black">(</font>useTokenList<font color="black">)</font> <font color="black">{</font>
+                    token.Previous <font color="black">=</font> previousToken;
+                    previousToken <font color="black">=</font> token;
+                <font color="black">}</font>
+                <font color="blue">if</font> <font color="black">(</font>token.Pattern.Ignore<font color="black">)</font> <font color="black">{</font>
+                    token <font color="black">=</font> <font color="blue">null</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>token.Pattern.Error<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                        ParseException.ErrorType.INVALID_TOKEN,
+                        token.Pattern.ErrorMessage,
+                        token.StartLine,
+                        token.StartColumn<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font> <font color="blue">while</font> <font color="black">(</font>token <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font>;
+            <font color="blue">return</font> token;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Finds the next token on the stream. This method will return
+         * null when end of file has been reached. It will return a
+         * parse exception if no token matched the input stream.
+         *
+         * @return the next token found, or
+         *         null if end of file was encountered
+         *
+         * @throws ParseException if the input stream couldn't be read or
+         *             parsed correctly
+         */</font>
+        <font color="blue">private</font> Token NextToken<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            string  str;
+            <font color="blue">int</font>     <font color="blue">line</font>;
+            <font color="blue">int</font>     column;
+
+            try <font color="black">{</font>
+                lastMatch.Clear<font color="black">(</font><font color="black">)</font>;
+                stringDfaMatcher.Match<font color="black">(</font>buffer, lastMatch<font color="black">)</font>;
+                nfaMatcher.Match<font color="black">(</font>buffer, lastMatch<font color="black">)</font>;
+                regExpMatcher.Match<font color="black">(</font>buffer, lastMatch<font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>lastMatch.Length <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">line</font> <font color="black">=</font> buffer.LineNumber;
+                    column <font color="black">=</font> buffer.ColumnNumber;
+                    str <font color="black">=</font> buffer.Read<font color="black">(</font>lastMatch.Length<font color="black">)</font>;
+                    <font color="blue">return</font> NewToken<font color="black">(</font>lastMatch.Pattern, str, <font color="blue">line</font>, column<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>buffer.Peek<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">null</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    <font color="blue">line</font> <font color="black">=</font> buffer.LineNumber;
+                    column <font color="black">=</font> buffer.ColumnNumber;
+                    <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                        ParseException.ErrorType.UNEXPECTED_CHAR,
+                        buffer.Read<font color="black">(</font><font color="maroon">1</font><font color="black">)</font>,
+                        <font color="blue">line</font>,
+                        column<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>IOException e<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>ParseException.ErrorType.IO,
+                                         e.Message,
+                                         <font color="maroon">-1</font>,
+                                         <font color="maroon">-1</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Factory method for creating a new token. This method can be
+         * overridden to provide other token implementations than the
+         * default one.
+         *
+         * @param pattern        the token pattern
+         * @param image          the token image (i.e. characters)
+         * @param line           the line number of the first character
+         * @param column         the column number of the first character
+         *
+         * @return the token created
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">protected</font> <font color="blue">virtual</font> Token NewToken<font color="black">(</font>TokenPattern pattern,
+                                         string image,
+                                         <font color="blue">int</font> <font color="blue">line</font>,
+                                         <font color="blue">int</font> column<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">return</font> <font color="blue">new</font> Token<font color="black">(</font>pattern, image, <font color="blue">line</font>, column<font color="black">)</font>;
+        <font color="black">}</font>
+        
+        <font color="green">/**
+         * Returns a string representation of this object. The returned
+         * string will contain the details of all the token patterns
+         * contained in this tokenizer.
+         *
+         * @return a detailed string representation
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+            buffer.Append<font color="black">(</font>stringDfaMatcher<font color="black">)</font>;
+            buffer.Append<font color="black">(</font>nfaMatcher<font color="black">)</font>;
+            buffer.Append<font color="black">(</font>regExpMatcher<font color="black">)</font>;
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+
+
+    <font color="green">/**
+     * A token pattern matcher. This class is the base class for the
+     * various types of token matchers that exist. The token matcher
+     * checks for matches with the tokenizer buffer, and maintains the
+     * state of the last match.
+     */</font>
+    <font color="blue">internal</font> <font color="blue">abstract</font> <font color="blue">class</font> TokenMatcher <font color="black">{</font>
+
+        <font color="green">/**
+         * The array of token patterns.
+         */</font>
+        <font color="blue">protected</font> TokenPattern<font color="black">[</font><font color="black">]</font> patterns <font color="black">=</font> <font color="blue">new</font> TokenPattern<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>;
+
+        <font color="green">/**
+         * The ignore character case flag.
+         */</font>
+        <font color="blue">protected</font> <font color="blue">bool</font> ignoreCase <font color="black">=</font> <font color="blue">false</font>;
+
+        <font color="green">/**
+         * Creates a new token matcher.
+         *
+         * @param ignoreCase      the character case ignore flag
+         */</font>
+        <font color="blue">public</font> TokenMatcher<font color="black">(</font><font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.ignoreCase <font color="black">=</font> ignoreCase;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Searches for matching token patterns at the start of the
+         * input stream. If a match is found, the token match object
+         * is updated.
+         *
+         * @param buffer         the input buffer to check
+         * @param match          the token match to update
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">abstract</font> <font color="blue">void</font> Match<font color="black">(</font>ReaderBuffer buffer, TokenMatch match<font color="black">)</font>;
+
+        <font color="green">/**
+         * Returns the token pattern with the specified id. Only
+         * token patterns handled by this matcher can be returned.
+         *
+         * @param id         the token pattern id
+         *
+         * @return the token pattern found, or
+         *         null if not found
+         */</font>
+        <font color="blue">public</font> TokenPattern GetPattern<font color="black">(</font><font color="blue">int</font> id<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> patterns.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>patterns<font color="black">[</font>i<font color="black">]</font>.Id <font color="black">=</font><font color="black">=</font> id<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> patterns<font color="black">[</font>i<font color="black">]</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a string token pattern to this matcher.
+         *
+         * @param pattern        the pattern to add
+         *
+         * @throws Exception if the pattern couldn't be added to the matcher
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">void</font> AddPattern<font color="black">(</font>TokenPattern pattern<font color="black">)</font> <font color="black">{</font>
+            Array.Resize<font color="black">(</font><font color="blue">ref</font> patterns, patterns.Length <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+            patterns<font color="black">[</font>patterns.Length <font color="maroon">-1</font><font color="black">]</font> <font color="black">=</font> pattern;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of this matcher. This will
+         * contain all the token patterns.
+         *
+         * @return a detailed string representation of this matcher
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> patterns.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                buffer.Append<font color="black">(</font>patterns<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"\n\n"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+
+
+    <font color="green">/**
+     * A token pattern matcher using a DFA for string tokens. This
+     * class only supports string tokens and must be complemented
+     * with another matcher for regular expressions. Internally it
+     * uses a DFA to provide high performance.
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> StringDFAMatcher <font color="black">:</font> TokenMatcher <font color="black">{</font>
+
+        <font color="green">/**
+         * The deterministic finite state automaton used for
+         * matching.
+         */</font>
+        <font color="blue">private</font> TokenStringDFA automaton <font color="black">=</font> <font color="blue">new</font> TokenStringDFA<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * Creates a new string token matcher.
+         *
+         * @param ignoreCase      the character case ignore flag
+         */</font>
+        <font color="blue">public</font> StringDFAMatcher<font color="black">(</font><font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">:</font> <font color="blue">base</font><font color="black">(</font>ignoreCase<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a string token pattern to this matcher.
+         *
+         * @param pattern        the pattern to add
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> AddPattern<font color="black">(</font>TokenPattern pattern<font color="black">)</font> <font color="black">{</font>
+            automaton.AddMatch<font color="black">(</font>pattern.Pattern, ignoreCase, pattern<font color="black">)</font>;
+            <font color="blue">base</font>.AddPattern<font color="black">(</font>pattern<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Searches for matching token patterns at the start of the
+         * input stream. If a match is found, the token match object
+         * is updated.
+         *
+         * @param buffer         the input buffer to check
+         * @param match          the token match to update
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> Match<font color="black">(</font>ReaderBuffer buffer, TokenMatch match<font color="black">)</font> <font color="black">{</font>
+            TokenPattern  res <font color="black">=</font> automaton.Match<font color="black">(</font>buffer, ignoreCase<font color="black">)</font>;
+
+            <font color="blue">if</font> <font color="black">(</font>res <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                match.Update<font color="black">(</font>res.Pattern.Length, res<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+
+
+    <font color="green">/**
+     * A token pattern matcher using a NFA for both string and
+     * regular expression tokens. This class has limited support for
+     * regular expressions and must be complemented with another
+     * matcher providing full regular expression support. Internally
+     * it uses a NFA to provide high performance and low memory
+     * usage.
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> NFAMatcher <font color="black">:</font> TokenMatcher <font color="black">{</font>
+
+        <font color="green">/**
+         * The non-deterministic finite state automaton used for
+         * matching.
+         */</font>
+        <font color="blue">private</font> TokenNFA automaton <font color="black">=</font> <font color="blue">new</font> TokenNFA<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * Creates a new NFA token matcher.
+         *
+         * @param ignoreCase      the character case ignore flag
+         */</font>
+        <font color="blue">public</font> NFAMatcher<font color="black">(</font><font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">:</font> <font color="blue">base</font><font color="black">(</font>ignoreCase<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a token pattern to this matcher.
+         *
+         * @param pattern        the pattern to add
+         *
+         * @throws Exception if the pattern couldn't be added to the matcher
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> AddPattern<font color="black">(</font>TokenPattern pattern<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>pattern.Type <font color="black">=</font><font color="black">=</font> TokenPattern.PatternType.STRING<font color="black">)</font> <font color="black">{</font>
+                automaton.AddTextMatch<font color="black">(</font>pattern.Pattern, ignoreCase, pattern<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                automaton.AddRegExpMatch<font color="black">(</font>pattern.Pattern, ignoreCase, pattern<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">base</font>.AddPattern<font color="black">(</font>pattern<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Searches for matching token patterns at the start of the
+         * input stream. If a match is found, the token match object
+         * is updated.
+         *
+         * @param buffer         the input buffer to check
+         * @param match          the token match to update
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> Match<font color="black">(</font>ReaderBuffer buffer, TokenMatch match<font color="black">)</font> <font color="black">{</font>
+            automaton.Match<font color="black">(</font>buffer, match<font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+
+
+    <font color="green">/**
+     * A token pattern matcher for complex regular expressions. This
+     * class only supports regular expression tokens and must be
+     * complemented with another matcher for string tokens.
+     * Internally it uses the Grammatica RE package for high
+     * performance or the native java.util.regex package for maximum
+     * compatibility.
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> RegExpMatcher <font color="black">:</font> TokenMatcher <font color="black">{</font>
+
+        <font color="green">/**
+         * The regular expression handlers.
+         */</font>
+        <font color="blue">private</font> REHandler<font color="black">[</font><font color="black">]</font> regExps <font color="black">=</font> <font color="blue">new</font> REHandler<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>;
+
+        <font color="green">/**
+         * Creates a new regular expression token matcher.
+         *
+         * @param ignoreCase      the character case ignore flag
+         */</font>
+        <font color="blue">public</font> RegExpMatcher<font color="black">(</font><font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">:</font> <font color="blue">base</font><font color="black">(</font>ignoreCase<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a regular expression token pattern to this matcher.
+         *
+         * @param pattern        the pattern to add
+         *
+         * @throws Exception if the pattern couldn't be added to the matcher
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> AddPattern<font color="black">(</font>TokenPattern pattern<font color="black">)</font> <font color="black">{</font>
+            REHandler  re;
+
+            try <font color="black">{</font>
+                re <font color="black">=</font> <font color="blue">new</font> GrammaticaRE<font color="black">(</font>pattern.Pattern, ignoreCase<font color="black">)</font>;
+                pattern.DebugInfo <font color="black">=</font> <font color="maroon">"Grammatica regexp\n"</font> <font color="black">+</font> re;
+            <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>Exception<font color="black">)</font> <font color="black">{</font>
+                re <font color="black">=</font> <font color="blue">new</font> SystemRE<font color="black">(</font>pattern.Pattern, ignoreCase<font color="black">)</font>;
+                pattern.DebugInfo <font color="black">=</font> <font color="maroon">"native .NET regexp"</font>;
+            <font color="black">}</font>
+            Array.Resize<font color="black">(</font><font color="blue">ref</font> regExps, regExps.Length <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+            regExps<font color="black">[</font>regExps.Length <font color="maroon">-1</font><font color="black">]</font> <font color="black">=</font> re;
+            <font color="blue">base</font>.AddPattern<font color="black">(</font>pattern<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Searches for matching token patterns at the start of the
+         * input stream. If a match is found, the token match object
+         * is updated.
+         *
+         * @param buffer         the input buffer to check
+         * @param match          the token match to update
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> Match<font color="black">(</font>ReaderBuffer buffer, TokenMatch match<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> regExps.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">int</font> length <font color="black">=</font> regExps<font color="black">[</font>i<font color="black">]</font>.Match<font color="black">(</font>buffer<font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>length <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    match.Update<font color="black">(</font>length, patterns<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+
+
+    <font color="green">/**
+     * The regular expression handler base class.
+     */</font>
+    <font color="blue">internal</font> <font color="blue">abstract</font> <font color="blue">class</font> REHandler <font color="black">{</font>
+
+        <font color="green">/**
+         * Checks if the start of the input stream matches this
+         * regular expression.
+         *
+         * @param buffer         the input buffer to check
+         *
+         * @return the longest match found, or
+         *         zero (0) if no match was found
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">abstract</font> <font color="blue">int</font> Match<font color="black">(</font>ReaderBuffer buffer<font color="black">)</font>;
+    <font color="black">}</font>
+
+
+    <font color="green">/**
+     * The Grammatica built-in regular expression handler.
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> GrammaticaRE <font color="black">:</font> REHandler <font color="black">{</font>
+
+        <font color="green">/**
+         * The compiled regular expression.
+         */</font>
+        <font color="blue">private</font> RegExp regExp;
+
+        <font color="green">/**
+         * The regular expression matcher to use.
+         */</font>
+        <font color="blue">private</font> Matcher matcher <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+         * Creates a new Grammatica regular expression handler.
+         *
+         * @param regex          the regular expression text
+         * @param ignoreCase      the character case ignore flag
+         *
+         * @throws Exception if the regular expression contained
+         *             invalid syntax
+         */</font>
+        <font color="blue">public</font> GrammaticaRE<font color="black">(</font>string regex, <font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">{</font>
+            regExp <font color="black">=</font> <font color="blue">new</font> RegExp<font color="black">(</font>regex, ignoreCase<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the start of the input stream matches this
+         * regular expression.
+         *
+         * @param buffer         the input buffer to check
+         *
+         * @return the longest match found, or
+         *         zero (0) if no match was found
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">int</font> Match<font color="black">(</font>ReaderBuffer buffer<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>matcher <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                matcher <font color="black">=</font> regExp.Matcher<font color="black">(</font>buffer<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                matcher.Reset<font color="black">(</font>buffer<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> matcher.MatchFromBeginning<font color="black">(</font><font color="black">)</font> ? matcher.Length<font color="black">(</font><font color="black">)</font> <font color="black">:</font> <font color="maroon">0</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+
+
+    <font color="green">/**
+     * The .NET system regular expression handler.
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> SystemRE <font color="black">:</font> REHandler <font color="black">{</font>
+
+        <font color="green">/**
+         * The parsed regular expression.
+         */</font>
+        <font color="blue">private</font> Regex reg;
+
+        <font color="green">/**
+         * Creates a new .NET system regular expression handler.
+         *
+         * @param regex          the regular expression text
+         * @param ignoreCase      the character case ignore flag
+         *
+         * @throws Exception if the regular expression contained
+         *             invalid syntax
+         */</font>
+        <font color="blue">public</font> SystemRE<font color="black">(</font>string regex, <font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>ignoreCase<font color="black">)</font> <font color="black">{</font>
+                reg <font color="black">=</font> <font color="blue">new</font> Regex<font color="black">(</font>regex, RegexOptions.IgnoreCase<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                reg <font color="black">=</font> <font color="blue">new</font> Regex<font color="black">(</font>regex<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the start of the input stream matches this
+         * regular expression.
+         *
+         * @param buffer         the input buffer to check
+         *
+         * @return the longest match found, or
+         *         zero (0) if no match was found
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">int</font> Match<font color="black">(</font>ReaderBuffer buffer<font color="black">)</font> <font color="black">{</font>
+            Match  m;
+
+            <font color="green">// Ugly hack since .NET doesn't have a flag for when the</font>
+            <font color="green">// end of the input string was encountered...</font>
+            buffer.Peek<font color="black">(</font><font color="maroon">1024</font> <font color="black">*</font> <font color="maroon">16</font><font color="black">)</font>;
+            <font color="green">// Also, there is no API to limit the search to the specified</font>
+            <font color="green">// position, so we double-check the index afterwards instead.</font>
+            m <font color="black">=</font> reg.Match<font color="black">(</font>buffer.ToString<font color="black">(</font><font color="black">)</font>, buffer.Position<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>m.Success <font color="black">&</font><font color="black">&</font> m.Index <font color="black">=</font><font color="black">=</font> buffer.Position<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> m.Length;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="maroon">0</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

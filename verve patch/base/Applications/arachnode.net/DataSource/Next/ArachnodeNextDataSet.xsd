@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ArachnodeNextDataSet" targetNamespace="http://tempuri.org/ArachnodeNextDataSet.xsd" xmlns:mstns="http://tempuri.org/ArachnodeNextDataSet.xsd" xmlns="http://tempuri.org/ArachnodeNextDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="6" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ArachnodeNext_Discoveries_CE_ConnectionString" IsAppSettingsProperty="true" Modifier="Public" Name="ArachnodeNext_Discoveries_CE_ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Arachnode.DataSource.Properties.Settings.GlobalReference.Default.ArachnodeNext_Discoveries_CE_ConnectionString" Provider="Microsoft.SqlServerCe.Client.3.5" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="AnaTxtCrawlerConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="AnaTxtCrawlerConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Arachnode.DataSource.Properties.Settings.GlobalReference.Default.AnaTxtCrawlerConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ArachnodeNext_CrawlRequests_CE_ConnectionString" IsAppSettingsProperty="true" Modifier="Public" Name="ArachnodeNext_CrawlRequests_CE_ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Arachnode.DataSource.Properties.Settings.GlobalReference.Default.ArachnodeNext_CrawlRequests_CE_ConnectionString" Provider="Microsoft.SqlServerCe.Client.3.5" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ArachnodeNext_Exceptions_CE_ConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="ArachnodeNext_Exceptions_CE_ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Arachnode.DataSource.Properties.Settings.GlobalReference.Default.ArachnodeNext_Exceptions_CE_ConnectionString" Provider="Microsoft.SqlServerCe.Client.3.5" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="Arachnode_Discoveries_Next_ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Public" Name="Arachnode_Discoveries_Next_ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Arachnode.DataSource.Properties.Settings.GlobalReference.Default.Arachnode_Discoveries_Next_ConnectionString" Provider="Microsoft.SqlServerCe.Client.3.5" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="Arachnode_CrawlRequests_Next_ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Public" Name="Arachnode_CrawlRequests_Next_ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Arachnode.DataSource.Properties.Settings.GlobalReference.Default.Arachnode_CrawlRequests_Next_ConnectionString" Provider="Microsoft.SqlServerCe.Client.3.5" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="Arachnode_Exceptions_Next_ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Public" Name="Arachnode_Exceptions_Next_ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Arachnode.DataSource.Properties.Settings.GlobalReference.Default.Arachnode_Exceptions_Next_ConnectionString" Provider="Microsoft.SqlServerCe.Client.3.5" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DiscoveriesTableAdapter" GeneratorDataComponentClassName="DiscoveriesTableAdapter" Name="Discoveries" UserDataComponentName="DiscoveriesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Arachnode_Discoveries_Next_ConnectionString (Settings)" DbObjectName="Discoveries" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>DELETE FROM Discoveries
+WHERE        (AbsoluteUri = @AbsoluteUri)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri" ColumnName="AbsoluteUri" DataSourceName="Discoveries" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO Discoveries
+                         (ID, AbsoluteUri, DiscoveryStateID, DiscoveryTypeID, ExpectFileOrImage, NumberOfTimesDiscovered)
+VALUES        (@ID,@AbsoluteUri,@DiscoveryStateID,@DiscoveryTypeID,@ExpectFileOrImage,@NumberOfTimesDiscovered)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="ID" ColumnName="ID" DataSourceName="" DataTypeServer="bigint(8)" DbType="Int64" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri" ColumnName="AbsoluteUri" DataSourceName="" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DiscoveryStateID" ColumnName="DiscoveryStateID" DataSourceName="" DataTypeServer="tinyint(1)" DbType="Byte" Direction="Input" ParameterName="@DiscoveryStateID" Precision="0" ProviderType="TinyInt" Scale="0" Size="1" SourceColumn="DiscoveryStateID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DiscoveryTypeID" ColumnName="DiscoveryTypeID" DataSourceName="" DataTypeServer="tinyint(1)" DbType="Byte" Direction="Input" ParameterName="@DiscoveryTypeID" Precision="0" ProviderType="TinyInt" Scale="0" Size="1" SourceColumn="DiscoveryTypeID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="ExpectFileOrImage" ColumnName="ExpectFileOrImage" DataSourceName="" DataTypeServer="bit(1)" DbType="Boolean" Direction="Input" ParameterName="@ExpectFileOrImage" Precision="0" ProviderType="Bit" Scale="0" Size="1" SourceColumn="ExpectFileOrImage" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="NumberOfTimesDiscovered" ColumnName="NumberOfTimesDiscovered" DataSourceName="" DataTypeServer="int(4)" DbType="Int32" Direction="Input" ParameterName="@NumberOfTimesDiscovered" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="NumberOfTimesDiscovered" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT        ID, AbsoluteUri, DiscoveryStateID, DiscoveryTypeID, ExpectFileOrImage, NumberOfTimesDiscovered
+FROM            Discoveries
+WHERE        (AbsoluteUri = @AbsoluteUri)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri" ColumnName="AbsoluteUri" DataSourceName="Discoveries" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>UPDATE       Discoveries
+SET                ID = @ID, DiscoveryStateID = @DiscoveryStateID, DiscoveryTypeID = @DiscoveryTypeID, ExpectFileOrImage = @ExpectFileOrImage, 
+                         NumberOfTimesDiscovered = @NumberOfTimesDiscovered
+WHERE        (AbsoluteUri = @AbsoluteUri)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="ID" ColumnName="ID" DataSourceName="Discoveries" DataTypeServer="bigint(8)" DbType="Int64" Direction="Input" ParameterName="@ID" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="ID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri" ColumnName="AbsoluteUri" DataSourceName="Discoveries" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DiscoveryStateID" ColumnName="DiscoveryStateID" DataSourceName="Discoveries" DataTypeServer="tinyint(1)" DbType="Byte" Direction="Input" ParameterName="@DiscoveryStateID" Precision="0" ProviderType="TinyInt" Scale="0" Size="1" SourceColumn="DiscoveryStateID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="DiscoveryTypeID" ColumnName="DiscoveryTypeID" DataSourceName="Discoveries" DataTypeServer="tinyint(1)" DbType="Byte" Direction="Input" ParameterName="@DiscoveryTypeID" Precision="0" ProviderType="TinyInt" Scale="0" Size="1" SourceColumn="DiscoveryTypeID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="ExpectFileOrImage" ColumnName="ExpectFileOrImage" DataSourceName="Discoveries" DataTypeServer="bit(1)" DbType="Boolean" Direction="Input" ParameterName="@ExpectFileOrImage" Precision="0" ProviderType="Bit" Scale="0" Size="1" SourceColumn="ExpectFileOrImage" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="NumberOfTimesDiscovered" ColumnName="NumberOfTimesDiscovered" DataSourceName="Discoveries" DataTypeServer="int(4)" DbType="Int32" Direction="Input" ParameterName="@NumberOfTimesDiscovered" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="NumberOfTimesDiscovered" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="AbsoluteUri" DataSetColumn="AbsoluteUri" />
+              <Mapping SourceColumn="DiscoveryStateID" DataSetColumn="DiscoveryStateID" />
+              <Mapping SourceColumn="DiscoveryTypeID" DataSetColumn="DiscoveryTypeID" />
+              <Mapping SourceColumn="ExpectFileOrImage" DataSetColumn="ExpectFileOrImage" />
+              <Mapping SourceColumn="NumberOfTimesDiscovered" DataSetColumn="NumberOfTimesDiscovered" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CrawlRequestsTableAdapter" GeneratorDataComponentClassName="CrawlRequestsTableAdapter" Name="CrawlRequests" UserDataComponentName="CrawlRequestsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Arachnode_CrawlRequests_Next_ConnectionString (Settings)" DbObjectName="CrawlRequests" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>DELETE FROM CrawlRequests
+WHERE        (AbsoluteUri1 = @AbsoluteUri1) AND (AbsoluteUri2 = @AbsoluteUri2)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri1" ColumnName="AbsoluteUri1" DataSourceName="CrawlRequests" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri1" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri1" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri2" ColumnName="AbsoluteUri2" DataSourceName="CrawlRequests" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri2" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri2" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>INSERT INTO CrawlRequests
+                         (Created, AbsoluteUri1, AbsoluteUri2, CurrentDepth, MaximumDepth, Priority)
+VALUES        (@Created,@AbsoluteUri1,@AbsoluteUri2,@CurrentDepth,@MaximumDepth,@Priority)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Created" ColumnName="Created" DataSourceName="CrawlRequests" DataTypeServer="datetime(8)" DbType="DateTime" Direction="Input" ParameterName="@Created" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="Created" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri1" ColumnName="AbsoluteUri1" DataSourceName="CrawlRequests" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri1" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri1" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri2" ColumnName="AbsoluteUri2" DataSourceName="CrawlRequests" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri2" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri2" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="CurrentDepth" ColumnName="CurrentDepth" DataSourceName="CrawlRequests" DataTypeServer="int(4)" DbType="Int32" Direction="Input" ParameterName="@CurrentDepth" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="CurrentDepth" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="MaximumDepth" ColumnName="MaximumDepth" DataSourceName="CrawlRequests" DataTypeServer="int(4)" DbType="Int32" Direction="Input" ParameterName="@MaximumDepth" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="MaximumDepth" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Priority" ColumnName="Priority" DataSourceName="CrawlRequests" DataTypeServer="float(8)" DbType="Double" Direction="Input" ParameterName="@Priority" Precision="0" ProviderType="Float" Scale="0" Size="8" SourceColumn="Priority" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT        TOP (@MaximumNumberOfCrawlRequestsToCreatePerBatch) ID, Created, AbsoluteUri1, AbsoluteUri2, CurrentDepth, MaximumDepth, Priority
+FROM            CrawlRequests
+ORDER BY Priority DESC, Created</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="MaximumNumberOfCrawlRequestsToCreatePerBatch" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="Int32" Direction="Input" ParameterName="@MaximumNumberOfCrawlRequestsToCreatePerBatch" Precision="0" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>UPDATE       CrawlRequests
+SET                CurrentDepth = @CurrentDepth, MaximumDepth = @MaximumDepth, Priority = @Priority
+WHERE        (AbsoluteUri1 = @AbsoluteUri1) AND (AbsoluteUri2 = @AbsoluteUri2)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri1" ColumnName="AbsoluteUri1" DataSourceName="CrawlRequests" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri1" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri1" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="AbsoluteUri2" ColumnName="AbsoluteUri2" DataSourceName="CrawlRequests" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri2" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri2" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="CurrentDepth" ColumnName="CurrentDepth" DataSourceName="CrawlRequests" DataTypeServer="int(4)" DbType="Int32" Direction="Input" ParameterName="@CurrentDepth" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="CurrentDepth" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="MaximumDepth" ColumnName="MaximumDepth" DataSourceName="CrawlRequests" DataTypeServer="int(4)" DbType="Int32" Direction="Input" ParameterName="@MaximumDepth" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="MaximumDepth" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Priority" ColumnName="Priority" DataSourceName="CrawlRequests" DataTypeServer="float(8)" DbType="Double" Direction="Input" ParameterName="@Priority" Precision="0" ProviderType="Float" Scale="0" Size="8" SourceColumn="Priority" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="Created" DataSetColumn="Created" />
+              <Mapping SourceColumn="AbsoluteUri1" DataSetColumn="AbsoluteUri1" />
+              <Mapping SourceColumn="AbsoluteUri2" DataSetColumn="AbsoluteUri2" />
+              <Mapping SourceColumn="CurrentDepth" DataSetColumn="CurrentDepth" />
+              <Mapping SourceColumn="MaximumDepth" DataSetColumn="MaximumDepth" />
+              <Mapping SourceColumn="Priority" DataSetColumn="Priority" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources>
+          <DbSource ConnectionRef="Arachnode_Discoveries_Next_ConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="ResetDiscoveries" MethodsParameterType="CLR" Modifier="Public" Name="ResetDiscoveries" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="ResetDiscoveries">
+            <DeleteCommand>
+              <DbCommand CommandType="Text" ModifiedByUser="true">
+                <CommandText>DELETE FROM Discoveries</CommandText>
+                <Parameters />
+              </DbCommand>
+            </DeleteCommand>
+          </DbSource>
+          <DbSource ConnectionRef="Arachnode_CrawlRequests_Next_ConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="ResetCrawlRequests" MethodsParameterType="CLR" Modifier="Public" Name="ResetCrawlRequests" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="ResetCrawlRequests">
+            <DeleteCommand>
+              <DbCommand CommandType="Text" ModifiedByUser="true">
+                <CommandText>DELETE FROM CrawlRequests</CommandText>
+                <Parameters />
+              </DbCommand>
+            </DeleteCommand>
+          </DbSource>
+          <DbSource ConnectionRef="Arachnode_Exceptions_Next_ConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertException" MethodsParameterType="CLR" Modifier="Public" Name="InsertException" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="InsertException">
+            <InsertCommand>
+              <DbCommand CommandType="Text" ModifiedByUser="true">
+                <CommandText>INSERT INTO Exceptions
+                         (Created, AbsoluteUri1, AbsoluteUri2, HelpLink, Message, Source, StackTrace)
+VALUES        (@Created,@AbsoluteUri1,@AbsoluteUri2,@HelpLink,@Message,@Source,@StackTrace)</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="false" AutogeneratedName="Created" ColumnName="Created" DataSourceName="Exceptions" DataTypeServer="datetime(8)" DbType="DateTime" Direction="Input" ParameterName="@Created" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="Created" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="AbsoluteUri1" ColumnName="AbsoluteUri1" DataSourceName="Exceptions" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri1" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri1" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="AbsoluteUri2" ColumnName="AbsoluteUri2" DataSourceName="Exceptions" DataTypeServer="nvarchar(884)" DbType="String" Direction="Input" ParameterName="@AbsoluteUri2" Precision="0" ProviderType="NVarChar" Scale="0" Size="884" SourceColumn="AbsoluteUri2" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="HelpLink" ColumnName="HelpLink" DataSourceName="Exceptions" DataTypeServer="nvarchar(400)" DbType="String" Direction="Input" ParameterName="@HelpLink" Precision="0" ProviderType="NVarChar" Scale="0" Size="400" SourceColumn="HelpLink" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="false" AutogeneratedName="Message" ColumnName="Message" DataSourceName="Exceptions" DataTypeServer="nvarchar(2000)" DbType="String" Direction="Input" ParameterName="@Message" Precision="0" ProviderType="NVarChar" Scale="0" Size="2000" SourceColumn="Message" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="false" AutogeneratedName="Source" ColumnName="Source" DataSourceName="Exceptions" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@Source" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Source" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="false" AutogeneratedName="StackTrace" ColumnName="StackTrace" DataSourceName="Exceptions" DataTypeServer="nvarchar(4000)" DbType="String" Direction="Input" ParameterName="@StackTrace" Precision="0" ProviderType="NVarChar" Scale="0" Size="4000" SourceColumn="StackTrace" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </InsertCommand>
+          </DbSource>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ArachnodeNextDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="ArachnodeNextDataSet" msprop:Generator_DataSetName="ArachnodeNextDataSet" msprop:EnableTableAdapterManager="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Discoveries" msprop:Generator_UserTableName="Discoveries" msprop:Generator_RowDeletedName="DiscoveriesRowDeleted" msprop:Generator_RowChangedName="DiscoveriesRowChanged" msprop:Generator_RowClassName="DiscoveriesRow" msprop:Generator_RowChangingName="DiscoveriesRowChanging" msprop:Generator_RowEvArgName="DiscoveriesRowChangeEvent" msprop:Generator_RowEvHandlerName="DiscoveriesRowChangeEventHandler" msprop:Generator_TableClassName="DiscoveriesDataTable" msprop:Generator_TableVarName="tableDiscoveries" msprop:Generator_RowDeletingName="DiscoveriesRowDeleting" msprop:Generator_TablePropName="Discoveries">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_UserColumnName="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="AbsoluteUri" msprop:Generator_UserColumnName="AbsoluteUri" msprop:Generator_ColumnVarNameInTable="columnAbsoluteUri" msprop:Generator_ColumnPropNameInRow="AbsoluteUri" msprop:Generator_ColumnPropNameInTable="AbsoluteUriColumn">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="884" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DiscoveryStateID" msprop:Generator_UserColumnName="DiscoveryStateID" msprop:Generator_ColumnVarNameInTable="columnDiscoveryStateID" msprop:Generator_ColumnPropNameInRow="DiscoveryStateID" msprop:Generator_ColumnPropNameInTable="DiscoveryStateIDColumn" type="xs:unsignedByte" />
+              <xs:element name="DiscoveryTypeID" msprop:Generator_UserColumnName="DiscoveryTypeID" msprop:Generator_ColumnVarNameInTable="columnDiscoveryTypeID" msprop:Generator_ColumnPropNameInRow="DiscoveryTypeID" msprop:Generator_ColumnPropNameInTable="DiscoveryTypeIDColumn" type="xs:unsignedByte" />
+              <xs:element name="ExpectFileOrImage" msprop:Generator_UserColumnName="ExpectFileOrImage" msprop:Generator_ColumnVarNameInTable="columnExpectFileOrImage" msprop:Generator_ColumnPropNameInRow="ExpectFileOrImage" msprop:Generator_ColumnPropNameInTable="ExpectFileOrImageColumn" type="xs:boolean" />
+              <xs:element name="NumberOfTimesDiscovered" msprop:Generator_UserColumnName="NumberOfTimesDiscovered" msprop:Generator_ColumnVarNameInTable="columnNumberOfTimesDiscovered" msprop:Generator_ColumnPropNameInRow="NumberOfTimesDiscovered" msprop:Generator_ColumnPropNameInTable="NumberOfTimesDiscoveredColumn" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CrawlRequests" msprop:Generator_UserTableName="CrawlRequests" msprop:Generator_RowDeletedName="CrawlRequestsRowDeleted" msprop:Generator_RowChangedName="CrawlRequestsRowChanged" msprop:Generator_RowClassName="CrawlRequestsRow" msprop:Generator_RowChangingName="CrawlRequestsRowChanging" msprop:Generator_RowEvArgName="CrawlRequestsRowChangeEvent" msprop:Generator_RowEvHandlerName="CrawlRequestsRowChangeEventHandler" msprop:Generator_TableClassName="CrawlRequestsDataTable" msprop:Generator_TableVarName="tableCrawlRequests" msprop:Generator_RowDeletingName="CrawlRequestsRowDeleting" msprop:Generator_TablePropName="CrawlRequests">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" type="xs:long" />
+              <xs:element name="Created" msprop:Generator_UserColumnName="Created" msprop:Generator_ColumnVarNameInTable="columnCreated" msprop:Generator_ColumnPropNameInRow="Created" msprop:Generator_ColumnPropNameInTable="CreatedColumn" type="xs:dateTime" />
+              <xs:element name="AbsoluteUri1" msprop:Generator_UserColumnName="AbsoluteUri1" msprop:Generator_ColumnVarNameInTable="columnAbsoluteUri1" msprop:Generator_ColumnPropNameInRow="AbsoluteUri1" msprop:Generator_ColumnPropNameInTable="AbsoluteUri1Column">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="884" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AbsoluteUri2" msprop:Generator_UserColumnName="AbsoluteUri2" msprop:Generator_ColumnVarNameInTable="columnAbsoluteUri2" msprop:Generator_ColumnPropNameInRow="AbsoluteUri2" msprop:Generator_ColumnPropNameInTable="AbsoluteUri2Column">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="884" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CurrentDepth" msprop:Generator_UserColumnName="CurrentDepth" msprop:Generator_ColumnVarNameInTable="columnCurrentDepth" msprop:Generator_ColumnPropNameInRow="CurrentDepth" msprop:Generator_ColumnPropNameInTable="CurrentDepthColumn" type="xs:int" />
+              <xs:element name="MaximumDepth" msprop:Generator_UserColumnName="MaximumDepth" msprop:Generator_ColumnVarNameInTable="columnMaximumDepth" msprop:Generator_ColumnPropNameInRow="MaximumDepth" msprop:Generator_ColumnPropNameInTable="MaximumDepthColumn" type="xs:int" />
+              <xs:element name="Priority" msprop:Generator_UserColumnName="Priority" msprop:Generator_ColumnVarNameInTable="columnPriority" msprop:Generator_ColumnPropNameInRow="Priority" msprop:Generator_ColumnPropNameInTable="PriorityColumn" type="xs:double" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Discoveries" />
+      <xs:field xpath="mstns:AbsoluteUri" />
+    </xs:unique>
+    <xs:unique name="CrawlRequests_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:CrawlRequests" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

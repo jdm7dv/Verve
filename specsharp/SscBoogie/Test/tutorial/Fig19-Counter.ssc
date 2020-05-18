@@ -1,0 +1,33 @@
+using Microsoft.Contracts;
+
+namespace Properties {
+
+public class Counter {
+  int inc;
+  int dec;
+
+  public int X {
+    [Delayed]
+    get {
+      return inc - dec;
+    }
+  }
+
+  public Counter()
+    ensures X == 0;
+  {
+  }
+
+  public void Inc()
+    ensures X == old(X) + 1;
+  {
+    inc++;
+  }
+
+  public void Dec()
+    ensures X == old(X) - 1;
+  {
+    dec++;
+  }
+}
+}

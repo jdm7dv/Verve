@@ -1,0 +1,64 @@
+﻿@model ArtefactsSite.ViewModels.HomeIndexPageViewModel
+
+@{
+    ViewBag.Title = "SharpDevelop Build Server";
+}
+
+<nav class="navbar">
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li><a href="http://community.sharpdevelop.net/forums/">Forums</a></li>
+            <li><a href="http://github.com/icsharpcode/">SharpDevelop on GitHub</a></li>
+            <li><a href="http://community.sharpdevelop.net/blogs/">Blogs</a></li>
+            <li><a href="http://twitter.com/sharpdevelop/">Twitter</a></li>
+        </ul>
+    </div>
+</nav>
+
+<h1>SharpDevelop Build Server</h1>
+
+<p>
+    Projects being built on this server:
+</p>
+
+<ul>
+    @foreach (var build in Model.Builds)
+    {
+        <li><a href="#@Html.Encode(build.Anchor)">@Html.DisplayFor(modelItem => build.Title)</a></li>
+    }
+</ul>
+
+@foreach (var build in Model.Builds)
+    {
+    <a name="@Html.Encode(build.Anchor)"></a>
+        <h2>@Html.DisplayFor(modelItem => build.Title) <a href="@Url.Action("For", "Rss", new { id = build.Anchor })"><img src="~/Content/rss.png"/></a></h2>
+        
+    if (build.Artefacts.Count > 0) {
+             <table class="table table-hover table-condensed">
+                 <thead>
+                     <th>File Name</th>
+                     <th>Build Time</th>
+                     <th></th>
+                 </thead>
+                 <tbody>
+                     @foreach (var artefact in build.Artefacts)
+                     {
+                         <tr>
+                             <td>@Html.DisplayFor(modelItem => artefact.FileName)</td>
+                             <td>@Html.DisplayFor(modelItem => artefact.CreationDate)</td>
+                             <td><a href="@Url.Content("~/" + artefact.FileName)">Download</a></td>
+                         </tr>
+                     } 
+                 </tbody>
+             </table>
+    }
+    else 
+    {
+    <p>No current build artefacts found</p>
+    }
+}
+
+<p>
+    @Html.DisplayFor(model => model.RenderInformation)
+</p>
+

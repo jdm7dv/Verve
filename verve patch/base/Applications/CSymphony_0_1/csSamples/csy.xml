@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<csy>
+        <in/>
+	<codeGen>
+	<out path="SourceOut" prvId="CS"/>
+	<out path="SourceOut" prvId="VB"/>	
+	<out path="SourceOut" prvId="JSCRIPT"/>
+	</codeGen>
+<codeProviders>
+	<codeProvider prvId="CS" fileExt="cs" info= "C#" assembly="System, Version=1.1.4322.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" providerType = "Microsoft.CSharp.CSharpCodeProvider" />
+	<codeProvider prvId="VB" fileExt="vb" info= "Visual Basic.NET" assembly="System, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" providerType = "Microsoft.VisualBasic.VBCodeProvider" />	
+	<codeProvider prvId="JSCRIPT" fileExt="js" info= "Jscript.Net" assembly="Microsoft.JScript, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" providerType = "Microsoft.JScript.JScriptCodeProvider" />	
+</codeProviders>
+
+</csy>

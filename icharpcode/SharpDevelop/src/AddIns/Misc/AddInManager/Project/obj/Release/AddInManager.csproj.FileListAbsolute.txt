@@ -1,0 +1,7 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\AddInManager\AddInManager.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\AddInManager\ICSharpCode.AddInManager.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\AddInManager\Project\obj\Release\AddInManager.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\AddInManager\Project\obj\Release\ICSharpCode.AddInManager.ManagerForm.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\AddInManager\Project\obj\Release\ICSharpCode.AddInManager.AboutForm.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\AddInManager\Project\obj\Release\AddInManager.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\AddInManager\Project\obj\Release\ICSharpCode.AddInManager.dll

@@ -1,0 +1,10 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\HexEditor\HexEditor.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\HexEditor\HexEditor.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\HexEditor\Project\obj\Release\Src\View\HexEditOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\HexEditor\Project\obj\Release\HexEditor_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\HexEditor\Project\obj\Release\HexEditor_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\HexEditor\Project\obj\Release\Src\View\HexEditOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\HexEditor\Project\obj\Release\HexEditor.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\HexEditor\Project\obj\Release\HexEditor.View.HexEditContainer.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\HexEditor\Project\obj\Release\HexEditor.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\HexEditor\Project\obj\Release\HexEditor.dll

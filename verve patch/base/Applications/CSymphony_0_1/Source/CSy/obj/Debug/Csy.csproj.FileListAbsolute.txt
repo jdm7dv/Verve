@@ -1,0 +1,41 @@
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\CSy\Csy\Csy\bin\Debug\Csy.exe.config
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\CSy\Csy\Csy\bin\Debug\Csy.exe
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\CSy\Csy\Csy\bin\Debug\Csy.pdb
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\CSy\Csy\Csy\bin\Debug\CSymphony.dll
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\CSy\Csy\Csy\bin\Debug\CSymphony.pdb
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\CSy\Csy\Csy\obj\Debug\Csy.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\CSy\Csy\Csy\obj\Debug\Csy.exe
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\CSy\Csy\Csy\obj\Debug\Csy.pdb
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\Csy.exe.config
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\Csy\obj\Debug\Csy.exe
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\Csy\obj\Debug\Csy.pdb
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\Csy.exe
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\Csy.pdb
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\Csy.exe.CodeAnalysisLog.xml
+C:\Users\Jonathan_Moore\Desktop\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\Csy.exe.lastcodeanalysissucceeded
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\Csy.exe.config
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Csy\obj\Debug\Csy.exe
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Csy\obj\Debug\Csy.pdb
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\Csy.exe
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\Csy.pdb
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Csy\obj\Debug\Csy.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\CSymphony.dll
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Csy\bin\Debug\CSymphony.pdb
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Release\Csy.exe.config
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Release\Csy.exe
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Release\Csy.pdb
+C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Release\Csy.exe.config
+C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\obj\Debug\Csy.exe
+C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\obj\Debug\Csy.pdb
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Release\Csy.exe.config
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Csy\obj\Debug\Csy.exe
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Csy\obj\Debug\Csy.pdb
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Release\Csy.exe
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Release\Csy.pdb
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Csy\obj\Debug\Csy.csprojResolveAssemblyReference.cache
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Release\Csy.exe.config
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Release\Csy.exe
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Release\Csy.pdb
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Csy\obj\Debug\Csy.csprojResolveAssemblyReference.cache
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Csy\obj\Debug\Csy.exe
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Csy\obj\Debug\Csy.pdb

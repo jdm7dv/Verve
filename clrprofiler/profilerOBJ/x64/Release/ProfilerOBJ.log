@@ -1,0 +1,9 @@
+﻿Build started 11/15/2012 11:09:55 AM.
+     1>Project "C:\proj\CLRProfiler\ProfilerOBJ\ProfilerOBJ.vcxproj" on node 2 (Clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "x64\Release\ProfilerOBJ.lastbuildstate".
+     1>Done Building Project "C:\proj\CLRProfiler\ProfilerOBJ\ProfilerOBJ.vcxproj" (Clean target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.01

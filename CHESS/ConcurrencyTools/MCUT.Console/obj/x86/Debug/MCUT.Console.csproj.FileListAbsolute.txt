@@ -1,0 +1,5 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\mcut.exe
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\mcut.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Console\obj\x86\Debug\MCUT.Console.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Console\obj\x86\Debug\mcut.exe
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Console\obj\x86\Debug\mcut.pdb

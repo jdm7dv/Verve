@@ -1,0 +1,6 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\X64Converter\bin\Profiler.X64Converter.exe
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\X64Converter\bin\Profiler.X64Converter.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\X64Converter\bin\ICSharpCode.NRefactory.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\X64Converter\obj\Release\Profiler.X64Converter.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\X64Converter\obj\Release\Profiler.X64Converter.exe
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\X64Converter\obj\Release\Profiler.X64Converter.pdb

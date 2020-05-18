@@ -1,0 +1,12 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\src\bin\Debug\MiniMPI.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\src\bin\Debug\MiniMPI.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\src\bin\Debug\MiniMPI.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\src\obj\Debug\MiniMPI.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\src\obj\Debug\MiniMPI.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\SampleRuntimes\MiniMPI\src\obj\Debug\MiniMPI.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2010\Projects\Windows\_MyFiles\Apps\CHESS\SampleRuntimes\MiniMPI\src\bin\Debug\MiniMPI.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2010\Projects\Windows\_MyFiles\Apps\CHESS\SampleRuntimes\MiniMPI\src\bin\Debug\MiniMPI.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2010\Projects\Windows\_MyFiles\Apps\CHESS\SampleRuntimes\MiniMPI\src\bin\Debug\MiniMPI.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2010\Projects\Windows\_MyFiles\Apps\CHESS\SampleRuntimes\MiniMPI\src\obj\Debug\MiniMPI.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2010\Projects\Windows\_MyFiles\Apps\CHESS\SampleRuntimes\MiniMPI\src\obj\Debug\MiniMPI.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2010\Projects\Windows\_MyFiles\Apps\CHESS\SampleRuntimes\MiniMPI\src\obj\Debug\MiniMPI.pdb

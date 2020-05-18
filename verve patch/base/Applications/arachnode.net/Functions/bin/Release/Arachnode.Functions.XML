@@ -1,0 +1,395 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Functions</name>
+    </assembly>
+    <members>
+        <member name="M:UserDefinedFunctions.ComputeLevenstheinDistance(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Computes the levensthein distance.  http://en.wikipedia.org/wiki/Levenshtein_distance
+            </summary>
+            <param name = "firstString">The first string.</param>
+            <param name = "secondString">The second string.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ConvertSource(System.Data.SqlTypes.SqlBinary,System.Data.SqlTypes.SqlInt32)">
+            <summary>
+            	Converts binary 'Source' into readable text.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractDirectory(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts a Windows safe Directory path from an AbsoluteUri.  e.g. http://arachnode.net/sitefiles/1000/logo.gif -> http/arachnode/net/sitefiles/1000/
+            	The maximum length for any directory returned is 200.
+            </summary>
+            <param name = "absoluteUri"></param>
+            <param name = "baseDirectory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractTags(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the tags.
+            </summary>
+            <param name = "source">The source.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractAlphaNumericCharacters(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the alpha and numeric characters from an inout string.
+            </summary>
+            <param name = "source">The source.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractDomain(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the Domain from an AbsoluteUri.  e.g. http://subdomain.arachnode.net/ -&gt; arachnode.net
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractExtension(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Extracts the extension from an AbsoluteUri.  e.g. http://arachnode.net -&gt; .net
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "refreshAllowedExtensions">The refresh allowed extensions.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.RefreshAllowedExtensions(System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Refresh all allowed Extensions.  This function pulls from cfg.AllowedExtensions.  This table should never need to be changed, unless new extensions are added.  e.g. nco = 'new country'.
+            </summary>
+            <param name = "refreshAllowedExtensions">The refresh allowed extensions.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractFileExtension(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the file extension from an AbsoluteUri.  e.g. http://arachnode.net/sitefiles/1000/logo.gif -&gt; .gif
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractFileName(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the file name from an AbsoluteUri.  e.g. http://arachnode.net/sitefiles/1000/logo.gif -&gt; logo.gif
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractHash(System.Data.SqlTypes.SqlBinary)">
+            <summary>
+            	Extracts the hash.
+            </summary>
+            <param name = "source">The source.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractHost(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the Host from an AbsoluteUri.  http://subdomain.arachnode.net/ -&gt; subdomain.arachnode.net
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractNonAlphaNumericCharacters(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the non alpha numeric characters.
+            </summary>
+            <param name = "source">The source.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractPhrases(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Extracts the phrases.
+            </summary>
+            <param name = "source">The source.</param>
+            <param name = "extractText">The extract text.</param>
+            <param name = "returnDistinctPhrases">The return distinct phrases.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractResponseHeader(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Extracts the specified ResponseHeader from the ResponseHeaders.  e.g. 'Cache-Control: no-cache  Content-Type: text/html; charset=iso-8859-1' -&gt; text/html or 'Cache-Control: no-cache  Content-Type: text/html; charset=iso-8859-1' -&gt; text/html; charset=iso-8859-1
+            </summary>
+            <param name = "responseHeaders">The ResponseHeaders to parse.</param>
+            <param name = "responseHeader">The ResponseHeader value to extract.</param>
+            <param name = "includeParameters">Should parameters occuring after semicolons be included?</param>
+            <returns>A ResponseHeader value.</returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractScheme(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Extracts the Scheme from an AbsoluteUri.  http://subdomain.arachnode.net/ -&gt; http
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "refreshAllowedSchemes">The refresh allowed schemes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.RefreshAllowedSchemes(System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Refresh all allowed Schemes.  This function pulls from cfg.AllowedSchemes.  This table should never need to be changed, unless new extensions are added.  e.g. httpr = 'new protocol'.
+            </summary>
+            <param name = "refreshAllowedSchemes">The refresh allowed schemes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractWords(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Extracts the words.
+            </summary>
+            <param name = "source">The source.</param>
+            <param name = "extractText">The extract text.</param>
+            <param name = "returnDistinctWords">The return distinct words.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.InstantiateCharactersNear">
+            <summary>
+            	Instantiates the characters near.
+            </summary>
+        </member>
+        <member name="M:UserDefinedFunctions.GenerateIncorrectKeystrokeTypos(System.String)">
+            <summary>
+            	Generates the incorrect keystroke typos.
+            </summary>
+            <param name = "term">The term.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ConvertTypographicalErrorsToString(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            	Converts the typographical errors to string.
+            </summary>
+            <param name = "typographicalErrors">The typographical errors.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.GenerateMissedKeystrokeTypos(System.String,System.Int32)">
+            <summary>
+            	Generates the missed keystroke typos.
+            </summary>
+            <param name = "term">The term.</param>
+            <param name = "maximumNumberOfMissedKeystrokes">The maximum number of missed keystrokes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.GenerateRepeatedKeystrokeTypos(System.String,System.Int32)">
+            <summary>
+            	Generates the repeated keystroke typos.
+            </summary>
+            <param name = "term">The term.</param>
+            <param name = "maximumNumberOfRepeatedKeystrokes">The maximum number of repeated keystrokes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.GenerateTransposedKeystrokeTypos(System.String,System.Int32)">
+            <summary>
+            	Generates the transposed keystroke typos.
+            </summary>
+            <param name = "term">The term.</param>
+            <param name = "maximumNumberOfTransposedKeystrokes">The maximum number of transposed keystrokes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForAbsoluteUri(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for absolute URI] [the specified absolute URI].
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "checkIsDisallowedForWords">The check is disallowed for words.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for absolute URI] [the specified absolute URI]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForDomain(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for domain] [the specified absolute URI].
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "checkIsDisallowedForWords">The check is disallowed for words.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for domain] [the specified absolute URI]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForExtension(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for extension] [the specified absolute URI].
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "checkIsDisallowedForWords">The check is disallowed for words.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for extension] [the specified absolute URI]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForFileExtension(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for file extension] [the specified absolute URI].
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "checkIsDisallowedForWords">The check is disallowed for words.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for file extension] [the specified absolute URI]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForHost(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for host] [the specified absolute URI].
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "checkIsDisallowedForWords">The check is disallowed for words.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for host] [the specified absolute URI]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForResponseHeaders(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for response headers] [the specified response headers].
+            </summary>
+            <param name = "responseHeaders">The response headers.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for response headers] [the specified response headers]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForScheme(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for scheme] [the specified absolute URI].
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "checkIsDisallowedForWords">The check is disallowed for words.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for scheme] [the specified absolute URI]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForSource(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for source] [the specified source].
+            </summary>
+            <param name = "source">The source.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for source] [the specified source]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.IsDisallowedForWords(System.Data.SqlTypes.SqlString,System.Data.SqlTypes.SqlBoolean)">
+            <summary>
+            	Determines whether [is disallowed for words] [the specified absolute URI].
+            </summary>
+            <param name = "absoluteUriOrAbsoluteUriClassification">The absolute URI.</param>
+            <param name = "refreshDisallowed">The refresh disallowed.</param>
+            <returns>
+            	<c>true</c> if [is disallowed for words] [the specified absolute URI]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:UserDefinedFunctions.RefreshDisallowed">
+            <summary>
+            	Refreshes all Disallowed patterns.  Call this method before calling IsDisallowed to avoid a thread race condition.  This function pulls from DisallowedAbsoluteUris and cfg.Disallowed*.  DisallowedAbsoluteUris is populated by Crawl Rules.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractIPAddress(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the IP Address from an AbsoluteUri.  e.g. http://192.168.1.1/logo.gif -&gt; 192.168.1.1
+            </summary>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UserDefinedFunctions.ExtractText(System.Data.SqlTypes.SqlString)">
+            <summary>
+            	Extracts the text.
+            </summary>
+            <param name = "source">The source.</param>
+            <returns></returns>
+        </member>
+        <member name="P:UserDefinedFunctions.AllowedExtensions">
+            <summary>
+            	Gets or sets the allowed extensions.
+            </summary>
+            <value>The allowed extensions.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.AllowedSchemes">
+            <summary>
+            	Gets or sets the allowed schemes.
+            </summary>
+            <value>The allowed schemes.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.ConnectionString">
+            <summary>
+            	Gets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedAbsoluteUris">
+            <summary>
+            	Gets or sets the disallowed absolute uris.
+            </summary>
+            <value>The disallowed absolute uris.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedDomains">
+            <summary>
+            	Gets or sets the disallowed domains.
+            </summary>
+            <value>The disallowed domains.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedExtensions">
+            <summary>
+            	Gets or sets the disallowed extensions.
+            </summary>
+            <value>The disallowed extensions.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedFileExtensions">
+            <summary>
+            	Gets or sets the disallowed file extensions.
+            </summary>
+            <value>The disallowed file extensions.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedHosts">
+            <summary>
+            	Gets or sets the disallowed hosts.
+            </summary>
+            <value>The disallowed hosts.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedSchemes">
+            <summary>
+            	Gets or sets the disallowed schemes.
+            </summary>
+            <value>The disallowed schemes.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedWordsForAbsoluteUri">
+            <summary>
+            	Gets or sets the disallowed words for absolute URI.
+            </summary>
+            <value>The disallowed words for absolute URI.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedWordsForResponseHeaders">
+            <summary>
+            	Gets or sets the disallowed words for response headers.
+            </summary>
+            <value>The disallowed words for response headers.</value>
+        </member>
+        <member name="P:UserDefinedFunctions.DisallowedWordsForSource">
+            <summary>
+            	Gets or sets the disallowed words for source.
+            </summary>
+            <value>The disallowed words for source.</value>
+        </member>
+        <member name="T:Arachnode.Functions.Value.Enums.DisallowedType">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Arachnode.Functions.Value.Enums.DisallowedType.None">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Arachnode.Functions.Value.Enums.DisallowedType.AbsoluteUri">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Arachnode.Functions.Value.Enums.DisallowedType.ResponseHeaders">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Arachnode.Functions.Value.Enums.DisallowedType.Source">
+            <summary>
+            </summary>
+        </member>
+    </members>
+</doc>

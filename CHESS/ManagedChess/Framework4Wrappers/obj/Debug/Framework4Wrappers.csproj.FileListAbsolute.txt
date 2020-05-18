@@ -1,0 +1,5 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\Microsoft.ManagedChess.Framework4Wrappers.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\Microsoft.ManagedChess.Framework4Wrappers.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Framework4Wrappers\obj\Debug\Framework4Wrappers.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Framework4Wrappers\obj\Debug\Microsoft.ManagedChess.Framework4Wrappers.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Framework4Wrappers\obj\Debug\Microsoft.ManagedChess.Framework4Wrappers.pdb

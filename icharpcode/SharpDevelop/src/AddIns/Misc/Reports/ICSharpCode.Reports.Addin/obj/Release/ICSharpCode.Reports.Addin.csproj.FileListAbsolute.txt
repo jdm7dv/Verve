@@ -1,0 +1,12 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\SharpDevelopReports\EmptyReport.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\SharpDevelopReports\ICSharpCode.ReportDesigner.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\SharpDevelopReports\ICSharpCode.Reports.Addin.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.ExpressionEditor.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.AbstractItem.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.ReportWizard.LayoutPanelControl.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.ReportWizard.PullModelPanel.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.ReportWizard.PushModelPanel.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.ReportWizard.ResultPanel.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Addin\obj\Release\ICSharpCode.Reports.Addin.dll

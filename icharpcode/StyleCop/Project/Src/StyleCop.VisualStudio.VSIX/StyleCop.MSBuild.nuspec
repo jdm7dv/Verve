@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>StyleCop.MSBuild</id>
+    <version>$version$</version>
+    <authors>StyleCop contributors, Chris Dahlberg</authors>
+    <description>Integrates source code analysis into the build process of C# projects to enforce a set of style and consistency rules.</description>
+    <releaseNotes></releaseNotes>
+    <language>en-US</language>
+    <projectUrl>https://github.com/StyleCop/StyleCop</projectUrl>
+    <licenseUrl>https://github.com/StyleCop/StyleCop/blob/master/License.html</licenseUrl>
+    <iconUrl>https://raw.githubusercontent.com/StyleCop/StyleCop/master/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <developmentDependency>true</developmentDependency>
+  </metadata>
+  <files>
+    <file src="StyleCop.MSBuild.targets" target="build" />
+    <file src="de-DE\StyleCop.CSharp.Rules.resources.dll" target="tools\de-DE" />
+    <file src="en-GB\StyleCop.CSharp.Rules.resources.dll" target="tools\en-GB" />
+    <file src="es-MX\StyleCop.CSharp.Rules.resources.dll" target="tools\es-MX" />
+    <file src="fr-FR\StyleCop.CSharp.Rules.resources.dll" target="tools\fr-FR" />
+    <file src="pl-PL\StyleCop.CSharp.Rules.resources.dll" target="tools\pl-PL" />
+    <file src="pt-BR\StyleCop.CSharp.Rules.resources.dll" target="tools\pt-BR" />
+    <file src="ru-RU\StyleCop.CSharp.Rules.resources.dll" target="tools\ru-RU" />
+    <file src="CustomDictionary.en-GB.xml" target="tools" />
+    <file src="CustomDictionary.en-US.xml" target="tools" />
+    <file src="CustomDictionary.xml" target="tools" />
+    <file src="mssp7en.dll" target="tools" />
+    <file src="mssp7en.lex" target="tools" />
+    <file src="Settings.StyleCop" target="tools" />
+    <file src="StyleCop.CSharp.dll" target="tools" />
+    <file src="StyleCop.CSharp.Rules.dll" target="tools" />
+    <file src="StyleCop.dll" target="tools" />
+    <file src="StyleCop.SettingsEditor.exe" target="tools" />
+    <file src="license.txt" />
+  </files>
+</package>

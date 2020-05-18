@@ -1,0 +1,828 @@
+Microsoft (R) Macro Assembler Version 8.00.50727.762	    03/15/20 04:18:15
+x86\blutilasm.asm					     Page 1 - 1
+
+
+				;++
+				;
+				; Copyright (c) Microsoft Corporation
+				;
+				; Module Name:
+				;
+				;     blutilasm.asm
+				;
+				; Abstract:
+				;
+				;     This module implements utility functions for the boot loader.
+				;
+				; Environment:
+				;
+				;     Boot loader.
+				;
+				;--
+
+				include bl.inc
+			      C ;++
+			      C ;
+			      C ; Copyright (c) Microsoft Corporation
+			      C ;
+			      C ; Module Name:
+			      C ;
+			      C ;     bl.inc
+			      C ;
+			      C ; Abstract:
+			      C ;
+			      C ;     This module contains definitions for the boot loader.
+			      C ;
+			      C ; Environment:
+			      C ;
+			      C ;     Boot loader.
+			      C ;
+			      C ;--
+			      C 
+			      C ;
+			      C ; Boot sources.
+			      C ;
+			      C 
+ = 00000001		      C CD_BOOT                 equ     00001h
+ = 00000002		      C FAT16_BOOT              equ     00002h
+ = 00000003		      C FAT32_BOOT              equ     00003h
+ = 00000004		      C PXE_BOOT                equ     00004h
+ = 00000005		      C FLASH_BOOT              equ     00005h
+			      C 
+			      C ;
+			      C ; Segment selectors.
+			      C ;
+			      C 
+ = 00000000		      C NULL_SELECTOR           equ     000h
+ = 00000008		      C RM_VIDEO_SELECTOR       equ     008h
+ = 00000010		      C RM_CODE_SELECTOR        equ     010h
+ = 00000018		      C RM_DATA_SELECTOR        equ     018h
+ = 00000020		      C PM_CODE_SELECTOR        equ     020h
+ = 00000028		      C PM_DATA_SELECTOR        equ     028h    
+ = 00000030		      C LM_CODE_SELECTOR        equ     030h
+ = 00000038		      C LM_DATA_SELECTOR        equ     038h
+ = 00000040		      C UM_CODE_SELECTOR        equ     040h
+ = 00000048		      C UM_DATA_SELECTOR        equ     048h
+ = 00000050		      C PROCESSOR_SELECTOR      equ     050h
+ = 00000058		      C UNUSED_SELECTOR         equ     058h
+ = 00000060		      C TSS_SELECTOR            equ     060h
+			      C         
+			      C ;
+			      C ; CR0 flags.
+			      C ;
+			      C 
+ = 00000001		      C CR0_PE                  equ     000000001h
+ = 00000020		      C CR0_NE                  equ     000000020h
+ = 80000000		      C CR0_PG                  equ     080000000h
+			      C 
+			      C ;
+			      C ; CR4 flags.
+			      C ;
+			      C 
+ = 00000010		      C CR4_PSE                 equ     000000010h
+ = 00000020		      C CR4_PAE                 equ     000000020h
+ = 00000100		      C CR4_PCE                 equ     000000100h
+ = 00000200		      C CR4_OSFXSR              equ     000000200h
+			      C 
+			      C ;
+			      C ; Initial stack pointer values.
+			      C ;
+			      C 
+ = 00001000		      C RM_INITIAL_SS           equ     01000h
+ = 0000FFF8		      C RM_INITIAL_SP           equ     0FFF8h
+ = 00020000		      C PM_INITIAL_ESP          equ     000020000h
+ = 00080000		      C BL_ENTRY_SP             equ     000080000h
+			      C 
+			      C ;
+			      C ; Page table addresses.
+			      C ;
+			      C 
+ = 00021000		      C LM_PML4T_ADDRESS        equ     000021000h
+ = 00022000		      C PM_PDPT_ADDRESS         equ     000022000h
+ = 00023000		      C PM_PDT_ADDRESS          equ     000023000h
+			      C 
+			      C ;
+			      C ; Page table entry flags.
+			      C ;
+			      C 
+ = 00000001		      C PTE_PRESENT             equ     000000001h
+ = 00000002		      C PTE_WRITEABLE           equ     000000002h
+ = 00000020		      C PTE_ACCESSED            equ     000000020h
+ = 00000080		      C PTE_2MB                 equ     000000080h
+			      C 
+			      C ;
+			      C ; EFER MSR index. (Long Mode)
+			      C ;
+			      C 
+ = C0000080		      C EFER_MSR_INDEX          equ     0C0000080h
+			      C 
+			      C ;
+			      C ; EFER flags. (Long Mode)
+			      C ;
+			      C 
+ = 00000100		      C EFER_LME                equ     000000100h
+ = 00000800		      C EFER_NXE                equ     000000800h
+			      C 
+			      C ;
+			      C ; Image target address.
+			      C ;
+			      C 
+ = 00040000		      C IMAGE_ADDRESS           equ     000040000h
+			      C 
+			      C ;
+			      C ; Boot environment block (BEB).
+			      C ;
+			      C 
+ = 0002F000		      C BEB_BASE                equ     00002F000h
+ = 00002F00		      C BEB_SEG16               equ     02F00h
+ = 00000000		      C BEB_OFF16               equ     00000h
+			      C 
+ 00000064		      C BEB     struct
+			      C 
+ 00000000  00000000	      C         BootType                dd      ?
+ 00000004  00000000	      C         BootDriveNumber         dd      ?
+ 00000008  00000000	      C         FlashImage              dd      ?
+ 0000000C  00000000	      C         SmapAddr                dd      ?
+ 00000010  00000000	      C         SmapSize                dd      ?
+ 00000014  00000000	      C         LegacyCallAddress       dd      ?
+ 00000018  00000000	      C         LegacyReturnAddress     dd      ?
+ 0000001C  00000000	      C         LegacyReturnCr3         dd      ?
+ 00000020  00000000	      C         LegacyCall_OpCode       dd      ?
+ 00000024  00000000	      C         LegacyCall_Vector       dd      ?
+ 00000028  00000000	      C         LegacyCall_eax          dd      ?
+ 0000002C  00000000	      C         LegacyCall_ebx          dd      ?
+ 00000030  00000000	      C         LegacyCall_ecx          dd      ?
+ 00000034  00000000	      C         LegacyCall_edx          dd      ?
+ 00000038  00000000	      C         LegacyCall_esi          dd      ?
+ 0000003C  00000000	      C         LegacyCall_edi          dd      ?
+ 00000040  00000000	      C         LegacyCall_ds           dd      ?
+ 00000044  00000000	      C         LegacyCall_es           dd      ?
+ 00000048  00000000	      C         LegacyCall_eflags       dd      ?
+ 0000004C  00000000	      C         LegacyCall_FramePtr     dd      ?
+ 00000050  00000000	      C         LegacyCall_FrameSize    dd      ?
+ 00000054  00000000	      C         LegacyCall_FuncPtr      dd      ?
+ 00000058  00000000	      C         ApEntry16               dd      ?
+ 0000005C  00000000	      C         ApEntry                 dd      ?
+ 00000060  00000000	      C         ApStartupLock           dd      ?
+			      C 
+			      C BEB     ends
+			      C 
+			      C ;
+			      C ; Trap Context
+			      C ;
+			      C 
+ 00000038		      C BL_TRAP_CONTEXT struct
+			      C 
+			      C ifdef BOOT_X86
+			      C         
+ 00000000  00000000	      C         TrapCr2         dd      ?
+ 00000004  00000000	      C         TrapEsp         dd      ?
+ 00000008  00000000	      C         TrapEbp         dd      ?
+ 0000000C  00000000	      C         TrapEdi         dd      ?
+ 00000010  00000000	      C         TrapEsi         dd      ?
+ 00000014  00000000	      C         TrapEdx         dd      ?
+ 00000018  00000000	      C         TrapEcx         dd      ?
+ 0000001C  00000000	      C         TrapEbx         dd      ?
+ 00000020  00000000	      C         TrapEax         dd      ?
+ 00000024  00000000	      C         TrapNum         dd      ?
+ 00000028  00000000	      C         TrapErr         dd      ?
+ 0000002C  00000000	      C         TrapEip         dd      ?
+ 00000030  00000000	      C         TrapCs0         dd      ?
+ 00000034  00000000	      C         TrapEfl         dd      ?
+			      C         
+			      C endif
+			      C         
+			      C ifdef BOOT_X64
+			      C endif        
+			      C 
+			      C BL_TRAP_CONTEXT ends
+			      C 
+			      C ;
+			      C ; Legacy call opcodes.
+			      C ;
+			      C 
+ = 00000000		      C LC_NOP                          equ     00000h
+ = 00000001		      C LC_INTXX                        equ     00001h
+ = 00000002		      C LC_FARCALL                      equ     00002h
+			      C 
+			      C ;
+			      C ; PE/COFF structures.
+			      C ;
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_DOS_HEADER {      // DOS .EXE header
+			      C ;     WORD   e_magic;                     // Magic number
+			      C ;     WORD   e_cblp;                      // Bytes on last page of file
+			      C ;     WORD   e_cp;                        // Pages in file
+			      C ;     WORD   e_crlc;                      // Relocations
+			      C ;     WORD   e_cparhdr;                   // Size of header in paragraphs
+			      C ;     WORD   e_minalloc;                  // Minimum extra paragraphs needed
+			      C ;     WORD   e_maxalloc;                  // Maximum extra paragraphs needed
+			      C ;     WORD   e_ss;                        // Initial (relative) SS value
+			      C ;     WORD   e_sp;                        // Initial SP value
+			      C ;     WORD   e_csum;                      // Checksum
+			      C ;     WORD   e_ip;                        // Initial IP value
+			      C ;     WORD   e_cs;                        // Initial (relative) CS value
+			      C ;     WORD   e_lfarlc;                    // File address of relocation table
+			      C ;     WORD   e_ovno;                      // Overlay number
+			      C ;     WORD   e_res[4];                    // Reserved words
+			      C ;     WORD   e_oemid;                     // OEM identifier (for e_oeminfo)
+			      C ;     WORD   e_oeminfo;                   // OEM information; e_oemid specific
+			      C ;     WORD   e_res2[10];                  // Reserved words
+			      C ;     LONG   e_lfanew;                    // File address of new exe header
+			      C ;   } IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;
+			      C ;
+			      C 
+ = 0000003C		      C IDH_NT_HEADER_OFFSET            equ     00000003Ch
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_FILE_HEADER {
+			      C ;     WORD    Machine;
+			      C ;     WORD    NumberOfSections;
+			      C ;     DWORD   TimeDateStamp;
+			      C ;     DWORD   PointerToSymbolTable;
+			      C ;     DWORD   NumberOfSymbols;
+			      C ;     WORD    SizeOfOptionalHeader;
+			      C ;     WORD    Characteristics;
+			      C ; } IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
+			      C ;
+			      C 
+ = 00000002		      C IFH_NUMBER_OF_SECTIONS          equ     000000002h
+ = 00000010		      C IFH_SIZE_OF_OPTIONAL_HEADER     equ     000000010h
+			      C 
+			      C ifdef BOOT_X86
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_OPTIONAL_HEADER32 {
+			      C ;     WORD    Magic;
+			      C ;     BYTE    MajorLinkerVersion;
+			      C ;     BYTE    MinorLinkerVersion;
+			      C ;     DWORD   SizeOfCode;
+			      C ;     DWORD   SizeOfInitializedData;
+			      C ;     DWORD   SizeOfUninitializedData;
+			      C ;     DWORD   AddressOfEntryPoint;
+			      C ;     DWORD   BaseOfCode;
+			      C ;     DWORD   BaseOfData;
+			      C ;     DWORD   ImageBase;
+			      C ;     DWORD   SectionAlignment;
+			      C ;     DWORD   FileAlignment;
+			      C ;     WORD    MajorOperatingSystemVersion;
+			      C ;     WORD    MinorOperatingSystemVersion;
+			      C ;     WORD    MajorImageVersion;
+			      C ;     WORD    MinorImageVersion;
+			      C ;     WORD    MajorSubsystemVersion;
+			      C ;     WORD    MinorSubsystemVersion;
+			      C ;     DWORD   Win32VersionValue;
+			      C ;     DWORD   SizeOfImage;
+			      C ;     DWORD   SizeOfHeaders;
+			      C ;     DWORD   CheckSum;
+			      C ;     WORD    Subsystem;
+			      C ;     WORD    DllCharacteristics;
+			      C ;     DWORD   SizeOfStackReserve;
+			      C ;     DWORD   SizeOfStackCommit;
+			      C ;     DWORD   SizeOfHeapReserve;
+			      C ;     DWORD   SizeOfHeapCommit;
+			      C ;     DWORD   LoaderFlags;
+			      C ;     DWORD   NumberOfRvaAndSizes;
+			      C ;     IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
+			      C ; } IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;
+			      C ;
+			      C 
+ = 0000001C		      C IOH32_IMAGE_BASE                equ     00000001Ch
+			      C 
+			      C endif
+			      C 
+			      C ifdef BOOT_X64
+			      C endif
+			      C         
+ = 00000010		      C IOH_ADDRESS_OF_ENTRY_POINT      equ     000000010h
+ = 0000003C		      C IOH_SIZE_OF_HEADERS             equ     00000003Ch
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_NT_HEADERS32/64 {
+			      C ;     DWORD Signature;
+			      C ;     IMAGE_FILE_HEADER FileHeader;
+			      C ;     IMAGE_OPTIONAL_HEADER32/64 OptionalHeader;
+			      C ; } IMAGE_NT_HEADERS32/64, *PIMAGE_NT_HEADERS32/64;
+			      C ;
+			      C 
+ = 00000000		      C INH_SIGNATURE                   equ     000000000h
+ = 00000004		      C INH_FILE_HEADER                 equ     000000004h
+ = 00000018		      C INH_OPTIONAL_HEADER             equ     000000018h
+			      C 
+			      C ;
+			      C ; Signatures.
+			      C ;
+			      C 
+ = 00005A4D		      C IMAGE_DOS_SIGNATURE             equ     05A4Dh          ; MZ
+ = 00004550		      C IMAGE_NT_SIGNATURE              equ     000004550h      ; PE00
+			      C 
+			      C ;
+			      C ; typedef struct _IMAGE_SECTION_HEADER {
+			      C ;     BYTE    Name[IMAGE_SIZEOF_SHORT_NAME];
+			      C ;     union {
+			      C ;             DWORD   PhysicalAddress;
+			      C ;             DWORD   VirtualSize;
+			      C ;     } Misc;
+			      C ;     DWORD   VirtualAddress;
+			      C ;     DWORD   SizeOfRawData;
+			      C ;     DWORD   PointerToRawData;
+			      C ;     DWORD   PointerToRelocations;
+			      C ;     DWORD   PointerToLinenumbers;
+			      C ;     WORD    NumberOfRelocations;
+			      C ;     WORD    NumberOfLinenumbers;
+			      C ;     DWORD   Characteristics;
+			      C ; } IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
+			      C ;
+			      C 
+ = 00000008		      C ISH_VIRTUAL_SIZE                equ     000000008h
+ = 0000000C		      C ISH_VIRTUAL_ADDRESS             equ     00000000Ch
+ = 00000010		      C ISH_SIZE_OF_RAW_DATA            equ     000000010h
+ = 00000014		      C ISH_POINTER_TO_RAW_DATA         equ     000000014h
+			      C 
+ = 00000028		      C IMAGE_SECTION_HEADER_SIZE       equ     000000028h
+			      C 
+			      C 
+			      C 
+			      C 
+
+				.686p
+				.model flat
+ 00000000			.code
+
+				assume ds:flat
+				assume es:flat
+				assume ss:flat
+				assume fs:flat
+
+				;++
+				;
+				; ULONG_PTR
+				; FASTCALL
+				; BlMmGetCr3(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function queries the CR3 register.
+				;
+				; Return Value:
+				;
+				;   Value of the CR3 register.
+				;
+				;--
+
+ 00000000			?BlMmGetCr3@@YIKXZ proc
+
+ 00000000  0F 20 D8		        mov     eax, cr3
+ 00000003  C3			        ret
+
+ 00000004			?BlMmGetCr3@@YIKXZ endp
+
+				;++
+				;
+				; VOID
+				; FASTCALL
+				; BlMmSetCr3(
+				;     ULONG_PTR Value
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function sets the CR3 register.
+				;
+				; Arguments:
+				;
+				;   Value       - Supplies the value to write to the CR3 register.
+				;
+				;--
+
+ 00000004			?BlMmSetCr3@@YIXK@Z proc
+
+ 00000004  0F 22 D9		        mov     cr3, ecx
+ 00000007  C3			        ret
+
+ 00000008			?BlMmSetCr3@@YIXK@Z endp
+
+				;++
+				;
+				; VOID
+				; FASTCALL
+				; BlMmGetGdtr(
+				;     PGDTR Gdtr
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function queries the GDTR register.
+				;
+				; Arguments:
+				;
+				;   Gdtr        - Receives the contents of the GDTR register.
+				;
+				;--
+
+ 00000008			?BlMmGetGdtr@@YIXPAU_GDTR@@@Z proc
+
+ 00000008  0F 01 01		        sgdt    fword ptr [ecx]
+ 0000000B  C3			        ret
+
+ 0000000C			?BlMmGetGdtr@@YIXPAU_GDTR@@@Z endp
+
+				;++
+				;
+				; VOID
+				; FASTCALL
+				; BlMmSetGdtr(
+				;     PGDTR Gdtr
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function sets the GDTR register.
+				;
+				; Arguments:
+				;
+				;   Gdtr        - Supplies the data to write to the GDTR register.
+				;
+				;--
+
+ 0000000C			?BlMmSetGdtr@@YIXPAU_GDTR@@@Z proc
+
+ 0000000C  0F 01 11		        lgdt    fword ptr [ecx]
+ 0000000F  C3			        ret
+
+ 00000010			?BlMmSetGdtr@@YIXPAU_GDTR@@@Z endp
+
+				;++
+				;
+				; USHORT
+				; FASTCALL
+				; BlMmGetFs(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function queries the FS register.
+				;
+				; Return Value:
+				;
+				;   Value of the FS register.
+				;
+				;--
+
+ 00000010			@BlMmGetFs@0 proc
+
+ 00000010  66| 8C E0		        mov     ax, fs
+ 00000013  C3			        ret
+
+ 00000014			@BlMmGetFs@0 endp
+
+				;++
+				;
+				; VOID
+				; FASTCALL
+				; BlMmSetFs(
+				;     USHORT Value
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function sets the FS register.
+				;
+				; Arguments:
+				;
+				;   Value       - Supplies the value to write to the FS register.
+				;
+				;--
+
+ 00000014			?BlMmSetFs@@YIXG@Z proc
+
+ 00000014  66| 8E E1		        mov     fs, cx
+ 00000017  C3			        ret
+
+ 00000018			?BlMmSetFs@@YIXG@Z endp
+
+				;++
+				;
+				; VOID
+				; FASTCALL
+				; BlMmSwitchStack(
+				;     PVOID Stack,
+				;     PVOID Function
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function switches the stack and calls the specified function.
+				;
+				; Arguments:
+				;
+				;   Stack       - Supplies the stack to switch to.
+				;
+				;   Function    - Supplies the function to call.
+				;
+				;--
+
+ 00000018			?BlMmSwitchStack@@YIXPAX0@Z proc
+
+ 00000018  8B E1		        mov     esp, ecx
+ 0000001A  FF D2		        call    edx
+
+ 0000001C			@@:
+ 0000001C  EB FE		        jmp     @b
+
+ 0000001E			?BlMmSwitchStack@@YIXPAX0@Z endp
+
+				;++
+				;
+				; PVOID
+				; FASTCALL
+				; BlRtlGetEbp(
+				;     VOID
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function queries the value of the EBP register.
+				;
+				; Return Value:
+				;
+				;   Value of the EBP register.
+				;
+				;--
+
+ 0000001E			?BlRtlGetEbp@@YIPAXXZ proc
+
+ 0000001E  8B C5		        mov     eax, ebp
+ 00000020  C3			        ret
+
+ 00000021			?BlRtlGetEbp@@YIPAXXZ endp
+				        
+				;++
+				;
+				; UINT
+				; BlGetCpuidEax(
+				;     UINT reg
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function queries the CPUID.
+				;
+				; Return Value:
+				;
+				;   Value of the EAX register.
+				;
+				;--
+
+ 00000021			?BlGetCpuidEax@@YIKK@Z proc
+
+ 00000021  8B C1		        mov     eax, ecx
+ 00000023  0F A2		        cpuid
+ 00000025  C3			        ret
+
+ 00000026			?BlGetCpuidEax@@YIKK@Z endp
+
+				;++
+				;
+				; UINT
+				; BlGetCpuidEbx(
+				;     UINT reg
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function queries the CPUID.
+				;
+				; Return Value:
+				;
+				;   Value of the EBX register.
+				;
+				;--
+
+ 00000026			?BlGetCpuidEbx@@YIKK@Z proc
+
+ 00000026  8B C1		        mov     eax, ecx
+ 00000028  0F A2		        cpuid
+ 0000002A  8B D8		        mov     ebx, eax
+ 0000002C  C3			        ret
+
+ 0000002D			?BlGetCpuidEbx@@YIKK@Z endp
+
+				;++
+				;
+				; UINT
+				; BlGetCpuidEcx(
+				;     UINT reg
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function queries the CPUID.
+				;
+				; Return Value:
+				;
+				;   Value of the ECX register.
+				;
+				;--
+
+ 0000002D			?BlGetCpuidEcx@@YIKK@Z proc
+
+ 0000002D  8B C1		        mov     eax, ecx
+ 0000002F  0F A2		        cpuid
+ 00000031  8B C1		        mov     eax, ecx
+ 00000033  C3			        ret
+				        
+ 00000034			?BlGetCpuidEcx@@YIKK@Z endp
+
+				;++
+				;
+				; UINT
+				; BlGetCpuidEdx(
+				;     UINT reg
+				;     )
+				;
+				; Routine Description:
+				;
+				;   This function queries the CPUID.
+				;
+				; Return Value:
+				;
+				;   Value of the EDX register.
+				;
+				;--
+
+ 00000034			?BlGetCpuidEdx@@YIKK@Z proc
+
+ 00000034  8B C1		        mov     eax, ecx
+ 00000036  0F A2		        cpuid
+ 00000038  8B C2		        mov     eax, edx
+ 0000003A  C3			        ret
+
+ 0000003B			?BlGetCpuidEdx@@YIKK@Z endp
+
+				        
+				end
+Microsoft (R) Macro Assembler Version 8.00.50727.762	    03/15/20 04:18:15
+x86\blutilasm.asm					     Symbols 2 - 1
+
+
+
+
+Structures and Unions:
+
+                N a m e                  Size
+                                         Offset      Type
+
+BEB  . . . . . . . . . . . . . .	 00000064
+  BootType . . . . . . . . . . .	 00000000	 DWord
+  BootDriveNumber  . . . . . . .	 00000004	 DWord
+  FlashImage . . . . . . . . . .	 00000008	 DWord
+  SmapAddr . . . . . . . . . . .	 0000000C	 DWord
+  SmapSize . . . . . . . . . . .	 00000010	 DWord
+  LegacyCallAddress  . . . . . .	 00000014	 DWord
+  LegacyReturnAddress  . . . . .	 00000018	 DWord
+  LegacyReturnCr3  . . . . . . .	 0000001C	 DWord
+  LegacyCall_OpCode  . . . . . .	 00000020	 DWord
+  LegacyCall_Vector  . . . . . .	 00000024	 DWord
+  LegacyCall_eax . . . . . . . .	 00000028	 DWord
+  LegacyCall_ebx . . . . . . . .	 0000002C	 DWord
+  LegacyCall_ecx . . . . . . . .	 00000030	 DWord
+  LegacyCall_edx . . . . . . . .	 00000034	 DWord
+  LegacyCall_esi . . . . . . . .	 00000038	 DWord
+  LegacyCall_edi . . . . . . . .	 0000003C	 DWord
+  LegacyCall_ds  . . . . . . . .	 00000040	 DWord
+  LegacyCall_es  . . . . . . . .	 00000044	 DWord
+  LegacyCall_eflags  . . . . . .	 00000048	 DWord
+  LegacyCall_FramePtr  . . . . .	 0000004C	 DWord
+  LegacyCall_FrameSize . . . . .	 00000050	 DWord
+  LegacyCall_FuncPtr . . . . . .	 00000054	 DWord
+  ApEntry16  . . . . . . . . . .	 00000058	 DWord
+  ApEntry  . . . . . . . . . . .	 0000005C	 DWord
+  ApStartupLock  . . . . . . . .	 00000060	 DWord
+BL_TRAP_CONTEXT  . . . . . . . .	 00000038
+  TrapCr2  . . . . . . . . . . .	 00000000	 DWord
+  TrapEsp  . . . . . . . . . . .	 00000004	 DWord
+  TrapEbp  . . . . . . . . . . .	 00000008	 DWord
+  TrapEdi  . . . . . . . . . . .	 0000000C	 DWord
+  TrapEsi  . . . . . . . . . . .	 00000010	 DWord
+  TrapEdx  . . . . . . . . . . .	 00000014	 DWord
+  TrapEcx  . . . . . . . . . . .	 00000018	 DWord
+  TrapEbx  . . . . . . . . . . .	 0000001C	 DWord
+  TrapEax  . . . . . . . . . . .	 00000020	 DWord
+  TrapNum  . . . . . . . . . . .	 00000024	 DWord
+  TrapErr  . . . . . . . . . . .	 00000028	 DWord
+  TrapEip  . . . . . . . . . . .	 0000002C	 DWord
+  TrapCs0  . . . . . . . . . . .	 00000030	 DWord
+  TrapEfl  . . . . . . . . . . .	 00000034	 DWord
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000003B Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+?BlGetCpuidEax@@YIKK@Z . . . . .	P Near	 00000021 _TEXT	Length= 00000005 Public
+?BlGetCpuidEbx@@YIKK@Z . . . . .	P Near	 00000026 _TEXT	Length= 00000007 Public
+?BlGetCpuidEcx@@YIKK@Z . . . . .	P Near	 0000002D _TEXT	Length= 00000007 Public
+?BlGetCpuidEdx@@YIKK@Z . . . . .	P Near	 00000034 _TEXT	Length= 00000007 Public
+?BlMmGetCr3@@YIKXZ . . . . . . .	P Near	 00000000 _TEXT	Length= 00000004 Public
+?BlMmGetGdtr@@YIXPAU_GDTR@@@Z  .	P Near	 00000008 _TEXT	Length= 00000004 Public
+?BlMmSetCr3@@YIXK@Z  . . . . . .	P Near	 00000004 _TEXT	Length= 00000004 Public
+?BlMmSetFs@@YIXG@Z . . . . . . .	P Near	 00000014 _TEXT	Length= 00000004 Public
+?BlMmSetGdtr@@YIXPAU_GDTR@@@Z  .	P Near	 0000000C _TEXT	Length= 00000004 Public
+?BlMmSwitchStack@@YIXPAX0@Z  . .	P Near	 00000018 _TEXT	Length= 00000006 Public
+?BlRtlGetEbp@@YIPAXXZ  . . . . .	P Near	 0000001E _TEXT	Length= 00000003 Public
+@BlMmGetFs@0 . . . . . . . . . .	P Near	 00000010 _TEXT	Length= 00000004 Public
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000000h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+BEB_BASE . . . . . . . . . . . .	Number	 0002F000h   
+BEB_OFF16  . . . . . . . . . . .	Number	 00000000h   
+BEB_SEG16  . . . . . . . . . . .	Number	 00002F00h   
+BL_ENTRY_SP  . . . . . . . . . .	Number	 00080000h   
+BOOT_X86 . . . . . . . . . . . .	Text   	 
+CD_BOOT  . . . . . . . . . . . .	Number	 00000001h   
+CR0_NE . . . . . . . . . . . . .	Number	 00000020h   
+CR0_PE . . . . . . . . . . . . .	Number	 00000001h   
+CR0_PG . . . . . . . . . . . . .	Number	 -80000000h   
+CR4_OSFXSR . . . . . . . . . . .	Number	 00000200h   
+CR4_PAE  . . . . . . . . . . . .	Number	 00000020h   
+CR4_PCE  . . . . . . . . . . . .	Number	 00000100h   
+CR4_PSE  . . . . . . . . . . . .	Number	 00000010h   
+EFER_LME . . . . . . . . . . . .	Number	 00000100h   
+EFER_MSR_INDEX . . . . . . . . .	Number	 C0000080h   
+EFER_NXE . . . . . . . . . . . .	Number	 00000800h   
+FAT16_BOOT . . . . . . . . . . .	Number	 00000002h   
+FAT32_BOOT . . . . . . . . . . .	Number	 00000003h   
+FLASH_BOOT . . . . . . . . . . .	Number	 00000005h   
+IDH_NT_HEADER_OFFSET . . . . . .	Number	 0000003Ch   
+IFH_NUMBER_OF_SECTIONS . . . . .	Number	 00000002h   
+IFH_SIZE_OF_OPTIONAL_HEADER  . .	Number	 00000010h   
+IMAGE_ADDRESS  . . . . . . . . .	Number	 00040000h   
+IMAGE_DOS_SIGNATURE  . . . . . .	Number	 00005A4Dh   
+IMAGE_NT_SIGNATURE . . . . . . .	Number	 00004550h   
+IMAGE_SECTION_HEADER_SIZE  . . .	Number	 00000028h   
+INH_FILE_HEADER  . . . . . . . .	Number	 00000004h   
+INH_OPTIONAL_HEADER  . . . . . .	Number	 00000018h   
+INH_SIGNATURE  . . . . . . . . .	Number	 00000000h   
+IOH32_IMAGE_BASE . . . . . . . .	Number	 0000001Ch   
+IOH_ADDRESS_OF_ENTRY_POINT . . .	Number	 00000010h   
+IOH_SIZE_OF_HEADERS  . . . . . .	Number	 0000003Ch   
+ISH_POINTER_TO_RAW_DATA  . . . .	Number	 00000014h   
+ISH_SIZE_OF_RAW_DATA . . . . . .	Number	 00000010h   
+ISH_VIRTUAL_ADDRESS  . . . . . .	Number	 0000000Ch   
+ISH_VIRTUAL_SIZE . . . . . . . .	Number	 00000008h   
+LC_FARCALL . . . . . . . . . . .	Number	 00000002h   
+LC_INTXX . . . . . . . . . . . .	Number	 00000001h   
+LC_NOP . . . . . . . . . . . . .	Number	 00000000h   
+LM_CODE_SELECTOR . . . . . . . .	Number	 00000030h   
+LM_DATA_SELECTOR . . . . . . . .	Number	 00000038h   
+LM_PML4T_ADDRESS . . . . . . . .	Number	 00021000h   
+NULL_SELECTOR  . . . . . . . . .	Number	 00000000h   
+PM_CODE_SELECTOR . . . . . . . .	Number	 00000020h   
+PM_DATA_SELECTOR . . . . . . . .	Number	 00000028h   
+PM_INITIAL_ESP . . . . . . . . .	Number	 00020000h   
+PM_PDPT_ADDRESS  . . . . . . . .	Number	 00022000h   
+PM_PDT_ADDRESS . . . . . . . . .	Number	 00023000h   
+PROCESSOR_SELECTOR . . . . . . .	Number	 00000050h   
+PTE_2MB  . . . . . . . . . . . .	Number	 00000080h   
+PTE_ACCESSED . . . . . . . . . .	Number	 00000020h   
+PTE_PRESENT  . . . . . . . . . .	Number	 00000001h   
+PTE_WRITEABLE  . . . . . . . . .	Number	 00000002h   
+PXE_BOOT . . . . . . . . . . . .	Number	 00000004h   
+RM_CODE_SELECTOR . . . . . . . .	Number	 00000010h   
+RM_DATA_SELECTOR . . . . . . . .	Number	 00000018h   
+RM_INITIAL_SP  . . . . . . . . .	Number	 0000FFF8h   
+RM_INITIAL_SS  . . . . . . . . .	Number	 00001000h   
+RM_VIDEO_SELECTOR  . . . . . . .	Number	 00000008h   
+TSS_SELECTOR . . . . . . . . . .	Number	 00000060h   
+UM_CODE_SELECTOR . . . . . . . .	Number	 00000040h   
+UM_DATA_SELECTOR . . . . . . . .	Number	 00000048h   
+UNUSED_SELECTOR  . . . . . . . .	Number	 00000058h   
+
+	   0 Warnings
+	   0 Errors

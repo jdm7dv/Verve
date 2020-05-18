@@ -1,0 +1,696 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Plugins</name>
+    </assembly>
+    <members>
+        <member name="M:Arachnode.Plugins.CrawlActions.Anonymizer.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.Anonymizer.PerformAction(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Performs the action.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.Anonymizer.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.BayesianClassifier.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.BayesianClassifier.PerformAction(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Performs the action.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.BayesianClassifier.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.ManageLuceneDotNetIndexes.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.ManageLuceneDotNetIndexes.SetIndexWriterDefaults">
+            <summary>
+            	Sets the index writer defaults.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.ManageLuceneDotNetIndexes.ManageIndexes">
+            <summary>
+            	Manages the indexes.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.ManageLuceneDotNetIndexes.PerformAction(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Performs the action.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.ManageLuceneDotNetIndexes.CreateDocument(Lucene.Net.Documents.Document,System.Int64,Arachnode.SiteCrawler.Value.Enums.DiscoveryType,System.String,System.String,System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            	Creates the document.
+            </summary>
+            <param name = "document">The document.</param>
+            <param name = "discoveryID">The discovery ID.</param>
+            <param name = "discoveryType">The discovery type.</param>
+            <param name = "absoluteUri">The absolute URI.</param>
+            <param name = "contentToIndex">The content to index.</param>
+            <param name = "codePage">The code page.</param>
+            <param name = "discoveryPath">The discovery path.</param>
+            <param name = "threadNumber">The thread number.</param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.ManageLuceneDotNetIndexes.AddDocument(Lucene.Net.Documents.Document,System.String)">
+            <summary>
+            	Adds the document.
+            </summary>
+            <param name = "document">The document.</param>
+            <param name = "absoluteUri">The absolute URI.</param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.ManageLuceneDotNetIndexes.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.HtmlSlimmer.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.HtmlSlimmer.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.HtmlSlimmer.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.HtmlSlimmer.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.HtmlSlimmer.DecompressLZF(System.Byte[])">
+            <summary>
+            	Decompresses a LZF compressed byte array to a string.
+            </summary>
+            <param name = "compressedHtml">LZF compressed data.</param>
+            <returns>
+            	Decompressed string data.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.HtmlSlimmer.Replace(System.String,System.String,System.String,System.StringComparison)">
+            <summary>
+            	Fast string replace. Faster than String.Replace.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.HtmlSlimmer.Replace(System.String,System.String,System.String,System.StringComparison,System.Int32)">
+            <summary>
+            	Fast string replace. Faster than String.Replace.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Arachnode.Plugins.CrawlRules.LZF" -->
+        <member name="F:Arachnode.Plugins.CrawlRules.LZF.HashTable">
+            <summary>
+            Hashtable, thac can be allocated only once
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.LZF.Compress(System.Byte[],System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Compresses the data using LibLZF algorithm
+            </summary>
+            <param name="input">Reference to the data to compress</param>
+            <param name="inputLength">Lenght of the data to compress</param>
+            <param name="output">Reference to a buffer which will contain the compressed data</param>
+            <param name="outputLength">Lenght of the compression buffer (should be bigger than the input buffer)</param>
+            <returns>The size of the compressed archive in the output buffer</returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.LZF.Decompress(System.Byte[],System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Decompresses the data using LibLZF algorithm
+            </summary>
+            <param name="input">Reference to the data to decompress</param>
+            <param name="inputLength">Lenght of the data to decompress</param>
+            <param name="output">Reference to a buffer which will contain the decompressed data</param>
+            <param name="outputLength">The size of the decompressed archive in the output buffer</param>
+            <returns>Returns decompressed size</returns>
+        </member>
+        <member name="F:Arachnode.Plugins.CrawlActions.HttpListener._httpListenerTableAdapter">
+            
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.HttpListener.httpClient_OnReceiveQueryEnd(System.Net.Sockets.Socket,Arachnode.Proxy.Clients.HttpClient)">
+            
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.HttpListener.PerformAction(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            
+        </member>
+        <member name="T:Arachnode.Plugins.CrawlActions.Managers.PDFManager">
+            <summary>
+            	Parses a PDF file and extracts the text from it.
+            </summary>
+        </member>
+        <member name="F:Arachnode.Plugins.CrawlActions.Managers.PDFManager._numberOfCharsToKeep">
+            <summary>
+            	The number of characters to keep, when extracting text.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.Managers.PDFManager.ExtractText(System.String,System.String)">
+            <summary>
+            	Extracts a text from a PDF file.
+            </summary>
+            <param name = "inFileName">the full path to the pdf file.</param>
+            <param name = "outFileName">the output file name.</param>
+            <returns>the extracted text</returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.Managers.PDFManager.ExtractText(System.Byte[])">
+            <summary>
+            	This method processes an uncompressed Adobe (text) object 
+            	and extracts text.
+            </summary>
+            <param name = "input">uncompressed</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.Managers.PDFManager.CheckToken(System.String[],System.Char[])">
+            <summary>
+            	Check if a certain 2 character token just came along (e.g. BT)
+            </summary>
+            <param name = "tokens">the searched token</param>
+            <param name = "recent">the recent character array</param>
+            <returns></returns>
+        </member>
+        <member name="T:Arachnode.Plugins.CrawlActions.Renderer">
+            <summary>
+            	The Renderer plugin is used to process DecodedHtml form rendered CrawlRequests.
+            	The primary usage of rendering a WebPage is to obtain HyperLinks to Discoveries that are not present in the DecodedHtml 
+            	when downloaded with the WebClient, or when viewing the source from a browser.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.Templater.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.Templater.PerformAction(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Performs the action.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlActions.Templater.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.AbsoluteUri">
+            <summary>
+            	Gets or sets the absolute URI.
+            </summary>
+            <value>The absolute URI.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Created">
+            <summary>
+            	Gets or sets the created.
+            </summary>
+            <value>The created.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.DiscoveryID">
+            <summary>
+            	Gets or sets the discovery ID.
+            </summary>
+            <value>The discovery ID.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.DiscoveryPath">
+            <summary>
+            	Gets or sets the discovery path.
+            </summary>
+            <value>The discovery path.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Domain">
+            <summary>
+            	Gets or sets the domain.
+            </summary>
+            <value>The domain.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Extension">
+            <summary>
+            	Gets or sets the extension.
+            </summary>
+            <value>The extension.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Host">
+            <summary>
+            	Gets or sets the host.
+            </summary>
+            <value>The host.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Scheme">
+            <summary>
+            	Gets or sets the scheme.
+            </summary>
+            <value>The scheme.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Score">
+            <summary>
+            	Gets or sets the score.
+            </summary>
+            <value>The score.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Strength">
+            <summary>
+            	Gets or sets the strength.
+            </summary>
+            <value>The strength.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Summary">
+            <summary>
+            	Gets or sets the summary.
+            </summary>
+            <value>The summary.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Title">
+            <summary>
+            	Gets or sets the title.
+            </summary>
+            <value>The title.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.Document.Updated">
+            <summary>
+            	Gets or sets the updated.
+            </summary>
+            <value>The updated.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.SearchResults`1.TotalNumberOfHits">
+            <summary>
+            	Gets or sets the total number of hits.
+            </summary>
+            <value>The total number of hits.</value>
+        </member>
+        <member name="P:Arachnode.Plugins.CrawlActions.Value.SearchResults`1.Query">
+            <summary>
+            	Gets or sets the query.
+            </summary>
+            <value>The query.</value>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.AbsoluteUri.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "xmlNode">The XML node.</param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.AbsoluteUri.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.AbsoluteUri.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.AbsoluteUri.IsDisallowed(Arachnode.SiteCrawler.Value.AbstractClasses.ADisallowed,System.Uri)">
+            <summary>
+            	Determines whether the specified a disallowed is disallowed.
+            </summary>
+            <param name = "aDisallowed">A disallowed.</param>
+            <param name = "uri">The URI.</param>
+            <returns>
+            	<c>true</c> if the specified a disallowed is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.AbsoluteUri.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Concurrency.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Concurrency.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Concurrency.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Concurrency.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ContentLength.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ContentLength.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ContentLength.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ContentLength.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.DataType.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.DataType.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.DataType.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Depth.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Depth.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Depth.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Depth.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Frequency.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Frequency.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Frequency.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Frequency.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ResponseHeaders.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ResponseHeaders.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ResponseHeaders.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ResponseHeaders.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ResponseUri.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ResponseUri.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ResponseUri.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.ResponseUri.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.RobotsDotText.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.RobotsDotText.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.RobotsDotText.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Source.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Source.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Source.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Source.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.StatusCode.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings"></param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.StatusCode.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.StatusCode.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.StatusCode.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Storable.AssignSettings(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            	Assigns the additional parameters.
+            </summary>
+            <param name = "settings">The dictionary.</param>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Storable.Stop">
+            <summary>
+            	Stops this instance.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Storable.IsDisallowed(Arachnode.SiteCrawler.Value.CrawlRequest,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "crawlRequest">The crawl request.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Arachnode.Plugins.CrawlRules.Storable.IsDisallowed(Arachnode.SiteCrawler.Value.Discovery,Arachnode.DataAccess.ArachnodeDAO)">
+            <summary>
+            	Determines whether the specified crawl request is disallowed.
+            </summary>
+            <param name = "discovery">The discovery.</param>
+            <param name = "arachnodeDAO">The arachnode DAO.</param>
+            <returns>
+            	<c>true</c> if the specified crawl request is disallowed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+    </members>
+</doc>

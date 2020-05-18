@@ -1,0 +1,24 @@
+#pragma once 
+
+#using <mscorlib.dll>
+
+namespace MyNameSpace
+{
+    
+    using namespace System;
+    public __gc class MyClass;
+    
+    
+    [xxxx(aaaa=S"yyy")]
+    public __gc class MyClass
+    {
+        
+        public: virtual System::Void MyMethod();
+    };
+    
+    
+    inline System::Void MyClass::MyMethod()
+    {
+        (System::Int64)1000;
+    };
+}

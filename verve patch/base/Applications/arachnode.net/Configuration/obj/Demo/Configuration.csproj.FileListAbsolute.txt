@@ -1,0 +1,7 @@
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Configuration\bin\Demo\arachnode.net.keys
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Configuration\bin\Demo\ConnectionStrings.config
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Configuration\bin\Demo\Arachnode.Configuration.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Configuration\bin\Demo\Arachnode.Configuration.pdb
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Configuration\bin\Demo\Arachnode.Configuration.XML
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Configuration\obj\Demo\Arachnode.Configuration.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Configuration\obj\Demo\Arachnode.Configuration.pdb

@@ -1,0 +1,6 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.UnitTesting.Extensions.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.UnitTesting.Extensions.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.UnitTesting.Extensions.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Extensions\obj\x86\Debug\MCUT.Extensions.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Extensions\obj\x86\Debug\Microsoft.Concurrency.UnitTesting.Extensions.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Extensions\obj\x86\Debug\Microsoft.Concurrency.UnitTesting.Extensions.pdb

@@ -1,0 +1,183 @@
+
+div.uploadbox {
+	width: 365px;
+	padding: 5px 0px 5px 10px;
+	background-color: #eee;
+}
+
+div.fieldset {
+	border:  1px solid #afe14c;
+	/*margin: 10px 0;*/
+}
+div.fieldset span.legend {
+	position: relative;
+	background-color: #FFF;
+	padding: 3px;
+	font: 700 14px Arial, Helvetica, sans-serif;
+	color: #73b304;
+}
+
+div.flash {
+  width: 375px;
+	margin-right: 5px;
+	max-height: 169px;
+	position: relative;
+	overflow: auto;
+  overflow-x: hidden;
+	border-color: #C7C7C7;
+	background-color: white;
+/*
+	-moz-border-radius : 5px 5px 5px 5px;
+	-webkit-border-radius : 5px 5px 5px 5px;
+*/
+}
+
+
+span.filesize {
+  position: relative;
+  left: 170px;
+}
+
+input[disabled]{ border: 1px solid #ccc } /* FF 2 Fix */
+
+
+.progressWrapper {
+/*	width: 357px;*/
+	overflow: hidden;
+}
+.progressFilesize {
+  display: inline;
+  position: absolute;
+  left: 228px;
+}
+.progressContainer {
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	overflow: hidden;
+	position: relative;
+}
+
+.progressPercent {
+  z-index: 2;
+  position: absolute;
+  top: 25px;
+  left: 155px;
+}
+/* Message */
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Error */
+.red {
+	border: solid 1px #B50000;
+	background-color: #FFEBEB;
+}
+
+/* Current */
+.green {
+	border: solid 1px #DDF0DD;
+	background-color: #EBFFEB;
+}
+
+/* Complete */
+.blue {
+	border: solid 1px #CEE2F2;
+	background-color: #F0F5FF;
+}
+
+.progressName {
+	font-size: 8pt;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 14px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+	display: inline;
+}
+
+.progressBarInProgress {
+	opacity: 0.5;
+	filter: alpha(opacity = 50);
+	position: absolute;
+	top: 0;
+	left: -5px;
+}
+
+.progressBarInProgress,
+.progressBarInProgressTotal {
+	width: 0;
+	height: 100%;
+	background-color: #ccff99;
+}
+
+.progressBarComplete,
+.progressBarError {
+	width: 0%;
+	background-color: blue;
+	display: inline;
+}
+
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: visible;
+}
+
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+
+.progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 7pt;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+
+a.progressCancel {
+	font-size: 0;
+	display: inline;
+	height: 14px;
+	width: 14px;
+	background-image: url(/swfupload/cancelbutton.gif);
+	background-repeat: no-repeat;
+	background-position: -14px 0px;
+}
+
+.progressCheckmark {
+	height: 14px;
+	visibility: hidden;
+	margin: 0;
+	padding: 0;
+	display:inline;
+}
+
+.progressCancelCheckMark {
+  display: inline;
+}
+
+#fsUploadProgress div a,
+#fsUploadProgress div img {
+    position: absolute;
+    left: 350px;
+}
+
+a.progressCancel:hover {
+	background-position: 0px 0px;
+}
+
+
+/* -- SWFUpload Object Styles (Browse button) ------------------------------- */
+.swfupload {
+	float: left;
+}

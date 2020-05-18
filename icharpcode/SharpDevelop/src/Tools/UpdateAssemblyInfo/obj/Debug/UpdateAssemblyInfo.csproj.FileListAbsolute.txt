@@ -1,0 +1,5 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Tools\UpdateAssemblyInfo\bin\Debug\UpdateAssemblyInfo.exe
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Tools\UpdateAssemblyInfo\bin\Debug\UpdateAssemblyInfo.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Tools\UpdateAssemblyInfo\obj\Debug\UpdateAssemblyInfo.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Tools\UpdateAssemblyInfo\obj\Debug\UpdateAssemblyInfo.exe
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Tools\UpdateAssemblyInfo\obj\Debug\UpdateAssemblyInfo.pdb

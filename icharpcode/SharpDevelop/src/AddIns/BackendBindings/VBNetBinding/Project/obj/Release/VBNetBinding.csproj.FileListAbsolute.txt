@@ -1,0 +1,12 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\VBNetBinding\VBNetBinding.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\VBNetBinding\ICSharpCode.VBNetBinding.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\Src\OptionPanels\BuildOptions.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\Src\OptionPanels\ProjectImports.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\Src\OptionPanels\BuildOptions.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\Src\OptionPanels\ProjectImports.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\Src\OptionPanels\TextEditorOptions.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\ICSharpCode.VBNetBinding_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\ICSharpCode.VBNetBinding_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\Src\OptionPanels\TextEditorOptions.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\ICSharpCode.VBNetBinding.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\VBNetBinding\Project\obj\Release\ICSharpCode.VBNetBinding.dll

@@ -1,0 +1,14 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\CodeQuality\CodeQuality.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\CodeQuality\ICSharpCode.CodeQuality.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\CodeQuality.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\Gui\NodeDescription.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\Gui\NodeDescription.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\Gui\DependencyMatrixView.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\Gui\MainView.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\GeneratedInternalTypeHelper.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\ICSharpCode.CodeQuality_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\ICSharpCode.CodeQuality_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\Gui\DependencyMatrixView.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\Gui\MainView.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\ICSharpCode.CodeQuality.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeQuality\obj\x86\Release\ICSharpCode.CodeQuality.dll

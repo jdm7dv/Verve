@@ -1,0 +1,15 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ManagedChess.Launcher.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ManagedChess.Launcher.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.Concurrency.UnitTesting.Execution.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ExtendedReflection.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ManagedChess.Engine.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ManagedChess.MChess.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.Concurrency.UnitTesting.Execution.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ManagedChess.Engine.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ManagedChess.MChess.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ExtendedReflection.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Microsoft.ExtendedReflection.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\bin\x86\Debug\Chess.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\obj\x86\Debug\ManagedChess.Launcher.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\obj\x86\Debug\Microsoft.ManagedChess.Launcher.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\launcher\obj\x86\Debug\Microsoft.ManagedChess.Launcher.pdb

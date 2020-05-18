@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLw", "PLw.csproj", "{BB06ADF9-92C3-4F92-8397-5ACC92208528}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSProlog0", "..\CSProlog0\CSProlog0.csproj", "{FAFEC859-6218-4C55-99EC-5948B5295047}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB06ADF9-92C3-4F92-8397-5ACC92208528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB06ADF9-92C3-4F92-8397-5ACC92208528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB06ADF9-92C3-4F92-8397-5ACC92208528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB06ADF9-92C3-4F92-8397-5ACC92208528}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAFEC859-6218-4C55-99EC-5948B5295047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAFEC859-6218-4C55-99EC-5948B5295047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAFEC859-6218-4C55-99EC-5948B5295047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAFEC859-6218-4C55-99EC-5948B5295047}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

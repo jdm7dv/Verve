@@ -1,0 +1,75 @@
+C:\Users\Jonathan Moore\Desktop\MultiTouch\bin\Debug\TouchRect.exe.config
+C:\Users\Jonathan Moore\Desktop\MultiTouch\bin\Debug\TouchRect.exe
+C:\Users\Jonathan Moore\Desktop\MultiTouch\bin\Debug\TouchRect.pdb
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\App.g.cs
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\TouchRect_MarkupCompile.cache
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\TouchRect_MarkupCompile.lref
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\MainWindow.baml
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\TouchRect.g.resources
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\TouchRect.Properties.Resources.resources
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\TouchRect.exe
+C:\Users\Jonathan Moore\Desktop\MultiTouch\obj\x86\Debug\TouchRect.pdb
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\bin\Debug\TouchRect.exe.config
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect.exe
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect.pdb
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\bin\Debug\TouchRect.exe
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\bin\Debug\TouchRect.pdb
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\MainWindow.g.cs
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\App.g.cs
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect_MarkupCompile.cache
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect_MarkupCompile.lref
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\MainWindow.baml
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect.g.resources
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect.Properties.Resources.resources
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\SDK\Code Library\Frameworks\WPF\MultiTouch\obj\x86\Debug\GenerateResource.write.1.tlog
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\bin\Debug\TouchRect.exe.config
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect.exe
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect.pdb
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\bin\Debug\TouchRect.exe
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\bin\Debug\TouchRect.pdb
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\MainWindow.g.cs
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\App.g.cs
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect_MarkupCompile.cache
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect_MarkupCompile.lref
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\MainWindow.baml
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect.g.resources
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\TouchRect.Properties.Resources.resources
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\GenerateResource.read.1.tlog
+F:\Windows\Repository\Data\Frameworks\WPF\MultiTouch\obj\x86\Debug\GenerateResource.write.1.tlog
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\bin\Debug\TouchRect.exe.config
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\bin\Debug\TouchRect.exe
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\bin\Debug\TouchRect.pdb
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\MainWindow.g.cs
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\App.g.cs
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\TouchRect_MarkupCompile.cache
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\TouchRect_MarkupCompile.lref
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\MainWindow.baml
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\TouchRect.g.resources
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\TouchRect.Properties.Resources.resources
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\MultiTouch.csproj.GenerateResource.Cache
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\TouchRect.exe
+S:\University\CS\Software\Frameworks\WPF\Samples\Applications\MultiTouch\obj\x86\Debug\TouchRect.pdb
+C:\Users\Jonathan_Moore\Desktop\vs2010\vs2010\bin\Debug\TouchRect.exe.config
+C:\Users\Jonathan_Moore\Desktop\vs2010\vs2010\obj\x86\Debug\TouchRect.exe
+C:\Users\Jonathan_Moore\Desktop\vs2010\vs2010\obj\x86\Debug\TouchRect.pdb
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\bin\Debug\TouchRect.exe.config
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\TouchRect.exe
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\TouchRect.pdb
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\bin\Debug\TouchRect.exe
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\bin\Debug\TouchRect.pdb
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\MultiTouch.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\App.g.cs
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\TouchRect_MarkupCompile.cache
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\TouchRect_MarkupCompile.lref
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\MainWindow.baml
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\TouchRect.g.resources
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\TouchRect.Properties.Resources.resources
+C:\Users\Jonathan_Moore\Desktop\Tasks\vs2010\obj\x86\Debug\MultiTouch.csproj.GenerateResource.Cache

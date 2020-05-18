@@ -1,0 +1,12 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.SharpDevelop.Widgets.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\ICSharpCode.SharpDevelop.Widgets.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\ColorPicker.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\GeneratedInternalTypeHelper.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\ICSharpCode.SharpDevelop.Widgets_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\ICSharpCode.SharpDevelop.Widgets_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\ColorPicker.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\NumericUpDown.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\themes\generic.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\ZoomScrollViewer.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\ICSharpCode.SharpDevelop.Widgets.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.SharpDevelop.Widgets\Project\obj\Release\ICSharpCode.SharpDevelop.Widgets.dll

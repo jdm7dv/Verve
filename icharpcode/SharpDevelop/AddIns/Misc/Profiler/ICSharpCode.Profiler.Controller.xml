@@ -1,0 +1,1721 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ICSharpCode.Profiler.Controller</name>
+    </assembly>
+    <members>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.EventDataEntry">
+            <summary>
+            Represents an entry in the list of events collected by the profiler.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.EventDataEntry.DataSetId">
+            <summary>
+            The id of the dataset this entry belongs to.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.EventDataEntry.Type">
+            <summary>
+            The type of this event entry.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.EventDataEntry.NameId">
+            <summary>
+            The id of NameMapping of this event entry.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.EventDataEntry.Data">
+            <summary>
+            Additional data collected by the profiler.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.EventType">
+            <summary>
+            Defines kinds of events that can be handled by the profiler.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.EventType.Exception">
+            <summary>
+            Recorded event was an exception thrown by the profilee.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.EventType.Console">
+            <summary>
+            Recorded event was a call to a Console.Write*/Read* method.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.EventType.WindowsForms">
+            <summary>
+            Recorded event was fired by Windows Forms controls.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.EventType.WindowsPresentationFoundation">
+            <summary>
+            Recorded event was fired by Windows Presentation Foundation controls.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.IncompatibleDatabaseException">
+            <summary>
+            Thrown when the database used to internally store the usage data is incompatible with the DB version
+            expected by the UsageDataCollector library.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IncompatibleDatabaseException.#ctor">
+            <summary>
+            Creates a new IncompatibleDatabaseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IncompatibleDatabaseException.#ctor(System.Version,System.Version)">
+            <summary>
+            Creates a new IncompatibleDatabaseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IncompatibleDatabaseException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserializes an IncompatibleDatabaseException instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IncompatibleDatabaseException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.IncompatibleDatabaseException.ExpectedVersion">
+            <summary>
+            Expected database version.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.IncompatibleDatabaseException.ActualVersion">
+            <summary>
+            Actual database version.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.AllCalls">
+            <summary>
+            Query AST node representing the whole 'Calls' table.
+            This is the source of all queries.
+            Produces SELECT .. FROM .. in SQL.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.QueryNode">
+            <summary>
+            Base class for nodes in the Query AST.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.QueryNode.BuildSql(System.Text.StringBuilder,ICSharpCode.Profiler.Controller.Data.Linq.SqlQueryContext)">
+            <summary>
+            SQL construction documentation see SQLiteQueryProvider documentation.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.QueryNode.WrapSqlIntoNestedStatement(System.Text.StringBuilder,ICSharpCode.Profiler.Controller.Data.Linq.SqlQueryContext)">
+            <summary>
+            Wraps the current SQL statement into an inner select, allowing to continue with "WHERE" queries
+            even after ORDER BY or LIMIT.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.QueryNode.SqlAs(System.String,System.String)">
+            <summary>
+            Helper function that builds the text 'expression AS newName'
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.AllFunctions">
+            <summary>
+            Query AST node representing the whole 'Functions' table.
+            This is the source of all queries.
+            Produces SELECT .. FROM .. in SQL.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.Filter">
+            <summary>
+            Query node that filters the input using conditions. Produces WHERE or HAVING in SQL.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.Linq.Filter.Conditions">
+            <summary>
+            List of conditions. The operator between these is AND.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.Limit">
+            <summary>
+            Query node that limits the amount of data selected. Produces LIMIT in SQL.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.MergeByName">
+            <summary>
+            Query node that represents the 'group by nameid and merge' operation. Produces SELECT ... GROUP BY .. in SQL.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.OptimizeQueryExpressionVisitor">
+            <summary>
+            Performs query optimizations.
+            See the documentation on SQLiteQueryProvider for the list of optimizations being performed.
+            
+            Nodes returned from 'Visit' can be assumed to be fully optimized (they won't contain any of the patterns
+            described in the SQLiteQueryProvider optimization documentation).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.OptimizeQueryExpressionVisitor.ReorderFilter(ICSharpCode.Profiler.Controller.Data.Linq.Filter)">
+            <summary>
+            Tries to combine nested filters;
+            move 'MergeByName' nodes out of filter, if possible
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.OptimizeQueryExpressionVisitor.OptimizeFilter(ICSharpCode.Profiler.Controller.Data.Linq.Filter)">
+            <summary>
+            Optimizes the filter; but does not try to combine nested filter (etc.)
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.SingleCall">
+            <summary>
+            The SingleCall class is never instanciated; it only used to represent database rows
+            inside expression trees.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.Linq.SQLiteQueryProvider">
+             <summary>
+             "LINQ-To-Profiler" QueryProvider implementation for SQLiteCallTreeNode.
+            
+             Input to a LINQ QueryProvider is a System.Linq.Expressions tree describing the query that should be executed.
+            
+             Query execution is done as:
+             1. Partial evaluation
+             2. Translation of expression tree to QueryAst
+             3. Optimization of QueryAst
+             4. Execution of Queries (by converting them to SQL and running it on the DB)
+             5. Execution of remaining query using LINQ-to-Objects
+             </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.SQLiteQueryProvider.RunSQLIDList(System.String)">
+            <summary>
+            Executes an SQL command that returns a list of integers.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.SQLiteQueryProvider.OptimizeQuery(System.Linq.Expressions.Expression)">
+            <summary>
+            Optimizes the query without executing it.
+            Used for unit tests.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.SQLiteQueryProvider.SafeExpressionImporter.AddConditionsToFilterList(System.Linq.Expressions.Expression,System.Collections.Generic.List{System.Linq.Expressions.LambdaExpression})">
+            <summary>
+            Imports 'expr' and adds the imported conditions to 'filters'.
+            </summary>
+            <returns>True if the import was successful.</returns>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.Linq.SQLiteQueryProvider.SafeExpressionImporter.forbiddenGlobChars">
+            <summary>
+            The list of characters forbidden in GLOB arguments.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.SQLiteQueryProvider.SafeExpressionImporter.Import(System.Linq.Expressions.Expression)">
+            <summary>
+            Imports an expresion.
+            </summary>
+            <returns>The imported expression; or null if the expression was not safe for import.</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.Linq.SQLiteQueryProvider.SafeExpressionImporter.IsNameMappingOnParameter(System.Linq.Expressions.Expression)">
+            <summary>
+            Tests if expr is 'c.NameMapping'.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.Linq.SqlQueryContext.RequireIDList">
+            <summary>
+            Passed down the query tree to signalize that the ID list is required.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.Linq.SqlQueryContext.CurrentTable">
+            <summary>
+            The type of the table currently being accessed (the current FROM clause).
+            Is 'None' when reading from an inner query.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.Linq.SqlQueryContext.HasIDList">
+            <summary>
+            Passed up the query tree to signalize whether an ID list is present.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.Linq.SqlTableType.None">
+            <summary>
+            No direct table
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Data.Linq.SqlTableType.Calls">
+            <summary>
+            The Calls table
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor">
+            <summary>
+            Wraps <see cref="T:System.Diagnostics.PerformanceCounter"/> to support lazy-loading and easy value collection.
+            Stores additonal meta data such as min/max allowed value or unit of the values.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.#ctor(System.String,System.String,System.String,System.String,System.Single,System.Nullable{System.Single},System.Nullable{System.Single},System.String,System.String)">
+            <summary>
+            Creates a new PerformanceCounterDescriptor.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.#ctor(System.String,System.Nullable{System.Single},System.Nullable{System.Single},System.String,System.String)">
+            <summary>
+            Creates a new PerformanceCounterDescriptor.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.GetProcessInstanceName(System.Int32)">
+            <summary>
+            Returns the perfmon process identifier for a process Id.
+            If the process is not available (e. g. not running anymore) null is returned.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Reset">
+            <summary>
+            Deletes all collected information.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Collect(System.String)">
+            <summary>
+            Collects a new value. The default value is recorded if any error occurs, while attempting to collect a value.
+            </summary>
+            <param name="instanceName"></param>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.ToString">
+            <summary>
+            Returns the name of the performance counter.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Category">
+            <summary>
+            Gets the category of the performance counter.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Name">
+            <summary>
+            Gets the name of the performance counter.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Instance">
+            <summary>
+            Gets the instance (perfmon process id) of the performance counter.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Computer">
+            <summary>
+            Gets the computer the performance counter is executed on.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Values">
+            <summary>
+            Gets a list of values collected by this performance counter.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.MinValue">
+            <summary>
+            Gets the minimum allowed value collected by the performance counter.
+            Returns null if there is no lower bound.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.MaxValue">
+            <summary>
+            Gets the maximum allowed value collected by the performance counter.
+            Returns null if there is no upper bound.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Unit">
+            <summary>
+            Gets a string representation of the unit of the values collected.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor.Format">
+            <summary>
+            Gets the format string for display of the collected values.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider">
+            <summary>
+            Base implementation for a ProfilingDataProvider.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.Close">
+            <summary>
+            Closes and disposes the provider.
+            </summary>
+            <remarks>
+            Using a closed provider results in an ObjectDisposedException.
+            Calls that are active during the call to Close() will either throw
+            an ObjectDisposedException or finish successfully.
+            </remarks>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.GetRoot(System.Int32,System.Int32)">
+            <summary>
+            Returns the root-CallTreeNode for a range of datasets.
+            </summary>
+            <param name="startIndex">The index of the first dataset to return.</param>
+            <param name="endIndex">The index of the last dataset to return.</param>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.GetMapping(System.Int32)">
+            <summary>
+            Returns a name mapping for a given name id.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.SetProperty(System.String,System.String)">
+            <summary>
+            Sets a property consisting of a name-value pair. (e. g. version number)
+            Setting a property to null will remove the property.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.GetProperty(System.String)">
+            <summary>
+            Gets the value of a property identified by its name.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.GetAllCalls(System.Int32,System.Int32)">
+            <summary>
+            Returns the list of all calls in a specified range of datasets.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.GetFunctions(System.Int32,System.Int32)">
+            <summary>
+            Returns the list of all functions called in a specified range of datasets.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.GetPerformanceCounters">
+            <summary>
+            Returns the list of performance counters used in all datasets.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.GetPerformanceCounterValues(System.Int32)">
+            <summary>
+            Returns the list of all values collected by a performance counter identified by its index.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.GetEventDataEntries(System.Int32)">
+            <summary>
+            Returns the list of all events for a dataset.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.DataSets">
+            <summary>
+            Gets all datasets in the session.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider.ProcessorFrequency">
+            <summary>
+            The processor speed read from the registry of the computer where the profiling session was created on.
+            The processor frequency is measured in MHz.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.CallTreeNode">
+            <summary>
+            Provides a skeleton for implementing data-structure specific versions of CallTreeNodes.
+            </summary>
+            <remarks>
+            All members of this class are thread-safe. However, calling members of this class
+            might be unsafe when the data source (<see cref="T:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider"/> or
+            <see cref="T:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet"/>) is concurrently disposed. See the documentation
+            of the data source for details.
+            </remarks>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Merge(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.CallTreeNode})">
+            <summary>
+            Merges a collection of CallTreeNodes into one CallTreeNode, all valuess are accumulated.
+            </summary>
+            <param name="nodes">The collection of nodes to process.</param>
+            <returns>A new CallTreeNode.</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.CallTreeNode.GetDescendantByPath(ICSharpCode.Profiler.Controller.Queries.NodePath)">
+            <summary>
+            Returns a descendant of this node described by its absolute NodePath.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.CallTreeNode.GetPath">
+            <summary>
+            Returns the NodePath of this CallTreeNode.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.CallTreeNode.GetPathRelativeTo(ICSharpCode.Profiler.Controller.Data.CallTreeNode)">
+            <summary>
+            Returns the NodePath of this CallTreeNode relative to the specified node.
+            </summary>
+            <remarks>This might not work properly for merged nodes.</remarks>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Equals(ICSharpCode.Profiler.Controller.Data.CallTreeNode)">
+            <summary>
+            Returns whether this and the other CallTreeNode are equal or not.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.CallTreeNode.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.CallTreeNode.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Signature">
+            <summary>
+            Creates the signature representation for the CallTreeNode.
+            thread nodes will be represented by "Thread#" + their unmanaged thread id.
+            All other nodes (except root nodes) have the representation:
+            returntype MethodName(parameter1, parameter2, ...)
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.NameMapping">
+            <summary>
+            Gets a reference to the name, return type and parameter list of the method.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.RawCallCount">
+            <summary>
+            Gets the number of calls to the method represented by the CallTreeNode.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.CallCount">
+            <summary>
+            Gets the number of calls to the method represented by the CallTreeNode.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.IsUserCode">
+            <summary>
+            Gets whether this call is user code.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.IsActiveAtStart">
+            <summary>
+            Gets whether the function call started in a previous data set that's not selected.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.CpuCyclesSpent">
+            <summary>
+            Gets how many CPU cycles were spent inside this method, including sub calls.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.CpuCyclesSpentSelf">
+            <summary>
+            Gets how many CPU cycles were spent inside this method, excluding sub calls.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Name">
+            <summary>
+            Gets the name of the method including namespace and class name.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.ReturnType">
+            <summary>
+            Gets the return type of the method as string.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.IsThread">
+            <summary>
+            Determines whether this node is a thread node.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.HasChildren">
+            <summary>
+            Determines whether this node has chil
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Parameters">
+            <summary>
+            Gets a readonly list of the string representation of the parameters.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.TimeSpent">
+            <summary>
+            Gets the time spent inside the method (including sub calls) in milliseconds.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.TimeSpentSelf">
+            <summary>
+            Gets the time spent inside the method (excluding sub calls) in milliseconds.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Parent">
+            <summary>
+            Gets a reference to the parent of this CallTreeNode.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Children">
+            <summary>
+            Returns all children of the current CallTreeNode, sorted by order of first call.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Descendants">
+            <summary>
+            Returns all descendants of this CallTreeNode.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.DescendantsAndSelf">
+            <summary>
+            Returns all descendants of this CallTreeNode including itself.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Ancestors">
+            <summary>
+            Returns all ancestors of this CallTreeNode.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.AncestorsAndSelf">
+            <summary>
+            Returns all ancestors of this CallTreeNode including itself.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.CallTreeNode.Callers">
+            <summary>
+            Returns a list of all CallTreeNodes that are callers of this node.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.IProfilingDataSet">
+            <summary>
+            Represents a dataset from a profiling session.
+            </summary>
+            <remarks>
+            All members of this class are thread-safe. However, calling members of this class
+            might be unsafe when the data source (<see cref="T:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider"/> or
+            <see cref="T:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet"/>) is concurrently disposed. See the documentation
+            of the data source for details.
+            </remarks>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.IProfilingDataSet.IsFirst">
+            <summary>
+            Gets whether this dataset is the first dataset of a profiling run.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.IProfilingDataSet.RootNode">
+            <summary>
+            Gets the root node of the dataset.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter">
+            <summary>
+            Used to write profiling data to a format (e. g. SQLite DB, binary).
+            Instance members of this interface are not thread-safe.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter.WriteDataSet(ICSharpCode.Profiler.Controller.Data.IProfilingDataSet)">
+            <summary>
+            Writes an unmanaged dataset.
+            </summary>
+            <param name="dataSet">The data set to write.</param>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter.WriteMappings(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.NameMapping})">
+            <summary>
+            Writes an amount of name mappings.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter.WritePerformanceCounterData(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor})">
+            <summary>
+            Writes an amount of performance counters and the collected values.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter.WriteEventData(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.EventDataEntry})">
+            <summary>
+            Writes an amount of events.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter.Close">
+            <summary>
+            Closes and disposes the underlying data structure.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter.ProcessorFrequency">
+            <summary>
+            The processor speed read from the registry of the computer where the profiling session was created on.
+            The processor frequency is measured in MHz.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter.DataSetCount">
+            <summary>
+            Gets the number of datasets that have been written by this IProfilingDataWriter.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.NameMapping">
+            <summary>
+            In-memory representation of a name mapping.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.NameMapping.#ctor(System.Int32)">
+            <summary>
+            Creates a new dummy NameMapping containing a valid ID only.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.NameMapping.#ctor(System.Int32,System.String,System.String,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Creates a new NameMapping with valid data.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.NameMapping.Id">
+            <summary>
+            The internally used ID to identify the name mapping.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.NameMapping.ReturnType">
+            <summary>
+            The return type of the method.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.NameMapping.Name">
+            <summary>
+            The name of the method (including full namespace and class).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.NameMapping.Parameters">
+            <summary>
+            List of parameters.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider">
+            <summary>
+            A profiling data provider based on a SQLite database stored in a file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates a new SQLite profiling data provider and opens a database stored in a file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.FromFile(System.String)">
+            <summary>
+            Creates a new SQLite profiling data provider from a file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.UpgradeFromOldVersion(System.String)">
+            <summary>
+            Creates a new SQLite profiling data provider from a file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.Close">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.GetMapping(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.Dispose">
+            <summary>
+            Closes the connection to the database.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.GetRoot(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.SetProperty(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.GetProperty(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.GetFunctions(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.GetPerformanceCounters">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.GetPerformanceCounterValues(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.GetEventDataEntries(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.RunSQLIDList(System.String)">
+            <summary>
+            Executes an SQL command that returns a list of integers.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.DataSets">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteProvider.ProcessorFrequency">
+            <inheritdoc/>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter">
+            <summary>
+            Writes data to a SQLite Database.
+            Instance members of this class are not thread-safe.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.#ctor(System.String)">
+            <summary>
+            Creates a new SQLite profiling data provider and opens or creates a new database stored in a file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.Close">
+            <summary>
+            Closes and disposes the database.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.WriteDataSet(ICSharpCode.Profiler.Controller.Data.IProfilingDataSet)">
+            <summary>
+            Writes a profiling dataset to the database.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.WriteMappings(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.NameMapping})">
+            <summary>
+            Writes a name mapping to the database.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.Dispose">
+            <summary>
+            Closes the connection to the database.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.WritePerformanceCounterData(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor})">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.WriteEventData(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.EventDataEntry})">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.ProcessorFrequency">
+            <summary>
+            Sets or gets the processor frequency of the computer, where the profiling session was created.
+            The processor frequency is measured in MHz.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.ProfilingDataSQLiteWriter.DataSetCount">
+            <inheritdoc/>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode">
+            <summary>
+            A CallTreeNode based on a ProfilingDataSQLiteProvider.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.#ctor(System.Int32,ICSharpCode.Profiler.Controller.Data.CallTreeNode,ICSharpCode.Profiler.Controller.Data.Linq.SQLiteQueryProvider)">
+            <summary>
+            Creates a new CallTreeNode.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.Merge(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.CallTreeNode})">
+            <summary>
+            Merges a collection of CallTreeNodes into one CallTreeNode, all values are accumulated.
+            </summary>
+            <param name="nodes">The collection of nodes to process.</param>
+            <returns>A new CallTreeNode.</returns>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.IdList">
+            <summary>
+            Gets/Sets the ID list.
+            For function nodes, the usually long ID list is delay-loaded.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.NameMapping">
+            <summary>
+            Gets a reference to the name, return type and parameter list of the method.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.RawCallCount">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.CpuCyclesSpent">
+            <summary>
+            Gets how many CPU cycles where spent inside this method, including sub calls.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.Parent">
+            <summary>
+            Gets a reference to the parent of this CallTreeNode.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.Children">
+            <summary>
+            Returns all children of the current CallTreeNode, sorted by order of first call.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.TimeSpent">
+            <summary>
+            Gets the time spent inside the method (including sub calls) in milliseconds.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.SQLiteCallTreeNode.IsActiveAtStart">
+            <summary>
+            Gets whether the function call started in a previous data set that's not selected.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.TempFileDatabase">
+            <summary>
+            Stores recorded profiling data in a temporary file, which is deleted when the file database is closed.
+            Instance members of this class are not thread-safe.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.#ctor">
+            <summary>
+            Creates a new TempFileDatabase.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.Close">
+            <summary>
+            Closes the TempFileDatabase. After calling this method, the data recorded is lost, because the temporary file is deleted.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.GetWriter">
+            <summary>
+            Creates a new Writer to allow writing access to the database.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.LoadDataSet(System.Int32)">
+            <summary>
+            Loads a dataset into memory.
+            </summary>
+            <remarks>You can not load any datasets before all writers are closed.</remarks>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.WriteTo(ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter,System.Predicate{System.Double})">
+            <summary>
+            Copies all data to a different writer.
+            </summary>
+            <param name="writer"></param>
+            <param name="progressReport">Used to report the progress of writing all DataSets, returning false tells WriteTo to cancel the process.</param>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.Dispose">
+            <summary>
+            Disposes all unmanaged memory and files opened by the dataset.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.NameMappings">
+            <summary>
+            The list of NameMappings in the database.
+            </summary>
+            <remarks>NameMappings are held in memory and not written to the file.</remarks>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.Counters">
+            <summary>
+            Returns the list of performance counters stored in the database.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.Events">
+            <summary>
+            Returns the list of events stored in the database.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.TempFileDatabase.DataSetCount">
+            <summary>
+            Returns the number of DataSets stored in the database.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet">
+            <summary>
+            The unmanaged representation of a profiling dataset.
+            </summary>
+            <remarks>
+            All instance members except for <see cref="M:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.Dispose"/> are thread-safe.
+            Accessing a CallTreeNode of a disposed UnmanagedProfilingDataSet is undefined behaviour.
+            Usually you'll get an ObjectDisposedException, but if you're unlucky, you'll get
+            a different exception/garbage data/nasal demons.
+            </remarks>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.GetMapping(System.Int32)">
+            <summary>
+            Returns a NameMapping for a nameId.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.VerifyAccess">
+            <summary>
+            Verifies that the data set still exists (unmanaged memory is not disposed).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.Dispose">
+            <summary>
+            Disposes the dataset.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.Is64Bit">
+            <summary>
+            Gets whether the dataset is using 8-byte (64-bit) or 4-byte (32-bit) pointers.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.Length">
+            <summary>
+            Returns the length of the DataSet.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.StartPtr">
+            <summary>
+            Returns a pointer to the start of the dataset in memory.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.ProcessorFrequency">
+            <summary>
+            Returns the processor frequency of the computer, where the DataSet was created.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.RootNode">
+            <summary>
+            Creates a new CallTreeNode from unmanaged data.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnmanagedProfilingDataSet.IsFirst">
+            <inheritdoc/>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode">
+            <summary>
+            Wraps multiple CallTreeNodes that represent unit test methods for proper display in the listview.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.#ctor(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.CallTreeNode})">
+            <summary>
+            Creates a new UnitTestRootCallTreeNode.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.Merge(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.CallTreeNode})">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.Equals(ICSharpCode.Profiler.Controller.Data.CallTreeNode)">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.NameMapping">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.CpuCyclesSpent">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.IsActiveAtStart">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.TimeSpent">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.RawCallCount">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.Parent">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.Callers">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.Children">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestRootCallTreeNode.TimeSpentSelf">
+            <inheritdoc/>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.UnitTestWriter">
+            <summary>
+            Filters the data being written to remove NUnit internals and show the unit tests more clearly.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestWriter.#ctor(ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter,System.String[])">
+            <summary>
+            Creates a new UnitTestWriter instance.
+            </summary>
+            <param name="targetWriter">The target IProfilingDataWriter where the output should be written to.</param>
+            <param name="unitTestNames">The fully qualified names of the unit test methods.</param>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestWriter.WriteDataSet(ICSharpCode.Profiler.Controller.Data.IProfilingDataSet)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestWriter.WriteMappings(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.NameMapping})">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestWriter.Close">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestWriter.WritePerformanceCounterData(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor})">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Data.UnitTestWriter.WriteEventData(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.EventDataEntry})">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestWriter.ProcessorFrequency">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Data.UnitTestWriter.DataSetCount">
+            <inheritdoc/>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Data.UnmanagedCallTreeNode32">
+            <summary>
+            Describes a CallTreeNode which allows direct access to the shared memory of an existing Profiler. It depends on an existing Profiler.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Extensions">
+            <summary>
+            Extension Methods for the Profiler.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.GetErrorString(System.CodeDom.Compiler.CompilerErrorCollection)">
+            <summary>
+            Returns a string containing all errors.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.Merge(System.Linq.IQueryable{ICSharpCode.Profiler.Controller.Data.CallTreeNode})">
+            <summary>
+            Returns a CallTreeNode with all merged items.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.Merge(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.CallTreeNode})">
+            <summary>
+            Returns a CallTreeNode with all merged items.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.MergeByName(System.Linq.IQueryable{ICSharpCode.Profiler.Controller.Data.CallTreeNode})">
+            <summary>
+            Merges CallTreeNodes with identical name mappings.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.MergeByName(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.CallTreeNode})">
+            <summary>
+            Merges CallTreeNodes with identical name mappings.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.WithQueryLog(System.Linq.IQueryable{ICSharpCode.Profiler.Controller.Data.CallTreeNode},System.IO.TextWriter)">
+            <summary>
+            Tells the query execution to add logging to the query.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.WithQueryLog(System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.CallTreeNode},System.IO.TextWriter)">
+            <summary>
+            Tells the query execution to add logging to the query.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.CreateSeparatedString(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a comma separated string. The string is encoded so that it can be split
+            into the original parts even if the inputs contains commas.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.CreateSeparatedString(System.Collections.Generic.IEnumerable{System.String},System.Char)">
+            <summary>
+            Creates a separated string using the specified separator. The string is encoded
+            so that it can be split into the original parts even if the inputs contain the separator.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.SplitSeparatedString(System.String)">
+            <summary>
+            Splits a comma-separated string.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Extensions.SplitSeparatedString(System.String,System.Char)">
+            <summary>
+            Splits a separated string using the specified separator.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Interprocess.AtomicBoolean">
+            <summary>
+            A boolean that starts 'false' and can be atomically set/reset.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.AtomicBoolean.Set">
+            <summary>
+            Sets the value to true.
+            </summary>
+            <returns>True if the value was successfully set from false to true,
+            false if the value already was true.</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.AtomicBoolean.Reset">
+            <summary>
+            Sets the value to false.
+            </summary>
+            <returns>True if the value was successfully set from true to false,
+            false if the value already was false.</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.AtomicBoolean.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.AtomicBoolean.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.AtomicBoolean.Equals(ICSharpCode.Profiler.Interprocess.AtomicBoolean)">
+            <summary>
+            Tests the boolean for equality.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.AtomicBoolean.op_Equality(ICSharpCode.Profiler.Interprocess.AtomicBoolean,ICSharpCode.Profiler.Interprocess.AtomicBoolean)">
+            <summary>
+            Tests the boolean for equality.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.AtomicBoolean.op_Inequality(ICSharpCode.Profiler.Interprocess.AtomicBoolean,ICSharpCode.Profiler.Interprocess.AtomicBoolean)">
+            <summary>
+            Tests the boolean for inequality.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Interprocess.AtomicBoolean.Value">
+            <summary>
+            Gets/Sets the value.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.ProfilerException">
+            <summary>
+            Represents errors that occur during execution of the profiler/unmanaged hook.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.ProfilerException.#ctor">
+            <summary>
+            Creates a new instance of ProfilerException.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.ProfilerException.#ctor(System.String)">
+            <summary>
+            Creates a new instance of ProfilerException.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.ProfilerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new instance of ProfilerException.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.ProfilerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Creates a new instance of ProfilerException.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.ProfilerOptions">
+            <summary>
+            Holds all settings for the profiler chosen by the user.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.ProfilerOptions.DefaultSharedMemorySize">
+            <summary>
+            Defines the default size of the shared memory.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.ProfilerOptions.DefaultCounters">
+            <summary>
+            Defines a list of default performance counters.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.ProfilerOptions.#ctor(System.Boolean,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Collections.Generic.IEnumerable{ICSharpCode.Profiler.Controller.Data.PerformanceCounterDescriptor})">
+            <summary>
+            Creates new ProfilerOptions using the selected settings.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.ProfilerOptions.Counters">
+            <summary>
+            Gets the performance counters selected for monitoring.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.ProfilerOptions.DoNotProfileDotNetInternals">
+            <summary>
+            Gets whether .NET internal calls are profiled or not.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.ProfilerOptions.CombineRecursiveFunction">
+            <summary>
+            Gets whether recursive functions calls are combined or not.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.ProfilerOptions.EnableDC">
+            <summary>
+            Gets whether data collection is enabled during profiling sessions.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.ProfilerOptions.EnableDCAtStart">
+            <summary>
+            Gets whether data collection is enabled at the start of the profiling session.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.ProfilerOptions.SharedMemorySize">
+            <summary>
+            Gets the size of the shared memory.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.ProfilerOptions.TrackEvents">
+            <summary>
+            Gets whether events should be tracked or not.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Queries.NodePath">
+            <summary>
+            Describes an absolute path to an CallTreeNode.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Queries.NodePath.Empty">
+            <summary>
+            Describes an empty NodePath.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.NodePath.Append(System.Int32)">
+            <summary>
+            Creates a new NodePath from this with a new Name Id segment attached.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.NodePath.Equals(ICSharpCode.Profiler.Controller.Queries.NodePath)">
+            <summary>
+            Returns whether the other NodePath is equal to this NodePath.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.NodePath.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.NodePath.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.NodePath.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.NodePath.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.NodePath.LastId">
+            <summary>
+            Gets the top-most/last NameId in the path.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.NodePath.Previous">
+            <summary>
+            Gets a reference to the previous segment of the path.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Queries.QueryBase">
+            <summary>
+            Provides a skeleton for all queries compiled at runtime.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.QueryBase.GetNodeByPath(System.Int32[])">
+            <summary>
+            Returns the CallTreeNode described by an array of nameIds.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.QueryBase.Merge(ICSharpCode.Profiler.Controller.Data.CallTreeNode[])">
+            <summary>
+            Helper for merging multiple CallTreeNodes in PQL.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.QueryBase.Execute">
+            <summary>
+            Executes a query created at runtime.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.QueryBase.Provider">
+            <summary>
+            Gets the <see cref="T:ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider"/> that is the data source for this query.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.QueryBase.StartDataSetIndex">
+            <summary>
+            Gets the start index of the selected range of datasets.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.QueryBase.EndDataSetIndex">
+            <summary>
+            Gets the end index of the selected range of datasets.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.QueryBase.Root">
+            <summary>
+            Gets the root node (usually invisible node that has all threads as children).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.QueryBase.Calls">
+            <summary>
+            Returns all calls.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.QueryBase.Functions">
+            <summary>
+            Returns all functions.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Queries.QueryBase.Threads">
+            <summary>
+            Returns all threads.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Queries.ErrorReporter">
+            <summary>
+            Used to report an error during compilation to a higher level.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Queries.QueryCompiler">
+            <summary>
+            Analyzes, compiles and executes Profiler-specific LINQ queries.
+            Any public static members of this type are thread safe. Any instance
+            members are not guaranteed to be thread safe.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.QueryCompiler.#ctor(ICSharpCode.Profiler.Controller.Queries.ErrorReporter,System.String)">
+            <summary>
+            Creates a new instance of the QueryCompiler.
+            </summary>
+            <param name="reporter">A delegate to report any errors to an upper layer.</param>
+            <param name="query">The query to compile.</param>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.QueryCompiler.Compile">
+            <summary>
+            Compiles the query.
+            </summary>
+            <returns>true, if successful, otherwise false.</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Queries.QueryCompiler.ExecuteQuery(ICSharpCode.Profiler.Controller.Data.ProfilingDataProvider,System.Int32,System.Int32)">
+            <summary>
+            Executes the query.
+            </summary>
+            <returns>The result of the query.</returns>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Registrar">
+            <summary>
+            Description of Registrar.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Registrar.Register(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Registers a COM component in the Windows Registry.
+            </summary>
+            <param name="guid">the GUID of the Component.</param>
+            <param name="libraryId">The ID-string of the library.</param>
+            <param name="classId">The ID-string of the class.</param>
+            <param name="path">The path the to the DLL file containing the class. If the file does not exist FileNotFoundException is thrown.</param>
+            <param name="is64Bit">Defines whether to register the component as 32- or 64-bit component.</param>
+            <returns>true, if the component could be registered correctly, otherwise false.</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Registrar.Deregister(System.String,System.Boolean)">
+            <summary>
+            Removes the registration of a COM component from the Windows Registry.
+            </summary>
+            <param name="guid">The GUID of the component to remove.</param>
+            <param name="is64Bit">Defines whether to remove the component from 32- or 64-bit registry.</param>
+            <returns>true, if the component could be removed from the registry correctly, otherwise false.</returns>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.SharedMemoryHeader32">
+            <summary>
+            Contains general fields for verification, synchronisation and important addresses and offsets.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Allocator32">
+            <summary>
+            The representation of the unmanaged allocator used by the Hook.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.TargetProcessPointer32">
+            <summary>
+            32bit pointer used when a 32bit executable is profiled.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.TargetProcessPointer">
+            <summary>
+            A pointer that can be both 64 and 32 bit.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.FunctionInfo">
+            <summary>
+            The managed version of the FunctionInfo
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.ThreadLocalData32">
+            <summary>
+            The managed version of the ThreadLocalData
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.DetectBinaryType">
+            <summary>
+            Detects whether an .exe will run as 32-bit or 64-bit process.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Interprocess.MemoryMappedFile">
+            <summary>
+            Represents a memory mapped file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.Open(System.String,System.IO.FileAccess,System.IO.FileShare)">
+            <summary>
+            Opens a file on disk as memory mapped file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.Open(System.IO.FileStream)">
+            <summary>
+            Opens a file on disk as memory mapped file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.CreateSharedMemory(System.String,System.Int64)">
+            <summary>
+            Creates a new file mapping backed by the pagefile.
+            </summary>
+            <param name="name">The name of the file mapping object to be created, or null to create a nameless object.</param>
+            <param name="size">The maximal size of the memory mapped file.</param>
+            <returns>MemoryMappedFile object representing the file mapping</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.Open(System.String)">
+            <summary>
+            Opens an existing named file mapping.
+            </summary>
+            <param name="name">The name of the file mapping object to be opened.</param>
+            <returns>MemoryMappedFile object representing the file mapping</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.#ctor(System.IntPtr,System.Boolean)">
+            <summary>
+            Creates a MemoryMappedFile object from a file mapping handle.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.MapView(System.Int64,System.Int64)">
+            <summary>
+            Maps a section of the file into virtual memory.
+            </summary>
+            <param name="offset">The start position in the file from where to start mapping.</param>
+            <param name="count">The number of bytes to map into virtual memory.</param>
+            <returns>An UnmanagedMemory object representing the mapped memory.
+            Dispose the UnmanagedMemory object to unmap the view.</returns>
+            <remarks>This method may map more than the specified range
+            when offset is not a multiple of SystemAllocationGranularity.
+            In that case, the returned start pointer is an offset into the view,
+            and is not aligned if offset is not aligned.</remarks>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.Close">
+            <summary>
+            Closes and disposes the memory used by the file mapping.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.Dispose">
+            <summary>
+            Disposes the memery used by the file mapping.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.Finalize">
+            <summary>
+            Disposes the memery used by the file mapping.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.SystemPageSize">
+            <summary>
+            The page size and the granularity of page protection and commitment.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Interprocess.MemoryMappedFile.SystemAllocationGranularity">
+            <summary>
+            The granularity for the starting address at which virtual memory can be allocated.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Interprocess.UnmanagedMemory">
+            <summary>
+            Describes a chunk of unmanaged memory combined with a deallocation strategy.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedMemory.#ctor(System.IntPtr,System.Int64)">
+            <summary>
+            Creates a new UnmanagedMemory instance with the specified pointer and length values.
+            Disposing such a UnmanagedMemory instance has no effect.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedMemory.Dispose">
+            <summary>
+            Frees the unmanaged memory.
+            This causes pointers inside this UnmanagedMemory to become invalid (including
+            the UnmanagedMemoryStream).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedMemory.CreateStream">
+            <summary>
+            Creates a stream for reading or writing to the unmanaged memory.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Interprocess.UnmanagedMemory.Pointer">
+            <summary>
+            A byte pointer pointing at the start of the unmanaged memory.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Interprocess.UnmanagedMemory.Start">
+            <summary>
+            An IntPtr pointing at the start of the unmanaged memory. 
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Interprocess.UnmanagedMemory.Length">
+            <summary>
+            The size of the the unmanaged memory.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer">
+            <summary>
+            A circular buffer residing in unmanaged memory.
+            This class can be used to create communication streams in shared memory.
+            </summary>
+            <remarks>
+            The performance isn't perfect, there's a problem that sometimes causes transmission with a fast writer to
+            go like this:
+            UnmanagedCircularBuffer: write amount 33 (max-1)
+            UnmanagedCircularBuffer: write amount 1
+            UnmanagedCircularBuffer: write amount 33 (max-1)
+            UnmanagedCircularBuffer: write amount 1
+            UnmanagedCircularBuffer: write amount 33 (max-1)
+            UnmanagedCircularBuffer: write amount 1
+            UnmanagedCircularBuffer: write amount 9
+            Assume the buffer is full, and the reader read until the buffer wrap-around position.
+            Then the writer will write to wrap-around - 1 (because we don't allow a completely full buffer - we couldn't
+            distinguish it from a completely empty buffer). Then the reader will read some more bytes.
+            Then the writer will write just one byte (to the wrap-around position).
+            Either writer or reader should learn to read/write over the wrap-around position in a single operation
+            to prevent 1 byte-writes from occurring so frequently.
+            But this is only a problem when transmitting large amounts of data through a small buffer -
+            making the buffer large enough also solves the problem.
+            </remarks>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.SynchronizationOverheadSize">
+            <summary>
+            Gets the size of the buffer header.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.Create(System.IntPtr,System.Int32)">
+            <summary>
+            Creates a new circular buffer.
+            </summary>
+            <param name="buffer">Position where the circular buffer should be created</param>
+            <param name="bufferLength">Length of the circular buffer. Not the whole length is available
+            for data, some space will be used for synchronization.</param>
+            <returns>NativeCircularBuffer object representing the circular buffer</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.CreateNew(System.Int32@,System.Boolean)">
+            <summary>
+            Creates a new AutoResetEvent using the random number generator.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.Open(System.IntPtr)">
+            <summary>
+            Opens on existing circular buffer.
+            </summary>
+            <param name="buffer">Position of the circular buffer</param>
+            <returns>NativeCircularBuffer object representing the circular buffer</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.CreateReadingStream">
+            <summary>
+            Constructs a reading stream for the circular buffer. A buffer may have only one reader!
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.CreateWritingStream">
+            <summary>
+            Constructs a reading stream for the circular buffer. A buffer may have only one writer!
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.Close(System.Boolean)">
+            <summary>
+            Closes the circular buffer.
+            </summary>
+            <param name="waitForReaderThreadExit">
+            Specifies whether the close method should wait for the active reader thread to exit.
+            If you pass true, but there is no reader thread; the Close method will deadlock.
+            If you pass false, but there is a reader thread; the reader thread will crash.
+            </param>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.ReadingStream">
+            <summary>
+            Implements a stream reading a circular buffer in unmanaged memory.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.ReadingStream.#ctor(ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer)">
+            <summary>
+            Constructs a UnmanagedCircularBufferReadingStream
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.WritingStream">
+            <summary>
+            Implements a stream writing to a circular buffer in unmanaged memory.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer.WritingStream.#ctor(ICSharpCode.Profiler.Interprocess.UnmanagedCircularBuffer)">
+            <summary>
+            Constructs a NativeCircularBufferWritingStream
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.Profiler.Controller.Profiler">
+            <summary>
+            The core class of the profiler.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.Profiler.Controller.Profiler.ProfilerGuid">
+            <summary>
+            The Guid of the CProfiler class in the Hook.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.EnableDataCollection">
+            <summary>
+            Enables collection of datasets.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.DisableDataCollection">
+            <summary>
+            Disables collection of datasets.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.#ctor(System.String,ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter,ICSharpCode.Profiler.Controller.ProfilerOptions)">
+            <summary>
+            Creates a new profiler using the path to an executable to profile and a data writer.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.#ctor(System.Diagnostics.ProcessStartInfo,ICSharpCode.Profiler.Controller.Data.IProfilingDataWriter,ICSharpCode.Profiler.Controller.ProfilerOptions)">
+            <summary>
+            Creates a new profiler using a process start info of an executable and a data writer.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.Start">
+            <summary>
+            Starts a new profiling session. Prepares IPC and starts the process and logging.
+            </summary>
+            <returns>The process information of the profilee.</returns>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.Pause">
+            <summary>
+            Halts the profilee process.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.Continue">
+            <summary>
+            Continues execution of the profilee.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.VerifyAccess">
+            <summary>
+            Verifies that the profiler is not disposed (and the shared memory is still available)
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.Stop">
+            <summary>
+            Stops execution of the profilee.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.Profiler.Controller.Profiler.Dispose">
+            <summary>
+            Shuts down the profilee and stops logging and closes and IPC.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Profiler.Is64Bit">
+            <summary>
+            Gets whether the profiler is running inside a 64-bit profilee process or not.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Profiler.IsRunning">
+            <summary>
+            Gets whether the profiler is running not.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Profiler.ProcessorFrequency">
+            <summary>
+            Gets the processor frequency read from the registry of the computer the profiler is running on.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Profiler.DataWriter">
+            <summary>
+            The currently used data provider.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Profiler.ProfilerOptions">
+            <summary>
+            Gets all settings used by this profiler instance.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.Profiler.Controller.Profiler.RegisterFailed">
+            <summary>
+            Invoked when the Hook could not be registered as a COM component.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.Profiler.Controller.Profiler.DeregisterFailed">
+            <summary>
+            Invoked when the Hook could not be deregistered from COM.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.Profiler.Controller.Profiler.OutputUpdated">
+            <summary>
+            Invoked when any new output has been sent to the Controller.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.Profiler.Controller.Profiler.SessionStarted">
+            <summary>
+            Invoked when the session has started.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.Profiler.Controller.Profiler.SessionEnded">
+            <summary>
+            Invoked when the session has ended.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.Profiler.Controller.Profiler.ProfilerOutput">
+            <summary>
+            Contains the whole Profiler output during the last session.
+            </summary>
+        </member>
+    </members>
+</doc>

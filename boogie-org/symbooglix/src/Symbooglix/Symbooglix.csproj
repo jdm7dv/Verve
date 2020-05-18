@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{69F04878-1CD0-454C-87A6-6B155D2D4855}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Symbooglix</RootNamespace>
+    <AssemblyName>Symbooglix</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="Expr\FindSymbolicsVisitor.cs" />
+    <Compile Include="Expr\FindLiteralAssignment.cs" />
+    <Compile Include="Expr\IExprVisitor.cs" />
+    <Compile Include="Expr\Traverser.cs" />
+    <Compile Include="Expr\SMTLIBQueryPrinter.cs" />
+    <Compile Include="Expr\NonSymbolicDuplicator.cs" />
+    <Compile Include="Transform\PruneUnreachableBlocksPass.cs" />
+    <Compile Include="Util\ExceptionThrowingTextWriterTraceListener.cs" />
+    <Compile Include="Solver\DummySolver.cs" />
+    <Compile Include="Solver\ISolver.cs" />
+    <Compile Include="Solver\SimpleSMTLIBSolver.cs" />
+    <Compile Include="Solver\SMTLIBQueryLoggingSolver.cs" />
+    <Compile Include="Executor\Executor.cs" />
+    <Compile Include="Executor\Memory.cs" />
+    <Compile Include="Executor\ExecutionState.cs" />
+    <Compile Include="Executor\ConstraintManager.cs" />
+    <Compile Include="Executor\ExecutorHandlers\BreakPointHandler.cs" />
+    <Compile Include="Executor\BoogieExprExtensions.cs" />
+    <Compile Include="Executor\TerminationHandlers\TerminationConsoleReporter.cs" />
+    <Compile Include="Solver\Z3SMTLIBSolver.cs" />
+    <Compile Include="Solver\CVC4SMTLIBSolver.cs" />
+    <Compile Include="Executor\TerminationHandlers\TerminationCounter.cs" />
+    <Compile Include="Util\ProgramPrinter.cs" />
+    <Compile Include="Transform\IPass.cs" />
+    <Compile Include="Transform\PassManager.cs" />
+    <Compile Include="Transform\FunctionInliner.cs" />
+    <Compile Include="Analysis\DummyPass.cs" />
+    <Compile Include="Solver\ISolverImpl.cs" />
+    <Compile Include="Solver\SimpleSolver.cs" />
+    <Compile Include="Executor\ITerminationType.cs" />
+    <Compile Include="Executor\ProgramLocation.cs" />
+    <Compile Include="Executor\ExecutorHandlers\IExecutorEventHandler.cs" />
+    <Compile Include="Util\ModifiesSet.cs" />
+    <Compile Include="Executor\ExecutorExceptions.cs" />
+    <Compile Include="Annotation\AnnotationIndicies.cs" />
+    <Compile Include="Annotation\ProgramLocationAnnotater.cs" />
+    <Compile Include="Executor\BoogieAbsyExtensions.cs" />
+    <Compile Include="Transform\OldExprCanonicaliser.cs" />
+    <Compile Include="Executor\ExecutorHandlers\InstructionPrinter.cs" />
+    <Compile Include="Executor\ExecutorHandlers\CallPrinter.cs" />
+    <Compile Include="Executor\BlockCmdEnumerable.cs" />
+    <Compile Include="Executor\ExecutorHandlers\ContextChangedReporter.cs" />
+    <Compile Include="Expr\DuplicationVerifier.cs" />
+    <Compile Include="Executor\ExecutorHandlers\MemoryUsageLogger.cs" />
+    <Compile Include="Executor\ExecutorHandlers\ExecutorFileLoggerHandler.cs" />
+    <Compile Include="Executor\InstructionStatistics.cs" />
+    <Compile Include="Annotation\InstructionStatisticsAnnotater.cs" />
+    <Compile Include="Executor\CallGrindFilePrinter.cs" />
+    <Compile Include="Executor\TerminationHandlers\TerminationCounterLogger.cs" />
+    <Compile Include="Executor\StateSchedulers\DFSStateScheduler.cs" />
+    <Compile Include="Executor\StateSchedulers\UntilTerminationBFSStateScheduler.cs" />
+    <Compile Include="Executor\StateSchedulers\BFSStateScheduler.cs" />
+    <Compile Include="Executor\ExecutionTreeNode.cs" />
+    <Compile Include="Executor\ExecutionTreePrinter.cs" />
+    <Compile Include="Executor\ExecutorHandlers\ExecutionTreeLogger.cs" />
+    <Compile Include="Executor\StateSchedulers\AlternativeBFSStateScheduler.cs" />
+    <Compile Include="Executor\ExecutorHandlers\AbstractExecutorFileLogger.cs" />
+    <Compile Include="Executor\ExecutorHandlers\CallGrindFileLogger.cs" />
+    <Compile Include="Executor\StateSchedulers\LimitExplicitDepthScheduler.cs" />
+    <Compile Include="Executor\ExecutionStateHandlers\ExecutionStateLogger.cs" />
+    <Compile Include="Executor\ExecutionStateHandlers\ExecutionStateConstraintLogger.cs" />
+    <Compile Include="Executor\ExecutionStateHandlers\ExecutionStateInfoLogger.cs" />
+    <Compile Include="Executor\ExecutionStateHandlers\ExecutionStateUnSatCoreLogger.cs" />
+    <Compile Include="Executor\ExecutorStatistics.cs" />
+    <Compile Include="Executor\StateSchedulers\IStateScheduler.cs" />
+    <Compile Include="Executor\StateSchedulers\LoopEscapingScheduler.cs" />
+    <Compile Include="Solver\ConstraintIndependenceSolver.cs" />
+    <Compile Include="Analysis\FindRecursiveFunctionsPass.cs" />
+    <Compile Include="Transform\UniqueVariableEnforcingPass.cs" />
+    <Compile Include="Transform\GlobalDeadDeclEliminationPass.cs" />
+    <Compile Include="Util\IYAMLWriter.cs" />
+    <Compile Include="Expr\FindUinterpretedFunctionsVisitor.cs" />
+    <Compile Include="Executor\ExecutorHandlers\ExecutorInfoLogger.cs" />
+    <Compile Include="Executor\ExecutorHandlers\FailureLimiter.cs" />
+    <Compile Include="Expr\IExprBuilder.cs" />
+    <Compile Include="Expr\SimpleExprBuilder.cs" />
+    <Compile Include="Expr\FunctionCallBuilder.cs" />
+    <Compile Include="Expr\BuilderDuplicator.cs" />
+    <Compile Include="Executor\MapExecutionStateVariablesDuplicator.cs" />
+    <Compile Include="Expr\DecoratorExprBuilder.cs" />
+    <Compile Include="Expr\ConstantFoldingExprBuilder.cs" />
+    <Compile Include="Expr\ImmutableExprVerifier.cs" />
+    <Compile Include="Expr\ExprUtil.cs" />
+    <Compile Include="Transform\TrivialAssumeElimination.cs" />
+    <Compile Include="Transform\AxiomAndEntryRequiresCheckTransformPass.cs" />
+    <Compile Include="Expr\DistinctOperator.cs" />
+    <Compile Include="Solver\Query.cs" />
+    <Compile Include="Executor\Constraint.cs" />
+    <Compile Include="Executor\LineCoverage.cs" />
+    <Compile Include="Executor\SimpleSymbolicPool.cs" />
+    <Compile Include="Executor\SymbolicVariable.cs" />
+    <Compile Include="Executor\ISymbolicPool.cs" />
+    <Compile Include="Executor\CachingSymbolicPool.cs" />
+    <Compile Include="Expr\ConstantCachingExprBuilder.cs" />
+    <Compile Include="Executor\IVariableStore.cs" />
+    <Compile Include="Executor\MapProxy.cs" />
+    <Compile Include="Solver\SimpleSolverCache.cs" />
+    <Compile Include="Executor\StateSchedulers\LimitLoopBoundScheduler.cs" />
+    <Compile Include="Analysis\LoopInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Core\Core.csproj">
+      <Project>{B230A69C-C466-4065-B9C1-84D80E76D802}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\ParserHelper\ParserHelper.csproj">
+      <Project>{FCD3AC7F-9DFD-46C8-AB1E-09F0B0F16DC5}</Project>
+      <Name>ParserHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Provers\SMTLib\SMTLib.csproj">
+      <Project>{9B163AA3-36BC-4AFB-88AB-79BC9E97E401}</Project>
+      <Name>SMTLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Basetypes\Basetypes.csproj">
+      <Project>{43DFAD18-3E35-4558-9BE2-CAFF6B5BA8A0}</Project>
+      <Name>Basetypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Graph\Graph.csproj">
+      <Project>{69A2B0B8-BCAC-4101-AE7A-556FCC58C06E}</Project>
+      <Name>Graph</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Expr\" />
+    <Folder Include="Util\" />
+    <Folder Include="Executor\" />
+    <Folder Include="Executor\ExecutorHandlers\" />
+    <Folder Include="Executor\TerminationHandlers\" />
+    <Folder Include="Transform\" />
+    <Folder Include="Analysis\" />
+    <Folder Include="Annotation\" />
+    <Folder Include="Executor\StateSchedulers\" />
+    <Folder Include="Executor\ExecutionStateHandlers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <StandardHeader Text="" IncludeInNewFiles="True" />
+          <NameConventionPolicy>
+            <Rules>
+              <NamingRule Name="Namespaces" AffectedEntity="Namespace" VisibilityMask="VisibilityMask" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="Types" AffectedEntity="Class, Struct, Enum, Delegate" VisibilityMask="Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="Interfaces" AffectedEntity="Interface" VisibilityMask="Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True">
+                <RequiredPrefixes>
+                  <String>I</String>
+                </RequiredPrefixes>
+              </NamingRule>
+              <NamingRule Name="Attributes" AffectedEntity="CustomAttributes" VisibilityMask="Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True">
+                <RequiredSuffixes>
+                  <String>Attribute</String>
+                </RequiredSuffixes>
+              </NamingRule>
+              <NamingRule Name="Event Arguments" AffectedEntity="CustomEventArgs" VisibilityMask="Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True">
+                <RequiredSuffixes>
+                  <String>EventArgs</String>
+                </RequiredSuffixes>
+              </NamingRule>
+              <NamingRule Name="Exceptions" AffectedEntity="CustomExceptions" VisibilityMask="VisibilityMask" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True">
+                <RequiredSuffixes>
+                  <String>Exception</String>
+                </RequiredSuffixes>
+              </NamingRule>
+              <NamingRule Name="Methods" AffectedEntity="Methods" VisibilityMask="Protected, Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="Static Readonly Fields" AffectedEntity="ReadonlyField" VisibilityMask="Protected, Public" NamingStyle="PascalCase" IncludeInstanceMembers="False" IncludeStaticEntities="True" />
+              <NamingRule Name="Fields" AffectedEntity="Field" VisibilityMask="Protected, Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="ReadOnly Fields" AffectedEntity="ReadonlyField" VisibilityMask="Protected, Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="False" />
+              <NamingRule Name="Constant Fields" AffectedEntity="ConstantField" VisibilityMask="Protected, Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="Properties" AffectedEntity="Property" VisibilityMask="Protected, Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="Events" AffectedEntity="Event" VisibilityMask="Protected, Public" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="Enum Members" AffectedEntity="EnumMember" VisibilityMask="VisibilityMask" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="Parameters" AffectedEntity="Parameter" VisibilityMask="VisibilityMask" NamingStyle="CamelCase" IncludeInstanceMembers="True" IncludeStaticEntities="True" />
+              <NamingRule Name="Type Parameters" AffectedEntity="TypeParameter" VisibilityMask="VisibilityMask" NamingStyle="PascalCase" IncludeInstanceMembers="True" IncludeStaticEntities="True">
+                <RequiredPrefixes>
+                  <String>T</String>
+                </RequiredPrefixes>
+              </NamingRule>
+            </Rules>
+          </NameConventionPolicy>
+          <TextStylePolicy TabWidth="4" TabsToSpaces="True" IndentWidth="4" RemoveTrailingWhitespace="True" EolMarker="Native" FileWidth="120" NoTabsAfterNonTabs="True" inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/plain" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

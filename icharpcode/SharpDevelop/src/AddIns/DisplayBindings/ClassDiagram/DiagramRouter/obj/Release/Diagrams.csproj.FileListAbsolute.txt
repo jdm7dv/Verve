@@ -1,0 +1,2 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\DiagramRouter\bin\Release\Diagrams.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ClassDiagram\DiagramRouter\obj\Release\Diagrams.dll

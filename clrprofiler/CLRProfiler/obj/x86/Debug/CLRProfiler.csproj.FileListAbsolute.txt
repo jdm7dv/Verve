@@ -1,0 +1,9 @@
+C:\proj\CLRProfiler\CLRProfiler\bin\x86\Debug\CLRProfiler.exe.config
+C:\proj\CLRProfiler\CLRProfiler\bin\x86\Debug\CLRProfiler.exe
+C:\proj\CLRProfiler\CLRProfiler\bin\x86\Debug\CLRProfiler.pdb
+C:\proj\CLRProfiler\CLRProfiler\$(SolutionDir)$(Platform)\$(Configuration)\CLRProfiler.exe.config
+C:\proj\CLRProfiler\CLRProfiler\$(SolutionDir)$(Platform)\$(Configuration)\CLRProfiler.exe
+C:\proj\CLRProfiler\CLRProfiler\$(SolutionDir)$(Platform)\$(Configuration)\CLRProfiler.pdb
+C:\proj\CLRProfiler\CLRProfiler\Win32\Debug\CLRProfiler.exe.config
+C:\proj\CLRProfiler\CLRProfiler\Win32\Debug\CLRProfiler.exe
+C:\proj\CLRProfiler\CLRProfiler\Win32\Debug\CLRProfiler.pdb

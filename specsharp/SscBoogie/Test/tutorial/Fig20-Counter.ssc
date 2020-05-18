@@ -1,0 +1,40 @@
+namespace ModelField {
+
+public class Counter {
+  protected int inc;
+  protected int dec;
+
+  model int X {
+    satisfies X == inc - dec;
+  }
+
+  public Counter()
+    ensures X == 0;
+  {}
+
+  public void Inc()
+    ensures X == old(X) + 1;
+  { 
+    expose (this) {
+      inc++; 
+    }
+  }
+
+  public void Dec()
+    ensures X == old(X) - 1;
+  { 
+    expose (this) {
+      dec++; 
+    }
+  }
+  
+  model int Y {
+    satisfies Y % 2 == 1 && Y % 6 == 0;  // error: unsatisfiable condition
+  }
+
+  model int Z {
+    satisfies Z % 2 == 1 && Z % 5 == 0;
+    witness 5;
+  }
+}
+} 

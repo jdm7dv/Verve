@@ -1,0 +1,59 @@
+using Microsoft.Contracts;
+
+namespace BandCaptured {
+
+class Band {
+  [Rep] Guitar gt;
+
+  public Band([Captured] Guitar g)
+  {
+    gt = g;
+  }
+
+  public Band() {
+    gt = new Guitar();
+  }
+
+  public void ReplaceGuitar([Captured] Guitar g)
+    requires Owner.Different(this, g);
+    ensures Owner.Is(g, this, typeof(Band));
+  {
+    gt = g;
+  }
+
+  public void Play() {
+    expose (this) {
+      gt.Strum();
+    }
+  }
+
+  // ...
+}
+
+class Guitar {
+  public void Strum() 
+  { /* ... */ }
+}
+
+class BumperGuitar : Guitar {}
+
+class Client {
+  void BuggyClient() {
+    Guitar g = new BumperGuitar();
+    Band r = new Band(g);
+    r.Play();
+    g.Strum();  // error
+  }
+
+  void ContrivedClient() {
+    Band r = new Band();
+    Guitar g = new BumperGuitar();
+    r.ReplaceGuitar(g);
+    r.Play();
+    expose (r) {
+      g.Strum();
+    }
+  }
+}
+
+}

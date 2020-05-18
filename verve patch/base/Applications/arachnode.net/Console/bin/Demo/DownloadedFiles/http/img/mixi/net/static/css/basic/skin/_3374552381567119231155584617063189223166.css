@@ -1,0 +1,6 @@
+@charset "euc-jp";
+
+/*---- footerArea ----*/
+#footerArea div.pagetopLink p a{
+background:url(/img/basic/skin/gray/icon/pagetop002.gif) no-repeat 0 center;
+}

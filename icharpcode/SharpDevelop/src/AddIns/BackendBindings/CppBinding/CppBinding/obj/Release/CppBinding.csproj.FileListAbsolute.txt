@@ -1,0 +1,17 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CppBinding\Templates\DefaultAssemblyInfo.cpp
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CppBinding\CppBinding.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CppBinding\Templates\ConsoleProject.xpt
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CppBinding\Templates\Empty.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CppBinding\Templates\EmptyClass.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CppBinding\Templates\Library.xpt
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CppBinding\Templates\UnmanagedConsoleProject.xpt
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\CppBinding\CppBinding.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\Project\ApplicationOptions.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\Project\LinkerOptions.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\Project\PreprocessorOptions.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\Project\ApplicationOptions.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\Project\LinkerOptions.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\Project\PreprocessorOptions.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\CppBinding_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\CppBinding.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\CppBinding\CppBinding\obj\Release\CppBinding.dll

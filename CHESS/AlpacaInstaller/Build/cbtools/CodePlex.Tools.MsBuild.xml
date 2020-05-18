@@ -1,0 +1,2959 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodePlex.Tools.MsBuild</name>
+    </assembly>
+    <members>
+        <member name="T:CodePlex.Tools.MsBuild.AssemblyResolver">
+            <summary>
+            Default assembly resolver
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolver.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodePlex.Tools.MsBuild.AssemblyResolver"/> class.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolver.AddSearchDirectory(System.String)">
+            <summary>
+            Adds the search directory.
+            </summary>
+            <param name="directory">The directory.</param>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolver.Attach">
+            <summary>
+            Attaches this instance to the assembly resolution event
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolver.Detach">
+            <summary>
+            Detaches this instance from the assembly resolution event
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolver.CurrentDomain_AssemblyResolve(System.Object,System.ResolveEventArgs)">
+            <summary>
+            Handles the AssemblyResolve event of the CurrentDomain control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="args">The <see cref="T:System.ResolveEventArgs"/> instance containing the event data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolver.CurrentDomain_ReflectionOnlyAssemblyResolve(System.Object,System.ResolveEventArgs)">
+            <summary>
+            Handles the ReflectionOnlyAssemblyResolve event of the CurrentDomain control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="args">The <see cref="T:System.ResolveEventArgs"/> instance containing the event data.</param>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.AssemblyResolver.SearchDirectories">
+            <summary>
+            Gets the search directories.
+            </summary>
+            <value>The search directories.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.AssemblyResolverContext">
+            <summary>
+            Scope for assembly resolution
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolverContext.Create">
+            <summary>
+            Creates this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolverContext.InitializeLifetimeService">
+            <summary>
+            Obtains a lifetime service object to control the lifetime policy for this instance.
+            </summary>
+            <returns>
+            An object of type <see cref="T:System.Runtime.Remoting.Lifetime.ILease"></see> used to control the lifetime policy for this instance. This is the current lifetime service object for this instance if one exists; otherwise, a new lifetime service object initialized to the value of the <see cref="P:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime"></see> property.
+            </returns>
+            <exception cref="T:System.Security.SecurityException">The immediate caller does not have infrastructure permission. </exception>
+            <PermissionSet><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="RemotingConfiguration, Infrastructure"/></PermissionSet>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssemblyResolverContext.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.AssemblyResolverContext.Resolver">
+            <summary>
+            Gets the resolver.
+            </summary>
+            <value>The resolver.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.AssignClosedWorkItemToRelease">
+            <summary>
+            Assigns any closed workitem to a particular release (if not set previously)
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.AssignClosedWorkItemToRelease.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.AssignClosedWorkItemToRelease.ServerUrl">
+            <summary>
+            Gets or sets the team foundation server URL.
+            </summary>
+            <value>The server URL.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.AssignClosedWorkItemToRelease.ProjectName">
+            <summary>
+            Gets or sets the name of the project.
+            </summary>
+            <value>The name of the project.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.AssignClosedWorkItemToRelease.ReleaseId">
+            <summary>
+            Gets or sets the release id.
+            </summary>
+            <value>The release id.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.AssignClosedWorkItemToRelease.FailedConnectionAsWarning">
+            <summary>
+            Gets or sets a value indicating whether failed connection
+            is considered as warning.
+            </summary>
+            <value>
+            	<c>true</c> if failed connection as warning; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.AssignClosedWorkItemToRelease.WorkItemIds">
+            <summary>
+            Gets or sets the work item ids.
+            </summary>
+            <value>The work item ids.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.PlanRelease">
+            <summary>
+            Creates a planned release on demand and returns the id
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.ReleaseServiceTask">
+            <summary>
+            Task that uses the CodeBox release service
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReleaseServiceTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodePlex.Tools.MsBuild.ReleaseServiceTask"/> class.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.ReleaseServiceTask.ProjectName">
+            <summary>
+            Gets or sets the project.
+            </summary>
+            <value>The project.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.ReleaseServiceTask.ReleaseServiceUrl">
+            <summary>
+            Gets or sets the release service url
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.PlanRelease.FriendlyLabel">
+            <summary>
+            Metadata for the friendly lalbel
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.PlanRelease.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.PlanRelease.QualityName">
+            <summary>
+            Gets or sets the release quality.
+            </summary>
+            <value>The name of the quality.</value>
+            <enum cref="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName"/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.PlanRelease.ReleaseId">
+            <summary>
+            Gets the release id.
+            </summary>
+            <value>The release id.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.WixRandomizeComponentGuids">
+            <summary>
+            Generates new guids and overrides them in wxs files.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WixRandomizeComponentGuids.Execute">
+            <summary>
+            Executes the task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WixRandomizeComponentGuids.WixFiles">
+            <summary>
+            Gets the list of wix files to update
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WixRandomizeComponentGuids.ForceReadOnly">
+            <summary>
+            Gets or sets a value indicating if the output file should be overriden if readonly
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CreateWixRegistrationComponent">
+            <summary>
+            Creates a Wix 3.0 file to register Visual Studio addin registry keys.
+            The generated file is Registry hive agnostic.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CreateWixRegistrationComponent.Execute">
+            <summary>
+            Executes the task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixRegistrationComponent.Assemblies">
+            <summary>
+            Gets or sets the assemblies to analyze
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixRegistrationComponent.OutputFile">
+            <summary>
+            Gets the output file
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.DeleteReleases">
+            <summary>
+            Deletes all releases from the specified project 
+            that match the quality name, 
+            but keep the last n number of releases defined. 
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.DeleteReleases.Execute">
+            <summary>
+            Executes this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DeleteReleases.QualityName">
+            <summary>
+            Gets or sets the release quality.
+            </summary>
+            <value>The name of the quality.</value>
+            <enum cref="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName"/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DeleteReleases.KeepCount">
+            <summary>
+            Gets or sets the number of release to keep
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CreateAssemblyInfo">
+            <summary>
+            Creates a build number using the current DateTime and
+            the existing drops in the drop path.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Execute">
+            <summary>
+            Executes the task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Version">
+            <summary>
+            Gets or sets the version.
+            </summary>
+            <value>The version.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Major">
+            <summary>
+            Gets or sets the major version
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Minor">
+            <summary>
+            Gets the minor.
+            </summary>
+            <value>The minor.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Revision">
+            <summary>
+            Gets the generated revision number
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Build">
+            <summary>
+            Gets the generated build number
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Company">
+            <summary>
+            Gets or sets the company.
+            </summary>
+            <value>The company.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Product">
+            <summary>
+            Gets or sets the product.
+            </summary>
+            <value>The product.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.FileHeader">
+            <summary>
+            Gets or sets the file header comment
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.Copyright">
+            <summary>
+            Gets or sets the copyright.
+            </summary>
+            <value>The copyright.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.CreateVersionFile">
+            <summary>
+            Gets or sets a value indicating if a version file should be 
+            generated.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.ForceReadOnly">
+            <summary>
+            Gets or sets a value indicating whether readonly only existing files should
+            be overrided
+            </summary>
+            <value><c>true</c> if [force read only]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.FixedAssemblyVersion">
+            <summary>
+            Gets or sets a value indicating whether the 
+            assembly version should not be updated
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.VersionFileName">
+            <summary>
+            Gets or sets the version file name
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.ManagedCppVersionFileName">
+            <summary>
+            Gets or sets the name of the managed C++ version file.
+            </summary>
+            <value>The name of the managed CPP version file.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.FSharpVersionFileName">
+            <summary>
+            Gets or sets the name of the F# version file.
+            </summary>
+            <value>The name of the F# version file.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.UnmanagedVersionFileName">
+            <summary>
+            Gets or sets the unmanaged version file name
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.UnmanagedConstantPrefix">
+            <summary>
+            Gets or sets the unmanaged constant prefix.
+            </summary>
+            <value>The unmanaged constant prefix.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.LatexVersionFileName">
+            <summary>
+            Gets or sets the Latex version filename
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.AssemblyVersion">
+            <summary>
+            Gets the assembly version.
+            </summary>
+            <value>The assembly version.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateAssemblyInfo.AssemblyFileVersion">
+            <summary>
+            Gets the generated assembly file version
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CreateGuid">
+            <summary>
+            Generates a new guid
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CreateGuid.Execute">
+            <summary>
+            Executes task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateGuid.Guid">
+            <summary>
+            Generated Guid value
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateGuid.Files">
+            <summary>
+            Gets or sets the C# file where the guid should be emited. Each file
+            must have a 'Template' metadata attribute that will be used to create
+            the content of the generated string (using String.Format)
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateGuid.ForceReadOnly">
+            <summary>
+            Gets or sets a value indicating whether existing readonly files
+            should be overriden
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CreateRelease">
+            <summary>
+            Creates a new release on CodeBox.
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CreateRelease.FriendlyLabel">
+            <summary>
+            Metadata for the friendly lalbel
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CreateRelease.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.Files">
+            <summary>
+            Gets the files.
+            </summary>
+            <value>The files.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.QualityName">
+            <summary>
+            Gets or sets the release quality.
+            </summary>
+            <value>The name of the quality.</value>
+            <enum cref="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName"/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.StatusName">
+            <summary>
+            Gets or sets the release status.
+            </summary>
+            <value>The name of the status.</value>
+            <enum cref="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseStatusName"/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.Version">
+            <summary>
+            Gets or sets the version.
+            </summary>
+            <value>The version.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>The description.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.Public">
+            <summary>
+            Gets or sets a value indicating whether this release will be shown to the public
+            </summary>
+            <value><c>true</c> if public; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.HomePage">
+            <summary>
+            Gets or sets a value indicating whether the release is shown on the home page.
+            </summary>
+            <value><c>true</c> if [home page]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.Default">
+            <summary>
+            Gets or sets a value indicating whether this becomes the default release.
+            </summary>
+            <value><c>true</c> if default; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateRelease.ReleaseId">
+            <summary>
+            Gets the release id.
+            </summary>
+            <value>The release id.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CreateWixComponent">
+            <summary>
+            Generates the xml to integrate the files into
+            a Wix installer.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CreateWixComponent.IsShortcut(Microsoft.Build.Framework.ITaskItem)">
+            <summary>
+            Determines whether the specified file is shortcut.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>
+            	<c>true</c> if the specified file is shortcut; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CreateWixComponent.Execute">
+            <summary>
+            Executes the task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.GuidFileName">
+            <summary>
+            Gets or sets the xml file containing the existing file guids
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.FeatureName">
+            <summary>
+            Gets or sets the feature id.
+            </summary>
+            <value>The feature id.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.FeatureId">
+            <summary>
+            Gets the feature id.
+            </summary>
+            <value>The feature id.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.FeatureTitle">
+            <summary>
+            Gets or sets the feature title.
+            </summary>
+            <value>The feature title.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.FeatureLevel">
+            <summary>
+            Gets or sets the feature level.
+            </summary>
+            <value>The feature level.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.Conditions">
+            <summary>
+            Gets or sets the feature property conditions.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.ConditionLevel">
+            <summary>
+            Gets or sets the condition message.
+            </summary>
+            <value>The condition message.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.ConditionPropertyName">
+            <summary>
+            Gets the name of the condition property.
+            </summary>
+            <value>The name of the condition property.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.ComponentGroupId">
+            <summary>
+            Id of the generated component
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.DirectoryId">
+            <summary>
+            Id of the home directory of the component
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.PerUser">
+            <summary>
+            This component is installed in a per-user directory,
+            this requires some special handling.
+            The HKCURootKey and Version properties need to be set as well with this feature
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.HKCURootKey">
+            <summary>
+            Gets the registry root in the HKCU to put registry entries. Required
+            with PerUser option
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.Version">
+            <summary>
+            Gets a string indentifying this installer. Required with PerUser option
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.Win64">
+            <summary>
+            Gets or sets the Win64 attribute value
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.Files">
+            <summary>
+            Gets or sets the list of files to integrate
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.ShortcutExtensions">
+            <summary>
+            File extension to upgrade to shortcuts
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.ShortcutNames">
+            <summary>
+            Gets or sets the shortcut names.
+            </summary>
+            <value>The shortcut names.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.ShortcutDirectoryId">
+            <summary>
+            Gets or sets the shortcut directory.
+            </summary>
+            <value>The shortcut directory.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.ShortcutIcon">
+            <summary>
+            Gets or sets the shortcut icon.
+            </summary>
+            <value>The shortcut icon.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.MissingShortcutFormat">
+            <summary>
+            Gets the format string used to create a html shortcut reference
+            when the feature is not installed
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.MissingShorcutDirectory">
+            <summary>
+            Gets or sets the missing shorcut directory.
+            </summary>
+            <value>The missing shorcut directory.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.ShortcutOnFailedCondition">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.DiskId">
+            <summary>
+            Gets or sets the value of the 'DiskId' attribute
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CreateWixComponent.OutputFile">
+            <summary>
+            Gets or sets the output file
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CreateWixComponent.WixFile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CreateWixComponent.WixFile.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CreateWixComponent.WixFile.Guid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CreateWixComponent.WixFileDatabase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CreateWixComponent.WixFileDatabase.Files">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CreateWixComponent.WixFileDatabase.GetFileMapping">
+            <summary>
+            Gets the mapping.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CreateWixComponent.WixFileDatabase.SetMapping(System.Collections.Generic.Dictionary{System.String,System.Guid})">
+            <summary>
+            Sets the mapping.
+            </summary>
+            <param name="mapping">The mapping.</param>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.DateConverter">
+            <summary>
+            Helper class for converting dates
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.DeleteRelease">
+            <summary>
+            Creates a new release on CodeBox.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.DeleteRelease.Execute">
+            <summary>
+            Executes this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DeleteRelease.ReleaseIDs">
+            <summary>
+            Gets or sets the release IDs
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.DevEnvAction">
+            <summary>
+            Devenv operations
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.DevEnvAction.Clean">
+            <summary>
+            Cleans the solution output
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.DevEnvAction.Build">
+            <summary>
+            Builds the solution
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.DevEnvAction.Rebuild">
+            <summary>
+            Rebuilds the solution
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.DevEnv">
+            <summary>
+            Devenv wrapper
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.DevEnv.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DevEnv.ToolPath">
+            <summary>
+            Gets or sets the path to devenv application
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DevEnv.Solution">
+            <summary>
+            Gets the solution.
+            </summary>
+            <value>The solution.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DevEnv.ConfigurationName">
+            <summary>
+            Gets or sets the name of the configuration.
+            </summary>
+            <value>The name of the configuration.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DevEnv.Action">
+            <summary>
+            Gets or sets the action.
+            </summary>
+            <value>The action.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DevEnv.LogFile">
+            <summary>
+            Gets or sets the log file location
+            </summary>
+            <value>The log file.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DevEnv.WorkingDirectory">
+            <summary>
+            Gets or sets the working directory.
+            </summary>
+            <value>The working directory.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DevEnv.ErrorLog">
+            <summary>
+            Gets the error log.
+            </summary>
+            <value>The error log.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DevEnv.RootSuffix">
+            <summary>
+            Gets or sets the root suffix.
+            </summary>
+            <value>The root suffix.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.DumpWorkItems">
+            <summary>
+            Ensures that a given set of workitems are not closed
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.DumpWorkItems.Execute">
+            <summary>
+            Verifies that provided work items are not closed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItems.ServerUrl">
+            <summary>
+            Gets or sets the team foundation server URL.
+            </summary>
+            <value>The server URL.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItems.FailedConnectionAsWarning">
+            <summary>
+            Gets or sets a value indicating whether failed connection
+            is considered as warning.
+            </summary>
+            <value>
+            	<c>true</c> if failed connection as warning; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItems.Query">
+            <summary>
+            Gets or sets the query.
+            </summary>
+            <value>The query.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItems.OutputFileName">
+            <summary>
+            Gets the file that receives the workitem data
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.DumpWorkItemsToWiki">
+            <summary>
+            Ensures that a given set of workitems are not closed
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.DumpWorkItemsToWiki.Execute">
+            <summary>
+            Verifies that provided work items are not closed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItemsToWiki.ServerUrl">
+            <summary>
+            Gets or sets the team foundation server URL.
+            </summary>
+            <value>The server URL.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItemsToWiki.TeamProject">
+            <summary>
+            Gets or sets the team project.
+            </summary>
+            <value>The team project.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItemsToWiki.Where">
+            <summary>
+            Gets or sets the where clause
+            </summary>
+            <value>The where.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItemsToWiki.FailedConnectionAsWarning">
+            <summary>
+            Gets or sets a value indicating whether failed connection
+            is considered as warning.
+            </summary>
+            <value>
+            	<c>true</c> if failed connection as warning; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItemsToWiki.Query">
+            <summary>
+            Gets or sets the query.
+            </summary>
+            <value>The query.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.DumpWorkItemsToWiki.OutputFileName">
+            <summary>
+            Gets the file that receives the workitem data
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.Email">
+            <summary>
+            Sends an email
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Email.Execute">
+            <summary>
+            Executes task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.SmtpHost">
+            <summary>
+            SMTP server name
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.UseDefaultCredentials">
+            <summary>
+            Gets or sets a value that controls 
+            whether the DefaultCredentials are sent 
+            with requests.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.DeliveryMethod">
+            <summary>
+            Gets or sets the mail delivery method
+            </summary>
+            <enum cref="T:System.Net.Mail.SmtpDeliveryMethod" assembly-name="System"/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.PickupDirectoryLocation">
+            <summary>
+            Gets or sets the folder 
+            where applications save mail messages to 
+            be processed by the local SMTP server.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.TimeOut">
+            <summary>
+            Timeout for connecting to smtp server
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.From">
+            <summary>
+            Senders email
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.To">
+            <summary>
+            List of recipients
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.Subject">
+            <summary>
+            Subject of the mail
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.Body">
+            <summary>
+            Body of the mail
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Email.IsBodyHtml">
+            <summary>
+            Gets or sets a value indicating whether this instance is body HTML.
+            </summary>
+            <value>
+            	<c>true</c> if this instance is body HTML; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.EnvironmentSandbox">
+            <summary>
+            Records the state of the environment variables
+            and restores it when disposed.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.EnvironmentSandbox.#ctor">
+            <summary>
+            Stores the state of the environment variables
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.EnvironmentSandbox.System#IDisposable#Dispose">
+            <summary>
+            Restores the enviroment variables
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GacUninstall">
+            <summary>
+            Installs or uninstall assemblies in the Global Assembly Cache
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GacUninstall.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUninstall.AssemblyNames">
+            <summary>
+            Gets or sets the assemblies.
+            </summary>
+            <value>The assemblies.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUninstall.NoLogo">
+            <summary>
+            Suppresses display of the logo banner
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUninstall.Silent">
+            <summary>
+            Suppresses display of all output
+            </summary>
+            <value><c>true</c> if silent; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUninstall.ToolPath">
+            <summary>
+            Gets or sets the tool path.
+            </summary>
+            <value>The tool path.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GacAction">
+            <summary>
+            Possible actions
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.GacAction.Install">
+            <summary>
+            Install assemblies
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.GacAction.Uninstall">
+            <summary>
+            Uninstall assemblies
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GacUtil">
+            <summary>
+            Installs or uninstall assemblies in the Global Assembly Cache
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GacUtil.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUtil.Assemblies">
+            <summary>
+            Gets or sets the assemblies.
+            </summary>
+            <value>The assemblies.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUtil.Action">
+            <summary>
+            Gets or sets the action
+            </summary>
+            <enum cref="T:CodePlex.Tools.MsBuild.GacAction"/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUtil.NoLogo">
+            <summary>
+            Suppresses display of the logo banner
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUtil.Silent">
+            <summary>
+            Suppresses display of all output
+            </summary>
+            <value><c>true</c> if silent; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GacUtil.ToolPath">
+            <summary>
+            Gets or sets the tool path.
+            </summary>
+            <value>The tool path.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.TaskListAssemblyFormatType">
+            <summary>
+            Different ways to specify the assembly in a UsingTask element.
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.TaskListAssemblyFormatType.AssemblyFileName">
+            <summary>
+            Assembly file name (Default)
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.TaskListAssemblyFormatType.AssemblyName">
+            <summary>
+            Assembly Name
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.TaskListAssemblyFormatType.AssemblyFullName">
+            <summary>
+            Assembly fully qualified name
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.TaskListAssemblyFormatType.AssemblyFullPath">
+            <summary>
+            Assembly location
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GenerateTaskSchema">
+            <summary>
+            A Task that generates a 
+            XSD schema of the tasks in an assembly.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskSchema.Execute">
+            <summary>
+            Executes task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.Assemblies">
+            <summary>
+            List of assemblies
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.OutputPath">
+            <summary>
+            Gets or sets the output path for the generated files.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.Schemas">
+            <summary>
+            Gets the list of path to the generated XSD schema.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.TaskListAssemblyFormat">
+            <summary>
+            Gets or sets a value indicating how the assembly is specified in the
+            UsingTask element.
+            </summary>
+            <enum cref="T:CodePlex.Tools.MsBuild.TaskListAssemblyFormatType"/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.IgnoreDocumentation">
+            <summary>
+            Gets or sets a value indicating wheter documentation should be ignored
+            even if available (Default is false).
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.TaskLists">
+            <summary>
+            Gets the path to the task list if it was generated.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.IgnoreMsBuildSchema">
+            <summary>
+            Gets or sets a value indicating if the 
+            MsBuild schema inclusing should be ignored
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.MsBuildSchema">
+            <summary>
+            Gets or sets the msbuild schema
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.Includes">
+            <summary>
+            Gets or sets a list of included schemas
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskSchema.IgnoredUsingNamespaces">
+            <summary>
+            Gets or sets a list of namespace where the task should be ignored for Using generation
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation">
+            <summary>
+            Generates CodePlex wiki documentation for msbuild tasks
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.Assemblies">
+            <summary>
+            List of assemblies
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.OutputPath">
+            <summary>
+            Gets or sets the output path for the generated files.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.IgnoreDocumentation">
+            <summary>
+            Gets or sets a value indicating wheter documentation should be ignored
+            even if available (Default is false).
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.Pages">
+            <summary>
+            Gets the list of generated wiki pages
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.AnalyseAssemblyWorker">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.AnalyseAssemblyWorker.GetPages">
+            <summary>
+            Gets the pages.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.AnalyseAssemblyWorker.InitializeLifetimeService">
+            <summary>
+            Obtains a lifetime service object to control the lifetime policy for this instance.
+            </summary>
+            <returns>
+            An object of type <see cref="T:System.Runtime.Remoting.Lifetime.ILease"></see> used to control the lifetime policy for this instance. This is the current lifetime service object for this instance if one exists; otherwise, a new lifetime service object initialized to the value of the <see cref="P:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime"></see> property.
+            </returns>
+            <exception cref="T:System.Security.SecurityException">The immediate caller does not have infrastructure permission. </exception>
+            <PermissionSet><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="RemotingConfiguration, Infrastructure"/></PermissionSet>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.AnalyseAssemblyWorker.Initialize(Microsoft.Build.Utilities.TaskLoggingHelper,System.String)">
+            <summary>
+            Initializes the specified task logging helper.
+            </summary>
+            <param name="log">The log.</param>
+            <param name="outputPath">The output path.</param>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.AnalyseAssemblyWorker.Analyse(Microsoft.Build.Framework.ITaskItem)">
+            <summary>
+            Analyses the specified task assembly file.
+            </summary>
+            <param name="taskAssemblyFile">The task assembly file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.AnalyseAssemblyWorker.AnalyseType(System.Type,System.IO.TextWriter)">
+            <summary>
+            Analyses the type.
+            </summary>
+            <param name="taskType">Type of the task.</param>
+            <param name="taskSummaryWriter">The task summary writer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.AnalyseAssemblyWorker.GetProperties(System.Type)">
+            <summary>
+            Gets the properties.
+            </summary>
+            <param name="taskType">Type of the task.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GenerateTaskWikiDocumentation.AnalyseAssemblyWorker.GetTaskTypes(System.Reflection.Assembly)">
+            <summary>
+            Gets the task types.
+            </summary>
+            <param name="taskAssembly">The task assembly.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.AssemblyMetadata">
+            <summary>
+            Additional metadata
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.AssemblyMetadata.AssemblyFullName">
+            <summary>
+            Assemblym Name metadata key
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.AssemblyMetadata.AssemblyName">
+            <summary>
+            Assemblym Name metadata key
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.AssemblyMetadata.AssemblyVersion">
+            <summary>
+            Assembly Version metadata name
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.AssemblyMetadata.AssemblyProcessorArchitecture">
+            <summary>
+            Assembly public key metadata name
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GetAssemblyName">
+            <summary>
+            Fetches the assembly name, version, culture of managed assemblies etc...
+            Additional metadata:
+               AssemblyName, Version, Culture, PublicKey
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GetAssemblyName.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GetAssemblyName.Assemblies">
+            <summary>
+            Gets or sets the assemblies.
+            </summary>
+            <value>The assemblies.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GetAssemblyName.AssemblyNames">
+            <summary>
+            Gets the assembly names.
+            </summary>
+            <value>The assembly names.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GetAssemblyName.AssemblyInspector">
+            <summary>
+            Internal use
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GetAssemblyName.AssemblyInspector.InitializeLifetimeService">
+            <summary>
+            Obtains a lifetime service object to control the lifetime policy for this instance.
+            </summary>
+            <returns>
+            An object of type <see cref="T:System.Runtime.Remoting.Lifetime.ILease"/> used to control the lifetime policy for this instance. This is the current lifetime service object for this instance if one exists; otherwise, a new lifetime service object initialized to the value of the <see cref="P:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime"/> property.
+            </returns>
+            <filterPriority>2</filterPriority>
+            <permissionSet class="System.Security.permissionSet" version="1">
+            	<IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="RemotingConfiguration, Infrastructure"/>
+            </permissionSet>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GetAssemblyName.AssemblyInspector.GetName(System.String)">
+            <summary>
+            Gets the name.
+            </summary>
+            <param name="assemblyPath">The assembly path.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GetCurrentDirectory">
+            <summary>
+            Gets the current directory
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GetCurrentDirectory.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GetCurrentDirectory.Directory">
+            <summary>
+            Gets the current directory.
+            </summary>
+            <value>The directory.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GetCurrentDirectory.FullPath">
+            <summary>
+            Expands to full path
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.GetMachineName">
+            <summary>
+            Gets the machine name
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.GetMachineName.Execute">
+            <summary>
+            Executes task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.GetMachineName.MachineName">
+            <summary>
+            Current machine name
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.LoggedExec">
+            <summary>
+            Exteneded Exec task that stores the console
+            output to OutputText
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.LoggedExec.ExecuteTool(System.String,System.String,System.String)">
+            <summary>
+            Executes the tool.
+            </summary>
+            <param name="pathToTool">The path to tool.</param>
+            <param name="responseFileCommands">The response file commands.</param>
+            <param name="commandLineCommands">The command line commands.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.LoggedExec.Execute">
+            <summary>
+            Runs the exectuable file with the specified task parameters.
+            </summary>
+            <returns>
+            true if the task runs successfully; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.LoggedExec.LogEventsFromTextOutput(System.String,Microsoft.Build.Framework.MessageImportance)">
+            <summary>
+            Logs the events from text output.
+            </summary>
+            <param name="singleLine">The single line.</param>
+            <param name="messageImportance">The message importance.</param>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.LoggedExec.OutputText">
+            <summary>
+            Gets the output text.
+            </summary>
+            <value>The output text.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.LoggedExec.OutputFile">
+            <summary>
+            Gets or sets the output file.
+            </summary>
+            <value>The output file.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.LoggedExec.EnvironmentVariables">
+            <summary>
+            Gets or sets the environment variables.
+            </summary>
+            <value>The environment variables.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.MsiClean">
+            <summary>
+            Uninstalls all products for a given UpgradeCode. 
+            This is an efficient way to remove all side-by-side versions of
+            a product
+            </summary>
+            <remarks>
+            Source: http://www.hanselman.com/blog/BATCHFILEVOODOODetermineIfMultipleAndWhichVersionsOfAnMSIinstalledProductAreInstalledUsingUpgradeCode.aspx
+            </remarks>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.MsiClean.Execute">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.MsiClean.Compress(System.String,System.String)">
+            <example>GuidCompressor.exe {abcdefgh-ijkl-mnop-qrst-uvwxyz123456} N
+            returns: hgfedcbalkjiponmrqtsvuxwzy214365</example>
+            <example>GuidCompressor.exe hgfedcbalkjiponmrqtsvuxwzy214365 B
+            returns: {abcdefgh-ijkl-mnop-qrst-uvwxyz123456}</example>
+            <param name="guid"></param>
+            <param name="outputFormat">outputFormat should be N, D, B, P</param>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MsiClean.UpgradeCodes">
+            <summary>
+            Gets or sets the list of upgrade codes to remove
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.MsiExec">
+            <summary>
+            Wrapper around msiexec
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.MsiExec.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MsiExec.Install">
+            <summary>
+            /i or /x
+            </summary>
+            <value><c>true</c> if install; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MsiExec.Installers">
+            <summary>
+            Gets or sets the installers.
+            </summary>
+            <value>The installers.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MsiExec.Quiet">
+            <summary>
+            /quiet flag
+            </summary>
+            <value><c>true</c> if quiet; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MsiExec.Passive">
+            <summary>
+            /passive
+            </summary>
+            <value><c>true</c> if passive; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MsiExec.LogFile">
+            <summary>
+            Gets or sets the log file.
+            </summary>
+            <value>The log file.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.MSTest">
+            <summary>
+            VSTS test command line
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.MSTest.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.ToolPath">
+            <summary>
+            Path to the mstest.exe application
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.WorkingDirectory">
+            <summary>
+            Working directory 
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.NoLogo">
+            <summary>
+            Do not display the startup banner and copyright message.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.TestContainers">
+            <summary>
+            Files containing the tests.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.TestMetadata">
+            <summary>
+            Load a metadata file.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.RunConfig">
+            <summary>
+            Use the specified run configuration file.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.ResultsFile">
+            <summary>
+            Save the test run results to the specified file.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.TestLists">
+            <summary>
+            The test lists, as specified in the metadata
+            file, to be run.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.Tests">
+            <summary>
+            The name of tests to be run
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.Details">
+            <summary>
+            The name of a property that you want to
+            show values for, in addition to the test
+            outcome
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.Unique">
+            <summary>
+            Run a test only if one unique match is found for any given /test.
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.MSTest.NoIsolation">
+            <summary>
+            Run tests within the MSTest.exe process.
+            This choice improves test run speed but
+            increases risk to the MSTest.exe process.
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.PatchProjectReferences">
+            <summary>
+            Removes project reference and replaces by assembly references
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.PatchProjectReferences.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.PatchProjectReferences.Projects">
+            <summary>
+            Gets or sets the list of projects to patch
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.PatchProjectReferences.HintPath">
+            <summary>
+            Gets or sets the hint path for patch references
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.PatchProjectReferences.ReferencePath">
+            <summary>
+            Gets or sets the reference path.
+            </summary>
+            <value>The reference path.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.PatchProjectReferences.AssemblyFiles">
+            <summary>
+            Gets or sets the list of assemblies to patch
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.PatchProjectReferences.RemovePrePostBuildEvents">
+            <summary>
+            Gets a value indicating if PreBuildEvent or PostBuildEvent needs to be removed
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.Policheck">
+            <summary>
+            Executes and analyses Policheck 5.0 results
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Policheck.Execute">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Policheck.ToolPath">
+            <summary>
+            Gets or sets the path to devenv application
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Policheck.Files">
+            <summary>
+            Gets or sets the files to process
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Policheck.Severity">
+            <summary>
+            Gets or sets the severity (1,2,3,4)
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Policheck.OutputDirectory">
+            <summary>
+            Gets the output result directory
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Policheck.Terms">
+            <summary>
+            Gets or sets the semi-column separated list of term tables. Default 9 (english)
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Policheck.Results">
+            <summary>
+            Gets the location of the policheck result files
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.ReadFromFile">
+            <summary>
+            Read the entire content of a file
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReadFromFile.Execute">
+            <summary>
+            Executes task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.ReadFromFile.File">
+            <summary>
+            Gets or sets the file name to read
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.ReadFromFile.Content">
+            <summary>
+            Gets the file content
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.ReflectionHelper">
+            <summary>
+            Various Reflection helpers
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReflectionHelper.GetAttribute``1(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+            Gets the attribute.
+            </summary>
+            <param name="t">The t.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReflectionHelper.HasAttribute``1(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+            Determines whether the specified t has attribute.
+            </summary>
+            <param name="t">The t.</param>
+            <returns>
+            	<c>true</c> if the specified t has attribute; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReflectionHelper.IsOutput(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+            Determines whether the specified t is output.
+            </summary>
+            <param name="t">The t.</param>
+            <returns>
+            	<c>true</c> if the specified t is output; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReflectionHelper.IsRequired(System.Reflection.ICustomAttributeProvider)">
+            <summary>
+            Determines whether the specified t is required.
+            </summary>
+            <param name="t">The t.</param>
+            <returns>
+            	<c>true</c> if the specified t is required; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReflectionHelper.LoadAssembly(Microsoft.Build.Utilities.TaskLoggingHelper,Microsoft.Build.Framework.ITaskItem)">
+            <summary>
+            Loads the assembly.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="assemblyItem">The assembly item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReflectionHelper.ReflectionOnlyLoadAssembly(Microsoft.Build.Utilities.TaskLoggingHelper,Microsoft.Build.Framework.ITaskItem)">
+            <summary>
+            Reflections the only load assembly.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="assembly">The assembly.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReflectionHelper.TryLoadAssemblyFrom(System.String,System.String,System.Reflection.Assembly@)">
+            <summary>
+            Tries the load assembly from.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="assemblyName">Name of the assembly.</param>
+            <param name="assembly">The assembly.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.ReflectionHelper.TryReflectionOnlyLoadAssemblyFrom(System.String,System.String,System.Reflection.Assembly@)">
+            <summary>
+            Tries the reflection only load assembly from.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="assemblyName">Name of the assembly.</param>
+            <param name="assembly">The assembly.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.RegSvr">
+            <summary>
+            Register or unregister COM server using regsvr32
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.RegSvr.Execute">
+            <summary>
+            Executes task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.RegSvr.File">
+            <summary>
+            server to register/unregister
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.RegSvr.Unregsiter">
+            <summary>
+            value to indicate to register or unresgiter
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.RobustDelete">
+            <summary>
+            Deletes a set of files
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.RobustDelete.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.RobustDelete.Files">
+            <summary>
+            Gets or sets the files.
+            </summary>
+            <value>The files.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.RobustDelete.Force">
+            <summary>
+            Force readonly files
+            </summary>
+            <value><c>true</c> if force; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.SandboxAppDomain">
+            <summary>
+            A disposable sandbox AppDomain
+            </summary>
+            <remarks>
+            See Junfeng Zhang's blog for more details about 
+            AppDomain setup:
+            http://blogs.msdn.com/junfeng/archive/2004/02/09/69919.aspx
+            </remarks>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.SandboxAppDomain.Create(System.String)">
+            <summary>
+            Creates the specified assembly file.
+            </summary>
+            <param name="assemblyFile">The assembly file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.SandboxAppDomain.Create(System.String,System.String,System.String,System.String[])">
+            <summary>
+            Creates a sandboxed <see cref="T:System.AppDomain"/>.
+            </summary>
+            <param name="assemblyFile">The assembly file.</param>
+            <param name="cachePath">The cache path.</param>
+            <param name="privateBinPath">The private bin path.</param>
+            <param name="searchDirectories">The search directories.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.SandboxAppDomain.CreateInstance``1">
+            <summary>
+            Creates and unwraps the instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.Services.WikiService">
+            <summary>
+            A wrapper around the wiki service
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Services.WikiService.#ctor(CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodePlex.Tools.MsBuild.Services.WikiService"/> class.
+            </summary>
+            <param name="service">The service.</param>
+            <param name="projectName">Name of the project.</param>
+            <param name="preview">if set to <c>true</c> [preview].</param>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Services.WikiService.Ping">
+            <summary>
+            Pings this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Services.WikiService.GetPageTitles">
+            <summary>
+            Gets the page titles.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Services.WikiService.TryGetPageContent(System.String,System.String@)">
+            <summary>
+            Tries the content of the get page.
+            </summary>
+            <param name="pageTitle">The page title.</param>
+            <param name="content">The content.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Services.WikiService.Search(System.String[])">
+            <summary>
+            Searches the specified keywords.
+            </summary>
+            <param name="keywords">The keywords.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Services.WikiService.IsMatch(System.String[],System.String)">
+            <summary>
+            Determines whether the specified keywords is match.
+            </summary>
+            <param name="keywords">The keywords.</param>
+            <param name="content">The content.</param>
+            <returns>
+            	<c>true</c> if the specified keywords is match; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Services.WikiService.TryAddOrUpdatePage(System.String,System.String,System.String)">
+            <summary>
+            Tries the add or update page.
+            </summary>
+            <param name="pageTitle">The page title.</param>
+            <param name="content">The content.</param>
+            <param name="parentPageTitle">The parent page title.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Services.WikiService.TryUpdatePage(System.String,System.String)">
+            <summary>
+            Tries the update page.
+            </summary>
+            <param name="pageTitle">The page title.</param>
+            <param name="content">The content.</param>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Services.WikiService.ProjectName">
+            <summary>
+            Gets or sets the name of the project.
+            </summary>
+            <value>The name of the project.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Services.WikiService.Preview">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:CodePlex.Tools.MsBuild.Services.WikiService"/> is preview.
+            </summary>
+            <value><c>true</c> if preview; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.SourceDepot">
+            <summary>
+            Source Depot task wrapper
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.SourceDepot.Execute">
+            <summary>
+            Executes the task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepot.ToolPath">
+            <summary>
+            Source depot executable
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepot.WorkingDirectory">
+            <summary>
+            Working directory
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepot.Action">
+            <summary>
+            Source depot command
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepot.Arguments">
+            <summary>
+            Additional arguments
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepot.OutputText">
+            <summary>
+            Gets the output text.
+            </summary>
+            <value>The output text.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.SourceDepotEdit">
+            <summary>
+            sd edit a bunch of files
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.SourceDepotEdit.Execute">
+            <summary>
+            Executes the task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotEdit.ToolPath">
+            <summary>
+            Source depot executable
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotEdit.WorkingDirectory">
+            <summary>
+            Working directory
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotEdit.Files">
+            <summary>
+            the list of files to edit
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.SourceDepotSubmit">
+            <summary>
+            sd edit a bunch of files
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.SourceDepotSubmit.Execute">
+            <summary>
+            Executes the task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSubmit.ToolPath">
+            <summary>
+            Source depot executable
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSubmit.Description">
+            <summary>
+            Change description
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSubmit.WorkingDirectory">
+            <summary>
+            Working directory
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSubmit.RevertUnchanged">
+            <summary>
+            Gets or sets a value indicating whether [revert unchanged].
+            </summary>
+            <value><c>true</c> if [revert unchanged]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSubmit.Files">
+            <summary>
+            Gets or sets the files. Default '...'
+            </summary>
+            <value>The files.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.SourceDepotSync">
+            <summary>
+            Detects if chanages occured
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.SourceDepotSync.Execute">
+            <summary>
+            Executes task
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSync.ToolPath">
+            <summary>
+            sourcedepot executable
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSync.WorkingDirectory">
+            <summary>
+            Working directory to execute the sync
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSync.SynchedChanges">
+            <summary>
+            A value indicating wheter the action synched files
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.SourceDepotSync.SyncText">
+            <summary>
+            Gets the output of the sync text
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.TaskItemHelper">
+            <summary>
+            A set of <see cref="T:Microsoft.Build.Utilities.TaskItem"/> helpers.
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.TestExec">
+            <summary>
+            Enhanced Exec task
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.TestExec.ExecuteTool(System.String,System.String,System.String)">
+            <summary>
+            Executes the tool.
+            </summary>
+            <param name="pathToTool">The path to tool.</param>
+            <param name="responseFileCommands">The response file commands.</param>
+            <param name="commandLineCommands">The command line commands.</param>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.TestExec.EnvironmentVariables">
+            <summary>
+            Gets or sets the environment variables. ( name=value)
+            </summary>
+            <value>The environment variables.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.VerifyCopyrightInAssembly">
+            <summary>
+            A task that ensures that assemblies contains correct copyright
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.VerifyCopyrightInAssembly.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.VerifyCopyrightInAssembly.Assemblies">
+            <summary>
+            Gets or sets the assemblies.
+            </summary>
+            <value>The assemblies.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.VerifyCopyrightInAssembly.Company">
+            <summary>
+            Gets or sets the company.
+            </summary>
+            <value>The company.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.VerifyCopyrightInAssembly.Product">
+            <summary>
+            Gets or sets the product.
+            </summary>
+            <value>The product.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.VerifyCopyrightInAssembly.Copyright">
+            <summary>
+            Gets or sets the copyright.
+            </summary>
+            <value>The copyright.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.VerifyCopyrightInAssembly.PublicKeyToken">
+            <summary>
+            Gets or sets the required public key token
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.VerifyCopyrightInSource">
+            <summary>
+            A task that verifies that the copyright header is present
+            in source files
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.VerifyCopyrightInSource.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.VerifyCopyrightInSource.Copyright">
+            <summary>
+            Gets or sets the copyright.
+            </summary>
+            <value>The copyright.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.VerifyCopyrightInSource.Sources">
+            <summary>
+            Gets or sets the sources.
+            </summary>
+            <value>The sources.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.#ctor">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CreateRelease(System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,System.String,System.String,System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseStatusName,System.Boolean,System.Boolean,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CreateReleaseAsync(System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,System.String,System.String,System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseStatusName,System.Boolean,System.Boolean,System.Boolean)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CreateReleaseAsync(System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,System.String,System.String,System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseStatusName,System.Boolean,System.Boolean,System.Boolean,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.UploadReleaseFilesById(System.String,System.Int32,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile[])">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.UploadReleaseFilesByIdAsync(System.String,System.Int32,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile[])">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.UploadReleaseFilesByIdAsync(System.String,System.Int32,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile[],System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.UploadReleaseFiles(System.String,System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile[])">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.UploadReleaseFilesAsync(System.String,System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile[])">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.UploadReleaseFilesAsync(System.String,System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile[],System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CreateFileShareForRelease(System.String,System.Int32,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CreateFileShareForReleaseAsync(System.String,System.Int32,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CreateFileShareForReleaseAsync(System.String,System.Int32,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.SetCustomInstallLocationForRelease(System.String,System.Int32,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.SetCustomInstallLocationForReleaseAsync(System.String,System.Int32,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.SetCustomInstallLocationForReleaseAsync(System.String,System.Int32,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.GetReleasesByProjectName(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.GetReleasesByProjectNameAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.GetReleasesByProjectNameAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.GetReleaseFilesById(System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.GetReleaseFilesByIdAsync(System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.GetReleaseFilesByIdAsync(System.Int32,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleases(System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleasesAsync(System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleasesAsync(System.String,CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName,System.Int32,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteRelease(System.String,System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleaseAsync(System.String,System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleaseAsync(System.String,System.Int32,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleaseFilesById(System.String,System.Int32,System.String[])">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleaseFilesByIdAsync(System.String,System.Int32,System.String[])">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleaseFilesByIdAsync(System.String,System.Int32,System.String[],System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.Ping">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.PingAsync">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.PingAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CancelAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CreateReleaseCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.UploadReleaseFilesByIdCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.UploadReleaseFilesCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.CreateFileShareForReleaseCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.SetCustomInstallLocationForReleaseCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.GetReleasesByProjectNameCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.GetReleaseFilesByIdCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleasesCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleaseCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.DeleteReleaseFilesByIdCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseService.PingCompleted">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName">
+            <remarks/>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName.Production">
+            <remarks/>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName.ReleaseCandidate">
+            <remarks/>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName.Beta">
+            <remarks/>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName.Alpha">
+            <remarks/>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName.NightlyBuild">
+            <remarks/>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseQualityName.SpecialBuild">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseStatusName">
+            <remarks/>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseStatusName.Planned">
+            <remarks/>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseStatusName.Released">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile.FriendlyLabel">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile.MimeType">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile.FileName">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile.FileData">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.ReleaseFile.FileType">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.CreateReleaseCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.CreateReleaseCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.CreateReleaseCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.UploadReleaseFilesByIdCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.UploadReleaseFilesCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.CreateFileShareForReleaseCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.CreateFileShareForReleaseCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.CreateFileShareForReleaseCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.SetCustomInstallLocationForReleaseCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.GetReleasesByProjectNameCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.GetReleasesByProjectNameCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.GetReleasesByProjectNameCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.GetReleaseFilesByIdCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.GetReleaseFilesByIdCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.GetReleaseFilesByIdCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.DeleteReleasesCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.DeleteReleaseCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.DeleteReleaseFilesByIdCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.PingCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.PingCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Releases.PingCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.#ctor">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetPageTitles(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetPageTitlesAsync(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetPageTitlesAsync(System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetLatestPageContent(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetLatestPageContentAsync(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetLatestPageContentAsync(System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetPageContent(System.String,System.String,System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetPageContentAsync(System.String,System.String,System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetPageContentAsync(System.String,System.String,System.Int32,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.AddNewPageVersion(System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.AddNewPageVersionAsync(System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.AddNewPageVersionAsync(System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.AddNewPage(System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.AddNewPageAsync(System.String,System.String,System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.AddNewPageAsync(System.String,System.String,System.String,System.String,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.Ping">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.PingAsync">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.PingAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.CancelAsync(System.Object)">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetPageTitlesCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetLatestPageContentCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.GetPageContentCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.AddNewPageVersionCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.AddNewPageCompleted">
+            <remarks/>
+        </member>
+        <member name="E:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.WikiService.PingCompleted">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetPageTitlesCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetPageTitlesCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetPageTitlesCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetLatestPageContentCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetLatestPageContentCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetLatestPageContentCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetPageContentCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetPageContentCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.GetPageContentCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.AddNewPageVersionCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.AddNewPageVersionCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.AddNewPageVersionCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.AddNewPageCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.AddNewPageCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.AddNewPageCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.PingCompletedEventHandler">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.PingCompletedEventArgs">
+            <remarks/>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.CodeBox.WebServices.Wiki.PingCompletedEventArgs.Result">
+            <remarks/>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.WellKnownMetadata">
+            <summary>
+            Well known metadata of items
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.WikiDump">
+            <summary>
+            Dumps a codeplex wiki to disk
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.WikiTask">
+            <summary>
+            Abstract base class for task operating on a wiki
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WikiTask.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodePlex.Tools.MsBuild.WikiTask"/> class.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WikiTask.TryConnectService(CodePlex.Tools.MsBuild.Services.WikiService@)">
+            <summary>
+            Tries to connect to the wiki service.
+            </summary>
+            <param name="wikiService">The wiki service.</param>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiTask.HostName">
+            <summary>
+            Gets or sets the name of the host. (default is http://codebox/")
+            </summary>
+            <value>The name of the host.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiTask.ProjectName">
+            <summary>
+            Gets or sets the name of the project.
+            </summary>
+            <value>The name of the project.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiTask.Preview">
+            <summary>
+            Gets or sets a value indicating whether the changes are not pushed to the server
+            </summary>
+            <value><c>true</c> if preview; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiTask.ProjectUrl">
+            <summary>
+            Gets the project URL.
+            </summary>
+            <value>The project URL.</value>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WikiDump.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.ProjectRenderedUrl">
+            <summary>
+            Gets or sets the project link to be included in the generated wiki output
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.CopyrightUrl">
+            <summary>
+            Gets or sets the copyright URL.
+            </summary>
+            <value>The copyright URL.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.ProjectDescription">
+            <summary>
+            Gets or sets the project description.
+            </summary>
+            <value>The project description.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.ProjectLogo">
+            <summary>
+            Gets or sets the project logo.
+            </summary>
+            <value>The project logo.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.Copyright">
+            <summary>
+            Gets or sets the copyright.
+            </summary>
+            <value>The copyright.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.Version">
+            <summary>
+            Gets or sets the version.
+            </summary>
+            <value>The version.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.HomePage">
+            <summary>
+            Gets the starting point page
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.OutputDirectory">
+            <summary>
+            Gets or sets the output directory.
+            </summary>
+            <value>The output directory.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.WikiXml">
+            <summary>
+            Gets the wiki XML.
+            </summary>
+            <value>The wiki XML.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.BrokenLinks">
+            <summary>
+            Gets or sets a value indicating whether a page with broken links should
+            be added
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.MissingPages">
+            <summary>
+            Gets or sets a value indicating whether a missing page index
+            should be added
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.AllPages">
+            <summary>
+            Gets or sets a value indicating whether a page index should be added
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.WikiServiceProviderAssembly">
+            <summary>
+            Gets or sets the wiki service provider assembly.
+            </summary>
+            <value>The wiki service provider assembly.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiDump.RendererAssemblies">
+            <summary>
+            Gets or sets a set of assemblies that contains IWikiGraphRenderer implementations
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.WikiUpload">
+            <summary>
+            Uploads a list of files to a wiki
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WikiUpload.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodePlex.Tools.MsBuild.WikiUpload"/> class.
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WikiUpload.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiUpload.Pages">
+            <summary>
+            Gets the list of pages
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiUpload.PageNameFormatString">
+            <summary>
+            Gets or sets the format string used to create page name,
+            from the item file name
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WikiUpload.ParentPageName">
+            <summary>
+            Gets or sets the parent page name
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.Wix">
+            <summary>
+            Wix installer creating task
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.Wix.WixFileExtension">
+            <summary>
+            File extension of wix definition files
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.Wix.WixObjectFileExtension">
+            <summary>
+            File extension of wix object files 
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.Wix.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.WorkingDirectory">
+            <summary>
+            Gets or sets the working directory.
+            </summary>
+            <value>The working directory.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.Files">
+            <summary>
+            Gets the list of files
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.OutputFile">
+            <summary>
+            Gets the output file.
+            </summary>
+            <value>The output file.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.ObjectFiles">
+            <summary>
+            Gets the object files.
+            </summary>
+            <value>The object files.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.UseBuiltinExtensions">
+            <summary>
+            Gets or sets a value indicating whether default
+            Wix extensions should be include
+             Util, VS, .Net and UI extensions automatically.
+            </summary>
+            <value>
+            	<c>true</c> if [use builtin extensions]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.Extensions">
+            <summary>
+            Gets or sets the additional extensions.
+            </summary>
+            <value>The extensions.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.Variables">
+            <summary>
+            Gets or sets the additional defined variables.
+            </summary>
+            <value>The defines.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.Cultures">
+            <summary>
+            Gets or sets the cultures. Default is 'en-us'.
+            </summary>
+            <value>The cultures.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.TreatWarningAsErrors">
+            <summary>
+            Gets or sets a value indicating whether [treat warning as errors].
+            </summary>
+            <value>
+            	<c>true</c> if [treat warning as errors]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.SuppressedWarnings">
+            <summary>
+            Gets or sets the suppressed warnings IDs.
+            </summary>
+            <value>The suppressed warnings.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.Verbose">
+            <summary>
+            Gets or sets a value indicating whether this <see cref="T:CodePlex.Tools.MsBuild.Wix"/> is verbose.
+            </summary>
+            <value><c>true</c> if verbose; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.Trace">
+            <summary>
+            Gets or sets a value indicating whether to
+            show source trace for errors, warnings, and verbose messages
+            </summary>
+            <value><c>true</c> if trace; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.NumberOfThreads">
+            <summary>
+            Gets or sets the number of threads to use when creating cabinets (default: %NUMBER_OF_PROCESSORS%)
+            </summary>
+            <value>The number of threads.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.VisualStudioHives">
+            <summary>
+            Gets the version number of visual studio to lookup Wix
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.BaseDirectories">
+            <summary>
+            Gets or sets the list of base directories (/b option)
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.CandleAdditionalArguments">
+            <summary>
+            Gets or sets additional arguments to pass to candle
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.LightAdditionalArguments">
+            <summary>
+            Gets or sets additional arguments to pass to light
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.Wix.WixDirectory">
+            <summary>
+            Gets or sets the path to the wix binaries folder
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.WixHelper">
+            <summary>
+            Helper methods for Wix tasks
+            </summary>
+        </member>
+        <member name="F:CodePlex.Tools.MsBuild.WixHelper.NamespaceUri">
+            <summary>
+            Wix Xml namespace
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WixHelper.ToId(System.String,Microsoft.Build.Framework.ITaskItem)">
+            <summary>
+            Toes the id.
+            </summary>
+            <param name="featureName">Name of the feature.</param>
+            <param name="name">The name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WixHelper.EscapeId(System.String)">
+            <summary>
+            Escapes the id.
+            </summary>
+            <param name="name">The name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WixHelper.TrimId(System.String)">
+            <summary>
+            Trims the id.
+            </summary>
+            <param name="id">The id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WixHelper.ToComponentId(System.String,Microsoft.Build.Framework.ITaskItem)">
+            <summary>
+            Convert taskitem name to component name
+            </summary>
+            <param name="featureName">Name of the feature.</param>
+            <param name="name">The name.</param>
+            <returns></returns>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.WriteProgressToFile">
+            <summary>
+            Write a simple html line in a file with the current progress method
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WriteProgressToFile.Execute">
+            <summary>
+            Pounds a file with a small progress message
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WriteProgressToFile.File">
+            <summary>
+            Gets or sets the file.
+            </summary>
+            <value>The file.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WriteProgressToFile.Message">
+            <summary>
+            Gets or sets the message.
+            </summary>
+            <value>The message.</value>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.WriteToFile">
+            <summary>
+            Write a string to disk
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.WriteToFile.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WriteToFile.File">
+            <summary>
+            Gets or sets the file name to read
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WriteToFile.Content">
+            <summary>
+            Gets the file content
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.WriteToFile.Overwrite">
+            <summary>
+            Gets or sets a value indicating wheter the file should be
+            overwritten
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.XmlLogger">
+            <summary>
+            MSBuild XML logger
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.XmlLogger.Initialize(Microsoft.Build.Framework.IEventSource)">
+            <summary>
+            Attaches to logging events
+            </summary>
+            <param name="eventSource"></param>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.XmlLogger.Shutdown">
+            <summary>
+            Closes writer
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XmlLogger.Parameters">
+            <summary>
+            Logger parameters
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XmlLogger.Verbosity">
+            <summary>
+            Logger verbosity
+            </summary>
+        </member>
+        <member name="T:CodePlex.Tools.MsBuild.XslTransform">
+            <summary>
+            Applies a XSL stylesheet transform to xml files
+            </summary>
+        </member>
+        <member name="M:CodePlex.Tools.MsBuild.XslTransform.Execute">
+            <summary>
+            When overridden in a derived class, executes the task.
+            </summary>
+            <returns>
+            true if the task successfully executed; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XslTransform.Stylesheet">
+            <summary>
+            Gets or sets the stylesheet.
+            </summary>
+            <value>The stylesheet.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XslTransform.XmlFiles">
+            <summary>
+            Gets or sets the XML files.
+            </summary>
+            <value>The XML files.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XslTransform.OutputFiles">
+            <summary>
+            Gets the generated output files.
+            </summary>
+            <value>The output files.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XslTransform.OutputFileFormatString">
+            <summary>
+            Gets or sets the output file format string. Default is 
+            '{0}{1}' where
+            {0} explands to the xml file name (without extension)
+            and {1} to the extension (with leading dot) derived from the xsl
+            output type.
+            </summary>
+            <value>The output file format string.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XslTransform.Arguments">
+            <summary>
+            Gets or sets a semi-column separated list of
+            argument values.
+            </summary>
+            <value>The arguments.</value>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XslTransform.EnableDocumentFunction">
+            <summary>
+            Enable the document() function
+            </summary>
+        </member>
+        <member name="P:CodePlex.Tools.MsBuild.XslTransform.EnableScript">
+            <summary>
+            Enable inlined script
+            </summary>
+        </member>
+    </members>
+</doc>

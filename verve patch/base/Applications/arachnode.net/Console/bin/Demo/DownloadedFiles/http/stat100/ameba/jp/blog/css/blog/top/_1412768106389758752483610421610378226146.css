@@ -1,0 +1,765 @@
+@charset "UTF-8";
+
+/*global reset
+--------------------------------------------*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote { margin:0; padding:0; }
+fieldset,img { border:0; }
+address,caption,cite,code,dfn,em,th,var { font-style:normal; font-weight:normal; }
+ol,ul { list-style:none; }
+table { border-collapse: collapse; font-size:inherit; }
+h1,h2,h3,h4,h5 { font-size:100%; line-height:1; }
+
+/*common
+--------------------------------------------*/
+
+body {
+	background: #FAFAFA;
+	text-align: left;
+	display: block;
+}
+
+embed {
+	outline: none;
+}
+
+.opacity70:hover {
+	filter: alpha(opacity=70);
+	opacity: 0.7;
+}
+
+/*headerArea
+--------------------------------------------*/
+#headerArea {
+	margin-bottom: 10px;
+	padding: 7px 0;
+	border-bottom: 1px solid #CCC;
+	background: #F4F4F4;
+	text-align: left;
+}
+
+#headerAreaInner {
+	width: 980px;
+	margin: 0 auto;
+}
+
+/*mainArea
+--------------------------------------------*/
+#mainArea {
+	margin-bottom: 10px;
+	background: #FAFAFA;
+}
+
+#mainAreaInner {
+	width: 980px;
+	margin: 0 auto;
+	zoom: 1;
+}
+
+#mainAreaInner:after {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+}
+
+#mainAreaLeft {
+	position: relative;
+	float: left;
+	width: 600px;
+	padding: 26px 0 0 100px;
+}
+
+#mainAreaLeft #sunny {
+	position: absolute;
+	top: 17px;
+	left: 0;
+	width: 131px;
+	height: 70px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_sunny_rainbow.png) no-repeat left top;
+}
+
+#mainAreaLeft h1,
+#mainAreaLeft h2 {
+	margin-left: 47px;
+}
+
+#mainAreaLeft h1 {
+	margin-bottom: 5px;
+}
+
+#mainAreaLeft h2 {
+	margin-bottom: 20px;
+	padding-left: 3px;
+}
+
+#mainAreaRight {
+	float: right;
+	width: 247px;
+	margin-right: 3px;
+}
+
+#mainAreaRight .registBtn,
+#mainAreaRight .mypageBtn {
+	margin-bottom: 8px;
+}
+
+#mainAreaRight .link {
+	margin: 0 -10px;
+	text-align: center;
+}
+
+#mainAreaRight .link a {
+	padding: 2px 0 2px 20px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_arrow.png) no-repeat left center;
+}
+
+/*carouselArea
+--------------------------------------------*/
+
+#carouselArea {
+	overflow: hidden !important;
+	width: 100%;
+	margin-bottom: 25px;
+	padding-top: 3px;
+	border-top: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+	background: #EAEBEE;
+}
+
+#carouselWrap {
+	position:relative;
+	margin: 0 auto;
+	width: 801px;
+	height: 300px;
+}
+
+#carouselPrev,
+#carouselNext {
+	display: block;
+	position:absolute;
+	top: 133px;
+	width: 33px;
+	height: 34px;
+	text-indent: -9999px;
+	cursor:pointer;
+}
+
+#carouselPrev {
+	left: 8px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/btn_carousel.png) no-repeat left top;
+}
+
+#carouselPrev:hover {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/btn_carousel.png) no-repeat left bottom;
+}
+
+#carouselNext {
+	right: 8px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/btn_carousel.png) no-repeat right top;
+}
+
+#carouselNext:hover {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/btn_carousel.png) no-repeat right bottom;
+}
+
+#carousel {
+	width:100%;
+	height:100%;
+}
+
+#carouselLeft,
+#carouselRight {
+	position: absolute;
+	top: 0;
+	width: 801px;
+	height: 300px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_gray_stripe.png);
+	opacity: 0.7;
+}
+
+#carouselLeft {
+	left: -801px;
+}
+
+#carouselRight {
+	left: 801px;
+}
+
+#carouselInner .column {
+	float:left;
+	width: 800px;
+	height: 300px;
+	border-right: 1px solid #FFF;
+}
+#carouselInner .column li {
+	float:left;
+	margin-right:10px;
+	display:inline;
+}
+#carouselInner .column li img {
+	border:none;
+}
+
+#carouselPos {
+	margin: 0 auto;
+	padding: 5px;
+	width: 100%;
+	background: #F2F2F2;
+	text-align: center;
+	zoom: 1;
+}
+
+#carouselPos li {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	width: 15px;
+	height: 14px;
+	margin-right: 10px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_carouselPos.png) no-repeat left top;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+#carouselPos .active {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_carouselPos.png) no-repeat right top;
+	cursor: default;
+}
+
+#carouselPos .last {
+	margin-right: 0;
+}
+
+/*blogArea
+--------------------------------------------*/
+#blogArea {
+	width: 948px;
+	min-height: 50px;
+	margin: 0 auto 20px auto;
+	padding: 15px;
+	background: #F4F4F4;
+	border: 1px solid #CECECE;
+	border-radius: 8px;
+	box-shadow: 0 0 3px #CCC;
+	zoom: 1;
+}
+
+#blogArea:after {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+}
+
+#blogAreaLeft,
+#blogAreaRight {
+	border-radius: 8px;
+	background: #FFF;
+}
+
+#blogAreaLeft {
+	float: left;
+	width: 450px;
+	padding: 4px 5px 4px 13px;
+}
+
+#blogAreaRight {
+	float: right;
+	width: 450px;
+	margin-bottom: 14px;
+	padding: 23px 0 5px 18px;
+}
+
+#blogBtnArea {
+	float: right;
+	width: 468px;
+	text-align: right;
+}
+
+/*subArea
+--------------------------------------------*/
+#subArea {
+	width: 980px;
+	margin: 0 auto 20px auto;
+	background: #FFF;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	zoom: 1;
+}
+
+#subArea:after {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+}
+
+#subAreaLeft,
+#subAreaRight {
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	box-shadow: 0 0 3px #CCC;
+}
+
+#subAreaLeft {
+	float: left;
+	width: 450px;
+	padding: 21px 15px 15px 15px;
+	text-align: center;
+}
+
+#subAreaLeft h2 {
+	margin-bottom: 8px;
+}
+
+#subAreaLeft #qrArea {
+	position: relative;
+	width: 448px;
+	height: 116px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/search_ameba_qr.png) no-repeat left top;
+}
+
+#subAreaLeft #qrArea .desc {
+	overflow: hidden;
+	position: absolute;
+	top: 89px;
+	left: 84px;
+	width: 220px;
+	color: #333;
+	font-size: 14px;
+	text-align: right;
+}
+
+/*rankingArea
+--------------------------------------------*/
+#rankingArea h2 {
+	margin-bottom: 5px;
+}
+
+#rankingArea .imgLi {
+	zoom: 1;
+}
+
+#rankingArea .imgLi:after {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+}
+
+#rankingArea .imgLi li {
+	overflow: hidden;
+	float: left;
+	width: 107px;
+	height: 56px;
+	margin: 0 5px 4px 0;
+}
+
+#rankingArea .imgLi li .name {
+	display: block;
+	clear: both;
+	margin-top: 5px;
+}
+
+#rankingArea .imgLi li .thumbValue {
+	float: right;
+	width: 50px;
+}
+
+#rankingArea .imgLi li .thumbBox {
+	display: block;
+	float: left;
+	width: 48px;
+	height: 48px;
+	padding: 1px;
+	border: 1px solid #CCC;
+}
+
+#rankingArea .imgLi .rankNum {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	margin-right: 2px;
+	vertical-align: middle;
+}
+
+#rankingArea .imgLi .rank1 .rankNum,
+#rankingArea .imgLi .rank2 .rankNum,
+#rankingArea .imgLi .rank3 .rankNum {
+	width: 24px;
+	height: 24px;
+}
+
+#rankingArea .imgLi .rank1 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 0;
+}
+
+#rankingArea .imgLi .rank2 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -30px;
+}
+
+#rankingArea .imgLi .rank3 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -60px;
+}
+
+#rankingArea .imgLi .rank4 .rankNum,
+#rankingArea .imgLi .rank5 .rankNum,
+#rankingArea .imgLi .rank6 .rankNum,
+#rankingArea .imgLi .rank7 .rankNum,
+#rankingArea .imgLi .rank8 .rankNum,
+#rankingArea .imgLi .rank9 .rankNum {
+	width: 17px;
+	height: 10px;
+}
+
+#rankingArea .imgLi .rank10 .rankNum {
+	width: 24px;
+	height: 10px;
+}
+
+#rankingArea .imgLi .rank4 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -90px;
+}
+
+#rankingArea .imgLi .rank5 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -120px;
+}
+
+#rankingArea .imgLi .rank6 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -150px;
+}
+
+#rankingArea .imgLi .rank7 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -180px;
+}
+
+#rankingArea .imgLi .rank8 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -210px;
+}
+
+#rankingArea .imgLi .rank9 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -240px;
+}
+
+#rankingArea .imgLi .rank10 .rankNum {
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -270px;
+}
+
+#rankingArea .imgLi .rankEqual {
+	position: relative;
+	bottom: 1px;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	width: 9px;
+	height: 6px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -300px;
+	vertical-align: middle;
+}
+
+#rankingArea .imgLi .rankUp {
+	position: relative;
+	bottom: 1px;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	width: 6px;
+	height: 9px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -330px;
+	vertical-align: middle;
+}
+
+#rankingArea .imgLi .rankDown {
+	position: relative;
+	bottom: 1px;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	width: 6px;
+	height: 9px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_rank.png) no-repeat 0 -360px;
+	vertical-align: middle;
+}
+
+/** top3 **/
+
+#rankingArea .imgLi .top3 {
+	overflow: hidden;
+	width: 145px;
+	height: 80px;
+	margin: 0 5px 0 0;
+}
+
+#rankingArea .imgLi .top3 .thumbBox {
+	display: block;
+	float: left;
+	width: 68px;
+	height: 68px;
+	padding: 1px;
+	border: 1px solid #CCC;
+}
+
+#rankingArea .imgLi .top3 .thumbValue {
+	width: 68px;
+}
+
+#rankingArea .imgLi .top3 .viewCount {
+	clear: both;
+}
+
+/*blognewsArea
+--------------------------------------------*/
+#blognewsArea h2 {
+	margin-bottom: 18px;
+	text-align: center;
+}
+
+#blognewsArea #newsList {
+	*padding-bottom: 10px;
+	zoom: 1;
+}
+
+#blognewsArea #newsList:after {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+}
+
+#blognewsArea #newsList li {
+	float: left;
+	width: 213px;
+	margin: 0 0 12px 0;
+	padding: 0 0 0 12px;
+	background: url(http://stat100.ameba.jp/mypg/img/common/icon_common.png) no-repeat 0 -1395px;
+}
+
+#blognewsArea #newsList li img {
+	margin-left: 5px;
+	vertical-align: inherit;
+}
+
+#subAreaRight {
+	position: relative;
+	float: right;
+	width: 448px;
+	min-height: 159px;
+	padding: 22px 15px 5px 15px;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	box-shadow: 0 0 3px #CCC;
+	zoom: 1;
+}
+
+#subAreaRight:after {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+}
+
+#subAreaRight h2 {
+	text-align: center;
+}
+
+#subAreaRight #freeRibbon {
+	position: absolute;
+	top: -3px;
+	left: -3px;
+	width: 125px;
+	height: 70px;
+	text-indent: -9999px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_free_ribbon.png) no-repeat left top;
+}
+
+#subAreaRight #appChar {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 79px;
+	height: 59px;
+	background: url(http://stat100.ameba.jp/blog/img/blog_top/bg_app_char.png) no-repeat left top;
+}
+
+#subAreaRight dt,
+#subAreaRight dd {
+	line-height: 1;
+}
+
+#subAreaRight dt img {
+	vertical-align: top;
+}
+
+#subAreaRight .desc {
+	position: absolute;
+	top: 75px;
+	left: 140px;
+	color: #333;
+	font-size: 14px;
+}
+
+#subAreaRight #iconAmebaApp {
+	position: absolute;
+	top: 72px;
+	left: 24px;
+}
+
+#subAreaRight #iphoneTitle {
+	position: absolute;
+	top: 101px;
+	left: 266px;
+}
+
+#subAreaRight #appStoreBtn {
+	position: absolute;
+	top: 115px;
+	left: 164px;
+}
+
+#subAreaRight #androidTitle {
+	position: absolute;
+	top: 101px;
+	left: 404px;
+}
+
+#subAreaRight #googlePlayBtn {
+	position: absolute;
+	top: 115px;
+	left: 316px;
+}
+
+/*appArea
+--------------------------------------------*/
+#appArea {
+	width: 978px;
+	margin: 0 auto 30px auto;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	box-shadow: 0 0 3px #CCC;
+	background: #FFF;
+}
+
+#appArea h2 {
+	position: relative;
+	padding: 22px 0 9px;
+	border-radius: 5px 5px 0 0;
+	background: #FFF;
+	text-align: center;
+}
+
+#appArea h2 #appBalloon {
+	position: absolute;
+	bottom: 13px;
+	left: 124px;
+}
+
+#appAreaInner {
+	padding: 20px 29px;
+	border-radius: 0 0 5px 5px;
+	background: #FFF;
+	zoom: 1;
+}
+
+#appAreaInner:after {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+}
+
+#appAreaInner .appItemColumn {
+	margin-bottom: 13px;
+	padding-bottom: 13px;
+	border-bottom: 1px solid #E9E9E9;
+	zoom: 1;
+}
+
+#appAreaInner .appItemColumn:after {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+}
+
+#appAreaInner .appItemColumn.last {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+#appAreaInner .appItem {
+	float: left;
+	width: 300px;
+	margin-right: 10px;
+}
+
+#appAreaInner .appItem.last {
+	margin-right: 0;
+}
+
+#appAreaInner .appItemLeft {
+	float: left;
+	width: 100px;
+}
+
+#appAreaInner .appItemRight {
+	float: right;
+	width: 190px;
+}
+
+#appAreaInner .appItemRight .title {
+	margin-bottom: 5px;
+	color: #333;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+#appAreaInner .appItemRight .desc {
+	color: #666;
+}
+
+/*footerAdArea
+--------------------------------------------*/
+#footerAdArea {
+	position: relative;
+	width: 978px;
+	height: 143px;
+	margin: 0 auto 20px auto;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	box-shadow: 0 0 3px #CCC;
+	background: #FFF url(http://stat100.ameba.jp/blog/img/blog_top/bg_footer_ad.png) no-repeat center bottom;
+}
+
+#footerAdArea .title {
+	position: absolute;
+	top: 14px;
+	left: -11px;
+}
+
+/*registBtnArea
+--------------------------------------------*/
+.registBtnArea {
+	margin-bottom: 25px;
+	text-align: center;
+}
+
+.registBtnArea.last {
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+/*registLinkArea
+--------------------------------------------*/
+.registLinkArea {
+	margin-bottom: 50px;
+	font-size: 16px;
+	text-align: center;
+}

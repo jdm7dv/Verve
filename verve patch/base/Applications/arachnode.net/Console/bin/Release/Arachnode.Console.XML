@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Console</name>
+    </assembly>
+    <members>
+        <member name="M:Arachnode.Console.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Console.Program.Engine_CrawlCompleted(Arachnode.SiteCrawler.Core.Engine)">
+            <summary>
+            Handles the OnCrawlCompleted event of the Engine control.
+            </summary>
+            <param name="engine">The Engine.</param>
+        </member>
+    </members>
+</doc>

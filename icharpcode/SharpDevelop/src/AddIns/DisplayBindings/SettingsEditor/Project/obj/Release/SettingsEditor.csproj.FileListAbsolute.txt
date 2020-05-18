@@ -1,0 +1,6 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\SettingsEditor\EmptySettingsFile.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\SettingsEditor\SettingsEditor.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\SettingsEditor\SettingsEditor.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\SettingsEditor\Project\obj\Release\ICSharpCode.SettingsEditor.SettingsView.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\SettingsEditor\Project\obj\Release\SettingsEditor.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\SettingsEditor\Project\obj\Release\SettingsEditor.dll

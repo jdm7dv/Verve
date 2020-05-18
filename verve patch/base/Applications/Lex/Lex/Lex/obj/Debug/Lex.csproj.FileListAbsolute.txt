@@ -1,0 +1,2 @@
+C:\Users\Jonathan Moore\research-environment\Sandbox\base\Applications\Lex\Lex\Lex\bin\Debug\Lex.exe.config
+C:\Users\Jonathan Moore\research-environment\Sandbox\base\Applications\Lex\Lex\Lex\obj\Debug\Lex.csprojResolveAssemblyReference.cache

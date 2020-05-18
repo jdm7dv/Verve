@@ -1,0 +1,74 @@
+<%@ Page Language="C#" ContentType="text/html" ResponseEncoding="iso-8859-1" %>
+<html>
+<head>
+<title>Readme : CSymphony & CSy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+-->
+</style>
+</head>
+<body>
+<p>Csy is a utility for generating code in multiple .Net languges by building the Code Graph in any one .Net language.
+</p>
+<p>It uses the CodemDOM wrapper CSymphony.Lib. Unlike the other CodeDOM libraries the code graph can be built in a more natural programming style. The library maintains the stack for the common statement containers, eg. Classes, Methods, Iterations, Exceptions, etc.</p>
+<p> Please see the sample folders (vbSamples, csSamples)  for around 50 samples in VB.NET and C# for various code / data type constructs. Read  <a href="CSy/QuickStart.html">Quick Start</a> for a fast-paced intro the the CSy utility.</p>
+<p>Also see the <a href="CSy/Samples.html">Samples </a>with the input code in C# & VB.net and the resulting output generated in C#, VB.net, J#, JScript, C++.net</a>. </p>
+<p>The folders <strong>vbSamples, </strong><strong>csSamples </strong>include the batch file to test the samples. The batch files use the following command line :</p>
+<p>csy -i&lt;FileName.ext&gt; -p:CS </p>
+<p>or</p>
+<p>csy -i&lt;FileName.ext&gt; -p:VB</p>
+<p>Just click on the batch files and the code is generated in the the <strong>SourceOut</strong> folder. To add/remove languages or to change the destination folder for the generated code edit the csy.xml file in these folders. (see the sample xml config file below for more clues).</p>
+<p><strong>Usage :</strong></p>
+<p>csy -c&lt;csy.xml&gt; -i&lt;inputFile&gt; -p&lt;providerID&gt;</p>
+<p>all the 3 parameters viz. -c, -i, -p are optional. See the sample usage below for more details.</p>
+<p>csy uses the input file to generate code in multiple .net languages as specified in the <strong>&lt;codeGen&gt;</strong> tag. The resultant output file(s) is created in the folder specified by the <strong>path </strong>attribute specified in the <strong>&lt;codegen&gt;</strong> tag. </p>
+The <strong>&lt;codeProviders&gt; </strong>tag lists the .Net languages to be used as an input language or output languages.
+<p>The input file is compiled using the Code Provider as specified in the <strong>-p</strong> parameter or the <strong>prvId</strong> tag of the <strong>&lt;in&gt;</strong> tag.</p>
+<p>The following is the sample Xml file. </p>
+<p>&lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;<br>
+  &lt;csy&gt;<br>
+          &lt;in file=&quot;CodeConditionStatement.csy&quot; prvId=&quot;CS&quot;/&gt;<br>
+  	&lt;codeGen&gt;<br>
+  	&lt;out path=&quot;SourceOut&quot; prvId=&quot;CS&quot;/&gt;<br>
+  	&lt;out path=&quot;SourceOut&quot; prvId=&quot;VB&quot;/&gt;<br>
+  	&lt;out path=&quot;SourceOut&quot; prvId=&quot;CPP&quot;/&gt;<br>
+  	&lt;out path=&quot;SourceOut&quot; prvId=&quot;JSCRIPT&quot;/&gt;<br>
+  	&lt;out path=&quot;SourceOut&quot; prvId=&quot;JSHARP&quot;/&gt;<br>
+  	&lt;/codeGen&gt;<br>
+  &lt;codeProviders&gt;<br>
+  	&lt;codeProvider prvId=&quot;CS&quot; fileExt=&quot;cs&quot; info= &quot;C#&quot; assembly=&quot;System, Version=1.1.4322.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; providerType = &quot;Microsoft.CSharp.CSharpCodeProvider&quot; /&gt;</p>
+<p>
+  	&lt;codeProvider prvId=&quot;VB&quot; fileExt=&quot;vb&quot; info= &quot;Visual Basic .NET&quot; assembly=&quot;System, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; providerType = &quot;Microsoft.VisualBasic.VBCodeProvider&quot; /&gt;</p>
+<p>
+  	&lt;codeProvider prvId=&quot;JSHARP&quot; fileExt=&quot;jsl&quot; info= &quot;JSharp&quot; assembly=&quot;VJSharpCodeProvider, Version=7.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; providerType = &quot;Microsoft.VJSharp.VJSharpCodeProvider&quot; /&gt;</p>
+<p>
+  	&lt;codeProvider prvId=&quot;CPP&quot; fileExt=&quot;cpp&quot; info= &quot;C++.net&quot; assembly=&quot;MCppCodeDomProvider, Version=7.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; providerType=&quot;Microsoft.MCpp.MCppCodeProvider&quot; /&gt;</p>
+<p>
+  	&lt;codeProvider prvId=&quot;JSCRIPT&quot; fileExt=&quot;js&quot; info= &quot;Jscript.Net&quot; assembly=&quot;Microsoft.JScript, , Version=7.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&quot; providerType = &quot;Microsoft.JScript.JScriptCodeProvider&quot; /&gt;</p>
+<p>
+  &lt;/codeProviders&gt;</p>
+<p>&lt;/csy&gt;<br>
+</p>
+<p><strong>Notes :</strong></p>
+<p>When the -c&lt;configFile&gt; option is absent csy.xml is assumed to be the config file.</p>
+<p>When the -i&lt;inFile&gt; option is absent , the <strong>file</strong> attribute of the <strong>&lt;in&gt;</strong> tag is used as the input file. </p>
+<p>For eg. &lt;in file=&quot;myInput.vb&quot;&gt; </p>
+<p>When th -p&lt;ProviderID&gt; option is absent the <strong>prvId</strong> attribute of the <strong>&lt;in</strong>&gt; tag is used as the Code Provider for the input file.</p>
+<p>For eg. &lt;in file=&quot;myInput.graph&quot; prvId=&quot;VB&quot;&gt; </p>
+<p>All the providers used as an input or outpur are to be specified withing the codeprovider tags.</p>
+<p>sample usage :</p>
+<p>a) csy</p>
+<p>takes the config details from the csy.xml file, uses the <strong>&lt;in file&gt;</strong> and the <strong>&lt;in prvId&gt;</strong> of the csy.xml file as the input file and the provider id, for eg. &lt;in file=&quot;MyGraph.cs&quot; prvId=&quot;CS&quot; /&gt;</p>
+<p>b) csy -c:MyConfigFile.xml</p>
+<p>Same as (a) except the details come from MyConfigFile.xml instead of Csy.xml.</p>
+<p>c) csy -i:MyGraph.cs -p:CS</p>
+<p>Same as (a) except the input file and the provider Id is specified. Useful when the same config file is to be used for multiple input file. Prevents you from creating multiple config files.</p>
+<p>d) csy -c:MyConfigFile -i:MyGraph.vb -p:VB</p>
+<p>&nbsp;</p>
+</body>
+</html>

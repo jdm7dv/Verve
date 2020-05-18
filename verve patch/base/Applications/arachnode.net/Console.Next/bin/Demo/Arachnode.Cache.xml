@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Cache</name>
+    </assembly>
+    <members>
+        <member name="M:Arachnode.Cache.DistributedCache.ContainsText(System.String,System.String,System.Security.Cryptography.SHA1)">
+            <summary>
+            	Only UTF8.
+            </summary>
+            <param name = "cacheKey"></param>
+            <param name = "text"></param>
+            <param name = "sha1"></param>
+        </member>
+    </members>
+</doc>

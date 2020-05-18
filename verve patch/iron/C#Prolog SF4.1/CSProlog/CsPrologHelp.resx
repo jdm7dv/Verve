@@ -1,0 +1,3590 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="parser/*" xml:space="preserve">
+    <value>  
+  The parser (defined in pl.grm, expanded by a preprocessor to pl.cs) splits the input
+  in a sequence of tokens. These tokens are actually 'high level' tokens, because the
+  parser already recursively reduces a number of syntactical constructs (functors with
+  argument lists, terms in parentheses, ordinary lists and grammar lists in curly
+  brackets, stand-alone operators) to single terms. This means that the parser can
+  actually be regarded as a high level tokenizer, and that the token sequence it
+  delivers only contains operators and single terms that have already been created in
+  the recursion, and does (therefore) no longer contain parentheses, square brackets,
+  and curly brackets. This significantly simplifies the subsequent analysis - in which
+  syntax checking and operator overloading and precedence checking takes place.
+  The thus-generated sequence of tokens conforms to the following grammar:
+  
+  (1) E -&gt; F (zfz F)*         // zfz is an infix operator ...
+  (2) F -&gt; fz* E zf* | Term   // ... fz prefix, zf postfix
+  
+  Each token is analysed and compared with the previous token as soon as it has been
+  parsed. Not only the order prescribed by the grammar is checked, but also which form
+  of an overloaded operator must be chosen and whether consecutive operators have the
+  appropriate associativity and precedence. It turns out that the lookahead of one
+  symbol is enough to perform this process.
+  
+  Incoming tokens are pushed on a stack (Infix Stack, IS). There are eight types of
+  token: Term, Infix (operator), Prefix, Postfix, Infix/Prefix, Infix/Postfix, and two
+  pseudo-tokens: Beginning of Stream and End of Stream. This means that there are 64
+  possibilities for the combination &lt;stacktop token, new token&gt;. A number of these
+  combinations cannot occur in practice or denotes a syntax error. For a number of
+  others, identical processing is required. The cases are dealt with in a large switch
+  statement, in which the 64 cases have been written out and combined whenever possible.
+  
+  A slight complication occurs when an overloaded Infix/Postfix operator is added to the
+  sequence. If the top token is a Term or Postfix operator, it cannot be decided which
+  role (infix or postfix) must be chosen until the next token arrives. If the next token
+  is a term, it must be an infix; if the next token is a postfix, it must be set to
+  postfix. In doing so, however, the precedence and associativity must be compared with
+  the precedence of the penultimate token (just below the top token).
+  To make this slightly easier, a token variable �prevOd� (Operator descriptor) has been
+  introduced, which contains the precedence of the previous token.
+  
+  The above strategy will guarantee that:
+  
+  1. The sequence of prefix operators preceding a term have non-increasing precedences;
+  
+  2. The sequence of postfix operators following a term have non-decreasing precedences;
+  
+  3. The infix operators connecting the factors F in grammar rule (1) above have
+     precedence values and associativities that agree with the prefix / postfix operators
+     following / preceding them.
+  
+  The only remaining problem is that sofar no check has been carried out on the
+  relations between the infix operators themselves. E.g. in 'T1 inf1 T2 inf2 T3'
+  operators inf1 and inf2 may have irreconcilable associativities when their
+  precedences are equal. In that case, xfy yfx is ambiguous and ?fx xf? denotes an
+  operator clash. These checks are performed in InfixToPrefix().
+  
+  The above-described code can be found in file TokenSeqToTerm.cs.
+  
+</value>
+  </data>
+  <data name="csprolog_dll/*" xml:space="preserve">
+    <value>  
+  How to use a PrologEngine from within another program?
+  
+  The PrologEngine class offers two public methods for this purpose:
+  
+  - GetAllSolutions (...)
+  - GetAllSolutionsXml (...)
+  
+   public SolutionSet GetAllSolutions (string sourceFileName, string query, int maxSolutionCount)
+   public SolutionSet GetAllSolutions (string sourceFileName, string query)
+  
+  The purpose of this method is to find all solutions for query 'query', with a maximum number
+  of solutions 'maxSolutionCount'. If the value of this parameter is &lt;= 0, all solutions will
+  be determined.
+  
+  'sourceFileName' may contain the name of a Prolog source file that is to be consulted prior
+  to the execution of the query. Enter a null-value if no such source file is present.
+  
+  The solutions that are found, are collected in an instance of the public 'SolutionSet' class.
+  A SolutionSet contains a list of variables of the 'Solution' class type, where each solution
+  contains a list of variables of the 'Variable' class type. A Variable contain the name, data type
+  and value of the Prolog variable that got instantiated as a result of executing the query.
+  
+  'SolutionSet' contains three other properties:
+  
+  - string Query  : the query you provided as parameter
+  - bool Success  : true if the query succeeded, false if it did not
+  - int Count     : the number of Solutions in SolutionSet. Notice that this number may be zero
+                    also if Success = true, i.e. the query succeeded, but no variables are available
+                    for output.
+  - bool HasError : true if a runtime error occurred. A test on this is left out in the examples
+                    1 and 2 below, but this obviously should always be present.
+  - string ErrMsg : the text of the error message.
+  
+  In addition, 'SolutionSet' exports a ToString() method showing the above information in a condensed form.
+  
+   public string GetAllSolutionsXml (string sourceFileName, string destinFileName, string query, int maxSolutionCount)
+   public string GetAllSolutionsXml (string sourceFileName, string destinFileName, string query)
+  
+  These method are similar to there GetAllSolutions counterparts. The main difference is that
+  the solution set is stored in an XML-structure. This structure is written to 'destinFileName' if
+  such a name is provided, and returned as a string method result if 'destinFileName' is null.
+  If a runtime error occurs, the text of the error will be stored in a node named &lt;error&gt;.
+  
+  The solution contains a console project PLx (containing a Reference to the CsProlog project), with
+  a simple main program demonstrating the use of the above methods:
+  
+  |  static void Main (string [] args)
+  |  {
+  |    PrologEngine e = new PrologEngine ();
+  |    // Example 1 -- the age/2 predicate is a builtin example; defined in Bootstrap.cs
+  |
+  |    Console.WriteLine ("Example 1");
+  |    Console.WriteLine ();
+  |
+  |    SolutionSet ss = e.GetAllSolutions (null, "age(P,N)");
+  |
+  |    if (ss.Success)
+  |    {
+  |      for (int i = 0; i &lt; ss.Count; i++ ) // or: foreach (Solution s in ss.NextSolution)
+  |      {
+  |        Solution s = ss [i];
+  |        Console.WriteLine ("Solution {0}", i+1);
+  |
+  |        foreach (Variable v in s.NextVariable)
+  |          Console.WriteLine (string.Format ("{0} ({1}) = {2}", v.Name, v.Type, v.Value));
+  |      }
+  |    }
+  |    else
+  |      Console.WriteLine ("Failure");
+  |
+  |    // Example 2 -- xml generation
+  |
+  |    Console.WriteLine ("Example 2");
+  |    Console.WriteLine ();
+  |
+  |    string result = e.GetAllSolutionsXml (null, null, "age(P,N)");
+  |    Console.WriteLine (result);
+  |    Console.WriteLine ();
+  |
+  |    // Example 3 -- error
+  |
+  |    Console.WriteLine ("Example 3");
+  |    Console.WriteLine ();
+  |
+  |    ss = e.GetAllSolutions (null, "age(P,))))))))))");
+  |
+  |    if (ss.HasError)
+  |      Console.WriteLine ("An error occurred: {0}", ss.ErrMsg);
+  |
+  |    Console.WriteLine ("Press any key to exit");
+  |    Console.ReadKey ();
+  |  }
+  
+  Result of running this program:
+  
+  |  Example 1
+  |
+  |  Solution 1
+  |  P (atom) = peter
+  |  N (number) = 7
+  |  Solution 2
+  |  P (atom) = ann
+  |  N (number) = 5
+  |  Solution 3
+  |  P (atom) = ann
+  |  N (number) = 6
+  |  Solution 4
+  |  P (atom) = pat
+  |  N (number) = 8
+  |  Solution 5
+  |  P (atom) = tom
+  |  N (number) = 5
+  |
+  |  Example 2
+  |
+  |  &lt;?xml version="1.0" encoding="Windows-1252"?&gt;
+  |  &lt;solutions success="true"&gt;
+  |    &lt;query&gt;age(P,N)&lt;/query&gt;
+  |    &lt;solution&gt;
+  |      &lt;variable name="P" type="atom"&gt;peter&lt;/variable&gt;
+  |      &lt;variable name="N" type="number"&gt;7&lt;/variable&gt;
+  |    &lt;/solution&gt;
+  |    &lt;solution&gt;
+  |      &lt;variable name="P" type="atom"&gt;ann&lt;/variable&gt;
+  |      &lt;variable name="N" type="number"&gt;5&lt;/variable&gt;
+  |    &lt;/solution&gt;
+  |    &lt;solution&gt;
+  |      &lt;variable name="P" type="atom"&gt;ann&lt;/variable&gt;
+  |      &lt;variable name="N" type="number"&gt;6&lt;/variable&gt;
+  |    &lt;/solution&gt;
+  |    &lt;solution&gt;
+  |      &lt;variable name="P" type="atom"&gt;pat&lt;/variable&gt;
+  |      &lt;variable name="N" type="number"&gt;8&lt;/variable&gt;
+  |    &lt;/solution&gt;
+  |    &lt;solution&gt;
+  |      &lt;variable name="P" type="atom"&gt;tom&lt;/variable&gt;
+  |      &lt;variable name="N" type="number"&gt;5&lt;/variable&gt;
+  |    &lt;/solution&gt;
+  |  &lt;/solutions&gt;
+  |
+  |  Example 3
+  |
+  |  An error occurred:
+  |  *** input string: line 1 position 7
+  |  age(P,)))))))))).
+  |  *** Unexpected symbol: ")"
+  |  *** Expected one of: (, &lt;Identifier&gt;, &lt;IntLiteral&gt;, &lt;RealLiteral&gt;, &lt;ImagLiteral&gt;
+  |  , &lt;StringLiteral&gt;, **, /\, &lt;&lt;, /, spy, xor, -, ?=, @&gt;=, @&gt;, &gt;=, &gt;, =\=, =:, ;, :
+  |  -, '{}', ^, mod, &gt;&gt;, //, nospy, \/, #, :, =.., @=&lt;, @&lt;, =&lt;, &lt;, =:=, :=, -&gt;, \+,
+  |  once, help, =, ==, is, \==, \=, not, &lt;Atom&gt;, &lt;Anonymous&gt;, &lt;CutSym&gt;, [, {, &lt;ListP
+  |  atternOpen&gt;, TRY, {=, =}, &lt;AltListOpen&gt;, &lt;AltListClose&gt;, &lt;VerbatimStringLiteral&gt;
+  |
+  |  Press any key to exit
+  
+</value>
+  </data>
+  <data name="howto_create_predicate/*" xml:space="preserve">
+    <value>  
+  How to create a new predicate
+  
+  The easiest way to do this is by studying an existing predicate that is more or less
+  similar in number, type and mode (in/out/inout) to your predicate. Anyway, you will
+  have to do the following at least:
+  
+  1. Create an entry in BOOTSTRAP.CS. The format of such an entry is
+     &lt;predicate name&gt;( &lt;list of aruments&gt;) :== &lt;BI enum entry&gt;.
+  
+  2. Add a value BI.&lt;BI enum entry&gt; to the BI enum in BUILTINS.CS.
+  
+  3. Create the code for your predicate in the switch-statement in BUILTINS.CS.
+  
+  Backtrackable predicates
+  
+  These are all implemented according to the same pattern: a predicate with an extra
+  first State argument is introduced. This argument maintains the state between two
+  successive backtracking calls. It is initialized at the first call, and reset to an
+  unbound variable after the last successful call. UserClassTerm (in DerivedTerms.cs)
+  can be used for creating a State term with an arbitrary class type content. In my
+  experience, an enumerator is eminently suited for this task, since in fact it can
+  be considered a finite state engine that yields one value at a time and saves state
+  between calls. See Bootstrap.cs for examples, or study the implementation of the
+  permutation/2 predicate for an example.
+  
+  Options
+  
+  There is a class called PredicateCallOptions which has an instance predicateCallOptions
+  that you can use to easily access a list of options that specify the behaviour of a predicate.
+  
+  Example: json_term( ..., [indent(2,4), nocommas, noquotes]).
+  
+  To see how this feature is used, have a look at the implementation of json_term/2/3.
+  
+</value>
+  </data>
+  <data name="talk/*" xml:space="preserve">
+    <value>  
+  A demo program described in the following book:
+  TALK (Fernando Pereira, Stuart Shieber)
+  Prolog and Natural Language Analysis
+  pp. 149+
+  
+  A PDF-version of this book (obtained from Internet after googling
+  "Fernando Pereira TALK-program") can be found in the TALK directory.
+  
+  talk :- ['TALK\\talk'].
+  
+  Start the program by entering 'go.'; end by entering an empty line.
+  
+  Sample dialog (TALK-responses not shown) (notice: no terminating dots):
+  
+  &gt;&gt; principia is a book
+  &gt;&gt; bertrand wrote every book
+  &gt;&gt; what did bertrand write
+  
+</value>
+  </data>
+  <data name="'!if'/*" xml:space="preserve">
+    <value>  
+  Conditional definition symbols can be used to include or exclude portions of a source file.
+  Available symbols are:
+  
+  !define &lt;atom&gt;
+  !if &lt;atom&gt;
+  !ifnot &lt;atom&gt;
+  !else
+  !elseif &lt;atom&gt;
+  !endif
+  !undefine &lt;atom&gt;
+  
+  A conditional definition symbol must be the first symbol on a line.
+  Conditional definition directives must be written as sets consisting of, in order,
+  an !if directive, zero or more !elseif directives, zero or one !else directive, and
+  an !endif directive. Between the directives are conditional sections of source code.
+  Each section is controlled by the immediately preceding directive.
+  
+  A conditional section may itself contain nested conditional definition directives
+  provided these directives form complete sets.
+  
+</value>
+  </data>
+  <data name="chat80/*" xml:space="preserve">
+    <value>  
+  CHAT-80 (Fernando Pereira) (http://www.cis.upenn.edu/~pereira/oldies.html)
+  
+  See demo.txt and docu in the CHAT-directory for examples.
+  Start CHAT by entering 'hi.', end by entering 'bye.'
+  
+  The CHAT-software is copyrighted !!!  (although I do not think Fernando
+  Pereira still cares -- unfortunately he never responded to mails)
+  
+</value>
+  </data>
+  <data name="batch/*" xml:space="preserve">
+    <value>  
+  It is possible to call the Prolog engine from within a batch file, using pld.exe. When
+  pld.exe is called with arguments, it is automatically assumed that Prolog must be
+  started up in batch mode. The first argument specifies the query that should be
+  carried out; the optional second argument specifies the number of times backtracking
+  should be applied. The default is 0; if a * is specified, backtracking will take place
+  as often as possible. If an error occurs, the error message is displayed on the console,
+  and the DOS ExitCode is set to 1.
+  
+  Example:
+  
+  call pld.exe "[test], run_test( 12)" *
+  
+  This means that Prolog will consult TEST.PL, and then execute run_test(12). Backtracking
+  will be carried out as often as possible.
+  
+  It is also possible to call plw.exe in batch mode. In that case, output is written to a
+  log file in the subdirectory called BATCHLOGS of the directory in which the executable
+  resides.
+  
+  The reason you might be wanting to use this is that certain Windows-mode operations
+  will not run in console mode (e.g. writing to the clipboard).
+  
+</value>
+  </data>
+  <data name="try_catch/*" xml:space="preserve">
+    <value>  
+  It is possible to use a TRY/CATCH construct in a predicate.
+  It has the following syntax:
+  
+  TRY
+  (&lt;terms&gt;)
+  CATCH [&lt;exception class&gt;] [, M]
+  (&lt;terms&gt;)
+  CATCH [&lt;exception class&gt;] [, M]
+  (&lt;terms&gt;) ...
+  
+  So, a TRY/CATCH statement can have more than one CATCH-clauses, each labeled
+  with the name of an 'exception class' that can be given freely by the user and
+  that corresponds to the exception class name in the throw/2/3 predicate.
+  
+  When a throw is executed within a TRY-body, the list of CATCH-clauses is searched
+  for one with the exception class specified in the throw, or for one without an
+  exception class.
+  
+  In throw, a message can be specified. This message will be bound to the optional
+  message variable M that a CATCH-clause can have.
+  
+  If the exception cannot be handled in the predicate in which the throw was done,
+  the calling predicate is searched (provided the call was made in the body of a TRY).
+  
+  Example:
+  
+  tc_test :-
+    TRY
+    (
+      nested
+    )
+    CATCH outer, T
+    (
+      writelnf( "Now in tc_test CATCH outer, error message is '{0}'", T),
+      throw( foo, "No catch available")
+    ).
+  
+  nested :-
+    TRY
+    (
+      writeln("Now in nested TRY"),
+      throw( excp1, "excp1 thrown")
+    )
+    CATCH excp0, M
+    (
+      writelnf("Now in CATCH excp0, exception msg is '{0}'", M)
+    )
+    CATCH excp1, M
+    (
+      writelnf("Now in CATCH excp1, exception msg is '{0}'", M),
+      throw( outer, M)
+    )
+    CATCH outer
+    (
+      writeln( "Now in nested CATCH outer")
+    )
+    CATCH M
+    (
+      writeln( "Now in nested CATCH without exception class")
+    ).
+  
+  If tc_test is executed, the following output will appear:
+  
+  Now in nested TRY
+  Now in CATCH excp1, exception msg is 'excp1 thrown'
+  Now in tc_test CATCH outer, error message is 'excp1 thrown'
+  
+  *** error: No CATCH found for throw( foo, "No catch available")
+  
+  If a file-operation fails (e.g. file not found), a Prolog exception 'ioException'
+  will be raised. Example:
+  
+  42 ?- TRY
+        ( see(fred) )
+        CATCH ioException, Msg
+        ( writelnf( "Now in CATCH; file not found, message was:\r\n{0}", Msg) ).
+  
+  Now in CATCH; file not found, message was:
+  Error while opening file 'P:\CSProlog\PLd\bin\Debug\fred.pl' for input.
+  Message was:
+  Could not find file 'P:\CSProlog\PLd\bin\Debug\fred.pl'.
+  
+  yes
+  
+  43 ?-
+  
+</value>
+  </data>
+  <data name="listpattern/*" xml:space="preserve">
+    <value>  
+    A ListPatternTerm is a list that is opened by [! and closed by !]. It is used
+    to specify a pattern (arrangement of list elements) that a regular list must
+    conform to in order to get unified with it. If the list conforms, variables in
+    the ListPatternTerm can be used for picking up specific terms or sublists.
+  
+    Here are some examples:
+  
+    % get the last element of a list.
+    % '..' denotes a 'gap' consisting of an arbitrary number of elements.
+  
+    1 ?- [1,2,3,4] = [! .., L !].
+  
+     L = 4
+  
+    % A gap can also be specified as follows:
+    % {&lt;minimum number of elements&gt;, &lt;maximum number of elements&gt;}
+    % A gap can be prefixed with a variable, which will contain a list
+    % of the elements in the gap, e.g. X.. or X{1,6}
+  
+    % Search in a list for sublist with a length between 2 and 5
+    % inclusive, that is bounded by the atom xxx at both sides.
+  
+    2 ?- [! .., xxx, S{2,5}, xxx, ..!] = [a, xxx, 1,2,3,4, xxx, 5].
+  
+     S = [1, 2, 3, 4]
+  
+    % Search in an name=value list for the value of
+    % a specific attribute
+  
+    3 ?- [! .., color=C, ..!] = [length=12, height=78, color=red, weight=100].
+  
+     C = red
+  
+    % A pattern can also be used in a predicate clause head.
+    % Suppose we have the following predicate definition:
+  
+    x([! .., p(X)|q(X), .. !], X).
+  
+    % The | is used for separating alternative matches.
+    % Now we can call it like this:
+  
+    4 ?- x( [1, 2, 3, p(9), 4], Z).
+  
+     Z = 9
+  
+    % Max. 5 elements at the beginning, followed by a or b or c,
+    % followed by arbitrary elements.
+    % Y! means that the selected alternative must be unified with Y
+  
+    5 ?- [! X{,5}, Y!a|b|c, .. !] = [1, 2, 4 ,b , 5,6].
+  
+     X = [1, 2, 4]
+     Y = b
+  
+    % A list of integers, containing N followed by precisely N
+    % elements, followed by N again.
+    
+    6 ?- [! 1, 2, N, X{N}, N !] = [1, 2, 3, a, b, c, 3].
+  
+     N = 3
+     X = [a, b, c]
+  
+</value>
+  </data>
+  <data name="history/*" xml:space="preserve">
+    <value>  
+    Command history commands:
+    ========================
+    !!                : show numbered list of previous commands
+    !                 : repeat previous command
+    !&lt;n&gt;              : repeat command number &lt;n&gt;
+    !/&lt;old&gt;/&lt;new&gt;/    : repeat previous command, with &lt;old&gt; replaced by &lt;new&gt;.
+                         / may be any char, and the end / may be omitted.
+    !&lt;n&gt;/&lt;old&gt;/&lt;new&gt;/ : same for command number &lt;n&gt;
+    !c                : clear the history
+    !?                : help (this text)
+  
+    History commands must not be followed by a '.'
+  
+</value>
+  </data>
+  <data name="@&lt;/2" xml:space="preserve">
+    <value>  
+  X @&lt; Y
+  
+    Succeeds if X is less than Y in the standard ordening of terms.
+  
+</value>
+  </data>
+  <data name="@=&lt;/2" xml:space="preserve">
+    <value>  
+  X @=&lt; Y
+  
+    Succeeds if X is less than or equal to Y in the standard ordening of terms.
+  
+</value>
+  </data>
+  <data name="@&gt;=/2" xml:space="preserve">
+    <value>  
+  X @&gt;= Y
+  
+    Succeeds if X is greater than or equal to Y in the standard ordening of terms.
+  
+</value>
+  </data>
+  <data name="@&gt;/2" xml:space="preserve">
+    <value>  
+  X @&gt; Y
+  
+    Succeeds if X is greater than Y in the standard ordening of terms.
+  
+</value>
+  </data>
+  <data name="\+/1" xml:space="preserve">
+    <value>  
+  \+( +P)
+  
+    Succeeds if predicate P fails. Same as not/1.
+  
+</value>
+  </data>
+  <data name="\==/2" xml:space="preserve">
+    <value>  
+  X \== Y
+  
+    Succeeds if X and Y do not refer to the same term.
+  
+</value>
+  </data>
+  <data name="\=/2" xml:space="preserve">
+    <value>  
+  X \= Y
+  
+    Succeeds if X can not be unified with Y.
+  
+</value>
+  </data>
+  <data name="&lt;/2" xml:space="preserve">
+    <value>  
+  X &lt; Y
+  
+    Succeeds if X the value of X is less than the value of Y
+    when both X and Y are evaluated as with is/2.
+  
+</value>
+  </data>
+  <data name="=../2" xml:space="preserve">
+    <value>  
+  ?T =.. ?L
+  
+    univ-predicate. L is the list with the functor of term T as its
+    first element and the arguments of T as the rest of the elements.
+    At least one argument must be instantiated.
+  
+</value>
+  </data>
+  <data name="=:=/2" xml:space="preserve">
+    <value>  
+  X =:= Y
+  
+    Succeeds if X the value of X is equal to the value of Y
+    when both X and Y are evaluated as with is/2.
+  
+</value>
+  </data>
+  <data name="=\=/2" xml:space="preserve">
+    <value>  
+  X =\= Y
+  
+    Succeeds if X the value of X is unequal to the value of Y
+    when both X and Y are evaluated as with is/2.
+  
+</value>
+  </data>
+  <data name="=&lt;/2" xml:space="preserve">
+    <value>  
+  X =&lt; Y
+  
+    Succeeds if X the value of X is equal to or less than the value of Y
+    when both X and Y are evaluated as with is/2.
+  
+</value>
+  </data>
+  <data name="==/2" xml:space="preserve">
+    <value>  
+  X == Y
+  
+    Succeeds if X and Y refer to the same term.
+  
+</value>
+  </data>
+  <data name="&gt;=/2" xml:space="preserve">
+    <value>  
+  X &gt;= Y
+  
+    Succeeds if X the value of X is equal to or greater than the value of Y
+    when both X and Y are evaluated as with is/2.
+  
+</value>
+  </data>
+  <data name="&gt;/2" xml:space="preserve">
+    <value>  
+  X &gt; Y
+  
+    Succeeds if X the value of X is greater than the value of Y
+    when both X and Y are evaluated as with is/2.
+  
+</value>
+  </data>
+  <data name="abolish/1" xml:space="preserve">
+    <value>  
+  abolish( +P/N)
+  
+    Remove predicate P/N from the database.
+  
+</value>
+  </data>
+  <data name="append/3" xml:space="preserve">
+    <value>  
+  append( ?X, ?Y, ?Z)
+  
+    Z is the list consisting of list X appended with list Y. Backtrackable.
+  
+</value>
+  </data>
+  <data name="append2/3" xml:space="preserve">
+    <value>  
+  append2( +X, +Y, -Z)
+  
+    Z is the list consisting of list X appended with list Y.
+    Faster than append/2, but not backtrackable.
+  
+</value>
+  </data>
+  <data name="arg/3" xml:space="preserve">
+    <value>  
+  arg( ?N, ?T, ?A)
+  
+    Succeeds if A is the Nth argument of T.
+  
+</value>
+  </data>
+  <data name="assert/1" xml:space="preserve">
+    <value>  
+  assert( +C)
+  
+    Add clause C to the program database and succeed.
+    Equivalent to assertz/1
+  
+</value>
+  </data>
+  <data name="asserta/1" xml:space="preserve">
+    <value>  
+  asserta( +C)
+  
+    Add clause C to the beginning of the program database and succeed.
+  
+</value>
+  </data>
+  <data name="assertz/1" xml:space="preserve">
+    <value>  
+  assertz( +C)
+  
+    Add clause C to the end of the program database and succeed.
+  
+</value>
+  </data>
+  <data name="atom/1" xml:space="preserve">
+    <value>  
+  atom( ?A)
+  
+    true if A is an atom, false otherwise.
+  
+</value>
+  </data>
+  <data name="atom_string/2" xml:space="preserve">
+    <value>  
+  atom_string( ?A, ?S)
+  
+    Converts atom A to string S or vice versa.
+  
+</value>
+  </data>
+  <data name="atomic/1" xml:space="preserve">
+    <value>  
+  atom( ?A)
+  
+    true if A is an atom or a number, false otherwise.
+  
+</value>
+  </data>
+  <data name="bagof/3" xml:space="preserve">
+    <value>  
+  bagof( +T, +P, -L)
+  
+    L contains the list with terms X that satisfy P.
+    Duplicates will not be removed (cf. setof/3)
+  
+</value>
+  </data>
+  <data name="between/3" xml:space="preserve">
+    <value>  
+  between( +L, +H, -N)
+  
+    Upon the first call, N is set equal to L. Upon backtracking, N
+    is increased by 1, and the predicate succeeds as long as N &lt;= H.
+  
+</value>
+  </data>
+  <data name="bool/1" xml:space="preserve">
+    <value>  
+  bool( X)
+  
+    Succeeds if X is a bool term.
+  
+</value>
+  </data>
+  <data name="bw_transform/2" xml:space="preserve">
+    <value>  
+  bw_transform( ?P, ?E, ?I)
+  
+    Burrows-Wheeler Transform. For a description and explanation cf. internet,
+    e.g. https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
+    P and E are strings, I integer. E is the transformed version of P.
+    I is the reference position (number of rotations) that comes out as a result 
+    of the encoding and that you need for the decoding.
+  
+</value>
+  </data>
+  <data name="call/1" xml:space="preserve">
+    <value>  
+  call( P)
+  
+    Execute predicate P.
+  
+</value>
+  </data>
+  <data name="chat/0" xml:space="preserve">
+    <value>  
+  chat
+  
+    Run the sample CHAT80 program.
+  
+</value>
+  </data>
+  <data name="clause/2" xml:space="preserve">
+    <value>  
+  clause( Head, Body)
+  
+    Retrieve a clause with head Head and body Body from the program database.
+  
+</value>
+  </data>
+  <data name="clearall/0" xml:space="preserve">
+    <value>  
+  clearall
+  
+    Reinitialize the Prolog engine.
+  
+</value>
+  </data>
+  <data name="clearprofile/0" xml:space="preserve">
+    <value>  
+  clearprofile
+  
+    Reset all profilecount values to zero. See the profile/1 command
+  
+</value>
+  </data>
+  <data name="clipboard/1" xml:space="preserve">
+    <value>  
+  clipboard( +T)
+  
+    Copy the string representation of term T to the clipboard.
+  
+    This works reliably in the Windows version only; it appears
+    notoriouly difficult to get this to work in a console app
+    (sometimes it works, sometimes it doesn't)
+  
+</value>
+  </data>
+  <data name="cls/0" xml:space="preserve">
+    <value>  
+  cls
+  
+    Clear the screen.
+  
+</value>
+  </data>
+  <data name="complexnumber/1" xml:space="preserve">
+    <value>  
+  complexnumber( ?N)
+  
+    Returns true if N is a complex number of the format a+ib,
+    where a and b are real numbers; return false otherwise.
+  
+</value>
+  </data>
+  <data name="compound/1" xml:space="preserve">
+    <value>  
+  compound( +X)
+  
+    Succeeds if X is a compound term, i.e. if it has arguments.
+  
+</value>
+  </data>
+  <data name="config_setting/2" xml:space="preserve">
+    <value>  
+  config_setting( ?N, ?V)
+  
+    Shows the configuration file settings. N is name, V is value.
+    Upon backtracking, the next setting is obtained.
+  
+</value>
+  </data>
+  <data name="consult/1" xml:space="preserve">
+    <value>  
+  consult( +F)
+  consult( [+F0, +F1, ...])
+  
+    Consult a file or a list of files
+  
+</value>
+  </data>
+  <data name="copy_term/2" xml:space="preserve">
+    <value>  
+  copy_term( +X, -Y)
+  
+    Y is a fresh copy of X
+  
+</value>
+  </data>
+  <data name="crossref/1" xml:space="preserve">
+    <value>  
+  crossref( filename[.csv])
+  
+    Generate a cross reference table for all predicates making up
+    the 'program' and store the result as a (.csv) spreadsheet.
+  
+</value>
+  </data>
+  <data name="current_op/3" xml:space="preserve">
+    <value>  
+  current_op( ?P, ?F, ?N)
+  
+    Succeeds if an operator exists with precedence P, 'fix' F (xfy etc.), and name N.
+  
+</value>
+  </data>
+  <data name="dayname/4" xml:space="preserve">
+    <value>  
+  dayname( Y, M, D, N)
+  
+    N is the name of the day for date Y, M, D.
+  
+</value>
+  </data>
+  <data name="dayofweek/4" xml:space="preserve">
+    <value>  
+  dayofweek( Y, M, D, N)
+  
+    N is the ordinal number of the day of the week for date Y, M, D (Sunday = 0).
+  
+</value>
+  </data>
+  <data name="dayofyear/4" xml:space="preserve">
+    <value>  
+  dayofyear( Y, M, D, N)
+  
+    N is the ordinal number of the day of the year for date Y, M, D (January 1 = 1).
+  
+</value>
+  </data>
+  <data name="debug/0" xml:space="preserve">
+    <value>  
+  debug
+  
+    Switch debugging on..
+  
+</value>
+  </data>
+  <data name="dec_counter/1" xml:space="preserve">
+    <value>  
+  dec_counter( +C)
+  
+    Decrease global counter C (atom of positive integer) by 1
+    The counter must have been set by set_counter/1.
+  
+</value>
+  </data>
+  <data name="dec_counter/2" xml:space="preserve">
+    <value>  
+  dec_counter( +C, ?M)
+  
+    Decrease global counter C (atom of positive integer) by 1 and try to unify the result with M.
+  
+</value>
+  </data>
+  <data name="display/1" xml:space="preserve">
+    <value>  
+  display( ?X)
+  
+    Display term X, i.e. output it as &lt;functor&gt;(&lt;list of arguments&gt;).
+  
+</value>
+  </data>
+  <data name="environment/2" xml:space="preserve">
+    <value>  
+  environment( +E, ?V)
+  
+    Get the value V of OS environment variable E. Possible values for E are:
+  
+    applicationdata
+    commandline
+    cookies
+    currentdirectory
+    desktopdirectory
+    internetcache
+    localapplicationdata
+    machinename
+    newline
+    osversion
+    programfiles
+    stacktrace
+    startup
+    systemdirectory
+    tickcount
+    userdomainname
+    userinteractive
+    username
+    version
+    workingset
+  
+</value>
+  </data>
+  <data name="errorlevel/1" xml:space="preserve">
+    <value>  
+  errorlevel( +N)
+  
+    Set DOS ERRORLEVEL environment variable to N
+  
+</value>
+  </data>
+  <data name="expand_term/2" xml:space="preserve">
+    <value>  
+  expand_term( P--&gt;Q, R)
+  
+    For DCG grammars. Consult the internet on this.
+  
+</value>
+  </data>
+  <data name="fail/0" xml:space="preserve">
+    <value>  
+  fail
+  
+    Fail.
+  
+</value>
+  </data>
+  <data name="fail_if_undefined/1" xml:space="preserve">
+    <value>  
+  :- fail_if_undefined( Predicate/Arity)
+  
+    Directive. Fails if Predicate/Arity is not defined
+    (normal behaviour would be to raise an exception).
+  
+</value>
+  </data>
+  <data name="fileexists/2" xml:space="preserve">
+    <value>  
+  fileexists( +F)
+  
+    Succeeds if file F exists. Default extension is '.pl'.
+    If no path is provided, the working directory will be searched
+    (see workingdir/0/1).
+  
+</value>
+  </data>
+  <data name="findall/3" xml:space="preserve">
+    <value>  
+  findall( +T, +P, -L)
+  
+    Currently identical to setof( T, P, L).
+  
+</value>
+  </data>
+  <data name="flat/2" xml:space="preserve">
+    <value>  
+  flat( +X, ?Y)
+  
+    Y is X with all (nested) lists flattened.
+  
+</value>
+  </data>
+  <data name="float/1" xml:space="preserve">
+    <value>  
+  float( +X)
+  
+    Succeeds if X is a (possibly signed) floating number.
+  
+</value>
+  </data>
+  <data name="format/3" xml:space="preserve">
+    <value>  
+  
+  format( +S, +L, ?A)
+  
+    Succeeds if A is the result of formatting string S with placeholders {0}, {1} etc.,
+    and a corresponding list of arguments in list L (or a single value if there is only
+    one argument). Formatting is identical to C#-formatting.
+  
+</value>
+  </data>
+  <data name="functor/3" xml:space="preserve">
+    <value>  
+  functor( ?T, ?F, ?N)
+  
+    Succeeds if F is the principal functor of T and N is the arity of F.
+  
+</value>
+  </data>
+  <data name="gensym/1" xml:space="preserve">
+    <value>  
+  gensym( -V)
+  
+    Return an atom with format v&lt;n&gt;, n an integer unique to the session.
+  
+</value>
+  </data>
+  <data name="gensym/2" xml:space="preserve">
+    <value>  
+  gensym( +A, -V)
+  
+    A is an atom.
+    Return an atom with format A&lt;n&gt;, n an integer unique to the session.
+  
+</value>
+  </data>
+  <data name="get0/1" xml:space="preserve">
+    <value>  
+  get0( ?N)
+  
+    Read the next character from the input stream and unify it with N (ASCII value)
+  
+</value>
+  </data>
+  <data name="display/1" xml:space="preserve">
+    <value>  
+  display( X)
+  
+    Write X to the current output in function notation, e.g. a+b -&gt; +( a, b)
+  
+</value>
+  </data>
+  <data name="get/1" xml:space="preserve">
+    <value>  
+  get( ?N)
+  
+    Read the next character from the input stream and unify it with N (ASCII value).
+    In doing so, skip all non-printable charactes
+  
+</value>
+  </data>
+  <data name="get_counter/2" xml:space="preserve">
+    <value>  
+  get_counter( +C, ?V)
+  
+    Get the value of global counter C and and unify it with V.
+  
+</value>
+  </data>
+  <data name="getenvvar/1" xml:space="preserve">
+    <value>  
+  getenvvar( +N, ?V)
+  
+    Unify V with the value of environment variable N
+  
+</value>
+  </data>
+  <data name="ground/1" xml:space="preserve">
+    <value>  
+  ground( ?X)
+  
+    Succeeds if X is a ground term (i.e. does not contain any unbound variables)
+  
+</value>
+  </data>
+  <data name="halt/0" xml:space="preserve">
+    <value>  
+  halt
+  
+    Exits Prolog
+  
+</value>
+  </data>
+  <data name="help/0" xml:space="preserve">
+    <value>  
+  help
+  
+    Show help on help
+  
+</value>
+  </data>
+  <data name="help/1" xml:space="preserve">
+    <value>  
+  help( +P)
+  help( +P/N)
+  
+    Show help for predicate P or P/N
+  
+</value>
+  </data>
+  <data name="string_datetime/2" xml:space="preserve">
+    <value>  
+  string_datetime( ?S, ?DT)
+  
+    Convert a string term to a DateTime term or vice versa.
+  
+  
+</value>
+  </data>
+  <data name="string_datetime/4" xml:space="preserve">
+    <value>  
+  string_datetime( ?S, ?Y, ?M, ?D)
+  
+    Convert a string term to the constituent parts of a DateTime term or vice versa.
+  
+</value>
+  </data>
+  <data name="string_datetime/7" xml:space="preserve">
+    <value>  
+  string_datetime( ?S, ?Y, ?Mo, ?D, ?H, ?Mo, S)
+  
+    Convert a string term to the constituent parts of a DateTime term or vice versa.
+  
+</value>
+  </data>
+  <data name="inc_counter/1" xml:space="preserve">
+    <value>  
+  inc_counter( +C)
+  
+    Increase global counter C (atom of positive integer) by 1.
+    The counter must have been set by set_counter/1.
+  
+</value>
+  </data>
+  <data name="inc_counter/2" xml:space="preserve">
+    <value>  
+  inc_counter( +C, ?M)
+  
+    Increase global counter C (atom of positive integer) by 1 and try to unify the result with M.
+  
+</value>
+  </data>
+  <data name="integer/1" xml:space="preserve">
+    <value>  
+  integer( +N)
+  
+    Succeeds if N is a (possibly signed) integer
+  
+</value>
+  </data>
+  <data name="ip_address/1" xml:space="preserve">
+    <value>  
+  ip_address( ?A)
+  
+    Returns a string with the computer's ip address
+  
+</value>
+  </data>
+  <data name="ip_address/2" xml:space="preserve">
+    <value>  
+  ip_address( ?A, ?L)
+  
+    Same as ip_address/1; L is a list with A split into its digital components
+  
+</value>
+  </data>
+  <data name="list/1" xml:space="preserve">
+    <value>  
+  list( ?L)
+  
+    Succeeds if L is a proper list.
+  
+    In addition to proper lists, there are partial lists and pseudo lists. Examples:
+  
+    - Partial list: [1,2|Z]
+    - Pseudo list : [1,2|3]
+    - Proper list : [1,2,3]
+  
+    list/1 will fail for partial lists and pseudo lists.
+  
+</value>
+  </data>
+  <data name="functions/*" xml:space="preserve">
+    <value>  
+    Enter 'help( is).' for seeing all available functions for expression evaluation with is/2.
+  
+</value>
+  </data>
+  <data name="is/2" xml:space="preserve">
+    <value>  
+    X is Y
+  
+    Expression evaluation.
+    If Y is a list, all list arguments are evaluated
+  
+    LOGICAL
+  
+      false                 Logical true
+      true                  Logical false
+      if( B, X, Y)          Returns term X if boolean expression B evaluates to true, Y otherwise
+  
+    MATH -- Standard arithmetical operators and functions marked with a * also accept complex arguments
+  
+      * + / - ^             Standard arithmetical operators. '+' concatenates strings
+      &lt; &lt;= = &lt;&gt; \= =&gt; &gt;     Standard relational operators
+      X /\ Y                Logical OR of X and Y if X and Y boolean, bitwise OR if decimal
+      X \/ Y                Logical OR of X and Y if X and Y boolean, bitwise OR if decimal
+      \ X                   Logical NOT of X if X is boolean, bitwise NOT if X is decimal
+      N # D                 Remainder when dividing N by D
+      N..M                  List of integers [N, N+1, ...., M]
+      X &lt;&lt; N                Decimal value of X bitwise shifted N positions to the left
+      X &gt;&gt; N                Decimal value of X bitwise shifted N positions to the right
+      pi                    Value of pi
+      e                     Value of e
+      i                     Value of imaginary unit
+    * abs( X)               Absolute value of X (sqrt(re^2 + im^2) for or complex number)
+    * acos( X)              Arccos value of X
+    * arg( X)               Arg of complex number X
+    * asin( X)              Arcsin value of X
+    * atan( X)              Arctan value of X
+    * atan2( X, Y)          Arctan value of X / Y
+      ceil( X)              Smallest integer value greater than or equal to X
+    * conj( X)              Complex conjugate of X
+    * cos( X)               Cos value of X
+    * cosh( X)              Cosh value of X
+    * exp( X)               Equivalent to e^X
+      floor( X)             Greatest integer value smaller than or equal to X
+    * im( X)                Imaginary part of complex number X
+    * log( X)               Natural logarithm of X
+    * log10( X)             10-logarithm of X
+    * magnitude( X)         Magnitude of complex number X
+      max( X, Y)            Maximum value of X and Y
+      min( X)               Minimum value of X and Y
+      mod( X, Y)            Value of X modulo Y
+      phase( X)             Same as arg( X)
+    * phi( X)               Same as arg( X)
+    * re( X)                Real part of complex number X
+      round( X)             Value of X rounded to the nearest integer
+      round( X, N)          Value of X rounded to N decimal places
+      sign( X)              Sign value of X (-1, 0 or +1)
+    * sin( X)               Sin value of X
+    * sinh( X)              Sinh value of X
+    * sqr( X)               Square value of X (equivalent to X*X or X^2)
+    * sqrt( X)              Square root value of X
+    * tan( X)               Tan value of X
+    * tanh( X)              Tanh value of X
+      trunc( X)             Integer part of X
+  
+    STRING
+  
+      chain( L, S)          Returns a string with all elements of list L chained together (concatenated)
+                            separated by string S. E.g. chain( [1, "A", b], "++") results in "1++A++b"
+      format( F, L)         Format a string. F contains place holders {0}, {1} etc., L is args list
+                            Arguments in L are evaluated (i.e. treated as arguments of an is/2 right hand side).
+                            Example: format("{0} {1}, [1+1, fred]) results in "2 fred".
+                            Also see format2/1
+      format2( F, L)        Formatstring. F contains place holders {0}, {1} etc., L is args list
+                            Arguments in L are not evaluated.
+                            Example: format("{0} {1}, [1+1, fred]) results in "1+1 fred".
+      indexof( S, P)        Index of first occurrance of P in S (0-based)
+      indexof( S, P)        Return position of first occurance of P in S (zero-based)
+      length( S)            Return length of string S
+      levdist( A, B)        Return value (float [0.0..1.0]) is the Levenshtein distance between strings A and B
+      lowcase( S)           Return lowercase version of string S
+      padleft( S, L)        Left-pad string S with L-length(S) spaces
+      padright( S, L)       Right-pad string S with L-length(S) spaces
+      remove( S, I, L)      String S with L characters starting at position I (0-based) removed
+      repeat( S, N)         String S repeated N times
+      replace( S, P, R)     String S with all occurrances of P replaced by R
+      reverse( S)           Return reversed version of string S
+      singleline( S)        Return S with newlines removed
+      split( S, Chars)      Split string S in the substrings that are separated by a character from string Chars.
+                            Return the list with those substrings.
+                            E.g. split( "abc.def,ghi", ".,") returns ["abc", "def", "ghi"].
+                            If Chars is an empty string, all individual characters are returned in a list of strings.
+      string( T)            Return the string representation of term T.  T is evaluated, e.g. string(1+1) results in "2"
+      string2( T)           Return the string representation of term T. T is not evaluated, e.g. string(1+1) results in "1+1"
+      substring( S, I)      Substring of string S, starting from position I (0-based) onwards
+      substring( S, I, L)   Substring of string S, starting at I (0-based), with length L
+      trim( S)              Return string S trimmed at both ends
+      trimend( S)           Return string S trimmed at the end
+      trimstart( S)         Return string S trimmed at the start
+      lowcase( S)           Return lowercase version of string S
+      upcase( S)            Return uppercase version of string S
+      upcase1( S)            Return string S with first character to uppercase; rest unchanged
+      wrap( S, N)           Divide words in string S over multiple lines of length N at most
+  
+    DATE / TIME
+  
+      adddays( D, N)        Return DateTime D with N days added
+      addhours( D, N)       Return DateTime D with N hours added
+      addminutes( D, N)     Return DateTime D with N minutes added
+      addmonths( D, N)      Return DateTime D with N months added
+      addseconds( D, N)     Return DateTime D with N seconds added
+      addyears( D, N)       Return DateTime D with N years added
+      date( YY, MM, DD)     Same as DateTime(...), DateTime term 'YY:MM:DD'
+      datetime( YY, MM, DD) DateTime term 'YY:MM:DD'
+      day( DateTime)        Day number in month of DateTime
+      dayname( DateTime)    Name of the day of DateTime
+      dayofweek( DateTime)  Day number in week of DateTime
+      dayofyear( DateTime)  Day number in year of DateTime
+      hour( DateTime)       Hour of DateTime
+      minute( DateTime)     Minute of DateTime
+      month( DateTime)      Month of DateTime
+      now                   Current date+time
+      second( DateTime)     Second of DateTime
+      ticks( DateTime)      Number of 'ticks' that represent DateTime
+      time( DD, MM, SS)     TimeSpan term DD:MM:SS
+      timeofday( DateTime)  Time part of DateTime
+      timespan( DD, MM, SS) Same as Time(...), TimeSpan term DD:MM:SS
+      today                 Current date
+      tomorrow              Date of tommorow
+      weekno( DateTime)     ISO week number of DateTime
+      year( DateTime)       Year of DateTime
+      yesterday             Date of yesterday
+  
+</value>
+  </data>
+  <data name="json_term/2" xml:space="preserve">
+    <value>  
+  json_term( ?J, ?T)
+  
+    Converts JSON structure J to Prolog term T and vice versa.
+  
+    (1) JSON to Prolog
+        J is a string containing a JSON structure, or a term 'see( &lt;filename&gt;)', where
+        &lt;filename&gt; is the name of a file containing a JSON structure (default extension is ".json").
+  
+        IMPORTANT: In translating the string representation to a Prolog term, the following
+        transformation is carried out:
+        - The JSON object {t1, t2, ...} is converted to the Prolog list [t1, t2, ...]
+        - The JSON array [t1, t2, ...] is converted to the Prolog term 'array( [t1, t2, ...])'
+        The reason behind this is that the { } curly brackets have a different meaning in Prolog.
+  
+        The result of the conversion is unified with term T.
+  
+    (1) Prolog to JSON
+        T is an instantiated JSON-term (with the list format described above).
+        J is a term that will unified with the JSON structure, or a term 'tell( &lt;filename&gt;)',
+        where &lt;filename&gt; is the name of the file that will contain the JSON structure
+        (default extension is ".json").
+  
+</value>
+  </data>
+  <data name="json_term/3" xml:space="preserve">
+    <value>  
+  json_term( ?J, ?T, Options)
+  
+    Same as json_term/2, but with additional options.
+    Options is a list containing one or more options separated by commas.
+  
+    The following options are available (for json string/file generation only):
+  
+    - indent( &lt;indentDelta&gt; [, &lt;maxIndentLevel&gt;])
+  
+      &lt;indentDelta&gt; is an integer indicating the increment of the number of indentation spaces
+      preceding the next level. Default is 2.
+  
+      &lt;maxIndentLevel&gt;
+      No more indentation will be done beyond level &lt;maxIndentLevel&gt; (zero-based). The text
+      for those levels will appear on a single line. Default is 'infinity'.
+  
+    - nocommas
+      No commas will be placed between {} and [] list elements. Default is false (i.e. insert commas)
+  
+    - noquotes
+      No doublequotes will be placed around JSON items that are normally quoted.
+      For improved readability only. Default is false (i.e. use quotes)
+  
+    Example: you can format an unformatted JSO-file "unformatted.json" as follows:
+  
+    ?- json_term( see( 'unformatted.json'), T), json_term( tell( 'formatted.json'), T, [indent(4), nocommas]).
+  
+</value>
+  </data>
+  <data name="date_part/2" xml:space="preserve">
+    <value>  
+  date_part( +D, ?P)
+  
+    Unify P with the date part of DateTime D (time is set to 00:00:00)
+  
+</value>
+  </data>
+  <data name="datetime/1" xml:space="preserve">
+    <value>  
+  datetime( ?X)
+  
+    Succeeds if X is a Prolog term of type DateTime
+  
+</value>
+  </data>
+  <data name="datetime/4" xml:space="preserve">
+    <value>  
+  datetime( ?DT, ?Y, ?Mo, ?D)
+  
+    If DT is an instantiated DateTime term, the interpreter will attempt to
+    bind its constituent parts (Year, Month, etc) to the remaining arguments.
+  
+    Id DT is a var, the other arguments must all be instantiated, and these
+    will be used to populate a DateTime term that will be bound to DT.
+  
+    In all other cases, datetime/4 will fail.
+  
+</value>
+  </data>
+  <data name="datetime/7" xml:space="preserve">
+    <value>  
+  datetime( ?DT, ?Y, ?Mo, ?D, ?H, ?Mi, ?S)
+  
+    If DT is an instantiated DateTime term, the interpreter will attempt to
+    bind its constituent parts (Year, Month, etc) to the remaining arguments.
+  
+    Id DT is a var, the other arguments must all be instantiated, and these
+    will be used to populate a DateTime term that will be bound to DT.
+  
+    In all other cases, datetime/7 will fail.
+  
+</value>
+  </data>
+  <data name="timespan/1" xml:space="preserve">
+    <value>  
+  timespan( ?X)
+  
+    Succeeds if X is a Prolog term of type TimeSpan
+  
+</value>
+  </data>
+  <data name="timespan/4" xml:space="preserve">
+    <value>  
+  timespan( ?T, ?H, ?M, ?S)
+  
+    If DT is an instantiated TimeSpan term, the interpreter will attempt to bind
+    its constituent parts (Hours, Minutes, Seconds) to the remaining arguments.
+  
+    Id DT is a var, the other arguments must all be instantiated, and these
+    will be used to populate a TimeSpan term that will be bound to DT.
+  
+    In all other cases, timespan/4 will fail.
+  
+</value>
+  </data>
+  <data name="keysort/2" xml:space="preserve">
+    <value>  
+  keysort( +L, ?R)
+  
+    List R is the sorted version of list L
+  
+</value>
+  </data>
+  <data name="leapyear/1" xml:space="preserve">
+    <value>  
+  leapyear( +Y)
+  
+    Succeeds if Y is a leap year
+  
+</value>
+  </data>
+  <data name="length/2" xml:space="preserve">
+    <value>  
+  length( ?L, ?N)
+  
+    N is length of list L. At least one of both arguments must be instantiated
+  
+</value>
+  </data>
+  <data name="license/0" xml:space="preserve">
+    <value>  
+  license.
+  
+    Show the GNU license
+  
+</value>
+  </data>
+  <data name="listing0/1" xml:space="preserve">
+    <value>  
+    Listing of system predicates
+  
+    listing0( +P/N)  -- listing of predicate P with arity N
+    listing0( +P)    -- listing of predicate P for all arities
+    listing0        -- listing of all predicated
+  
+</value>
+  </data>
+  <data name="listing/1" xml:space="preserve">
+    <value>  
+    Listing of user-defined predicates
+  
+    listing( +P/N)  -- listing of predicate P with arity N
+    listing( +P)    -- listing of predicate P for all arities
+    listing        -- listing of all predicated
+  
+</value>
+  </data>
+  <data name="make_help_resx/0" xml:space="preserve">
+    <value>  
+  make_help_resx
+  
+    Create the resource file 'CsPrologHelp.resx' for this help file.
+    Exclude the previous version from the project, add it again, and build.
+  
+</value>
+  </data>
+  <data name="maplist/3" xml:space="preserve">
+    <value>  
+  maplist(+Goal, +List1, ?List2)
+  
+    True if Goal can successfully be applied to all
+    successive pairs of elements from List1 and List2.
+  
+</value>
+  </data>
+  <data name="maxwritedepth/1" xml:space="preserve">
+    <value>  
+  maxwritedepth( +N)
+  
+    When showing terms, nested terms beyond level N are shown as ...
+  
+</value>
+  </data>
+  <data name="member/2" xml:space="preserve">
+    <value>  
+  member( X, +L)
+  
+    Tests whether X is a member of list L. Backtracking.
+  
+</value>
+  </data>
+  <data name="memberchk/2" xml:space="preserve">
+    <value>  
+  memberchk( +X, +L)
+  
+    Non-backtracking membership test (faster than member/2 one)
+  
+</value>
+  </data>
+  <data name="name/2" xml:space="preserve">
+    <value>  
+  name( A, L)
+  
+    Atom a is converted to a list of characters L (or vice versa)
+  
+</value>
+  </data>
+  <data name="nl/0" xml:space="preserve">
+    <value>  
+  nl
+  
+    Output a newline
+  
+</value>
+  </data>
+  <data name="nodebug/0" xml:space="preserve">
+    <value>  
+  nodebug
+  
+    Switch off debugging.
+  
+</value>
+  </data>
+  <data name="noprofile/0" xml:space="preserve">
+    <value>  
+  noprofile
+  
+    Switch off profiling.
+  
+</value>
+  </data>
+  <data name="nonvar/1" xml:space="preserve">
+    <value>  
+  nonvar( ?X)
+  
+    Succeeds if X is not a variable.
+  
+  
+</value>
+  </data>
+  <data name="nospy/1" xml:space="preserve">
+    <value>  
+  nospy( +P/N)
+  nospy( +P)
+  
+    Switch off spying for predicate P/N or predicate P for all arities.
+  
+</value>
+  </data>
+  <data name="nospyall/0" xml:space="preserve">
+    <value>  
+  nospyall
+  
+    Switch off spying for all predicates.
+  
+</value>
+  </data>
+  <data name="not/1" xml:space="preserve">
+    <value>  
+  not( P)
+  
+    Succeeds if P fails and vice versa
+  
+</value>
+  </data>
+  <data name="notrace/0" xml:space="preserve">
+    <value>  
+  notrace
+  
+    Switch off tracing.
+  
+</value>
+  </data>
+  <data name="now/3" xml:space="preserve">
+    <value>  
+  now( ?H, ?M, ?S)
+  
+      Return the current time in H, M and S.
+  
+</value>
+  </data>
+  <data name="number/1" xml:space="preserve">
+    <value>  
+  number( +X)
+  
+    Succeed if X is a (possible signed) (complex) number.
+  
+</value>
+  </data>
+  <data name="numbervars/3" xml:space="preserve">
+    <value>  
+  numbervars(+X, +B, -E)
+  
+    This predicate provides a mechanism for grounding term X, so that it
+    may be analyzed.
+  
+    Each variable in X is instantiated to a term of the form '$VAR'(N),
+    where N is an integer starting from B. B is used as the value of N
+    for the first variable in Term (starting from the left).
+  
+    The value of E is 1 + the last value of N.
+  
+</value>
+  </data>
+  <data name="numcols/1" xml:space="preserve">
+    <value>  
+  numcols( ...)
+  
+    Number of columns in (i.e. width of) the DOS-box
+  
+</value>
+  </data>
+  <data name="once/1" xml:space="preserve">
+    <value>  
+  once( +P)
+  
+    Run predicate P once only, so skip it upon backtracking.
+  
+</value>
+  </data>
+  <data name="op/3" xml:space="preserve">
+    <value>  
+  op( ?P, ?A, ?N)
+  
+    Atom N is an operator with precedence P (1 &lt;= P &lt; 1200) and
+    associativity A (fx, fy, xfx, xfy, yfx, fx, fy).
+  
+    Also see wrap/2/3
+  
+    You can 'undo' an operator definition by using a '!' as first argument:
+  
+  |  46 ?- op( 600, xfy, fred).
+  |
+  |  yes
+  |
+  |  47 ?- X = a fred b.
+  |
+  |   X = a fred b
+  |
+  |  48 ?- op( !, xfy, fred).
+  |
+  |  yes
+  |
+  |  49 ?- X = a fred b.
+  |
+  |  *** error: Syntax error -- a may not be followed by fred
+  
+</value>
+  </data>
+  <data name="wrap/1" xml:space="preserve">
+    <value>  
+  wrap( +LB)
+  
+    A wrap is a pair of user-defined brackets.
+  
+    In some cases it can be useful (and contribute to increased readability) to use pairs of
+    brackets that are different from the standard '(', '{', '[' and '&lt;' bracket pairs. You
+    can achieve this with the wrap/1/2/3 predicate/directive. The argument of wrap/1 is the
+    left bracket you want to define; the corresponding right bracket is formed by reversing
+    the left bracket string representation, thereby replacing any '(' by ')', '[' by ']', etc.
+    See the example below.
+  
+    Internally, a wrap is treated similarly to an operator that is formed by concatenating
+    the left bracket with the right bracket, with two dots '..' in the middle.
+  
+  |  1 ?- wrap( '(!').
+  |
+  |  yes
+  |
+  |  2 ?- L = (! 1, 2, 3 !).
+  |
+  |   L = (! 1, 2, 3 !)
+  |
+  |  3 ?- (! 1, 2, 3 !) =.. L.
+  |
+  |   L = ['(!..!)', 1, 2, 3]
+  
+</value>
+  </data>
+  <data name="wrap/2" xml:space="preserve">
+    <value>  
+  (1) wrap( +LB, +RB)
+  
+     The functionality is identical to wrap/1, but here you define the right bracket explicitly.
+  
+  (2) wrap( +LB, |).
+  
+     The functionality is identical to wrap/1, but the resulting structure will internally be a
+     list structure that (therefore) has a head and a tail. See the examples below.
+  
+  |  4 ?- wrap('(!', |).
+  |
+  |  yes
+  |
+  |  5 ?- (! 1, 2, 3 !) = (! H | T !).
+  |
+  |   H = 1
+  |   T = (! 2, 3 !)
+  |
+  |  6 ?- wrap('(!').  % no list structure this time
+  |
+  |  yes
+  |
+  |  7 ?- (! 1, 2, 3 !) = (! H | T !).
+  |
+  |  *** input string: line 1 position 22
+  |  (! 1, 2, 3 !) = (! H | T !).
+  |  *** Unexpected symbol: "|"
+  |  *** Expected one of: ... % left out
+  |
+  |  8 ?- wrap('(!', '!}').
+  |
+  |  yes
+  |
+  |  9 ?- X = (! a, b, c !}.
+  |
+  |   X = (! a, b, c !}
+  |
+  |  10 ?- (! a, b, c !} =.. L.
+  |
+  |   L = ['(!..!}', a, b, c]
+  |
+  
+</value>
+  </data>
+  <data name="wrap/3" xml:space="preserve">
+    <value>  
+  wrap( +LB, |, +RB).
+  
+    This form is identical in functionality to the list form of wrap/2, but with the right bracket
+    given explicitly. See the example below.
+  
+  |  11 ?- wrap('(!', |, '!}').
+  |
+  |  yes
+  |
+  |  12 ?- X = (! a, b, c !}.
+  |
+  |   X = (! a, b, c !}
+  |
+  |  13 ?- (! a, b, c !} =.. L.
+  |
+  |   L = ['(!..!}', a, (! b,c !}]
+  |
+  
+</value>
+  </data>
+  <data name="pp_defines/1" xml:space="preserve">
+    <value>  
+  pp_defines( -D)
+  
+    Show the preprocessor definitions.
+  
+</value>
+  </data>
+  <data name="combination/3" xml:space="preserve">
+    <value>  
+  combination( +L1, +K, ?L2)
+  
+    Backtrackable predicate. L2 is the list with a K-combination of the elements in list L1.
+    Backtracking yields all possible combinations. 
+  
+    The predicate fails when called after the last combination, or when the result of a
+    permutation cannot be unified with L2.
+  
+</value>
+  </data>
+  <data name="permutation/2" xml:space="preserve">
+    <value>  
+  permutation( +L1, ?L2)
+  
+    Backtrackable predicate. L2 is the list with a permutation of the elements in list L1.
+    Backtracking yields all possible permutations. The very first permutation yields list
+    L1 with all elements sorted in standard order.
+  
+    The predicate fails when called after the last permutation, or when the result of a
+    permutation cannot be unified with L2.
+  
+</value>
+  </data>
+  <data name="predicate/1" xml:space="preserve">
+    <value>  
+  predicate( +P/+N)
+  
+    Succeeds if P is a predicate with arity N
+  
+</value>
+  </data>
+  <data name="profile/0" xml:space="preserve">
+    <value>  
+  profile
+  
+    Switch profiling on, i.e. start the registration of how many times each predicate
+    is called during execution.  Result can be made visible with showprofile/0/1.
+    Profiling has a slight impact on performance. It can be switched off with noprofile/1.
+  
+</value>
+  </data>
+  <data name="print/1" xml:space="preserve">
+    <value>  
+  print( +X)
+  
+    Output term X to the standard output.
+  
+</value>
+  </data>
+  <data name="put/1" xml:space="preserve">
+    <value>  
+  put( +N)
+  
+    Write the character represented by integer N to the standard output.
+  
+</value>
+  </data>
+  <data name="query_timeout/1" xml:space="preserve">
+    <value>  
+  query_timeout( +N)
+  
+    Terminate queries after they have run for N milliseconds.
+  
+</value>
+  </data>
+  <data name="read/1" xml:space="preserve">
+    <value>  
+  read( ?T)
+  
+    Read a term T from current input. Terms must be followed by a dot that
+    is the last non-white symbol on a line. A term may extend over more than
+    one line.
+  
+    Also see readln/1.
+  
+</value>
+  </data>
+  <data name="readatom/1" xml:space="preserve">
+    <value>  
+  readatom( ?T)
+  
+    Read text from current input up to the end of line, and return it as a single atom.
+  
+</value>
+  </data>
+  <data name="readatoms/1" xml:space="preserve">
+    <value>  
+  readatoms( ?L)
+  
+    Read a line of text from current input to the end of line, convert each
+    individual word to an atom, and return the resulting atoms in list L.
+  
+</value>
+  </data>
+  <data name="readeof/2" xml:space="preserve">
+    <value>  
+  readeof( +F, ?S)
+  
+    Read the entire content of file named F into a string and unify it with S.
+  
+</value>
+  </data>
+  <data name="readln/1" xml:space="preserve">
+    <value>  
+  readln( ?S)
+  
+    Read a line from standard input and return it as string S.
+    The predicate fails at end of file.
+  
+    Notice that (in general) you cannot mix calls to read/1 and readln/1, since
+    read/1 is term-oriented and readln/1 is line-oriented.
+  
+</value>
+  </data>
+  <data name="regex_match/3" xml:space="preserve">
+    <value>  
+  regex_match( +S, +P, -L)
+  
+    S is a string to be investigated, P is the regex pattern (following the C# syntax),
+    and the result L is a list containing the matching regex groups (subpatterns enclosed in
+    parentheses). A group in Prolog is represented as a label (group number or group name)
+    followed by a ':', followed by a list of strings (captures) belonging to that group.
+  
+    Example:
+  
+    regex_match("21-02-1951", @"(?&lt;Day&gt;\d{1,2})-(\d{1,2})-(?&lt;Year&gt;(?:\d{4}|\d{2}))", L).
+  
+    L = [1:["02"], "Day":["21"], "Year":["1951"]]
+  
+    - If there is only one group, only the group name and the list of captures will be returned;
+    - If the group has no name, its number will be returned instead;
+    - If no group was present in the pattern, the empty list will be returned in case of a match;
+    - If there was no match, the predicate will fail.
+  
+</value>
+  </data>
+  <data name="regex_match/4" xml:space="preserve">
+    <value>  
+  regex_match( +S, +P, -L, +O)
+  
+    Identical to regex_match/3. In addition, O is a list containing C#-style regex options.
+    The following options are supported:
+    - ignorecase
+    - multiline
+    - singleline
+    - explicitcapture
+    - cultureinvariant
+  
+    Cf. C# for further explanation of these options. Default is (C#) RegexOptions.None.
+  
+</value>
+  </data>
+  <data name="regex_replace/4" xml:space="preserve">
+    <value>  
+  regex_replace( +S, +P, +R, ?T)
+  
+    String T is the result of replacing all occurances of pattern P in S with R.
+  
+    Example:
+  
+    regex_replace("  abra  ", @"^\s*(.*?)\s*$", "$1", R).  % strip leading and trailing spaces
+  
+    R = "abra"
+  
+</value>
+  </data>
+  <data name="repeat/0" xml:space="preserve">
+    <value>  
+  repeat
+  
+    This predicate will always succeed on backtracking.
+  
+</value>
+  </data>
+  <data name="retract/1" xml:space="preserve">
+    <value>  
+  retract( +C)
+  
+    Remove asserted clause C from the program database.
+  
+</value>
+  </data>
+  <data name="retractall/1" xml:space="preserve">
+    <value>  
+  retractall( +P)
+  
+    Remove all asserted clauses for predicate P.
+  
+</value>
+  </data>
+  <data name="reverse/2" xml:space="preserve">
+    <value>  
+  reverse( ?L, ?R)
+  
+    List R is the reversed version of list L.
+    At least one argument must be nonvar.
+  
+</value>
+  </data>
+  <data name="sendmail/3" xml:space="preserve">
+    <value>  
+  sendmail( +ToAddr, +Subject, +Body)
+  
+    Send an email to ToAddr, subject is Subject, message body is Body.
+    All arguments are strings.
+  
+</value>
+  </data>
+  <data name="sendmail/4" xml:space="preserve">
+    <value>  
+  sendmail( +Smtp, +ToAddr, +Subject, +Body)
+  
+    Send an email, same as sendmail/3, but with smtp name Smtp (string) added.
+  
+</value>
+  </data>
+  <data name="sendmail/5" xml:space="preserve">
+    <value>  
+  sendmail( +Smtp, +Port, +ToAddr, +Subject, +Body)
+  
+    Send an email, same as sendmail/4, but with port number Port (integer) added.
+  
+</value>
+  </data>
+  <data name="see/1" xml:space="preserve">
+    <value>  
+  see( +F)
+  
+    Use file F with name F as standard input device. The default extension is .pl.
+    F must exist. see( user) will set standard input to the console.
+  
+    Multiple files can be open for reading simultaneously, and you can switch
+    between these by using see/1.
+  
+    The input file currently open can be closed explicitly with seen/0.
+  
+    All open input files are closed automatically when control is returned to
+    the user prompt.
+  
+</value>
+  </data>
+  <data name="seeing/1" xml:space="preserve">
+    <value>  
+  seeing( ?F)
+  
+    Succeeds if file named F is the current input file set by see/1.
+  
+</value>
+  </data>
+  <data name="seen/0" xml:space="preserve">
+    <value>  
+  seen( +F)
+  
+    Close file F.
+  
+</value>
+  </data>
+  <data name="set_counter/2" xml:space="preserve">
+    <value>  
+  set_counter( +C, +V)
+  
+    Assign the integer value V to global counter C (atom of positive integer).
+    Also see inc_counter/1/2 and dec_counter/1/2.
+  
+</value>
+  </data>
+  <data name="setenvvar/1" xml:space="preserve">
+    <value>  
+  setenvvar( +N, +V)
+  
+    Set the value of environment variable N to V.
+    You must have the right priviliges to do this.
+  
+</value>
+  </data>
+  <data name="setof/3" xml:space="preserve">
+    <value>  
+  setof( +X, +P, ?L)
+  
+    L contains the list with terms X that satisfy P.
+    Duplicates will be removed from the list (cf. bagof/3)
+  
+    Example: given age(ann, 12), age(pat, 23), age(peter, 4), age(tom, 48)
+  
+    ?- setof( N, age(N, _), L).
+  
+    L = [ann, pat, peter, tom]
+  
+</value>
+  </data>
+  <data name="shell/0" xml:space="preserve">
+    <value>  
+  shell.
+  
+    Open a DOS-box
+  
+</value>
+  </data>
+  <data name="shell/1" xml:space="preserve">
+    <value>  
+  shell( dos(+Cmd))
+  
+    Run (parameter-less) DOS-command Cmd.
+  
+    The command is run asynchronously, i.e. the Prolog program is continued immediately
+    after the creation of the DOS box and does not wait for the DOS-box to be closed.
+  
+</value>
+  </data>
+  <data name="shell/2" xml:space="preserve">
+    <value>  
+  shell( dos(+Cmd), +Args)
+  
+    Identical to shell( dos(Cmd)), but with arguments for Cmd in Args.
+    Args can be a single argument or a list of arguments.
+  
+  shell( +Cmd, +Args)
+  
+    Run command or executable Cmd with argument Args.
+    Args can be a single argument or a list of multiple arguments.
+    The command is run asynchronously, i.e. the Prolog program is continued immediately
+    after the creation of the DOS box and does not wait for the DOS-box to be closed.
+  
+  shell( +Path / +Cmd, +Args)
+  
+    Identical to shell( Cmd, Args); Path denotes the directory path where cmd is located.
+  
+</value>
+  </data>
+  <data name="shell/3" xml:space="preserve">
+    <value>  
+  shell( dos(+Cmd), +Args, ?E)
+  
+    Identical to shell( dos(Cmd), Args), but Cmd is run in synchronous mode,
+    i.e. the Prolog program does not continue until the DOS box is closed.
+    E is unified with the %ERRORLEVEL% value set by the command.
+    Remark: In a .bat file you can achieve this with the exit statement:
+  
+    EXIT /B &lt;numeric exit code&gt;
+  
+  shell( +Path / +Cmd, +Args, ?E)
+  
+    Identical to shell( Path/Cmd, Args, E), but Cmd is run in synchronous mode,
+    i.e. the Prolog program does not continue until Cmd has terminated.
+  
+  shell( +Cmd, +Args, ?E)
+  
+    Identical to shell( Cmd, Args, E), but Cmd is run in synchronous mode.
+    i.e. the Prolog program does not continue until Cmd has terminated.
+  
+</value>
+  </data>
+  <data name="showfile/1" xml:space="preserve">
+    <value>  
+  showfile( +F)
+  
+    Output the contents of file F to the standard output file.
+  
+  
+</value>
+  </data>
+  <data name="showprofile/0" xml:space="preserve">
+    <value>  
+  showprofile
+  
+    Show profile counts: a list of all predicates that were executed since
+    'profile/0' was executed, and the number of times each predicate was called.
+  
+</value>
+  </data>
+  <data name="showprofile/1" xml:space="preserve">
+    <value>  
+  showprofile( +N)
+  
+    Profile counts: top N values only.
+  
+</value>
+  </data>
+  <data name="sort/2" xml:space="preserve">
+    <value>  
+  sort( +L, ?R)
+  
+     List R is the sorted version of list L.
+  
+</value>
+  </data>
+  <data name="spy/1" xml:space="preserve">
+    <value>  
+  spy( +P/N)
+  spy( +P)
+  
+    Put a spy point on predicate P/N or on all predicates P,
+    and switch debugging on.
+  
+</value>
+  </data>
+  <data name="spy/2" xml:space="preserve">
+    <value>  
+  spy( +P/N, +Port)
+  spy( +P, +Port)
+  
+    Same as spy/1, but with port (call, exit, redo, fail) specified.
+  
+</value>
+  </data>
+  <data name="spypoints/0" xml:space="preserve">
+    <value>  
+  spypoints
+  
+    Show all spypoints.
+  
+</value>
+  </data>
+  <data name="sql_command/2" xml:space="preserve">
+    <value>  
+  sql_command( +ConnectionInfo, +S)
+  
+    Execute the SQL-command given in string S.
+    A connection must have been established first, cf. sql_connect.
+  
+</value>
+  </data>
+  <data name="sql_command/3" xml:space="preserve">
+    <value>  
+  sql_command( +ConnectionInfo, +S, ?N)
+  
+    Execute the SQL-command given in string S.
+    N will contain the number of rows affected.
+  
+    A connection must have been established first, cf. sql_connect.
+  
+</value>
+  </data>
+  <data name="sql_connect/3" xml:space="preserve">
+    <value>  
+  sql_connect( +Key, +ConnectStringParameters, -ConnectionInfo)
+  
+    Purpose: to obtain a connection ConnectionInfo to a database.
+  
+    !! WARNING: if you run this command on an x64 machine and you get the following message:
+    !! "The 'Microsoft.Jet.OLEDB.4.0' provider is not registered on the local machine"
+    !! then one way to repair this is to right-click on all projects -&gt; Properties -&gt; Build
+    !! and change from target 'Any cpu' to target 'x86'.
+    !! Do this for all projects in the solution.
+    !! There might be more elegant ways, but I have not sorted this out yet.
+  
+    Key: an atom that indicates which DataProvider and ConnectString will be used.
+    The DataProvider and ConnectString for a connection must be present in the
+    configuration file (csprolog.exe.config). Example of a configuration file entry:
+  
+      &lt;add key="excel" value="System.Data.OleDb|Provider=Microsoft.Jet.OLEDB.4.0;
+       Data Source={0};Extended Properties='Excel 8.0;HDR={1};IMEX=1'" /&gt;
+  
+    where:
+  
+    DataProvider  = "System.Data.OleDb"
+    ConnectString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR={1};IMEX=1'"
+  
+    DataProvider and ConnectString must be separated by a '|'.
+  
+    ConnectStringParameters provides the parameters that are to be substituted in
+    the ConnectString.
+  
+    The output parameter ConnectionInfo will contain the information that is required
+    as input parameter for the predicates sql_select/3, sql_select2/3 and sql_command/2/3.
+  
+    Examples:
+  
+    sql_connect( msaccess, 'SQL\\Northwind.mdb', CI).
+    sql_connect( excel, ['SQL\\Names.xls', 'Yes'], CI).
+  
+    WARNING:
+  
+    Not all the key/value-pairs in the config file have been tested !!!
+  
+    Technically, ConnectionInfo contains an instance of a C# DbCommand. The CommandText for
+    this DbCommand is set by the sql_select/3, sql_select2/3 or sql_command/2/3.
+  
+</value>
+  </data>
+  <data name="sql_disconnect/1" xml:space="preserve">
+    <value>  
+  sql_disconnect( +ConnectionInfo)
+  
+    Close the database connection stored in ConnectionInfo.
+    ConnectionInfo must be a term that was obtained as the 3rd parameter of sql_connect/3
+  
+    This command will rarely be needed, as all database connections are automatically
+    closed after the execution of a query. Use it if you have an excessive (&gt; 64) number of
+    open connections only.
+  
+</value>
+  </data>
+  <data name="sql_connection/3" xml:space="preserve">
+    <value>  
+  sql_connection( +ConnectionInfo, ?Connectstring, ?CommnendText)
+  
+    This command gives the Provider and current CommandText (SQL-statement) for ConnectionInfo term.
+  
+</value>
+  </data>
+  <data name="sql_select/3" xml:space="preserve">
+    <value>  
+  sql_select( +ConnectionInfo, +S, ?R)
+  
+    Execute SELECT statement S, and return the first/next record of the result set in R. Example:
+  
+    1 ?- sql_connect( msaccess, "SQL\\Northwind.mdb", ConnectionInfo).
+  
+    yes
+  
+    2 ?- sql_select( ConnectionInfo, 'SELECT * FROM Customers', S).
+  
+     S = ['ALFKI', 'Alfreds Futterkiste', 'Maria Anders', 'Sales Representative', 'Obere Str. 57',
+     'Berlin', db_null, '12209', 'Germany', '030-0074321', '030-0076545']  more? (y/n)
+  
+  
+    3 ?- sql_connect( excel, ['SQL\\Names.xls', 'Yes'], ConnectionInfo).
+  
+    yes
+  
+    4 ?- sql_select( ConnectionInfo, "SELECT * FROM Range1 WHERE Length &gt; 190", S).
+  
+      Record = ['John', '1951-02-21 00:00:00', 192, m]  more? (y/n) ;
+  
+    no
+</value>
+  </data>
+  <data name="sql_select2/3" xml:space="preserve">
+    <value>  
+  sql_select2( +ConnectionInfo, +S, ?R)
+  
+    Same as sql_select/3, but with column names prefixed to the values in each row of R.
+  
+</value>
+  </data>
+  <data name="statistics/2" xml:space="preserve">
+    <value>  
+  statistics( _, _)
+  
+    Does actually do nothing extremely useful yet.
+  
+  
+</value>
+  </data>
+  <data name="string_words/2" xml:space="preserve">
+    <value>  
+  string_words( ?S, ?L)
+  
+    Converts a string to a list of 'words', or vice versa.
+  
+</value>
+  </data>
+  <data name="string/1" xml:space="preserve">
+    <value>  
+  string( ?S)
+  
+    Succeeds if S is a string; fails otherwise.
+  
+</value>
+  </data>
+  <data name="stringstyle/1" xml:space="preserve">
+    <value>  
+  stringstyle( ?S)
+  
+    If S is one of the atoms 'csharp' or 'iso', the way strings are represented will
+    be set accordingly. In Standard Prolog, strings are represented as lists of character
+    codes ('iso'). With 'csharp', strings are represented as, eh, well, as regular strings.
+    If S is a variable, it will be given the value of the current setting.
+  
+    Example:
+  
+    |  1 ?- stringstyle( iso).
+    |
+    |  yes
+    |
+    |  2 ?- X = "hello, world".
+    |
+    |   X = [104, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100]  /*hello, world*/
+    |
+    |  3 ?- stringstyle( csharp).
+    |
+    |  yes
+    |
+    |  4 ?- X = "hello, world".
+    |
+    |   X = "hello, world"
+    |
+    |  5 ?- stringstyle( S).
+    |
+    |   S = csharp
+  
+    The default value, which can be overruled in the config file (key = "CSharpStrings"),
+    is 'csharp'.
+  
+</value>
+  </data>
+  <data name="string_term/2" xml:space="preserve">
+    <value>  
+  string_term( ?S, ?T)
+  
+    convert string S to Prolog term T and v.v.
+  
+</value>
+  </data>
+  <data name="succ/2" xml:space="preserve">
+    <value>  
+  succ( ?N0, ?N1)
+  
+    Integer N1 is equal to N0+1. At least one of the arguments must be instantiated.
+  
+</value>
+  </data>
+  <data name="tab/1" xml:space="preserve">
+    <value>  
+  tab( +N)
+  
+    Outputs N spaces to the current output.
+  
+</value>
+  </data>
+  <data name="tell/1" xml:space="preserve">
+    <value>  
+  tell( +F)
+  
+    Use file F with name F as standard output device. The default extension is .pl.
+    If F exists and tell/1 is called for the first time, the file's content will be
+    deleted. If F does not exist, it will be created.
+    tell( user) will set standard output to the console.
+  
+    Multiple files can be open for writing simultaneously, and you can switch
+    between these by using tell/1.
+  
+    The output file currently open can be closed explicitly with told/0.
+  
+    All open output files are closed automatically when control is returned to
+    the user prompt.
+  
+</value>
+  </data>
+  <data name="telling/1" xml:space="preserve">
+    <value>  
+  telling( ?F)
+  
+    Succeeds if file named F is the current output file set by tell/1.
+  
+</value>
+  </data>
+  <data name="term_pattern/2" xml:space="preserve">
+    <value>  
+  term_pattern( +T, +P)
+  
+    Search T for subterms that unify with P.
+    Single variable subterms are exluded
+    from unification with P, except when P itself is a term with arity 0.
+    Variables in P are instantiated.
+    Use backtracking in order to find all matches.
+  
+</value>
+  </data>
+  <data name="term_pattern/3" xml:space="preserve">
+    <value>  
+  term_pattern( +T, +P, -Loc)
+  
+    Identical to term_pattern/2; Loc is a list of integers uniquely identifying
+    the location in the term (e.g. [2, 4] means: the argument 4 of argument 2 of T).
+  
+</value>
+  </data>
+  <data name="term_pattern/4" xml:space="preserve">
+    <value>  
+  term_pattern( +T, +P, +Dmin, +Dmax)
+  
+    Identical to term_pattern/2, but with the added possibility to
+    specify the depths (levels) in T where P may be searched for.
+  
+</value>
+  </data>
+  <data name="term_pattern/5" xml:space="preserve">
+    <value>  
+  term_pattern( +T, +P, +Dmin, +Dmax, -Loc)
+  
+    Identical to term_pattern/4, but with the added possibility to
+    return the location where P was found.
+  
+</value>
+  </data>
+  <data name="stacktrace/1" xml:space="preserve">
+    <value>  
+  stacktrace( ?Mode)
+  
+    stacktrace/1 controls whether a C# stacktrace is provided with each error message.
+    Mode can be one of the atoms 'on' or 'off'. Default is 'off'.
+  
+    This predicate can also be used as a directive in a file to be consulted, e.g.:
+  
+    :- stacktrace( on).
+  
+</value>
+  </data>
+  <data name="throw/2" xml:space="preserve">
+    <value>  
+    throw( +E, +S)
+    throw( +S, +A)
+  
+    Raise an exception and display string S.
+    S is a C#-style format string; the list A contains the arguments.
+  
+    throw/2 will cause the execution to be handed over to a CATCH-clause
+    belonging to the TRY in which throw was performed, or to an enclosing
+    CATCH-clause of an enclosing (calling) predicate.
+    An exception class atom E can be specified in order to search for a
+    similarly named CATCH-clause.
+  
+</value>
+  </data>
+  <data name="throw/3" xml:space="preserve">
+    <value>  
+    throw( +E, +S, +A)
+  
+    Raise an exception and display string S.
+    S is a C#-style format string; the list A contains the arguments.
+  
+    throw/3 will cause the execution to be handed over to a CATCH-clause
+    belonging to the TRY in which throw was performed, or to an enclosing
+    CATCH-clause of an enclosing (calling) predicate.
+    An exception class atom E can be specified in order to search for a
+    similarly named CATCH-clause.
+  
+</value>
+  </data>
+  <data name="today/3" xml:space="preserve">
+    <value>  
+  today( ?Y, ?M, ?D)
+  
+    Return today's date in Y, M, D.
+  
+</value>
+  </data>
+  <data name="told/0" xml:space="preserve">
+    <value>  
+  told( +F)
+  
+    Close file F.
+  
+</value>
+  </data>
+  <data name="trace/0" xml:space="preserve">
+    <value>  
+  trace
+  
+    Switch on tracing.
+  
+</value>
+  </data>
+  <data name="treeprint/1" xml:space="preserve">
+    <value>  
+  treeprint( +T)
+  
+    Print term T in tree format
+  
+</value>
+  </data>
+  <data name="true/0" xml:space="preserve">
+    <value>  
+  true
+  
+    Succeed
+  
+</value>
+  </data>
+  <data name="undefineds/0" xml:space="preserve">
+    <value>  
+  undefineds
+  
+    Output the names of the predicates that are currently undefined (all
+    predicate clauses currently in the predicate database are scanned).
+  
+</value>
+  </data>
+  <data name="unifiable/2" xml:space="preserve">
+    <value>  
+  unifiable( ?X, ?Y)
+  
+    Succeeds if X can be unified with Y, but actual unification
+    does not take place.
+  
+</value>
+  </data>
+  <data name="username/1" xml:space="preserve">
+    <value>  
+  username( ?N)
+  
+    Returns the OS username.
+  
+</value>
+  </data>
+  <data name="userroles/1" xml:space="preserve">
+    <value>  
+  userroles( -L)
+  
+    Returns a list of OS roles the user has.
+  
+</value>
+  </data>
+  <data name="validdate/3" xml:space="preserve">
+    <value>  
+  validdate( +Y, +M, +D)
+  
+    Succeeds if Y, M, D represents a valid date.
+  
+</value>
+  </data>
+  <data name="validtime/3" xml:space="preserve">
+    <value>  
+  validtime( +H, +M, +S)
+  
+    Succeeds if H, M, S represents a valid time.
+  
+</value>
+  </data>
+  <data name="var/1" xml:space="preserve">
+    <value>  
+  var( ?X)
+  
+    Succeeds if X is an unbound variable.
+  
+  
+</value>
+  </data>
+  <data name="var/2" xml:space="preserve">
+    <value>  
+  var( ?X, ?N)
+  
+    Succeeds if X is an unbound variable and N is the name "X" of X.
+  
+</value>
+  </data>
+  <data name="version/2" xml:space="preserve">
+    <value>  
+  version( -V, -D)
+  
+    Show the version and the build date.
+  
+</value>
+  </data>
+  <data name="weekno/1" xml:space="preserve">
+    <value>  
+  weekno( ?N)
+  
+    Gives the number of the current week, according to the ISO definition.
+  
+  
+</value>
+  </data>
+  <data name="weekno/4" xml:space="preserve">
+    <value>  
+  weekno( +Y, +M, +D, ?N)
+  
+    Gives the number of the week in which Y, M, D lies,
+    according to the ISO definition
+  
+</value>
+  </data>
+  <data name="workingdir/0" xml:space="preserve">
+    <value>  
+  workingdir
+  
+    Resets the working directory to the default value as found in the config
+    file, or, if missing, to the directory in which CsProlog.exe resides.
+  
+</value>
+  </data>
+  <data name="workingdir/1" xml:space="preserve">
+    <value>  
+  workingdir( ?D)
+  
+    Get or set the working directory, i.e. the default directory
+    for consulting, reading and writing.
+  
+    Special symbols are:
+    '%desktop' : the Desktop directory
+    '%exedir'  : the directory in which CsProlog.exe resides
+  
+    The default value can be set in the config file.
+  
+    :- workingdir( +D) can also be used as directive in a consulted file.
+  
+</value>
+  </data>
+  <data name="console/1" xml:space="preserve">
+    <value>  
+  console( ?X)
+  
+    Write term X to the console (standard output if set by tell/1 is ignored).
+    The output is terminated with a newline.
+  
+</value>
+  </data>
+  <data name="console/2" xml:space="preserve">
+    <value>  
+  console( S, L)
+  
+    Write C#-style format string S with arguments in list A to the console.
+    The output is terminated with a newline.
+  
+</value>
+  </data>
+  <data name="write/1" xml:space="preserve">
+    <value>  
+  write( ?X)
+  
+    Output term X to standard output.
+  
+</value>
+  </data>
+  <data name="writef/2" xml:space="preserve">
+    <value>  
+  writef( S, L)
+  
+    Output C#-style format string S with arguments in list L.
+    If there is just one argument, it does not have to be in a list.
+  
+</value>
+  </data>
+  <data name="writeln/1" xml:space="preserve">
+    <value>  
+  writeln( ?X)
+  
+    Same as write( X), but output is terminated with a newline.
+  
+</value>
+  </data>
+  <data name="writeln/1" xml:space="preserve">
+    <value>  
+  writelnf( S, L)
+  
+    Same as writef( X), but output is terminated with a newline.
+  
+</value>
+  </data>
+  <data name="xml_term/2" xml:space="preserve">
+    <value>  
+  xml_term( ?Xml, ?T)
+    Converts xml-structure Xml to Prolog term Term and vice versa.
+  
+    Xml can be a string, but can also be a file specification:
+  
+    - see( F)  : File F is opened for reading and its XML content is
+                 transformed to Prolog term T
+  
+    - tell( F) : File F is opened for writing, and Prolog term T is
+                 transformed to an XML strucure and written to F.
+  
+    The best way to understand how to use this predicate is to study a
+    number of examples and see how the conversion is done. Basically,
+    an XML-term &lt;tag attr1=value1, ...&gt; nested node1, ... &lt;/tag&gt; is converted
+    into a term tag( [attr1=value, ...], [nested node1, ...]).
+  
+</value>
+  </data>
+  <data name="xml_term/3" xml:space="preserve">
+    <value>  
+  xml_term( ?Xml, ?T, +Options)
+  
+    Same as xml_term/2, but with a list of possible options that can be specified.
+    Options is a list of options:
+  
+    encoding( &lt;Encoding type&gt; ) : Encoding (integer or atom) to appear in XML-declaration,
+                                  e.g. 65001 = 'utf-8'. For both xml -&gt; term and term -&gt; xml.
+                                  See source file simpleDOMParser.cs (GetEncodingFromString)
+                                  for the complete list of possible encodings.
+  
+    whitespace( &lt;treatment&gt; )   : how to handle whitespace in the text. Possible values are:
+                                  none, all, significant
+  
+    comment( &lt;treatment&gt; )      : how to handle comment found in the text. Possible values are:
+                                  on (convert comment to Prolog term), off (ignore comment).
+  
+    For xml file generation only:
+  
+    indent( &lt;bool&gt;)             : Indent the element content.
+  
+</value>
+  </data>
+  <data name="xml_transform/3" xml:space="preserve">
+    <value>  
+  xml_transform( +Xml, +Xsl, +Html)
+  
+    Xml, Xsl and Html are instantiated strings containing file names.
+    Stylesheet Xsl is applied to XML-file Xml yielding HTML-file Html
+  
+</value>
+  </data>
+  <data name="xml_transform/2" xml:space="preserve">
+    <value>  
+  xml_transform( +Xml, +Xsl)
+  
+    Xml, Xsl are instantiated strings containing file names.
+    Stylesheet Xsl is applied to XML-file Xml. The result is written to an HTML-file
+    with the same name as the XML-file, but with extension .html
+  
+</value>
+  </data>
+  <data name="xml_transform/1" xml:space="preserve">
+    <value>  
+  xml_transform( +Xml)
+  
+    Xml is an instantiated strings containing the name of an XML-file, to which a stylesheet is applied.
+    The stylesheet name is assumed to be identical to the XML-file name, but with extension .xsl.
+    The name of the resulting file is assumed to be identical to the XML-file name, but with extension .html.
+  
+</value>
+  </data>
+  <data name="xmltrace/1" xml:space="preserve">
+    <value>  
+  xmltrace( +F)
+  
+    Send the execution tree of the next command to file F.
+  
+</value>
+  </data>
+  <data name="xmltrace/2" xml:space="preserve">
+    <value>  
+  xmltrace( +F, +N)
+  
+    Send the execution tree of the next command to file F, but the first N elements only.</value>
+  </data>
+  <data name="'!if'" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="cls" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>/0/1</value>
+  </data>
+  <data name="pp_defines" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="string" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="@&lt;" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="combination" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="history" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="predicate" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="string_datetime" xml:space="preserve">
+    <value>/2/4/7</value>
+  </data>
+  <data name="@=&lt;" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="complexnumber" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="howto_create_predicate" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="print" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="string_term" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="@&gt;" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="compound" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="inc_counter" xml:space="preserve">
+    <value>/1/2</value>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="string_words" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="@&gt;=" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="config_setting" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="integer" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="put" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="stringstyle" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="\+" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="console" xml:space="preserve">
+    <value>/1/2</value>
+  </data>
+  <data name="ip_address" xml:space="preserve">
+    <value>/1/2</value>
+  </data>
+  <data name="query_timeout" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="succ" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="\=" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="consult" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="is" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="read" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="tab" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="\==" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="copy_term" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="json_term" xml:space="preserve">
+    <value>/2/3</value>
+  </data>
+  <data name="readatom" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="talk" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="&lt;" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="crossref" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="keysort" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="readatoms" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="tell" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="=.." xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="csprolog_dll" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="leapyear" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="readeof" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="telling" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="=:=" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="current_op" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="length" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="readln" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="term_pattern" xml:space="preserve">
+    <value>/2/3/4/5</value>
+  </data>
+  <data name="=\=" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="date_part" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="license" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="regex_match" xml:space="preserve">
+    <value>/3/4</value>
+  </data>
+  <data name="throw" xml:space="preserve">
+    <value>/2/3</value>
+  </data>
+  <data name="=&lt;" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="datetime" xml:space="preserve">
+    <value>/1/4/7</value>
+  </data>
+  <data name="list" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="regex_replace" xml:space="preserve">
+    <value>/4</value>
+  </data>
+  <data name="timespan" xml:space="preserve">
+    <value>/1/4</value>
+  </data>
+  <data name="==" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="dayname" xml:space="preserve">
+    <value>/4</value>
+  </data>
+  <data name="listing" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="repeat" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="today" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="&gt;" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="dayofweek" xml:space="preserve">
+    <value>/4</value>
+  </data>
+  <data name="listing0" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="retract" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="told" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="&gt;=" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="dayofyear" xml:space="preserve">
+    <value>/4</value>
+  </data>
+  <data name="listpattern" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="retractall" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="trace" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="abolish" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="debug" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="make_help_resx" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="reverse" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="treeprint" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="append" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="dec_counter" xml:space="preserve">
+    <value>/1/2</value>
+  </data>
+  <data name="maplist" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="see" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="true" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="append2" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="display" xml:space="preserve">
+    <value>/1/1</value>
+  </data>
+  <data name="maxwritedepth" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="seeing" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="try_catch" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="arg" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="environment" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="member" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="seen" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="undefineds" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="assert" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="errorlevel" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="memberchk" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="sendmail" xml:space="preserve">
+    <value>/3/4/5</value>
+  </data>
+  <data name="unifiable" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="asserta" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="expand_term" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="set_counter" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="assertz" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="fail" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="nl" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="setenvvar" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="userroles" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="atom" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="fail_if_undefined" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="nodebug" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="setof" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="validdate" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="atom_string" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="fileexists" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="nonvar" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="shell" xml:space="preserve">
+    <value>/0/1/2/3</value>
+  </data>
+  <data name="validtime" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="atomic" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="findall" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="noprofile" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="showfile" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="var" xml:space="preserve">
+    <value>/1/2</value>
+  </data>
+  <data name="bagof" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="flat" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="nospy" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="showprofile" xml:space="preserve">
+    <value>/0/1</value>
+  </data>
+  <data name="version" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="batch" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="float" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="nospyall" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="sort" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="weekno" xml:space="preserve">
+    <value>/1/4</value>
+  </data>
+  <data name="between" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="format" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="not" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="spy" xml:space="preserve">
+    <value>/1/2</value>
+  </data>
+  <data name="workingdir" xml:space="preserve">
+    <value>/0/1</value>
+  </data>
+  <data name="bool" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="functions" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="notrace" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="spypoints" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="wrap" xml:space="preserve">
+    <value>/1/2/3</value>
+  </data>
+  <data name="bw_transform" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="functor" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="now" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="sql_command" xml:space="preserve">
+    <value>/2/3</value>
+  </data>
+  <data name="write" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="call" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="gensym" xml:space="preserve">
+    <value>/1/2</value>
+  </data>
+  <data name="number" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="sql_connect" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="writef" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="chat" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="get" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="numbervars" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="sql_connection" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="writeln" xml:space="preserve">
+    <value>/1/1</value>
+  </data>
+  <data name="chat80" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="get_counter" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="numcols" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="sql_disconnect" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="xml_term" xml:space="preserve">
+    <value>/2/3</value>
+  </data>
+  <data name="clause" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="get0" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="once" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="sql_select" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="xml_transform" xml:space="preserve">
+    <value>/3/2/1</value>
+  </data>
+  <data name="clearall" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="getenvvar" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="op" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="sql_select2" xml:space="preserve">
+    <value>/3</value>
+  </data>
+  <data name="xmltrace" xml:space="preserve">
+    <value>/1/2</value>
+  </data>
+  <data name="clearprofile" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="ground" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="parser" xml:space="preserve">
+    <value>(*)</value>
+  </data>
+  <data name="stacktrace" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="clipboard" xml:space="preserve">
+    <value>/1</value>
+  </data>
+  <data name="halt" xml:space="preserve">
+    <value>/0</value>
+  </data>
+  <data name="permutation" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="statistics" xml:space="preserve">
+    <value>/2</value>
+  </data>
+  <data name="help$" xml:space="preserve">
+    <value>
+  '!if'(*)                  cls/0                     help/0/1                  pp_defines/1              string/1                  
+  @&lt;/2                      combination/3             history(*)                predicate/1               string_datetime/2/4/7     
+  @=&lt;/2                     complexnumber/1           howto_create_predicate(*) print/1                   string_term/2             
+  @&gt;/2                      compound/1                inc_counter/1/2           profile/0                 string_words/2            
+  @&gt;=/2                     config_setting/2          integer/1                 put/1                     stringstyle/1             
+  \+/1                      console/1/2               ip_address/1/2            query_timeout/1           succ/2                    
+  \=/2                      consult/1                 is/2                      read/1                    tab/1                     
+  \==/2                     copy_term/2               json_term/2/3             readatom/1                talk(*)                   
+  &lt;/2                       crossref/1                keysort/2                 readatoms/1               tell/1                    
+  =../2                     csprolog_dll(*)           leapyear/1                readeof/2                 telling/1                 
+  =:=/2                     current_op/3              length/2                  readln/1                  term_pattern/2/3/4/5      
+  =\=/2                     date_part/2               license/0                 regex_match/3/4           throw/2/3                 
+  =&lt;/2                      datetime/1/4/7            list/1                    regex_replace/4           timespan/1/4              
+  ==/2                      dayname/4                 listing/1                 repeat/0                  today/3                   
+  &gt;/2                       dayofweek/4               listing0/1                retract/1                 told/0                    
+  &gt;=/2                      dayofyear/4               listpattern(*)            retractall/1              trace/0                   
+  abolish/1                 debug/0                   make_help_resx/0          reverse/2                 treeprint/1               
+  append/3                  dec_counter/1/2           maplist/3                 see/1                     true/0                    
+  append2/3                 display/1/1               maxwritedepth/1           seeing/1                  try_catch(*)              
+  arg/3                     environment/2             member/2                  seen/0                    undefineds/0              
+  assert/1                  errorlevel/1              memberchk/2               sendmail/3/4/5            unifiable/2               
+  asserta/1                 expand_term/2             name/2                    set_counter/2             username/1                
+  assertz/1                 fail/0                    nl/0                      setenvvar/1               userroles/1               
+  atom/1                    fail_if_undefined/1       nodebug/0                 setof/3                   validdate/3               
+  atom_string/2             fileexists/2              nonvar/1                  shell/0/1/2/3             validtime/3               
+  atomic/1                  findall/3                 noprofile/0               showfile/1                var/1/2                   
+  bagof/3                   flat/2                    nospy/1                   showprofile/0/1           version/2                 
+  batch(*)                  float/1                   nospyall/0                sort/2                    weekno/1/4                
+  between/3                 format/3                  not/1                     spy/1/2                   workingdir/0/1            
+  bool/1                    functions(*)              notrace/0                 spypoints/0               wrap/1/2/3                
+  bw_transform/2            functor/3                 now/3                     sql_command/2/3           write/1                   
+  call/1                    gensym/1/2                number/1                  sql_connect/3             writef/2                  
+  chat/0                    get/1                     numbervars/3              sql_connection/3          writeln/1/1               
+  chat80(*)                 get_counter/2             numcols/1                 sql_disconnect/1          xml_term/2/3              
+  clause/2                  get0/1                    once/1                    sql_select/3              xml_transform/3/2/1       
+  clearall/0                getenvvar/1               op/3                      sql_select2/3             xmltrace/1/2              
+  clearprofile/0            ground/1                  parser(*)                 stacktrace/1              
+  clipboard/1               halt/0                    permutation/2             statistics/2              </value>
+  </data>
+</root>

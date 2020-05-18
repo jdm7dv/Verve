@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D9C500C9-D635-43A4-8E4F-DE21EE16EA2C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ExprBuilderTests</RootNamespace>
+    <AssemblyName>ExprBuilderTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SimpleExprBuilderTestBase.cs" />
+    <Compile Include="BuilderDuplicatorTests.cs" />
+    <Compile Include="SimpleExprBuilderTests\BVOperatorsSimplerBuilder.cs" />
+    <Compile Include="SimpleExprBuilderTests\CoercionSimpleBuilder.cs" />
+    <Compile Include="SimpleExprBuilderTests\ConstantsSimpleBuilder.cs" />
+    <Compile Include="SimpleExprBuilderTests\EqualityAndLogicalOperatorsSimpleBuilder.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\ConstantFoldingExprBuilderTests.cs" />
+    <Compile Include="SimpleExprBuilderTests\MapStoreSelectSimpleBuilder.cs" />
+    <Compile Include="SimpleExprBuilderTests\OldSimpleBuilder.cs" />
+    <Compile Include="SimpleExprBuilderTests\QuantifiersSimpleBuilder.cs" />
+    <Compile Include="SimpleExprBuilderTests\RealAndIntOperatorsSimplerBuilder.cs" />
+    <Compile Include="SimpleExprBuilderTests\UninterpretedFunctionsSimpleBuilder.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldAdd.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldIfThenElse.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldNotEq.cs" />
+    <Compile Include="ExprUtilTests.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldNot.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldSub.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldDiv.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldMod.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldAnd.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldOr.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldImp.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldNeg.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldLt.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldLe.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldGt.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldGe.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldEq.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldMul.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldIff.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldForAll.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldExists.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVADD.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVMUL.cs" />
+    <Compile Include="SimpleExprBuilderTests\Distinct.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVUDIV.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVUREM.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSDIV.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSREM.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSMOD.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVNEG.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVNOT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSEXT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVZEXT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVCONCAT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVEXTRACT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSLT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSLE.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSGT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSGE.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVULT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVULE.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVUGT.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVUGE.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVAND.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVOR.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVXOR.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSHL.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVSUB.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVLSHR.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldBVASHR.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldArithmeticCoercion.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldMapSelect.cs" />
+    <Compile Include="ConstantFoldingBuilderTests\FoldMapStore.cs" />
+    <Compile Include="ConstantCacheBuilderTests.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Core\Core.csproj">
+      <Project>{B230A69C-C466-4065-B9C1-84D80E76D802}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\Basetypes\Basetypes.csproj">
+      <Project>{43DFAD18-3E35-4558-9BE2-CAFF6B5BA8A0}</Project>
+      <Name>Basetypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SymbooglixLibTests\SymbooglixLibTests.csproj">
+      <Project>{F2D05CFA-9CF9-4853-8230-2C9566216DC0}</Project>
+      <Name>SymbooglixLibTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalLibs\Boogie\Source\ParserHelper\ParserHelper.csproj">
+      <Project>{FCD3AC7F-9DFD-46C8-AB1E-09F0B0F16DC5}</Project>
+      <Name>ParserHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Symbooglix\Symbooglix.csproj">
+      <Project>{69F04878-1CD0-454C-87A6-6B155D2D4855}</Project>
+      <Name>Symbooglix</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SimpleExprBuilderTests\" />
+    <Folder Include="ConstantFoldingBuilderTests\" />
+  </ItemGroup>
+</Project>

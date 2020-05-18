@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Security</name>
+    </assembly>
+    <members>
+        <member name="M:Arachnode.Security.Hash.#ctor(System.Byte[])">
+            <summary>
+            	Initializes a new instance of the <see cref="T:Arachnode.Security.Hash"/> class.
+            </summary>
+            <param name="source">The source.</param>
+        </member>
+        <member name="M:Arachnode.Security.Hash.#ctor(System.String)">
+            <summary>
+            	Initializes a new instance of the <see cref="T:Arachnode.Security.Hash"/> class.
+            </summary>
+            <param name="source">The source.</param>
+        </member>
+        <member name="M:Arachnode.Security.Hash.ToString">
+            <summary>
+            	Returns a <see cref = "T:System.String"></see> that represents the current <see cref = "T:System.Object"></see>.
+            </summary>
+            <returns>
+            	A <see cref = "T:System.String"></see> that represents the current <see cref = "T:System.Object"></see>.
+            </returns>
+        </member>
+        <member name="P:Arachnode.Security.Hash.Item(System.Int32)">
+            <summary>
+            	Gets the <see cref="T:System.Byte"/> at the specified index.
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Arachnode.Security.Obfuscation.Obfuscate(System.String)">
+            <summary>
+            	Obfuscates the specified to be obfuscated.
+            </summary>
+            <param name = "toBeObfuscated">To be obfuscated.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Obfuscation.Clarify(System.String)">
+            <summary>
+            	Clarifies the specified to be clarified.
+            </summary>
+            <param name = "toBeClarified">To be clarified.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Encryption.EncryptTripleDES(System.String)">
+            <summary>
+            	Encrypts the triple DES.
+            </summary>
+            <param name = "toBeEncrypted">To be encrypted.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Encryption.EncryptTripleDES(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            	Encrypts the triple DES.
+            </summary>
+            <param name = "toBeEncrypted">To be encrypted.</param>
+            <param name = "key">The key.</param>
+            <param name = "iv">The iv.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Encryption.DecryptTripleDES(System.String)">
+            <summary>
+            	Decrypts the triple DES.
+            </summary>
+            <param name = "toBeDecrypted">To be decrypted.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Encryption.DecryptTripleDES(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            	Decrypts the triple DES.
+            </summary>
+            <param name = "toBeDecrypted">To be decrypted.</param>
+            <param name = "key">The key.</param>
+            <param name = "iv">The iv.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Encryption.EncryptRijndaelManaged(System.String)">
+            <summary>
+            	Encrypts the rijndael managed.
+            </summary>
+            <param name = "toBeEncrypted">To be encrypted.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Encryption.EncryptRijndaelManaged(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            	Encrypts the rijndael managed.
+            </summary>
+            <param name = "toBeEncrypted">To be encrypted.</param>
+            <param name = "key">The key.</param>
+            <param name = "iv">The iv.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Encryption.DecryptRijndaelManaged(System.String)">
+            <summary>
+            	Decrypts the rijndael managed.
+            </summary>
+            <param name = "toBeDecrypted">To be decrypted.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Security.Encryption.DecryptRijndaelManaged(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            	Decrypts the rijndael managed.
+            </summary>
+            <param name = "toBeDecrypted">To be decrypted.</param>
+            <param name = "key">The key.</param>
+            <param name = "iv">The iv.</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

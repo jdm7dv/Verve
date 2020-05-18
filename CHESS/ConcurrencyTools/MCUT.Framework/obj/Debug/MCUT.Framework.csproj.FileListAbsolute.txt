@@ -1,0 +1,6 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.UnitTestingFramework.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.UnitTestingFramework.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.UnitTestingFramework.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Framework\obj\Debug\MCUT.Framework.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Framework\obj\Debug\Microsoft.Concurrency.UnitTestingFramework.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Framework\obj\Debug\Microsoft.Concurrency.UnitTestingFramework.pdb

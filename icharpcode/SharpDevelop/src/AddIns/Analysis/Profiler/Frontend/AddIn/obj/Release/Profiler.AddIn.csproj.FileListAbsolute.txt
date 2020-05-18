@@ -1,0 +1,16 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\Profiler\ICSharpCode.Profiler.AddIn.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\Profiler\ICSharpCode.Profiler.AddIn.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Profiler.AddIn.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\Dialogs\ProfileExecutableForm.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\Dialogs\ProfilerControlWindow.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\OptionPanels\General.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\Views\ComparisonView.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\Views\ProfilerView.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\Dialogs\ProfileExecutableForm.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\Dialogs\ProfilerControlWindow.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\OptionPanels\General.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\Views\ComparisonView.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\Src\Views\ProfilerView.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\ICSharpCode.Profiler.AddIn_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\ICSharpCode.Profiler.AddIn.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\AddIn\obj\Release\ICSharpCode.Profiler.AddIn.dll

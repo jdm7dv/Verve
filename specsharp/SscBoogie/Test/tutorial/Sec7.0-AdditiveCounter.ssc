@@ -1,0 +1,42 @@
+using Microsoft.Contracts;
+
+namespace AdditiveCounter {
+
+public class Counter {
+  int inc;
+  int dec;
+
+  invariant dec <= inc;
+
+  [Pure]
+  [Additive] // implicit precondition: receiver is valid for the class frames "Counter" and "object", but
+             // possibly mutable for all other class frames (if any)
+  public int GetX() 
+    ensures 0 <= result;
+    ensures result == inc - dec; // Not inferred because there is an explicit postcondition
+                                 // This postcondition does not violate information hiding because 
+                                 // clients that cannot access inc and dec need not understand it.
+  {
+    return inc - dec;
+  }
+
+  [NotDelayed]
+  public Counter()
+    ensures GetX() == 0;  // in poststate, receiver is valid for Counter and object, but not yet for subclasses of Counter
+  {
+  }
+
+  public void Inc()
+    ensures GetX() == old(GetX()) + 1;
+  {
+    inc++;
+  }
+
+  public void Dec()
+    requires 0 < GetX();
+    ensures GetX() == old(GetX()) - 1;
+  {
+    dec++;
+  }
+}
+}

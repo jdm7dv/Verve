@@ -1,0 +1,8 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.Taskometer.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.Taskometer.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Microsoft.Concurrency.Taskometer.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Taskometer\obj\Debug\MCUT.Taskometer.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Taskometer\obj\Debug\Microsoft.Concurrency.TestTools.TaskoMeter.Stats.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Taskometer\obj\Debug\MCUT.Taskometer.csproj.GenerateResource.Cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Taskometer\obj\Debug\Microsoft.Concurrency.Taskometer.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\MCUT.Taskometer\obj\Debug\Microsoft.Concurrency.Taskometer.pdb

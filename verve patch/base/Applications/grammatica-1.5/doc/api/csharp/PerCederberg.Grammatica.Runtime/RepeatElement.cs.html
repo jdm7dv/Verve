@@ -1,0 +1,380 @@
+<HTML>
+<HEAD>
+<TITLE>
+RepeatElement.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * RepeatElement.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.IO;
+
+<font color="blue">using</font> PerCederberg.Grammatica.Runtime;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime.RE <font color="black">{</font>
+
+    <font color="green">/**
+     * A regular expression element repeater. The element repeats the
+     * matches from a specified element, attempting to reach the
+     * maximum repetition count.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> RepeatElement <font color="black">:</font> Element <font color="black">{</font>
+
+        <font color="green">/**
+         * The repeat type constants.
+         */</font>
+        <font color="blue">public</font> <font color="blue">enum</font> RepeatType <font color="black">{</font>
+
+            <font color="green">/**
+             * The greedy repeat type constant.
+             */</font>
+            GREEDY <font color="black">=</font> <font color="maroon">1</font>,
+
+            <font color="green">/**
+             * The reluctant repeat type constant.
+             */</font>
+            RELUCTANT <font color="black">=</font> <font color="maroon">2</font>,
+
+            <font color="green">/**
+             * The possesive repeat type constant.
+             */</font>
+            POSSESSIVE <font color="black">=</font> <font color="maroon">3</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The element to repeat.
+         */</font>
+        <font color="blue">private</font> Element elem;
+
+        <font color="green">/**
+         * The minimum number of repetitions.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> min;
+
+        <font color="green">/**
+         * The maximum number of repetitions.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> max;
+
+        <font color="green">/**
+         * The repeat type.
+         */</font>
+        <font color="blue">private</font> RepeatType type;
+
+        <font color="green">/**
+         * The start position of the last set of matches.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> matchStart;
+
+        <font color="green">/**
+         * A set with all matches starting at matchStart. A match with
+         * a specific length is reported by a non-zero bit in the bit
+         * array.
+         */</font>
+        <font color="blue">private</font> BitArray matches;
+
+        <font color="green">/**
+         * Creats a new element repeater.
+         *
+         * @param elem           the element to repeat
+         * @param min            the minimum count
+         * @param max            the maximum count
+         * @param type           the repeat type constant
+         */</font>
+        <font color="blue">public</font> RepeatElement<font color="black">(</font>Element elem,
+                             <font color="blue">int</font> min,
+                             <font color="blue">int</font> max,
+                             RepeatType type<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">this</font>.elem <font color="black">=</font> elem;
+            <font color="blue">this</font>.min <font color="black">=</font> min;
+            <font color="blue">if</font> <font color="black">(</font>max <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font>.max <font color="black">=</font> Int32.MaxValue;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">this</font>.max <font color="black">=</font> max;
+            <font color="black">}</font>
+            <font color="blue">this</font>.type <font color="black">=</font> type;
+            <font color="blue">this</font>.matchStart <font color="black">=</font> <font color="maroon">-1</font>;
+            <font color="blue">this</font>.matches <font color="black">=</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a copy of this element. The copy will be an
+         * instance of the same class matching the same strings.
+         * Copies of elements are necessary to allow elements to cache
+         * intermediate results while matching strings without
+         * interfering with other threads.
+         *
+         * @return a copy of this element
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">object</font> Clone<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">new</font> RepeatElement<font color="black">(</font><font color="black">(</font>Element<font color="black">)</font> elem.Clone<font color="black">(</font><font color="black">)</font>,
+                                     min,
+                                     max,
+                                     type<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the length of a matching string starting at the
+         * specified position. The number of matches to skip can also be
+         * specified.
+         *
+         * @param m              the matcher being used
+         * @param buffer         the input character buffer to match
+         * @param start          the starting position
+         * @param skip           the number of matches to skip
+         *
+         * @return the length of the matching string, or
+         *         -1 if no match was found
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">int</font> Match<font color="black">(</font>Matcher m,
+                                  ReaderBuffer buffer,
+                                  <font color="blue">int</font> start,
+                                  <font color="blue">int</font> skip<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">if</font> <font color="black">(</font>skip <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                matchStart <font color="black">=</font> <font color="maroon">-1</font>;
+                matches <font color="black">=</font> <font color="blue">null</font>;
+            <font color="black">}</font>
+            <font color="blue">switch</font> <font color="black">(</font>type<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> RepeatType.GREEDY<font color="black">:</font>
+                <font color="blue">return</font> MatchGreedy<font color="black">(</font>m, buffer, start, skip<font color="black">)</font>;
+            <font color="blue">case</font> RepeatType.RELUCTANT<font color="black">:</font>
+                <font color="blue">return</font> MatchReluctant<font color="black">(</font>m, buffer, start, skip<font color="black">)</font>;
+            <font color="blue">case</font> RepeatType.POSSESSIVE<font color="black">:</font>
+                <font color="blue">if</font> <font color="black">(</font>skip <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> MatchPossessive<font color="black">(</font>m, buffer, start, <font color="maroon">0</font><font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">break</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="maroon">-1</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the length of the longest possible matching string
+         * starting at the specified position. The number of matches
+         * to skip can also be specified.
+         *
+         * @param m              the matcher being used
+         * @param buffer         the input character buffer to match
+         * @param start          the starting position
+         * @param skip           the number of matches to skip
+         *
+         * @return the length of the longest matching string, or
+         *         -1 if no match was found
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> MatchGreedy<font color="black">(</font>Matcher m,
+                                ReaderBuffer buffer,
+                                <font color="blue">int</font> start,
+                                <font color="blue">int</font> skip<font color="black">)</font> <font color="black">{</font>
+
+            <font color="green">// Check for simple case</font>
+            <font color="blue">if</font> <font color="black">(</font>skip <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> MatchPossessive<font color="black">(</font>m, buffer, start, <font color="maroon">0</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Find all matches</font>
+            <font color="blue">if</font> <font color="black">(</font>matchStart <font color="black">!</font><font color="black">=</font> start<font color="black">)</font> <font color="black">{</font>
+                matchStart <font color="black">=</font> start;
+                matches <font color="black">=</font> <font color="blue">new</font> BitArray<font color="black">(</font><font color="maroon">10</font><font color="black">)</font>;
+                FindMatches<font color="black">(</font>m, buffer, start, <font color="maroon">0</font>, <font color="maroon">0</font>, <font color="maroon">0</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Find first non-skipped match</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> matches.Count <font color="maroon">-1</font>; i <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font>; i<font color="black">-</font><font color="black">-</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>matches<font color="black">[</font>i<font color="black">]</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>skip <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> i;
+                    <font color="black">}</font>
+                    skip<font color="black">-</font><font color="black">-</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="maroon">-1</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the length of the shortest possible matching string
+         * starting at the specified position. The number of matches to
+         * skip can also be specified.
+         *
+         * @param m              the matcher being used
+         * @param buffer         the input character buffer to match
+         * @param start          the starting position
+         * @param skip           the number of matches to skip
+         *
+         * @return the length of the shortest matching string, or
+         *         -1 if no match was found
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> MatchReluctant<font color="black">(</font>Matcher m,
+                                   ReaderBuffer buffer,
+                                   <font color="blue">int</font> start,
+                                   <font color="blue">int</font> skip<font color="black">)</font> <font color="black">{</font>
+
+            <font color="green">// Find all matches</font>
+            <font color="blue">if</font> <font color="black">(</font>matchStart <font color="black">!</font><font color="black">=</font> start<font color="black">)</font> <font color="black">{</font>
+                matchStart <font color="black">=</font> start;
+                matches <font color="black">=</font> <font color="blue">new</font> BitArray<font color="black">(</font><font color="maroon">10</font><font color="black">)</font>;
+                FindMatches<font color="black">(</font>m, buffer, start, <font color="maroon">0</font>, <font color="maroon">0</font>, <font color="maroon">0</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Find first non-skipped match</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> matches.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>matches<font color="black">[</font>i<font color="black">]</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>skip <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> i;
+                    <font color="black">}</font>
+                    skip<font color="black">-</font><font color="black">-</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="maroon">-1</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the length of the maximum number of elements matching
+         * the string starting at the specified position. This method
+         * allows no backtracking, i.e. no skips..
+         *
+         * @param m              the matcher being used
+         * @param buffer         the input character buffer to match
+         * @param start          the starting position
+         * @param count          the start count, normally zero (0)
+         *
+         * @return the length of the longest matching string, or
+         *         -1 if no match was found
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> MatchPossessive<font color="black">(</font>Matcher m,
+                                    ReaderBuffer buffer,
+                                    <font color="blue">int</font> start,
+                                    <font color="blue">int</font> count<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">int</font>  length <font color="black">=</font> <font color="maroon">0</font>;
+            <font color="blue">int</font>  subLength <font color="black">=</font> <font color="maroon">1</font>;
+
+            <font color="green">// Match as many elements as possible</font>
+            <font color="blue">while</font> <font color="black">(</font>subLength <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> count <font color="black">&#60;</font> max<font color="black">)</font> <font color="black">{</font>
+                subLength <font color="black">=</font> elem.Match<font color="black">(</font>m, buffer, start <font color="black">+</font> length, <font color="maroon">0</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>subLength <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    count<font color="black">+</font><font color="black">+</font>;
+                    length <font color="black">+</font><font color="black">=</font> subLength;
+                <font color="black">}</font>
+            <font color="black">}</font>
+
+            <font color="green">// Return result</font>
+            <font color="blue">if</font> <font color="black">(</font>min <font color="black">&#60;</font><font color="black">=</font> count <font color="black">&</font><font color="black">&</font> count <font color="black">&#60;</font><font color="black">=</font> max<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> length;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="maroon">-1</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Finds all matches and adds the lengths to the matches set.
+         *
+         * @param m              the matcher being used
+         * @param buffer         the input character buffer to match
+         * @param start          the starting position
+         * @param length         the match length at the start position
+         * @param count          the number of sub-elements matched
+         * @param attempt        the number of match attempts here
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> FindMatches<font color="black">(</font>Matcher m,
+                                 ReaderBuffer buffer,
+                                 <font color="blue">int</font> start,
+                                 <font color="blue">int</font> length,
+                                 <font color="blue">int</font> count,
+                                 <font color="blue">int</font> attempt<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">int</font>  subLength;
+
+            <font color="green">// Check match ending here</font>
+            <font color="blue">if</font> <font color="black">(</font>count <font color="black">&#62;</font> max<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>min <font color="black">&#60;</font><font color="black">=</font> count <font color="black">&</font><font color="black">&</font> attempt <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>matches.Length <font color="black">&#60;</font><font color="black">=</font> length<font color="black">)</font> <font color="black">{</font>
+                    matches.Length <font color="black">=</font> length <font color="black">+</font> <font color="maroon">10</font>;
+                <font color="black">}</font>
+                matches<font color="black">[</font>length<font color="black">]</font> <font color="black">=</font> <font color="blue">true</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Check element match</font>
+            subLength <font color="black">=</font> elem.Match<font color="black">(</font>m, buffer, start, attempt<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>subLength <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>subLength <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>min <font color="black">=</font><font color="black">=</font> count <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>matches.Length <font color="black">&#60;</font><font color="black">=</font> length<font color="black">)</font> <font color="black">{</font>
+                        matches.Length <font color="black">=</font> length <font color="black">+</font> <font color="maroon">10</font>;
+                    <font color="black">}</font>
+                    matches<font color="black">[</font>length<font color="black">]</font> <font color="black">=</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Find alternative and subsequent matches</font>
+            FindMatches<font color="black">(</font>m, buffer, start, length, count, attempt <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+            FindMatches<font color="black">(</font>m,
+                        buffer,
+                        start <font color="black">+</font> subLength,
+                        length <font color="black">+</font> subLength,
+                        count <font color="black">+</font> <font color="maroon">1</font>,
+                        <font color="maroon">0</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Prints this element to the specified output stream.
+         *
+         * @param output         the output stream to use
+         * @param indent         the current indentation
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> PrintTo<font color="black">(</font>TextWriter output, string indent<font color="black">)</font> <font color="black">{</font>
+            output.Write<font color="black">(</font>indent <font color="black">+</font> <font color="maroon">"Repeat ("</font> <font color="black">+</font> min <font color="black">+</font> <font color="maroon">","</font> <font color="black">+</font> max <font color="black">+</font> <font color="maroon">")"</font><font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>type <font color="black">=</font><font color="black">=</font> RepeatType.RELUCTANT<font color="black">)</font> <font color="black">{</font>
+                output.Write<font color="black">(</font><font color="maroon">"?"</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>type <font color="black">=</font><font color="black">=</font> RepeatType.POSSESSIVE<font color="black">)</font> <font color="black">{</font>
+                output.Write<font color="black">(</font><font color="maroon">"+"</font><font color="black">)</font>;
+            <font color="black">}</font>
+            output.WriteLine<font color="black">(</font><font color="black">)</font>;
+            elem.PrintTo<font color="black">(</font>output, indent <font color="black">+</font> <font color="maroon">"  "</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

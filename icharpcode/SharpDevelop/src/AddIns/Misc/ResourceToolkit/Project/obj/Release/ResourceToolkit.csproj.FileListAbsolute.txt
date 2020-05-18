@@ -1,0 +1,3 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\ResourceToolkit\Hornung.ResourceToolkit.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\ResourceToolkit\Hornung.ResourceToolkit.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\ResourceToolkit\Project\obj\Release\Hornung.ResourceToolkit.dll

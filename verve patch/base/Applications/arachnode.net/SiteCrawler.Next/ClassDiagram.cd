@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Arachnode.Next.Crawler&lt;TValue&gt;" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.ExceptionCaughtEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.WebPageCrawledEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.ImagePlugin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.WebPagePlugin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.FilePlugin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.CrawlRequestPlugin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.SaveCrawlRequestsToPersistentStoragePlugin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.FileAndImageDiscoveryPlugin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.CrawlerStatusEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.ImageCrawledEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.LoadCrawlRequestsFromPersistentStoragePlugin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.HyperLinkAbsoluteUriStatusEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.FileCrawledEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.CrawlRequestStatusEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.FileOrImageAbsoluteUriStatusEventHandler" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Arachnode.Next.Crawler&lt;TValue&gt;.HyperLinkDiscoveriesPlugin" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Crawler.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAADAAACBiGaCABBIMCAkIEACICABCIAAAAk8ARgECI=</HashCode>
+      <FileName>Crawler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.ExtensionMethods.UriExtensionMethods" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>ExtensionMethods\UriExtensionMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Managers.DataManager" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\DataManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Managers.EncodingManager" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAABCAAAAA=</HashCode>
+      <FileName>Managers\EncodingManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Managers.LicenseManager" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Managers\LicenseManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Managers.MemoryManager" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\MemoryManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Managers.UriManager" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Managers\UriManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Plugins.CrawlRequestPlugins" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAQAQAABAAgMAACAAAAABAAAiAAAACAAAAgAAAA=</HashCode>
+      <FileName>Plugins\CrawlRequestPlugins.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Plugins.FileAndImageDiscoveryPlugins" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAEABAAAAAAAAAAAAAAACgAAAAgAAA=</HashCode>
+      <FileName>Plugins\FileAndImageDiscoveryPlugins.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Plugins.FilePlugins" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAABAAAAAEAAAAAAAAAAAAAAAACiAAAAAAAAA=</HashCode>
+      <FileName>Plugins\FilePlugins.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Plugins.HyperLinkDiscoveryPlugins" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAgQIAAAEAAAAAAAAAAAAAAAAACAAAABgAAA=</HashCode>
+      <FileName>Plugins\HyperLinkDiscoveryPlugins.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Plugins.ImagePlugins" Collapsed="true">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAEAAAAAAIAAAAAAAAAACAAAAEAAAA=</HashCode>
+      <FileName>Plugins\ImagePlugins.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Plugins.WebPagePlugins" Collapsed="true">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoAAAAAgAAAAMAAAAAgAAAAAAAAAAAKQAAAAAAAA=</HashCode>
+      <FileName>Plugins\WebPagePlugins.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Distributed.Program" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIQAAAAACgAAQAAAAEAQAAAAIAAgAAAAAAhAAgAAE=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Distributed.SearchEngine" Collapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAQAAACAAAAAAgAAA=</HashCode>
+      <FileName>SearchEngine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Value.AbstractClasses.ACrawlRequest">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAACAUAAAAAEAgGAEAAAgAIAABQAAAAQEkAEIAA=</HashCode>
+      <FileName>Value\AbstractClasses\ACrawlRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Value.AbstractClasses.ADiscovery">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAEAAAAQAAAAAAAAQAACAAQAAAAAAA=</HashCode>
+      <FileName>Value\AbstractClasses\ADiscovery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Distributed.Value.CrawlRequest">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAABAAEAAAAAAAAAAAAAAAgAAABEAAEAAA=</HashCode>
+      <FileName>Value\CrawlRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Value.Discovery">
+    <Position X="7" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Value\Discovery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arachnode.Next.Value.RobotsDotText" Collapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAQAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Value\RobotsDotText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Arachnode.Next.Value.Enums.CrawlRequestDirective">
+    <Position X="10.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEAAAAAEAAAA=</HashCode>
+      <FileName>Value\Enums\CrawlRequestDirective.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Arachnode.Next.Value.Enums.CrawlStatus">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAIAAAAAAAAAAAAAAAAAIAAAAAEAAAA=</HashCode>
+      <FileName>Value\Enums\CrawlStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Arachnode.Next.Value.Enums.DiscoveryStatus">
+    <Position X="14" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAIAAAQABAAAAAACAAAAAQAAAABABAAEAAAA=</HashCode>
+      <FileName>Value\Enums\DiscoveryStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Arachnode.Next.Value.Enums.DiscoveryType">
+    <Position X="12.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEQBAAAAAAAAEAABA=</HashCode>
+      <FileName>Value\Enums\DiscoveryType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Arachnode.Next.Value.Enums.DownloadStatus">
+    <Position X="10.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAEgAAAAAAQAAAAAAAAQAAAAAEAAAEAQAI=</HashCode>
+      <FileName>Value\Enums\DownloadStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

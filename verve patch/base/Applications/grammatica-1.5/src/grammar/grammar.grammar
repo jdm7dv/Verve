@@ -1,0 +1,119 @@
+/*
+ * grammar.grammar
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */
+
+%header%
+
+GRAMMARTYPE = "LL"
+
+DESCRIPTION = "A grammar for the grammar file format. The grammar is LL(1),
+               meaning that it is best read with a recursive descent parser.
+               The grammar file format is used for describing grammars."
+
+AUTHOR      = "Per Cederberg, <per at percederberg dot net>"
+VERSION     = "1.5"
+DATE        = "7 May 2005"
+
+LICENSE     = "This library is free software; you can redistribute it and/or
+               modify it under the terms of the GNU Lesser General Public License
+               as published by the Free Software Foundation; either version 3
+               of the License, or (at your option) any later version.
+
+               This library is distributed in the hope that it will be useful,
+               but WITHOUT ANY WARRANTY; without even the implied warranty of
+               MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+               Lesser General Public License for more details.
+
+               You should have received a copy of the GNU Lesser General Public
+               License along with this library; if not, write to the Free
+               Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+               MA 02111-1307, USA."
+
+COPYRIGHT   = "Copyright (c) 2003-2009 Per Cederberg. All rights reserved."
+
+
+%tokens%
+
+HEADER                       = "%header%"
+TOKENS                       = "%tokens%"
+PRODUCTIONS                  = "%productions%"
+IGNORE                       = <<%ignore([^%]*)%>>
+ERROR                        = <<%error([^%]*)%>>
+UNTERMINATED_DIRECTIVE       = <<%[^%\n\r]*>> %error unterminated directive%
+EQUALS                       = "="
+LEFT_PAREN                   = "("
+RIGHT_PAREN                  = ")"
+LEFT_BRACE                   = "{"
+RIGHT_BRACE                  = "}"
+LEFT_BRACKET                 = "["
+RIGHT_BRACKET                = "]"
+QUESTION_MARK                = "?"
+PLUS_SIGN                    = "+"
+ASTERISK                     = "*"
+VERTICAL_BAR                 = "|"
+SEMICOLON                    = ";"
+IDENTIFIER                   = <<[A-Za-z][A-Za-z0-9_]*>>
+QUOTED_STRING                = <<"[^"]*"|'[^']*'>>
+REGEXP                       = <<\<\<([^\\\>]|(\\.)|(\>[^\>]))*\>\>>>
+SINGLE_LINE_COMMENT          = <<//.*>> %ignore%
+MULTI_LINE_COMMENT           = <</\*([^*]|\*+[^*/])*\*+/>> %ignore%
+WHITESPACE                   = <<[ \t\n\r]+>> %ignore%
+
+
+%productions%
+
+// Start production
+
+Grammar = [HeaderPart] TokenPart [ProductionPart] ;
+
+
+// Header syntax
+
+HeaderPart = "%header%" HeaderDeclaration* ;
+
+HeaderDeclaration = IDENTIFIER "=" QUOTED_STRING ;
+
+
+// Token syntax
+
+TokenPart = "%tokens%" TokenDeclaration* ;
+
+TokenDeclaration = IDENTIFIER "=" TokenValue [TokenHandling] ;
+
+TokenValue = QUOTED_STRING
+           | REGEXP ;
+
+TokenHandling = IGNORE
+              | ERROR ;
+
+
+// Production syntax
+
+ProductionPart = "%productions%" ProductionDeclaration* ;
+
+ProductionDeclaration = IDENTIFIER "=" Production ";" ;
+
+Production = ProductionAtom+ ["|" Production] ;
+
+ProductionAtom = IDENTIFIER ["?"|"*"|"+"]
+               | QUOTED_STRING ["?"|"*"|"+"]
+               | "(" Production ")" ["?"|"*"|"+"]
+               | "{" Production "}"
+               | "[" Production "]" ;

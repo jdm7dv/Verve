@@ -1,0 +1,57 @@
+{
+type token =
+    | INT    of int
+    | FLOAT  of float
+    | ID     of string
+    | STRING of string
+    | PLUS | MINUS | MUL | HAT
+    | EOF
+}
+
+let num        = ['0'-'9']+
+let intNum     = '-'? num
+let floatNum   = '-'? num ('.' num)? (['e' 'E'] num)?
+let ident      = ['a'-'z']+
+let whitespace = ' ' | '\t'
+let newline    = '\n' | '\r' '\n'
+
+rule token = parse
+    | intNum     { INT (Int32.of_string (Lexing.lexeme lexbuf)) }
+    | floatNum   { FLOAT (Float.of_string (Lexing.lexeme lexbuf))  }
+    | ident      { ID (Lexing.lexeme lexbuf)  }
+    | "(*"        { comment lexbuf; token lexbuf }
+    | "\""        { STRING (string lexbuf.StartPos "" lexbuf) }
+    | '+'        { PLUS }
+    | '-'        { MINUS }
+    | '*'        { MUL }
+    | '^'        { HAT }
+    | whitespace { token lexbuf }
+    | newline    { lexbuf.EndPos <- lexbuf.EndPos.NextLine;
+                   token lexbuf }
+    | eof        { EOF }
+    | _          { failwithf "unrecognized input: '%s'" (Lexing.lexeme lexbuf) }
+
+and comment = parse
+    | "(*"       { comment lexbuf; comment lexbuf  }
+    | "*)"       { () }
+    | "\n"       { lexbuf.EndPos <- lexbuf.EndPos.NextLine; 
+                   comment lexbuf }
+    | eof        { failwith "Unterminated comment" }
+    | _          { comment lexbuf }
+
+and string pos s = parse
+    | "\\" ('"' | 'n' | 'r' | 't') 
+                  { let s' = s + (match Lexing.lexeme lexbuf with
+                         | "\\\"" -> "\""
+                         | "\\n" ->  "\n"
+                         | "\\r" ->  "\r"
+                         | "\\t" ->  "\t"
+                         | "\\\\" -> "\\"
+                         | _ ->      "") in
+                    string pos s' lexbuf }
+    | "\""         { s }
+    | "\n"         { lexbuf.EndPos <- lexbuf.EndPos.NextLine;
+                     string pos (s + "\n") lexbuf }
+    | eof          { failwithf "end of file in string started at or near %A" pos } 
+    | _            { string pos (s + (Lexing.lexeme lexbuf)) lexbuf }
+

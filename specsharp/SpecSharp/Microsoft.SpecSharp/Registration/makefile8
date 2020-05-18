@@ -1,0 +1,241 @@
+all: Binaries\IPropertyPane.dll \
+  Binaries\ContractsPropertyPane.dll \
+  Binaries\ITaskManager.dll \
+  Binaries\Microsoft.VisualStudio.OLE.Interop.dll \
+  Binaries\Microsoft.VisualStudio.Designer.Interfaces.dll \
+  Binaries\Microsoft.VisualStudio.Shell.Interop.dll  \
+  Binaries\Microsoft.VisualStudio.TextManager.Interop.dll \
+  Binaries\Microsoft.VisualStudio.Package.dll \
+  Binaries\Microsoft.VisualStudio.IntegrationHelper.dll \
+  Binaries\PropertyPage.dll \
+  Binaries\1033\PropertyPageUI.dll \
+  Binaries\System.Compiler.dll \
+  Binaries\System.Compiler.Runtime.dll \
+  Binaries\System.Compiler.Framework.dll \
+  Binaries\Microsoft.SpecSharp.Runtime.dll \
+  Binaries\Microsoft.SpecSharp.dll \
+  Binaries\Mscorlib.Contracts.dll \
+  Binaries\System.Contracts.dll \
+  Binaries\System.Xml.Contracts.dll \
+  Binaries\System.Compiler.Contracts.dll \
+  Binaries\System.Compiler.Framework.Contracts.dll \
+  Binaries\1033\Microsoft.SpecSharp.resources.dll \
+  Binaries\TaskManager.dll \
+  Binaries\1033\TaskManagerUI.dll \
+  Binaries\ssc.exe \
+  Binaries\Microsoft.SpecSharp.targets
+
+PermissionsChecked: Binaries\IPropertyPane.dll.temp \
+  Binaries\ContractsPropertyPane.dll.temp \
+  Binaries\ITaskManager.dll.temp \
+  Binaries\Microsoft.VisualStudio.OLE.Interop.dll.temp \
+  Binaries\Microsoft.VisualStudio.Designer.Interfaces.dll.temp \
+  Binaries\Microsoft.VisualStudio.Shell.Interop.dll.temp  \
+  Binaries\Microsoft.VisualStudio.TextManager.Interop.dll.temp \
+  Binaries\Microsoft.VisualStudio.Package.dll.temp \
+  Binaries\Microsoft.VisualStudio.IntegrationHelper.dll.temp \
+  Binaries\PropertyPage.dll.temp \
+  Binaries\1033\PropertyPageUI.dll.temp \
+  Binaries\System.Compiler.dll.temp \
+  Binaries\System.Compiler.Runtime.dll.temp \
+  Binaries\System.Compiler.Framework.dll.temp \
+  Binaries\Microsoft.SpecSharp.Runtime.dll.temp \
+  Binaries\Microsoft.SpecSharp.dll.temp \
+  Binaries\Mscorlib.Contracts.dll.temp \
+  Binaries\System.Contracts.dll.temp \
+  Binaries\System.Xml.Contracts.dll.temp \
+  Binaries\System.Compiler.Contracts.dll.temp \
+  Binaries\System.Compiler.Framework.Contracts.dll.temp \
+  Binaries\1033\Microsoft.SpecSharp.resources.dll.temp \
+  Binaries\TaskManager.dll.temp \
+  Binaries\1033\TaskManagerUI.dll.temp \
+  Binaries\ssc.exe.temp \
+
+
+Binaries\ContractsPropertyPane.dll.temp: ..\..\Microsoft.VisualStudio.CodeTools\ContractsPropertyPane\bin\$(BUILD)\ContractsPropertyPane.dll
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.CodeTools\ContractsPropertyPane\bin\$(BUILD)\ContractsPropertyPane.dll ContractsPropertyPane.dll
+  
+Binaries\IPropertyPane.dll.temp: ..\..\Microsoft.VisualStudio.CodeTools\IPropertyPane\bin\$(BUILD)\IPropertyPane.dll
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.CodeTools\IPropertyPane\bin\$(BUILD)\IPropertyPane.dll IPropertyPane.dll
+
+Binaries\ITaskManager.dll.temp: ..\..\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\$(BUILD)\ITaskManager.dll
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\$(BUILD)\ITaskManager.dll ITaskManager.dll
+
+Binaries\Microsoft.VisualStudio.OLE.Interop.dll.temp: ..\..\Common\bin\Microsoft.VisualStudio.OLE.Interop.dll
+  CopyBitsToTemp ..\..\Common\bin\Microsoft.VisualStudio.OLE.Interop.dll Microsoft.VisualStudio.OLE.Interop.dll
+
+Binaries\Microsoft.VisualStudio.Designer.Interfaces.dll.temp: ..\..\Common\bin\Microsoft.VisualStudio.Designer.Interfaces.dll 
+  CopyBitsToTemp ..\..\Common\bin\Microsoft.VisualStudio.Designer.Interfaces.dll Microsoft.VisualStudio.Designer.Interfaces.dll
+
+Binaries\Microsoft.VisualStudio.Shell.Interop.dll.temp: ..\..\Common\bin\Microsoft.VisualStudio.Shell.Interop.dll
+  CopyBitsToTemp ..\..\Common\bin\Microsoft.VisualStudio.Shell.Interop.dll Microsoft.VisualStudio.Shell.Interop.dll
+
+Binaries\Microsoft.VisualStudio.TextManager.Interop.dll.temp: ..\..\Common\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+  CopyBitsToTemp ..\..\Common\bin\Microsoft.VisualStudio.TextManager.Interop.dll Microsoft.VisualStudio.TextManager.Interop.dll
+  
+Binaries\Microsoft.VisualStudio.Package.dll.temp: ..\..\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll Microsoft.VisualStudio.Package.dll
+  
+Binaries\Microsoft.VisualStudio.IntegrationHelper.dll.temp: ..\..\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll Microsoft.VisualStudio.IntegrationHelper.dll
+  
+Binaries\PropertyPage.dll.temp: ..\..\Microsoft.VisualStudio.CodeTools\PropertyPage\bin\$(BUILD)\PropertyPage.dll
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.CodeTools\PropertyPage\bin\$(BUILD)\PropertyPage.dll PropertyPage.dll
+
+Binaries\1033\PropertyPageUI.dll.temp: ..\..\Microsoft.VisualStudio.CodeTools\PropertyPage\bin\$(BUILD)\1033\PropertyPageUI.dll
+  if not exist Binaries mkdir Binaries
+  if not exist Binaries\1033 mkdir Binaries\1033
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.CodeTools\PropertyPage\bin\$(BUILD)\1033\PropertyPageUI.dll 1033\PropertyPageUI.dll
+    
+Binaries\System.Compiler.dll.temp: ..\..\System.Compiler\bin\System.Compiler.dll
+  CopyBitsToTemp ..\..\System.Compiler\bin\System.Compiler.dll System.Compiler.dll
+
+Binaries\System.Compiler.Runtime.dll.temp: ..\..\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll 
+  CopyBitsToTemp ..\..\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll System.Compiler.Runtime.dll
+
+Binaries\System.Compiler.Framework.dll.temp: ..\..\System.Compiler.Framework\bin\System.Compiler.Framework.dll
+  CopyBitsToTemp ..\..\System.Compiler.Framework\bin\System.Compiler.Framework.dll System.Compiler.Framework.dll
+
+Binaries\Microsoft.SpecSharp.Runtime.dll.temp: ..\Runtime\bin\Microsoft.SpecSharp.Runtime.dll
+  CopyBitsToTemp ..\Runtime\bin\Microsoft.SpecSharp.Runtime.dll Microsoft.SpecSharp.Runtime.dll
+
+Binaries\Microsoft.SpecSharp.dll.temp: ..\bin\Microsoft.SpecSharp.dll
+  CopyBitsToTemp ..\bin\Microsoft.SpecSharp.dll Microsoft.SpecSharp.dll
+
+Binaries\Mscorlib.Contracts.dll.temp: ..\..\Samples\OutOfBandContracts\Mscorlib\bin\Mscorlib.Contracts.dll
+  CopyBitsToTemp ..\..\Samples\OutOfBandContracts\Mscorlib\bin\Mscorlib.Contracts.dll Mscorlib.Contracts.dll
+
+Binaries\System.Contracts.dll.temp: ..\..\Samples\OutOfBandContracts\System\bin\System.Contracts.dll
+  CopyBitsToTemp ..\..\Samples\OutOfBandContracts\System\bin\System.Contracts.dll System.Contracts.dll
+
+Binaries\System.Xml.Contracts.dll.temp: ..\..\Samples\OutOfBandContracts\System.Xml\bin\System.Xml.Contracts.dll
+  CopyBitsToTemp ..\..\Samples\OutOfBandContracts\System.Xml\bin\System.Xml.Contracts.dll System.Xml.Contracts.dll
+
+Binaries\System.Compiler.Contracts.dll.temp: ..\..\Samples\OutOfBandContracts\System.Compiler\bin\System.Compiler.Contracts.dll
+  CopyBitsToTemp ..\..\Samples\OutOfBandContracts\System.Compiler\bin\System.Compiler.Contracts.dll System.Compiler.Contracts.dll
+
+Binaries\System.Compiler.Framework.Contracts.dll.temp: ..\..\Samples\OutOfBandContracts\System.Compiler.Framework\bin\System.Compiler.Framework.Contracts.dll
+  CopyBitsToTemp ..\..\Samples\OutOfBandContracts\System.Compiler.Framework\bin\System.Compiler.Framework.Contracts.dll System.Compiler.Framework.Contracts.dll
+
+Binaries\1033\Microsoft.SpecSharp.resources.dll.temp: ..\Resources\Microsoft.SpecSharp.resources.dll
+  if not exist Binaries mkdir Binaries
+  if not exist Binaries\1033 mkdir Binaries\1033
+  CopyBitsToTemp ..\Resources\Microsoft.SpecSharp.resources.dll 1033\Microsoft.SpecSharp.resources.dll
+  
+Binaries\TaskManager.dll.temp: ..\..\Microsoft.VisualStudio.CodeTools\TaskManager\bin\$(BUILD)\TaskManager.dll
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.CodeTools\TaskManager\bin\$(BUILD)\TaskManager.dll TaskManager.dll
+  
+Binaries\1033\TaskManagerUI.dll.temp: ..\..\Microsoft.VisualStudio.CodeTools\TaskManager\bin\$(BUILD)\1033\TaskManagerUI.dll
+  if not exist Binaries mkdir Binaries
+  if not exist Binaries\1033 mkdir Binaries\1033
+  CopyBitsToTemp ..\..\Microsoft.VisualStudio.CodeTools\TaskManager\bin\$(BUILD)\1033\TaskManagerUI.dll 1033\TaskManagerUI.dll
+  
+Binaries\ssc.exe.temp: ..\CommandLineCompiler\bin\ssc.exe
+  CopyBitsToTemp ..\CommandLineCompiler\bin\ssc.exe ssc.exe
+
+
+
+
+Binaries\Microsoft.SpecSharp.targets: ..\Microsoft.SpecSharp.targets
+  copy /y /v ..\Microsoft.SpecSharp.targets Binaries\Microsoft.SpecSharp.targets
+
+
+
+Binaries\ContractsPropertyPane.dll: PermissionsChecked
+  InstallBitsFromTemp $@
+  
+Binaries\IPropertyPane.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\ITaskManager.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+  
+Binaries\Microsoft.VisualStudio.OLE.Interop.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+  
+Binaries\Microsoft.VisualStudio.Designer.Interfaces.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+  
+Binaries\Microsoft.VisualStudio.Shell.Interop.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+  
+Binaries\Microsoft.VisualStudio.TextManager.Interop.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+  
+Binaries\Microsoft.VisualStudio.Package.dll: PermissionsChecked
+  InstallBitsFromTemp $@
+  
+Binaries\Microsoft.VisualStudio.IntegrationHelper.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+  
+Binaries\PropertyPage.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\1033\PropertyPageUI.dll: PermissionsChecked
+  if not exist Binaries mkdir Binaries
+  if not exist Binaries\1033 mkdir Binaries\1033
+  CopyBitsFromTemp $@
+    
+Binaries\System.Compiler.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\System.Compiler.Runtime.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\System.Compiler.Framework.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\Microsoft.SpecSharp.Runtime.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\Microsoft.SpecSharp.dll : PermissionsChecked
+  InstallBitsFromTemp $@
+
+Binaries\Mscorlib.Contracts.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\System.Contracts.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\System.Xml.Contracts.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\System.Compiler.Contracts.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\System.Compiler.Framework.Contracts.dll : PermissionsChecked
+  CopyBitsFromTemp $@
+
+Binaries\1033\Microsoft.SpecSharp.resources.dll: PermissionsChecked
+  if not exist Binaries mkdir Binaries
+  if not exist Binaries\1033 mkdir Binaries\1033
+  CopyBitsFromTemp $@
+
+Binaries\TaskManager.dll: PermissionsChecked
+  CopyBitsFromTemp $@
+  
+Binaries\1033\TaskManagerUI.dll: PermissionsChecked
+  if not exist Binaries mkdir Binaries
+  if not exist Binaries\1033 mkdir Binaries\1033
+  CopyBitsFromTemp $@
+  
+Binaries\ssc.exe: PermissionsChecked
+  CopyBitsFromTemp $@
+  
+  
+  
+clean:
+  if exist Binaries\Microsoft.VisualStudio.Package.dll regasm /nologo /silent /u Binaries\Microsoft.VisualStudio.Package.dll
+  if exist Binaries\Microsoft.SpecSharp.dll regasm /nologo /silent /u Binaries\Microsoft.SpecSharp.dll
+  if exist Binaries\ContractsPropertyPane.dll regasm /nologo /silent /u Binaries\ContractsPropertyPane.dll
+  if exist Binaries\*.dll del /Q Binaries\*.dll
+  if exist Binaries\*.dll.temp del /Q Binaries\*.dll.temp
+  if exist Binaries\*.pdb del /Q Binaries\*.pdb
+  if exist Binaries\*.pdb.temp del /Q Binaries\*.pdb.temp
+  if exist Binaries\*.exe del /Q Binaries\*.exe
+  if exist Binaries\*.exe.temp del /Q Binaries\*.exe.temp
+  if exist Binaries\1033\*.dll del /Q Binaries\1033\*.dll
+  if exist Binaries\1033\*.dll.temp del /Q Binaries\1033\*.dll.temp
+  if exist Binaries\1033\*.pdb del /Q Binaries\1033\*.pdb
+  if exist Binaries\1033\*.pdb.temp del /Q Binaries\1033\*.pdb.temp
+  if exist Binaries\1033\ rd /Q Binaries\1033\

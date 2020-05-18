@@ -1,0 +1,514 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.DataSource</name>
+    </assembly>
+    <members>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.AllowedDataTypesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.ConfigurationTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.ContentTypesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.CrawlActionsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.CrawlRequestsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.CrawlRulesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.DomainsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.EngineActionsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.ExtensionsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.FilesDiscoveriesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.FilesMetaDataTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.FilesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.HostsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.ImagesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.ImagesDiscoveriesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.ImagesMetaDataTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.PrioritiesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.SchemesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.QueriesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.VersionTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.WebPagesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet">
+             <summary>
+            Represents a strongly typed in-memory cache of data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesDiscoveriesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.HostsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.DomainsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ExtensionsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.SchemesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.VersionDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ConfigurationDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesMetaDataDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesMetaDataDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesDiscoveriesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ContentTypesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.AllowedDataTypesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlRulesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlActionsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.EngineActionsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.PrioritiesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.DiscoveriesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.WebPagesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlRequestsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.HttpListenerDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesDiscoveriesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.HostsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.DomainsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ExtensionsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.SchemesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.VersionRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ConfigurationRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesMetaDataRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesMetaDataRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesDiscoveriesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ContentTypesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.AllowedDataTypesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlRulesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlActionsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.EngineActionsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.PrioritiesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.DiscoveriesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.WebPagesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlRequestsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.HttpListenerRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesDiscoveriesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.HostsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.DomainsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ExtensionsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.SchemesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.VersionRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ConfigurationRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesMetaDataRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesMetaDataRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesDiscoveriesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ContentTypesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.AllowedDataTypesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlRulesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlActionsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.EngineActionsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.PrioritiesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.DiscoveriesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.WebPagesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.FilesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.ImagesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.CrawlRequestsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSet.HttpListenerRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.DiscoveriesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.ArachnodeDataSetTableAdapters.HttpListenerTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSetTableAdapters.CrawlRequestsTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSetTableAdapters.DiscoveriesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSetTableAdapters.QueriesTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSet">
+             <summary>
+            Represents a strongly typed in-memory cache of data.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSet.DiscoveriesDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSet.CrawlRequestsDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSet.DiscoveriesRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSet.CrawlRequestsRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSet.DiscoveriesRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Arachnode.DataSource.Next.ArachnodeNextDataSet.CrawlRequestsRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="P:Arachnode.DataSource.ConnectionString.Value">
+            <summary>
+            	Gets or sets the value.
+            </summary>
+            <value>The value.</value>
+        </member>
+    </members>
+</doc>

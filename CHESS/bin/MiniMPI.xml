@@ -1,0 +1,800 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MiniMPI</name>
+    </assembly>
+    <members>
+        <member name="T:MiniMPI.MiniMPIProcessException">
+            <summary>
+            The exception encapsulating the exception thrown by an MiniMPI process.
+            </summary>
+        </member>
+        <member name="T:MiniMPI.MiniMPIException">
+            <summary>
+            	The base exception for all exceptions in the MiniMPI namespace.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIException.#ctor">
+            <summary>Initializes a new instance.</summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIException.#ctor(System.String)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPIException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="inner">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProcessException.#ctor(System.Int32,System.Exception)">
+            <summary>Initializes a new instance.</summary>
+            <param name="rank">The rank of the process that threw the error.</param>
+            <param name="ex">The exception that was thrown.</param>
+        </member>
+        <member name="P:MiniMPI.MiniMPIProcessException.Rank">
+            <summary>The rank of the process that threw the exception.</summary>
+        </member>
+        <member name="T:MiniMPI.MiniMPIProgram">
+            <summary>
+            Provides logic to execute a MiniMPI program.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProgram.GetNextMpiRuntimeID">
+            <summary>
+            Gets the next id available for a new runtime instance.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProgram.Execute(System.Int32,System.Action{MiniMPI.IMiniMPIStringAPI})">
+            <summary>
+            Starts the runtime thread and all process threads and waits for the
+            runtime to finish.
+            </summary>
+            <exception cref="T:MiniMPI.MiniMPIExecutionException">At least one spawned process thread threw an exception.</exception>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProgram._owningThreadID">
+            <summary>
+            The id of the thread that created this instance.
+            This is the only thread allowed to run some API calls. e.g. <see cref="M:MiniMPI.MiniMPIProgram.Execute(System.Int32,System.Action{MiniMPI.IMiniMPIStringAPI})"/>.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProgram.Runtime">
+            <summary>The runtime being used for the current program.</summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProgram._startProcessesTogether">
+            <summary>
+            An event wait handle that will signal the MpiProcesses to 
+            start at the same time.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProgram.ProcessCount">
+            <summary>Gets the number of processes managed by this runtime instance.</summary>
+            <remarks>
+            This is equivalent to a call to MPI_Comm_size(grpID, value) where
+            value is what's returned and grpID would be associated with this
+            instance.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProgram.#ctor(System.Int32)">
+            <summary>Creates a new instance.</summary>
+            <param name="processCount">The number of process threads to create to execute the MPI program.</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProgram.Execute``1(System.Action{``0})">
+            <summary>
+            Starts the runtime thread and all process threads and waits for the
+            runtime to finish.
+            </summary>
+            <exception cref="T:MiniMPI.MiniMPIExecutionException">At least one spawned process thread threw an exception.</exception>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProgram.ExecuteRuntimeLoop">
+            <summary>
+            Every time the runtime state changes, this method determines the
+            change and performs the processing of runtime rules.
+            </summary>
+            <remarks>
+            This method runs a continuous loop.  Inside of the continuous loop,
+            it waits for the runtime state to change.  If all of the processes
+            have finished, then it will set the state to finished and
+            subsequently will wait until all of the processes join.  
+            A subclass of MiniMPIRuntime may define the function OnProcessRuntimeRules to describe
+            what this method should do as well each time the runtime state changes.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProgram.SpawnWorkerProcesses``1(System.Action{``0})">
+            <summary>Creates the MpiProcesses and starts their threads.</summary>
+            <typeparam name="TIMpiApi">The type of process API that will be passed to the <paramref name="processWork"/> delegate.</typeparam>
+            <param name="processWork">The method that will be run by each MpiProcess.</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProgram.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, 
+            releasing, or resetting unmanaged resources. 
+            </summary>
+            <remarks>
+            This method will terminate the runtime and will cause it
+            to abort no matter what the state of the runtime is.
+            </remarks>
+        </member>
+        <member name="P:MiniMPI.MiniMPIProgram.ID">
+            <summary>The unique ID of this runtime instance.</summary>
+        </member>
+        <member name="T:MiniMPI.MiniMPIRuntimeException">
+            <summary>
+            The exception thrown by a MiniMPIRuntime instance when an internal error occurs but not within a process.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntimeException.#ctor">
+            <summary>Initializes a new instance.</summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntimeException.#ctor(System.String)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntimeException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="inner">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:MiniMPI.MiniMPIProgramState">
+            <summary>
+            The states an MiniMPIProgram instance goes thru.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProgramState.Initialized">
+            <summary>
+            The program instance has been constructed but has not been executed yet.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProgramState.Executing">
+            <summary>
+            The runtime is executing the assigned processes.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProgramState.Finished">
+            <summary>
+            The runtime has finished executing the assigned processes and cannot
+            be restarted.
+            </summary>
+        </member>
+        <member name="T:MiniMPI.MpiProcessState">
+            <summary>
+            	Indicates the state that an <see cref="T:MiniMPI.MpiProcess"/> is in.  This is
+            	used to indicate whether a process has called the Initialize or
+            	finalized MPI calls.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MpiProcessState.NotStarted">
+            <summary>
+            The process has been created, but not started yet.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MpiProcessState.Started">
+            <summary>
+            The process has started running but the MPI Initialize method
+            has not been called yet.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MpiProcessState.MpiInitialized">
+            <summary>
+            Indicates the process has called the MiniMPI Initialize method
+            but has not been Finalized. MPI calls are valid in this
+            state.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MpiProcessState.MpiFinalized">
+            <summary>
+            Indicates the process has called the MiniMPI Finalize method. No
+            more MPI calls are valid in this state.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MpiProcessState.Finished">
+            <summary>
+            The process has finished executing.
+            </summary>
+        </member>
+        <member name="T:MiniMPI.Handle">
+            <summary>
+            	This represents the handle to a specific <see cref="F:MiniMPI.Handle.Instruction"/>
+            </summary>
+        </member>
+        <member name="F:MiniMPI.Handle.WaitHandle">
+            <summary>
+            Notifies when this instruction has completed.
+            For the send/recv instructions, this is set to true whenever the
+            data has been copied to either an internal buffer (not
+            necessarily matched yet) or, when not buffered, transmitted to
+            its match.
+            </summary>
+        </member>
+        <member name="T:MiniMPI.SendHandle">
+            <summary>
+            This represents the handle to a specific <see cref="T:MiniMPI.AsyncSendInstruction"/>.
+            </summary>
+        </member>
+        <member name="T:MiniMPI.ReceiveHandle">
+            <summary>
+            This represents the handle to a specific <see cref="T:MiniMPI.AsyncReceiveInstruction"/>.
+            </summary>
+        </member>
+        <member name="T:MiniMPI.InstructionType">
+            <summary>
+              An enum used for determining different types of Instructions.
+            </summary>
+        </member>
+        <member name="P:MiniMPI.IBlockingInstruction.WaitHandle">
+            <summary>Gets the wait handle used to block this instruction.</summary>
+        </member>
+        <member name="P:MiniMPI.Instruction.Type">
+            <summary>Describes the type of Instruction that this is.</summary>
+        </member>
+        <member name="P:MiniMPI.Instruction.IsCompleted">
+            <summary>Indicates whether this instruction has completed or not.</summary>
+        </member>
+        <member name="P:MiniMPI.AsyncReceiveInstruction.IsWildcardReceive">
+            <summary>Indicates whether this receive instruction is a wildcard receive.</summary>
+        </member>
+        <member name="P:MiniMPI.WaitInstruction.WaitingOnInstruction">
+            <summary>The instruction that this wait is waiting on.</summary>
+        </member>
+        <member name="P:MiniMPI.BarrierInstruction.WaitHandle">
+            <summary>The shared wait handle for this barrier across all processes.</summary>
+        </member>
+        <member name="P:MiniMPI.FinalizeBarrierInstruction.WaitHandle">
+            <summary>The shared wait handle for all processes executing the MpiFinalize instruction.</summary>
+        </member>
+        <member name="T:MiniMPI.MiniMPIRuntime">
+            <summary>
+            Represents the base implementation of the MiniMPI runtime.
+            Each runtime instance is considered it's own "communicator" 
+            as far as MPI terms are concerned.
+            </summary>
+            <remarks>
+            By implementing IDisposable, I am announcing that 
+            instances of this type allocate scarce resources.  Hence
+            it is a "Disposable" object.
+            </remarks>
+        </member>
+        <member name="F:MiniMPI.MiniMPIRuntime._runtimeStateChangedEvent">
+            <summary>
+            This is an event handle that is triggered when the state of the
+            MPIRuntime changes.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIRuntime.FinalizeWaitHandle">
+            <summary>
+            The wait handle used for blocking all processes on the MpiFinalize call.
+            This is accordance with MPI2 specification that says MpiFinalize is
+            also an implicit barrier.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIRuntime._currentBarrierWaitHandle">
+            <summary>
+            Never null, but a unique wait handle is used per cooperative barrier instruction.
+            i.e. Once all processes have blocked on the barrier, a new handle is created for the
+            next barrier instruction.
+            </summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIRuntime.ProcessCount">
+            <summary>Gets the number of processes managed by this runtime instance.</summary>
+            <remarks>
+            This is equivalent to a call to MPI_Comm_size(grpID, value) where
+            value is what's returned and grpID would be associated with this
+            instance.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.#ctor(System.Int32)">
+            <summary>Creates a new instance.</summary>
+            <param name="processCount">The number of process threads to create to execute the MPI program.</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.NotifyStateChanged">
+            <summary>
+            Notifies the runtime thread that the state has changed. This allows
+            it to process any new runtime rules that needs to be run.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.OnProcessRuntimeRules">
+            <summary>
+            When implemented in a derived class, this method should apply any
+            rules for processing instructions.
+            This method is called over and over again until it returns false.
+            </summary>
+            <returns>true, if rules got fired; Otherwise, false.</returns>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.OnTryAborting">
+            <summary>
+            A method intended to be called when the runtime has been
+            aborted for any reason.  It will perform necessary cleanup.
+            </summary>
+            <remarks>
+            Inside of this method, any thread that is still waiting on
+            the runtime must be released from their block, otherwise a
+            deadlock may occur.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.UnblockProcessForCollectiveAbort(MiniMPI.MpiProcess)">
+            <summary>Marks this process to abort.</summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.AddInstructionsFromPendingQueue">
+            <summary>
+            Adds any instructions added to the pending list from processes to the runtime state.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.AddInstructionFromPendingQueue(MiniMPI.Instruction)">
+            <summary>
+            Adds an instruction that has just been dequeued from the pending instruction queue.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.SetNextBarrierWaitHandle">
+            <summary>
+            Sets a new wait handle for the next barrier.
+            This should be called just before calling Set on the current wait handle.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.AreAllProcessesBlocked">
+            <summary>
+            Gets a value indicating whether all processes are blocked on blocking instructions.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.StartCollectiveAbort">
+            <summary>
+            Starts a collective abort for all the processes.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.DetectCollectiveAbort">
+            <summary>Allows the runtime to detect a collective abort or termination.</summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.AddInstructionToPendingQueue(MiniMPI.Instruction)">
+            <summary>Adds the instruction to the pending queue and notifies the runtime thread.</summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.BlockProcessOnInstruction(MiniMPI.MpiProcess,MiniMPI.IBlockingInstruction)">
+            <summary>
+            Blocks the process and notifies the runtime that the state has changed just before blocking.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIRuntime.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, 
+            releasing, or resetting unmanaged resources. 
+            </summary>
+            <remarks>
+            This method will terminate the runtime and will cause it
+            to abort no matter what the state of the runtime is.
+            </remarks>
+        </member>
+        <member name="T:MiniMPI.InvalidMiniMPIProgramException">
+            <summary>
+            The exception thrown when a MiniMPI program or process is incorrect, as
+            opposed to just making an invalid MPI operation. e.g. Forgetting to call
+            <see cref="M:MiniMPI.IMiniMPICoreAPI.MpiFinalize"/> after calling 
+            <see cref="M:MiniMPI.IMiniMPICoreAPI.MpiInit"/>.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.InvalidMiniMPIProgramException.#ctor">
+            <summary>Initializes a new instance.</summary>
+        </member>
+        <member name="M:MiniMPI.InvalidMiniMPIProgramException.#ctor(System.String)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:MiniMPI.InvalidMiniMPIProgramException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="inner">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:MiniMPI.MiniMPIExecutionException">
+            <summary>
+            The exception thrown when one or more MPI threads threw an exception.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIExecutionException.#ctor(MiniMPI.MiniMPIProcessException,System.Collections.Generic.IList{MiniMPI.MiniMPIProcessException})">
+            <summary>Initializes a new instance.</summary>
+            <param name="firstError">The first exception raised from a MiniMPI process thread.</param>
+            <param name="errors">All errors that occurred (up to one per process).</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPIExecutionException.ToString">
+            <summary>Returns a string representing this exception.</summary>
+            <returns>A string representing this exception.</returns>
+        </member>
+        <member name="P:MiniMPI.MiniMPIExecutionException.FirstException">
+            <summary>The first exception thrown from a child process.</summary>
+        </member>
+        <member name="T:MiniMPI.MiniMPICollectiveAbortException">
+            <summary>
+            The exception thrown when a MiniMPI process is collectively aborted.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPICollectiveAbortException.#ctor">
+            <summary>Initializes a new instance.</summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPICollectiveAbortException.#ctor(System.String)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPICollectiveAbortException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="inner">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:MiniMPI.InvalidMiniMPIOperationException">
+            <summary>
+            The exception thrown when a MiniMPI call is invalid for the runtime or
+            calling process' current state.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.InvalidMiniMPIOperationException.#ctor">
+            <summary>Initializes a new instance.</summary>
+        </member>
+        <member name="M:MiniMPI.InvalidMiniMPIOperationException.#ctor(System.String)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:MiniMPI.InvalidMiniMPIOperationException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance with a specified error message.</summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="inner">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:MiniMPI.MiniMPIStringRuntime">
+            <summary>
+            Represents an MPI runtime for managing string data.
+            </summary>
+            <remarks>
+            Each runtime instance is considered it's own "communicator" as far as
+            MPI terms are concerned.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringRuntime.#ctor(System.Int32)">
+            <summary>Creates a new instance.</summary>
+            <param name="processCount">The number of process threads to create to execute the MPI program.</param>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringRuntime.OnTryAborting">
+            <summary>
+            A method intended to be called when the runtime has been
+            aborted for any reason.  It will perform necessary cleanup.
+            </summary>
+            <remarks>
+            Inside of this method, any thread that is still waiting on
+            the runtime must be released from their block, otherwise a
+            deadlock may occur.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringRuntime.OnProcessRuntimeRules">
+            <summary>
+            Applies the rules of this runtime and returns false only when no rules were fired.
+            See the MPI2 specifications for the rules that must be run inside of this method.
+            </summary>
+            <remarks>
+            This method is called by the runtime loop over and over until it returns false.
+            </remarks>
+            <returns>true, if rules got fired; Otherwise, false.</returns>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringRuntime.ChooseWildcardReceiveToMatch(System.Int32[])">
+            <summary>
+            Determines which wildcard receive instruction to match.
+            </summary>
+            <param name="wildRecvIdxs">The indices (within _unmatchedReceives) of the wildcard receives available to match.</param>
+            <returns>
+            -1 is no wildcard receive should be matched; Otherwise, an
+            index contained within <paramref name="wildRecvIdxs"/>.
+            </returns>
+            <remarks>
+            NOTE: This method should be private, but it's internal so extended reflection can intercept it
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringRuntime.ChooseSendToMatchWithWildcardReceive(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            Chooses the rank of the a single sender rank and send instruction to match a wildcard receive.
+            </summary>
+            <param name="sendInstrIdxs">
+            The indices (one per process rank) identifying the unmatched send instruction that could be chosen.
+            Each element in this array (sendInstrIdxs[rank]) represents the first valid instruction
+            within the _unmatchedReceives[rank] list.
+            If a process doesn't have any available sends, then it's value sendInstrIdxs[rank]
+            will equal -1.
+            </param>
+            <returns>
+            The 'rank' of the unmatched send instruction to match with the wildcard receive.
+            i.e. The instruction identified by _unmatchedSends[rank][sendInstrIdxs[rank]] will chosen.
+            </returns>
+            <remarks>
+            NOTE: This method should be private, but it's internal so extended reflection can intercept it
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringRuntime.ProcessRule_Match_SendRecv(System.Int32,MiniMPI.AsyncReceiveInstruction,System.Int32,System.Int32)">
+            <summary>
+            This method does the modification of the state for the following
+            rules: R_SR, R_SR*
+            </summary>
+            <param name="recvIdx">The index in the _unmatchedRecieves list.</param>
+            <param name="recvInstr"></param>
+            <param name="senderRank"></param>
+            <param name="sendIdx">The index in the _unmatchedSends list.</param>
+        </member>
+        <member name="T:MiniMPI.MpiProcess">
+            <summary>
+            Represents a process in this MiniMPI simulation
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MpiProcess.#ctor(System.Int32,System.Threading.Thread)">
+            <summary>
+            Creates an MpiProcess object with the following rank and
+            the thread it represents.
+            </summary>
+            <param name="rank">The rank of the MpiProcess.</param>
+            <param name="thread">The thread that this object represents.</param>
+        </member>
+        <member name="F:MiniMPI.MpiProcess.State">
+            <summary>Gets or sets the state of the process.</summary>
+            <remarks>
+            This should only be set from within the MiniMPIProgram class and from within the process' home thread.
+            If we want to allow multi-threaded process threads, then the thread safety may or may not become
+            an issue.
+            Otherwise, we'll need to make this thread-safe. And I don't think just locking the API
+            instance on the client side will suffice.
+            </remarks>
+        </member>
+        <member name="F:MiniMPI.MpiProcess.BlockingInstruction">
+            <summary>
+            Represents the current blocking instruction on this MpiProcess. 
+            </summary>
+            <remarks>
+            A null value means that there is no blocking instruction currently.
+            </remarks>
+        </member>
+        <member name="F:MiniMPI.MpiProcess.Error">
+            <summary>Gets the exception caught while running the process.</summary>
+        </member>
+        <member name="M:MiniMPI.MpiProcess.AddInstructionToHistory(MiniMPI.Instruction)">
+            <summary>
+            Adds the instructions to the process' history.
+            This is only accessed from the process thread.
+            </summary>
+        </member>
+        <member name="P:MiniMPI.MpiProcess.Rank">
+            <summary>
+            The rank of this process.
+            </summary>
+            <remarks>
+            Rank starts at zero and increases incrementally.  Each MpiProcess
+            has a unique rank.
+            </remarks>
+        </member>
+        <member name="P:MiniMPI.MpiProcess.ProgramCounter">
+            <summary>
+            The id of the next MiniMPI instruction that gets issued.
+            This is only accessed from the process thread.
+            </summary>
+        </member>
+        <member name="P:MiniMPI.MpiProcess.SendQueue">
+            <summary>
+            This is only accessed from the runtime thread.
+            </summary>
+        </member>
+        <member name="P:MiniMPI.MpiProcess.ReceiveQueue">
+            <summary>
+            This is only accessed from the runtime thread.
+            </summary>
+        </member>
+        <member name="T:MiniMPI.IMiniMPICoreAPI">
+            <summary>
+            The public API for a simulated MiniMPI process.
+            This API instance may be used among any thread spawned by the originating process.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.IMiniMPICoreAPI.MpiInit">
+            <summary>Registers the current process as being ready to use the MPI runtime.</summary>
+            <remarks>
+            This is modeled after the MPI_Init method, where MPI 2 doesn't
+            require any args to be passed in.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.IMiniMPICoreAPI.GetRank">
+            <summary>Gets the rank within the runtime's group of threads for the calling thread.</summary>
+            <returns>A value in the range [0,ProcessCount).</returns>
+        </member>
+        <member name="M:MiniMPI.IMiniMPICoreAPI.MpiFinalize">
+            <summary>
+            Notifies the MPI runtime that the calling process is finished using it.
+            This disables any use of any other MPI calls.
+            </summary>
+            <remarks>
+            This is modeled after the MPI_Finalize method.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.IMiniMPICoreAPI.Barrier">
+            <summary>
+            Waits until all of the processes belonging to the runtime
+            have all called this Barrier method.  Execution will not
+            return to the caller until this condition has been met.
+            See MPI_Barrier in the MPI2 API.
+            </summary>
+        </member>
+        <member name="P:MiniMPI.IMiniMPICoreAPI.ProcessCount">
+            <summary>Gets the number of processes managed by this runtime instance.</summary>
+            <remarks>
+            This is equivalent to a call to MPI_Comm_size(grpID, value) where
+            value is what's returned and grpID would be associated with this
+            instance.
+            </remarks>
+        </member>
+        <member name="T:MiniMPI.IMiniMPIStringAPI">
+            <summary>
+            The public API for a simulated MiniMPI process that exposes .
+            This API instance may be used among any thread spawned by the originating process.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.IMiniMPIStringAPI.SendAsync(System.Int32,System.String)">
+            <summary>
+            Sends the payload message from the current thread to the thread
+            with the destination rank.  See MPI_Isend in the MPI2 API.
+            </summary>
+            <param name="destRank">The destination</param>
+            <param name="payload">The message being sent</param>
+            <returns>
+            A handle on the send instruction that can be used with a function call
+            to <see cref="M:MiniMPI.IMiniMPIStringAPI.Wait(MiniMPI.SendHandle)"/>.
+            </returns>
+            <remarks>The eager value of this send is false.</remarks>
+        </member>
+        <member name="M:MiniMPI.IMiniMPIStringAPI.SendAsync(System.Int32,System.String,System.Boolean)">
+            <summary>
+            Sends the payload message from the current thread to the thread
+            with the destination rank.  See MPI_Isend in the MPI2 API.
+            </summary>
+            <param name="destRank">The destination</param>
+            <param name="payload">The message being sent</param>
+            <param name="eager">
+            When true, the instructions is automatically marked as complete when
+            issued.  Thus an MpiWait on the handle returned will be a no-op.
+            </param>
+            <returns>
+            A handle on the send instruction that can be used with a function call
+            to <see cref="M:MiniMPI.IMiniMPIStringAPI.Wait(MiniMPI.SendHandle)"/>.
+            </returns>
+        </member>
+        <member name="M:MiniMPI.IMiniMPIStringAPI.ReceiveAsync(System.Nullable{System.Int32})">
+            <summary>
+            Receives a message from the source process.
+            See MPI_Irecv in the MPI2 API.
+            </summary>
+            <param name="srcRank">The source of the message.  Null specifies a "wildcard receive.</param>
+            <returns>
+            A handle on the receive instruction that can be used with a function call
+            to <see cref="M:MiniMPI.IMiniMPIStringAPI.Wait(MiniMPI.ReceiveHandle)"/>.
+            </returns>
+        </member>
+        <member name="M:MiniMPI.IMiniMPIStringAPI.Wait(MiniMPI.SendHandle)">
+            <summary>
+            Waits for the send instruction associated to this handle to 
+            complete.  See MPI_Wait in the MPI2 API.
+            </summary>
+            <param name="handle">The handle to the send instruction.</param>
+            <remarks>
+            This method will not return until the associated send 
+            instruction to the SendHandle completes.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.IMiniMPIStringAPI.Wait(MiniMPI.ReceiveHandle)">
+            <summary>
+            Waits for the receive instruction associated to this handle to 
+            complete.  See MPI_Wait in the MPI2 API.
+            </summary>
+            <param name="handle">The handle to the receive instruction</param>
+            <remarks>
+            This method will not return until the associated receive 
+            instruction to the SendHandle completes.
+            </remarks>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProcessAPI.Runtime">
+            <summary>The underlying runtime for this instance.</summary>
+        </member>
+        <member name="F:MiniMPI.MiniMPIProcessAPI.Process">
+            <summary>The process instance for this API instance.</summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProcessAPI.AssertProcessCanAccessMpiApi">
+            <summary>Asserts that the <see cref="T:MiniMPI.MpiProcess"/> can access MPI calls.</summary>
+            <remarks>
+            This method does NOT need to be called from within a lock block on the p.SyncRoot object.
+            </remarks>
+            <exception cref="T:MiniMPI.InvalidMiniMPIOperationException">
+            The process can not access the MPI API because it's not in the initialized state.
+            </exception>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProcessAPI.BlockProcessOnInstruction(MiniMPI.IBlockingInstruction)">
+            <summary>
+            Blocks the process and notifies the runtime that the state has changed just before blocking.
+            </summary>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProcessAPI.MpiInit">
+            <summary>Registers the current process as being ready to use the MPI runtime.</summary>
+            <remarks>
+            This is modeled after the MPI_Init method, where MPI 2 doesn't
+            require any args to be passed in.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProcessAPI.GetRank">
+            <summary>Gets the rank within the runtime's group of threads for the calling thread.</summary>
+            <returns>A value in the range [0,ProcessCount).</returns>
+        </member>
+        <member name="M:MiniMPI.MiniMPIProcessAPI.Barrier">
+            <summary>
+            Waits until all of the processes belonging to this runtime
+            have all called this Barrier method.  Execution will not
+            return to the caller until this condition has been met.
+            See MPI_Barrier in the MPI2 API.
+            </summary>
+        </member>
+        <member name="P:MiniMPI.MiniMPIProcessAPI.ProcessCount">
+            <summary>Gets the number of processes managed by this runtime instance.</summary>
+            <remarks>
+            This is equivalent to a call to MPI_Comm_size(grpID, value) where
+            value is what's returned and grpID would be associated with this
+            instance.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringProcessAPI.SendAsync(System.Int32,System.String)">
+            <summary>
+            Sends the payload message from the current thread to the thread
+            with the destination rank.  See MPI_Isend in the MPI2 API.
+            </summary>
+            <param name="destRank">The destination</param>
+            <param name="payload">The message being sent</param>
+            <returns>
+            A handle on the send instruction that can be used with a function call
+            to <see cref="M:MiniMPI.MiniMPIStringProcessAPI.Wait(MiniMPI.SendHandle)"/>.
+            </returns>
+            <remarks>The eager value of this send is false.</remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringProcessAPI.SendAsync(System.Int32,System.String,System.Boolean)">
+            <summary>
+            Sends the payload message from the current thread to the thread
+            with the destination rank.  See MPI_Isend in the MPI2 API.
+            </summary>
+            <param name="destRank">The destination</param>
+            <param name="payload">The message being sent</param>
+            <param name="eager">
+            When true, the instructions is automatically marked as complete when
+            issued.  Thus an MpiWait on the handle returned will be a no-op.
+            </param>
+            <returns>
+            A handle on the send instruction that can be used with a function call
+            to <see cref="M:MiniMPI.MiniMPIStringProcessAPI.Wait(MiniMPI.SendHandle)"/>.
+            </returns>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringProcessAPI.ReceiveAsync(System.Nullable{System.Int32})">
+            <summary>
+            Receives a message from the source process.
+            See MPI_Irecv in the MPI2 API.
+            </summary>
+            <param name="srcRank">The source of the message.  Null specifies a "wildcard receive.</param>
+            <returns>
+            A handle on the receive instruction that can be used with a function call
+            to <see cref="M:MiniMPI.MiniMPIStringProcessAPI.Wait(MiniMPI.ReceiveHandle)"/>.
+            </returns>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringProcessAPI.Wait(MiniMPI.SendHandle)">
+            <summary>
+            Waits for the send instruction associated to this handle to 
+            complete.  See MPI_Wait in the MPI2 API.
+            </summary>
+            <param name="handle">The handle to the send instruction.</param>
+            <remarks>
+            This method will not return until the associated send 
+            instruction to the SendHandle completes.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringProcessAPI.Wait(MiniMPI.ReceiveHandle)">
+            <summary>
+            Waits for the receive instruction associated to this handle to 
+            complete.  See MPI_Wait in the MPI2 API.
+            </summary>
+            <param name="handle">The handle to the receive instruction</param>
+            <remarks>
+            This method will not return until the associated receive 
+            instruction to the SendHandle completes.
+            </remarks>
+        </member>
+        <member name="M:MiniMPI.MiniMPIStringProcessAPI.Wait_impl(MiniMPI.Handle)">
+            <summary>Performs an MPI wait for a matching MpiReceiveAsync call.</summary>
+        </member>
+    </members>
+</doc>

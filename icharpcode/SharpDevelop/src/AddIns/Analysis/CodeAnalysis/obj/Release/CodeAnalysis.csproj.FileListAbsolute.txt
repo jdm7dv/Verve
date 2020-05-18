@@ -1,0 +1,10 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\CodeAnalysis\CodeAnalysis.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\CodeAnalysis\CodeAnalysis.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeAnalysis\obj\Release\Src\AnalysisIdeOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeAnalysis\obj\Release\Src\AnalysisIdeOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeAnalysis\obj\Release\Src\AnalysisProjectOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeAnalysis\obj\Release\CodeAnalysis_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeAnalysis\obj\Release\CodeAnalysis_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeAnalysis\obj\Release\Src\AnalysisProjectOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeAnalysis\obj\Release\CodeAnalysis.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\CodeAnalysis\obj\Release\CodeAnalysis.dll

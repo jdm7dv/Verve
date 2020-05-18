@@ -1,0 +1,20 @@
+﻿<gui:OptionPanel x:Class="ICSharpCode.UsageDataCollector.OptionPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:gui="clr-namespace:ICSharpCode.SharpDevelop.Gui;assembly=ICSharpCode.SharpDevelop" xmlns:core="http://icsharpcode.net/sharpdevelop/core" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:ICSharpCode.UsageDataCollector">
+	<StackPanel>
+		<TextBlock
+			TextWrapping="Wrap"
+			Text="{core:Localize AddIns.UsageDataCollector.Introduction}"/>
+		<RadioButton
+			Name="acceptRadio"
+			Content="{core:Localize AddIns.UsageDataCollector.AcceptRadioButton}"/>
+		<RadioButton
+			Name="declineRadio"
+			Content="{core:Localize AddIns.UsageDataCollector.DeclineRadioButton}"/>
+		<Button Name="showCollectedDataButton" Click="ShowCollectedDataButton_Click" Margin="4" HorizontalAlignment="Left" Content="{core:Localize AddIns.UsageDataCollector.ShowCollectedData}" Style="{x:Static core:GlobalStyles.ButtonStyle}" />
+		<TextBlock HorizontalAlignment="Left">
+			<Hyperlink
+				NavigateUri="{x:Static local:AnalyticsMonitor.PrivacyStatementUrl}">
+				<Run Text="{core:Localize AddIns.UsageDataCollector.PrivacyStatement}"/>
+			</Hyperlink>
+		</TextBlock>
+	</StackPanel>
+</gui:OptionPanel>

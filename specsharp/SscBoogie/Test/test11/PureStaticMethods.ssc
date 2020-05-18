@@ -1,0 +1,54 @@
+// TODO: Move this test to the ssc "Checkin tests" once they pass again.
+
+
+using Microsoft.Contracts;
+
+
+class C {
+
+    [Pure]
+    public bool f()
+        ensures result == !f();  // Error
+    {
+        return !f();
+    }
+
+    [Pure]
+    [RecursionTermination(1)]
+    static public bool sf()
+        ensures result == !sf();  // Error
+    {
+        return !sf();
+    }
+
+
+    [Pure]
+    [RecursionTermination(2)]
+    static public bool sg()
+        ensures result == !sf();
+    {
+        return !sf();
+    }
+
+    [Pure]
+    [RecursionTermination(1)]
+    static public bool sh()
+        ensures result == !sf();  // Error
+    {
+        return !sf();
+    }
+
+
+    public void test()
+    {
+        f();
+        assert false;  // No error
+    }
+
+    public void stest()
+    {
+        sf();
+        assert false;  // No error
+    }
+
+}

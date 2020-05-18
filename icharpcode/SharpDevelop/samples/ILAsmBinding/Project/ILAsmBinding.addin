@@ -1,0 +1,71 @@
+<AddIn name        = "ILAsm binding"
+       author      = "Mike Krueger"
+       copyright   = "prj:///doc/copyright.txt"
+       description = "Backing binding for IL Assembler"
+       addInManagerHidden = "preinstalled">
+	
+	<Manifest>
+		<Identity name = "ICSharpCode.ILAsmBinding"/>
+	</Manifest>
+	
+	<Runtime>
+		<Import assembly = "ILAsmBinding.dll"/>
+		<Import assembly = ":ICSharpCode.SharpDevelop"/>
+	</Runtime>
+	
+	<Path name = "/SharpDevelop/Workbench/FileFilter">
+		<FileFilter id = "ILASM"
+		            insertbefore="AllFiles"
+		            name = "${res:SharpDevelop.FileFilter.ILAsm} (*.il)"
+		            extensions = "*.il"/>
+	</Path>
+	
+	<Path name = "/SharpDevelop/Workbench/Combine/FileFilter">
+		<FileFilter id         = "ILAsmProject"
+		            insertbefore="AllFiles"
+		            name       = "${res:SharpDevelop.FileFilter.ILAsmPrjFiles} (*.ilproj)"
+		            class      = "ICSharpCode.SharpDevelop.Project.LoadProject"
+		            extensions = "*.ilproj"/>
+	</Path>
+	
+	<Path name = "/SharpDevelop/MSBuildEngine/AdditionalProperties">
+		<String id="ILAsmAddInPath" text = "${AddInPath:ICSharpCode.ILAsmBinding}"/>
+	</Path>
+	
+	<Path name = "/SharpDevelop/MSBuildEngine/CompileTaskNames">
+		<!-- Makes SharpDevelop show the text 'Compiling ProjectName...' when the task is started -->
+		<String id="ilasm" text = "ilasm"/>
+	</Path>
+	
+	<Path name = "/SharpDevelop/BackendBindings/Templates">
+		<Directory id = "ILAsm" path = "./Templates" />
+	</Path>
+	
+	<Path name = "/SharpDevelop/ViewContent/AvalonEdit/SyntaxModes">
+		<SyntaxMode id         = "IL Syntax Mode"
+		            name       = "ILAsm"
+		            extensions = ".il"
+		            resource   = "ICSharpCode.ILAsmBinding.Resources.ILAsm-Mode.xshd" />
+	</Path>
+	
+	<Path path = "/SharpDevelop/BackendBindings/ProjectOptions/ILAsm">
+		<OptionPanel id    = "Application"
+		             label = "${res:Dialog.ProjectOptions.ApplicationSettings}"
+		             class = "ICSharpCode.SharpDevelop.Gui.OptionPanels.ApplicationSettings"/>
+		<OptionPanel id    = "BuildEvents"
+		             label = "${res:Dialog.ProjectOptions.BuildEvents}"
+		             class = "ICSharpCode.SharpDevelop.Gui.OptionPanels.BuildEvents"/>
+		<OptionPanel id    = "DebugOptions"
+		             label = "${res:Dialog.ProjectOptions.DebugOptions}"
+		             class = "ICSharpCode.SharpDevelop.Gui.OptionPanels.DebugOptions"/>
+		<Include id = "AllManaged" path="/SharpDevelop/BackendBindings/ProjectOptions/AllManaged"/>
+	</Path>
+	
+	<Path name = "/SharpDevelop/Workbench/ProjectBindings">
+		<ProjectBinding id                   = "ILAsm"
+		                guid                 = "{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}"
+		                supportedextensions  = ".il"
+		                projectfileextension = ".ilproj"
+		                class                = "ICSharpCode.ILAsmBinding.ILAsmProjectBinding" />
+	</Path>
+</AddIn>

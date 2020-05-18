@@ -1,0 +1,12 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\addin.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\FiletypeRegisterer.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\cs.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\cmbx.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\java.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\prjx.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\resx.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\vb.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\xfrm.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\filetypes\xml.ico
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\FiletypeRegisterer\ICSharpCode.FiletypeRegisterer.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\FiletypeRegisterer\Project\obj\Release\ICSharpCode.FiletypeRegisterer.dll

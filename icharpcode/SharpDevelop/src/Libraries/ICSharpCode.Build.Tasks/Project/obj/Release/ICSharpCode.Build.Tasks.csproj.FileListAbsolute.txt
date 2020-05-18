@@ -1,0 +1,6 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\SharpDevelop.TargetingPack.targets
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\SharpDevelop.CodeAnalysis.targets
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\SharpDevelop.CheckMSBuild35Features.targets
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.Build.Tasks.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Build.Tasks\Project\obj\Release\ICSharpCode.Build.Tasks.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\ICSharpCode.Build.Tasks\Project\obj\Release\ICSharpCode.Build.Tasks.dll

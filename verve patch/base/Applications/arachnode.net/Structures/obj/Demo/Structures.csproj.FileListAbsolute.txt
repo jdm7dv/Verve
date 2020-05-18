@@ -1,0 +1,5 @@
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Structures\bin\Demo\Arachnode.Structures.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Structures\bin\Demo\Arachnode.Structures.pdb
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Structures\bin\Demo\Arachnode.Structures.XML
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Structures\obj\Demo\Arachnode.Structures.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Structures\obj\Demo\Arachnode.Structures.pdb

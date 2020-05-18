@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>nslookup</name>
+    </assembly>
+    <members>
+        <member name="T:nslookup.NSLookup">
+             <summary>
+            		
+            		<title>nslookup</title>
+            		<description>
+            			*nix simple nslookup clone for the Win32 platform (Console Application)
+            			Does A DNS lookup by Host Name or IP. Host Name lookups can return
+            			multiple IP Ranges.
+            		</description>
+            		<author>Jonathan Moore</author>
+            		<version>1.0</version>
+            		<date>March 23 2006</date>
+            		
+             </summary>
+            </member>
+        <member name="M:nslookup.NSLookup.Main(System.String[])">
+             <summary>
+             
+            		<description>Application entry point.</description>
+            		<param name="args">Host Address, IP Address or -help command line options</param>
+            		<return>int Return code 0 for success -1 for failure or error</return>
+             
+             </summary>
+            </member>
+    </members>
+</doc>

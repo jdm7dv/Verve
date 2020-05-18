@@ -1,0 +1,40 @@
+using Microsoft.Contracts;
+
+namespace SealedCounter {
+
+public sealed class Counter {
+  int inc;
+  int dec;
+
+  invariant dec <= inc;
+
+  [Pure]
+  public int GetX() 
+    ensures 0 <= result;
+    ensures result == inc - dec; // Not inferred because there is an explicit postcondition
+                                 // This postcondition does not violate information hiding because 
+                                 // clients that cannot access inc and dec need not understand it.
+  {
+    return inc - dec;
+  }
+
+  [NotDelayed]
+  public Counter()
+    ensures GetX() == 0;
+  {
+  }
+
+  public void Inc()
+    ensures GetX() == old(GetX()) + 1;
+  {
+    inc++;
+  }
+
+  public void Dec()
+    requires 0 < GetX();
+    ensures GetX() == old(GetX()) - 1;
+  {
+    dec++;
+  }
+}
+}

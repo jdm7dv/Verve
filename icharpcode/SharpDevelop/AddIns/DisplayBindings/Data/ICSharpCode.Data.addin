@@ -1,0 +1,56 @@
+﻿<AddIn name        = "Data Addin"
+       author      = "Philipp Maihart"
+       url         = "http://www.pmnet.info"
+       description = "Database Tools Addin for SharpDevelop"
+       addInManagerHidden="preinstalled">
+    
+  <Runtime>
+    <Import assembly="ICSharpCode.Data.Addin.dll" />
+    <Import assembly="ICSharpCode.Data.Core.dll" />
+    <Import assembly="ICSharpCode.Data.Core.UI.dll" />
+    <Import assembly="ICSharpCode.Data.SQLServer.dll" />
+    <Import assembly="ICSharpCode.Data.EDMDesigner.Core.dll" />
+    <Import assebmly="ICSharpCode.Data.EDMDesigner.Core.UI.dll" />
+  </Runtime>
+  
+  <Manifest>
+      <Identity name="ICSharpCode.Data.Addin" />
+  </Manifest>
+
+  <Path name="/SharpDevelop/Workbench/FileFilter">
+    <FileFilter id="EntityFramework"
+                insertbefore="AllFiles"
+                name="Entity Framework Files (*.edmx)"
+                extensions="*.edmx"
+                mimeType="text/xml"/>
+  </Path>
+
+  <Path name="/SharpDevelop/Workbench/Pads">
+      <Pad id="DatabaseExplorer"
+          icon="Icons.16x16.SharpQuery.Refresh"
+          category="Tools"
+          title="Database Explorer"
+		   defaultPosition = "Right, Hidden"
+          class="ICSharpCode.Data.Addin.Pad.DatabasesTreeViewPad" />
+  </Path>
+
+  <Path name="/SharpDevelop/Workbench/DisplayBindings">
+    <DisplayBinding id="EDMDesignerDisplayBinding"
+  	                class="ICSharpCode.Data.EDMDesigner.Core.UI.DisplayBinding.EDMDesignerDisplayBinding"
+  	                insertbefore="Text"
+  	                fileNamePattern="\.edmx$"
+  	                languagePattern="^Edmx$" />
+  </Path>
+
+  <!--Template path -->
+  <Path name = "/SharpDevelop/BackendBindings/Templates">
+    <Directory id = "Data" path = "./Templates/Files" />
+  </Path>
+
+  <!-- Custom tools path-->
+  <Path name = "/SharpDevelop/CustomTools">
+    <CustomTool id    = "EntityModelCodeGenerator"
+		            class = "ICSharpCode.Data.EDMDesigner.Core.IO.EntityModelCodeGenerator"
+		            fileNamePattern = "\.edmx$"/>
+  </Path>
+</AddIn>

@@ -1,0 +1,87 @@
+OpaqueFunctions.dfy(27,15): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(52,7): Error BP5002: A precondition for this call might not hold.
+OpaqueFunctions.dfy(24,15): Related location: This is the precondition that might not hold.
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(57,19): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(59,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon5_Then
+OpaqueFunctions.dfy(62,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon6_Then
+OpaqueFunctions.dfy(65,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon6_Else
+OpaqueFunctions.dfy(76,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon3_Then
+OpaqueFunctions.dfy(78,9): Error BP5002: A precondition for this call might not hold.
+OpaqueFunctions.dfy[A'](24,15): Related location: This is the precondition that might not hold.
+Execution trace:
+    (0,0): anon0
+    (0,0): anon3_Else
+OpaqueFunctions.dfy(84,19): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(86,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon5_Then
+OpaqueFunctions.dfy(89,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon6_Then
+OpaqueFunctions.dfy(92,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon6_Else
+OpaqueFunctions.dfy(103,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon3_Then
+OpaqueFunctions.dfy(105,9): Error BP5002: A precondition for this call might not hold.
+OpaqueFunctions.dfy[A'](24,15): Related location: This is the precondition that might not hold.
+Execution trace:
+    (0,0): anon0
+    (0,0): anon3_Else
+OpaqueFunctions.dfy(111,19): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(113,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon5_Then
+OpaqueFunctions.dfy(116,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon6_Then
+OpaqueFunctions.dfy(119,20): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+    (0,0): anon6_Else
+OpaqueFunctions.dfy(135,11): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(199,11): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(215,11): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(167,15): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+OpaqueFunctions.dfy(182,19): Error: assertion violation
+Execution trace:
+    (0,0): anon0
+
+Dafny program verifier finished with 18 verified, 23 errors

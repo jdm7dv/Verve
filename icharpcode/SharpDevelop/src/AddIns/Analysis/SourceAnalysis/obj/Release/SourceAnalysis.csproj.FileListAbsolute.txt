@@ -1,0 +1,11 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\SourceAnalysis\SharpDevelop.SourceAnalysis.targets
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\SourceAnalysis\SourceAnalysis.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\SourceAnalysis\SourceAnalysis.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\SourceAnalysis\obj\Release\SourceAnalysis.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\SourceAnalysis\obj\Release\Src\AnalysisIdeOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\SourceAnalysis\obj\Release\Src\AnalysisOptionsPanel.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\SourceAnalysis\obj\Release\Src\AnalysisIdeOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\SourceAnalysis\obj\Release\Src\AnalysisOptionsPanel.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\SourceAnalysis\obj\Release\SourceAnalysis_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\SourceAnalysis\obj\Release\SourceAnalysis.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\SourceAnalysis\obj\Release\SourceAnalysis.dll

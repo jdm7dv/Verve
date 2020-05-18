@@ -1,0 +1,17 @@
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Release\CSymphonyLib.dll.config
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Release\CSymphonyLib.dll
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\Release\CSymphonyLib.pdb
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\CSymphony\obj\Debug\CSymphonyLib.dll
+C:\Users\Jonathan_Moore\Desktop\Compilers\CodeDom\CSymphony_0_1\Source\CSymphony\obj\Debug\CSymphonyLib.pdb
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Release\CSymphonyLib.dll.config
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Release\CSymphonyLib.dll
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\Release\CSymphonyLib.pdb
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\CSymphony\obj\Debug\CSymphonyLib.csprojResolveAssemblyReference.cache
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\CSymphony\obj\Debug\CSymphonyLib.dll
+E:\_Version Control\Subversion\projects\MyApps\CodeDOM\CSymphony_0_1\Source\CSymphony\obj\Debug\CSymphonyLib.pdb
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Release\CSymphonyLib.dll.config
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Release\CSymphonyLib.dll
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\Release\CSymphonyLib.pdb
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\CSymphony\obj\Debug\CSymphonyLib.csprojResolveAssemblyReference.cache
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\CSymphony\obj\Debug\CSymphonyLib.dll
+D:\portfolio\jdm7dv\sandbox\base\Applications\CSymphony_0_1\Source\CSymphony\obj\Debug\CSymphonyLib.pdb

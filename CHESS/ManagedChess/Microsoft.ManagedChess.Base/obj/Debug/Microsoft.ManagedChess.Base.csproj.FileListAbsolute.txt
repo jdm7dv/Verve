@@ -1,0 +1,16 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ManagedChess.Base.exe.config
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ManagedChess.Base.exe
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ManagedChess.Base.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ExtendedReflection.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ManagedChess.Engine.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ManagedChess.MChess.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.Concurrency.UnitTesting.Execution.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ManagedChess.Engine.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ManagedChess.MChess.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ExtendedReflection.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.ExtendedReflection.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Microsoft.Concurrency.UnitTesting.Execution.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\bin\Debug\Chess.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\obj\Debug\Microsoft.ManagedChess.Base.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\obj\Debug\Microsoft.ManagedChess.Base.exe
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Base\obj\Debug\Microsoft.ManagedChess.Base.pdb

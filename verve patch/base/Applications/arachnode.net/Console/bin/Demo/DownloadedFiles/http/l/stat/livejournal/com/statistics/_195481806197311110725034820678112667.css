@@ -1,0 +1,221 @@
+/* files: stc/statistics/ie.css 
+*/
+
+/* file: stc/statistics/ie.css 
+----------------------------------------------------------------------------------*/
+/* Canyon's style 
+Must be removed after implementation of Framework! */
+.statistics .canyon {
+    zoom:1;
+    }
+
+/* Diagram
+-------------------------------------------------- */
+.pages-list {
+    zoom:1;
+    }
+
+* HTML .diagram-tip DIV,
+* HTML .diagram-tip DIV DIV,
+* HTML .diagram-tip DIV DIV DIV,
+* HTML .diagram-tip DIV DIV DIV DIV,
+* HTML .diagram-tip DIV DIV SPAN,
+* HTML .diagram-tip UL,
+* HTML .diagram-tip UL LI{
+    background-image: url(/stc/img/statistics/bubble.gif?v=6907);
+    }
+
+/* Legend */
+.diagram-legend {
+	height: 1%;
+	position: relative;
+	}
+.diagram-legend LI {
+	display: inline;
+	}
+/*Filter*/
+UL.diagram-menu UL LI A {
+	float: none;
+	zoom: 1;
+	}
+/* Bubble 
+-----------------------------------------------*/
+.diagram-tip {
+	zoom: 1;
+	}
+	.diagram-tip DIV DIV SPAN {
+		left:-1px;
+		margin:0 0 0 3px;
+		}
+
+/* Borders of Bubble in Double Diagram */
+.diagram-double .diagram-tip DIV DIV SPAN {
+	left:-1px;
+	}
+	.diagram-bottom .diagram-tip DIV DIV SPAN {
+		left:-4px;
+		}
+
+
+/* Split Diagram Body */
+.diagram-split {
+	zoom: 1;
+	}
+
+/* Pop-up Diagram Window
+---------------------------- */	
+.window-open {
+	zoom:1;
+	}
+.diagram-window .diagram-w-shade {
+	filter:expression( runtimeStyle.filter = 'progid:DXImageTransform.Microsoft.Alpha(opacity='+currentStyle.opacity*100+')' );
+	zoom:1;
+	}
+
+.diagram-w-content {
+	zoom:1;
+	}
+.diagram-w-content DT {
+	scrollbar-face-color: expression(runtimeStyle.scrollbarFaceColor = '#fff', (this == parentNode.firstChild) ? className += ' first-child' : '' )
+	}
+.hover  {
+    z-index: 1000;
+    }
+
+.ratepos,
+.ratepos I,
+.ratepos B,
+.ratepos SPAN,
+.ratepos DIV,
+.statistics P,
+.statistics P A {
+    zoom:1;
+    }
+
+
+* html .s-list .s-list-desc .userpic IMG {
+    	zoom:expression(
+    		function(t){
+    			if (50 < t.scrollWidth && t.scrollWidth >= t.scrollHeight) {
+    				t.width = '50';
+    			}
+    			else if (50 < t.scrollHeight) {
+    				t.height = '50';
+    			}
+    		t.runtimeStyle.zoom = 1;
+    	}(this));
+    }
+
+
+.diagram-cont {
+    	scrollbar-face-color: expression(runtimeStyle.scrollbarFaceColor = '#fff',
+    					onmouseover = function() {this.className += ' hover'},
+    					onmouseout = function() {this.className = this.className.replace(/ hover/g, '')}
+    				);
+    }
+.diagram-cont A *,
+.diagram-cont SPAN {
+	overflow:hidden;
+	}
+/* Promo Page */
+
+* HTML .b-promo-wrap {
+	height:300px;
+	}
+* HTML .b-promo-sh-top,
+* HTML .b-promo-sh-bot {
+	filter:expression(
+		function(t){
+			t.runtimeStyle.zoom = 1;
+			t.runtimeStyle.filter = 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='+t.currentStyle.backgroundImage.split('\"')[1]+', sizingMethod=crop)'; /*"*/
+			t.runtimeStyle.backgroundImage = 'none';
+		}(this));
+	}
+* HTML .b-promo-sh-mid {
+	filter:expression(
+		function(t){
+			t.runtimeStyle.zoom = 1;
+			t.runtimeStyle.filter = 'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='+t.currentStyle.backgroundImage.split('\"')[1]+', sizingMethod=scale)'; /*"*/
+			t.runtimeStyle.backgroundImage = 'none'; 
+		}(this));
+	h:expression(
+		function (t) {
+			var h = t.parentNode.offsetHeight;
+			if (t.h != h) {
+				t.h = h;
+				t.style.height = h - 76 + "px";
+			}
+		}(this));
+	}
+
+
+/* Voting
+------------------------------------------------------ */
+.voting .vote-title {
+	line-height:13px;
+	}
+.voting .vote-value {
+	line-height:39px;
+	}
+.voting BUTTON {
+	overflow:visible;
+	}
+
+/* Ratings */
+/*.s-list .s-list-numb STRONG {
+    float: none;
+	display: inline-block;
+    }*/
+.w-rating .w-rating-item .ContextualPopup {
+	top: 0;
+	}
+.rate-posts .s-list-desc .ljuser .ContextualPopup {
+	top: 0;	
+	}
+.w-rating-promo {
+    zoom: 1;
+    }
+*:first-child+html .w-rating {
+    display: block;
+    overflow: hidden;
+    zoom: 1;
+    }	
+*:first-child+html .w-rating-item DT,
+*:first-child+html .w-rating-item DD {
+    display: block;
+    position: relative;
+    float: left;
+    zoom: 1; 
+    }
+*:first-child+html .w-rating-item .w-rating-info {
+    padding: 0 50px 0 0;
+    }
+*:first-child+html .w-rating-item .w-rating-value {
+    position: absolute;
+    right: 0;
+    top: 8px;
+    }
+*:first-child+html .s-list .s-list-numb {
+    width: 2%;
+    }
+*:first-child+html .ratepos {
+    margin-left: 6px;
+    }
+
+/* Widgets with rating users & community */    
+.w-rating {
+    display: table;
+    }
+    .w-rating-item DT,
+    .w-rating-item DD {
+        float: none;
+        display: table-cell;
+        }
+    .w-rating-item .w-rating-value {
+        position: static;
+        }
+
+/* Promoted entry at the ratings */
+.rate-posts-item .s-promoted-entry .s-selfpromo-link {
+    vertical-align: middle;
+    }

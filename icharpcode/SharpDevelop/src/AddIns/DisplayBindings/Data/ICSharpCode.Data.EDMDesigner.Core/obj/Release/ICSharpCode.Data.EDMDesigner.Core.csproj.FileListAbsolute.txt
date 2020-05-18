@@ -1,0 +1,17 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\bin\Release\ICSharpCode.Data.EDMDesigner.Core.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\bin\Release\ICSharpCode.Data.EDMDesigner.Core.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\bin\Release\ICSharpCode.Data.Core.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\bin\Release\ICSharpCode.Data.Core.UI.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\bin\Release\ICSharpCode.Data.Core.UI.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\bin\Release\ICSharpCode.Data.Core.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\ICSharpCode.Data.EDMDesigner.Core.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\Windows\EDMWizard\ChooseDatabaseConnectionUserControl.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\Windows\EDMWizard\ChooseDatabaseObjectsUserControl.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\Windows\EDMWizard\EDMWizardErrorUserControl.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\Windows\EDMWizard\ChooseDatabaseConnectionUserControl.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\Windows\EDMWizard\ChooseDatabaseObjectsUserControl.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\Windows\EDMWizard\EDMWizardErrorUserControl.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\ICSharpCode.Data.EDMDesigner.Core_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\ICSharpCode.Data.EDMDesigner.Core.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\ICSharpCode.Data.EDMDesigner.Core.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\Data\ICSharpCode.Data.EDMDesigner.Core\obj\Release\ICSharpCode.Data.EDMDesigner.Core.pdb

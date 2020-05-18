@@ -1,0 +1,92 @@
+/*
+ * The default option for a pure instance method, which can also
+ * be indicated explicitly with
+ * [Reads(ReadsAttribute.Reads.Owned)], allows the contract and
+ * body of the pure method to read the fields of "this" and any
+ * object that is transitively owned by "this".  In other words,
+ * this option allows the method to read any part of the
+ * representation of "this".
+ *
+ * Some pure methods depend only on their parameter values.  For
+ * example, a mathematical method ISqrt(x) depends only on the
+ * value of x and the method does not dereference the heap.
+ * Such "state independent" pure methods can be indicated by
+ * [Reads(ReadsAttribute.Reads.Nothing)], which is the default
+ * for static pure methods.  A state independent method is
+ * allowed to depend on readonly fields.
+ *
+ * In other cases, the pure method has some reason to read state
+ * outside the ownership domain of "this".  These methods can be
+ * indicated by [Reads(ReadsAttribute.Reads.Everything)].
+ */
+
+
+using Microsoft.Contracts;
+namespace Purity {
+
+public class Collection {
+  [Rep] internal int[] a = new int[32];
+  private int count;
+
+  invariant 0 <= count && count <= a.Length;
+
+  public int Count {
+    get {  // by default [Reads(ReadsAttribute.Reads.Owned)]
+      return count;
+    }
+  }
+
+  [Pure]
+  public int Get(int i)
+    requires 0 <= i && i < Count;
+    ensures result == a[i];
+  {
+    return a[i];
+  }
+
+  [Pure]
+  [Reads(ReadsAttribute.Reads.Everything)]  // required since Equals reads state of "this" and "c"
+  public bool Equals(Collection c)
+    ensures result ==
+      (Count == c.Count && forall{int j in (0: Count); Get(j) == c.Get(j)});
+  {
+    if (count != c.count) return false;
+    for (int i = 0; i < count; i++)
+      invariant Count == c.Count &&  
+                forall{int j in (0: i); Get(j) == c.Get(j)};
+
+    {
+      if (a[i] != c.a[i]) {
+        assert Get(i) != c.Get(i);
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+  public void Replace(int i, int x)
+    requires 0 <= i && i < Count;
+  {
+    expose (this) {
+      a[i] = x;
+    }
+  }
+}
+
+
+public class Client { 
+
+  private int Compute() {
+    return 5;
+  }
+
+  public void Test(Collection coll, int k) 
+    requires 0 <= k && k < coll.Count;
+    modifies coll.*;
+  {
+    int x = Compute();  // does not affect coll.Count, which only depends on the aggregate coll
+    coll.Replace(k, x);
+  }
+}
+}

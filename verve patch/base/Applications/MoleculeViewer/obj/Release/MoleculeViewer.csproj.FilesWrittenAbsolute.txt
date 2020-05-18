@@ -1,0 +1,2 @@
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/MoleculeViewer/obj/Release/.NETFramework,Version=v4.6.AssemblyAttribute.cs
+/home/jonathan/Creative_Disk/Github/microsoft/jdm7dv/research/verve patch/base/Applications/MoleculeViewer/obj/Release/MoleculeViewer.Properties.Resources.resources

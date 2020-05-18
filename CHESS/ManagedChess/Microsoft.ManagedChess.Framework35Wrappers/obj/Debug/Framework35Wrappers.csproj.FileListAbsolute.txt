@@ -1,0 +1,4 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\Microsoft.ManagedChess.Framework35Wrappers.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\debug\Microsoft.ManagedChess.Framework35Wrappers.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Framework35Wrappers\obj\Debug\Microsoft.ManagedChess.Framework35Wrappers.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ManagedChess\Microsoft.ManagedChess.Framework35Wrappers\obj\Debug\Microsoft.ManagedChess.Framework35Wrappers.pdb

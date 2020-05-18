@@ -1,0 +1,43 @@
+<AddIn name        = "Settings Editor"
+       author      = "Daniel Grunwald"
+       copyright   = "prj:///doc/copyright.txt"
+       description = "Edits project settings"
+       addInManagerHidden = "preinstalled">
+	
+	<Manifest>
+		<Identity name = "ICSharpCode.SettingsEditor"/>
+	</Manifest>
+	
+	<Runtime>
+		<Import assembly = "SettingsEditor.dll"/>
+	</Runtime>
+	
+	<Path name = "/SharpDevelop/BackendBindings/Templates">
+		<Directory id = "settings" path = "." />
+	</Path>
+	
+	<Path name = "/SharpDevelop/Workbench/FileFilter">
+		<FileFilter id = "Settings"
+		            insertbefore="AllFiles"
+		            name = "Settings (*.settings)"
+		            extensions = "*.settings"
+		            mimeType = "text/xml"/>
+	</Path>
+	
+	<Path name = "/SharpDevelop/Workbench/DisplayBindings">
+		<DisplayBinding id = "SettingsEditor"
+		                insertbefore = "Text"
+		                class = "ICSharpCode.SettingsEditor.SettingsDisplayBinding"
+		                fileNamePattern = "\.settings$"
+		                title = "Settings editor"/>
+	</Path>
+	
+	<Path name = "/SharpDevelop/CustomTools">
+		<CustomTool id    = "SettingsSingleFileGenerator"
+		            class = "ICSharpCode.SettingsEditor.SettingsCodeGeneratorTool"
+		            fileNamePattern = "\.settings$"/>
+		<CustomTool id    = "PublicSettingsSingleFileGenerator"
+		            class = "ICSharpCode.SettingsEditor.PublicSettingsCodeGeneratorTool"
+		            fileNamePattern = "\.settings$"/>
+	</Path>
+</AddIn>

@@ -1,0 +1,8 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <SetupProductMajorVersion>4.3</SetupProductMajorVersion>
+    <SetupProductBuildVersion>9430</SetupProductBuildVersion>
+    <SetupProductDisplayVersion>4.3 </SetupProductDisplayVersion>
+    <DefineConstants>PRODUCTMAJORVERSION=$(SetupProductMajorVersion);PRODUCTBUILDVERSION=$(SetupProductBuildVersion);PRODUCTDISPLAYVERSION=$(SetupProductDisplayVersion)</DefineConstants>
+  </PropertyGroup>
+</Project>

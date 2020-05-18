@@ -1,0 +1,47 @@
+﻿<project schemaVersion="1.4.0.2">
+    <assemblies>
+        <assembly assemblyPath=".\Release\MoleculeViewer.exe" xmlCommentsPath=".\Release\MoleculeViewer.xml" commentsOnly="False" />
+    </assemblies>
+    <namespaceSummaries>
+        <namespaceSummaryItem name="" isDocumented="False" />
+        <namespaceSummaryItem name="MoleculeViewer" isDocumented="True">Main namespace for the MoleculeViewer application.</namespaceSummaryItem>
+        <namespaceSummaryItem name="MoleculeViewer.Properties" isDocumented="False" />
+        <namespaceSummaryItem name="XamlGeneratedNamespace" isDocumented="False" />
+    </namespaceSummaries>
+    <additionalContent>
+        <contentItem sourcePath="..\..\Diagrams\*.*" destPath="Diagrams\" excludeItems="False" />
+        <contentItem sourcePath="..\..\Overview.htm" destPath="" excludeItems="False" />
+    </additionalContent>
+    <ProjectSummary>This is the project summary.</ProjectSummary>
+    <MissingTags>Parameter, Returns, AutoDocumentCtors, Namespace</MissingTags>
+    <VisibleItems>InheritedMembers, Internals, Privates, Protected, ProtectedInternalAsProtected, SealedProtected</VisibleItems>
+    <HtmlHelp1xCompilerPath path="" />
+    <HtmlHelp2xCompilerPath path="" />
+    <OutputPath>.\Help\</OutputPath>
+    <SandcastlePath path="" />
+    <WorkingPath path="" />
+    <CleanIntermediates>True</CleanIntermediates>
+    <HelpFileFormat>Help1xAndWebsite</HelpFileFormat>
+    <PurgeDuplicateTopics>True</PurgeDuplicateTopics>
+    <CppCommentsFixup>False</CppCommentsFixup>
+    <FrameworkVersion>3.0</FrameworkVersion>
+    <BinaryTOC>True</BinaryTOC>
+    <IncludeFavorites>False</IncludeFavorites>
+    <Preliminary>False</Preliminary>
+    <RootNamespaceContainer>False</RootNamespaceContainer>
+    <RootNamespaceTitle />
+    <HelpTitle>TSRI/Interknowlogy MoleculeViewer Sample Application</HelpTitle>
+    <HtmlHelpName>Documentation</HtmlHelpName>
+    <Language>en-US</Language>
+    <CopyrightHref />
+    <CopyrightText />
+    <FeedbackEMailAddress />
+    <HeaderText />
+    <FooterText />
+    <ProjectLinkType>Local</ProjectLinkType>
+    <SdkLinkType>Msdn</SdkLinkType>
+    <PresentationStyle>Prototype</PresentationStyle>
+    <NamingMethod>Guid</NamingMethod>
+    <SyntaxFilters>Standard</SyntaxFilters>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+</project>

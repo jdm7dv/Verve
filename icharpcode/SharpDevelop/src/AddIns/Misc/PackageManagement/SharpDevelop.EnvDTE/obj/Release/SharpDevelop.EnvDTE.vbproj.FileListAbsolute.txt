@@ -1,0 +1,2 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\SharpDevelop.EnvDTE.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\PackageManagement\SharpDevelop.EnvDTE\obj\Release\SharpDevelop.EnvDTE.dll

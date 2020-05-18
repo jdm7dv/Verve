@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AD7860FD-83E2-4E2C-A859-6FF077980884}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Csla</RootNamespace>
+    <AssemblyName>Csla</AssemblyName>
+    <MyType>Windows</MyType>
+    <OptionStrict>On</OptionStrict>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>CslaKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Csla.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Csla.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Runtime.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessBase.vb" />
+    <Compile Include="BusinessListBase.vb" />
+    <Compile Include="Core\IUndoableObject.vb" />
+    <Compile Include="Core\IBusinessObject.vb" />
+    <Compile Include="Core\ICommandObject.vb" />
+    <Compile Include="Core\IReadOnlyCollection.vb" />
+    <Compile Include="Core\IReadOnlyObject.vb" />
+    <Compile Include="Core\ObjectCloner.vb" />
+    <Compile Include="DataPortal\Client\EnterpriseServicesProxy.vb" />
+    <Compile Include="DataPortal\Client\IDataPortalProxy.vb" />
+    <Compile Include="DataPortal\Client\LocalProxy.vb" />
+    <Compile Include="DataPortal\Client\RemotingProxy.vb" />
+    <Compile Include="DataPortal\Client\WebServicesProxy.vb" />
+    <Compile Include="DataPortal\Hosts\EnterpriseServicesPortal.vb" />
+    <Compile Include="DataPortal\Hosts\RemotingPortal.vb" />
+    <Compile Include="DataPortal\Hosts\WebServicePortal.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataPortal\MethodCaller.vb" />
+    <Compile Include="DataPortal\Server\DataPortalContext.vb" />
+    <Compile Include="DataPortal\Server\IDataPortalServer.vb" />
+    <Compile Include="DataPortal\Server\ServicedDataPortal.vb" />
+    <Compile Include="DataPortal\Server\SimpleDataPortal.vb" />
+    <Compile Include="DataPortal\Server\TransactionalDataPortal.vb" />
+    <Compile Include="DataPortal\TransactionalTypes.vb" />
+    <Compile Include="Data\DataMapper.vb" />
+    <Compile Include="EnterpriseServicesSettings.vb" />
+    <Compile Include="GlobalSuppressions.vb" />
+    <Compile Include="Security\AccessType.vb" />
+    <Compile Include="Utilities.vb" />
+    <Compile Include="Validation\CommonRules.vb" />
+    <Compile Include="Core\BindableBase.vb" />
+    <Compile Include="Security\RolesForProperty.vb" />
+    <Compile Include="Validation\BrokenRule.vb" />
+    <Compile Include="Validation\RuleArgs.vb" />
+    <Compile Include="Validation\RuleHandler.vb" />
+    <Compile Include="Validation\BrokenRulesCollection.vb" />
+    <Compile Include="Validation\RuleMethod.vb" />
+    <Compile Include="Validation\ValidationRules.vb" />
+    <Compile Include="Core\BusinessBase.vb" />
+    <Compile Include="Core\IEditableCollection.vb" />
+    <Compile Include="Core\ReadOnlyBindingList.vb" />
+    <Compile Include="DataPortal\ApplicationContext.vb" />
+    <Compile Include="DataPortal\Server\CallMethodException.vb" />
+    <Compile Include="CommandBase.vb" />
+    <Compile Include="DataPortal\CriteriaBase.vb" />
+    <Compile Include="DataPortal\Client\DataPortal.vb" />
+    <Compile Include="DataPortal\DataPortalEventArgs.vb" />
+    <Compile Include="DataPortal\DataPortalException.vb" />
+    <Compile Include="DataPortal\Server\DataPortalResult.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="NameValueListBase.vb" />
+    <Compile Include="NotUndoableAttribute.vb" />
+    <Compile Include="Data\ObjectAdapter.vb" />
+    <Compile Include="ReadOnlyBase.vb" />
+    <Compile Include="DataPortal\RunLocalAttribute.vb" />
+    <Compile Include="Data\SafeDataReader.vb" />
+    <Compile Include="DataPortal\Server\DataPortal.vb" />
+    <Compile Include="DataPortal\Server\DataPortalException.vb" />
+    <Compile Include="ReadOnlyListBase.vb" />
+    <Compile Include="Security\AuthorizationRules.vb" />
+    <Compile Include="Security\BusinessPrincipalBase.vb" />
+    <Compile Include="SmartDate.vb" />
+    <Compile Include="DataPortal\TransactionalAttribute.vb" />
+    <Compile Include="Core\UndoableBase.vb" />
+    <Compile Include="SortedBindingList.vb" />
+    <Compile Include="Validation\ValidationException.vb" />
+    <Compile Include="Web References\WebServiceHost\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web\CslaDataSource.vb" />
+    <Compile Include="Web\CslaDataSourceView.vb" />
+    <Compile Include="Web\Design\CslaDataSourceDesigner.vb" />
+    <Compile Include="Web\Design\CslaDesignerDataSourceView.vb" />
+    <Compile Include="Web\Design\ObjectFieldInfo.vb" />
+    <Compile Include="Web\Design\ObjectSchema.vb" />
+    <Compile Include="Web\Design\ObjectViewSchema.vb" />
+    <Compile Include="Windows\BindingSourceRefresh.vb" />
+    <Compile Include="Windows\ReadWriteAuthorization.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources-il.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.bs.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.da.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.es-ES.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.hr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.it.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.nl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.no.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.pt-br.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.pt.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.ro.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.ru.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.sr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.sv.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.zh-CHS.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="CslaKey.snk" />
+    <None Include="Diagrams\CSLA.cd" />
+    <None Include="Diagrams\CSLABaseClasses.cd" />
+    <None Include="Diagrams\DataPortal.cd" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:1042/RC0WebPortal/WebServicePortal.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\WebServiceHost\</RelPath>
+      <UpdateFromURL>http://localhost:1042/RC0WebPortal/WebServicePortal.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Csla_WebServiceHost_WebServicePortal</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Diagrams\DataBinding.cd" />
+    <None Include="Diagrams\FullCsla.cd" />
+    <None Include="Diagrams\Undoable.cd" />
+    <None Include="Diagrams\Validation.cd" />
+    <None Include="Web References\WebServiceHost\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\WebServiceHost\WebServicePortal.disco" />
+    <None Include="Web References\WebServiceHost\WebServicePortal.wsdl" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+</Project>

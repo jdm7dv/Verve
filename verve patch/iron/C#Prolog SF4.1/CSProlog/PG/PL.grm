@@ -1,0 +1,859 @@
+/*
+  C#Prolog
+
+  A PREDICATE is a set of CLAUSES with the same principal functor
+
+  A CLAUSE can be a FACT or a RULE
+
+  A RULE consists of a HEAD and a BODY joined by a :-
+
+  A FACT is a Term, a HEAD is a Term, a GOAL is a Term
+
+  a BODY is an expression of terms structured by ','  ';' and parentheses ()
+
+  A QUERY is a list of GOALS
+
+  Syntactically, the following is true: a QUERY has the same shape as a BODY
+*/
+
+SETTINGS
+
+  NameSpace            = 'Prolog'
+  ParserClassPrefix    = 'Prolog'
+  TerminalDescrPayload = 'OpDescrTriplet'
+  CrNoticeNr           = 2
+  Prolog               = Y
+  CaseSensitive        = Y
+  Preprocessor         = Y
+  PreprocessorPrefix   = '!'
+  CodeStringChar       = '|'
+  CommentStart         = '/*'
+  CommentEnd           = '*/'
+  SingleComment        = '%'
+  StringStart          = ''''
+  StringEnd            = ''''
+  StringStartAlt       = '"'
+  StringEndAlt         = '"'
+  StringEscape         = ''''
+  EOICheck             = Y
+
+TERMINALS
+
+  VerbatimStringStart = '@"'
+  Dot
+  Anonymous         = '_'
+  CutSym            = '!'
+  ImpliesSym        = ':-'
+  PromptSym         = '?-'
+  DCGArrowSym       = '-->'
+  BuiltinCSharp     = ':=='
+  LSqBracket        = '[' (Group)
+  RSqBracket        = ']' (Group)
+  LCuBracket        = '{' (Group)
+  RCuBracket        = '}' (Group)
+  VBar              = '|'
+  OpSym             = 'op'
+  WrapSym           = 'wrap'
+  BuiltinSym        = '&builtin'
+  ProgramSym        = '&program'
+  ReadingSym        = '&reading'
+  EnsureLoaded      = 'ensure_loaded'
+  Discontiguous     = 'discontiguous'
+  StringStyle       = 'stringstyle' // 'iso' (list of integers) or 'csharp'
+  AllDiscontiguous  = 'alldiscontiguous'
+  Module            = 'module'
+  Dynamic           = 'dynamic'
+  ListPatternOpen   = '[!' (Group)
+  ListPatternClose  = '!]' (Group)
+% TreePatternOpen   = '{!' (Group)
+% TreePatternClose  = '!}' (Group)
+  EllipsisSym       = '..'
+  SubtreeSym        = '\'
+  NegateSym         = '~' // for 'negative' searches in ListPatternTerm
+  PlusSym           = '+'
+  TimesSym          = '*'
+  QuestionMark      = '?'
+  QuestionMarks     = '??' // for testing purposes only
+  TrySym            = 'TRY'
+  CatchSym          = 'CATCH'
+  WrapOpen
+  WrapClose
+  AltListOpen  % alternative list brackets, set by ...
+  AltListClose % ... :- wrap( <leftbracket>, |, <rightbracket>).
+  Slash
+  VerbatimStringLiteral
+
+RULES
+
+  PrologCode ->
+    |SetCommaAsSeparator (false); // Comma-role only if comma is separating arguments|
+    |terminalTable [OP] = OpSym;|
+    |terminalTable [WRAP] = WrapSym;|
+    |inQueryMode = false;|
+    |try {|
+    !NL-
+    |terminalTable [ELLIPSIS] = Operator;| % range operator. If that is ever ...
+    %|terminalTable [ELLIPSIS] = Atom;|    % ... removed, use this line instead
+    |terminalTable [SUBTREE] = Operator;|
+    |terminalTable [STRINGSTYLE] = Atom;|
+    |if (terminalTable [NEGATE] == NegateSym) terminalTable [NEGATE] = Atom;|
+    (: BuiltinSym
+       |Initialize ();|
+       Predefineds
+    [] ProgramSym % consult
+       |Initialize ();|
+       Program
+    [] ReadingSym % for read( X)
+       PrologTerm + |out readTerm|
+       Dot
+    [] |engine.EraseVariables ();| % Query mode
+       |inQueryMode = true;|
+       (: |terminalTable [OP] = Atom;|
+          |terminalTable [WRAP] = Atom;|
+          |SetReservedOperators (true);|
+          Query + |out queryNode|
+       [] OpDefinition + |true|
+          |queryNode = null;|
+       [] WrapDefinition
+          |queryNode = null;|
+       :)
+       Dot
+    :) OPTION
+    |} finally { Terminate (); }|
+  ---
+
+
+  Program ->
+    |bool firstReport = true;| % minor cosmetic issue -- for reporting singletons only
+    ClauseNode + |ref firstReport| SEQUENCE OPTION % consulted file allowed to be empty
+  ---
+
+
+  ClauseNode + |ref bool firstReport| ->
+    |BaseTerm head;|
+    |TermNode body = null;|
+    |ClauseNode c;|
+    |engine.EraseVariables ();|
+    |int lineNo = symbol.LineNo;|
+    (: PrologTerm + |out head|
+       |if (!head.IsCallable)|
+       |  IO.Error ("Illegal predicate head: {0}", head.ToString ());|
+       |if (engine.predTable.Predefineds.Contains (head.Key))|
+       |  IO.Error ("Predefined predicate or operator '{0}' cannot be redefined.", head.FunctorToString);|
+       %|if (head.Precedence >= 1000)|
+       %|  IO.Error ("Predefined operator '{0}' cannot be redefined", head.FunctorToString);|
+       (: ImpliesSym
+          Query + |out body|
+       [] DCGArrowSym
+          |BaseTerm t;|
+          |readingDcgClause = true;| % determines how to interpret {t1, ... , tn}
+          PrologTerm + |out t|
+          |readingDcgClause = false;|
+          |body = t.ToDCG (ref head);|
+       :) OPTION
+       |c = new ClauseNode (head, body);|
+       |engine.ReportSingletons (c, lineNo - 1, ref firstReport);|
+       |ps.AddClause (c);|
+    [] PromptSym
+       |bool m = inQueryMode;|
+       |bool o = isReservedOperatorSetting;|
+       |try {|
+       |inQueryMode = true;|
+       |SetReservedOperators (true);|
+       Query + |out queryNode|
+       |IO.Error ("'?-' querymode in file not yet supported");|
+       |} finally {|
+       |inQueryMode = m;|
+       |SetReservedOperators (o);|
+       |}|
+    [] ImpliesSym
+       |terminalTable [STRINGSTYLE] = StringStyle;|
+       |terminalTable.Add (Module, "Module", "module");|
+       |terminalTable.Add (Discontiguous, "Discontiguous", "discontiguous");|
+       |terminalTable.Add (Dynamic, "Dynamic", "dynamic");|
+       |try {|
+       (: OpDefinition + |true|
+       [] DynamicDirective
+       [] WrapDefinition
+       [] EnsureLoaded
+          (: (: Atom [] Operator :)
+             |string fileName = Utils.ExtendedFileName (symbol.ToString ().ToLower (), ".pl");|
+             |if (Globals.ConsultedFiles [fileName] == null)|
+             |{|
+             |  ps.Consult (fileName);|
+             |  Globals.ConsultedFiles [fileName] = true;|
+             |}|
+          :) PACK
+       [] Discontiguous
+          |BaseTerm t;|
+          PrologTerm + |out t|
+          |ps.SetDiscontiguous (t);|
+       [] StringStyle
+          |BaseTerm t;|
+          PrologTerm + |out t|
+          |engine.SetStringStyle (t);|
+       [] AllDiscontiguous
+          |ps.SetDiscontiguous (true);|
+       [] Module % eg.: :-module(dict_n,[]). % not yet operational
+          (: |try {|
+             |SetCommaAsSeparator (true);|
+             (: Atom [] Operator :)
+             |ps.SetModuleName (symbol.ToString ());|
+             |IO.Warning ("line {0} -- :- 'module' directive not implemented -- ignored", symbol.LineNo);|
+             Comma
+             |} finally {|
+             |SetCommaAsSeparator (false);|
+             |}|
+             |BaseTerm t;|
+             PrologTerm + |out t|
+          :) PACK
+       [] LSqBracket
+          |int lines = 0;|
+          |int files = 0;|
+          |try {|
+          (: (: Atom [] Operator :)
+             |string fileName = Utils.FileNameFromSymbol (symbol.ToString (), ".pl");|
+             |SetCommaAsSeparator (false);|
+             |lines += ps.Consult (fileName);|
+             |files++;|
+             |SetCommaAsSeparator (true);|
+          :) LIST
+          |  if (files > 1) IO.Message ("Grand total is {0} lines", lines);|
+          |} finally {|
+          |SetCommaAsSeparator (false);|
+          |}|
+          RSqBracket
+       [] SimpleDirective
+       :)
+       |} finally {|
+       |terminalTable.Remove ("module");|
+       |terminalTable.Remove ("discontiguous");|
+       |terminalTable.Remove ("dynamic");|
+       |terminalTable [ELLIPSIS] = Atom;|
+       |terminalTable [STRINGSTYLE] = Atom;|
+       |terminalTable [SLASH] = Operator;|
+       |terminalTable [SUBTREE] = Operator;|
+       |}|
+    :)
+    Dot
+  ---
+
+
+  DynamicDirective -> % the dynamic directive is ignored
+    Dynamic
+    (: (: Atom [] Operator :)
+    [] (: Atom [] Operator :) PACK
+    :)
+    |string name = symbol.ToString ();|
+    |int saveSlash = terminalTable [SLASH];|
+    |int arity;|
+    |try|
+    |{|
+    |terminalTable [SLASH] = Slash;|
+    Slash
+    IntLiteral
+    |arity = symbol.ToInt ();|
+    |IO.Warning ("line {0} -- :- 'dynamic' directive not implemented -- ignored", symbol.LineNo);|
+    |}|
+    |finally|
+    |{|
+    |terminalTable [SLASH] = saveSlash;|
+    |}|
+  ---
+
+
+  SimpleDirective ->
+    Atom
+    |string directive = symbol.ToString ();|
+    |bool spaceAfter = symbol.IsFollowedByLayoutChar;|
+    |string argument = null;|
+    |int arity = -1;|
+    |int saveSlash = terminalTable [SLASH];|
+    |try|
+    |{|
+    |terminalTable [SLASH] = Slash;|
+    (: (: |if (spaceAfter)|
+          |  IO.Error ("Illegal space between directive '{0}' and left parenthesis", directive);|
+          (: Atom [] Operator :)
+          |argument = symbol.ToString ();|
+          (: Slash
+             IntLiteral
+             |arity = symbol.ToInt ();|
+          :) OPTION
+       [] (: StringLiteral [] IntLiteral :)
+          |argument = symbol.ToString ().Dequoted ();|
+       :)
+    :) PACK OPTION
+    |ps.HandleSimpleDirective (this, directive, argument, arity);|
+    |}|
+    |finally|
+    |{|
+    |terminalTable [SLASH] = saveSlash;|
+    |}|
+  ---
+
+
+  OpDefinition + |bool user| ->
+    |string name;|
+    |string assoc;|
+    |try {|
+    |SetCommaAsSeparator (true);|
+    OpSym
+    |int prec;|
+    LeftParen
+    (: IntLiteral
+       |prec = symbol.ToInt ();|
+    [] CutSym
+       |prec = -1;|
+    :)
+    Comma
+    (: Atom [] Operator :)
+    |assoc = symbol.ToString ();| % xfy, yfx, etc.
+    Comma
+    (: LSqBracket
+       (: PotentialOpName + |out name|
+          |if (prec == -1)|
+          |  RemovePrologOperator (assoc, name, user);|
+          |else|
+          |  AddPrologOperator (prec, assoc, name, user);|
+       :) LIST
+       RSqBracket
+    [] PotentialOpName + |out name|
+       |if (prec == -1)|
+       |  RemovePrologOperator (assoc, name, user);|
+       |else|
+       |  AddPrologOperator (prec, assoc, name, user);|
+    :)
+    RightParen
+    |} finally {|
+    |SetCommaAsSeparator (false);|
+    |}|
+  ---
+
+
+  WrapDefinition ->
+    |// wrapClose is set to the reverse of wrapOpen if only one argument is supplied.|
+    |string wrapOpen;|
+    |string wrapClose = null;|
+    |bool useAsList = false;|
+    |try {|
+    |SetCommaAsSeparator (true);|
+    WrapSym
+    LeftParen
+    PotentialOpName + |out wrapOpen|
+    (: Comma
+       (: VBar
+          |useAsList = true;|
+          (: Comma
+             PotentialOpName + |out wrapClose|
+             |wrapClose = symbol.ToString ();|
+          :) OPTION
+       [] PotentialOpName + |out wrapClose|
+          |wrapClose = symbol.ToString ();|
+       :) OPTION
+    :) OPTION
+    |if (wrapClose == null) wrapClose = wrapOpen.Mirror ();|
+    RightParen
+    |AddBracketPair (wrapOpen, wrapClose, useAsList);|
+    |} finally {|
+    |SetCommaAsSeparator (false);|
+    |}|
+  ---
+
+
+  PotentialOpName + |out string name| ->
+    (: (: Atom [] Operator [] WrapOpen [] WrapClose [] ReservedWord :)
+       |name = symbol.ToString ();|
+    [] PotentialOpName + |out name| PACK
+    :)
+  ---
+
+
+  ReservedWord ->
+    (: OpSym
+    [] WrapSym
+    [] EnsureLoaded
+    [] Discontiguous
+    [] StringStyle
+    [] AllDiscontiguous
+    [] Module
+    [] Dynamic
+    :)
+  ---
+
+
+  Predefineds ->
+    Predefined SEQUENCE
+  ---
+
+
+  Predefined ->
+    |BaseTerm head;|
+    |bool     opt  = true;|
+    |TermNode body = null;|
+    |engine.EraseVariables ();|
+    (: ImpliesSym
+       (: OpDefinition + |false|
+       [] WrapDefinition
+       [] SimpleDirective
+       :)
+    [] (: PrologTerm + |out head|
+          (: BuiltinCSharp
+             (: Atom [] Operator :)
+             |ps.AddPredefined (new ClauseNode (head, new TermNode (symbol.ToString ())));|
+             |opt = false;|
+          [] ImpliesSym
+             Query + |out body|
+             |ps.AddPredefined (new ClauseNode (head, body));|
+             |opt = false;|
+          [] DCGArrowSym
+             |BaseTerm term;|
+             |readingDcgClause = true;|
+             PrologTerm + |out term|
+             |readingDcgClause = false;|
+             |body = term.ToDCG (ref head);|
+             |ps.AddPredefined (new ClauseNode (head, body));|
+             |opt = false;|
+          :) OPTION
+          |if (opt) ps.AddPredefined (new ClauseNode (head, null));|
+       :)
+    :)
+    Dot
+  ---
+
+
+  Query + |out TermNode body| ->
+    |BaseTerm t = null;|
+    PrologTerm + |out t|
+    |body = t.ToGoalList ();|
+  ---
+
+
+  PrologTerm + |out BaseTerm t| ->
+    |bool saveStatus = SetCommaAsSeparator (false);| % Comma is operator initially
+    PrologTermEx + |out t|
+    |SetCommaAsSeparator (saveStatus);|
+  ---
+
+
+  /* A space between an operator and an open parenthesis is significant
+     if and only if the both following conditions have been fulfilled:
+     - The expression between parentheses has a comma as top operator
+     - The operator is *not* preceded by a term (but by another operator
+       or when it is the first token);
+     When the space is significant, the expression between parentheses
+     is to be interpreted as a comma-term; otherwise as an argument list
+     for the preceding operator which is now interpreted as a functor.
+  */
+
+  PrologTermEx + |out BaseTerm t| ->
+    |string functor;|
+    |OpDescrTriplet triplet;|
+    |bool spaceAfter;| % stands for: layout text immediately after the operator / functor
+    |TokenSeqToTerm tokenSeqToTerm = new TokenSeqToTerm (opTable);|
+    (: |triplet = null;|
+       |BaseTerm [] args = null;|
+       (: Operator
+          |spaceAfter = symbol.IsFollowedByLayoutChar;|
+          |triplet = symbol.Payload;|
+          |bool commaAsSeparator = !spaceAfter && tokenSeqToTerm.PrevTokenWasOperator;|
+          ArgumentList + |out args, commaAsSeparator| PACK OPTION
+          |if (args == null)|
+          |  tokenSeqToTerm.Add (triplet); // single operator|
+          |else if (commaAsSeparator)|
+          |  tokenSeqToTerm.AddOperatorFunctor (triplet, args); // operator as functor with >= 1 args|
+          |else|
+          |{|
+          |  tokenSeqToTerm.Add (triplet);|
+          |  tokenSeqToTerm.Add (args [0]);|
+          |}|
+       [] (: Atom
+             |functor = symbol.ToString ();|
+             |spaceAfter = symbol.IsFollowedByLayoutChar;|
+             ArgumentList + |out args, true| PACK OPTION
+             |tokenSeqToTerm.AddFunctorTerm (functor, spaceAfter, args);|
+          [] LeftParen
+             |bool saveStatus = SetCommaAsSeparator (false);| % Comma is operator
+             PrologTermEx + |out t|
+             |SetCommaAsSeparator (saveStatus);|
+             |tokenSeqToTerm.Add (t);|
+             RightParen
+          [] GetIdentifier + |out t|
+             |tokenSeqToTerm.Add (t);|
+          [] Anonymous
+             |tokenSeqToTerm.Add (new AnonymousVariable ());|
+          [] CutSym
+             |tokenSeqToTerm.Add (new Cut (0));|
+          [] AltList + |out t| % must come before List (e.g. for [{ ... }] )
+             |tokenSeqToTerm.Add (t);|
+          [] List + |out t|
+             |tokenSeqToTerm.Add (t);|
+          [] (: IntLiteral [] RealLiteral :)
+             |tokenSeqToTerm.Add (new DecimalTerm (symbol.ToDecimal ()));|
+          [] ImagLiteral
+             |tokenSeqToTerm.Add (new ComplexTerm (0, symbol.ToImaginary ()));|
+          [] StringLiteral
+             |string s = symbol.ToUnquoted ();|
+             |s = ConfigSettings.ResolveEscapes ? s.Unescaped () : s.Replace ("\"\"", "\"");|
+             |tokenSeqToTerm.Add (engine.NewIsoOrCsStringTerm (s));|
+          [] VerbatimStringLiteral
+             |string s = symbol.ToUnquoted ();|
+             |s = s.Replace ("\"\"", "\"");|
+             |tokenSeqToTerm.Add (engine.NewIsoOrCsStringTerm (s));|
+          [] DCGBracketList + |out t|
+             |tokenSeqToTerm.Add (t);|
+          [] WrapOpen
+             |string wrapOpen = symbol.ToString ();|
+             (: |string wrapClose = engine.WrapTable.FindCloseBracket (wrapOpen);|
+                |bool saveStatus = SetCommaAsSeparator (false);| % Comma is operator
+                ArgumentList + |out args, true|
+                |SetCommaAsSeparator (saveStatus);|
+                WrapClose
+                |if (symbol.ToString () != wrapClose)|
+                |  IO.Error ("Illegal wrapper close token: got '{0}' expected '{1}'",|
+                |             symbol.ToString (), wrapClose);|
+                |tokenSeqToTerm.Add (new WrapperTerm (wrapOpen, wrapClose, args));|
+             :) OPTION
+             |if (args == null) tokenSeqToTerm.Add (new AtomTerm (wrapOpen.ToAtom ()));|
+          [] (: WrapClose [] AltListClose :)
+             |string orphanCloseBracket = symbol.ToString ();|
+             |tokenSeqToTerm.Add (new AtomTerm (orphanCloseBracket.ToAtom ()));|
+          [] ListPatternOpen
+             ListPatternMembers + |out t|
+             ListPatternClose
+             |tokenSeqToTerm.Add (t);|
+          [] TryCatchClause + |tokenSeqToTerm, out t|
+          :)
+       :)
+    :) SEQUENCE
+    |tokenSeqToTerm.ConstructPrefixTerm (out t);|
+  ---
+
+
+  GetIdentifier + |out BaseTerm t| ->
+    Identifier
+    |string id = symbol.ToString ();|
+    % if arrays are implemented:
+    %|BaseTerm subscipts;|
+    %List + |out subscipts| OPTION
+    %|t = engine.GetVariable (id, subscripts);|
+    |t = engine.GetVariable (id);|
+    |if (t == null)| % first occurance
+    |{|
+    |  t = new NamedVariable (id);|
+    |  engine.SetVariable (t, id);|
+    |}|
+    |else|
+    |  engine.RegisterVarNonSingleton (id);|
+  ---
+
+  /* ArgumentList parses a sequence of terms separated by commas. If 'commaIsSeparator' is true,
+     the sequence is interpreted as a comma-separated list of terms (returned in 'args'); otherwise
+     the comma is interpreted as an operator. In that case, a single term is returned in args[0].
+     Also in that case, the phrase 'a sequence of terms separated by commas' is not completely
+     correct, because of operator preferences. E.g. 'a, b;c, d' is *not* a sequence of three terms,
+     but rather a term with ';' as main operator: (a, b) ; (c, d).
+  */
+
+  ArgumentList + |out BaseTerm [] args, bool commaIsSeparator| ->
+    |bool b = isReservedOperatorSetting;| % remember setting at entry
+    |List<BaseTerm> argList = new List<BaseTerm> ();|
+    |BaseTerm a;|
+    |bool saveStatus = SetCommaAsSeparator (commaIsSeparator);|
+    |SetReservedOperators (true);|
+    (: PrologTermEx + |out a|
+       |argList.Add (a);|
+    :) CHAIN Comma
+    |SetCommaAsSeparator (saveStatus);|
+    |SetReservedOperators (b);| % reset to setting at entry
+    |args = argList.ToArray ();|
+  ---
+
+
+  ListPatternMembers + |out BaseTerm t| ->
+    |bool b = isReservedOperatorSetting;| % remember setting at entry
+    |List<SearchTerm> searchTerms;|
+    |bool saveStatus = SetCommaAsSeparator (true);|
+    |int saveEllipsis = terminalTable [ELLIPSIS];|
+    |int saveNegate = terminalTable [NEGATE];|
+    |int saveSubtree = terminalTable [SUBTREE];|
+    |SetReservedOperators (true);|
+    |bool isRangeVar;|
+    |bool lastWasRange = false;|
+    |List<ListPatternElem> rangeTerms = new List<ListPatternElem> ();|
+    |try {|
+    |bool isSearchTerm = false;|
+    |BaseTerm RangeVar = null;|
+    |BaseTerm minLenTerm;|
+    |BaseTerm maxLenTerm;|
+    |BaseTerm altListName = null;|
+    |minLenTerm = maxLenTerm = new DecimalTerm (0);|
+    |searchTerms = null;|
+    |bool isSingleVar;|
+    |bool isNegSearch = false;|
+    (: |terminalTable [ELLIPSIS] = EllipsisSym;|
+       |terminalTable [NEGATE] = NegateSym;|
+       |terminalTable [SUBTREE] = SubtreeSym;|
+       (: |if (lastWasRange)|
+          |{|
+          |  rangeTerms.Add (new ListPatternElem (minLenTerm, maxLenTerm, RangeVar, null, null, false, false));|
+          |  RangeVar = null;|
+          |}|
+          Range + |out minLenTerm, out maxLenTerm|
+          |lastWasRange = true;|
+       [] |isRangeVar = false;|
+          (: AlternativeTerms + |saveEllipsis, saveNegate, saveSubtree, out searchTerms, out altListName, out isSingleVar, out isNegSearch|
+             |isSearchTerm = true;| % undone if Range follows
+          :)
+          (: |if (!isSingleVar) IO.Error ("Range specifier may be preceded by a variable only");|
+             |if (lastWasRange)|
+             |  rangeTerms.Add (new ListPatternElem (minLenTerm, maxLenTerm, RangeVar, null, null, false, false));|
+             Range + |out minLenTerm, out maxLenTerm|
+             |isRangeVar = true;|
+             |lastWasRange = true;|
+             |isSearchTerm = false;|
+          :) OPTION
+          |if (isRangeVar)|
+          |  RangeVar = searchTerms [0].term;|
+          |else|
+          |  lastWasRange = false;|
+       :)
+       |if (isSearchTerm)|
+       |{|
+       |  rangeTerms.Add (new ListPatternElem (minLenTerm, maxLenTerm, RangeVar, altListName, searchTerms, isNegSearch, false));|
+       |  isSearchTerm = false;|
+       |  RangeVar = null;|
+       |  altListName = null;|
+       |  searchTerms = null;|
+       |  minLenTerm = maxLenTerm = new DecimalTerm (0);|
+       |}|
+    :) CHAIN Comma
+    |if (lastWasRange) rangeTerms.Add (new ListPatternElem (minLenTerm, maxLenTerm, RangeVar, null, null, false, false));|
+    |t = new ListPatternTerm (rangeTerms.ToArray ());|
+    |} finally {|
+    |SetCommaAsSeparator (saveStatus);|
+    |terminalTable [ELLIPSIS] = saveEllipsis;|
+    |terminalTable [NEGATE] = saveNegate;|
+    |terminalTable [SUBTREE] = saveSubtree;|
+    |SetReservedOperators (b);| % reset to setting at entry
+    |}|
+  ---
+
+
+  AlternativeTerms + |int saveEllipsis, int saveNegate, int saveSubtree, out List<SearchTerm> searchTerms,| +
+      |out BaseTerm altListName, out bool isSingleVar, out bool isNegSearch| ->
+    |searchTerms = new List<SearchTerm> ();|
+    |BaseTerm t;|
+    |altListName = null;|
+    |bool first = true;|
+    |DownRepFactor downRepFactor = null;| %!!!!!!!!!!!!!!!!!!!!!!! will remain null
+    |isNegSearch = false;|
+    (: (: |if (isNegSearch) IO.Error ("Only one '~' allowed (which will apply to the entire alternatives list)");|
+          NegateSym + |isNegSearch = true|   % match if pattern term does *not* unify with search term
+       :) OPTION
+       |//terminalTable [ELLIPSIS] = saveEllipsis;| % Ellipsis ('..') possibly has a different definition within a term
+       |//terminalTable [NEGATE]   = saveNegate;|   % Negate ('~') ...
+       |//terminalTable [SUBTREE]  = saveSubtree;|  % Subtree ('\') ...
+       PrologTermEx + |out t|
+       |//terminalTable [ELLIPSIS] = EllipsisSym;|
+       |//terminalTable [NEGATE]   = NegateSym;|
+       |//terminalTable [SUBTREE]  = SubtreeSym;|
+       |if (!first) searchTerms.Add (new SearchTerm (downRepFactor, t));|
+       |//if (t is AnonymousVariable)|
+       |//  IO.Warning ("Anonymous variable in alternatives list makes it match anything");|
+    :) CHAIN
+    (: VBar
+       |if (first) searchTerms.Add (new SearchTerm (downRepFactor, t));|
+    [] CutSym
+       |if (first)|
+       |{|
+       |  if (t is Variable)|
+       |  {|
+       |    if (isNegSearch)|
+       |      IO.Error ("'~' not allowed before alternatives list name");|
+       |    else|
+       |      altListName = t;|
+       |  }|
+       |  else|
+       |    IO.Error ("Variable expected before !");|
+       |  first = false;|
+       |}|
+       |else|
+       |  IO.Error ("Only one ! allowed for alternatives list");|
+    :)
+    |if (first) searchTerms.Add (new SearchTerm (downRepFactor, t));|
+    |isSingleVar = (searchTerms.Count == 1 && searchTerms [0].term is Variable);|
+  ---
+
+
+  Range + |out BaseTerm minLenTerm, out BaseTerm maxLenTerm| ->
+    |try|
+    |{|
+   |  savePlusSym = terminalTable [PLUSSYM];|
+   |  saveTimesSym = terminalTable [TIMESSYM];|
+   |  saveQuestionMark = terminalTable [QUESTIONMARK];|
+    |  terminalTable [PLUSSYM] = PlusSym;|
+    |  terminalTable [TIMESSYM] = TimesSym;|
+    |  terminalTable [QUESTIONMARK] = QuestionMark;|
+    (: |int minLen = 0;|
+       |int maxLen = 0;|
+       |minLenTerm = maxLenTerm = DecimalTerm.ZERO;|
+       LCuBracket
+       (: (: IntLiteral
+             |minLen = maxLen = symbol.ToInt ();|
+             |minLenTerm = maxLenTerm = new DecimalTerm (minLen);|
+          [] GetIdentifier + |out minLenTerm|
+             |maxLenTerm = minLenTerm;|
+          :) OPTION
+          (: Comma
+             |maxLen = Infinite;|
+             |maxLenTerm = new DecimalTerm (Infinite);|
+             (: IntLiteral %  % e.g. {2,5} meaning mimimal 2, maximal 5 terms; or e.g. {,5} meaning 5 terms at most
+                |if (minLen > (maxLen = symbol.ToInt ()))|
+                |  IO.Error ("Range lower bound {0} not allowed to be greater than range upper bound {1}", minLen, maxLen);|
+                |maxLenTerm = new DecimalTerm (maxLen);|
+             [] GetIdentifier + |out maxLenTerm|
+             :) OPTION % e.g. {5,} meaning 5 terms or more
+          :) OPTION % e.g. {5} meaning exacly 5 terms
+       [] TimesSym
+          |minLenTerm = new DecimalTerm (0);|
+          |maxLenTerm = new DecimalTerm (Infinite);|
+       [] PlusSym
+          |minLenTerm = new DecimalTerm (1);|
+          |maxLenTerm = new DecimalTerm (Infinite);|
+       [] QuestionMark
+          |minLenTerm = new DecimalTerm (0);|
+          |maxLenTerm = new DecimalTerm (1);|
+       :)
+       RCuBracket
+    [] EllipsisSym
+       |minLenTerm = new DecimalTerm (0);|
+       |maxLenTerm = new DecimalTerm (Infinite);|
+    :)
+    |}|
+    |finally|
+    |{|
+    |  terminalTable [PLUSSYM] = savePlusSym;|
+    |  terminalTable [TIMESSYM] = saveTimesSym;|
+    |  terminalTable [QUESTIONMARK] = saveQuestionMark;|
+    |}|
+  ---
+
+
+  TryCatchClause + |TokenSeqToTerm tokenSeqToTerm, out BaseTerm t| ->
+    TrySym
+    |bool nullClass = false;|
+    |tokenSeqToTerm.Add (new TryOpenTerm ());|
+    |tokenSeqToTerm.Add (CommaOpTriplet);|
+    PrologTermEx + |out t| PACK
+    |tokenSeqToTerm.Add (t);|
+    |tokenSeqToTerm.Add (CommaOpTriplet);|
+    |List<string> ecNames = new List<string> ();|
+    |int catchSeqNo = 0;|
+    (: CatchSym
+       |if (nullClass)|
+       |  IO.Error ("No CATCH-clause allowed after CATCH-clause without exception class");|
+       |string exceptionClass = null;|
+       |BaseTerm msgVar = null;| % will contain the Throw-message
+       (: |bool saveStatus = SetCommaAsSeparator (true);|
+          (: Atom [] IntLiteral :)
+          |if (ecNames.Contains (exceptionClass = symbol.ToString ()))|
+          |  IO.Error ("Duplicate exception class name '{0}'", exceptionClass);|
+          |else|
+          | ecNames.Add (exceptionClass);|
+          (: Comma OPTION
+             GetIdentifier + |out msgVar|
+          :) OPTION
+          |SetCommaAsSeparator (saveStatus);|
+       [] GetIdentifier + |out msgVar|
+       :) OPTION
+       |nullClass = nullClass |||| (exceptionClass == null);|
+       |if (msgVar == null) msgVar = new AnonymousVariable ();|
+       |tokenSeqToTerm.Add (new CatchOpenTerm (exceptionClass, msgVar, catchSeqNo++));|
+       |tokenSeqToTerm.Add (CommaOpTriplet);|
+       |t = null;|
+       LeftParen
+       PrologTermEx + |out t| OPTION % empty catch clause is allowed
+       RightParen
+       |if (t != null)|
+       |{|
+       |  tokenSeqToTerm.Add (t);|
+       |  tokenSeqToTerm.Add (CommaOpTriplet);|
+       |}|
+    :) SEQUENCE
+    |tokenSeqToTerm.Add (TC_CLOSE);|
+  ---
+
+
+  OptionalPrologTerm + |out BaseTerm t| ->
+    |t = null;|
+    (: PrologTerm + |out t|
+       Dot
+    [] EndOfInput
+    :) 
+  ---
+
+
+  List + |out BaseTerm term| ->
+    |BaseTerm afterBar = null;|
+    |terminalTable [OP] = Atom;|
+    |terminalTable [WRAP] = Atom;|
+    |BaseTerm [] elements = null;|
+    LSqBracket
+    (: ArgumentList + |out elements, true|
+       (: VBar
+          PrologTerm + |out afterBar|
+       :) OPTION
+    :) OPTION
+    |terminalTable [OP] = OpSym;|
+    |terminalTable [WRAP] = WrapSym;|
+    RSqBracket
+    |term = (afterBar == null) ? new ListTerm () : afterBar;|
+    |if (elements != null) term = ListTerm.ListFromArray (elements, term);|
+  ---
+
+
+  AltList + |out BaseTerm term| ->
+    |BaseTerm afterBar = null;|
+    |terminalTable [OP] = Atom;|
+    |terminalTable [WRAP] = Atom;|
+    |BaseTerm [] elements = null;|
+    AltListOpen
+    |string altListOpen = symbol.ToString ();|
+    |string altListClose = engine.AltListTable.FindCloseBracket (altListOpen);|
+     (: ArgumentList + |out elements, true|
+      (: VBar
+          PrologTerm + |out afterBar|
+       :) OPTION
+    :) OPTION
+    |terminalTable [OP] = OpSym;|
+    |terminalTable [WRAP] = WrapSym;|
+    AltListClose
+    |if (symbol.ToString () != altListClose)|
+    |  IO.Error ("Illegal alternative list close token: got '{0}' expected '{1}'",|
+    |             symbol.ToString (), altListClose);|
+    |term = (afterBar == null) ? new AltListTerm (altListOpen, altListClose) : afterBar;|
+    |if (elements != null)|
+    |  term = AltListTerm.ListFromArray (altListOpen, altListClose, elements, term);|
+  ---
+
+
+  DCGBracketList + |out BaseTerm term| ->
+    |terminalTable [OP] = Atom;|
+    |terminalTable [WRAP] = Atom;|
+    |BaseTerm [] elements = null;|
+    LCuBracket
+    ArgumentList + |out elements, true| OPTION
+    RCuBracket
+    |term = BaseTerm.NULLCURL;|
+    |if (elements != null)|
+    |  if (readingDcgClause)|
+    |    for (int i = elements.Length-1; i >= 0; i--)|
+    |      term = new DcgTerm (elements [i], term);|
+    |  else|
+    |    term = new CompoundTerm (CURL, elements);|
+  ---
+
+ROOT
+
+  PrologCode

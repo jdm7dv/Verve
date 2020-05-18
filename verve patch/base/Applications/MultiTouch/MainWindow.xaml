@@ -1,0 +1,27 @@
+﻿<Window x:Class="TouchRect.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TouchRect"
+        Title="MultiTouch" Height="700" Width="1000">
+    <Grid x:Name="canvas">
+       
+
+            <Image x:Name="image" Width="200" IsManipulationEnabled="True" Source="image1.jpg" Margin="42,-239,736,239">
+                <Image.RenderTransform>                     
+                    <MatrixTransform Matrix="1.5929750047527,0.585411309251951,-0.585411309251951,1.5929750047527,564.691807426081,79.4658072348299"/> 
+                </Image.RenderTransform>
+            </Image>
+
+            <Image x:Name="image2" Width="200" IsManipulationEnabled="True" Source="image2.jpg" Margin="-22,-178,800,178">
+                <Image.RenderTransform>
+                    <MatrixTransform  Matrix="1.79780224775912,-1.1136472330559,1.1136472330559,1.79780224775912,45.6962327448951,205.029554723656" />
+                </Image.RenderTransform>
+            </Image>
+            <Image x:Name="image3" Width="200" IsManipulationEnabled="True" Source="image3.jpg" Margin="-41,-315,819,315">
+                <Image.RenderTransform>
+                    <MatrixTransform Matrix="2.41806325085411,-0.0527474549128994,0.0527474549128994,2.41806325085411,280.737615796121,292.420001677231"/>
+                </Image.RenderTransform>
+            </Image>
+           
+    </Grid>
+</Window>

@@ -1,0 +1,235 @@
+//-----------------------------------------------------------------------------
+//
+// Copyright (C) Microsoft Corporation.  All Rights Reserved.
+//
+//-----------------------------------------------------------------------------
+namespace Microsoft.Boogie
+{
+  using System;
+  using System.IO;
+  using System.Collections;
+  using System.Collections.Generic;
+  using PureCollections;
+  using Microsoft.Boogie;
+  using Microsoft.Boogie.AbstractInterpretation;
+  using System.Diagnostics;
+  using VC;
+  using Cci = System.Compiler;
+  using AI = Microsoft.AbstractInterpretationFramework;
+  using Microsoft.Contracts;
+
+  public class ErrorReporting {
+
+    public void errorReportingWithTrace(TranslatedProgram! translatedProgram,
+                      System.Collections.Generic.List<Microsoft.Boogie.Counterexample> errors,
+                      Implementation! impl) {
+      if (errors != null) {
+        foreach (Counterexample! error in errors)
+        {
+          string! trace = "";
+          List<Cci.CfgBlock!> relatedPositionNodesList = new List<Cci.CfgBlock!>();
+
+          if (CommandLineOptions.Clo.ErrorTrace > 0) {
+            List<Cci.CfgBlock!>! l = new List<Cci.CfgBlock!>();
+            bool lastBlockHasSourceLocation = false;
+            foreach (Block! b in (!)error.Trace) {
+              lastBlockHasSourceLocation = false;
+              string blockLabel = b.Label;
+              if (blockLabel == null) {
+                // No output as no useful information for the programmer can be given.
+              } else {
+                IDictionary<String!,Cci.CfgBlock!>! map = translatedProgram.GetBlockNameToSourceNodeMap();
+                if (!map.ContainsKey(blockLabel)) {
+                  // No output as the current block can not be mapped back to an interesting
+                  // block in the source code.
+                } else {
+                  if (b.Predecessors != null && b.Predecessors.Length == 1 && blockLabel.Contains("to")) {
+                    // If 'b' is an intermediate block, which is used to encode conditionals, we want
+                    // to make sure that the corresponding branch block is also included.
+                    // This is necessary if the branch block has been removed by Boogie during
+                    // an optimization (e.g., removeEmptyBlocks).
+                    string! predecessorLabel = blockLabel.Substring(0, blockLabel.IndexOf("to")).Replace("true", "block").Replace("false", "block");
+                    if (map.ContainsKey(predecessorLabel)) {
+                      l.Add(map[predecessorLabel]);
+                    }
+                  }
+                  l.Add(map[blockLabel]);
+                  lastBlockHasSourceLocation = true;
+                }
+              }
+            }
+            if (!lastBlockHasSourceLocation) {
+              l.Add(new Cci.CfgBlock(null));
+            }
+
+            if (0 < l.Count) {
+              int i = ComputeNonDominatingPathElements(l[0], 1, l);
+              while (i < l.Count - 1) {
+                relatedPositionNodesList.Add(l[i]);
+                // compute the next relevant node
+                i = ComputeNonDominatingPathElements(l[i], i+1, l);
+              }
+            }
+          }
+
+
+          foreach (string! info in (!)error.relatedInformation) {
+            trace += "\r\n       " + info;
+          }
+
+
+          if (error is CallCounterexample)
+          {
+              CallCounterexample! error_ = (CallCounterexample!) error;
+              Cci.Node offendingNode = (Cci.Node!) ((!)error_.FailingCall).ErrorData;
+              string msg = (string!)((!)error_.FailingRequires).ErrorData;
+              msg += trace;
+              translatedProgram.HandleError(offendingNode, msg);
+              PrintTracePositions(translatedProgram, relatedPositionNodesList, offendingNode);
+
+              if (CommandLineOptions.Clo.XmlSink != null) {
+                CommandLineOptions.Clo.XmlSink.WriteError(msg, offendingNode, error.Trace);
+              }
+          }
+          else if (error is ReturnCounterexample)
+          {
+              ReturnCounterexample! error_ = (ReturnCounterexample!) error;
+              string msg = (string!)((!)error_.FailingEnsures).ErrorData;
+              if (impl.Name.Contains("Boogie.ContractConsistencyCheck.")) {
+                msg = msg.Replace("Boogie.ContractConsistencyCheck.", "");
+                msg = "Could not establish consistency of pure method contract. " + msg;
+              }
+              msg += trace;
+              Cci.Node offendingNode = (!)translatedProgram.GetMethodFromImplementation(impl).Name;
+              translatedProgram.HandleError(offendingNode, msg);
+              PrintTracePositions(translatedProgram, relatedPositionNodesList, offendingNode);
+
+              if (CommandLineOptions.Clo.XmlSink != null) {
+                CommandLineOptions.Clo.XmlSink.WriteError(msg, offendingNode, error.Trace);
+              }
+          }
+          else // (error is AssertCounterExample)
+          {
+              AssertCounterexample! error_ = (AssertCounterexample!) error;
+              assume ((!)error_.FailingAssert).ErrorData is Translator.ErrorPair;
+              Translator.ErrorPair! ep = (Translator.ErrorPair)error_.FailingAssert.ErrorData;
+              string reason = ep.reason;
+              if (impl.Name.Contains("Boogie.ContractConsistencyCheck.")) {
+                string pureMethodName = (!)translatedProgram.GetMethodFromImplementation(impl).FullName;
+                pureMethodName = pureMethodName.Replace("Boogie.ContractConsistencyCheck.", "");
+                reason = "Could not establish consistency of pure method contract " + pureMethodName + ". " + reason;
+              }
+              if (error_.FailingAssert is LoopInvMaintainedAssertCmd) {
+                // give maintenance failure as reason
+                reason = "After loop iteration: " + reason;
+              }
+              else if (ep.reason.StartsWith("Loop invariant ") /*&& error_.FailingAssert is LoopInitAssertCmd*/){
+                // give initial failure as reason
+                reason = "Initially: " + reason;
+              }
+              reason = reason + trace;
+              translatedProgram.HandleError(ep.offendingNode, reason);
+              PrintTracePositions(translatedProgram, relatedPositionNodesList, ep.offendingNode);
+
+              if (CommandLineOptions.Clo.XmlSink != null) {
+                CommandLineOptions.Clo.XmlSink.WriteError(reason, ep.offendingNode, error.Trace);
+              }
+          }
+        }
+      }
+
+    }
+
+
+    /**
+     * Does the block 'b' contain the statement 's'?
+     */
+    [Pure] private static bool ContainsStatement(Cci.CfgBlock! b, Cci.Statement! s)
+    {
+      for (int i = 0; i < b.Statements.Count; i++) {
+        if (s.Equals(b.Statements[i])) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+
+    /**
+     * Prints the trace positions, while removing duplicates.
+     */
+    private static void PrintTracePositions(TranslatedProgram! translatedProgram, List<Cci.CfgBlock!>! relatedPositionNodes, Cci.Node! offendingNode)
+    {
+      Cci.Node previous = null;
+      for (int i = 0; i < relatedPositionNodes.Count; i++) {
+        Cci.Node current = relatedPositionNodes[i].BeginSourceContext();
+        if (current != null && current.SourceContext.Document != null &&
+            (previous == null || !current.SourceContext.Equals(previous.SourceContext))) {
+          // The current node has a source context different from the last one.
+          if ((i < (relatedPositionNodes.Count - 1)) ||
+               !current.SourceContext.Equals(offendingNode.SourceContext)) {
+            // We want to guarantee that the last trace position is not the same as the trace position of the offending node.
+            if (!(current is Cci.CfgBlock && offendingNode is Cci.Statement) || !ContainsStatement((Cci.CfgBlock) current, (Cci.Statement) offendingNode)) {
+              // We don't want the offending node to be a statement of the current block.
+              translatedProgram.HandleError(current, "    (trace position)");
+              previous = current;
+            }
+          }
+        }
+      }
+    }
+
+
+    /**
+     * Is the block 'other' an unconditional non-contract successor of the block 'current'?
+     */
+    [Pure] private static bool IsUnconditionalNonContractSuccessor(Cci.CfgBlock current, Cci.CfgBlock! other)
+    {
+      bool result = other.Equals(current);
+
+      Cci.HashSet/*<Cci.CfgBlock>*/! visited = new Cci.HashSet/*<Cci.CfgBlock>*/();
+
+      while (!result && current != null && !visited.Contains(current)) {
+        visited.Add(current);
+        IEnumerator! successors = Translator.NonContractSuccessors(current).GetEnumerator();
+        int count = 0;
+        Cci.CfgBlock first = null;
+        while (successors.MoveNext()) {
+          if (first == null) {
+            first = (Cci.CfgBlock) successors.Current;
+          }
+          count++;
+        }
+
+        if (count == 1) {
+          result = other.Equals(first);
+          current = first;
+        } else {
+          current = null;
+        }
+      }
+      return result;
+    }
+
+
+    static int ComputeNonDominatingPathElements(Cci.CfgBlock! b, int j, List<Cci.CfgBlock!>! l)
+    {
+      // For debugging purposes bypass this filtering method and just handle every element of the list.
+      if (CommandLineOptions.Clo.ErrorTrace == 2) {
+        return j;
+      }
+
+      if (l.Count <= j) {
+        return j;
+      }
+
+      if (!IsUnconditionalNonContractSuccessor(b, l[j])) {
+        return j;
+      } else {
+        // Skip the block.
+        return ComputeNonDominatingPathElements(l[j], j+1, l);
+      }
+    }
+
+  }
+}

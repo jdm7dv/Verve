@@ -1,0 +1,6 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\Decompiler\ILSpyAddIn.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\DisplayBindings\Decompiler\ILSpyAddIn.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ILSpyAddIn\obj\Release\ILSpyAddIn.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ILSpyAddIn\obj\Release\ICSharpCode.ILSpyAddIn.SetILSpyPathDialog.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ILSpyAddIn\obj\Release\ILSpyAddIn.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\DisplayBindings\ILSpyAddIn\obj\Release\ILSpyAddIn.dll

@@ -1,0 +1,29 @@
+using Microsoft.Contracts;
+
+namespace CollectionCaptured {
+
+public class Iterator {
+  [Peer] public Collection Coll;
+
+  public Iterator([Captured] Collection c)  // captures 'c'
+    ensures Owner.Same(this, c);
+  {
+    Coll = c;  // c.owner = this.owner;
+  }
+
+  [Captured]
+  public Iterator(Collection c, int x)  // captures 'this'
+    ensures Owner.Same(this, c);
+  {
+    Owner.AssignSame(this, c);  // this.owner = c.owner;
+    Coll = c;                   // c.owner = this.owner;
+  }
+
+  // ...
+}
+
+public class Collection {
+  // ...
+}
+
+}

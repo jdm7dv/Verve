@@ -1,0 +1,5 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\UnitTests\ICSharpCode.Core.Tests.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\UnitTests\ICSharpCode.Core.Tests.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\Core\Test\obj\Release\ICSharpCode.Core.Tests.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\Core\Test\obj\Release\ICSharpCode.Core.Tests.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\Core\Test\obj\Release\ICSharpCode.Core.Tests.pdb

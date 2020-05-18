@@ -1,0 +1,5 @@
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Administration\bin\Arachnode.Administration.XML
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Administration\bin\Arachnode.Administration.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Administration\bin\Arachnode.Administration.pdb
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Administration\obj\Demo\Arachnode.Administration.dll
+C:\Users\Mike\Desktop\DEMO_3.0 - VS2010 - SQL2008\Administration\obj\Demo\Arachnode.Administration.pdb

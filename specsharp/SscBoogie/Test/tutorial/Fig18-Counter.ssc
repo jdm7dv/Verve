@@ -1,0 +1,31 @@
+using Microsoft.Contracts;
+
+namespace Abstraction {
+
+public class Counter {
+  int inc;
+  int dec;
+
+  [Pure][Delayed]
+  public int GetX() {
+    return inc - dec;
+  }
+
+  public Counter()
+    ensures GetX() == 0;
+  {
+  }
+
+  public void Inc()
+    ensures GetX() == old(GetX()) + 1;
+  {
+    inc++;
+  }
+
+  public void Dec()
+    ensures GetX() == old(GetX()) - 1;
+  {
+    dec++;
+  }
+}
+}

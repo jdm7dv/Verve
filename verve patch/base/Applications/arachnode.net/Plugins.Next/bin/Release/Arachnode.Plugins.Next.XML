@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Plugins.Next</name>
+    </assembly>
+    <members>
+        <member name="M:Arachnode.Plugins.Next.CrawlRequestPlugins`2.DownloadDataRenderAndDecodeHtml(Arachnode.SiteCrawler.Next.Value.AbstractClasses.ACrawlRequest,Arachnode.Cache.DistributedCache,System.Security.Cryptography.SHA1,Arachnode.SiteCrawler.Next.Value.Enums.CrawlRequestDirective@)">
+            <summary>
+            Renders JavaScript.
+            </summary>
+            <param name="crawlRequest"></param>
+            <param name="crawlRequestsDistributedCache"></param>
+            <param name="sha1"></param>
+            <param name="crawlRequestDirective"></param>
+        </member>
+    </members>
+</doc>

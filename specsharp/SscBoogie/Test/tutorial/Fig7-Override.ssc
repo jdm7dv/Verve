@@ -1,0 +1,38 @@
+using Microsoft.Contracts;
+
+public class Cell {
+  [SpecPublic] protected int val;
+
+  public virtual void Set(int v)
+    ensures val==v;
+  {
+    val = v;
+  }
+}
+
+public class BackupCell : Cell {
+  [SpecPublic] protected int backup;
+
+  public override void Set(int v)
+    ensures backup == old(val);
+  {
+    backup = val;
+    val = v;
+  }
+}
+
+public class GrowingCell: Cell {
+  public override void Set(int v)
+    // it would be an error to try to strengthen the precondition: requires val <= v;  // error
+  {
+    base.Set(v);
+  }
+}
+
+public class GrowingCellError: Cell {
+  public override void Set(int v)
+    requires val <= v;  // error
+  {
+    base.Set(v);
+  }
+}

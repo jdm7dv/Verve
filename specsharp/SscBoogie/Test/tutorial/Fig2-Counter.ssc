@@ -1,0 +1,9 @@
+class Counter {
+  int x;
+  
+  public void Inc()
+    ensures old(x) < x;
+  {
+    x = 2*x;  // error: possibly unsatisfied postcondition
+  }
+}

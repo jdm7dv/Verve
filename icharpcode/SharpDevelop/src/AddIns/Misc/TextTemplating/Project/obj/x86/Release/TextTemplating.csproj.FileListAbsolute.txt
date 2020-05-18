@@ -1,0 +1,6 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\TextTemplating\Templates\CSharp.TextTemplate.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\TextTemplating\Templates\VB.TextTemplate.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\TextTemplating\TextTemplating.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\TextTemplating\TextTemplating.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\TextTemplating\Project\obj\x86\Release\TextTemplating.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\TextTemplating\Project\obj\x86\Release\TextTemplating.dll

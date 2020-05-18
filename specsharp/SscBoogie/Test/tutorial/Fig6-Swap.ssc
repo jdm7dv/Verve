@@ -1,0 +1,46 @@
+using Microsoft.Contracts;
+
+[Verify(false)]
+class Fig6 {
+  public void Swap(int[] a, int i, int j)
+    requires 0 <= i && i < a.Length;
+    requires 0 <= j && j < a.Length;
+    modifies a[i], a[j];
+    ensures a[i] == old(a[j]) && a[j] == old(a[i]);
+  {
+    int tmp = a[i];  a[i] = a[j];  a[j] = tmp;
+  }
+
+  public void Reverse(int[] a, int[] b)
+    requires a.Length == b.Length && a != b;
+    modifies b[*];
+    ensures forall{int i in (0: a.Length); b[i] == a[a.Length-1-i]};
+  {
+    int low = 0;
+    int high = a.Length;
+    while (low < high)
+      invariant high + low == a.Length;
+      invariant forall{int i in (0: a.Length), i < low || high <= i;
+                       b[i] == a[a.Length-1-i]};
+    {
+      high--;
+      b[low] = a[high];
+      b[high] = a[low];
+      low++;
+    }
+  }
+
+  public void Caller(int[] a)
+    requires 100 <= a.Length;
+  {
+    int[] b = new int[a.Length];
+    int x = a[57];
+    int last = a.Length - 1;
+    Reverse(a, b);
+    assert x == a[57];  // Reverse leaves a unchanged
+    assert b[last - 57] == x;  // this is where a[57] ends up
+    Swap(b, 20, 33);
+    assert b[20] == a[last - 33];  // b[20] and b[33] were swapped
+    assert b[last - 57] == x;  // Swap leaves b[last-57] unchanged
+  }
+}

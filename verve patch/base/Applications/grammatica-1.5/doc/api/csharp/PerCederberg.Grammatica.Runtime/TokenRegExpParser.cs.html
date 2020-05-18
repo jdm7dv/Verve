@@ -1,0 +1,708 @@
+<HTML>
+<HEAD>
+<TITLE>
+TokenRegExpParser.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * TokenRegExpParser.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.Globalization;
+<font color="blue">using</font> System.Text;
+<font color="blue">using</font> PerCederberg.Grammatica.Runtime.RE;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A regular expression parser. The parser creates an NFA for the
+     * regular expression having a single start and acceptance states.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     * @since    1.5
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> TokenRegExpParser <font color="black">{</font>
+
+        <font color="green">/**
+        * The regular expression pattern.
+        */</font>
+        <font color="blue">private</font> string pattern;
+
+        <font color="green">/**
+        * The character case ignore flag.
+        */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> ignoreCase;
+
+        <font color="green">/**
+        * The current position in the pattern. This variable is used by
+        * the parsing methods.
+        */</font>
+        <font color="blue">private</font> <font color="blue">int</font> pos;
+
+        <font color="green">/**
+        * The start NFA state for this regular expression.
+        */</font>
+        <font color="blue">internal</font> NFAState start <font color="black">=</font> <font color="blue">new</font> NFAState<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+        * The end NFA state for this regular expression.
+        */</font>
+        <font color="blue">internal</font> NFAState end <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+        * The number of states found.
+        */</font>
+        <font color="blue">private</font> <font color="blue">int</font> stateCount <font color="black">=</font> <font color="maroon">0</font>;
+
+        <font color="green">/**
+        * The number of transitions found.
+        */</font>
+        <font color="blue">private</font> <font color="blue">int</font> transitionCount <font color="black">=</font> <font color="maroon">0</font>;
+
+        <font color="green">/**
+        * The number of epsilon transitions found.
+        */</font>
+        <font color="blue">private</font> <font color="blue">int</font> epsilonCount <font color="black">=</font> <font color="maroon">0</font>;
+
+        <font color="green">/**
+         * Creates a new case-sensitive regular expression parser. Note
+         * that this will trigger the parsing of the regular expression.
+         *
+         * @param pattern        the regular expression pattern
+         *
+         * @throws RegExpException if the regular expression couldn't be
+         *             parsed correctly
+         */</font>
+        <font color="blue">public</font> TokenRegExpParser<font color="black">(</font>string pattern<font color="black">)</font> <font color="black">:</font> <font color="blue">this</font><font color="black">(</font>pattern, <font color="blue">false</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new regular expression parser. The regular
+         * expression can be either case-sensitive or case-insensitive.
+         * Note that this will trigger the parsing of the regular
+         * expression.
+         *
+         * @param pattern        the regular expression pattern
+         * @param ignoreCase     the character case ignore flag
+         *
+         * @throws RegExpException if the regular expression couldn't be
+         *             parsed correctly
+         */</font>
+        <font color="blue">public</font> TokenRegExpParser<font color="black">(</font>string pattern, <font color="blue">bool</font> ignoreCase<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.pattern <font color="black">=</font> pattern;
+            <font color="blue">this</font>.ignoreCase <font color="black">=</font> ignoreCase;
+            <font color="blue">this</font>.pos <font color="black">=</font> <font color="maroon">0</font>;
+            <font color="blue">this</font>.end <font color="black">=</font> ParseExpr<font color="black">(</font>start<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>pos <font color="black">&#60;</font> pattern.Length<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the debug information for the generated NFA.
+         *
+         * @return the debug information for the generated NFA
+         */</font>
+        <font color="blue">public</font> string GetDebugInfo<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>stateCount <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                UpdateStats<font color="black">(</font>start, <font color="blue">new</font> Hashtable<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> stateCount <font color="black">+</font> <font color="maroon">" states, "</font> <font color="black">+</font>
+                   transitionCount <font color="black">+</font> <font color="maroon">" transitions, "</font> <font color="black">+</font>
+                   epsilonCount <font color="black">+</font> <font color="maroon">" epsilons"</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Updates the statistical counters for the NFA generated.
+         *
+         * @param state          the current state to visit
+         * @param visited        the lookup map of visited states
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> UpdateStats<font color="black">(</font>NFAState state, Hashtable visited<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="black">!</font>visited.ContainsKey<font color="black">(</font>state<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                visited.Add<font color="black">(</font>state, state<font color="black">)</font>;
+                stateCount<font color="black">+</font><font color="black">+</font>;
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> state.outgoing.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    transitionCount<font color="black">+</font><font color="black">+</font>;
+                    <font color="blue">if</font> <font color="black">(</font>state.outgoing<font color="black">[</font>i<font color="black">]</font> <font color="blue">is</font> NFAEpsilonTransition<font color="black">)</font> <font color="black">{</font>
+                        epsilonCount<font color="black">+</font><font color="black">+</font>;
+                    <font color="black">}</font>
+                    UpdateStats<font color="black">(</font>state.outgoing<font color="black">[</font>i<font color="black">]</font>.state, visited<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression. This method handles the Expr
+         * production in the grammar (see regexp.grammar).
+         *
+         * @param start          the initial NFA state
+         *
+         * @return the terminating NFA state
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> NFAState ParseExpr<font color="black">(</font>NFAState start<font color="black">)</font> <font color="black">{</font>
+            NFAState  end <font color="black">=</font> <font color="blue">new</font> NFAState<font color="black">(</font><font color="black">)</font>;
+            NFAState  subStart;
+            NFAState  subEnd;
+
+            <font color="blue">do</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'|'</font><font color="black">)</font> <font color="black">{</font>
+                    ReadChar<font color="black">(</font><font color="maroon">'|'</font><font color="black">)</font>;
+                <font color="black">}</font>
+                subStart <font color="black">=</font> <font color="blue">new</font> NFAState<font color="black">(</font><font color="black">)</font>;
+                subEnd <font color="black">=</font> ParseTerm<font color="black">(</font>subStart<font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>subStart.incoming.Length <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    subStart.MergeInto<font color="black">(</font>start<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    start.AddOut<font color="black">(</font><font color="blue">new</font> NFAEpsilonTransition<font color="black">(</font>subStart<font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">if</font> <font color="black">(</font>subEnd.outgoing.Length <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">|</font><font color="black">|</font>
+                    <font color="black">(</font><font color="black">!</font>end.HasTransitions<font color="black">(</font><font color="black">)</font> <font color="black">&</font><font color="black">&</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="maroon">'|'</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    subEnd.MergeInto<font color="black">(</font>end<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    subEnd.AddOut<font color="black">(</font><font color="blue">new</font> NFAEpsilonTransition<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font> <font color="blue">while</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'|'</font><font color="black">)</font>;
+            <font color="blue">return</font> end;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression term. This method handles the
+         * Term production in the grammar (see regexp.grammar).
+         *
+         * @param start          the initial NFA state
+         *
+         * @return the terminating NFA state
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> NFAState ParseTerm<font color="black">(</font>NFAState start<font color="black">)</font> <font color="black">{</font>
+            NFAState  end;
+
+            end <font color="black">=</font> ParseFact<font color="black">(</font>start<font color="black">)</font>;
+            <font color="blue">while</font> <font color="black">(</font><font color="blue">true</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">switch</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">case</font> <font color="maroon">-1</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">')'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">']'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'{'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'}'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'?'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'+'</font><font color="black">:</font>
+                <font color="blue">case</font> <font color="maroon">'|'</font><font color="black">:</font>
+                    <font color="blue">return</font> end;
+                <font color="blue">default</font><font color="black">:</font>
+                    end <font color="black">=</font> ParseFact<font color="black">(</font>end<font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression factor. This method handles the
+         * Fact production in the grammar (see regexp.grammar).
+         *
+         * @param start          the initial NFA state
+         *
+         * @return the terminating NFA state
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> NFAState ParseFact<font color="black">(</font>NFAState start<font color="black">)</font> <font color="black">{</font>
+            NFAState  placeholder <font color="black">=</font> <font color="blue">new</font> NFAState<font color="black">(</font><font color="black">)</font>;
+            NFAState  end;
+
+            end <font color="black">=</font> ParseAtom<font color="black">(</font>placeholder<font color="black">)</font>;
+            <font color="blue">switch</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'?'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'*'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'+'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'{'</font><font color="black">:</font>
+                end <font color="black">=</font> ParseAtomModifier<font color="black">(</font>placeholder, end<font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>placeholder.incoming.Length <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> start.outgoing.Length <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                start.AddOut<font color="black">(</font><font color="blue">new</font> NFAEpsilonTransition<font color="black">(</font>placeholder<font color="black">)</font><font color="black">)</font>;
+                <font color="blue">return</font> end;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                placeholder.MergeInto<font color="black">(</font>start<font color="black">)</font>;
+                <font color="blue">return</font> <font color="black">(</font>end <font color="black">=</font><font color="black">=</font> placeholder<font color="black">)</font> ? start <font color="black">:</font> end;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression atom. This method handles the
+         * Atom production in the grammar (see regexp.grammar).
+         *
+         * @param start          the initial NFA state
+         *
+         * @return the terminating NFA state
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> NFAState ParseAtom<font color="black">(</font>NFAState start<font color="black">)</font> <font color="black">{</font>
+            NFAState  end;
+
+            <font color="blue">switch</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'.'</font><font color="black">:</font>
+                ReadChar<font color="black">(</font><font color="maroon">'.'</font><font color="black">)</font>;
+                <font color="blue">return</font> start.AddOut<font color="black">(</font><font color="blue">new</font> NFADotTransition<font color="black">(</font><font color="blue">new</font> NFAState<font color="black">(</font><font color="black">)</font><font color="black">)</font><font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'('</font><font color="black">:</font>
+                ReadChar<font color="black">(</font><font color="maroon">'('</font><font color="black">)</font>;
+                end <font color="black">=</font> ParseExpr<font color="black">(</font>start<font color="black">)</font>;
+                ReadChar<font color="black">(</font><font color="maroon">')'</font><font color="black">)</font>;
+                <font color="blue">return</font> end;
+            <font color="blue">case</font> <font color="maroon">'['</font><font color="black">:</font>
+                ReadChar<font color="black">(</font><font color="maroon">'['</font><font color="black">)</font>;
+                end <font color="black">=</font> ParseCharSet<font color="black">(</font>start<font color="black">)</font>;
+                ReadChar<font color="black">(</font><font color="maroon">']'</font><font color="black">)</font>;
+                <font color="blue">return</font> end;
+            <font color="blue">case</font> <font color="maroon">-1</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">')'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">']'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'{'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'}'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'?'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'*'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'+'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'|'</font><font color="black">:</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">return</font> ParseChar<font color="black">(</font>start<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression atom modifier. This method handles
+         * the AtomModifier production in the grammar (see regexp.grammar).
+         *
+         * @param start          the initial NFA state
+         * @param end            the terminal NFA state
+         *
+         * @return the terminating NFA state
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> NFAState ParseAtomModifier<font color="black">(</font>NFAState start, NFAState end<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">int</font>  min <font color="black">=</font> <font color="maroon">0</font>;
+            <font color="blue">int</font>  max <font color="black">=</font> <font color="maroon">-1</font>;
+            <font color="blue">int</font>  firstPos <font color="black">=</font> pos;
+
+            <font color="green">// Read min and max</font>
+            <font color="blue">switch</font> <font color="black">(</font>ReadChar<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'?'</font><font color="black">:</font>
+                min <font color="black">=</font> <font color="maroon">0</font>;
+                max <font color="black">=</font> <font color="maroon">1</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> <font color="maroon">'*'</font><font color="black">:</font>
+                min <font color="black">=</font> <font color="maroon">0</font>;
+                max <font color="black">=</font> <font color="maroon">-1</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> <font color="maroon">'+'</font><font color="black">:</font>
+                min <font color="black">=</font> <font color="maroon">1</font>;
+                max <font color="black">=</font> <font color="maroon">-1</font>;
+                <font color="blue">break</font>;
+            <font color="blue">case</font> <font color="maroon">'{'</font><font color="black">:</font>
+                min <font color="black">=</font> ReadNumber<font color="black">(</font><font color="black">)</font>;
+                max <font color="black">=</font> min;
+                <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">','</font><font color="black">)</font> <font color="black">{</font>
+                    ReadChar<font color="black">(</font><font color="maroon">','</font><font color="black">)</font>;
+                    max <font color="black">=</font> <font color="maroon">-1</font>;
+                    <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="maroon">'}'</font><font color="black">)</font> <font color="black">{</font>
+                        max <font color="black">=</font> ReadNumber<font color="black">(</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                ReadChar<font color="black">(</font><font color="maroon">'}'</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>max <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">|</font><font color="black">|</font> <font color="black">(</font>max <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> min <font color="black">&#62;</font> max<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.INVALID_REPEAT_COUNT,
+                        firstPos,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">break</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos <font color="maroon">-1</font>,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Read possessive or reluctant modifiers</font>
+            <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'?'</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNSUPPORTED_SPECIAL_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'+'</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNSUPPORTED_SPECIAL_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Handle supported repeaters</font>
+            <font color="blue">if</font> <font color="black">(</font>min <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> max <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> start.AddOut<font color="black">(</font><font color="blue">new</font> NFAEpsilonTransition<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>min <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> max <font color="black">=</font><font color="black">=</font> <font color="maroon">-1</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>end.outgoing.Length <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    end.MergeInto<font color="black">(</font>start<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    end.AddOut<font color="black">(</font><font color="blue">new</font> NFAEpsilonTransition<font color="black">(</font>start<font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> start;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>min <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">&</font><font color="black">&</font> max <font color="black">=</font><font color="black">=</font> <font color="maroon">-1</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>start.outgoing.Length <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">&</font><font color="black">&</font>
+                    end.outgoing.Length <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font>
+                    end.incoming.Length <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">&</font><font color="black">&</font>
+                    start.outgoing<font color="black">[</font><font color="maroon">0</font><font color="black">]</font> <font color="black">=</font><font color="black">=</font> end.incoming<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">)</font> <font color="black">{</font>
+
+                    end.AddOut<font color="black">(</font>start.outgoing<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>.Copy<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    end.AddOut<font color="black">(</font><font color="blue">new</font> NFAEpsilonTransition<font color="black">(</font>start<font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> end;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.INVALID_REPEAT_COUNT,
+                    firstPos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression character set. This method handles
+         * the contents of the '[...]' construct in a regular expression.
+         *
+         * @param start          the initial NFA state
+         *
+         * @return the terminating NFA state
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> NFAState ParseCharSet<font color="black">(</font>NFAState start<font color="black">)</font> <font color="black">{</font>
+            NFAState                end <font color="black">=</font> <font color="blue">new</font> NFAState<font color="black">(</font><font color="black">)</font>;
+            NFACharRangeTransition  range;
+            <font color="blue">char</font>                    min;
+            <font color="blue">char</font>                    max;
+
+            <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'^'</font><font color="black">)</font> <font color="black">{</font>
+                ReadChar<font color="black">(</font><font color="maroon">'^'</font><font color="black">)</font>;
+                range <font color="black">=</font> <font color="blue">new</font> NFACharRangeTransition<font color="black">(</font><font color="blue">true</font>, ignoreCase, end<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                range <font color="black">=</font> <font color="blue">new</font> NFACharRangeTransition<font color="black">(</font><font color="blue">false</font>, ignoreCase, end<font color="black">)</font>;
+            <font color="black">}</font>
+            start.AddOut<font color="black">(</font>range<font color="black">)</font>;
+            <font color="blue">while</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                min <font color="black">=</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                <font color="blue">switch</font> <font color="black">(</font>min<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">case</font> <font color="maroon">']'</font><font color="black">:</font>
+                    <font color="blue">return</font> end;
+                <font color="blue">case</font> <font color="maroon">'\\'</font><font color="black">:</font>
+                    range.AddCharacter<font color="black">(</font>ReadEscapeChar<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">default</font><font color="black">:</font>
+                    ReadChar<font color="black">(</font>min<font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'-'</font> <font color="black">&</font><font color="black">&</font>
+                        PeekChar<font color="black">(</font><font color="maroon">1</font><font color="black">)</font> <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font>
+                        PeekChar<font color="black">(</font><font color="maroon">1</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="maroon">']'</font><font color="black">)</font> <font color="black">{</font>
+
+                        ReadChar<font color="black">(</font><font color="maroon">'-'</font><font color="black">)</font>;
+                        max <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>;
+                        range.AddRange<font color="black">(</font>min, max<font color="black">)</font>;
+                    <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                        range.AddCharacter<font color="black">(</font>min<font color="black">)</font>;
+                    <font color="black">}</font>
+                    <font color="blue">break</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> end;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression character. This method handles
+         * a single normal character in a regular expression.
+         *
+         * @param start          the initial NFA state
+         *
+         * @return the terminating NFA state
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> NFAState ParseChar<font color="black">(</font>NFAState start<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">switch</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'\\'</font><font color="black">:</font>
+                <font color="blue">return</font> ParseEscapeChar<font color="black">(</font>start<font color="black">)</font>;
+            <font color="blue">case</font> <font color="maroon">'^'</font><font color="black">:</font>
+            <font color="blue">case</font> <font color="maroon">'$'</font><font color="black">:</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNSUPPORTED_SPECIAL_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">return</font> start.AddOut<font color="black">(</font>ReadChar<font color="black">(</font><font color="black">)</font>, ignoreCase, <font color="blue">new</font> NFAState<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Parses a regular expression character escape. This method
+         * handles a single character escape in a regular expression.
+         *
+         * @param start          the initial NFA state
+         *
+         * @return the terminating NFA state
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> NFAState ParseEscapeChar<font color="black">(</font>NFAState start<font color="black">)</font> <font color="black">{</font>
+            NFAState  end <font color="black">=</font> <font color="blue">new</font> NFAState<font color="black">(</font><font color="black">)</font>;
+
+            <font color="blue">if</font> <font color="black">(</font>PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'\\'</font> <font color="black">&</font><font color="black">&</font> PeekChar<font color="black">(</font><font color="maroon">1</font><font color="black">)</font> <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">switch</font> <font color="black">(</font><font color="black">(</font><font color="blue">char</font><font color="black">)</font> PeekChar<font color="black">(</font><font color="maroon">1</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">case</font> <font color="maroon">'d'</font><font color="black">:</font>
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">return</font> start.AddOut<font color="black">(</font><font color="blue">new</font> NFADigitTransition<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                <font color="blue">case</font> <font color="maroon">'D'</font><font color="black">:</font>
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">return</font> start.AddOut<font color="black">(</font><font color="blue">new</font> NFANonDigitTransition<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                <font color="blue">case</font> <font color="maroon">'s'</font><font color="black">:</font>
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">return</font> start.AddOut<font color="black">(</font><font color="blue">new</font> NFAWhitespaceTransition<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                <font color="blue">case</font> <font color="maroon">'S'</font><font color="black">:</font>
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">return</font> start.AddOut<font color="black">(</font><font color="blue">new</font> NFANonWhitespaceTransition<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                <font color="blue">case</font> <font color="maroon">'w'</font><font color="black">:</font>
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">return</font> start.AddOut<font color="black">(</font><font color="blue">new</font> NFAWordTransition<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                <font color="blue">case</font> <font color="maroon">'W'</font><font color="black">:</font>
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    ReadChar<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">return</font> start.AddOut<font color="black">(</font><font color="blue">new</font> NFANonWordTransition<font color="black">(</font>end<font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> start.AddOut<font color="black">(</font>ReadEscapeChar<font color="black">(</font><font color="black">)</font>, ignoreCase, end<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads a regular expression character escape. This method
+         * handles a single character escape in a regular expression.
+         *
+         * @return the character read
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">char</font> ReadEscapeChar<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">char</font>    c;
+            string  str;
+            <font color="blue">int</font>     <font color="blue">value</font>;
+
+            ReadChar<font color="black">(</font><font color="maroon">'\\'</font><font color="black">)</font>;
+            c <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">switch</font> <font color="black">(</font>c<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">case</font> <font color="maroon">'0'</font><font color="black">:</font>
+                c <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>c <font color="black">&#60;</font> <font color="maroon">'0'</font> <font color="black">|</font><font color="black">|</font> c <font color="black">&#62;</font> <font color="maroon">'3'</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
+                        pos <font color="maroon">-3</font>,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">value</font> <font color="black">=</font> c <font color="black">-</font><font color="maroon">'0'</font>;
+                c <font color="black">=</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font><font color="maroon">'0'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'7'</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">value</font> <font color="black">*</font><font color="black">=</font> <font color="maroon">8</font>;
+                    <font color="blue">value</font> <font color="black">+</font><font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font> <font color="black">-</font><font color="maroon">'0'</font>;
+                    c <font color="black">=</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font><font color="maroon">'0'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'7'</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">value</font> <font color="black">*</font><font color="black">=</font> <font color="maroon">8</font>;
+                        <font color="blue">value</font> <font color="black">+</font><font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font> <font color="black">-</font><font color="maroon">'0'</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> <font color="blue">value</font>;
+            <font color="blue">case</font> <font color="maroon">'x'</font><font color="black">:</font>
+                str <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font> <font color="black">+</font> ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font>;
+                try <font color="black">{</font>
+                    <font color="blue">value</font> <font color="black">=</font> Int32.Parse<font color="black">(</font>str, NumberStyles.AllowHexSpecifier<font color="black">)</font>;
+                    <font color="blue">return</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> <font color="blue">value</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>FormatException<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
+                        pos <font color="black">-</font>str.Length <font color="maroon">-2</font>,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="blue">case</font> <font color="maroon">'u'</font><font color="black">:</font>
+                str <font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font> <font color="black">+</font>
+                      ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font> <font color="black">+</font>
+                      ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font> <font color="black">+</font>
+                      ReadChar<font color="black">(</font><font color="black">)</font>.ToString<font color="black">(</font><font color="black">)</font>;
+                try <font color="black">{</font>
+                    <font color="blue">value</font> <font color="black">=</font> Int32.Parse<font color="black">(</font>str, NumberStyles.AllowHexSpecifier<font color="black">)</font>;
+                    <font color="blue">return</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> <font color="blue">value</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>FormatException<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
+                        pos <font color="black">-</font>str.Length <font color="maroon">-2</font>,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="blue">case</font> <font color="maroon">'t'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="maroon">'\t'</font>;
+            <font color="blue">case</font> <font color="maroon">'n'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="maroon">'\n'</font>;
+            <font color="blue">case</font> <font color="maroon">'r'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="maroon">'\r'</font>;
+            <font color="blue">case</font> <font color="maroon">'f'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="maroon">'\f'</font>;
+            <font color="blue">case</font> <font color="maroon">'a'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="maroon">'\u0007'</font>;
+            <font color="blue">case</font> <font color="maroon">'e'</font><font color="black">:</font>
+                <font color="blue">return</font> <font color="maroon">'\u001B'</font>;
+            <font color="blue">default</font><font color="black">:</font>
+                <font color="blue">if</font> <font color="black">(</font><font color="black">(</font><font color="maroon">'A'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'Z'</font><font color="black">)</font> <font color="black">|</font><font color="black">|</font> <font color="black">(</font><font color="maroon">'a'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'z'</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                        RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
+                        pos <font color="maroon">-2</font>,
+                        pattern<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> c;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads a number from the pattern. If the next character isn't a
+         * numeric character, an exception is thrown. This method reads
+         * several consecutive numeric characters.
+         *
+         * @return the numeric value read
+         *
+         * @throws RegExpException if an error was encountered in the
+         *             pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> ReadNumber<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buf <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">int</font>            c;
+
+            c <font color="black">=</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            <font color="blue">while</font> <font color="black">(</font><font color="maroon">'0'</font> <font color="black">&#60;</font><font color="black">=</font> c <font color="black">&</font><font color="black">&</font> c <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">'9'</font><font color="black">)</font> <font color="black">{</font>
+                buf.Append<font color="black">(</font>ReadChar<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+                c <font color="black">=</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>buf.Length <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> Int32.Parse<font color="black">(</font>buf.ToString<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads the next character in the pattern. If no next character
+         * exists, an exception is thrown.
+         *
+         * @return the character read
+         *
+         * @throws RegExpException if no next character was available in
+         *             the pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">char</font> ReadChar<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">int</font>  c <font color="black">=</font> PeekChar<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+
+            <font color="blue">if</font> <font color="black">(</font>c <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNTERMINATED_PATTERN,
+                    pos,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                pos<font color="black">+</font><font color="black">+</font>;
+                <font color="blue">return</font> <font color="black">(</font><font color="blue">char</font><font color="black">)</font> c;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads the next character in the pattern. If the character
+         * wasn't the specified one, an exception is thrown.
+         *
+         * @param c              the character to read
+         *
+         * @return the character read
+         *
+         * @throws RegExpException if the character read didn't match the
+         *             specified one, or if no next character was
+         *             available in the pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">char</font> ReadChar<font color="black">(</font><font color="blue">char</font> c<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>c <font color="black">!</font><font color="black">=</font> ReadChar<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> RegExpException<font color="black">(</font>
+                    RegExpException.ErrorType.UNEXPECTED_CHARACTER,
+                    pos <font color="maroon">-1</font>,
+                    pattern<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> c;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a character that has not yet been read from the
+         * pattern. If the requested position is beyond the end of the
+         * pattern string, -1 is returned.
+         *
+         * @param count          the preview position, from zero (0)
+         *
+         * @return the character found, or
+         *         -1 if beyond the end of the pattern string
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> PeekChar<font color="black">(</font><font color="blue">int</font> count<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>pos <font color="black">+</font> count <font color="black">&#60;</font> pattern.Length<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> pattern<font color="black">[</font>pos <font color="black">+</font> count<font color="black">]</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="maroon">-1</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

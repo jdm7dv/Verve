@@ -1,0 +1,349 @@
+<HTML>
+<HEAD>
+<TITLE>
+ReaderBuffer.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * ReaderBuffer.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2004-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.IO;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A character buffer that automatically reads from an input source
+     * stream when needed. This class keeps track of the current position
+     * in the buffer and its line and column number in the original input
+     * source. It allows unlimited look-ahead of characters in the input,
+     * reading and buffering the required data internally. As the
+     * position is advanced, the buffer content prior to the current
+     * position is subject to removal to make space for reading new
+     * content. A few characters before the current position are always
+     * kept to enable boundary condition checks.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     * @since    1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> ReaderBuffer <font color="black">{</font>
+
+        <font color="green">/**
+         * The stream reading block size. All reads from the underlying
+         * character stream will be made in multiples of this block size.
+         * Also the character buffer size will always be a multiple of
+         * this factor.
+         */</font>
+        <font color="blue">public</font> <font color="blue">const</font> <font color="blue">int</font> BLOCK_SIZE <font color="black">=</font> <font color="maroon">1024</font>;
+
+        <font color="green">/**
+        * The character buffer.
+        */</font>
+        <font color="blue">private</font> <font color="blue">char</font><font color="black">[</font><font color="black">]</font> buffer <font color="black">=</font> <font color="blue">new</font> <font color="blue">char</font><font color="black">[</font>BLOCK_SIZE <font color="black">*</font> <font color="maroon">4</font><font color="black">]</font>;
+
+        <font color="green">/**
+        * The current character buffer position.
+        */</font>
+        <font color="blue">private</font> <font color="blue">int</font> pos <font color="black">=</font> <font color="maroon">0</font>;
+
+        <font color="green">/**
+        * The number of characters in the buffer.
+        */</font>
+        <font color="blue">private</font> <font color="blue">int</font> length <font color="black">=</font> <font color="maroon">0</font>;
+
+        <font color="green">/**
+        * The input source character reader.
+        */</font>
+        <font color="blue">private</font> TextReader <font color="blue">input</font> <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+        * The line number of the next character to read. This value will
+        * be incremented when reading past line breaks.
+        */</font>
+        <font color="blue">private</font> <font color="blue">int</font> <font color="blue">line</font> <font color="black">=</font> <font color="maroon">1</font>;
+
+        <font color="green">/**
+        * The column number of the next character to read. This value
+        * will be updated for every character read.
+        */</font>
+        <font color="blue">private</font> <font color="blue">int</font> column <font color="black">=</font> <font color="maroon">1</font>;
+
+        <font color="green">/**
+         * Creates a new tokenizer character buffer.
+         *
+         * @param input           the input source character reader
+         */</font>
+        <font color="blue">public</font> ReaderBuffer<font color="black">(</font>TextReader <font color="blue">input</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.<font color="blue">input</font> <font color="black">=</font> <font color="blue">input</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+        * Discards all resources used by this buffer. This will also
+        * close the source input stream. Disposing a previously disposed
+        * buffer has no effect.
+        */</font>
+        <font color="blue">public</font> <font color="blue">void</font> Dispose<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            buffer <font color="black">=</font> <font color="blue">null</font>;
+            pos <font color="black">=</font> <font color="maroon">0</font>;
+            length <font color="black">=</font> <font color="maroon">0</font>;
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">input</font> <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                try <font color="black">{</font>
+                    <font color="blue">input</font>.Close<font color="black">(</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>Exception<font color="black">)</font> <font color="black">{</font>
+                    <font color="green">// Do nothing</font>
+                <font color="black">}</font>
+                <font color="blue">input</font> <font color="black">=</font> <font color="blue">null</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The current buffer position property (read-only).
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Position <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> pos;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The current line number property (read-only). This number
+         * is the line number of the next character to read.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> LineNumber <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">line</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The current column number property (read-only). This number
+         * is the column number of the next character to read.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> ColumnNumber <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> column;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The current character buffer length property (read-only).
+         * Note that the length may increase (and decrease) as more
+         * characters are read from the input source or removed to
+         * free up space.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Length <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> length;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a substring already in the buffer. Note that this
+         * method may behave in unexpected ways when performing
+         * operations that modifies the buffer content.
+         *
+         * @param index          the start index, inclusive
+         * @param length         the substring length
+         *
+         * @return the substring specified
+         *
+         * @throws IndexOutOfBoundsException if one of the indices were
+         *             negative or not less than (or equal) than length()
+         */</font>
+        <font color="blue">public</font> string Substring<font color="black">(</font><font color="blue">int</font> index, <font color="blue">int</font> length<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">new</font> string<font color="black">(</font>buffer, index, length<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the current content of the buffer as a string. Note
+         * that content before the current position will also be
+         * returned.
+         *
+         * @return the current buffer content
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">new</font> string<font color="black">(</font>buffer, <font color="maroon">0</font>, length<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a character relative to the current position. This
+         * method may read from the input source and may also trim the
+         * buffer content prior to the current position. The result of
+         * calling this method may therefore be that the buffer length
+         * and content have been modified.&#60;p&#62;
+         *
+         * The character offset must be positive, but is allowed to span
+         * the entire size of the input source stream. Note that the
+         * internal buffer must hold all the intermediate characters,
+         * which may be wasteful if the offset is too large.
+         *
+         * @param offset         the character offset, from 0 and up
+         *
+         * @return the character found as an integer in the range 0 to
+         * 65535 (0x00-0xffff), or -1 if the end of the stream was reached
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Peek<font color="black">(</font><font color="blue">int</font> offset<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">int</font>  index <font color="black">=</font> pos <font color="black">+</font> offset;
+
+            <font color="green">// Avoid most calls to EnsureBuffered(), since we are in a</font>
+            <font color="green">// performance hotspot here. This check is not exhaustive,</font>
+            <font color="green">// but only present here to speed things up.</font>
+            <font color="blue">if</font> <font color="black">(</font>index <font color="black">&#62;</font><font color="black">=</font> length<font color="black">)</font> <font color="black">{</font>
+                EnsureBuffered<font color="black">(</font>offset <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+                index <font color="black">=</font> pos <font color="black">+</font> offset;
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="black">(</font>index <font color="black">&#62;</font><font color="black">=</font> length<font color="black">)</font> ? <font color="maroon">-1</font> <font color="black">:</font> buffer<font color="black">[</font>index<font color="black">]</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Reads the specified number of characters from the current
+         * position. This will also move the current position forward.
+         * This method will not attempt to move beyond the end of the
+         * input source stream. When reaching the end of file, the
+         * returned string might be shorter than requested. Any
+         * remaining characters will always be returned before returning
+         * null.
+         *
+         * @param offset         the character offset, from 0 and up
+         *
+         * @return the string containing the characters read, or
+         *         null no more characters remain in the buffer
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> string Read<font color="black">(</font><font color="blue">int</font> offset<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">int</font>     count;
+            string  result;
+
+            EnsureBuffered<font color="black">(</font>offset <font color="black">+</font> <font color="maroon">1</font><font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>pos <font color="black">&#62;</font><font color="black">=</font> length<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">null</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                count <font color="black">=</font> length <font color="black">-</font>pos;
+                <font color="blue">if</font> <font color="black">(</font>count <font color="black">&#62;</font> offset<font color="black">)</font> <font color="black">{</font>
+                    count <font color="black">=</font> offset;
+                <font color="black">}</font>
+                UpdateLineColumnNumbers<font color="black">(</font>count<font color="black">)</font>;
+                result <font color="black">=</font> <font color="blue">new</font> string<font color="black">(</font>buffer, pos, count<font color="black">)</font>;
+                pos <font color="black">+</font><font color="black">=</font> count;
+                <font color="blue">return</font> result;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Updates the line and column numbers counters. This method
+         * requires all the characters to be processed (i.e. returned
+         * as read) to be present in the buffer, starting at the
+         * current buffer position.
+         *
+         * @param offset          the number of characters to process
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> UpdateLineColumnNumbers<font color="black">(</font><font color="blue">int</font> offset<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> offset; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>buffer<font color="black">[</font>pos <font color="black">+</font> i<font color="black">]</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'\n'</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">line</font><font color="black">+</font><font color="black">+</font>;
+                    column <font color="black">=</font> <font color="maroon">1</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    column<font color="black">+</font><font color="black">+</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Ensures that the specified offset is read into the buffer.
+         * This method will read characters from the input stream and
+         * appends them to the buffer if needed. This method is safe to
+         * call even after end of file has been reached. This method also
+         * handles removal of characters at the beginning of the buffer
+         * once the current position is high enough. It will also enlarge
+         * the buffer as needed.
+         *
+         * @param offset         the read offset, from 0 and up
+         *
+         * @throws IOException if an error was encountered while reading
+         *             the input stream
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> EnsureBuffered<font color="black">(</font><font color="blue">int</font> offset<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">int</font>  size;
+            <font color="blue">int</font>  readSize;
+
+            <font color="green">// Check for end of stream or already read characters</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">input</font> <font color="black">=</font><font color="black">=</font> <font color="blue">null</font> <font color="black">|</font><font color="black">|</font> pos <font color="black">+</font> offset <font color="black">&#60;</font> length<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Remove (almost all) old characters from buffer</font>
+            <font color="blue">if</font> <font color="black">(</font>pos <font color="black">&#62;</font> BLOCK_SIZE<font color="black">)</font> <font color="black">{</font>
+                length <font color="black">-</font><font color="black">=</font> <font color="black">(</font>pos <font color="maroon">-16</font><font color="black">)</font>;
+                Array.Copy<font color="black">(</font>buffer, pos <font color="maroon">-16</font>, buffer, <font color="maroon">0</font>, length<font color="black">)</font>;
+                pos <font color="black">=</font> <font color="maroon">16</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Calculate number of characters to read</font>
+            size <font color="black">=</font> pos <font color="black">+</font> offset <font color="black">-</font>length <font color="black">+</font> <font color="maroon">1</font>;
+            <font color="blue">if</font> <font color="black">(</font>size % BLOCK_SIZE <font color="black">!</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                size <font color="black">=</font> <font color="black">(</font><font color="maroon">1</font> <font color="black">+</font> size <font color="black">/</font> BLOCK_SIZE<font color="black">)</font> <font color="black">*</font> BLOCK_SIZE;
+            <font color="black">}</font>
+            EnsureCapacity<font color="black">(</font>length <font color="black">+</font> size<font color="black">)</font>;
+
+            <font color="green">// Read characters</font>
+            try <font color="black">{</font>
+                <font color="blue">while</font> <font color="black">(</font><font color="blue">input</font> <font color="black">!</font><font color="black">=</font> <font color="blue">null</font> <font color="black">&</font><font color="black">&</font> size <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    readSize <font color="black">=</font> <font color="blue">input</font>.Read<font color="black">(</font>buffer, length, size<font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>readSize <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        length <font color="black">+</font><font color="black">=</font> readSize;
+                        size <font color="black">-</font><font color="black">=</font> readSize;
+                    <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                        <font color="blue">input</font>.Close<font color="black">(</font><font color="black">)</font>;
+                        <font color="blue">input</font> <font color="black">=</font> <font color="blue">null</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+            <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>IOException e<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">input</font> <font color="black">=</font> <font color="blue">null</font>;
+                <font color="blue">throw</font> e;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Ensures that the buffer has at least the specified capacity.
+         *
+         * @param size           the minimum buffer size
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> EnsureCapacity<font color="black">(</font><font color="blue">int</font> size<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>buffer.Length <font color="black">&#62;</font><font color="black">=</font> size<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font>size % BLOCK_SIZE <font color="black">!</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                size <font color="black">=</font> <font color="black">(</font><font color="maroon">1</font> <font color="black">+</font> size <font color="black">/</font> BLOCK_SIZE<font color="black">)</font> <font color="black">*</font> BLOCK_SIZE;
+            <font color="black">}</font>
+            Array.Resize<font color="black">(</font><font color="blue">ref</font> buffer, size<font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

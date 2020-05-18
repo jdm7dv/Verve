@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<TITLE>
+TokenMatch.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * TokenMatch.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * The token match status. This class contains logic to ensure that
+     * only the longest match is considered. It also prefers lower token
+     * pattern identifiers if two matches have the same length.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     * @since    1.5
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> TokenMatch <font color="black">{</font>
+
+        <font color="green">/**
+         * The length of the longest match.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> length <font color="black">=</font> <font color="maroon">0</font>;
+
+        <font color="green">/**
+         * The pattern in the longest match.
+         */</font>
+        <font color="blue">private</font> TokenPattern pattern <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+         * Clears the current match information.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> Clear<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            length <font color="black">=</font> <font color="maroon">0</font>;
+            pattern <font color="black">=</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The length of the longest match found (read-only).
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Length <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> length;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The token pattern for the longest match found (read-only).
+         */</font>
+        <font color="blue">public</font> TokenPattern Pattern <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> pattern;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Updates this match with new values. The new values will only
+         * be considered if the length is longer than any previous match
+         * found.
+         *
+         * @param length         the matched length
+         * @param pattern        the matched pattern
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> Update<font color="black">(</font><font color="blue">int</font> length, TokenPattern pattern<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">this</font>.length <font color="black">&#60;</font> length<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font>.length <font color="black">=</font> length;
+                <font color="blue">this</font>.pattern <font color="black">=</font> pattern;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font><font color="blue">this</font>.length <font color="black">=</font><font color="black">=</font> length <font color="black">&</font><font color="black">&</font> <font color="blue">this</font>.pattern.Id <font color="black">&#62;</font> pattern.Id<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font>.length <font color="black">=</font> length;
+                <font color="blue">this</font>.pattern <font color="black">=</font> pattern;
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,9 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.Core.Presentation.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.Core.Presentation\obj\Release\ICSharpCode.Core.Presentation.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.Core.Presentation\obj\Release\GeneratedInternalTypeHelper.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.Core.Presentation\obj\Release\ICSharpCode.Core.Presentation_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.Core.Presentation\obj\Release\ICSharpCode.Core.Presentation_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.Core.Presentation\obj\Release\themes\Aero.NormalColor.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.Core.Presentation\obj\Release\themes\generic.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.Core.Presentation\obj\Release\ICSharpCode.Core.Presentation.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Main\ICSharpCode.Core.Presentation\obj\Release\ICSharpCode.Core.Presentation.dll

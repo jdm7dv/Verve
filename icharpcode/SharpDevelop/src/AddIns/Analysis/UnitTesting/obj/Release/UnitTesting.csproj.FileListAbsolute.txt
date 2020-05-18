@@ -1,0 +1,3 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Analysis\UnitTesting\UnitTesting.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\UnitTesting\obj\Release\UnitTesting.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\UnitTesting\obj\Release\UnitTesting.dll

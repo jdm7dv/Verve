@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Utilities</name>
+    </assembly>
+    <members>
+        <member name="T:Arachnode.Utilities.EXIF.EXIFTranslator">
+            <summary>
+            	Summary description for EXIFTranslator.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFTranslator.#ctor">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Arachnode.Utilities.EXIF.Rational">
+            <summary>
+            	private class
+            </summary>
+        </member>
+        <member name="T:Arachnode.Utilities.EXIF.EXIFExtractor">
+            <summary>
+            	EXIFextractor Class
+            </summary>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.#ctor(System.Drawing.Image@,System.String)">
+            <summary>
+            </summary>
+            <param name = "bmp"></param>
+            <param name = "sp"></param>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.setTag(System.Int32,System.String)">
+            <summary>
+            </summary>
+            <param name = "id"></param>
+            <param name = "len"></param>
+            <param name = "type"></param>
+            <param name = "_data"></param>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.setTag(System.Int32,System.Int32,System.Int16,System.Byte[])">
+            <summary>
+            </summary>
+            <param name = "id"></param>
+            <param name = "len"></param>
+            <param name = "type"></param>
+            <param name = "_data"></param>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.CreatePropertyItem(System.Int16,System.Int32,System.Int32,System.Byte[])">
+            <summary>
+            </summary>
+            <param name = "type"></param>
+            <param name = "tag"></param>
+            <param name = "len"></param>
+            <param name = "value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.buildDB(System.Drawing.Imaging.PropertyItem[])">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.ToString">
+            <summary>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.convertToInt32(System.Byte[])">
+            <summary>
+            </summary>
+            <param name = "arr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.convertToInt16(System.Byte[])">
+            <summary>
+            </summary>
+            <param name = "arr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.convertToInt32U(System.Byte[])">
+            <summary>
+            </summary>
+            <param name = "arr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Utilities.EXIF.EXIFExtractor.convertToInt16U(System.Byte[])">
+            <summary>
+            </summary>
+            <param name = "arr"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Arachnode.Utilities.EXIF.EXIFExtractor.Item(System.String)">
+            <summary>
+            	Get the individual property value by supplying property name
+            	These are the valid property names :
+            
+            	"Exif IFD"
+            	"Gps IFD"
+            	"New Subfile Type"
+            	"Subfile Type"
+            	"Image Width"
+            	"Image Height"
+            	"Bits Per Sample"
+            	"Compression"
+            	"Photometric Interp"
+            	"Thresh Holding"
+            	"Cell Width"
+            	"Cell Height"
+            	"Fill Order"
+            	"Document Name"
+            	"Image Description"
+            	"Equip Make"
+            	"Equip Model"
+            	"Strip Offsets"
+            	"Orientation"
+            	"Samples PerPixel"
+            	"Rows Per Strip"
+            	"Strip Bytes Count"
+            	"Min Sample Value"
+            	"Max Sample Value"
+            	"X Resolution"
+            	"Y Resolution"
+            	"Planar Config"
+            	"Page Name"
+            	"X Position"
+            	"Y Position"
+            	"Free Offset"
+            	"Free Byte Counts"
+            	"Gray Response Unit"
+            	"Gray Response Curve"
+            	"T4 Option"
+            	"T6 Option"
+            	"Resolution Unit"
+            	"Page Number"
+            	"Transfer Funcition"
+            	"Software Used"
+            	"Date Time"
+            	"Artist"
+            	"Host Computer"
+            	"Predictor"
+            	"White Point"
+            	"Primary Chromaticities"
+            	"ColorMap"
+            	"Halftone Hints"
+            	"Tile Width"
+            	"Tile Length"
+            	"Tile Offset"
+            	"Tile ByteCounts"
+            	"InkSet"
+            	"Ink Names"
+            	"Number Of Inks"
+            	"Dot Range"
+            	"Target Printer"
+            	"Extra Samples"
+            	"Sample Format"
+            	"S Min Sample Value"
+            	"S Max Sample Value"
+            	"Transfer Range"
+            	"JPEG Proc"
+            	"JPEG InterFormat"
+            	"JPEG InterLength"
+            	"JPEG RestartInterval"
+            	"JPEG LosslessPredictors"
+            	"JPEG PointTransforms"
+            	"JPEG QTables"
+            	"JPEG DCTables"
+            	"JPEG ACTables"
+            	"YCbCr Coefficients"
+            	"YCbCr Subsampling"
+            	"YCbCr Positioning"
+            	"REF Black White"
+            	"ICC Profile"
+            	"Gamma"
+            	"ICC Profile Descriptor"
+            	"SRGB RenderingIntent"
+            	"Image Title"
+            	"Copyright"
+            	"Resolution X Unit"
+            	"Resolution Y Unit"
+            	"Resolution X LengthUnit"
+            	"Resolution Y LengthUnit"
+            	"Print Flags"
+            	"Print Flags Version"
+            	"Print Flags Crop"
+            	"Print Flags Bleed Width"
+            	"Print Flags Bleed Width Scale"
+            	"Halftone LPI"
+            	"Halftone LPIUnit"
+            	"Halftone Degree"
+            	"Halftone Shape"
+            	"Halftone Misc"
+            	"Halftone Screen"
+            	"JPEG Quality"
+            	"Grid Size"
+            	"Thumbnail Format"
+            	"Thumbnail Width"
+            	"Thumbnail Height"
+            	"Thumbnail ColorDepth"
+            	"Thumbnail Planes"
+            	"Thumbnail RawBytes"
+            	"Thumbnail Size"
+            	"Thumbnail CompressedSize"
+            	"Color Transfer Function"
+            	"Thumbnail Data"
+            	"Thumbnail ImageWidth"
+            	"Thumbnail ImageHeight"
+            	"Thumbnail BitsPerSample"
+            	"Thumbnail Compression"
+            	"Thumbnail PhotometricInterp"
+            	"Thumbnail ImageDescription"
+            	"Thumbnail EquipMake"
+            	"Thumbnail EquipModel"
+            	"Thumbnail StripOffsets"
+            	"Thumbnail Orientation"
+            	"Thumbnail SamplesPerPixel"
+            	"Thumbnail RowsPerStrip"
+            	"Thumbnail StripBytesCount"
+            	"Thumbnail ResolutionX"
+            	"Thumbnail ResolutionY"
+            	"Thumbnail PlanarConfig"
+            	"Thumbnail ResolutionUnit"
+            	"Thumbnail TransferFunction"
+            	"Thumbnail SoftwareUsed"
+            	"Thumbnail DateTime"
+            	"Thumbnail Artist"
+            	"Thumbnail WhitePoint"
+            	"Thumbnail PrimaryChromaticities"
+            	"Thumbnail YCbCrCoefficients"
+            	"Thumbnail YCbCrSubsampling"
+            	"Thumbnail YCbCrPositioning"
+            	"Thumbnail RefBlackWhite"
+            	"Thumbnail CopyRight"
+            	"Luminance Table"
+            	"Chrominance Table"
+            	"Frame Delay"
+            	"Loop Count"
+            	"Pixel Unit"
+            	"Pixel PerUnit X"
+            	"Pixel PerUnit Y"
+            	"Palette Histogram"
+            	"Exposure Time"
+            	"F-Number"
+            	"Exposure Prog"
+            	"Spectral Sense"
+            	"ISO Speed"
+            	"OECF"
+            	"Ver"
+            	"DTOrig"
+            	"DTDigitized"
+            	"CompConfig"
+            	"CompBPP"
+            	"Shutter Speed"
+            	"Aperture"
+            	"Brightness"
+            	"Exposure Bias"
+            	"MaxAperture"
+            	"SubjectDist"
+            	"Metering Mode"
+            	"LightSource"
+            	"Flash"
+            	"FocalLength"
+            	"Maker Note"
+            	"User Comment"
+            	"DTSubsec"
+            	"DTOrigSS"
+            	"DTDigSS"
+            	"FPXVer"
+            	"ColorSpace"
+            	"PixXDim"
+            	"PixYDim"
+            	"RelatedWav"
+            	"Interop"
+            	"FlashEnergy"
+            	"SpatialFR"
+            	"FocalXRes"
+            	"FocalYRes"
+            	"FocalResUnit"
+            	"Subject Loc"
+            	"Exposure Index"
+            	"Sensing Method"
+            	"FileSource"
+            	"SceneType"
+            	"CfaPattern"
+            	"Gps Ver"
+            	"Gps LatitudeRef"
+            	"Gps Latitude"
+            	"Gps LongitudeRef"
+            	"Gps Longitude"
+            	"Gps AltitudeRef"
+            	"Gps Altitude"
+            	"Gps GpsTime"
+            	"Gps GpsSatellites"
+            	"Gps GpsStatus"
+            	"Gps GpsMeasureMode"
+            	"Gps GpsDop"
+            	"Gps SpeedRef"
+            	"Gps Speed"
+            	"Gps TrackRef"
+            	"Gps Track"
+            	"Gps ImgDirRef"
+            	"Gps ImgDir"
+            	"Gps MapDatum"
+            	"Gps DestLatRef"
+            	"Gps DestLat"
+            	"Gps DestLongRef"
+            	"Gps DestLong"
+            	"Gps DestBearRef"
+            	"Gps DestBear"
+            	"Gps DestDistRef"
+            	"Gps DestDist"
+            </summary>
+        </member>
+        <member name="M:Arachnode.Utilities.Web.ClearIECache">
+            <summary>
+            Clears all browinsg data and files.  If this method appears to run indefinitely ensure that no browser are open/streaming data...
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Arachnode.Utilities.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Arachnode.Utilities.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Arachnode.Utilities.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Arachnode.Utilities.Resources.EXIFManifestHelper">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Utilities.Files.ExtractFilesAndInsertFilesMetaData(System.Int64,System.Int64)">
+            <summary>
+            	Extracts Files and Images from the database, saves to disk and updates File and Image MetaData according to ApplicationSettings.
+            	This method is provided for retroactively performing tasks that may have been disabled during crawling.
+            </summary>
+            <param name = "fromFileID"></param>
+            <param name = "toFileID"></param>
+        </member>
+    </members>
+</doc>

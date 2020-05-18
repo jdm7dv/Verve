@@ -1,0 +1,1143 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ICSharpCode.WpfDesign.Designer</name>
+    </assembly>
+    <members>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.AdornerLayer">
+            <summary>
+            A control that displays adorner panels.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.ContainerDragHandle">
+            <summary>
+            A thumb where the look can depend on the IsPrimarySelection property.
+            Used by UIElementSelectionRectangle.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.DropDownButton">
+            <summary>
+            A button with a drop-down arrow.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.EnumBar">
+            <summary>
+            EnumBar
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.EnumBar.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.GrayOutDesignerExceptActiveArea">
+            <summary>
+            Gray out everything except a specific area.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.GridRailAdorner">
+            <summary>
+            Adorner that displays the blue bar next to grids that can be used to create new rows/column.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.GridUnitSelector">
+            <summary>
+            Interaction logic for GridUnitSelector.xaml
+            </summary>
+            <summary>
+            GridUnitSelector
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.GridUnitSelector.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.InPlaceEditor">
+            <summary>
+            Supports editing Text in the Designer
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.InPlaceEditor.BindProperty">
+            <summary>
+            This property is binded to the Text Property of the editor.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.InPlaceEditor.property">
+            <summary>
+            This is the name of the property that is being edited for example Window.Title, Button.Content .
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.InPlaceEditor.SetBinding(System.Windows.Controls.TextBlock)">
+            <summary>
+            Binds the Text Property of the element extended with <see cref="P:ICSharpCode.WpfDesign.Designer.Controls.InPlaceEditor.Bind"/>.
+            </summary>
+            <param name="textBlock"></param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.InPlaceEditor.PropertyUpdated(System.Windows.Controls.TextBlock)">
+            <summary>
+            Returns the property that is being edited in the element for example editing Window Title returns "Title",
+            Button text as "Content".
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.InPlaceEditor.OnKeyUp(System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Change is committed if the user releases the Escape Key.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle">
+            <summary>
+            Adorner that displays the margin of a control in a Grid.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.HandleLengthOffset">
+            <summary>
+            Places the Handle with a certain offset so the Handle does not interfere with selection outline.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.HandleLengthProperty">
+            <summary>
+            Dependency property for <see cref="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.HandleLength"/>.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.lineArrow">
+            <summary> This grid contains the handle line and the endarrow.</summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.OnHandleLengthChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Decides the visiblity of handle/stub when <see cref="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.HandleLength"/> changes
+            </summary>
+            <param name="d"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.BindAndPlaceHandle">
+            <summary>
+            Binds the <see cref="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.HandleLength"/> to the margin and place the handles.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.DecideVisiblity(System.Double)">
+            <summary>
+            Decides the visibllity of Handle or stub,whichever is set and hides the line-endarrow if the control is near the Grid or goes out of it.
+            </summary>		
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.HandleLength">
+            <summary>
+            Gets/Sets the length of Margin Handle.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.Stub">
+            <summary>
+            Gets the Stub for this handle
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.Angle">
+            <summary>
+            Gets/Sets the angle by which handle rotates.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.TextTransform">
+            <summary>
+            Gets/Sets the angle by which the Margin display has to be rotated
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.ShouldBeVisible">
+            <summary>
+            Decides whether to permanently display the handle or not.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.DisplayOnlyStub">
+            <summary>
+            Decides whether stub has to be only displayed.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.MarginHandle.Orientation">
+            <summary>
+            Gets the orientation of the handle.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.MarginStub">
+            <summary>
+            Display a stub indicating that the margin is not set.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.MarginStub.Handle">
+            <summary>
+            Gets the margin handle using this stub.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.HandleOrientation">
+            <summary>
+            Specifies the Handle orientation
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.HandleOrientation.Left">
+            <summary>
+            Indicates that the margin handle is left-oriented and rotated 180 degrees with respect to <see cref="F:ICSharpCode.WpfDesign.Designer.Controls.HandleOrientation.Right"/>.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.HandleOrientation.Top">
+            <summary>
+            Indicates that the margin handle is top-oriented and rotated 270 degrees with respect to <see cref="F:ICSharpCode.WpfDesign.Designer.Controls.HandleOrientation.Right"/>.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.HandleOrientation.Right">
+            <summary>
+            Indicates that the margin handle is right.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.HandleOrientation.Bottom">
+            <summary>
+            Indicates that the margin handle is left-oriented and rotated 180 degrees with respect to <see cref="F:ICSharpCode.WpfDesign.Designer.Controls.HandleOrientation.Right"/>.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.Converters.HandleLengthWithOffset">
+            <summary>
+            Offset the Handle Length with MarginHandle.HandleLengthOffset
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.PageClone">
+            <summary>
+            Description of PageClone.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.PageCloneExtension">
+            <summary>
+            A <see cref="T:ICSharpCode.WpfDesign.Extensions.CustomInstanceFactory"/> for <see cref="T:System.Windows.Controls.Page"/>
+            (and derived classes, unless they specify their own <see cref="T:ICSharpCode.WpfDesign.Extensions.CustomInstanceFactory"/>).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.PageCloneExtension.CreateInstance(System.Type,System.Object[])">
+            <summary>
+            Used to create instances of <see cref="T:ICSharpCode.WpfDesign.Designer.Controls.PageClone"/>.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.QuickOperationMenu">
+            <summary>
+            A Small icon which shows up a menu containing common properties
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.QuickOperationMenu._defaults">
+            <summary>
+            Contains Default values in the Sub menu for example "HorizontalAlignment" has "HorizontalAlignment.Stretch" as it's value.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.QuickOperationMenu.AddSubMenuCheckable(System.Windows.Controls.MenuItem,System.Array,System.String,System.String)">
+            <summary>
+            Add a submenu with checkable values.
+            </summary>
+            <param name="parent">The parent menu under which to add.</param>
+            <param name="enumValues">All the values of an enum to be showed in the menu</param>
+            <param name="defaultValue">The default value out of all the enums.</param>
+            <param name="setValue">The presently set value out of the enums</param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.QuickOperationMenu.AddSubMenuInTheHeader(System.Windows.Controls.MenuItem)">
+            <summary>
+            Add a menu in the main header.
+            </summary>
+            <param name="menuItem">The menu to add.</param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.QuickOperationMenu.UncheckChildrenAndSelectClicked(System.Windows.Controls.MenuItem,System.Windows.Controls.MenuItem)">
+            <summary>
+            Checks a menu item and making it exclusive. If the check was toggled then the default menu item is selected.
+            </summary>
+            <param name="parent">The parent item of the sub menu</param>
+            <param name="clickedOn">The Item clicked on</param>
+            <returns>Returns the Default value if the checkable menu item is toggled or otherwise the new checked menu item.</returns>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.QuickOperationMenu.IsAnyItemChecked(System.Windows.Controls.MenuItem)">
+            <summary>
+            Checks in the sub-menu whether aby items has been checked or not
+            </summary>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.QuickOperationMenu.MainHeader">
+            <summary>
+            Is the main header menu which brings up all the menus.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.SelectionFrame">
+            <summary>
+            The rectangle shown during a rubber-band selecting operation.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.ErrorBalloon">
+            <summary>
+            An ErrorBalloon window.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.ResizeThumb">
+            <summary>
+            A thumb where the look can depend on the IsPrimarySelection property.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.ResizeThumb.IsPrimarySelectionProperty">
+            <summary>
+            Dependency property for <see cref="P:ICSharpCode.WpfDesign.Designer.Controls.ResizeThumb.IsPrimarySelection"/>.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Controls.ResizeThumb.ResizeThumbVisibleProperty">
+            <summary>
+            Dependency property for <see cref="P:ICSharpCode.WpfDesign.Designer.Controls.ResizeThumb.IsPrimarySelection"/>.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.ResizeThumb.IsPrimarySelection">
+            <summary>
+            Gets/Sets if the resize thumb is attached to the primary selection.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.ResizeThumb.ResizeThumbVisible">
+            <summary>
+            Gets/Sets if the resize thumb is visible.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.ResizeThumbImpl">
+            <summary>
+            Resize thumb that automatically disappears if the adornered element is too small.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.HeightDisplay">
+            <summary>
+            Display height of the element.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.WidthDisplay">
+            <summary>
+            Display width of the element.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.WindowClone">
+            <summary>
+            A custom control that imitates the properties of <see cref="T:System.Windows.Window"/>, but is not a top-level control.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.AllowsTransparency">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.DialogResult">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Icon">
+            <summary>
+            Specifies the icon to use.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Left">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Owner">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.ResizeMode">
+            <summary>
+            Gets or sets the resize mode.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.ShowActivated">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.ShowInTaskbar">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.SizeToContent">
+            <summary>
+            Gets or sets a value that specifies whether a window will automatically size itself to fit the size of its content.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.TaskbarItemInfo">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Title">
+            <summary>
+            The title to display in the Window's title bar.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Top">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Topmost">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.WindowStartupLocation">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.WindowState">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.WindowStyle">
+            <summary>
+            This property has no effect. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Activated">
+            <summary>
+            This event is never raised. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Closed">
+            <summary>
+            This event is never raised. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Closing">
+            <summary>
+            This event is never raised. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.ContentRendered">
+            <summary>
+            This event is never raised. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.Deactivated">
+            <summary>
+            This event is never raised. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.LocationChanged">
+            <summary>
+            This event is never raised. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.SourceInitialized">
+            <summary>
+            This event is never raised. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Controls.WindowClone.StateChanged">
+            <summary>
+            This event is never raised. (for compatibility with <see cref="T:System.Windows.Window"/> only).
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Controls.WindowCloneExtension">
+            <summary>
+            A <see cref="T:ICSharpCode.WpfDesign.Extensions.CustomInstanceFactory"/> for <see cref="T:System.Windows.Window"/>
+            (and derived classes, unless they specify their own <see cref="T:ICSharpCode.WpfDesign.Extensions.CustomInstanceFactory"/>).
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Controls.WindowCloneExtension.CreateInstance(System.Type,System.Object[])">
+            <summary>
+            Used to create instances of <see cref="T:ICSharpCode.WpfDesign.Designer.Controls.WindowClone"/>.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.DesignCommand">
+            <summary>
+            Custom implementation of ICommand based on the RelayCommand model by Josh Smith for the designer.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.DesignPanel.HitTest(System.Windows.Point,System.Boolean,System.Boolean)">
+            <summary>
+            Performs a custom hit testing lookup for the specified mouse event args.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.DesignPanel.HitTest(System.Windows.Point,System.Boolean,System.Boolean,System.Predicate{ICSharpCode.WpfDesign.DesignPanelHitTestResult})">
+            <summary>
+            Performs a hit test on the design surface, raising <paramref name="callback"/> for each match.
+            Hit testing continues while the callback returns true.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.DesignPanel.Context">
+            <summary>
+            Gets/Sets the design context.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.DesignPanel.IsContentHitTestVisible">
+            <summary>
+            Gets/Sets if the design content is visible for hit-testing purposes.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.DesignPanel.IsAdornerLayerHitTestVisible">
+            <summary>
+            Gets/Sets if the adorner layer is visible for hit-testing purposes.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.DesignPanel.EatAllHitTestRequests">
+            <summary>
+            this element is always hit (unless HitTestVisible is set to false)
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.DesignSurface">
+            <summary>
+            Surface hosting the WPF designer.
+            </summary>
+            <summary>
+            DesignSurface
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.DesignSurface.LoadDesigner(System.Xml.XmlReader,ICSharpCode.WpfDesign.Designer.Xaml.XamlLoadSettings)">
+            <summary>
+            Initializes the designer content from the specified XmlReader.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.DesignSurface.SaveDesigner(System.Xml.XmlWriter)">
+            <summary>
+            Saves the designer content into the specified XmlWriter.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.DesignSurface.UnloadDesigner">
+            <summary>
+            Unloads the designer content.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.DesignSurface.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.DesignSurface.DesignContext">
+            <summary>
+            Gets the active design context.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.DragDropExceptionHandler">
+            <summary>
+            When the designer is hosted in a Windows.Forms application, exceptions in
+            drag'n'drop handlers are silently ignored.
+            Applications hosting the designer should listen to the event and provide their own exception handling
+            method. If no event listener is registered, exceptions will call Environment.FailFast.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.DragDropExceptionHandler.RaiseUnhandledException(System.Exception)">
+            <summary>
+            Raises the UnhandledException event, or calls Environment.FailFast if no event handlers are present.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.DragDropExceptionHandler.UnhandledException">
+            <summary>
+            Event that occors when an unhandled exception occurs during drag'n'drop operators.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.ExtensionMethods.GetVisualAncestors(System.Windows.DependencyObject)">
+            <summary>
+            Gets all ancestors in the visual tree (including <paramref name="visual"/> itself).
+            Returns an empty list if <paramref name="visual"/> is null or not a visual.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.CanvasPlacementSupport">
+            <summary>
+            Provides <see cref="T:ICSharpCode.WpfDesign.IPlacementBehavior"/> behavior for <see cref="T:System.Windows.Controls.Canvas"/>.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.GridAdornerProvider">
+            <summary>
+            Allows arranging the rows/column on a grid.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Extensions.GridAdornerProvider.requireSplitterRecreation">
+            <summary>
+            flag used to ensure that the asynchronus splitter creation is only enqueued once
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.GridPlacementSupport">
+            <summary>
+            Provides <see cref="T:ICSharpCode.WpfDesign.IPlacementBehavior"/> behavior for <see cref="T:System.Windows.Controls.Grid"/>.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.InPlaceEditorExtension">
+            <summary>
+            Extends In-Place editor to edit any text in the designer which is wrapped in the Visual tree under TexBlock
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Extensions.InPlaceEditorExtension.textBlock">
+            <summary> Is the element in the Visual tree of the extended element which is being edited. </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.InPlaceEditorExtension.PropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Checks whether heigth/width have changed and updates the position of editor
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.InPlaceEditorExtension.PlaceEditor(System.Windows.Media.Visual,System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Places the handle from a calculated offset using Mouse Positon
+            </summary>
+            <param name="text"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.InPlaceEditorExtension.AbortEdit">
+            <summary>
+            Aborts the editing. This aborts the underlying change group of the editor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.InPlaceEditorExtension.StartEdit">
+            <summary>
+            Starts editing once again. This aborts the underlying change group of the editor
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.QuickOperationMenuExtension">
+            <summary>
+            Extends the Quick operation menu for the designer.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.SizeDisplayExtension">
+            <summary>
+            Display Height/Width on the primary selection
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.StackPanelPlacementSupport">
+            <summary>
+            Provides <see cref="T:ICSharpCode.WpfDesign.IPlacementBehavior"/> for <see cref="T:System.Windows.Controls.StackPanel"/>.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.FocusNavigator">
+            <summary>
+            Manages the Focus/Primary Selection using TAB for down-the-tree navigation and Shift+TAB for up-the-tree navigation. 
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.FocusNavigator.Start">
+            <summary>
+            Starts the navigator on the Design surface and add bindings.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.FocusNavigator.End">
+            <summary>
+            De-register the bindings from the Design Surface
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.FocusNavigator.MoveFocusForward(System.Object)">
+            <summary>
+            Moves the Foucus down the tree.
+            </summary>        
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.FocusNavigator.CanMoveFocusForward(System.Object)">
+            <summary>
+            Checks if focus navigation should be for down-the-tree be done.
+            </summary>
+            <param name="surface">Design Surface</param>        
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.FocusNavigator.MoveFocusBack(System.Object)">
+            <summary>
+            Moves focus up-the-tree.
+            </summary>        
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.FocusNavigator.CanMoveFocusBack(System.Object)">
+            <summary>
+            Checks if focus navigation for the up-the-tree should be done.
+            </summary>
+            <param name="surface">Design Surface</param>        
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.FocusNavigator.GetLastElement">
+            <summary>
+            Gets the last element in the element hierarchy.
+            </summary>        
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.FocusNavigator.SelectNextInPeers(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Select the next element in the element collection if <paramref name="item"/> parent's had it's content property as collection.
+            </summary>        
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.ModelTools">
+            <summary>
+            Static helper methods for working with the designer DOM.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.ModelTools.ComparePositionInModelFile(ICSharpCode.WpfDesign.DesignItem,ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Compares the positions of a and b in the model file.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.ModelTools.IsInDocument(ICSharpCode.WpfDesign.DesignItem)">
+            <summary>
+            Gets if the specified design item is in the document it belongs to.
+            </summary>
+            <returns>True for live objects, false for deleted objects.</returns>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.ModelTools.CanDeleteComponents(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Gets if the specified components can be deleted.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.ModelTools.DeleteComponents(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Deletes the specified components from their parent containers.
+            If the deleted components are currently selected, they are deselected before they are deleted.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.PanelInstanceFactory">
+            <summary>
+            Instance factory used to create Panel instances.
+            Sets the panels Brush to a transparent brush, and modifies the panel's type descriptor so that
+            the property value is reported as null when the transparent brush is used, and
+            setting the Brush to null actually restores the transparent brush.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.PanelInstanceFactory.CreateInstance(System.Type,System.Object[])">
+            <summary>
+            Creates an instance of the specified type, passing the specified arguments to its constructor.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.HeaderedContentControlInstanceFactory.CreateInstance(System.Type,System.Object[])">
+            <summary>
+            Creates an instance of the specified type, passing the specified arguments to its constructor.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.PanelSelectionHandler">
+            <summary>
+            Handles selection multiple controls inside a Panel.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.ClickOrDragMouseGesture">
+            <summary>
+            Base class for mouse gestures that should start dragging only after a minimum drag distance.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.MouseGestureBase">
+            <summary>
+            Base class for classes handling mouse gestures on the design surface.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Services.MouseGestureBase.IsOnlyButtonPressed(System.Windows.Input.MouseEventArgs,System.Windows.Input.MouseButton)">
+            <summary>
+            Checks if <paramref name="button"/> is the only button that is currently pressed.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.SelectedElementRectangleExtension">
+            <summary>
+            Draws a dotted line around selected UIElements.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.SelectedElementRectangleExtension.#ctor">
+            <summary>
+            Creates a new SelectedElementRectangleExtension instance.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.TabItemClickableExtension">
+            <summary>
+            Makes TabItems clickable.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.TabItemClickableExtension.OnInitialized">
+            <summary/>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.TopLeftContainerDragHandle">
+            <summary>
+            The drag handle displayed for panels.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.TopLeftContainerDragHandle.#ctor">
+            <summary/>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Extensions.ResizeThumbExtension">
+            <summary>
+            The resize thumb around a component.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Extensions.ResizeThumbExtension.extendedItemArray">
+            <summary>An array containing this.ExtendedItem as only element</summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Extensions.ResizeThumbExtension.Place(ICSharpCode.WpfDesign.Designer.Controls.ResizeThumb@,ICSharpCode.WpfDesign.PlacementAlignment)">
+            <summary>
+            Places resize thumbs at their respective positions
+            and streches out thumbs which are at the center of outline to extend resizability across the whole outline
+            </summary>
+            <param name="resizeThumb"></param>
+            <param name="alignment"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Extensions.ResizeThumbExtension.IsResizing">
+            <summary>
+            Gets whether this extension is resizing any element.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.OutlineView.Outline">
+            <summary>
+            Outline
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.OutlineView.Outline.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BoolEditor">
+            <summary>
+            BoolEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BoolEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.BrushEditorPopup">
+            <summary>
+            BrushEditorPopup
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.BrushEditorPopup.BrushEditorView">
+            <summary>
+            BrushEditorView Name Field
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.BrushEditorPopup.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.BrushEditorView">
+            <summary>
+            BrushEditorView
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.BrushEditorView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.BrushTypeEditor">
+            <summary>
+            BrushTypeEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.BrushTypeEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.GradientBrushEditor">
+            <summary>
+            GradientBrushEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.GradientBrushEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.GradientSlider">
+            <summary>
+            GradientSlider
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.GradientSlider.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.SolidBrushEditor">
+            <summary>
+            SolidBrushEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor.SolidBrushEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.CollectionEditor">
+            <summary>
+            CollectionEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.CollectionEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.EventEditor">
+            <summary>
+            EventEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.EventEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.NumberEditor">
+            <summary>
+            NumberEditor
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.NumberEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.PropertyContextMenu">
+            <summary>
+            PropertyContextMenu
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.PropertyContextMenu.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.PropertyGrid.PropertyGridView">
+            <summary>
+            PropertyGridView
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.PropertyGrid.PropertyGridView.NameTextBox">
+            <summary>
+            NameTextBox Name Field
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.PropertyGrid.PropertyGridView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.RootItemBehavior">
+            <summary>
+            Intializes different behaviors for the Root item.
+            <remarks>Could not be a extension since Root Item is can be of any type</remarks>
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.ChooseClassDialog">
+            <summary>
+            ChooseClassDialog
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Services.ChooseClassDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.CreateComponentTool">
+            <summary>
+            A tool that creates a component.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Services.CreateComponentTool.#ctor(System.Type)">
+            <summary>
+            Creates a new CreateComponentTool instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Services.CreateComponentTool.CreateItem(ICSharpCode.WpfDesign.DesignContext)">
+            <summary>
+            Is called to create the item used by the CreateComponentTool.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Services.CreateComponentTool.ComponentType">
+            <summary>
+            Gets the type of the component to be created.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.DragMoveMouseGesture">
+            <summary>
+            Mouse gesture for moving elements inside a container or between containers.
+            Belongs to the PointerTool.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.OptionService">
+            <summary>
+            Contains a set of options regarding the default designer components.
+            </summary>
+        </member>
+        <member name="F:ICSharpCode.WpfDesign.Designer.Services.OptionService.GrayOutDesignSurfaceExceptParentContainerWhenDragging">
+            <summary>
+            Gets/Sets whether the design surface should be grayed out while dragging/selection.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.DefaultSelectionService">
+            <summary>
+            Manages the collection of selected components and the primary selection.
+            Notifies components with attached DesignSite when their selection state changes.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.IUndoAction">
+            <summary>
+            Describes an action available on the undo or redo stack.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Services.IUndoAction.AffectedElements">
+            <summary>
+            The list of elements affected by the action.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Services.IUndoAction.Title">
+            <summary>
+            The title of the action.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.UndoTransaction">
+            <summary>
+            Supports ChangeGroup transactions and undo behavior.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Services.UndoService">
+            <summary>
+            Service supporting Undo/Redo actions on the design surface.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Services.UndoService.Undo">
+            <summary>
+            Undoes the last action.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Services.UndoService.Redo">
+            <summary>
+            Redoes a previously undone action.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Services.UndoService.Clear">
+            <summary>
+            Clears saved actions (both undo and redo stack).
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Services.UndoService.CanUndo">
+            <summary>
+            Gets if undo actions are available.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Services.UndoService.UndoStackChanged">
+            <summary>
+            Is raised when the undo stack has changed.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Services.UndoService.UndoActions">
+            <summary>
+            Gets the list of names of the available actions on the undo stack.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Services.UndoService.RedoActions">
+            <summary>
+            Gets the list of names of the available actions on the undo stack.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Services.UndoService.CanRedo">
+            <summary>
+            Gets if there are redo actions available.
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Xaml.XamlEditOperations">
+            <summary>
+            Deals with operations on controls which also require access to internal XML properties of the XAML Document.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Xaml.XamlEditOperations.Cut(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Copy <paramref name="designItems"/> from the designer to clipboard.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Xaml.XamlEditOperations.Copy(System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Copy <paramref name="designItems"/> from the designer to clipboard.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Xaml.XamlEditOperations.Paste">
+            <summary>
+            Paste items from clipboard into the designer.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Xaml.XamlEditOperations.AddInParent(ICSharpCode.WpfDesign.DesignItem,System.Collections.Generic.IList{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Adds Items under a parent given that the content property is collection and can add types of <paramref name="pastedItems"/>
+            </summary>
+            <param name="parent">The Parent element</param>
+            <param name="pastedItems">The list of elements to be added</param>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Xaml.XamlEditOperations.Delimeter">
+            <summary>
+            Delimet character to seperate different piece of Xaml's
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Xaml.XamlLoadSettings">
+            <summary>
+            Settings used to load a XAML document.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Xaml.XamlComponentService.RegisterXamlComponentRecursive(ICSharpCode.WpfDesign.XamlDom.XamlObject)">
+            <summary>
+            registers components from an existing XAML tree
+            </summary>
+        </member>
+        <member name="T:ICSharpCode.WpfDesign.Designer.Xaml.XamlDesignContext">
+            <summary>
+            The design context implementation used when editing XAML.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Xaml.XamlDesignContext.#ctor(System.Xml.XmlReader,ICSharpCode.WpfDesign.Designer.Xaml.XamlLoadSettings)">
+            <summary>
+            Creates a new XamlDesignContext instance.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Xaml.XamlDesignContext.Save(System.Xml.XmlWriter)">
+            <summary>
+            Saves the XAML DOM into the XML writer.
+            </summary>
+        </member>
+        <member name="M:ICSharpCode.WpfDesign.Designer.Xaml.XamlDesignContext.OpenGroup(System.String,System.Collections.Generic.ICollection{ICSharpCode.WpfDesign.DesignItem})">
+            <summary>
+            Opens a new change group used to batch several changes.
+            ChangeGroups work as transactions and are used to support the Undo/Redo system.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Xaml.XamlDesignContext.ClassName">
+            <summary>
+            Gets/Sets the value of the "x:class" property on the root item.
+            </summary>
+        </member>
+        <member name="P:ICSharpCode.WpfDesign.Designer.Xaml.XamlDesignContext.RootItem">
+            <summary>
+            Gets the root item being designed.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Xaml.XamlDesignItem.NameChanged">
+            <summary>
+            Is raised when the name of the design item changes.
+            </summary>
+        </member>
+        <member name="E:ICSharpCode.WpfDesign.Designer.Xaml.XamlDesignItem.ParentChanged">
+            <summary>
+            Occurs when the parent of this design item changes.
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

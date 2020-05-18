@@ -1,0 +1,210 @@
+﻿@{
+    Layout = "~/Shared/_Layout.cshtml";
+    Page.Title = "Change log";
+    Page.Keywords = "changes,log,new,improvements,fixes,support";
+    Page.Description = "What is new and changed in the latest version of Refactoring Essentials for Visual Studio 2015";
+}
+
+<div class="container">
+
+    <h2>Change log</h2>
+
+    <ul id="root">
+        <li>
+            4.8 &amp; 5.0 - February 19th, 2017
+            <ul>
+                <li>First sim-shipping of Refactoring Essentials for VS 2015 and 2017 (two separate packages)
+                <li>Switch from NUnit to XUnit
+                <li>Internally use .ConfigureAwait(false) everywhere for performance improvements (and unit test stability)
+                <li>Various new / enhanced analyzers / refactorings
+            </ul>
+        </li>
+        <li>
+            4.4 - October 2nd, 2016
+            <ul>
+                <li>Bug fix release (<a href="https://github.com/icsharpcode/RefactoringEssentials/issues?q=milestone%3A4.4+is%3Aclosed">list of fixes</a>)
+            </ul>
+        </li>
+        <li>
+            4.2 - June 30th, 2016
+            <ul>
+                <li>Bug fixes, tested against Visual Studio 2015 <a href="https://www.visualstudio.com/en-us/news/releasenotes/vs2015-update3-vs">Update 3</a> (which delivers huge performance and memory optimizations for code analysis)
+                <li>One new analyzer "Extract anonymous method" (<a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-4.2">details</a>)
+            </ul>
+        </li>
+        <li>
+            4.1 - May 14th, 2016
+            <ul>
+                <li>Now using Roslyn's integrated detection of generated code, which covers more variants
+                <li>Activated concurrent execution for almost all analyzers, which should improve analysis performance
+                <li>Options page for Refactoring Essentials (<a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-4.1">details</a>)
+            </ul>
+        </li>
+
+        <li>
+            4.0 - April 1st, 2016
+            <ul>
+                <li>Roslyn Code Converter included as context menu entry (local conversion)</li>
+                <li>Now shipping with 250+ refactorings/analyzers/fixes</li>
+                <li>Updated for Visual Studio 2015 Update 2</li>
+                <li>Bug fixes and more <a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-4.0">details</a></li>
+            </ul>
+        </li>
+
+        <li>
+            Code Converter Preview - February 28th, 2016
+            <ul>
+                <li>
+                    Coming in the next version of the extension, we launched a Web version of the Roslyn Code
+                    Converter C# to VB.NET feature at <a href="https://roslyncodeconverter.azurewebsites.net/">roslyncodeconverter.azurewebsites.net</a>
+                    (see About for details)
+                </li>
+            </ul>
+        </li>
+        <li>
+            3.2 - February 4th, 2016
+            <ul>
+                <li>One new C# refactoring &amp; analyzer, bug fixes (important ones for NuGet packages), <a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-3.2">details</a></li>
+            </ul>
+        </li>
+        <li>
+            3.1 - December 24th, 2015
+            <ul>
+                <li>Bugfix release with one new VB refactoring, <a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-3.1">details</a></li>
+            </ul>
+        </li>
+        <li>
+            3.0 - December 2nd, 2015
+            <ul>
+                <li>Updated for Roslyn 1.1 and VS 2015 Update 1, <a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-3.0">details</a></li>
+            </ul>
+        </li>
+        <li>
+            2.1 - October 23rd, 2015
+            <ul>
+                <li>Bug fix release, <a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-2.1">details</a></li>
+            </ul>
+        </li>
+
+        <li>
+            2.0 - September 24th, 2015
+            <ul>
+                <li><a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-2.0">Version 2.0 Changelog</a></li>
+            </ul>
+        </li>
+
+        <li>
+            1.2 - August 2nd, 2015
+            <ul>
+                <li><a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-1.2">Version 1.2 Changelog</a></li>
+            </ul>
+        </li>
+
+        <li>
+            1.1 - July 21st, 2015
+            <ul>
+                <li>Updated for Visual Studio 2015 RTM</li>
+                <li>Detailed change logs now on GitHub <a href="https://github.com/icsharpcode/RefactoringEssentials/wiki/Release-1.1">Version 1.1 Changelog</a></li>
+            </ul>
+        </li>
+
+        <li>
+            1.0.2 - July 9th, 2015
+            <ul>
+                <li>NEW in VB: Copy comments from base (CopyCommentsFromBaseCodeRefactoringProvider)</li>
+                <li>NEW in VB: Check dictionary key value (CheckDictionaryKeyValueCodeRefactoringProvider)</li>
+                <li>Bug fixes: GH #17 (#19); plus more internal fixes</li>
+            </ul>
+        </li>
+
+        <li>
+            1.0.1 - June 25th, 2015
+            <ul>
+                <li>NEW: NameOfSuggestionAnalyzer for VB</li>
+            </ul>
+        </li>
+
+        <li>
+            1.0 - June 23rd, 2015
+            <ul>
+                <li>Bug fixes</li>
+                <li>2 VB Refactorings</li>
+                <li>Rename NR6Pack to Refactoring Essentials, new Web site, new repositories</li>
+            </ul>
+        </li>
+        <li>
+            0.10 - May 30th, 2015
+            <ul>
+                <li>Additional analyzers / refactorings (eg SuggestUseVarKeywordEvidentAnalyzer)</li>
+                <li>Bug fixes, new tests</li>
+            </ul>
+        </li>
+        <li>
+            0.9 - May 4th, 2015
+            <ul>
+                <li>Focus on refactorings (VSIX)</li>
+                <li>Roslyn-ization of NR6Pack (<a href="http://community.sharpdevelop.net/blogs/andreasweizel/archive/2015/04/28/nrefactory-amp-nr6pack-finally-roslyn-ized.aspx">blog post</a>)</li>
+            </ul>
+        </li>
+        <li>
+            0.8 - Mar 9th, 2015
+            <ul>
+                <li>Batch fix support</li>
+            </ul>
+        </li>
+        <li>
+            0.7 - Feb 25th, 2015
+            <ul>
+                <li>Support for VS 2015 CTP6</li>
+                <li>NEW: EventUnsubscriptionViaAnonymousDelegateIssue (ported)</li>
+            </ul>
+        </li>
+        <li>
+            0.6 - Jan 25th, 2015
+            <ul>
+                <li>Support for VS 2015 CTP5</li>
+                <li>NEW: ConvertIfToOrExpressionIssue (ported), ConvertIfToAndExpressionIssue, StaticConstructorParameterIssue, CS0659ClassOverrideEqualsWithoutGetHashCode</li>
+                <li>FIX: Handling of comments in various actions and issues</li>
+                <li>FIX: SealedMemberInSealedClassIssue, OptionalParameterRefOutIssue</li>
+            </ul>
+        </li>
+        <li>
+            0.5 - Jan 1st, 2015
+            <ul>
+                <li>NEW: 3 analyzers, 1 refactoring</li>
+                <li>FIX: nullable handling in ConvertConditionalTernaryToNullCoalescingIssue and ConvertNullCoalescingToConditionalExpressionAction</li>
+                <li>FIX: ReplaceWithOfType* and ReplaceWithSingleCallTo* tests/issues</li>
+                <li>Build server for automated unit tests (no NuGet or VSIX package creation) <a href="http://build.sharpdevelop.net/ccnet/server/local/project/NRefactoryRoslyn/ViewProjectReport.aspx">go</a></li>
+                <li>NRefactory / NR6Pack forum <a href="http://community.sharpdevelop.net/forums/78.aspx">go</a></li>
+            </ul>
+        </li>
+        <li>
+            0.4 - Dec 22nd, 2014
+            <ul>
+                <li>Complete cleanup (NRefactory alpha package, unit tests)</li>
+                <li>Publish NuGet for analyzers</li>
+            </ul>
+        </li>
+        <li>
+            0.3 - Dec 8th, 2014
+            <ul>
+                <li>Increase # of supported refactorings </li>
+                <li>Enable first set of Analyzers </li>
+            </ul>
+        </li>
+        <li>
+            0.2 - Dec 1st, 2014
+            <ul>
+                <li>Increase # of supported refactorings </li>
+                <li>Set up automation / testing </li>
+            </ul>
+        </li>
+        <li>
+            0.1 - Nov 17th, 2014
+            <ul>
+                <li>Test version with a single refactoring </li>
+            </ul>
+        </li>
+    </ul>
+
+</div>

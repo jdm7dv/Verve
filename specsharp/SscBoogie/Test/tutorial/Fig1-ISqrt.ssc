@@ -1,0 +1,14 @@
+class Fig1 {
+  int ISqrt(int x)
+    requires 0 <= x;
+    ensures result*result <= x && x < (result+1)*(result+1);
+  {
+    int r = 0;
+    while ((r+1)*(r+1) <= x)
+      invariant r*r <= x;
+    {
+      r++;
+    }
+    return r;
+  }
+}

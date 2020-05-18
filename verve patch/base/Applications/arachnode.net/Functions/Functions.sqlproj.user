@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetDatabase>arachnode.net</TargetDatabase>
+    <StartupScript>(Blank)</StartupScript>
+    <StartAction>StartNone</StartAction>
+    <TargetConnectionString>Data Source=.;Initial Catalog=arachnode.net;Integrated Security=True;Pooling=False</TargetConnectionString>
+  </PropertyGroup>
+</Project>

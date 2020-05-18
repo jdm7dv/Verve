@@ -1,0 +1,19 @@
+using System;
+
+public class ContrivedRectangle
+{
+  public int X, Y;
+  public int Dx, Dy;
+
+  void ContrivedModifications()
+    requires 8 <= Dx;
+    modifies X, Y;
+  {
+    Y = 125;
+    while (X < 27) {
+      X += Dx;
+    }
+    assert 8 <= Dx;
+    assert Y == 125;  // error reported here
+  }
+}

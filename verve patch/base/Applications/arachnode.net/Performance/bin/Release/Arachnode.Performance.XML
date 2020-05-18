@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arachnode.Performance</name>
+    </assembly>
+    <members>
+        <member name="M:Arachnode.Performance.Counters.#ctor">
+            <summary>
+            	Initializes a new instance of the <see cref="T:Arachnode.Performance.Counters"/> class.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.GetInstance">
+            <summary>
+            	Gets the instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.InstantiatePeformanceCounters">
+            <summary>
+            	Instantiates the peformance counters.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.UpdatePerformanceCounters(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            	Updates the performance counters.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.Timers.ElapsedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.CrawlRequestAdded">
+            <summary>
+            	CrawlRequests the added.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.CrawlRequestRemoved">
+            <summary>
+            	CrawlRequests the removed.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.DiscoveryAdded">
+            <summary>
+            	Discoveries the added.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.DiscoveryRemoved">
+            <summary>
+            	Discoveries the removed.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.PolitenessAdded">
+            <summary>
+            	Politenesses the added.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.PolitenessRemoved">
+            <summary>
+            	Politenesses the removed.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.CrawlRequestDeleted">
+            <summary>
+            	Crawls the request deleted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.CrawlRequestInserted">
+            <summary>
+            	Crawls the request inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.DisallowedAbsoluteUriInserted">
+            <summary>
+            	Disalloweds the absolute URI inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.DisallowedAbsoluteUriDiscoveryInserted">
+            <summary>
+            	Disalloweds the absolute URI discovery inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.EmailAddressInserted">
+            <summary>
+            	Emails the address inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.EmailAddressDiscoveryInserted">
+            <summary>
+            	Emails the address discovery inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.ExceptionInserted">
+            <summary>
+            	Exceptions the inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.FileInserted">
+            <summary>
+            	Files the inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.FileDiscoveryInserted">
+            <summary>
+            	Files the discovery inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.FileMetaDataInserted">
+            <summary>
+            	Files the meta data inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.HyperLinkInserted">
+            <summary>
+            	Hypers the link inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.HyperLinkDiscoveryInserted">
+            <summary>
+            	Hypers the link discovery inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.ImageInserted">
+            <summary>
+            	Images the inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.ImageDiscoveryInserted">
+            <summary>
+            	Images the discovery inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.ImageMetaDataInserted">
+            <summary>
+            	Images the meta data inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.WebPageInserted">
+            <summary>
+            	Webs the page inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.WebPageMetaDataInserted">
+            <summary>
+            	Webs the page meta data inserted.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.ReportCurrentDepth(System.Int32)">
+            <summary>
+            	Reports the current depth.
+            </summary>
+            <param name = "depth">The current depth.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.CrawlRequestProcessed">
+            <summary>
+            	Crawls the request processed.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.EmailAddressesDiscovered(System.Int32)">
+            <summary>
+            	Emails the addresses discovered.
+            </summary>
+            <param name = "numberOfEmailAddressesDiscovered">The number of email addresses discovered.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.FilesDiscovered(System.Int32)">
+            <summary>
+            	Fileses the discovered.
+            </summary>
+            <param name = "numberOfFilesDiscovered">The number of files discovered.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.HyperLinksDiscovered(System.Int32)">
+            <summary>
+            	Hypers the links discovered.
+            </summary>
+            <param name = "numberOfHyperLinksDiscovered">The number of hyper links discovered.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.ImagesDiscovered(System.Int32)">
+            <summary>
+            	Imageses the discovered.
+            </summary>
+            <param name = "numberOfImagesDiscovered">The number of images discovered.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.WebPagesDiscovered(System.Int32)">
+            <summary>
+            	Webs the pages discovered.
+            </summary>
+            <param name = "numberOfWebPagesDiscovered">The number of web pages discovered.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.TotalBytesDiscovered(System.Int64)">
+            <summary>
+            	Totals the bytes discovered.
+            </summary>
+            <param name = "numberOfTotalBytesDiscovered">The number of total bytes discovered.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.CreateArachnodeDotNetCacheCounters">
+            <summary>
+            	Creates the arachnode dot net cache counters.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.AddCacheCountsCounters(System.Diagnostics.CounterCreationDataCollection)">
+            <summary>
+            	Adds the cache counts counters.
+            </summary>
+            <param name = "counterCreationDataCollection">The counter creation data collection.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.AddCacheAddedCounters(System.Diagnostics.CounterCreationDataCollection)">
+            <summary>
+            	Adds the cache added counters.
+            </summary>
+            <param name = "counterCreationDataCollection">The counter creation data collection.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.AddCacheRemovedCounters(System.Diagnostics.CounterCreationDataCollection)">
+            <summary>
+            	Adds the cache removed counters.
+            </summary>
+            <param name = "counterCreationDataCollection">The counter creation data collection.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.CreateArachnodeDotNetArachnodeDAOCounters">
+            <summary>
+            	Creates the arachnode dot net arachnode DAO counters.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.AddArachnodeDAOInsertedCounters(System.Diagnostics.CounterCreationDataCollection)">
+            <summary>
+            	Adds the arachnode DAO inserted counters.
+            </summary>
+            <param name = "counterCreationDataCollection">The counter creation data collection.</param>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.CreateArachnodeDotNetCrawlCounters">
+            <summary>
+            	Creates the arachnode dot net crawl counters.
+            </summary>
+        </member>
+        <member name="M:Arachnode.Performance.Counters.AddCrawlCrawlRequestsProcessedCounters(System.Diagnostics.CounterCreationDataCollection)">
+            <summary>
+            	Adds the crawl crawl requests processed counters.
+            </summary>
+            <param name = "counterCreationDataCollection">The counter creation data collection.</param>
+        </member>
+    </members>
+</doc>

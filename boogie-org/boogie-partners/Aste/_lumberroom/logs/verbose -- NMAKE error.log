@@ -1,0 +1,241 @@
+
+
+[2010-07-10 19:00:07] C:\Program Files\SlikSvn\bin\svn.exe update D:\Temp\aste\SpecSharp --no-auth-cache --non-interactive
+At revision 54997.
+
+
+[2010-07-10 19:00:13] C:\Program Files\SlikSvn\bin\svn.exe info D:\Temp\aste\SpecSharp --no-auth-cache --non-interactive
+Path: D:\temp\aste\SpecSharp
+URL: https://specsharp.svn.codeplex.com/svn/SpecSharp
+Repository Root: https://specsharp.svn.codeplex.com/svn
+Repository UUID: 768f3a04-76a6-432f-b7ac-274fd7b03e9c
+Revision: 54997
+Node Kind: directory
+Schedule: normal
+Last Changed Author: unknown
+Last Changed Rev: 54390
+Last Changed Date: 2010-06-21 15:19:51 +0200 (Mo, 21 Jun 2010)
+
+
+[2010-07-10 19:00:13] C:\Program Files\SlikSvn\bin\svn.exe update D:\Temp\aste\Boogie --no-auth-cache --non-interactive
+At revision 54997.
+
+
+[2010-07-10 19:00:17] C:\Program Files\SlikSvn\bin\svn.exe info D:\Temp\aste\Boogie --no-auth-cache --non-interactive
+Path: D:\temp\aste\Boogie
+URL: https://boogie.svn.codeplex.com/svn
+Repository Root: https://boogie.svn.codeplex.com/svn
+Repository UUID: 768f3a04-76a6-432f-b7ac-274fd7b03e9c
+Revision: 54997
+Node Kind: directory
+Schedule: normal
+Last Changed Author: unknown
+Last Changed Rev: 54986
+Last Changed Date: 2010-07-10 07:28:31 +0200 (Sa, 10 Jul 2010)
+
+
+[2010-07-10 19:00:17] C:\Program Files\SlikSvn\bin\svn.exe update D:\Temp\aste\SscBoogie --no-auth-cache --non-interactive
+At revision 54997.
+
+
+[2010-07-10 19:00:21] C:\Program Files\SlikSvn\bin\svn.exe info D:\Temp\aste\SscBoogie --no-auth-cache --non-interactive
+Path: D:\temp\aste\SscBoogie
+URL: https://specsharp.svn.codeplex.com/svn/SscBoogie
+Repository Root: https://specsharp.svn.codeplex.com/svn
+Repository UUID: 768f3a04-76a6-432f-b7ac-274fd7b03e9c
+Revision: 54997
+Node Kind: directory
+Schedule: normal
+Last Changed Author: unknown
+Last Changed Rev: 54839
+Last Changed Date: 2010-07-06 13:03:42 +0200 (Di, 06 Jul 2010)
+
+
+[2010-07-10 19:00:21] chdir D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\LastKnownGood9
+
+
+[2010-07-10 19:00:21] Register.cmd Clean c:\Windows\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe 
+
+
+[2010-07-10 19:00:23] Register.cmd RegisterLKG c:\Windows\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe 
+Types registered successfully
+Types registered successfully
+Types registered successfully
+
+
+[2010-07-10 19:00:24] chdir D:\Temp\aste\SpecSharp
+
+
+[2010-07-10 19:00:24] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com SpecSharp.sln /Build DebugCommandLine
+Microsoft (R) Visual Studio Version 9.0.30729.1.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: System.Compiler.Runtime, Configuration: DebugCommandLine Any CPU ------
+1>System.Compiler.Runtime -> D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll
+2>------ Skipped Build: Project: TaskManagerUI, Configuration: Debug Win32 ------
+2>Project not selected to build for this solution configuration
+3>------ Build started: Project: Resources, Configuration: DebugCommandLine Win32 ------
+3>Performing Makefile project actions
+3>Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+3>Copyright (C) Microsoft Corporation.  All rights reserved.
+3>Build log was saved at "file://d:\temp\aste\SpecSharp\Microsoft.SpecSharp\Resources\DebugCommandLine\BuildLog.htm"
+3>Resources - 0 error(s), 0 warning(s)
+4>------ Build started: Project: System.Compiler, Configuration: DebugCommandLine Any CPU ------
+4>System.Compiler -> D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll
+5>------ Skipped Build: Project: Checkin Tests, Configuration: DebugCommandLine Win32 ------
+5>Project not selected to build for this solution configuration
+6>------ Skipped Build: Project: LastKnownGood, Configuration: Debug Win32 ------
+6>Project not selected to build for this solution configuration
+7>------ Build started: Project: Microsoft.VisualStudio.CodeTools.ITaskManager, Configuration: Debug Any CPU ------
+7>Microsoft.VisualStudio.CodeTools.ITaskManager -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll
+8>------ Build started: Project: System.Compiler.Framework, Configuration: DebugCommandLine Any CPU ------
+8>System.Compiler.Framework -> D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll
+9>------ Build started: Project: System.Contracts, Configuration: Debug .NET ------
+9>The project is up-to-date.
+10>------ Build started: Project: Mscorlib.Contracts, Configuration: Debug .NET ------
+10>The project is up-to-date.
+11>------ Build started: Project: Microsoft.VisualStudio.Package, Configuration: DebugCommandLine Any CPU ------
+11>Microsoft.VisualStudio.Package -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll
+12>------ Build started: Project: Microsoft.SpecSharp.Runtime, Configuration: Debug .NET ------
+12>The project is up-to-date.
+13>------ Build started: Project: Microsoft.VisualStudio.IntegrationHelper, Configuration: DebugCommandLine Any CPU ------
+13>Microsoft.VisualStudio.IntegrationHelper -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll
+14>------ Skipped Build: Project: Microsoft.VisualStudio.CodeTools.IPropertyPane, Configuration: Debug Any CPU ------
+14>Project not selected to build for this solution configuration
+15>------ Build started: Project: Microsoft.SpecSharp, Configuration: DebugCommandLine Any CPU ------
+15>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:TRACE;DEBUG;NoVS;WHIDBEY /reference:D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Engine.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Tasks.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Utilities.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll /debug+ /filealign:4096 /optimize- /out:obj\DebugCommandLine\Microsoft.SpecSharp.dll /resource:obj\DebugCommandLine\Microsoft.SpecSharp.ErrorMessages.resources /resource:Folders.bmp,Microsoft.SpecSharp.Folders.bmp /resource:Install.rgs,Microsoft.SpecSharp.Install.rgs /target:library /warnaserror- ..\Common\Include\version.cs AdmissibilityChecker.cs Analyzer.cs AssemblyInfo.cs Checker.cs Compiler.cs CustomChecker.cs Debugger.cs DebugTools.cs Declarer.cs Duplicator.cs Error.cs LanguageService.cs Looker.cs MsBuildTask.cs Nodes.cs Normalizer.cs Parser.cs Partitioner.cs Resolver.cs Runtime.cs Scanner.cs Scoper.cs SourceContextWriter.cs Specializer.cs TypeSystem.cs VisualStudioIntegration.cs
+Compile complete -- 0 errors, 0 warnings
+15>Microsoft.SpecSharp -> D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll
+16>------ Skipped Build: Project: PropertyPage, Configuration: Debug Any CPU ------
+16>Project not selected to build for this solution configuration
+17>------ Skipped Build: Project: ContractsPropertyPane, Configuration: Debug Any CPU ------
+17>Project not selected to build for this solution configuration
+18>------ Skipped Build: Project: TaskManager, Configuration: Debug Any CPU ------
+18>Project not selected to build for this solution configuration
+19>------ Build started: Project: System.Xml.Contracts, Configuration: Debug .NET ------
+19>The project is up-to-date.
+20>------ Build started: Project: ssc, Configuration: DebugCommandLine Any CPU ------
+20>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe+ /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:DEBUG;TRACE /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /debug+ /filealign:4096 /optimize- /out:obj\DebugCommandLine\ssc.exe /resource:obj\DebugCommandLine\ssc.Messages.resources /target:exe /warnaserror- ..\..\Common\Include\version.cs AssemblyInfo.cs Main.cs
+Compile complete -- 0 errors, 0 warnings
+20>ssc -> D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\CommandLineCompiler\bin\ssc.exe
+21>------ Build started: Project: IncrementalCompilationTests, Configuration: DebugCommandLine Any CPU ------
+21>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /debug+ /filealign:4096 /optimize- /out:obj\DebugCommandLine\IncrementalCompilationTests.exe /target:exe /warnaserror- main.cs
+Compile complete -- 0 errors, 0 warnings
+21>IncrementalCompilationTests -> D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\IncrementalCompilationTests\bin\IncrementalCompilationTests.exe
+22>------ Skipped Build: Project: SpecSharpRegistration, Configuration: DebugCommandLine Win32 ------
+22>Project not selected to build for this solution configuration
+23>------ Build started: Project: System.Compiler.Contracts, Configuration: Debug .NET ------
+23>The project is up-to-date.
+24>------ Build started: Project: System.Compiler.Framework.Contracts, Configuration: Debug .NET ------
+24>The project is up-to-date.
+========== Build: 16 succeeded, 0 failed, 1 up-to-date, 8 skipped ==========
+
+
+[2010-07-10 19:00:37] chdir D:\Temp\aste\SpecSharp
+
+
+[2010-07-10 19:00:37] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com SpecSharp.sln /Build Debug
+Microsoft (R) Visual Studio Version 9.0.30729.1.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: System.Compiler.Runtime, Configuration: Debug Any CPU ------
+1>System.Compiler.Runtime -> D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll
+2>------ Build started: Project: Resources, Configuration: Debug Win32 ------
+2>Performing Makefile project actions
+2>Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+2>Copyright (C) Microsoft Corporation.  All rights reserved.
+2>Build log was saved at "file://d:\temp\aste\SpecSharp\Microsoft.SpecSharp\Resources\Debug\BuildLog.htm"
+2>Resources - 0 error(s), 0 warning(s)
+3>------ Build started: Project: System.Compiler, Configuration: Debug Any CPU ------
+3>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe+ /checked- /nowarn:1591,1699,1701,1702 /nostdlib- /warn:4 /doc:System.Compiler.xml /baseaddress:0 /define:TRACE;DEBUG;ExtendedRuntime;WHIDBEY;WHIDBEYwithGenericsAndIEqualityComparer;AllowCsharpConstructorSyntax;ILOFFSETS /reference:D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll /debug+ /debug:full /filealign:4096 /keyfile:..\Common\InterimKey.snk /optimize- /out:obj\Debug\System.Compiler.dll /resource:obj\Debug\System.Compiler.ExceptionStrings.resources /target:library /warnaserror- ..\Common\Include\version.cs AssemblyCache.cs AssemblyInfo.cs Comparer.cs DoubleVisitor.cs Duplicator.cs ExceptionStrings.cs FastFileIO.cs ILGenerator.cs ListTemplate.cs MemoryMappedFile.cs Metadata.cs Nodes.cs OpCode.cs PDBreaderWriter\BitAccess.cs PDBreaderWriter\BitSet.cs PDBreaderWriter\CvInfo.cs PDBreaderWriter\DataStream.cs PDBreaderWriter\DbiDbgHdr.cs PDBreaderWriter\DbiHeader.cs PDBreaderWriter\DbiModuleInfo.cs PDBreaderWriter\DbiSecCon.cs PDBreaderWriter\IntHashTable.cs PDBreaderWriter\MsfDirectory.cs PDBreaderWriter\PdbDebugException.cs PDBreaderWriter\PdbException.cs PDBreaderWriter\PdbFile.cs PDBreaderWriter\PdbFileHeader.cs PDBreaderWriter\PdbFunction.cs PDBreaderWriter\PdbLine.cs PDBreaderWriter\PdbLines.cs PDBreaderWriter\PdbReader.cs PDBreaderWriter\PdbScope.cs PDBreaderWriter\PdbSlot.cs PDBreaderWriter\PdbSource.cs PDBreaderWriter\PdbWriter.cs Reader.cs Specializer.cs StandardIds.cs StandardVisitor.cs SystemTypes.cs Unstacker.cs Updater.cs Writer.cs
+Compile complete -- 0 errors, 0 warnings
+3>System.Compiler -> D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll
+4>------ Skipped Build: Project: Checkin Tests, Configuration: Debug Win32 ------
+4>Project not selected to build for this solution configuration
+5>------ Skipped Build: Project: LastKnownGood, Configuration: Debug Win32 ------
+5>Project not selected to build for this solution configuration
+6>------ Build started: Project: Microsoft.VisualStudio.CodeTools.ITaskManager, Configuration: Debug Any CPU ------
+6>Microsoft.VisualStudio.CodeTools.ITaskManager -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll
+7>------ Build started: Project: System.Compiler.Framework, Configuration: Debug Any CPU ------
+7>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe+ /checked- /nowarn:1595,1591,1587,1572,1573,1699,1701,1702 /nostdlib+ /warn:4 /doc:System.Compiler.Framework.xml /baseaddress:0 /define:TRACE;DEBUG;WHIDBEY /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Mscorlib.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\System.Compiler.Framework.dll /resource:obj\Debug\System.Compiler.Compiler.ErrorMessages.resources /target:library /warnaserror- ..\Common\Include\version.cs Analysis\CciUtils.cs Analysis\CFG.cs Analysis\CFGanalysis.cs Analysis\CodeFlattener.cs Analysis\CodePrinter.cs Analysis\ControlFlow.cs Analysis\DataStructUtils.cs Analysis\DefiniteAssignmentAnalysis.cs Analysis\EGraph.cs Analysis\EmptyVisitor.cs Analysis\ExposureAnalysis.cs Analysis\InstructionVisitor.cs Analysis\NonNullAnalysis.cs Analysis\ObjectConsistencyAnalysis.cs Analysis\ObjectExposureAnalysis.cs Analysis\PointsTo\CallGraph.cs Analysis\PointsTo\PointsToAnalysis.cs Analysis\PointsTo\PointsToAndEffectsAnnotations.cs Analysis\PointsTo\PTGraph.cs Analysis\PointsTo\Set.cs Analysis\PurityAnalysis.cs Analysis\ReentrancyAnalysis.cs Analysis\StackDepthAnalysis.cs Analysis\StronglyConnectedComps.cs AssemblyInfo.cs Analysis\Analyzer.cs Compiler\Checker.cs Compiler\CodeDom.cs Compiler\Compiler.cs Compiler\Declarer.cs Compiler\Error.cs Compiler\Evaluator.cs Compiler\Finders.cs Compiler\GuardedFieldAccessInstrumenter.cs Compiler\Looker.cs Compiler\Normalizer.cs Compiler\Optimizer.cs Compiler\Partitioner.cs Compiler\Passer.cs Compiler\PathWrapper.cs Compiler\Resolver.cs Compiler\Runtime.cs Compiler\Scoper.cs Compiler\TypeSystem.cs Compiler\Verifier.cs Debugger\Debugger.cs Debugger\ExpressionEval.cs LanguageService\LanguageService.cs LanguageService\Scanner.cs Query\QueryComposer.cs Query\TypeSystem.cs Query\XmlHelper.cs Serializer\DeserializerParser.cs Serializer\DeserializerScanner.cs Serializer\Serializer.cs
+Compile complete -- 0 errors, 0 warnings
+7>System.Compiler.Framework -> D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll
+8>------ Build started: Project: System.Contracts, Configuration: Debug .NET ------
+8>The project is up-to-date.
+9>------ Build started: Project: Mscorlib.Contracts, Configuration: Debug .NET ------
+9>The project is up-to-date.
+10>------ Build started: Project: Microsoft.VisualStudio.Package, Configuration: Debug Any CPU ------
+10>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:TRACE;DEBUG;WHIDBEY;WHIDBEYwithGenerics;ORCAS /reference:"C:\Program Files (x86)\Common Files\Microsoft Shared\MSEnv\PublicAssemblies\EnvDTE.dll" /reference:D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll /reference:..\Common\Bin\Microsoft.VisualStudio.Designer.Interfaces.dll /reference:..\Common\Bin\microsoft.visualstudio.ole.interop.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.Shell.Interop.8.0\8.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Shell.Interop.8.0.dll /reference:..\Common\Bin\Microsoft.VisualStudio.Shell.Interop.dll /reference:..\Common\Bin\Microsoft.VisualStudio.TextManager.Interop.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.XML.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\Microsoft.VisualStudio.Package.dll /resource:obj\Debug\Microsoft.VisualStudio.Package.Project.PropertySheet.resources /resource:obj\Debug\Microsoft.VisualStudio.Package.Project.UIStrings.resources /resource:LanguageService\completionset.bmp,Microsoft.VisualStudio.Package.LanguageService.completionset.bmp /resource:Project\folders.bmp,Microsoft.VisualStudio.Package.Project.folders.bmp /resource:Project\InstallDebugger.rgs,Microsoft.VisualStudio.Package.Project.InstallDebugger.rgs /resource:Project\InstallEditor.rgs,Microsoft.VisualStudio.Package.Project.InstallEditor.rgs /resource:Project\InstallLanguage.rgs,Microsoft.VisualStudio.Package.Project.InstallLanguage.rgs /resource:Project\InstallPackage.rgs,Microsoft.VisualStudio.Package.Project.InstallPackage.rgs /resource:Project\InstallProject.rgs,Microsoft.VisualStudio.Package.Project.InstallProject.rgs /resource:Project\InstallVSIPLicense.rgs,Microsoft.VisualStudio.Package.Project.InstallVSIPLicense.rgs /target:library /warnaserror- ..\common\include\version.cs AssemblyInfo.cs LanguageService\CodeWindowManager.cs LanguageService\Colorizer.cs LanguageService\EditorView.cs LanguageService\LanguageService.cs LanguageService\Scanner.cs LanguageService\Source.cs LanguageService\ViewFilter.cs Project\Automation.cs Project\configprovider.cs Project\DataObject.cs Project\EditorFactory.cs Project\Hierarchy.cs Project\hierarchyitem.cs Project\ImageList.cs Project\Package.cs Project\Project.cs Project\ProjectConfig.cs Project\ProjectFactory.cs Project\PropertyPages.cs Project\PropertySheet.cs Project\Registration.cs Project\RgsParser.cs Project\selection.cs Project\TaskItem.cs Project\tracing.cs Project\UIStrings.cs Project\Utilities.cs Project\VsCommands.cs
+Compile complete -- 0 errors, 0 warnings
+10>Microsoft.VisualStudio.Package -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll
+11>------ Build started: Project: Microsoft.SpecSharp.Runtime, Configuration: Debug .NET ------
+11>The project is up-to-date.
+12>------ Build started: Project: Microsoft.VisualStudio.IntegrationHelper, Configuration: Debug Any CPU ------
+12>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:DEBUG;TRACE;WHIDBEY /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Engine.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.OLE.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.OLE.Interop.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.Shell.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Shell.Interop.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.TextManager.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.TextManager.Interop.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.XML.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\Microsoft.VisualStudio.IntegrationHelper.dll /target:library /warnaserror- ..\common\include\version.cs AssemblyInfo.cs Debugger\DebuggerHelpers.cs Debugger\DebuggerInterop.cs Debugger\Nodes.cs Debugger\Symbol.cs Debugger\Values.cs Helpers.cs
+Compile complete -- 0 errors, 0 warnings
+12>Microsoft.VisualStudio.IntegrationHelper -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll
+13>------ Build started: Project: Microsoft.VisualStudio.CodeTools.IPropertyPane, Configuration: Debug Any CPU ------
+13>Microsoft.VisualStudio.CodeTools.IPropertyPane -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\IPropertyPane\bin\Debug\IPropertyPane.dll
+14>------ Build started: Project: Microsoft.SpecSharp, Configuration: Debug Any CPU ------
+14>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:DEBUG;TRACE;WHIDBEY /reference:D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ITaskManager\bin\Debug\ITaskManager.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Engine.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Tasks.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\Microsoft.Build.Utilities.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.OLE.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.OLE.Interop.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.Shell.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.Shell.Interop.dll /reference:C:\Windows\assembly\GAC\Microsoft.VisualStudio.TextManager.Interop\7.1.40304.0__b03f5f7f11d50a3a\Microsoft.VisualStudio.TextManager.Interop.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Data.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.Xml.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\Microsoft.SpecSharp.dll /resource:obj\Debug\Microsoft.SpecSharp.ErrorMessages.resources /resource:Folders.bmp,Microsoft.SpecSharp.Folders.bmp /resource:Install.rgs,Microsoft.SpecSharp.Install.rgs /target:library /warnaserror- ..\Common\Include\version.cs AdmissibilityChecker.cs Analyzer.cs AssemblyInfo.cs Checker.cs Compiler.cs CustomChecker.cs Debugger.cs DebugTools.cs Declarer.cs Duplicator.cs Error.cs LanguageService.cs Looker.cs MsBuildTask.cs Nodes.cs Normalizer.cs Parser.cs Partitioner.cs Resolver.cs Runtime.cs Scanner.cs Scoper.cs SourceContextWriter.cs Specializer.cs TypeSystem.cs VisualStudioIntegration.cs
+Compile complete -- 0 errors, 0 warnings
+14>Microsoft.SpecSharp -> D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll
+15>------ Build started: Project: PropertyPage, Configuration: Debug Any CPU ------
+15>PropertyPage -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\PropertyPage\bin\Debug\PropertyPage.dll
+16>------ Build started: Project: ContractsPropertyPane, Configuration: Debug Any CPU ------
+16>ContractsPropertyPane -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\ContractsPropertyPane\bin\Debug\ContractsPropertyPane.dll
+17>------ Build started: Project: TaskManager, Configuration: Debug Any CPU ------
+17>TaskManager -> D:\Temp\aste\SpecSharp\Microsoft.VisualStudio.CodeTools\TaskManager\bin\Debug\TaskManager.dll
+18>------ Build started: Project: System.Xml.Contracts, Configuration: Debug .NET ------
+18>The project is up-to-date.
+19>------ Build started: Project: ssc, Configuration: Debug Any CPU ------
+19>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe+ /checked- /nowarn:1699,1701,1702 /nostdlib- /warn:4 /baseaddress:285212672 /define:DEBUG;TRACE /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\ssc.exe /resource:obj\Debug\ssc.Messages.resources /target:exe /warnaserror- ..\..\Common\Include\version.cs AssemblyInfo.cs Main.cs
+Compile complete -- 0 errors, 0 warnings
+19>ssc -> D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\CommandLineCompiler\bin\ssc.exe
+20>------ Build started: Project: IncrementalCompilationTests, Configuration: Debug Any CPU ------
+20>C:\Windows\Microsoft.NET\Framework\v3.5\Csc.exe /noconfig /unsafe- /checked- /nowarn:1701,1702 /nostdlib- /warn:1 /baseaddress:285212672 /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\bin\Microsoft.SpecSharp.dll /reference:D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\Runtime\bin\Microsoft.SpecSharp.Runtime.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler\bin\System.Compiler.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Framework\bin\System.Compiler.Framework.dll /reference:D:\Temp\aste\SpecSharp\System.Compiler.Runtime\bin\System.Compiler.Runtime.dll /reference:C:\Windows\Microsoft.NET\Framework\v2.0.50727\System.dll /debug+ /filealign:4096 /optimize- /out:obj\Debug\IncrementalCompilationTests.exe /target:exe /warnaserror- main.cs
+Compile complete -- 0 errors, 0 warnings
+20>IncrementalCompilationTests -> D:\Temp\aste\SpecSharp\Microsoft.SpecSharp\IncrementalCompilationTests\bin\IncrementalCompilationTests.exe
+21>------ Build started: Project: SpecSharpRegistration, Configuration: Debug Win32 ------
+22>------ Build started: Project: System.Compiler.Contracts, Configuration: Debug .NET ------
+21>Performing Makefile project actions
+21>Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+21>Copyright (C) Microsoft Corporation.  All rights reserved.
+21> Register ..\..\Microsoft.VisualStudio.Package\bin\Microsoft.VisualStudio.Package.dll Microsoft.VisualStudio.Package.dll
+21>Types registered successfully
+21> CopyBits ..\..\Microsoft.VisualStudio.IntegrationHelper\bin\Microsoft.VisualStudio.IntegrationHelper.dll Microsoft.VisualStudio.IntegrationHelper.dll
+21> CopyBits ..\..\System.Compiler\bin\System.Compiler.dll System.Compiler.dll
+21> CopyBits ..\..\System.Compiler.Framework\bin\System.Compiler.Framework.dll System.Compiler.Framework.dll
+21> RegInstall ..\bin\Microsoft.SpecSharp.dll Microsoft.SpecSharp.dll
+21>Types registered successfully
+21>NMAKE : fatal error U1073: don't know how to make '..\..\Samples\OutOfBandContracts\System.Compiler\bin\System.Compiler.Contracts.dll'
+21>Stop.
+21>Project : error PRJ0019: A tool returned an error code from "Performing Makefile project actions"
+21>Build log was saved at "file://d:\temp\aste\SpecSharp\Microsoft.SpecSharp\Registration\Debug\BuildLog.htm"
+21>SpecSharpRegistration - 2 error(s), 0 warning(s)
+Build complete -- 0 errors, 0 warnings
+23>------ Build started: Project: System.Compiler.Framework.Contracts, Configuration: Debug .NET ------
+Build complete -- 0 errors, 0 warnings
+========== Build: 20 succeeded, 1 failed, 2 up-to-date, 2 skipped ==========
+
+
+[2010-07-10 19:00:53] [Error] C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\devenv.com SpecSharp.sln /Build Debug
+
+
+[2010-07-10 19:00:53] rmdir /s/q D:\Temp\aste\summaries\SpecSharp
+
+
+[2010-07-10 19:00:53] C:\Program Files\SlikSvn\bin\svn.exe checkout https://specsharp.svn.codeplex.com/svn/_admin/SpecSharp/aste D:\Temp\aste\summaries\SpecSharp --no-auth-cache --non-interactive --username codeplexbot --password ********
+A    D:\temp\aste\summaries\SpecSharp\summary.log
+Checked out revision 54997.
+
+
+[2010-07-10 19:00:58] C:\Program Files\SlikSvn\bin\svn.exe status D:\Temp\aste\summaries\SpecSharp\summary.log --no-auth-cache --non-interactive --username codeplexbot --password ********
+M       D:\temp\aste\summaries\SpecSharp\summary.log
+
+
+[2010-07-10 19:00:58] C:\Program Files\SlikSvn\bin\svn.exe commit -m "SpecSharp build failed" D:\Temp\aste\summaries\SpecSharp\summary.log --no-auth-cache --non-interactive --username codeplexbot --password ********
+Sending        temp\aste\summaries\SpecSharp\summary.log
+Transmitting file data .
+Committed revision 54998.
+
+
+[2010-07-10 19:01:06] Sent mail to ['Malte Schwerhoff <mschwerhoff@student.ethz.ch>', 'Valentin W\xc3\xbcstholz <valentin.wuestholz@inf.ethz.ch>', 'Peter M\xc3\xbcller <peter.mueller@inf.ethz.ch>'] with subject "[Aste] BuildError, Summaries committed"

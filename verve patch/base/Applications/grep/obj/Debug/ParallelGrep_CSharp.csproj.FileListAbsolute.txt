@@ -1,0 +1,4 @@
+D:\Work\2016-present\base\Applications\grep\bin\Debug\ParallelGrep.exe
+D:\Work\2016-present\base\Applications\grep\bin\Debug\ParallelGrep.pdb
+D:\Work\2016-present\base\Applications\grep\obj\Debug\ParallelGrep.exe
+D:\Work\2016-present\base\Applications\grep\obj\Debug\ParallelGrep.pdb

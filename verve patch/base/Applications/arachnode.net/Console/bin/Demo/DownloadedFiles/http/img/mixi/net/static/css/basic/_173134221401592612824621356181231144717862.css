@@ -1,0 +1,105 @@
+@charset "euc-jp";
+
+/* ****************************************************************************
+ * ログアウト（互換モード）用
+ * **************************************************************************** */
+
+/*---- #loginBodyArea:ログイン画面 ----*/
+#loginBodyArea{
+position:relative;
+width:945px;
+*width:955px;
+padding:0 5px;
+}
+
+#loginBodyArea div#loginMain{
+width:945px;
+height:460px;
+}
+
+#loginBodyArea div#loginArea{
+position:absolute;
+top:90px;
+left:580px;
+width:199px;
+*width:225px;
+height:236px;
+*height:250px;
+line-height:1.3;
+padding:12px 12px 0;
+border:1px solid #CCC;
+background:#F8F7F3;
+font-size:12px;
+}
+
+#loginBodyArea p.registerMixi{
+position:absolute;
+top:220px;
+left:280px;
+}
+
+#loginBodyArea p.aboutMixi{
+position:absolute;
+top:350px;
+left:300px;
+}
+
+#loginBodyArea div#loginArea p.loginInfo{
+height:36px;
+margin-bottom:5px;
+font-weight:bold;
+}
+
+#loginBodyArea div#loginArea ul.loginForm li.inputForm{
+height:38px;
+line-height:1.25;
+}
+
+#loginBodyArea div#loginArea ul.loginForm li.inputForm input{
+width:199px;
+height:20px;
+padding-top:2px;
+background:#FFF;
+}
+
+#loginBodyArea div#loginArea ul.loginForm li.autoLogin{
+margin:2px 0 7px;
+}
+
+#loginBodyArea div#loginArea ul.loginForm li.autoLogin input{
+margin:0 4px 0 2px;
+vertical-align:middle;
+}
+
+#loginBodyArea div#loginArea p.pwReminder{
+font-size:83%;
+}
+
+#loginBodyArea div#loginArea p.loginButton{
+padding:10px 0 8px;
+text-align:center;
+}
+
+#loginBodyArea div#loginArea p.loginButton input{
+padding:0;
+border:none;
+background:none;
+}
+
+#loginBodyArea div#loginArea p.sslLink01{
+text-align:center;
+font-size:86%;
+}
+
+#loginBodyArea div#loginArea p.extraLink01{
+margin-top:5px;
+text-align:center;
+}
+
+#loginBodyArea div#loginArea div.registerArea{
+margin-top:8px;
+padding:6px 0;
+border:1px solid #DFDFDF;
+background:#FFF;
+text-align:center;
+}

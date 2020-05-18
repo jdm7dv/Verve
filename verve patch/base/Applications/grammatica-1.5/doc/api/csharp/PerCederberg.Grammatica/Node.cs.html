@@ -1,0 +1,518 @@
+<HTML>
+<HEAD>
+<TITLE>
+Node.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * Node.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2005 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.IO;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * An abstract parse tree node. This class is inherited by all
+     * nodes in the parse tree, i.e. by the token and production
+     * classes.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">abstract</font> <font color="blue">class</font> Node <font color="black">{</font>
+
+        <font color="green">/**
+         * The parent node.
+         */</font>
+        <font color="blue">private</font> Node parent <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+         * The computed node values.
+         */</font>
+        <font color="blue">private</font> ArrayList values <font color="black">=</font> <font color="blue">null</font>;
+
+        <font color="green">/**
+         * Checks if this node is hidden, i.e. if it should not be
+         * visible outside the parser.
+         *
+         * @return true if the node should be hidden, or
+         *         false otherwise
+         */</font>
+        <font color="blue">internal</font> <font color="blue">virtual</font> <font color="blue">bool</font> IsHidden<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The node type id property (read-only). This value is set as
+         * a unique identifier for each type of node, in order to
+         * simplify later identification.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">abstract</font> <font color="blue">int</font> Id <font color="black">{</font>
+            <font color="blue">get</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the node type id. This value is set as a unique
+         * identifier for each type of node, in order to simplify
+         * later identification.
+         *
+         * @return the node type id
+         *
+         * @see #Id
+         *
+         * @deprecated Use the Id property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> GetId<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Id;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The node name property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">abstract</font> string Name <font color="black">{</font>
+            <font color="blue">get</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the node name.
+         *
+         * @return the node name
+         *
+         * @see #Name
+         *
+         * @deprecated Use the Name property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> string GetName<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Name;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The line number property of the first character in this
+         * node (read-only). If the node has child elements, this
+         * value will be fetched from the first child.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> StartLine <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">int</font>  <font color="blue">line</font>;
+
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">line</font> <font color="black">=</font> <font color="blue">this</font><font color="black">[</font>i<font color="black">]</font>.StartLine;
+                    <font color="blue">if</font> <font color="black">(</font><font color="blue">line</font> <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> <font color="blue">line</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="maroon">-1</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The line number of the first character in this node. If the
+         * node has child elements, this value will be fetched from
+         * the first child.
+         *
+         * @return the line number of the first character, or
+         *         -1 if not applicable
+         *
+         * @see #StartLine
+         *
+         * @deprecated Use the StartLine property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> GetStartLine<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> StartLine;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The column number property of the first character in this
+         * node (read-only). If the node has child elements, this
+         * value will be fetched from the first child.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> StartColumn <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">int</font>  col;
+
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    col <font color="black">=</font> <font color="blue">this</font><font color="black">[</font>i<font color="black">]</font>.StartColumn;
+                    <font color="blue">if</font> <font color="black">(</font>col <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> col;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="maroon">-1</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The column number of the first character in this node. If
+         * the node has child elements, this value will be fetched
+         * from the first child.
+         *
+         * @return the column number of the first token character, or
+         *         -1 if not applicable
+         *
+         * @see #StartColumn
+         *
+         * @deprecated Use the StartColumn property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> GetStartColumn<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> StartColumn;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The line number property of the last character in this node
+         * (read-only). If the node has child elements, this value
+         * will be fetched from the last child.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> EndLine <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">int</font>  <font color="blue">line</font>;
+
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> Count <font color="maroon">-1</font>; i <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font>; i<font color="black">-</font><font color="black">-</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">line</font> <font color="black">=</font> <font color="blue">this</font><font color="black">[</font>i<font color="black">]</font>.EndLine;
+                    <font color="blue">if</font> <font color="black">(</font><font color="blue">line</font> <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> <font color="blue">line</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="maroon">-1</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The line number of the last character in this node. If the
+         * node has child elements, this value will be fetched from
+         * the last child.
+         *
+         * @return the line number of the last token character, or
+         *         -1 if not applicable
+         *
+         * @see #EndLine
+         *
+         * @deprecated Use the EndLine property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> GetEndLine<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> EndLine;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The column number property of the last character in this
+         * node (read-only). If the node has child elements, this
+         * value will be fetched from the last child.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> EndColumn <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">int</font>  col;
+
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> Count <font color="maroon">-1</font>; i <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font>; i<font color="black">-</font><font color="black">-</font><font color="black">)</font> <font color="black">{</font>
+                    col <font color="black">=</font> <font color="blue">this</font><font color="black">[</font>i<font color="black">]</font>.EndColumn;
+                    <font color="blue">if</font> <font color="black">(</font>col <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> col;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="maroon">-1</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The column number of the last character in this node. If
+         * the node has child elements, this value will be fetched
+         * from the last child.
+         *
+         * @return the column number of the last token character, or
+         *         -1 if not applicable
+         *
+         * @see #EndColumn
+         *
+         * @deprecated Use the EndColumn property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> GetEndColumn<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> EndColumn;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The parent node property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> Node Parent <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> parent;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the parent node.
+         *
+         * @return the parent parse tree node
+         *
+         * @see #Parent
+         *
+         * @deprecated Use the Parent property instead.
+         */</font>
+        <font color="blue">public</font> Node GetParent<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Parent;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Sets the parent node.
+         *
+         * @param parent         the new parent node
+         */</font>
+        <font color="blue">internal</font> <font color="blue">void</font> SetParent<font color="black">(</font>Node parent<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.parent <font color="black">=</font> parent;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The child node count property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> Count <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="maroon">0</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the number of child nodes.
+         *
+         * @return the number of child nodes
+         *
+         * @deprecated Use the Count property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">int</font> GetChildCount<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Count;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the number of descendant nodes.
+         *
+         * @return the number of descendant nodes
+         *
+         * @since 1.2
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetDescendantCount<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">int</font>  count <font color="black">=</font> <font color="maroon">0</font>;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                count <font color="black">+</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">+</font> <font color="blue">this</font><font color="black">[</font>i<font color="black">]</font>.GetDescendantCount<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> count;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The child node index (read-only).
+         *
+         * @param index          the child index, 0 &#60;= index &#60; Count
+         *
+         * @return the child node found, or
+         *         null if index out of bounds
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> Node <font color="blue">this</font><font color="black">[</font><font color="blue">int</font> index<font color="black">]</font> <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">null</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the child node with the specified index.
+         *
+         * @param index          the child index, 0 &#60;= index &#60; count
+         *
+         * @return the child node found, or
+         *         null if index out of bounds
+         *
+         * @deprecated Use the class indexer instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> Node GetChildAt<font color="black">(</font><font color="blue">int</font> index<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">this</font><font color="black">[</font>index<font color="black">]</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The node values property. This property provides direct
+         * access to the list of computed values associated with this
+         * node during analysis. Note that setting this property to
+         * null will remove all node values. Any operation on the
+         * value array list is allowed and is immediately reflected
+         * through the various value reading and manipulation methods.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> ArrayList Values <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>values <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                    values <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> values;
+            <font color="black">}</font>
+            <font color="blue">set</font> <font color="black">{</font>
+                <font color="blue">this</font>.values <font color="black">=</font> <font color="blue">value</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the number of computed values associated with this
+         * node. Any number of values can be associated with a node
+         * through calls to AddValue().
+         *
+         * @return the number of values associated with this node
+         *
+         * @see #Values
+         *
+         * @deprecated Use the Values and Values.Count properties
+         *     instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetValueCount<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>values <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="maroon">0</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">return</font> values.Count;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a computed value of this node, if previously set. A
+         * value may be used for storing intermediate results in the
+         * parse tree during analysis.
+         *
+         * @param pos             the value position, 0 &#60;= pos &#60; count
+         *
+         * @return the computed node value, or
+         *         null if not set
+         *
+         * @see #Values
+         *
+         * @deprecated Use the Values property and it's array indexer
+         *     instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">object</font> GetValue<font color="black">(</font><font color="blue">int</font> pos<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Values<font color="black">[</font>pos<font color="black">]</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the list with all the computed values for this
+         * node. Note that the list is not a copy, so changes will
+         * affect the values in this node (as it is the same object).
+         *
+         * @return a list with all values, or
+         *         null if no values have been set
+         *
+         * @see #Values
+         *
+         * @deprecated Use the Values property instead. Note that the
+         *     Values property will never be null, but possibly empty.
+         */</font>
+        <font color="blue">public</font> ArrayList GetAllValues<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> values;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a computed value to this node. The computed value may
+         * be used for storing intermediate results in the parse tree
+         * during analysis.
+         *
+         * @param value          the node value
+         *
+         * @see #Values
+         *
+         * @deprecated Use the Values property and the Values.Add
+         *     method instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> AddValue<font color="black">(</font><font color="blue">object</font> <font color="blue">value</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">value</font> <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                Values.Add<font color="black">(</font><font color="blue">value</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a set of computed values to this node.
+         *
+         * @param values         the vector with node values
+         *
+         * @see #Values
+         *
+         * @deprecated Use the Values property and the Values.AddRange
+         *     method instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> AddValues<font color="black">(</font>ArrayList values<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>values <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                Values.AddRange<font color="black">(</font>values<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Removes all computed values stored in this node.
+         *
+         * @see #Values
+         *
+         * @deprecated Use the Values property and the Values.Clear
+         *     method instead. Alternatively the Values property can
+         *     be set to null.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> RemoveAllValues<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            values <font color="black">=</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Prints this node and all subnodes to the specified output
+         * stream.
+         *
+         * @param output         the output stream to use
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> PrintTo<font color="black">(</font>TextWriter output<font color="black">)</font> <font color="black">{</font>
+            PrintTo<font color="black">(</font>output, <font color="maroon">""</font><font color="black">)</font>;
+            output.Flush<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Prints this node and all subnodes to the specified output
+         * stream.
+         *
+         * @param output         the output stream to use
+         * @param indent         the indentation string
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> PrintTo<font color="black">(</font>TextWriter output, string indent<font color="black">)</font> <font color="black">{</font>
+            output.WriteLine<font color="black">(</font>indent <font color="black">+</font> ToString<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+            indent <font color="black">=</font> indent <font color="black">+</font> <font color="maroon">"  "</font>;
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font><font color="black">[</font>i<font color="black">]</font>.PrintTo<font color="black">(</font>output, indent<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

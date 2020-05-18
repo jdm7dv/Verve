@@ -1,0 +1,410 @@
+<HTML>
+<HEAD>
+<TITLE>
+Analyzer.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * Analyzer.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System.Collections;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A parse tree analyzer. This class provides callback methods that
+     * may be used either during parsing, or for a parse tree traversal.
+     * This class should be subclassed to provide adequate handling of the
+     * parse tree nodes.
+     *
+     * The general contract for the analyzer class does not guarantee a
+     * strict call order for the callback methods. Depending on the type
+     * of parser, the enter() and exit() methods for production nodes can
+     * be called either in a top-down or a bottom-up fashion. The only
+     * guarantee provided by this API, is that the calls for any given
+     * node will always be in the order enter(), child(), and exit(). If
+     * various child() calls are made, they will be made from left to
+     * right as child nodes are added (to the right).
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> Analyzer <font color="black">{</font>
+
+        <font color="green">/**
+         * Creates a new parse tree analyzer.
+         */</font>
+        <font color="blue">public</font> Analyzer<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Resets this analyzer when the parser is reset for another
+         * input stream. The default implementation of this method does
+         * nothing.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">void</font> Reset<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="green">// Default implementation does nothing</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Analyzes a parse tree node by traversing all it's child nodes.
+         * The tree traversal is depth-first, and the appropriate
+         * callback methods will be called. If the node is a production
+         * node, a new production node will be created and children will
+         * be added by recursively processing the children of the
+         * specified production node. This method is used to process a
+         * parse tree after creation.
+         *
+         * @param node           the parse tree node to process
+         *
+         * @return the resulting parse tree node
+         *
+         * @throws ParserLogException if the node analysis discovered
+         *             errors
+         */</font>
+        <font color="blue">public</font> Node Analyze<font color="black">(</font>Node node<font color="black">)</font> <font color="black">{</font>
+            ParserLogException  log <font color="black">=</font> <font color="blue">new</font> ParserLogException<font color="black">(</font><font color="black">)</font>;
+
+            node <font color="black">=</font> Analyze<font color="black">(</font>node, log<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font>log.Count <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> log;
+            <font color="black">}</font>
+            <font color="blue">return</font> node;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Analyzes a parse tree node by traversing all it's child nodes.
+         * The tree traversal is depth-first, and the appropriate
+         * callback methods will be called. If the node is a production
+         * node, a new production node will be created and children will
+         * be added by recursively processing the children of the
+         * specified production node. This method is used to process a
+         * parse tree after creation.
+         *
+         * @param node           the parse tree node to process
+         * @param log            the parser error log
+         *
+         * @return the resulting parse tree node
+         */</font>
+        <font color="blue">private</font> Node Analyze<font color="black">(</font>Node node, ParserLogException log<font color="black">)</font> <font color="black">{</font>
+            Production  prod;
+            <font color="blue">int</font>         errorCount;
+
+            errorCount <font color="black">=</font> log.Count;
+            <font color="blue">if</font> <font color="black">(</font>node <font color="blue">is</font> Production<font color="black">)</font> <font color="black">{</font>
+                prod <font color="black">=</font> <font color="black">(</font>Production<font color="black">)</font> node;
+                prod <font color="black">=</font> NewProduction<font color="black">(</font>prod.Pattern<font color="black">)</font>;
+                try <font color="black">{</font>
+                    Enter<font color="black">(</font>prod<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    log.AddError<font color="black">(</font>e<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> node.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    try <font color="black">{</font>
+                        Child<font color="black">(</font>prod, Analyze<font color="black">(</font>node<font color="black">[</font>i<font color="black">]</font>, log<font color="black">)</font><font color="black">)</font>;
+                    <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                        log.AddError<font color="black">(</font>e<font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                try <font color="black">{</font>
+                    <font color="blue">return</font> Exit<font color="black">(</font>prod<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>errorCount <font color="black">=</font><font color="black">=</font> log.Count<font color="black">)</font> <font color="black">{</font>
+                        log.AddError<font color="black">(</font>e<font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                node.Values.Clear<font color="black">(</font><font color="black">)</font>;
+                try <font color="black">{</font>
+                    Enter<font color="black">(</font>node<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    log.AddError<font color="black">(</font>e<font color="black">)</font>;
+                <font color="black">}</font>
+                try <font color="black">{</font>
+                    <font color="blue">return</font> Exit<font color="black">(</font>node<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">catch</font> <font color="black">(</font>ParseException e<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font>errorCount <font color="black">=</font><font color="black">=</font> log.Count<font color="black">)</font> <font color="black">{</font>
+                        log.AddError<font color="black">(</font>e<font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Factory method to create a new production node. This method
+         * can be overridden to provide other production implementations
+         * than the default one.
+         *
+         * @param pattern        the production pattern
+         *
+         * @return the new production node
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> Production NewProduction<font color="black">(</font>ProductionPattern pattern<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">new</font> Production<font color="black">(</font>pattern<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Called when entering a parse tree node. By default this method
+         * does nothing. A subclass can override this method to handle
+         * each node separately.
+         *
+         * @param node           the node being entered
+         *
+         * @throws ParseException if the node analysis discovered errors
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">void</font> Enter<font color="black">(</font>Node node<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Called when exiting a parse tree node. By default this method
+         * returns the node. A subclass can override this method to handle
+         * each node separately. If no parse tree should be created, this
+         * method should return null.
+         *
+         * @param node           the node being exited
+         *
+         * @return the node to add to the parse tree, or
+         *         null if no parse tree should be created
+         *
+         * @throws ParseException if the node analysis discovered errors
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> Node Exit<font color="black">(</font>Node node<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> node;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Called when adding a child to a parse tree node. By default
+         * this method adds the child to the production node. A subclass
+         * can override this method to handle each node separately. Note
+         * that the child node may be null if the corresponding exit()
+         * method returned null.
+         *
+         * @param node           the parent node
+         * @param child          the child node, or null
+         *
+         * @throws ParseException if the node analysis discovered errors
+         */</font>
+        <font color="blue">public</font> <font color="blue">virtual</font> <font color="blue">void</font> Child<font color="black">(</font>Production node, Node child<font color="black">)</font> <font color="black">{</font>
+            node.AddChild<font color="black">(</font>child<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a child at the specified position. If either the node
+         * or the child node is null, this method will throw a parse
+         * exception with the internal error type.
+         *
+         * @param node           the parent node
+         * @param pos            the child position
+         *
+         * @return the child node
+         *
+         * @throws ParseException if either the node or the child node
+         *             was null
+         */</font>
+        <font color="blue">protected</font> Node GetChildAt<font color="black">(</font>Node node, <font color="blue">int</font> pos<font color="black">)</font> <font color="black">{</font>
+            Node  child;
+
+            <font color="blue">if</font> <font color="black">(</font>node <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.INTERNAL,
+                    <font color="maroon">"attempt to read 'null' parse tree node"</font>,
+                    <font color="maroon">-1</font>,
+                    <font color="maroon">-1</font><font color="black">)</font>;
+            <font color="black">}</font>
+            child <font color="black">=</font> node<font color="black">[</font>pos<font color="black">]</font>;
+            <font color="blue">if</font> <font color="black">(</font>child <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.INTERNAL,
+                    <font color="maroon">"node '"</font> <font color="black">+</font> node.Name <font color="black">+</font> <font color="maroon">"' has no child at "</font> <font color="black">+</font>
+                    <font color="maroon">"position "</font> <font color="black">+</font> pos,
+                    node.StartLine,
+                    node.StartColumn<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> child;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the first child with the specified id. If the node is
+         * null, or no child with the specified id could be found, this
+         * method will throw a parse exception with the internal error
+         * type.
+         *
+         * @param node           the parent node
+         * @param id             the child node id
+         *
+         * @return the child node
+         *
+         * @throws ParseException if the node was null, or a child node
+         *             couldn't be found
+         */</font>
+        <font color="blue">protected</font> Node GetChildWithId<font color="black">(</font>Node node, <font color="blue">int</font> id<font color="black">)</font> <font color="black">{</font>
+            Node  child;
+
+            <font color="blue">if</font> <font color="black">(</font>node <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.INTERNAL,
+                    <font color="maroon">"attempt to read 'null' parse tree node"</font>,
+                    <font color="maroon">-1</font>,
+                    <font color="maroon">-1</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> node.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                child <font color="black">=</font> node<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>child <font color="black">!</font><font color="black">=</font> <font color="blue">null</font> <font color="black">&</font><font color="black">&</font> child.Id <font color="black">=</font><font color="black">=</font> id<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> child;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                ParseException.ErrorType.INTERNAL,
+                <font color="maroon">"node '"</font> <font color="black">+</font> node.Name <font color="black">+</font> <font color="maroon">"' has no child with id "</font> <font color="black">+</font> id,
+                node.StartLine,
+                node.StartColumn<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the node value at the specified position. If either
+         * the node or the value is null, this method will throw a parse
+         * exception with the internal error type.
+         *
+         * @param node           the parse tree node
+         * @param pos            the child position
+         *
+         * @return the value object
+         *
+         * @throws ParseException if either the node or the value was null
+         */</font>
+        <font color="blue">protected</font> <font color="blue">object</font> GetValue<font color="black">(</font>Node node, <font color="blue">int</font> pos<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">object</font>  <font color="blue">value</font>;
+
+            <font color="blue">if</font> <font color="black">(</font>node <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.INTERNAL,
+                    <font color="maroon">"attempt to read 'null' parse tree node"</font>,
+                    <font color="maroon">-1</font>,
+                    <font color="maroon">-1</font><font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">value</font> <font color="black">=</font> node.Values<font color="black">[</font>pos<font color="black">]</font>;
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">value</font> <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.INTERNAL,
+                    <font color="maroon">"node '"</font> <font color="black">+</font> node.Name <font color="black">+</font> <font color="maroon">"' has no value at "</font> <font color="black">+</font>
+                    <font color="maroon">"position "</font> <font color="black">+</font> pos,
+                    node.StartLine,
+                    node.StartColumn<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">value</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the node integer value at the specified position. If
+         * either the node is null, or the value is not an instance of
+         * the Integer class, this method will throw a parse exception
+         * with the internal error type.
+         *
+         * @param node           the parse tree node
+         * @param pos            the child position
+         *
+         * @return the value object
+         *
+         * @throws ParseException if either the node was null, or the
+         *             value wasn't an integer
+         */</font>
+        <font color="blue">protected</font> <font color="blue">int</font> GetIntValue<font color="black">(</font>Node node, <font color="blue">int</font> pos<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">object</font>  <font color="blue">value</font>;
+
+            <font color="blue">value</font> <font color="black">=</font> GetValue<font color="black">(</font>node, pos<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">value</font> <font color="blue">is</font> <font color="blue">int</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="black">(</font><font color="blue">int</font><font color="black">)</font> <font color="blue">value</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.INTERNAL,
+                    <font color="maroon">"node '"</font> <font color="black">+</font> node.Name <font color="black">+</font> <font color="maroon">"' has no integer value "</font> <font color="black">+</font>
+                    <font color="maroon">"at position "</font> <font color="black">+</font> pos,
+                    node.StartLine,
+                    node.StartColumn<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the node string value at the specified position. If
+         * either the node is null, or the value is not an instance of
+         * the String class, this method will throw a parse exception
+         * with the internal error type.
+         *
+         * @param node           the parse tree node
+         * @param pos            the child position
+         *
+         * @return the value object
+         *
+         * @throws ParseException if either the node was null, or the
+         *             value wasn't a string
+         */</font>
+        <font color="blue">protected</font> string GetStringValue<font color="black">(</font>Node node, <font color="blue">int</font> pos<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">object</font>  <font color="blue">value</font>;
+
+            <font color="blue">value</font> <font color="black">=</font> GetValue<font color="black">(</font>node, pos<font color="black">)</font>;
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">value</font> <font color="blue">is</font> string<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="black">(</font>string<font color="black">)</font> <font color="blue">value</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                <font color="blue">throw</font> <font color="blue">new</font> ParseException<font color="black">(</font>
+                    ParseException.ErrorType.INTERNAL,
+                    <font color="maroon">"node '"</font> <font color="black">+</font> node.Name <font color="black">+</font> <font color="maroon">"' has no string value "</font> <font color="black">+</font>
+                    <font color="maroon">"at position "</font> <font color="black">+</font> pos,
+                    node.StartLine,
+                    node.StartColumn<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns all the node values for all child nodes.
+         *
+         * @param node           the parse tree node
+         *
+         * @return a list with all the child node values
+         *
+         * @since 1.3
+         */</font>
+        <font color="blue">protected</font> ArrayList GetChildValues<font color="black">(</font>Node node<font color="black">)</font> <font color="black">{</font>
+            ArrayList  result <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+            Node       child;
+            ArrayList  values;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> node.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                child <font color="black">=</font> node<font color="black">[</font>i<font color="black">]</font>;
+                values <font color="black">=</font> child.Values;
+                <font color="blue">if</font> <font color="black">(</font>values <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                    result.AddRange<font color="black">(</font>values<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

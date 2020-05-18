@@ -1,0 +1,8 @@
+# Custom
+.DS_Store
+
+# ignore Binaries
+
+/Binaries
+
+

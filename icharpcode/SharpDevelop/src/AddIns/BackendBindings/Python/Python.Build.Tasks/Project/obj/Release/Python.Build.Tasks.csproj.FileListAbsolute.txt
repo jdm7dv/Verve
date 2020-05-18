@@ -1,0 +1,4 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\PythonBinding\SharpDevelop.Build.Python.targets
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\PythonBinding\Python.Build.Tasks.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\Python\Python.Build.Tasks\Project\obj\Release\Python.Build.Tasks.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\Python\Python.Build.Tasks\Project\obj\Release\Python.Build.Tasks.dll

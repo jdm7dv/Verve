@@ -1,0 +1,14 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Alpaca.exe
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\Debug\Alpaca.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Alpaca.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Microsoft.Concurrency.TestTools.Alpaca.Views.AppRibbonStripControl.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Microsoft.Concurrency.TestTools.Alpaca.BottomTabs.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Microsoft.Concurrency.TestTools.Alpaca.BucketView.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Microsoft.Concurrency.TestTools.Alpaca.Explorer.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Microsoft.Concurrency.TestTools.Alpaca.Views.MainForm.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Microsoft.Concurrency.TestTools.Alpaca.ChessResultList.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Microsoft.Concurrency.TestTools.Alpaca.StreamBox.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Microsoft.Concurrency.TestTools.Alpaca.TaskList.resources
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Alpaca.csproj.GenerateResource.Cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Alpaca.exe
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\Alpaca\obj\Debug\Alpaca.pdb

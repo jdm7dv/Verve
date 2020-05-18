@@ -1,0 +1,40 @@
+﻿<Project Format="0.0.0.3">
+  <Version>2012-11-30T22:43:29.8151056Z</Version>
+  <Binding>True</Binding>
+  <Diagnostic>
+    <Code>618</Code>
+    <Id>CS0618</Id>
+    <Severity>Warning</Severity>
+    <Message>'System.CodeDom.Compiler.CodeDomProvider.CreateCompiler()' is obsolete: 'Callers should not use the ICodeCompiler interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.'</Message>
+    <MappedFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\csy.cs</MappedFile>
+    <MappedLine>138</MappedLine>
+    <MappedColumn>28</MappedColumn>
+    <OriginalFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\csy.cs</OriginalFile>
+    <OriginalLine>138</OriginalLine>
+    <OriginalColumn>28</OriginalColumn>
+  </Diagnostic>
+  <Diagnostic>
+    <Code>618</Code>
+    <Id>CS0618</Id>
+    <Severity>Warning</Severity>
+    <Message>'System.CodeDom.Compiler.CodeDomProvider.CreateGenerator()' is obsolete: 'Callers should not use the ICodeGenerator interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.'</Message>
+    <MappedFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\csy.cs</MappedFile>
+    <MappedLine>139</MappedLine>
+    <MappedColumn>22</MappedColumn>
+    <OriginalFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\csy.cs</OriginalFile>
+    <OriginalLine>139</OriginalLine>
+    <OriginalColumn>22</OriginalColumn>
+  </Diagnostic>
+  <Diagnostic>
+    <Code>618</Code>
+    <Id>CS0618</Id>
+    <Severity>Warning</Severity>
+    <Message>'System.CodeDom.Compiler.CodeDomProvider.CreateGenerator()' is obsolete: 'Callers should not use the ICodeGenerator interface and should instead use the methods directly on the CodeDomProvider class. Those inheriting from CodeDomProvider must still implement this interface, and should exclude this warning or also obsolete this method.'</Message>
+    <MappedFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\csy.cs</MappedFile>
+    <MappedLine>186</MappedLine>
+    <MappedColumn>25</MappedColumn>
+    <OriginalFile>C:\Users\Jonathan_Moore.LAB1\Documents\Visual Studio 2012\Projects\Compilers and Languages\CLI\C#\CodeDom\CSymphony_0_1\Source\Csy\csy.cs</OriginalFile>
+    <OriginalLine>186</OriginalLine>
+    <OriginalColumn>25</OriginalColumn>
+  </Diagnostic>
+</Project>

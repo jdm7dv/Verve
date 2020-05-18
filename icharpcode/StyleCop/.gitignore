@@ -1,0 +1,13 @@
+obj/
+bin/
+*.user
+*.cache
+*.suo
+BuildDrop/
+Project/packages/
+Project/TestResults/
+TestBin/
+*.nupkg
+Build.*.err
+Build.*.wrn
+.vs/

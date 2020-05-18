@@ -1,0 +1,424 @@
+<HTML>
+<HEAD>
+<TITLE>
+ParseException.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * ParseException.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2005 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A parse exception.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">public</font> <font color="blue">class</font> ParseException <font color="black">:</font> Exception <font color="black">{</font>
+
+        <font color="green">/**
+         * The error type enumeration.
+         */</font>
+        <font color="blue">public</font> <font color="blue">enum</font> ErrorType <font color="black">{</font>
+
+            <font color="green">/**
+             * The internal error type is only used to signal an error
+             * that is a result of a bug in the parser or tokenizer
+             * code.
+             */</font>
+            INTERNAL,
+
+            <font color="green">/**
+             * The I/O error type is used for stream I/O errors.
+             */</font>
+            IO,
+
+            <font color="green">/**
+             * The unexpected end of file error type is used when end
+             * of file is encountered instead of a valid token.
+             */</font>
+            UNEXPECTED_EOF,
+
+            <font color="green">/**
+             * The unexpected character error type is used when a
+             * character is read that isn't handled by one of the
+             * token patterns.
+             */</font>
+            UNEXPECTED_CHAR,
+
+            <font color="green">/**
+             * The unexpected token error type is used when another
+             * token than the expected one is encountered.
+             */</font>
+            UNEXPECTED_TOKEN,
+
+            <font color="green">/**
+             * The invalid token error type is used when a token
+             * pattern with an error message is matched. The
+             * additional information provided should contain the
+             * error message.
+             */</font>
+            INVALID_TOKEN,
+
+            <font color="green">/**
+             * The analysis error type is used when an error is
+             * encountered in the analysis. The additional information
+             * provided should contain the error message.
+             */</font>
+            ANALYSIS
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error type.
+         */</font>
+        <font color="blue">private</font> ErrorType type;
+
+        <font color="green">/**
+         * The additional information string.
+         */</font>
+        <font color="blue">private</font> string info;
+
+        <font color="green">/**
+         * The additional details information. This variable is only
+         * used for unexpected token errors.
+         */</font>
+        <font color="blue">private</font> ArrayList details;
+
+        <font color="green">/**
+         * The line number.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> <font color="blue">line</font>;
+
+        <font color="green">/**
+         * The column number.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> column;
+
+        <font color="green">/**
+         * Creates a new parse exception.
+         *
+         * @param type           the parse error type
+         * @param info           the additional information
+         * @param line           the line number, or -1 for unknown
+         * @param column         the column number, or -1 for unknown
+         */</font>
+        <font color="blue">public</font> ParseException<font color="black">(</font>ErrorType type,
+                              string info,
+                              <font color="blue">int</font> <font color="blue">line</font>,
+                              <font color="blue">int</font> column<font color="black">)</font>
+            <font color="black">:</font> <font color="blue">this</font><font color="black">(</font>type, info, <font color="blue">null</font>, <font color="blue">line</font>, column<font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new parse exception. This constructor is only
+         * used to supply the detailed information array, which is
+         * only used for expected token errors. The list then contains
+         * descriptions of the expected tokens.
+         *
+         * @param type           the parse error type
+         * @param info           the additional information
+         * @param details        the additional detailed information
+         * @param line           the line number, or -1 for unknown
+         * @param column         the column number, or -1 for unknown
+         */</font>
+        <font color="blue">public</font> ParseException<font color="black">(</font>ErrorType type,
+                              string info,
+                              ArrayList details,
+                              <font color="blue">int</font> <font color="blue">line</font>,
+                              <font color="blue">int</font> column<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">this</font>.type <font color="black">=</font> type;
+            <font color="blue">this</font>.info <font color="black">=</font> info;
+            <font color="blue">this</font>.details <font color="black">=</font> details;
+            <font color="blue">this</font>.<font color="blue">line</font> <font color="black">=</font> <font color="blue">line</font>;
+            <font color="blue">this</font>.column <font color="black">=</font> column;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error type property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> ErrorType Type <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> type;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the error type.
+         *
+         * @return the error type
+         *
+         * @see #Type
+         *
+         * @deprecated Use the Type property instead.
+         */</font>
+        <font color="blue">public</font> ErrorType GetErrorType<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Type;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The additional error information property (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string Info <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> info;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the additional error information.
+         *
+         * @return the additional error information
+         *
+         * @see #Info
+         *
+         * @deprecated Use the Info property instead.
+         */</font>
+        <font color="blue">public</font> string GetInfo<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Info;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The additional detailed error information property
+         * (read-only).
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> ArrayList Details <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">new</font> ArrayList<font color="black">(</font>details<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the additional detailed error information.
+         *
+         * @return the additional detailed error information
+         *
+         * @see #Details
+         *
+         * @deprecated Use the Details property instead.
+         */</font>
+        <font color="blue">public</font> ArrayList GetDetails<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Details;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The line number property (read-only). This is the line
+         * number where the error occured, or -1 if unknown.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Line <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">line</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the line number where the error occured.
+         *
+         * @return the line number of the error, or
+         *         -1 if unknown
+         *
+         * @see #Line
+         *
+         * @deprecated Use the Line property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetLine<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Line;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The column number property (read-only). This is the column
+         * number where the error occured, or -1 if unknown.
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Column <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                <font color="blue">return</font> column;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the column number where the error occured.
+         *
+         * @return the column number of the error, or
+         *         -1 if unknown
+         *
+         * @see #Column
+         *
+         * @deprecated Use the Column property instead.
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetColumn<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> column;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The message property (read-only). This property contains
+         * the detailed exception error message, including line and
+         * column numbers when available.
+         *
+         * @see #ErrorMessage
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string Message <font color="black">{</font>
+            <font color="blue">get</font><font color="black">{</font>
+                StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+                <font color="green">// Add error description</font>
+                buffer.Append<font color="black">(</font>ErrorMessage<font color="black">)</font>;
+
+                <font color="green">// Add line and column</font>
+                <font color="blue">if</font> <font color="black">(</font><font color="blue">line</font> <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> column <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">", on line: "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="blue">line</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">" column: "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>column<font color="black">)</font>;
+                <font color="black">}</font>
+
+                <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a default error message.
+         *
+         * @return a default error message
+         *
+         * @see #Message
+         *
+         * @deprecated Use the Message property instead.
+         */</font>
+        <font color="blue">public</font> string GetMessage<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> Message;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * The error message property (read-only). This property
+         * contains all the information available, except for the line
+         * and column number information.
+         *
+         * @see #Message
+         *
+         * @since 1.5
+         */</font>
+        <font color="blue">public</font> string ErrorMessage <font color="black">{</font>
+            <font color="blue">get</font> <font color="black">{</font>
+                StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+                <font color="green">// Add type and info</font>
+                <font color="blue">switch</font> <font color="black">(</font>type<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">case</font> ErrorType.IO<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"I/O error: "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.UNEXPECTED_EOF<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"unexpected end of file"</font><font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.UNEXPECTED_CHAR<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"unexpected character '"</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    buffer.Append<font color="black">(</font><font color="maroon">"'"</font><font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.UNEXPECTED_TOKEN<font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"unexpected token "</font><font color="black">)</font>;
+                    buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>details <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                        buffer.Append<font color="black">(</font><font color="maroon">", expected "</font><font color="black">)</font>;
+                        <font color="blue">if</font> <font color="black">(</font>details.Count <font color="black">&#62;</font> <font color="maroon">1</font><font color="black">)</font> <font color="black">{</font>
+                            buffer.Append<font color="black">(</font><font color="maroon">"one of "</font><font color="black">)</font>;
+                        <font color="black">}</font>
+                        buffer.Append<font color="black">(</font>GetMessageDetails<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.INVALID_TOKEN<font color="black">:</font>
+                    buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">case</font> ErrorType.ANALYSIS<font color="black">:</font>
+                    buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="blue">break</font>;
+                <font color="blue">default</font><font color="black">:</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"internal error"</font><font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>info <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                        buffer.Append<font color="black">(</font><font color="maroon">": "</font><font color="black">)</font>;
+                        buffer.Append<font color="black">(</font>info<font color="black">)</font>;
+                    <font color="black">}</font>
+                    <font color="blue">break</font>;
+                <font color="black">}</font>
+
+                <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the error message. This message will contain all the
+         * information available, except for the line and column number
+         * information.
+         *
+         * @return the error message
+         *
+         * @see #ErrorMessage
+         *
+         * @deprecated Use the ErrorMessage property instead.
+         */</font>
+        <font color="blue">public</font> string GetErrorMessage<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> ErrorMessage;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string containing all the detailed information in
+         * a list. The elements are separated with a comma.
+         *
+         * @return the detailed information string
+         */</font>
+        <font color="blue">private</font> string GetMessageDetails<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> details.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>i <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">", "</font><font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>i <font color="black">+</font> <font color="maroon">1</font> <font color="black">=</font><font color="black">=</font> details.Count<font color="black">)</font> <font color="black">{</font>
+                        buffer.Append<font color="black">(</font><font color="maroon">"or "</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                buffer.Append<font color="black">(</font>details<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

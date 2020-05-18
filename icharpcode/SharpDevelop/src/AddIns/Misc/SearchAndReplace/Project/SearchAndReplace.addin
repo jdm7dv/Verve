@@ -1,0 +1,52 @@
+﻿<AddIn name        = "Search &amp; Replace"
+       description = "Implements the Search &amp; Replace feature for the text editor"
+       addInManagerHidden = "preinstalled">
+	
+	<Manifest>
+		<Identity name="ICSharpCode.SearchAndReplace"/>
+		<Dependency addin="SharpDevelop"/>
+	</Manifest>
+	
+	<Runtime>
+		<Import assembly = "SearchAndReplace.dll"/>
+	</Runtime>
+	
+	<Path name = "/SharpDevelop/Workbench/MainMenu/Search">
+		<MenuItem id = "Find"
+		          label = "${res:XML.MainMenu.SearchMenu.Find}"
+		          icon = "Icons.16x16.FindIcon"
+		          shortcut = "Control|Shift|F"
+		          class = "SearchAndReplace.Find"/>
+		<MenuItem id = "FindNext"
+		          insertafter = "Find"
+		          label = "${res:XML.MainMenu.SearchMenu.FindNext}"
+		          icon = "Icons.16x16.FindNextIcon"
+		          shortcut = "F3"
+		          class = "SearchAndReplace.FindNext"/>
+		<MenuItem id = "Replace"
+		          insertafter = "FindNextSelected"
+		          insertbefore = "SearchSeparator"
+		          label = "${res:XML.MainMenu.SearchMenu.Replace}"
+		          icon = "Icons.16x16.ReplaceIcon"
+		          shortcut = "Control|H"
+		          class = "SearchAndReplace.Replace"/>
+	</Path>
+	
+	<Path name = "/SharpDevelop/Workbench/ToolBar/Standard">
+		<ToolbarItem id = "FindSeparator" type = "Separator" />
+		<ToolbarItem id      = "Find"
+		             icon    = "Icons.16x16.FindIcon"
+		             tooltip = "${res:MainWindow.Windows.ClassBrowser.CommitSearch.ToolTip}"
+		             class   = "SearchAndReplace.Find"/>
+	</Path>
+	
+	<Path name="/SharpDevelop/Pads/SearchResultPad/Factories">
+		<Class id="DefaultSearchResultFactory" class="SearchAndReplace.DefaultSearchResultFactory"/>
+	</Path>
+	
+	<Path name="/SharpDevelop/Workbench/LanguageBindings">
+		<LanguageBinding
+			id="SearchAndReplace"
+			class="SearchAndReplace.SearchAndReplaceBinding" />
+	</Path>
+</AddIn>

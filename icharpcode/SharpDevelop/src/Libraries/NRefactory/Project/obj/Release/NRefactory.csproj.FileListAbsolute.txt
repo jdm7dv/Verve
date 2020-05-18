@@ -1,0 +1,2 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\bin\ICSharpCode.NRefactory.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\Libraries\NRefactory\Project\obj\Release\ICSharpCode.NRefactory.dll

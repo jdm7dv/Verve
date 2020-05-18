@@ -1,0 +1,17 @@
+{
+  "name": "vsrefactoringessentials.com",
+  "version": "0.1.0",
+  "homepage": "http://vsrefactoringessentials.com",
+  "authors": [
+    "Alexander Zeitler <alexander.zeitler@pdmlab.com>"
+  ],
+  "description": "The website for Refactoring Essentials for Visual Studio",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

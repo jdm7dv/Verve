@@ -1,0 +1,33 @@
+using Microsoft.Contracts;
+
+public class Demo {
+  public void M() {}
+}
+
+public class Client {
+  Demo anyDemo = new Demo();
+  [Peer] Demo peerDemo = new Demo();
+  [Rep] Demo repDemo = new Demo();
+
+  public void CallOK0()
+    modifies peerDemo.*;
+  {
+    peerDemo.M();
+  }
+
+  public void CallError0()
+    modifies anyDemo.*;
+  {
+    anyDemo.M();  // Error
+  }
+
+  public void CallError1() {
+    repDemo.M();  // Error
+  }
+
+  public void CallOK1() {
+    expose (this) {
+      repDemo.M();
+    }
+  }
+}

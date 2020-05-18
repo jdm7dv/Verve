@@ -1,0 +1,904 @@
+<HTML>
+<HEAD>
+<TITLE>
+LookAheadSet.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * LookAheadSet.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2005 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System.Collections;
+<font color="blue">using</font> System.Text;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime <font color="black">{</font>
+
+    <font color="green">/**
+     * A token look-ahead set. This class contains a set of token id
+     * sequences. All sequences in the set are limited in length, so
+     * that no single sequence is longer than a maximum value. This
+     * class also filters out duplicates. Each token sequence also
+     * contains a repeat flag, allowing the look-ahead set to contain
+     * information about possible infinite repetitions of certain
+     * sequences. That information is important when conflicts arise
+     * between two look-ahead sets, as such a conflict cannot be
+     * resolved if the conflicting sequences can be repeated (would
+     * cause infinite loop).
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.1
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> LookAheadSet <font color="black">{</font>
+
+        <font color="green">/**
+         * The set of token look-ahead sequences. Each sequence in
+         * turn is represented by an ArrayList with Integers for the
+         * token id:s.
+         */</font>
+        <font color="blue">private</font> ArrayList elements <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+
+        <font color="green">/**
+         * The maximum length of any look-ahead sequence.
+         */</font>
+        <font color="blue">private</font> <font color="blue">int</font> maxLength;
+
+        <font color="green">/**
+         * Creates a new look-ahead set with the specified maximum
+         * length.
+         *
+         * @param maxLength      the maximum token sequence length
+         */</font>
+        <font color="blue">public</font> LookAheadSet<font color="black">(</font><font color="blue">int</font> maxLength<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">this</font>.maxLength <font color="black">=</font> maxLength;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a duplicate look-ahead set, possibly with a
+         * different maximum length.
+         *
+         * @param maxLength      the maximum token sequence length
+         * @param set            the look-ahead set to copy
+         */</font>
+        <font color="blue">public</font> LookAheadSet<font color="black">(</font><font color="blue">int</font> maxLength, LookAheadSet <font color="blue">set</font><font color="black">)</font>
+            <font color="black">:</font> <font color="blue">this</font><font color="black">(</font>maxLength<font color="black">)</font> <font color="black">{</font>
+
+            AddAll<font color="black">(</font><font color="blue">set</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the size of this look-ahead set.
+         *
+         * @return the number of token sequences in the set
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> Size<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> elements.Count;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the length of the shortest token sequence in this
+         * set. This method will return zero (0) if the set is empty.
+         *
+         * @return the length of the shortest token sequence
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetMinLength<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Sequence  seq;
+            <font color="blue">int</font>       min <font color="black">=</font> <font color="maroon">-1</font>;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>min <font color="black">&#60;</font> <font color="maroon">0</font> <font color="black">|</font><font color="black">|</font> seq.Length<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font> min<font color="black">)</font> <font color="black">{</font>
+                    min <font color="black">=</font> seq.Length<font color="black">(</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="black">(</font>min <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> ? <font color="maroon">0</font> <font color="black">:</font> min;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the length of the longest token sequence in this
+         * set. This method will return zero (0) if the set is empty.
+         *
+         * @return the length of the longest token sequence
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font> GetMaxLength<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Sequence  seq;
+            <font color="blue">int</font>       max <font color="black">=</font> <font color="maroon">0</font>;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>seq.Length<font color="black">(</font><font color="black">)</font> <font color="black">&#62;</font> max<font color="black">)</font> <font color="black">{</font>
+                    max <font color="black">=</font> seq.Length<font color="black">(</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> max;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a list of the initial token id:s in this look-ahead
+         * set. The list returned will not contain any duplicates.
+         *
+         * @return a list of the inital token id:s in this look-ahead set
+         */</font>
+        <font color="blue">public</font> <font color="blue">int</font><font color="black">[</font><font color="black">]</font> GetInitialTokens<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            ArrayList  list <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="black">)</font>;
+            <font color="blue">int</font><font color="black">[</font><font color="black">]</font>      result;
+            <font color="blue">object</font>     token;
+            <font color="blue">int</font>        i;
+
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                token <font color="black">=</font> <font color="black">(</font><font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>.GetToken<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>token <font color="black">!</font><font color="black">=</font> <font color="blue">null</font> <font color="black">&</font><font color="black">&</font> <font color="black">!</font>list.Contains<font color="black">(</font>token<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    list.Add<font color="black">(</font>token<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            result <font color="black">=</font> <font color="blue">new</font> <font color="blue">int</font><font color="black">[</font>list.Count<font color="black">]</font>;
+            <font color="blue">for</font> <font color="black">(</font>i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> list.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                result<font color="black">[</font>i<font color="black">]</font> <font color="black">=</font> <font color="black">(</font><font color="blue">int</font><font color="black">)</font> list<font color="black">[</font>i<font color="black">]</font>;
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if this look-ahead set contains a repetitive token
+         * sequence.
+         *
+         * @return true if at least one token sequence is repetitive, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsRepetitive<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Sequence  seq;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>seq.IsRepetitive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the next token(s) in the parser match any token
+         * sequence in this set.
+         *
+         * @param parser         the parser to check
+         *
+         * @return true if the next tokens are in the set, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsNext<font color="black">(</font>Parser parser<font color="black">)</font> <font color="black">{</font>
+            Sequence  seq;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>seq.IsNext<font color="black">(</font>parser<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the next token(s) in the parser match any token
+         * sequence in this set.
+         *
+         * @param parser         the parser to check
+         * @param length         the maximum number of tokens to check
+         *
+         * @return true if the next tokens are in the set, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsNext<font color="black">(</font>Parser parser, <font color="blue">int</font> length<font color="black">)</font> <font color="black">{</font>
+            Sequence  seq;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>seq.IsNext<font color="black">(</font>parser, length<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if another look-ahead set has an overlapping token
+         * sequence. An overlapping token sequence is a token sequence
+         * that is identical to another sequence, but for the length.
+         * I.e. one of the two sequences may be longer than the other.
+         *
+         * @param set            the look-ahead set to check
+         *
+         * @return true if there is some token sequence that overlaps, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> IsOverlap<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font><font color="blue">set</font>.IsOverlap<font color="black">(</font><font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if a token sequence is overlapping. An overlapping token
+         * sequence is a token sequence that is identical to another
+         * sequence, but for the length. I.e. one of the two sequences may
+         * be longer than the other.
+         *
+         * @param seq            the token sequence to check
+         *
+         * @return true if there is some token sequence that overlaps, or
+         *         false otherwise
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> IsOverlap<font color="black">(</font>Sequence seq<font color="black">)</font> <font color="black">{</font>
+            Sequence  elem;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                elem <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>seq.StartsWith<font color="black">(</font>elem<font color="black">)</font> <font color="black">|</font><font color="black">|</font> elem.StartsWith<font color="black">(</font>seq<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if the specified token sequence is present in the
+         * set.
+         *
+         * @param elem           the token sequence to check
+         *
+         * @return true if the sequence is present in this set, or
+         *         false otherwise
+         */</font>
+        <font color="blue">private</font> <font color="blue">bool</font> Contains<font color="black">(</font>Sequence elem<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> FindSequence<font color="black">(</font>elem<font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Checks if some token sequence is present in both this set
+         * and a specified one.
+         *
+         * @param set            the look-ahead set to compare with
+         *
+         * @return true if the look-ahead sets intersect, or
+         *         false otherwise
+         */</font>
+        <font color="blue">public</font> <font color="blue">bool</font> Intersects<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font><font color="blue">set</font>.Contains<font color="black">(</font><font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">false</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Finds an identical token sequence if present in the set.
+         *
+         * @param elem           the token sequence to search for
+         *
+         * @return an identical the token sequence if found, or
+         *         null if not found
+         */</font>
+        <font color="blue">private</font> Sequence FindSequence<font color="black">(</font>Sequence elem<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>elements<font color="black">[</font>i<font color="black">]</font>.Equals<font color="black">(</font>elem<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">null</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a token sequence to this set. The sequence will only
+         * be added if it is not already in the set. Also, if the
+         * sequence is longer than the allowed maximum, a truncated
+         * sequence will be added instead.
+         *
+         * @param seq            the token sequence to add
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> Add<font color="black">(</font>Sequence seq<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">if</font> <font color="black">(</font>seq.Length<font color="black">(</font><font color="black">)</font> <font color="black">&#62;</font> maxLength<font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="blue">new</font> Sequence<font color="black">(</font>maxLength, seq<font color="black">)</font>;
+            <font color="black">}</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="black">!</font>Contains<font color="black">(</font>seq<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                elements.Add<font color="black">(</font>seq<font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds a new token sequence with a single token to this set.
+         * The sequence will only be added if it is not already in the
+         * set.
+         *
+         * @param token          the token to add
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> Add<font color="black">(</font><font color="blue">int</font> token<font color="black">)</font> <font color="black">{</font>
+            Add<font color="black">(</font><font color="blue">new</font> Sequence<font color="black">(</font><font color="blue">false</font>, token<font color="black">)</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds all the token sequences from a specified set. Only
+         * sequences not already in this set will be added.
+         *
+         * @param set            the set to add from
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> AddAll<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> <font color="blue">set</font>.elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                Add<font color="black">(</font><font color="black">(</font>Sequence<font color="black">)</font> <font color="blue">set</font>.elements<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Adds an empty token sequence to this set. The sequence will
+         * only be added if it is not already in the set.
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> AddEmpty<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            Add<font color="black">(</font><font color="blue">new</font> Sequence<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Removes a token sequence from this set.
+         *
+         * @param seq            the token sequence to remove
+         */</font>
+        <font color="blue">private</font> <font color="blue">void</font> Remove<font color="black">(</font>Sequence seq<font color="black">)</font> <font color="black">{</font>
+            elements.Remove<font color="black">(</font>seq<font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Removes all the token sequences from a specified set. Only
+         * sequences already in this set will be removed.
+         *
+         * @param set            the set to remove from
+         */</font>
+        <font color="blue">public</font> <font color="blue">void</font> RemoveAll<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> <font color="blue">set</font>.elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                Remove<font color="black">(</font><font color="black">(</font>Sequence<font color="black">)</font> <font color="blue">set</font>.elements<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new look-ahead set that is the result of reading
+         * the specified token. The new look-ahead set will contain
+         * the rest of all the token sequences that started with the
+         * specified token.
+         *
+         * @param token          the token to read
+         *
+         * @return a new look-ahead set containing the remaining tokens
+         */</font>
+        <font color="blue">public</font> LookAheadSet CreateNextSet<font color="black">(</font><font color="blue">int</font> token<font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>maxLength <font color="maroon">-1</font><font color="black">)</font>;
+            Sequence      seq;
+            <font color="blue">object</font>        <font color="blue">value</font>;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">value</font> <font color="black">=</font> seq.GetToken<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font><font color="blue">value</font> <font color="black">!</font><font color="black">=</font> <font color="blue">null</font> <font color="black">&</font><font color="black">&</font> token <font color="black">=</font><font color="black">=</font> <font color="black">(</font><font color="blue">int</font><font color="black">)</font> <font color="blue">value</font><font color="black">)</font> <font color="black">{</font>
+                    result.Add<font color="black">(</font>seq.Subsequence<font color="black">(</font><font color="maroon">1</font><font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new look-ahead set that is the intersection of
+         * this set with another set. The token sequences in the net
+         * set will only have the repeat flag set if it was set in
+         * both the identical token sequences.
+         *
+         * @param set            the set to intersect with
+         *
+         * @return a new look-ahead set containing the intersection
+         */</font>
+        <font color="blue">public</font> LookAheadSet CreateIntersection<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>maxLength<font color="black">)</font>;
+            Sequence      seq1;
+            Sequence      seq2;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq1 <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                seq2 <font color="black">=</font> <font color="blue">set</font>.FindSequence<font color="black">(</font>seq1<font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>seq2 <font color="black">!</font><font color="black">=</font> <font color="blue">null</font> <font color="black">&</font><font color="black">&</font> seq1.IsRepetitive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    result.Add<font color="black">(</font>seq2<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>seq2 <font color="black">!</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                    result.Add<font color="black">(</font>seq1<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new look-ahead set that is the combination of
+         * this set with another set. The combination is created by
+         * creating new token sequences that consist of appending all
+         * elements from the specified set onto all elements in this
+         * set. This is sometimes referred to as the cartesian
+         * product.
+         *
+         * @param set            the set to combine with
+         *
+         * @return a new look-ahead set containing the combination
+         */</font>
+        <font color="blue">public</font> LookAheadSet CreateCombination<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>maxLength<font color="black">)</font>;
+            Sequence      first;
+            Sequence      second;
+
+            <font color="green">// Handle special cases</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">this</font>.Size<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">set</font>;
+            <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font><font color="blue">set</font>.Size<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">this</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Create combinations</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                first <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>first.Length<font color="black">(</font><font color="black">)</font> <font color="black">&#62;</font><font color="black">=</font> maxLength<font color="black">)</font> <font color="black">{</font>
+                    result.Add<font color="black">(</font>first<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font>first.Length<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    result.AddAll<font color="black">(</font><font color="blue">set</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> j <font color="black">=</font> <font color="maroon">0</font>; j <font color="black">&#60;</font> <font color="blue">set</font>.elements.Count; j<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                        second <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> <font color="blue">set</font>.elements<font color="black">[</font>j<font color="black">]</font>;
+                        result.Add<font color="black">(</font>first.Concat<font color="black">(</font>maxLength, second<font color="black">)</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new look-ahead set with overlaps from another. All
+         * token sequences in this set that overlaps with the other set
+         * will be added to the new look-ahead set.
+         *
+         * @param set            the look-ahead set to check with
+         *
+         * @return a new look-ahead set containing the overlaps
+         */</font>
+        <font color="blue">public</font> LookAheadSet CreateOverlaps<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>maxLength<font color="black">)</font>;
+            Sequence      seq;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font><font color="blue">set</font>.IsOverlap<font color="black">(</font>seq<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    result.Add<font color="black">(</font>seq<font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new look-ahead set filter. The filter will contain
+         * all sequences from this set, possibly left trimmed by each one
+         * of the sequences in the specified set.
+         *
+         * @param set            the look-ahead set to trim with
+         *
+         * @return a new look-ahead set filter
+         */</font>
+        <font color="blue">public</font> LookAheadSet CreateFilter<font color="black">(</font>LookAheadSet <font color="blue">set</font><font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>maxLength<font color="black">)</font>;
+            Sequence      first;
+            Sequence      second;
+
+            <font color="green">// Handle special cases</font>
+            <font color="blue">if</font> <font color="black">(</font><font color="blue">this</font>.Size<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">|</font><font color="black">|</font> <font color="blue">set</font>.Size<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="blue">this</font>;
+            <font color="black">}</font>
+
+            <font color="green">// Create combinations</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                first <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> j <font color="black">=</font> <font color="maroon">0</font>; j <font color="black">&#60;</font> <font color="blue">set</font>.elements.Count; j<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    second <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> <font color="blue">set</font>.elements<font color="black">[</font>j<font color="black">]</font>;
+                    <font color="blue">if</font> <font color="black">(</font>first.StartsWith<font color="black">(</font>second<font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                        result.Add<font color="black">(</font>first.Subsequence<font color="black">(</font>second.Length<font color="black">(</font><font color="black">)</font><font color="black">)</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new identical look-ahead set, except for the
+         * repeat flag being set in each token sequence.
+         *
+         * @return a new repetitive look-ahead set
+         */</font>
+        <font color="blue">public</font> LookAheadSet CreateRepetitive<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            LookAheadSet  result <font color="black">=</font> <font color="blue">new</font> LookAheadSet<font color="black">(</font>maxLength<font color="black">)</font>;
+            Sequence      seq;
+
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                <font color="blue">if</font> <font color="black">(</font>seq.IsRepetitive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    result.Add<font color="black">(</font>seq<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    result.Add<font color="black">(</font><font color="blue">new</font> Sequence<font color="black">(</font><font color="blue">true</font>, seq<font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> result;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of this object.
+         *
+         * @return a string representation of this object
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> ToString<font color="black">(</font><font color="blue">null</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns a string representation of this object.
+         *
+         * @param tokenizer      the tokenizer containing the tokens
+         *
+         * @return a string representation of this object
+         */</font>
+        <font color="blue">public</font> string ToString<font color="black">(</font>Tokenizer tokenizer<font color="black">)</font> <font color="black">{</font>
+            StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+            Sequence       seq;
+
+            buffer.Append<font color="black">(</font><font color="maroon">"{"</font><font color="black">)</font>;
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> elements.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                seq <font color="black">=</font> <font color="black">(</font>Sequence<font color="black">)</font> elements<font color="black">[</font>i<font color="black">]</font>;
+                buffer.Append<font color="black">(</font><font color="maroon">"\n  "</font><font color="black">)</font>;
+                buffer.Append<font color="black">(</font>seq.ToString<font color="black">(</font>tokenizer<font color="black">)</font><font color="black">)</font>;
+            <font color="black">}</font>
+            buffer.Append<font color="black">(</font><font color="maroon">"\n}"</font><font color="black">)</font>;
+            <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+        <font color="black">}</font>
+
+
+        <font color="green">/**
+         * A token sequence. This class contains a list of token ids.
+         * It is immutable after creation, meaning that no changes
+         * will be made to an instance after creation.
+         *
+         * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+         * @version  1.0
+         */</font>
+        <font color="blue">private</font> <font color="blue">class</font> Sequence <font color="black">{</font>
+
+            <font color="green">/**
+             * The repeat flag. If this flag is set, the token
+             * sequence or some part of it may be repeated infinitely.
+             */</font>
+            <font color="blue">private</font> <font color="blue">bool</font> repeat <font color="black">=</font> <font color="blue">false</font>;
+
+            <font color="green">/**
+             * The list of token ids in this sequence.
+             */</font>
+            <font color="blue">private</font> ArrayList tokens <font color="black">=</font> <font color="blue">null</font>;
+
+            <font color="green">/**
+             * Creates a new empty token sequence. The repeat flag
+             * will be set to false.
+             */</font>
+            <font color="blue">public</font> Sequence<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font>.repeat <font color="black">=</font> <font color="blue">false</font>;
+                <font color="blue">this</font>.tokens <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Creates a new token sequence with a single token.
+             *
+             * @param repeat         the repeat flag value
+             * @param token          the token to add
+             */</font>
+            <font color="blue">public</font> Sequence<font color="black">(</font><font color="blue">bool</font> repeat, <font color="blue">int</font> token<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font>.repeat <font color="black">=</font> <font color="blue">false</font>;
+                <font color="blue">this</font>.tokens <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font><font color="maroon">1</font><font color="black">)</font>;
+                <font color="blue">this</font>.tokens.Add<font color="black">(</font>token<font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Creates a new token sequence that is a duplicate of
+             * another sequence. Only a limited number of tokens will
+             * be copied however. The repeat flag from the original
+             * will be kept intact.
+             *
+             * @param length         the maximum number of tokens to copy
+             * @param seq            the sequence to copy
+             */</font>
+            <font color="blue">public</font> Sequence<font color="black">(</font><font color="blue">int</font> length, Sequence seq<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font>.repeat <font color="black">=</font> seq.repeat;
+                <font color="blue">this</font>.tokens <font color="black">=</font> <font color="blue">new</font> ArrayList<font color="black">(</font>length<font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>seq.Length<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font> length<font color="black">)</font> <font color="black">{</font>
+                    length <font color="black">=</font> seq.Length<font color="black">(</font><font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    tokens.Add<font color="black">(</font>seq.tokens<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Creates a new token sequence that is a duplicate of
+             * another sequence. The new value of the repeat flag will
+             * be used however.
+             *
+             * @param repeat         the new repeat flag value
+             * @param seq            the sequence to copy
+             */</font>
+            <font color="blue">public</font> Sequence<font color="black">(</font><font color="blue">bool</font> repeat, Sequence seq<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font>.repeat <font color="black">=</font> repeat;
+                <font color="blue">this</font>.tokens <font color="black">=</font> seq.tokens;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Returns the length of the token sequence.
+             *
+             * @return the number of tokens in the sequence
+             */</font>
+            <font color="blue">public</font> <font color="blue">int</font> Length<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> tokens.Count;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Returns a token at a specified position in the sequence.
+             *
+             * @param pos            the sequence position
+             *
+             * @return the token id found, or null
+             */</font>
+            <font color="blue">public</font> <font color="blue">object</font> GetToken<font color="black">(</font><font color="blue">int</font> pos<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>pos <font color="black">&#62;</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> pos <font color="black">&#60;</font> tokens.Count<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> tokens<font color="black">[</font>pos<font color="black">]</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">null</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Checks if this sequence is equal to another object.
+             * Only token sequences with the same tokens in the same
+             * order will be considered equal. The repeat flag will be
+             * disregarded.
+             *
+             * @param obj            the object to compare with
+             *
+             * @return true if the objects are equal, or
+             *         false otherwise
+             */</font>
+            <font color="blue">public</font> <font color="blue">override</font> <font color="blue">bool</font> Equals<font color="black">(</font><font color="blue">object</font> obj<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>obj <font color="blue">is</font> Sequence<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> Equals<font color="black">(</font><font color="black">(</font>Sequence<font color="black">)</font> obj<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">false</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Checks if this sequence is equal to another sequence.
+             * Only sequences with the same tokens in the same order
+             * will be considered equal. The repeat flag will be
+             * disregarded.
+             *
+             * @param seq            the sequence to compare with
+             *
+             * @return true if the sequences are equal, or
+             *         false otherwise
+             */</font>
+            <font color="blue">public</font> <font color="blue">bool</font> Equals<font color="black">(</font>Sequence seq<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>tokens.Count <font color="black">!</font><font color="black">=</font> seq.tokens.Count<font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">false</font>;
+                <font color="black">}</font>
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> tokens.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font><font color="black">!</font>tokens<font color="black">[</font>i<font color="black">]</font>.Equals<font color="black">(</font>seq.tokens<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> <font color="blue">false</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="blue">true</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Returns a hash code for this object.
+             *
+             * @return a hash code for this object
+             */</font>
+            <font color="blue">public</font> <font color="blue">override</font> <font color="blue">int</font> GetHashCode<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> tokens.Count.GetHashCode<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Checks if this token sequence starts with the tokens from
+             * another sequence. If the other sequence is longer than this
+             * sequence, this method will always return false.
+             *
+             * @param seq            the token sequence to check
+             *
+             * @return true if this sequence starts with the other, or
+             *         false otherwise
+             */</font>
+            <font color="blue">public</font> <font color="blue">bool</font> StartsWith<font color="black">(</font>Sequence seq<font color="black">)</font> <font color="black">{</font>
+                <font color="blue">if</font> <font color="black">(</font>Length<font color="black">(</font><font color="black">)</font> <font color="black">&#60;</font> seq.Length<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="blue">false</font>;
+                <font color="black">}</font>
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> seq.tokens.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">if</font> <font color="black">(</font><font color="black">!</font>tokens<font color="black">[</font>i<font color="black">]</font>.Equals<font color="black">(</font>seq.tokens<font color="black">[</font>i<font color="black">]</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> <font color="blue">false</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="blue">true</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Checks if this token sequence is repetitive. A repetitive
+             * token sequence is one with the repeat flag set.
+             *
+             * @return true if this token sequence is repetitive, or
+             *         false otherwise
+             */</font>
+            <font color="blue">public</font> <font color="blue">bool</font> IsRepetitive<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> repeat;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Checks if the next token(s) in the parser matches this
+             * token sequence.
+             *
+             * @param parser         the parser to check
+             *
+             * @return true if the next tokens are in the sequence, or
+             *         false otherwise
+             */</font>
+            <font color="blue">public</font> <font color="blue">bool</font> IsNext<font color="black">(</font>Parser parser<font color="black">)</font> <font color="black">{</font>
+                Token   token;
+                <font color="blue">int</font>     id;
+
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> tokens.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    id <font color="black">=</font> <font color="black">(</font><font color="blue">int</font><font color="black">)</font> tokens<font color="black">[</font>i<font color="black">]</font>;
+                    token <font color="black">=</font> parser.PeekToken<font color="black">(</font>i<font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>token <font color="black">=</font><font color="black">=</font> <font color="blue">null</font> <font color="black">|</font><font color="black">|</font> token.Id <font color="black">!</font><font color="black">=</font> id<font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> <font color="blue">false</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="blue">true</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Checks if the next token(s) in the parser matches this
+             * token sequence.
+             *
+             * @param parser         the parser to check
+             * @param length         the maximum number of tokens to check
+             *
+             * @return true if the next tokens are in the sequence, or
+             *         false otherwise
+             */</font>
+            <font color="blue">public</font> <font color="blue">bool</font> IsNext<font color="black">(</font>Parser parser, <font color="blue">int</font> length<font color="black">)</font> <font color="black">{</font>
+                Token  token;
+                <font color="blue">int</font>    id;
+
+                <font color="blue">if</font> <font color="black">(</font>length <font color="black">&#62;</font> tokens.Count<font color="black">)</font> <font color="black">{</font>
+                    length <font color="black">=</font> tokens.Count;
+                <font color="black">}</font>
+                <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                    id <font color="black">=</font> <font color="black">(</font><font color="blue">int</font><font color="black">)</font> tokens<font color="black">[</font>i<font color="black">]</font>;
+                    token <font color="black">=</font> parser.PeekToken<font color="black">(</font>i<font color="black">)</font>;
+                    <font color="blue">if</font> <font color="black">(</font>token <font color="black">=</font><font color="black">=</font> <font color="blue">null</font> <font color="black">|</font><font color="black">|</font> token.Id <font color="black">!</font><font color="black">=</font> id<font color="black">)</font> <font color="black">{</font>
+                        <font color="blue">return</font> <font color="blue">false</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> <font color="blue">true</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Returns a string representation of this object.
+             *
+             * @return a string representation of this object
+             */</font>
+            <font color="blue">public</font> <font color="blue">override</font> string ToString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> ToString<font color="black">(</font><font color="blue">null</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Returns a string representation of this object.
+             *
+             * @param tokenizer      the tokenizer containing the tokens
+             *
+             * @return a string representation of this object
+             */</font>
+            <font color="blue">public</font> string ToString<font color="black">(</font>Tokenizer tokenizer<font color="black">)</font> <font color="black">{</font>
+                StringBuilder  buffer <font color="black">=</font> <font color="blue">new</font> StringBuilder<font color="black">(</font><font color="black">)</font>;
+                string         str;
+                <font color="blue">int</font>            id;
+
+                <font color="blue">if</font> <font color="black">(</font>tokenizer <font color="black">=</font><font color="black">=</font> <font color="blue">null</font><font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font>tokens.ToString<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"["</font><font color="black">)</font>;
+                    <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> tokens.Count; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                        id <font color="black">=</font> <font color="black">(</font><font color="blue">int</font><font color="black">)</font> tokens<font color="black">[</font>i<font color="black">]</font>;
+                        str <font color="black">=</font> tokenizer.GetPatternDescription<font color="black">(</font>id<font color="black">)</font>;
+                        <font color="blue">if</font> <font color="black">(</font>i <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                            buffer.Append<font color="black">(</font><font color="maroon">" "</font><font color="black">)</font>;
+                        <font color="black">}</font>
+                        buffer.Append<font color="black">(</font>str<font color="black">)</font>;
+                    <font color="black">}</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">"]"</font><font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">if</font> <font color="black">(</font>repeat<font color="black">)</font> <font color="black">{</font>
+                    buffer.Append<font color="black">(</font><font color="maroon">" *"</font><font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> buffer.ToString<font color="black">(</font><font color="black">)</font>;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Creates a new token sequence that is the concatenation
+             * of this sequence and another. A maximum length for the
+             * new sequence is also specified.
+             *
+             * @param length         the maximum length of the result
+             * @param seq            the other sequence
+             *
+             * @return the concatenated token sequence
+             */</font>
+            <font color="blue">public</font> Sequence Concat<font color="black">(</font><font color="blue">int</font> length, Sequence seq<font color="black">)</font> <font color="black">{</font>
+                Sequence  res <font color="black">=</font> <font color="blue">new</font> Sequence<font color="black">(</font>length, <font color="blue">this</font><font color="black">)</font>;
+
+                <font color="blue">if</font> <font color="black">(</font>seq.repeat<font color="black">)</font> <font color="black">{</font>
+                    res.repeat <font color="black">=</font> <font color="blue">true</font>;
+                <font color="black">}</font>
+                length <font color="black">-</font><font color="black">=</font> <font color="blue">this</font>.Length<font color="black">(</font><font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>length <font color="black">&#62;</font> seq.Length<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    res.tokens.AddRange<font color="black">(</font>seq.tokens<font color="black">)</font>;
+                <font color="black">}</font> <font color="blue">else</font> <font color="black">{</font>
+                    <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                        res.tokens.Add<font color="black">(</font>seq.tokens<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
+                    <font color="black">}</font>
+                <font color="black">}</font>
+                <font color="blue">return</font> res;
+            <font color="black">}</font>
+
+            <font color="green">/**
+             * Creates a new token sequence that is a subsequence of
+             * this one.
+             *
+             * @param start          the subsequence start position
+             *
+             * @return the new token subsequence
+             */</font>
+            <font color="blue">public</font> Sequence Subsequence<font color="black">(</font><font color="blue">int</font> start<font color="black">)</font> <font color="black">{</font>
+                Sequence  res <font color="black">=</font> <font color="blue">new</font> Sequence<font color="black">(</font>Length<font color="black">(</font><font color="black">)</font>, <font color="blue">this</font><font color="black">)</font>;
+
+                <font color="blue">while</font> <font color="black">(</font>start <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> res.tokens.Count <font color="black">&#62;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    res.tokens.RemoveAt<font color="black">(</font><font color="maroon">0</font><font color="black">)</font>;
+                    start<font color="black">-</font><font color="black">-</font>;
+                <font color="black">}</font>
+                <font color="blue">return</font> res;
+            <font color="black">}</font>
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTarget="Build">
+	<PropertyGroup>
+		<PrepareForRunDependsOn>$(PrepareForRunDependsOn);MyPostBuildTarget</PrepareForRunDependsOn>
+		<ProfilerHookDir>$(MSBuildProjectDirectory)\..\..\Hook</ProfilerHookDir>
+	</PropertyGroup>
+	<ItemGroup>
+		<CleanupDirectories Include="$(ProfilerHookDir)\Win32"/>
+		<CleanupDirectories Include="$(ProfilerHookDir)\x64"/>
+	</ItemGroup>
+	<PropertyGroup>
+		<ProgramFiles32>$(MSBuildExtensionsPath32)\..</ProgramFiles32>
+		<CppBatch32>$(ProgramFiles32)\Microsoft Visual Studio 9.0\VC\bin\vcvars32.bat</CppBatch32>
+		<CppBatch64Native>$(ProgramFiles32)\Microsoft Visual Studio 9.0\VC\bin\vcvars64.bat</CppBatch64Native>
+		<CppBatch64Cross>$(ProgramFiles32)\Microsoft Visual Studio 9.0\VC\bin\vcvarsx86_amd64.bat</CppBatch64Cross>
+		<CppBatch64 Condition="Exists('$(CppBatch64Native)')">$(CppBatch64Native)</CppBatch64>
+		<CppBatch64 Condition="'$(CppBatch64)'==''">$(CppBatch64Cross)</CppBatch64>
+		<VcBuildArguments>/showenv "$(ProfilerHookDir)\Hook.vcproj" $(Configuration)</VcBuildArguments>
+	</PropertyGroup>
+	<Target Name="MyPostBuildTarget">
+		<Exec WorkingDirectory="$(ProfilerHookDir)"
+		      Command='call "$(CppBatch32)" &amp;&amp; vcbuild /platform:Win32 $(VcBuildArguments)'
+		      Condition="Exists('$(CppBatch32)')"/>
+		<Warning Text="$(CppBatch32) not found, skipped compiling profiler" Condition="!Exists('$(CppBatch32)')"/>
+
+		<Exec WorkingDirectory="$(ProfilerHookDir)"
+		      Command='call "$(CppBatch64)" &amp;&amp; vcbuild /platform:x64 $(VcBuildArguments)'
+			  Condition="Exists('$(CppBatch64)')"/>
+		<Warning Text="$(CppBatch64) not found, skipped compiling 64-bit profiler" Condition="!Exists('$(CppBatch64)')"/>
+		
+		<Copy SourceFiles="$(ProfilerHookDir)\Win32\$(Configuration)\Hook.dll"  DestinationFiles="$(OutputPath)\Hook32.dll" Condition="Exists('$(ProfilerHookDir)\Win32\$(Configuration)\Hook.dll')" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="$(ProfilerHookDir)\Win32\$(Configuration)\Hook.pdb" DestinationFiles="$(OutputPath)\Hook32.pdb" Condition="Exists('$(ProfilerHookDir)\Win32\$(Configuration)\Hook.pdb')" SkipUnchangedFiles="false" />
+		
+		<Copy SourceFiles="$(ProfilerHookDir)\x64\$(Configuration)\Hook.dll"  DestinationFiles="$(OutputPath)\Hook64.dll" Condition="Exists('$(ProfilerHookDir)\x64\$(Configuration)\Hook.dll')" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="$(ProfilerHookDir)\x64\$(Configuration)\Hook.pdb" DestinationFiles="$(OutputPath)\Hook64.pdb" Condition="Exists('$(ProfilerHookDir)\x64\$(Configuration)\Hook.pdb')" SkipUnchangedFiles="false" />
+	</Target>
+	<Target Name="MyPostCleanupTarget" AfterTargets="Clean">
+		<RemoveDir Directories="@(CleanupDirectories)" />
+	</Target>
+</Project>

@@ -1,0 +1,144 @@
+<HTML>
+<HEAD>
+<TITLE>
+StringElement.cs
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+ * StringElement.cs
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+ * MA 02111-1307, USA.
+ *
+ * Copyright (c) 2003-2009 Per Cederberg. All rights reserved.
+ */</font>
+
+<font color="blue">using</font> System;
+<font color="blue">using</font> System.IO;
+
+<font color="blue">using</font> PerCederberg.Grammatica.Runtime;
+
+<font color="blue">namespace</font> PerCederberg.Grammatica.Runtime.RE <font color="black">{</font>
+
+    <font color="green">/**
+     * A regular expression string element. This element only matches
+     * an exact string. Once created, the string element is immutable.
+     *
+     * @author   Per Cederberg, &#60;per at percederberg dot net&#62;
+     * @version  1.5
+     */</font>
+    <font color="blue">internal</font> <font color="blue">class</font> StringElement <font color="black">:</font> Element <font color="black">{</font>
+
+        <font color="green">/**
+         * The string to match with.
+         */</font>
+        <font color="blue">private</font> string <font color="blue">value</font>;
+
+        <font color="green">/**
+         * Creates a new string element.
+         *
+         * @param c              the character to match with
+         */</font>
+        <font color="blue">public</font> StringElement<font color="black">(</font><font color="blue">char</font> c<font color="black">)</font>
+            <font color="black">:</font> <font color="blue">this</font><font color="black">(</font>c.ToString<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Creates a new string element.
+         *
+         * @param str            the string to match with
+         */</font>
+        <font color="blue">public</font> StringElement<font color="black">(</font>string str<font color="black">)</font> <font color="black">{</font>
+            <font color="blue">value</font> <font color="black">=</font> str;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the string to be matched.
+         *
+         * @return the string to be matched
+         */</font>
+        <font color="blue">public</font> string GetString<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">value</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns this element as it is immutable.
+         *
+         * @return this string element
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">object</font> Clone<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+            <font color="blue">return</font> <font color="blue">this</font>;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Returns the length of a matching string starting at the
+         * specified position. The number of matches to skip can also
+         * be specified, but numbers higher than zero (0) cause a
+         * failed match for any element that doesn't attempt to
+         * combine other elements.
+         *
+         * @param m              the matcher being used
+         * @param buffer         the input character buffer to match
+         * @param start          the starting position
+         * @param skip           the number of matches to skip
+         *
+         * @return the length of the longest matching string, or
+         *         -1 if no match was found
+         *
+         * @throws IOException if an I/O error occurred
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">int</font> Match<font color="black">(</font>Matcher m,
+                                  ReaderBuffer buffer,
+                                  <font color="blue">int</font> start,
+                                  <font color="blue">int</font> skip<font color="black">)</font> <font color="black">{</font>
+
+            <font color="blue">int</font>  c;
+
+            <font color="blue">if</font> <font color="black">(</font>skip <font color="black">!</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                <font color="blue">return</font> <font color="maroon">-1</font>;
+            <font color="black">}</font>
+            <font color="blue">for</font> <font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i <font color="black">&#60;</font> <font color="blue">value</font>.Length; i<font color="black">+</font><font color="black">+</font><font color="black">)</font> <font color="black">{</font>
+                c <font color="black">=</font> buffer.Peek<font color="black">(</font>start <font color="black">+</font> i<font color="black">)</font>;
+                <font color="blue">if</font> <font color="black">(</font>c <font color="black">&#60;</font> <font color="maroon">0</font><font color="black">)</font> <font color="black">{</font>
+                    m.SetReadEndOfString<font color="black">(</font><font color="black">)</font>;
+                    <font color="blue">return</font> <font color="maroon">-1</font>;
+                <font color="black">}</font>
+                <font color="blue">if</font> <font color="black">(</font>m.IsCaseInsensitive<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+                    c <font color="black">=</font> <font color="black">(</font><font color="blue">int</font><font color="black">)</font> Char.ToLower<font color="black">(</font><font color="black">(</font><font color="blue">char</font><font color="black">)</font> c<font color="black">)</font>;
+                <font color="black">}</font>
+                <font color="blue">if</font> <font color="black">(</font>c <font color="black">!</font><font color="black">=</font> <font color="black">(</font><font color="blue">int</font><font color="black">)</font> <font color="blue">value</font><font color="black">[</font>i<font color="black">]</font><font color="black">)</font> <font color="black">{</font>
+                    <font color="blue">return</font> <font color="maroon">-1</font>;
+                <font color="black">}</font>
+            <font color="black">}</font>
+            <font color="blue">return</font> <font color="blue">value</font>.Length;
+        <font color="black">}</font>
+
+        <font color="green">/**
+         * Prints this element to the specified output stream.
+         *
+         * @param output         the output stream to use
+         * @param indent         the current indentation
+         */</font>
+        <font color="blue">public</font> <font color="blue">override</font> <font color="blue">void</font> PrintTo<font color="black">(</font>TextWriter output, string indent<font color="black">)</font> <font color="black">{</font>
+            output.WriteLine<font color="black">(</font>indent <font color="black">+</font> <font color="maroon">"'"</font> <font color="black">+</font> <font color="blue">value</font> <font color="black">+</font> <font color="maroon">"'"</font><font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

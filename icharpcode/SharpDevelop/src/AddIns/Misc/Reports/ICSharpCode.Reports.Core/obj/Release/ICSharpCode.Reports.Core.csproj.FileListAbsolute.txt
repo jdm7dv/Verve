@@ -1,0 +1,12 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Misc\SharpDevelopReports\ICSharpCode.Reports.Core.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\Project\WpfReportViewer\WpfReportViewer.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\Project\WpfReportViewer\WpfReportViewer.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core.Dialogs.TextEditorDialog.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core.Dialogs.ParameterDialog.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core.ReportViewer.PreviewControl.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core.Project.Resources.CoreResource.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core.csproj.GenerateResource.Cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Misc\Reports\ICSharpCode.Reports.Core\obj\Release\ICSharpCode.Reports.Core.dll

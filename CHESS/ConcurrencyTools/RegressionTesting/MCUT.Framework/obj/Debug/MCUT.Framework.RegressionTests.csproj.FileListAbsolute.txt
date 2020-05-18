@@ -1,0 +1,13 @@
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\MCUT.Framework.RegressionTests.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\MCUT.Framework.RegressionTests.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\ExampleTestLibrary.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\Microsoft.Concurrency.UnitTesting.Extensions.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\Microsoft.Concurrency.UnitTestingFramework.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\Microsoft.Concurrency.UnitTesting.Extensions.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\Microsoft.Concurrency.UnitTesting.Extensions.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\ExampleTestLibrary.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\Microsoft.Concurrency.UnitTestingFramework.pdb
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\bin\Debug\Microsoft.Concurrency.UnitTestingFramework.xml
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\obj\Debug\MCUT.Framework.RegressionTests.csprojResolveAssemblyReference.cache
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\obj\Debug\MCUT.Framework.RegressionTests.dll
+C:\Users\Jonathan_Moore\Documents\Visual Studio 2012\Projects\Concurrent\CHESS\ConcurrencyTools\RegressionTesting\MCUT.Framework\obj\Debug\MCUT.Framework.RegressionTests.pdb

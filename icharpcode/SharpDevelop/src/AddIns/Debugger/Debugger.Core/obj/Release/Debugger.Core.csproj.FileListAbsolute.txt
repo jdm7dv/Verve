@@ -1,0 +1,5 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Debugger\Debugger.Core.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\Debugger\Debugger.Core.pdb
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Debugger\Debugger.Core\obj\Release\Debugger.Core.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Debugger\Debugger.Core\obj\Release\Debugger.Core.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Debugger\Debugger.Core\obj\Release\Debugger.Core.pdb

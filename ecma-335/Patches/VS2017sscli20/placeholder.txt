@@ -1,0 +1,4 @@
+Getting long path name instead of DOS Short name with the powershell if the path exists.
+Replacing '%~1' with the path.
+
+powershell "(Get-Item -LiteralPath '%~1').FullName"

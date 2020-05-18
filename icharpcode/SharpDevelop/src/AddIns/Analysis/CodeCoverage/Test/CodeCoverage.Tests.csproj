@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ICSharpCode.CodeCoverage.Tests</RootNamespace>
+    <AssemblyName>CodeCoverage.Tests</AssemblyName>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5C0E8F8-9D04-46ED-91D6-1DEF1575313B}</ProjectGuid>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>x86</PlatformTarget>
+    <FileAlignment>4096</FileAlignment>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>..\..\..\..\..\bin\UnitTests\</OutputPath>
+    <Optimize>False</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\..\..\..\bin\UnitTests\</OutputPath>
+    <Optimize>True</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\..\Libraries\RhinoMocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\..\Tools\NUnit\nunit.framework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.Build.Engine" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Coverage\TwoClassNamesMatchingAtStartTests.cs" />
+    <Compile Include="Coverage\CodeCoverageMethodElementTests.cs" />
+    <Compile Include="Coverage\CodeCoverageNamespaceTestFixture.cs" />
+    <Compile Include="Coverage\CodeCoveragePropertyCollectionWithGetterAndSetterTestFixture.cs" />
+    <Compile Include="Coverage\CodeCoveragePropertyTestFixture.cs" />
+    <Compile Include="Coverage\CodeCoverageResultsMissingFileIdTestFixture.cs" />
+    <Compile Include="Coverage\CodeCoverageResultsPropertyFlagsTestFixture.cs" />
+    <Compile Include="Coverage\CodeCoverageResultsTestFixture.cs" />
+    <Compile Include="Coverage\CodeCoverageResultsTestsBase.cs" />
+    <Compile Include="Coverage\CodeCoverageResultsWithEmptyMethodElementTestFixture.cs" />
+    <Compile Include="Coverage\GetSequencePointsForFileNameTestFixture.cs" />
+    <Compile Include="Coverage\InvalidSequencePointDataTestFixture.cs" />
+    <Compile Include="Coverage\MethodHasNoNamespaceTestFixture.cs" />
+    <Compile Include="Coverage\ModuleVisitedSequencePointsTestFixture.cs" />
+    <Compile Include="Coverage\OpenCoverSettingsFactoryTests.cs" />
+    <Compile Include="Coverage\OpenCoverSettingsMissingRulePrefixTestFixture.cs" />
+    <Compile Include="Coverage\OpenCoverSettingsTestFixture.cs" />
+    <Compile Include="Coverage\RemoveTaskMarkerTests.cs" />
+    <Compile Include="Coverage\SequencePointTests.cs" />
+    <Compile Include="Coverage\SimilarRootNamespaceTestFixture.cs" />
+    <Compile Include="Coverage\SolutionCodeCoverageResultsTests.cs" />
+    <Compile Include="Gui\DisplayItemTestFixture.cs" />
+    <Compile Include="Gui\PropertiesInCodeCoverageTreeView.cs" />
+    <Compile Include="Gui\TreeViewSortingTestFixture.cs" />
+    <Compile Include="Gui\ZeroCodeCoverageTreeViewTestFixture.cs" />
+    <Compile Include="Highlighting\AddCodeCoverageMarkersTestFixture.cs" />
+    <Compile Include="Highlighting\CodeCoverageMarkersCoverMultipleLinesTestFixture.cs" />
+    <Compile Include="Highlighting\CodeCoverageMarkersCoverTwoLinesTestFixture.cs" />
+    <Compile Include="Highlighting\CodeCoverageMarkersInvalidEndColumnTestFixture.cs" />
+    <Compile Include="Highlighting\CodeCoverageMarkersInvalidEndLineTestFixture.cs" />
+    <Compile Include="Highlighting\CodeCoverageMarkersInvalidStartColumnTestFixture.cs" />
+    <Compile Include="Highlighting\CodeCoverageMarkersInvalidStartLineTestFixture.cs" />
+    <Compile Include="Highlighting\RemoveCodeCoverageMarkersTestFixture.cs" />
+    <Compile Include="Testing\CodeCoverageTestRunnerTests.cs" />
+    <Compile Include="Testing\OpenCoverApplicationTests.cs" />
+    <Compile Include="Testing\RunTestWithCodeCoverageCommandTests.cs" />
+    <Compile Include="Utils\CodeCoverageMethodXElementBuilder.cs" />
+    <Compile Include="Utils\DerivedCodeCoverageTestRunner.cs" />
+    <Compile Include="Utils\DerivedRunTestWithCodeCoverageCommand.cs" />
+    <Compile Include="Gui\ClassWithNoNamespaceInTreeViewTestFixture.cs" />
+    <Compile Include="Gui\CodeCoverageTreeViewTestFixture.cs" />
+    <Compile Include="Gui\ListViewSortingTestFixture.cs" />
+    <Compile Include="Gui\TreeViewAfterSelectTestFixture.cs" />
+    <Compile Include="Utils\DerivedCodeCoverageTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utils\MockCodeCoverageTestRunnerFactory.cs" />
+    <Compile Include="Utils\MockFileSystem.cs" />
+    <Compile Include="Utils\XElementExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Libraries\NRefactory\Project\NRefactory.csproj">
+      <Project>{3A9AE6AA-BC07-4A2F-972C-581E3AE2F195}</Project>
+      <Name>NRefactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Main\Base\Project\ICSharpCode.SharpDevelop.csproj">
+      <Project>{2748AD25-9C63-4E12-877B-4DCE96FBED54}</Project>
+      <Name>ICSharpCode.SharpDevelop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Main\Base\Test\ICSharpCode.SharpDevelop.Tests.csproj">
+      <Project>{4980B743-B32F-4aba-AABD-45E2CAD3568D}</Project>
+      <Name>ICSharpCode.SharpDevelop.Tests</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Main\Core\Project\ICSharpCode.Core.csproj">
+      <Project>{35CEF10F-2D4C-45F2-9DD1-161E0FEC583C}</Project>
+      <Name>ICSharpCode.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UnitTesting\Test\UnitTesting.Tests.csproj">
+      <Project>{44A8DE09-CAB9-49D8-9CFC-5EB0A552F181}</Project>
+      <Name>UnitTesting.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Project\CodeCoverage.csproj">
+      <Project>{08CE9972-283B-44F4-82FA-966F7DFA6B7A}</Project>
+      <Name>CodeCoverage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UnitTesting\UnitTesting.csproj">
+      <Project>{1F261725-6318-4434-A1B1-6C70CE4CD324}</Project>
+      <Name>UnitTesting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Main\ICSharpCode.SharpDevelop.Dom\Project\ICSharpCode.SharpDevelop.Dom.csproj">
+      <Project>{924EE450-603D-49C1-A8E5-4AFAA31CE6F3}</Project>
+      <Name>ICSharpCode.SharpDevelop.Dom</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="..\..\..\..\..\AddIns\Analysis\UnitTesting\UnitTesting.dll">
+      <Link>UnitTesting.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+</Project>

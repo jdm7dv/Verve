@@ -1,0 +1,14 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\DefaultLicense.rtf
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\WixBinding.addin
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\EmptyWixFile.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\EmptyWixDialog.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\EmptyWixProject.xpt
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\SetupDialogControlLibrary.sdcl
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\WixDialog.xft
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\WixUIFeatureTreeProject.xpt
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\WixUIInstallDirProject.xpt
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\WixUIMinimalProject.xpt
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\Templates\WixUIMondoProject.xpt
+F:\Verve\develop\SharpDevelop_4.3.1.9430\AddIns\BackendBindings\WixBinding\WixBinding.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\WixBinding\Project\obj\Release\WixBinding.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\BackendBindings\WixBinding\Project\obj\Release\WixBinding.dll

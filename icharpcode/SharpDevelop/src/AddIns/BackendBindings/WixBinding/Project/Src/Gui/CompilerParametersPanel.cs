@@ -1,0 +1,42 @@
+﻿// Copyright (c) AlphaSierraPapa for the SharpDevelop Team (for details please see \doc\copyright.txt)
+// This code is distributed under the GNU LGPL (for details please see \doc\license.txt)
+
+using System;
+using System.Windows.Forms;
+using ICSharpCode.SharpDevelop.Gui.OptionPanels;
+using ICSharpCode.SharpDevelop.Project;
+using StringPair = System.Collections.Generic.KeyValuePair<System.String, System.String>;
+
+namespace ICSharpCode.WixBinding
+{
+	public class CompilerParametersPanel : AbstractXmlFormsProjectOptionPanel
+	{	
+		public override void LoadPanelContents()
+		{
+			SetupFromXmlStream(this.GetType().Assembly.GetManifestResourceStream("ICSharpCode.WixBinding.Resources.CompilerParametersPanel.xfrm"));
+			InitializeHelper();
+			
+			ConfigurationGuiBinding b;
+			b = helper.BindString("outputPathTextBox", "OutputPath", TextBoxEditMode.EditRawProperty);
+			b.CreateLocationButton("outputPathTextBox");
+			ConnectBrowseFolder("outputPathBrowseButton", "outputPathTextBox", "${res:Dialog.Options.PrjOptions.Configuration.FolderBrowserDescription}", TextBoxEditMode.EditRawProperty);
+
+			b = helper.BindString("baseOutputPathTextBox", "BaseOutputPath", TextBoxEditMode.EditRawProperty);
+			b.CreateLocationButton("baseOutputPathTextBox");
+			ConnectBrowseFolder("baseOutputPathBrowseButton", "baseOutputPathTextBox", "${res:Dialog.Options.PrjOptions.Configuration.FolderBrowserDescription}", TextBoxEditMode.EditRawProperty);
+			
+			b = helper.BindString("intermediateOutputPathTextBox", "IntermediateOutputPath", TextBoxEditMode.EditRawProperty);
+			b.CreateLocationButton("intermediateOutputPathTextBox");
+			ConnectBrowseFolder("intermediateOutputPathBrowseButton", "intermediateOutputPathTextBox", "${res:Dialog.Options.PrjOptions.Configuration.FolderBrowserDescription}", TextBoxEditMode.EditRawProperty);
+			
+			b = helper.BindString("wixTargetsPathTextBox", "WixTargetsPath", TextBoxEditMode.EditRawProperty);
+			ConnectBrowseButton("wixTargetsPathBrowseButton", "wixTargetsPathTextBox", "${res:ICSharpCode.WixBinding.WixTargetsFileFilterName} (wix.targets)|wix.targets|${res:SharpDevelop.FileFilter.AllFiles}|*.*", TextBoxEditMode.EditRawProperty);
+
+			b = helper.BindString("suppressWarningsTextBox", "SuppressIces", TextBoxEditMode.EditRawProperty);
+			b = helper.BindString("wixVariablesTextBox", "WixVariables", TextBoxEditMode.EditRawProperty);
+			b = helper.BindString("culturesTextBox", "Cultures", TextBoxEditMode.EditRawProperty);
+
+			helper.AddConfigurationSelector(this);
+		}
+	}
+}

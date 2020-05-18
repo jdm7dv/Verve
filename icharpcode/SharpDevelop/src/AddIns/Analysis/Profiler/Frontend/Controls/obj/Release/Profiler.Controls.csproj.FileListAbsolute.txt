@@ -1,0 +1,14 @@
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\bin\ICSharpCode.Profiler.Controls.dll
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\Profiler.Controls.csprojResolveAssemblyReference.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\CompareView.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\CompareView.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\ExtendedTimeLineControl.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\QueryView.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\GeneratedInternalTypeHelper.g.cs
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\ICSharpCode.Profiler.Controls_MarkupCompile.cache
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\ICSharpCode.Profiler.Controls_MarkupCompile.lref
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\ExtendedTimeLineControl.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\QueryView.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\Themes\Generic.baml
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\ICSharpCode.Profiler.Controls.g.resources
+F:\Verve\develop\SharpDevelop_4.3.1.9430\src\AddIns\Analysis\Profiler\Frontend\Controls\obj\Release\ICSharpCode.Profiler.Controls.dll
