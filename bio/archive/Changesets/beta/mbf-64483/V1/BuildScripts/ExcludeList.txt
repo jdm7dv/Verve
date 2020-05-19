@@ -1,0 +1,10 @@
+\obj\
+\bin\
+\doc\
+.log
+.sln.cache
+.vsprops
+.vspscc
+.vssscc
+debug.txt
+Release.txt

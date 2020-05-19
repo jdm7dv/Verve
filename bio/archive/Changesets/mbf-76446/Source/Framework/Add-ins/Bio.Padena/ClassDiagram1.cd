@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Bio.Algorithms.Assembly.Padena.ParallelDeNovoAssembler" BaseTypeListCollapsed="true">
+    <Position X="6" Y="5" Width="2.5" />
+    <Members>
+      <Field Name="contigBuilder" Hidden="true" />
+      <Field Name="contigCoverageThreshold" Hidden="true" />
+      <Field Name="dangleThreshold" Hidden="true" />
+      <Field Name="danglingLinksPurger" Hidden="true" />
+      <Field Name="erosionThreshold" Hidden="true" />
+      <Field Name="graph" Hidden="true" />
+      <Field Name="isErosionEnabled" Hidden="true" />
+      <Field Name="kmerLength" Hidden="true" />
+      <Field Name="lowCoverageContigPurger" Hidden="true" />
+      <Field Name="redundantPathLengthThreshold" Hidden="true" />
+      <Field Name="redundantPathsPurger" Hidden="true" />
+      <Field Name="scaffoldBuilder" Hidden="true" />
+      <Field Name="sequenceReads" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAkIAAACACiwgwAMiIAACAwAGAAFAhgg6wAAACgJAAI=</HashCode>
+      <FileName>ParallelDeNovoAssembler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Bio.Algorithms.Assembly.OverlapDeNovoAssembler">
+    <Position X="0.5" Y="5.25" Width="2.25" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Bio.Algorithms.Assembly.IDeNovoAssembler">
+    <Position X="3.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Bio.Algorithms.Assembly.IDeBruijnDeNovoAssembler">
+    <Position X="6" Y="2.75" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Bio.Algorithms.Assembly.IOverlapDeNovoAssembler">
+    <Position X="0.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

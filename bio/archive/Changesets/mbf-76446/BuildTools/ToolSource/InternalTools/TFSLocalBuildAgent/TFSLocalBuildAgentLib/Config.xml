@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppConfig>
+  <!--This XML file contains configuration details of the application-->
+  <!--Local path configuration-->
+  <!-- NOTE: Ensure the user account used to run this process has sufficient 
+  privileges to modify/delete the folder paths specified below-->
+  <LocalWorkspacePath>C:\BuildAgentTfsEnlistment</LocalWorkspacePath>
+  <DropLocation>C:\MBFDrop</DropLocation>
+  <DownloadSourcePath>MBI/DevelopmentBranch</DownloadSourcePath>
+  <WorkspaceName>MBFWorkspace</WorkspaceName>
+  <!--Solution build configuration-->
+  <BinaryRelPath>\MBI\Build\LocalBuild\Target</BinaryRelPath>
+  <InstallerRelPath>\MBI\Build\LocalBuild\Binaries\Installer</InstallerRelPath>
+  <LastBuildNumber>1</LastBuildNumber>
+  <LastBuildDate>2010.9.15</LastBuildDate>
+  <LastBuiltChangesetId>3419</LastBuiltChangesetId>
+  <BuildLogFileName>Build.log</BuildLogFileName>
+  <TestAutomationCleanupFileRelPath>\MBI\Cleanup.bat</TestAutomationCleanupFileRelPath>
+  <TestAutomationSettingsRelPath>\MBI\Tests\Drop.testsettings</TestAutomationSettingsRelPath>
+  <!--TFS server configuration properties -->
+  <ServerUri>https://vstf-eu-dub-01.partners.extranet.microsoft.com:8443/tfs</ServerUri>
+  <TeamProjectCollectionName>ext04_consol_tpc</TeamProjectCollectionName>
+  <ProjectName>MBI</ProjectName>
+</AppConfig>

@@ -1,0 +1,2 @@
+Replace %WIX_PATH%\light.exe.config with [BioExcelPATH]\Public\ext\wix3\light.exe.config file.
+Where "%WIX_PATH%" refers to the folder where light.exe present, ex: "C:\Program Files\Windows Installer XML v3\bin"

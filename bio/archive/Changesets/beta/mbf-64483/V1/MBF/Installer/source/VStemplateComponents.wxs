@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <ComponentGroup Id="VSTemplateComponentGroup">
+      <ComponentRef Id="VisualStudioTemplateZIP" />
+      <ComponentRef Id="VisualStudioTemplateDLL" />
+    </ComponentGroup>
+    <DirectoryRef Id="VSTEMPLATEFOLDER">
+      <Component Id="VisualStudioTemplateZIP" Guid="D1CF9703-A3D8-48E3-BF24-A3E20F6A024F">
+        <File Id="MBFConsoleApplicationTemplate" KeyPath="yes" Source="SourceDir\MBFConsoleApplicationTemplate.zip" />
+      </Component>
+      <Component Id="VisualStudioTemplateDLL" Guid="F778F497-E5ED-473E-A3A6-A4D5349904A8">
+        <File Id="MBFTemplateWizard" Assembly=".net" KeyPath="yes" Source="SourceDir\MBF.TemplateWizard.dll" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

@@ -1,0 +1,564 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B3F93C1F-3DE8-472E-B845-39699F21BE61}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MBF.Tests</RootNamespace>
+    <AssemblyName>MBF.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlignerTests.cs" />
+    <Compile Include="AssemblerTests.cs" />
+    <Compile Include="BAMTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BEDOperationsTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BinaryGuideTreeTests.cs" />
+    <Compile Include="BioMatrixTests.cs" />
+    <Compile Include="BlastWebTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BoyerMooreTests.cs" />
+    <Compile Include="ByteArrayTests.cs" />
+    <Compile Include="CloneTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ClustalWTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ClusterTests.cs" />
+    <Compile Include="DerivedSequenceTests.cs" />
+    <Compile Include="DistanceMatrixTests.cs" />
+    <Compile Include="FastaTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FastQTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FeatureItemTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FrameworkAbstractionTests.cs" />
+    <Compile Include="GenBankTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GffTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GlobalSetups.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="HierarchicalClusteringSerialTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IndexedItemTests.cs" />
+    <Compile Include="KimuraDistanceMatrixGeneratorTests.cs" />
+    <Compile Include="KmerDistanceMatrixGeneratorTests.cs" />
+    <Compile Include="LocationBuilderTests.cs" />
+    <Compile Include="LongestIncreasingSubsequenceTests.cs" />
+    <Compile Include="MatePairMapperTests.cs" />
+    <Compile Include="MBFStreamReaderTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MBFTextReaderTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MsaBenchMarkTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MsaUtilsTests.cs" />
+    <Compile Include="MUMmer3Tests.cs" />
+    <Compile Include="NeedlemanWunschProfileAlignerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NewickTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NexusTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PADENA\ContigBuilderTests.cs" />
+    <Compile Include="PADENA\ContigGraphBuilderTests.cs" />
+    <Compile Include="PADENA\DanglingLinksPurgerTests.cs" />
+    <Compile Include="PADENA\GraphConstructionTests.cs" />
+    <Compile Include="PADENA\ParallelDeNovoAssemblerExtendedTests.cs" />
+    <Compile Include="PADENA\ParallelDeNovoAssemblerTests.cs" />
+    <Compile Include="PADENA\ReadAlignmentTests.cs" />
+    <Compile Include="PADENA\RedundantPathsPurgerTests.cs" />
+    <Compile Include="PADENA\Scaffold\DistanceCalculationTests.cs" />
+    <Compile Include="PADENA\Scaffold\FilterMatePairsTests.cs" />
+    <Compile Include="PADENA\Scaffold\GraphScaffoldBuilderTests.cs" />
+    <Compile Include="PADENA\Scaffold\MapReadsToContigsTests.cs" />
+    <Compile Include="PADENA\Scaffold\PathPurgerTests.cs" />
+    <Compile Include="PADENA\Scaffold\TracePathTests.cs" />
+    <Compile Include="PADENA\TestInputs.cs" />
+    <Compile Include="PAMSAMMultipleSequenceAlignmentTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ParallelDynamicProgrammingTests.cs" />
+    <Compile Include="PatternConverterTests.cs" />
+    <Compile Include="PhylipTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProfileTests.cs" />
+    <Compile Include="ProgressiveAlignerTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resource.Designer.cs" />
+    <Compile Include="QualitativeSequenceTests.cs" />
+    <Compile Include="RegistrationTests.cs" />
+    <Compile Include="SAMTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SAMUtilTests.cs" />
+    <Compile Include="SegmentedSequenceTests.cs" />
+    <Compile Include="SequenceCompareTests.cs" />
+    <Compile Include="SequenceFindMatchTests.cs" />
+    <Compile Include="SequenceStatisticsTests.cs" />
+    <Compile Include="SerializationTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SimilarityMatrixTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SparseSequenceTests.cs" />
+    <Compile Include="SuffixTreeTests.cs" />
+    <Compile Include="TranslationTests.cs" />
+    <Compile Include="UtilTests.cs" />
+    <Compile Include="VirtualSequenceTest.cs" />
+    <Compile Include="WebAccessorTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\TestUtils\122_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BAM\SeqAlignment.bam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Intersect\Intersect_query.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Intersect\Intersect_ref.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Intersect\Result_Intersect_MinOverlap0.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Intersect\Result_Intersect_MinOverlap0_OverLappingBases.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Intersect\Result_Intersect_MinOverlap1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Intersect\Result_Intersect_MinOverlap1_OverLappingBases.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Merge_single.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Merge_twofiles_1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Merge_twofiles_2.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Single_MinLength-1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Single_MinLength-3.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Single_MinLength0.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Single_MinLength1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength-1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength-3.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength0.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength2.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Merge\Result_Merge_Two_MinLength6.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Subtract\Result_subtract_minoverlap0.bed">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Subtract\Result_Subtract_minoverlap0_NOnOverlappingPieces.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Subtract\Result_Subtract_minoverlap1.bed">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Subtract\Result_Subtract_minoverlap1_NOnOverlappingPieces.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Subtract\Subtract_query.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\BED\Subtract\Subtract_ref.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\ClustalW\AlignmentData.aln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\186972391.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\5_sequences.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\NC_005213.ffn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX010.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX022.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX032.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX034.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX035.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX046.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX060.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX063.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX076.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV911\BOX096.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\Balibase\RV913\BOX032.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\BB11001.tfa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ash__.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ckia_.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1dlwa_.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1ew6a_.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1fn9a_.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1fx2a_.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1g5na_.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1g8la3.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1gesa2.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\Protein\SABmark\group1\reference\d1a6m__-d1gtea1.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-52.sci-77.no-1.raw.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-52.sci-77.no-1.ref.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-75.no-1.raw.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-75.no-1.ref.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-79.no-1.raw.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-79.no-1.ref.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-91.no-1.raw.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-53.sci-91.no-1.ref.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-54.sci-72.no-1.raw.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RNA\k10\5S_rRNA\5S_rRNA.apsi-54.sci-72.no-1.ref.fa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RunningTime\BOX246.xml.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\RV11_BBS_all.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Fasta\uniprot-dutpase.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\FastQ\SRR002012_5.fastq">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GenBank\BK000016-tpa.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GenBank\D12555.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GenBank\LocusTokenParserTest.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GenBank\NC_001284.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GenBank\NC_003070.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GenBank\NM_001747.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GenBank\U49845+D12555.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GenBank\U49845.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GFF\random.GFF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\GFF\Tachibana2005.gff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_Dna.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadata.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataDatabasesDna.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataDatabasesProt.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataFilter.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataFormats.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataMatrixName.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_GetServiceMetadataProgram.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBioHPCBlast_Protein.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestBlastXmlParser.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_Casing.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_Dna.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataDatabases.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataFilters.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataMatrices.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataPrograms.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataSensitivity.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataSort.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataStats.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEBIWuBlast_GetServiceMetadataXmlFormats.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestEbiWuBlast_Protein.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_BadDatabase.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_Casing.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_Dna.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_Protein.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutput\TestNcbiQBlast_Protein_UserQuery.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Nexus\primate-mtDNA-interleaved.nex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Phylip\dna.phy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\Phylip\primates.phy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\SAM\SeqAlignment1.sam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\TestUtils\BlastXml\NewYork.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TestUtils\BlastXml\sources\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TestUtils\GFF\attribution.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TestUtils\PhylogeneticTree\tree.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TestUtils\SimilarityMatrices\ReadMe.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TestUtils\SimilarityMatrices\SampleCustomMatrix.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TestUtils\SimilarityMatrices\TestIupacNA.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\TestUtils\SimilarityMatrices\TestNcbiStdAA.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MBF.PaDeNA\MBF.PaDeNA.csproj">
+      <Project>{09FB9316-CC67-4429-8151-1DC7373BD848}</Project>
+      <Name>MBF.PaDeNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF.TestUtils\MBF.TestUtils.csproj">
+      <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
+      <Name>MBF.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF.WebServiceHandlers\MBF.WebServiceHandlers.csproj">
+      <Project>{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}</Project>
+      <Name>MBF.WebServiceHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF\MBF.csproj">
+      <Project>{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}</Project>
+      <Name>MBF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples\MBF.PAMSAM\MBF.Pamsam.csproj">
+      <Project>{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}</Project>
+      <Name>MBF.Pamsam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples\SAMUtils\SAMUtils.csproj">
+      <Project>{438E5AEB-2B46-491A-9173-A46780DFC282}</Project>
+      <Name>SAMUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1 @@
+%1\mstest /testcontainer:%2 /testsettings:%3 /category:%4 /resultsfile:%5

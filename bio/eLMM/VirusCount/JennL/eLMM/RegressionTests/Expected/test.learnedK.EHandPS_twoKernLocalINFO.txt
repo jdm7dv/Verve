@@ -1,0 +1,11 @@
+num cids=188, numSnp=0
+01 -dateStamp twoKernLocal -phenDataFile Input\expression.test2.txt -inputTabFile Input\null -impType eigImp -model LMM -numEMit 3 -numIt 2 -outputFile Results\test.learnedK.EHandPS.txt -indOfKernelInit 1 -k1 Input\snp.cov.txt -k2 Input\expression.cov.txt -doFullKernelLearning
+twoKernLocal
+machine: MLASBIO3
+Start date: 1/13/2011 2:12:51 PM
+Code version 1.0.4030.25558 compiled on 1/13/2011 2:11:56 PM
+MODEL=LMM
+Log likes:
+
+
+

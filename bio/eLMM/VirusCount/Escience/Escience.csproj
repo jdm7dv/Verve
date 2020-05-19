@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E6604CCC-9041-4069-B092-6EBEEF593538}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MBT.Escience</RootNamespace>
+    <AssemblyName>Escience</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(SolutionDir)bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>$(SolutionDir)bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>$(SolutionDir)bin\Release\Escience.XML</DocumentationFile>
+    <WarningLevel>3</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DlmIO, Version=2.0.4.0, Culture=neutral, PublicKeyToken=b1f04c18ec875148, processorArchitecture=MSIL" />
+    <Reference Include="MathFunc, Version=2.0.4.0, Culture=neutral, PublicKeyToken=af39242306d6159d, processorArchitecture=MSIL" />
+    <Reference Include="MatrixInterf, Version=2.0.4.0, Culture=neutral, PublicKeyToken=1fa71b5ffec10e32, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Solver.Foundation, Version=3.0.1.9972, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Rand, Version=2.0.4.0, Culture=neutral, PublicKeyToken=af26ffbb175a1abe, processorArchitecture=MSIL" />
+    <Reference Include="ShoArray, Version=2.0.4.0, Culture=neutral, PublicKeyToken=1635376d5e62ab5f, processorArchitecture=MSIL" />
+    <Reference Include="ShoOptimizer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=f50b651b412bbdba, processorArchitecture=MSIL" />
+    <Reference Include="ShoPickleHelper, Version=2.0.4.0, Culture=neutral, PublicKeyToken=bfb3ad4f5710911f, processorArchitecture=MSIL" />
+    <Reference Include="Stats, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8484a3462be9f788, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BestItems.cs" />
+    <Compile Include="BestSoFar.cs" />
+    <Compile Include="BestSoFarWithTies.cs" />
+    <Compile Include="Biology\AASeq.cs" />
+    <Compile Include="Biology\AminoAcidSet.cs" />
+    <Compile Include="Biology\Biology.cs" />
+    <Compile Include="Biology\CaseIdToAASeq.cs" />
+    <Compile Include="Biology\DnaSeq.cs" />
+    <Compile Include="Biology\GeneticCodeMapping.cs" />
+    <Compile Include="Biology\Hla\FilterOnCompletionProb.cs" />
+    <Compile Include="Biology\Hla\HlaEnumerator.cs" />
+    <Compile Include="Biology\Hla\HlaMatrixFormatter.cs" />
+    <Compile Include="Biology\Hla\IHlaIGenotypeDistiller.cs" />
+    <Compile Include="Biology\Hla\MapDistiller.cs" />
+    <Compile Include="Biology\Hla\HlaFormatter.cs" />
+    <Compile Include="Biology\Hla\HlaParser.cs" />
+    <Compile Include="Biology\Hla\HlaI.cs" />
+    <Compile Include="Biology\Hla\HlaIGenotype.cs" />
+    <Compile Include="Biology\NamedSequence.cs" />
+    <Compile Include="Biology\ProteinStructure.cs" />
+    <Compile Include="Biology\SequenceFile.cs" />
+    <Compile Include="Biology\SequenceFormatter.cs" />
+    <Compile Include="Biology\TranslationParams.cs" />
+    <Compile Include="Cache.cs" />
+    <Compile Include="ComparisonWrapper.cs" />
+    <Compile Include="ComplexNumber.cs" />
+    <Compile Include="CryptoProvider.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="FileDictionary.cs" />
+    <Compile Include="FileList.cs" />
+    <Compile Include="Graph\DirectedGraph.cs" />
+    <Compile Include="Graph\DirectedGraphEdge.cs" />
+    <Compile Include="Graph\GraphException.cs" />
+    <Compile Include="Graph\GraphNode.cs" />
+    <Compile Include="Graph\VariableOrdersSampler.cs" />
+    <Compile Include="Grouping.cs" />
+    <Compile Include="IEnumerableExtensions.cs" />
+    <Compile Include="KeepTest.cs" />
+    <Compile Include="LinearTransform.cs" />
+    <Compile Include="LinkedList1.cs" />
+    <Compile Include="ListExtensions.cs" />
+    <Compile Include="LogisticRegression\Multinomial.cs" />
+    <Compile Include="MachineInvariantRandom.cs" />
+    <Compile Include="Matrix\ConvertValueAndMissingView.cs" />
+    <Compile Include="Matrix\KernelNormalizers\CheckSymmetric.cs" />
+    <Compile Include="Matrix\KernelNormalizers\CheckPositiveDefinite.cs" />
+    <Compile Include="Matrix\KernelNormalizers\WriteKernel.cs" />
+    <Compile Include="Matrix\KernelNormalizers\Special.cs" />
+    <Compile Include="Matrix\KernelNormalizers\DiagonalFudge.cs" />
+    <Compile Include="Matrix\KernelNormalizers\KernelNormalizer.cs" />
+    <Compile Include="Matrix\LinearTransformRowsView.cs" />
+    <Compile Include="Matrix\RowFilters\MinorAlleleFrequency.cs" />
+    <Compile Include="Matrix\RowFilters\MissingFrequency.cs" />
+    <Compile Include="Matrix\RowFilters\Identity.cs" />
+    <Compile Include="Matrix\RowFilters\MinCount.cs" />
+    <Compile Include="Matrix\RowFilters\Nested.cs" />
+    <Compile Include="Matrix\RowFilters\RemoveRedundant.cs" />
+    <Compile Include="Matrix\RowFilters\RemoveRows.cs" />
+    <Compile Include="Matrix\RowFilters\RowFilter.cs" />
+    <Compile Include="Matrix\RowNormalizers\CheckNoNaN.cs" />
+    <Compile Include="Matrix\RowNormalizers\FromBinaryFile.cs" />
+    <Compile Include="Matrix\RowNormalizers\FromFile.cs" />
+    <Compile Include="Matrix\RowNormalizers\MeanCenterSD1.cs" />
+    <Compile Include="Matrix\RowNormalizers\EigenstratStandardize.cs" />
+    <Compile Include="Matrix\RowNormalizers\ImputeWithRowMean.cs" />
+    <Compile Include="Matrix\RowNormalizers\ConstantTransform.cs" />
+    <Compile Include="Matrix\RowNormalizers\Identity.cs" />
+    <Compile Include="Matrix\RowNormalizers\MeanCenter.cs" />
+    <Compile Include="Matrix\RowNormalizers\MinMax.cs" />
+    <Compile Include="Matrix\RowNormalizers\RowNormalizer.cs" />
+    <Compile Include="Matrix\SimilarityScores\Correlation.cs" />
+    <Compile Include="NoisyAdd.cs" />
+    <Compile Include="Optimization\Brent.cs" />
+    <Compile Include="Optimization\BrentThenGrid.cs" />
+    <Compile Include="Optimization\FuncMin.cs" />
+    <Compile Include="Optimization\GridSearch.cs" />
+    <Compile Include="Optimization\IOptimizer.cs" />
+    <Compile Include="Optimization\OneDGrid.cs" />
+    <Compile Include="Optimization\OneDOptimization.cs" />
+    <Compile Include="Optimization\OptimizationParameter.cs" />
+    <Compile Include="Optimization\OptimizationParameterList.cs" />
+    <Compile Include="Parse\Chiamo.cs" />
+    <Compile Include="Parse\ParallelOptionsParser.cs" />
+    <Compile Include="Parse\DictionaryParser.cs" />
+    <Compile Include="Parse\TPed.cs" />
+    <Compile Include="Parse\RussAltman.cs" />
+    <Compile Include="Parse\LeaveOnDiskIfPossible.cs" />
+    <Compile Include="Parse\TasselGeno.cs" />
+    <Compile Include="Parse\GenomePop.cs" />
+    <Compile Include="Parse\Parser.cs" />
+    <Compile Include="Parse\TypeExtensions.cs" />
+    <Compile Include="RandomExtensions.cs" />
+    <Compile Include="RangeCollectionExtensions.cs" />
+    <Compile Include="RestrictedAccessDictionary.cs" />
+    <Compile Include="RowIndexTabulator.cs" />
+    <Compile Include="SharedFile.cs" />
+    <Compile Include="Sho\CrossValidation.cs" />
+    <Compile Include="Sho\DenseCollectionExtensions.cs" />
+    <Compile Include="Sho\DoubleArrayExtension.cs" />
+    <Compile Include="Sho\IntArrayExtension.cs" />
+    <Compile Include="Sho\MatrixExtensionsJenn.cs" />
+    <Compile Include="Sho\ROC.cs" />
+    <Compile Include="Sho\ShoMatrix.cs" />
+    <Compile Include="Sho\ShoUtils.cs" />
+    <Compile Include="Sho\VectorArrayComparer.cs" />
+    <Compile Include="Sho\XYData.cs" />
+    <Compile Include="Matrix\SimilarityScores\Covariance.cs" />
+    <Compile Include="Matrix\SimilarityScores\IBS.cs" />
+    <Compile Include="Matrix\SimilarityScores\SimilarityScore.cs" />
+    <Compile Include="SingletonSet.cs" />
+    <Compile Include="StreamDataReader.cs" />
+    <Compile Include="EverySubsetBySize.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerialNumbers.cs" />
+    <Compile Include="Set.cs" />
+    <Compile Include="SpecialFunctions.cs" />
+    <Compile Include="SplitForCrossValidation.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="SufficientStatistics.cs" />
+    <Compile Include="SynchronizedRangeCollectionWrapper.cs" />
+    <Compile Include="Tabulate.cs" />
+    <Compile Include="TemporaryDirectory.cs" />
+    <Compile Include="TwoByOne.cs" />
+    <Compile Include="TwoByTwo.cs" />
+    <Compile Include="UOPair.cs" />
+    <Compile Include="Wrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataFiles\ChiSquareIsLogLogLinear.xls" />
+    <Compile Include="Args.cs" />
+    <Compile Include="CounterWithMessages.cs" />
+    <Compile Include="FileUtils.cs" />
+    <Compile Include="FunctionTimeout.cs" />
+    <Compile Include="ArrayExtensions.cs" />
+    <Compile Include="HashableEnumerable.cs" />
+    <Compile Include="Index.cs" />
+    <Compile Include="MannWhitneyMain.cs" />
+    <Compile Include="Matrix\BinaryToMultistateView.cs" />
+    <Compile Include="Matrix\MatrixExtensions.cs" />
+    <Compile Include="Matrix\FileMatrix.cs" />
+    <Compile Include="Matrix\MultistateToBinaryView.cs" />
+    <Compile Include="ParallelOptionsScope.cs" />
+    <Compile Include="Parse\ArgumentCollection.cs" />
+    <Compile Include="Parse\CommandArguments.cs" />
+    <Compile Include="Parse\ConstructorArguments.cs" />
+    <Compile Include="Parse\HelpException.cs" />
+    <Compile Include="Parse\InputFileList.cs" />
+    <Compile Include="Parse\IRunnable.cs" />
+    <Compile Include="Parse\InputFile.cs" />
+    <Compile Include="Parse\IParsable.cs" />
+    <Compile Include="Parse\OutputFile.cs" />
+    <Compile Include="Parse\ParsableAttribute.cs" />
+    <Compile Include="Parse\ParsableFile.cs" />
+    <Compile Include="Parse\ParseException.cs" />
+    <Compile Include="Parse\RunResultSerializer.cs" />
+    <Compile Include="Parse\TypeFactory.cs" />
+    <Compile Include="PrimitiveExtensions.cs" />
+    <Compile Include="ValueConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataFiles\ChiSquareIsLogLogLinear.txt">
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Biology\DataFiles\AmbiguousCodes.txt" />
+    <EmbeddedResource Include="Biology\DataFiles\DnaComplementarity.txt" />
+    <EmbeddedResource Include="Biology\DataFiles\eq-classes.txt" />
+    <EmbeddedResource Include="Biology\DataFiles\GeneticCodeDna.txt" />
+    <EmbeddedResource Include="Biology\DataFiles\OneLetterAAAbrev.txt" />
+    <Content Include="Biology\Hla\ClassISuperTypes.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LogisticRegression\TMSNMathUtil.dll" />
+    <Content Include="LogisticRegression\TMSNOptimizer.dll" />
+    <Content Include="LogisticRegression\TMSNVectors.dll" />
+    <Content Include="Sho\bin\bin32\ArrayT.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin32\MKLFunc.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin32\MKLLibs\libiomp5md.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin32\MKLLibs\mkl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin32\msvcp100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin32\msvcr100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin64\ArrayT.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin64\MKLFunc.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin64\MKLLibs\libiomp5md.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin64\MKLLibs\mkl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin64\msvcp100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\bin64\msvcr100.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sho\bin\DlmIO.dll" />
+    <Content Include="Sho\bin\EmbeddedSho.dll" />
+    <Content Include="Sho\bin\IronPython.dll" />
+    <Content Include="Sho\bin\IronPython.Modules.dll" />
+    <Content Include="Sho\bin\MathFunc.dll" />
+    <Content Include="Sho\bin\MatrixInterf.dll" />
+    <Content Include="Sho\bin\Microsoft.Dynamic.dll" />
+    <Content Include="Sho\bin\Microsoft.Scripting.Debugging.dll" />
+    <Content Include="Sho\bin\Microsoft.Scripting.dll" />
+    <Content Include="Sho\bin\PythonExt.dll" />
+    <Content Include="Sho\bin\Rand.dll" />
+    <Content Include="Sho\bin\ShoArray.dll" />
+    <Content Include="Sho\bin\ShoDB.dll" />
+    <Content Include="Sho\bin\ShoPickleHelper.dll" />
+    <Content Include="Sho\bin\ShoViz.dll" />
+    <Content Include="Sho\bin\utils.dll" />
+    <Content Include="Sho\Packages\Optimizer\Microsoft.Solver.Foundation.dll" />
+    <Content Include="Sho\Packages\Optimizer\ShoOptimizer.dll" />
+    <Content Include="Sho\Packages\Stats\Stats.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CodePlex\MBF\bio.csproj">
+      <Project>{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}</Project>
+      <Name>bio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

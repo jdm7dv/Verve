@@ -1,0 +1,237 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF", "MBF\MBF\MBF.csproj", "{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.Tests", "MBF\MBF.Tests\MBF.Tests.csproj", "{B3F93C1F-3DE8-472E-B845-39699F21BE61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.TestAutomation", "MBF\MBF.TestAutomation\MBF.TestAutomation.csproj", "{5A607023-A649-4555-B86C-5171F86BF828}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.PADENA", "MBF\MBF.PADENA\MBF.PADENA.csproj", "{09FB9316-CC67-4429-8151-1DC7373BD848}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.WebServiceHandlers", "MBF\MBF.WebServiceHandlers\MBF.WebServiceHandlers.csproj", "{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.Workflow", "MBF\Samples\MBF.Workflow\MBF.Workflow.csproj", "{C3C499B6-01C6-4118-8C45-9857A27FA466}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.Pamsam", "MBF\Samples\MBF.PAMSAM\MBF.Pamsam.csproj", "{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadGenerator", "MBF\Samples\ReadGenerator\ReadGenerator.csproj", "{1CEA873B-6050-42C9-845F-13B694504BCA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Python", "Python", "{ED8DFAA0-6112-47AC-AA84-7CBBC0E09749}"
+	ProjectSection(SolutionItems) = preProject
+		MBF\Samples\Python\MBFDebug.py = MBF\Samples\Python\MBFDebug.py
+		MBF\Samples\Python\MBFDemo.py = MBF\Samples\Python\MBFDemo.py
+		MBF\Samples\Python\MBFMenu.py = MBF\Samples\Python\MBFMenu.py
+	EndProjectSection
+EndProject
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "ipy", "public\ext\IronPython\2.0.1\ipy.exe", "{F855BF1B-2748-4AE4-9E13-C7C5A50E03F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MBFIronPython", "MBFIronPython", "{35170C38-A92D-41D0-BD37-9EA1A083C02A}"
+	ProjectSection(SolutionItems) = preProject
+		MBF\Samples\Python\MBFIronPython\__init__.py = MBF\Samples\Python\MBFIronPython\__init__.py
+		MBF\Samples\Python\MBFIronPython\Algorithms.py = MBF\Samples\Python\MBFIronPython\Algorithms.py
+		MBF\Samples\Python\MBFIronPython\IO.py = MBF\Samples\Python\MBFIronPython\IO.py
+		MBF\Samples\Python\MBFIronPython\ListOr.py = MBF\Samples\Python\MBFIronPython\ListOr.py
+		MBF\Samples\Python\MBFIronPython\MBFDemo.py = MBF\Samples\Python\MBFIronPython\MBFDemo.py
+		MBF\Samples\Python\MBFIronPython\SequenceManipulationApplications.py = MBF\Samples\Python\MBFIronPython\SequenceManipulationApplications.py
+		MBF\Samples\Python\MBFIronPython\Util.py = MBF\Samples\Python\MBFIronPython\Util.py
+		MBF\Samples\Python\MBFIronPython\Web.py = MBF\Samples\Python\MBFIronPython\Web.py
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequenceAssembler", "MBT\SequenceAssembler\SequenceAssembler.csproj", "{49391C5C-F94E-4BD4-8139-5D4184557E79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBT.VennToNodeXL", "MBT\libs\MBT.VennToNodeXL\MBT.VennToNodeXL.csproj", "{D0396DF3-880C-4B5B-8820-B79E478F9603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedStats", "MBT\DevTools\BedStats\BedStats.csproj", "{04AE089E-B261-421F-B56F-7464E8D459AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VennTool", "MBT\DevTools\VennTool\VennTool.csproj", "{6A22023F-655F-4327-AEFF-E35866867019}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.TemplateApplicationWizard", "MBF\MBF.TemplateWizard\MBF.TemplateApplicationWizard.csproj", "{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.PerfTests", "MBF\MBF.PerfTests\MBF.PerfTests.csproj", "{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAMUtils", "MBF\Samples\SAMUtils\SAMUtils.csproj", "{438E5AEB-2B46-491A-9173-A46780DFC282}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{AC1886A2-2489-4642-8ECF-535A9DE1F03D}"
+	ProjectSection(SolutionItems) = preProject
+		MBF\Samples\Python\Data\Small_Size.gbk = MBF\Samples\Python\Data\Small_Size.gbk
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F1A0204-8B72-48AB-89D9-BA3AE11C4A19}"
+	ProjectSection(SolutionItems) = preProject
+		MBF\Local.testsettings = MBF\Local.testsettings
+		MBF.vsmdi = MBF.vsmdi
+		MBF\TraceAndTestImpact.testsettings = MBF\TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.TestUtils", "MBF\MBF.TestUtils\MBF.TestUtils.csproj", "{FC09FA89-39A2-4DB7-BB26-4DF616918506}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 16
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs04
+		SccProjectUniqueName0 = MBF\\MBF\\MBF.csproj
+		SccProjectName0 = MBF/MBF
+		SccAuxPath0 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath0 = MBF\\MBF
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = MBF\\MBF.Tests\\MBF.Tests.csproj
+		SccProjectName1 = MBF/MBF.Tests
+		SccAuxPath1 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath1 = MBF\\MBF.Tests
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = MBF\\MBF.TestAutomation\\MBF.TestAutomation.csproj
+		SccProjectName2 = MBF/MBF.TestAutomation
+		SccAuxPath2 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath2 = MBF\\MBF.TestAutomation
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = MBF\\MBF.PADENA\\MBF.PADENA.csproj
+		SccProjectName3 = MBF/MBF.PADENA
+		SccAuxPath3 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath3 = MBF\\MBF.PADENA
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName4 = MBF\\MBF.WebServiceHandlers\\MBF.WebServiceHandlers.csproj
+		SccProjectName4 = MBF/MBF.WebServiceHandlers
+		SccAuxPath4 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath4 = MBF\\MBF.WebServiceHandlers
+		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName5 = MBF\\Samples\\MBF.Workflow\\MBF.Workflow.csproj
+		SccProjectName5 = MBF/Samples/MBF.Workflow
+		SccAuxPath5 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath5 = MBF\\Samples\\MBF.Workflow
+		SccProvider5 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName6 = MBF\\Samples\\MBF.PAMSAM\\MBF.Pamsam.csproj
+		SccProjectName6 = MBF/Samples/MBF.PAMSAM
+		SccAuxPath6 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath6 = MBF\\Samples\\MBF.PAMSAM
+		SccProvider6 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName7 = MBT\\SequenceAssembler\\SequenceAssembler.csproj
+		SccProjectName7 = MBT/SequenceAssembler
+		SccAuxPath7 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath7 = MBT\\SequenceAssembler
+		SccProvider7 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName8 = MBT\\libs\\MBT.VennToNodeXL\\MBT.VennToNodeXL.csproj
+		SccProjectName8 = MBT/libs/MBT.VennToNodeXL
+		SccAuxPath8 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath8 = MBT\\libs\\MBT.VennToNodeXL
+		SccProvider8 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName9 = MBT\\DevTools\\BedStats\\BedStats.csproj
+		SccProjectName9 = MBT/DevTools/BedStats
+		SccAuxPath9 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath9 = MBT\\DevTools\\BedStats
+		SccProvider9 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName10 = MBT\\DevTools\\VennTool\\VennTool.csproj
+		SccProjectName10 = MBT/DevTools/VennTool
+		SccAuxPath10 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath10 = MBT\\DevTools\\VennTool
+		SccProvider10 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName11 = MBF\\MBF.TemplateWizard\\MBF.TemplateApplicationWizard.csproj
+		SccProjectName11 = MBF/MBF.TemplateWizard
+		SccAuxPath11 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath11 = MBF\\MBF.TemplateWizard
+		SccProvider11 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName12 = MBF\\MBF.PerfTests\\MBF.PerfTests.csproj
+		SccProjectName12 = MBF/MBF.PerfTests
+		SccAuxPath12 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath12 = MBF\\MBF.PerfTests
+		SccProvider12 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName13 = MBF\\Samples\\SAMUtils\\SAMUtils.csproj
+		SccProjectName13 = MBF/Samples/SAMUtils
+		SccAuxPath13 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath13 = MBF\\Samples\\SAMUtils
+		SccProvider13 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName14 = MBF\\Samples\\ReadGenerator\\ReadGenerator.csproj
+		SccProjectName14 = MBF/Samples/ReadGenerator
+		SccAuxPath14 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath14 = MBF\\Samples\\ReadGenerator
+		SccProvider14 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName15 = MBF\\MBF.TestUtils\\MBF.TestUtils.csproj
+		SccProjectName15 = MBF/MBF.TestUtils
+		SccAuxPath15 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath15 = MBF\\MBF.TestUtils
+		SccProvider15 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = MBF.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F93C1F-3DE8-472E-B845-39699F21BE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F93C1F-3DE8-472E-B845-39699F21BE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F93C1F-3DE8-472E-B845-39699F21BE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F93C1F-3DE8-472E-B845-39699F21BE61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A607023-A649-4555-B86C-5171F86BF828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A607023-A649-4555-B86C-5171F86BF828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A607023-A649-4555-B86C-5171F86BF828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A607023-A649-4555-B86C-5171F86BF828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FB9316-CC67-4429-8151-1DC7373BD848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FB9316-CC67-4429-8151-1DC7373BD848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FB9316-CC67-4429-8151-1DC7373BD848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FB9316-CC67-4429-8151-1DC7373BD848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3C499B6-01C6-4118-8C45-9857A27FA466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C499B6-01C6-4118-8C45-9857A27FA466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C499B6-01C6-4118-8C45-9857A27FA466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C499B6-01C6-4118-8C45-9857A27FA466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F855BF1B-2748-4AE4-9E13-C7C5A50E03F4}.Debug|Any CPU.ActiveCfg = Debug
+		{F855BF1B-2748-4AE4-9E13-C7C5A50E03F4}.Release|Any CPU.ActiveCfg = Debug
+		{49391C5C-F94E-4BD4-8139-5D4184557E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49391C5C-F94E-4BD4-8139-5D4184557E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49391C5C-F94E-4BD4-8139-5D4184557E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49391C5C-F94E-4BD4-8139-5D4184557E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0396DF3-880C-4B5B-8820-B79E478F9603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0396DF3-880C-4B5B-8820-B79E478F9603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0396DF3-880C-4B5B-8820-B79E478F9603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0396DF3-880C-4B5B-8820-B79E478F9603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04AE089E-B261-421F-B56F-7464E8D459AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04AE089E-B261-421F-B56F-7464E8D459AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04AE089E-B261-421F-B56F-7464E8D459AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04AE089E-B261-421F-B56F-7464E8D459AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A22023F-655F-4327-AEFF-E35866867019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A22023F-655F-4327-AEFF-E35866867019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A22023F-655F-4327-AEFF-E35866867019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A22023F-655F-4327-AEFF-E35866867019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438E5AEB-2B46-491A-9173-A46780DFC282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438E5AEB-2B46-491A-9173-A46780DFC282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438E5AEB-2B46-491A-9173-A46780DFC282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438E5AEB-2B46-491A-9173-A46780DFC282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35170C38-A92D-41D0-BD37-9EA1A083C02A} = {ED8DFAA0-6112-47AC-AA84-7CBBC0E09749}
+		{AC1886A2-2489-4642-8ECF-535A9DE1F03D} = {ED8DFAA0-6112-47AC-AA84-7CBBC0E09749}
+	EndGlobalSection
+EndGlobal

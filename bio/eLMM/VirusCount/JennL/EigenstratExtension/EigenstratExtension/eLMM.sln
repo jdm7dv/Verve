@@ -1,0 +1,94 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadData", "..\..\LoadData\LoadData.csproj", "{831A5C6A-4E70-44C2-9AC9-F0B11EDEEEF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eigenstrat", "..\..\..\GLMM\Eigenstrat\Eigenstrat.csproj", "{0F9EC483-CB4E-4018-B36E-AF78718D7A7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bio", "..\..\..\..\CodePlex\MBF\bio.csproj", "{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HpcLib", "..\..\..\Distribute\HpcLib\HpcLib.csproj", "{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escience", "..\..\..\Escience\Escience.csproj", "{E6604CCC-9041-4069-B092-6EBEEF593538}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribute", "..\..\..\Distribute\Distribute\Distribute.csproj", "{8ACAC84A-CB0C-40C4-B595-CA37E221B180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eLMM", "..\..\eLMM\eLMM.csproj", "{28FF0B21-4414-4ED9-8ED4-DC0ED780CADF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{972DF546-B061-418B-876F-DA3FA10E340B}"
+	ProjectSection(SolutionItems) = preProject
+		Apache.rtf = Apache.rtf
+		License.txt = License.txt
+		MSPL.txt = MSPL.txt
+		ShoRuntimeForMbfLicense.rtf = ShoRuntimeForMbfLicense.rtf
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs02
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\LoadData\\LoadData.csproj
+		SccProjectName1 = ../../LoadData
+		SccLocalPath1 = ..\\..\\LoadData
+		SccProjectUniqueName2 = ..\\..\\..\\GLMM\\Eigenstrat\\Eigenstrat.csproj
+		SccProjectName2 = ../../../GLMM/Eigenstrat
+		SccLocalPath2 = ..\\..\\..\\GLMM\\Eigenstrat
+		SccProjectUniqueName3 = ..\\..\\..\\..\\CodePlex\\MBF\\bio.csproj
+		SccProjectName3 = ../../../../CodePlex/MBF
+		SccLocalPath3 = ..\\..\\..\\..\\CodePlex\\MBF
+		SccProjectUniqueName4 = ..\\..\\..\\Distribute\\HpcLib\\HpcLib.csproj
+		SccProjectName4 = ../../../Distribute/HpcLib
+		SccLocalPath4 = ..\\..\\..\\Distribute\\HpcLib
+		SccProjectUniqueName5 = ..\\..\\..\\Escience\\Escience.csproj
+		SccProjectName5 = ../../../Escience
+		SccLocalPath5 = ..\\..\\..\\Escience
+		SccProjectUniqueName6 = ..\\..\\..\\Distribute\\Distribute\\Distribute.csproj
+		SccProjectName6 = ../../../Distribute/Distribute
+		SccLocalPath6 = ..\\..\\..\\Distribute\\Distribute
+		SccProjectUniqueName7 = ..\\..\\eLMM\\eLMM.csproj
+		SccProjectName7 = ../../eLMM
+		SccLocalPath7 = ..\\..\\eLMM
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = GWAS3.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{831A5C6A-4E70-44C2-9AC9-F0B11EDEEEF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831A5C6A-4E70-44C2-9AC9-F0B11EDEEEF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831A5C6A-4E70-44C2-9AC9-F0B11EDEEEF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831A5C6A-4E70-44C2-9AC9-F0B11EDEEEF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F9EC483-CB4E-4018-B36E-AF78718D7A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9EC483-CB4E-4018-B36E-AF78718D7A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F9EC483-CB4E-4018-B36E-AF78718D7A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F9EC483-CB4E-4018-B36E-AF78718D7A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF9E7F1-4571-495B-AF7A-CE1151C4EDC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6604CCC-9041-4069-B092-6EBEEF593538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6604CCC-9041-4069-B092-6EBEEF593538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6604CCC-9041-4069-B092-6EBEEF593538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6604CCC-9041-4069-B092-6EBEEF593538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ACAC84A-CB0C-40C4-B595-CA37E221B180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACAC84A-CB0C-40C4-B595-CA37E221B180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACAC84A-CB0C-40C4-B595-CA37E221B180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACAC84A-CB0C-40C4-B595-CA37E221B180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28FF0B21-4414-4ED9-8ED4-DC0ED780CADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FF0B21-4414-4ED9-8ED4-DC0ED780CADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FF0B21-4414-4ED9-8ED4-DC0ED780CADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FF0B21-4414-4ED9-8ED4-DC0ED780CADF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,240 @@
+LOCUS       NC_000012               4512 bp    DNA     linear   CON 03-MAR-2008
+DEFINITION  Homo sapiens chromosome 12, reference assembly, complete sequence.
+ACCESSION   NC_000012 REGION: complement(119118886..119123397)
+VERSION     NC_000012.10  GI:89161190
+DBLINK      Project:168
+KEYWORDS    HTG.
+SOURCE      Homo sapiens (human)
+  ORGANISM  Homo sapiens
+            Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+            Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini;
+            Catarrhini; Hominidae; Homo.
+REFERENCE   1  (bases 1 to 4512)
+  AUTHORS   Scherer,S.E., Muzny,D.M., Buhay,C.J., Chen,R., Cree,A., Ding,Y.,
+            Dugan-Rocha,S., Gill,R., Gunaratne,P., Harris,R.A., Hawes,A.C.,
+            Hernandez,J., Hodgson,A.V., Hume,J., Jackson,A., Khan,Z.M.,
+            Kovar-Smith,C., Lewis,L.R., Lozado,R.J., Metzker,M.L.,
+            Milosavljevic,A., Miner,G.R., Montgomery,K.T., Morgan,M.B.,
+            Nazareth,L.V., Scott,G., Sodergren,E., Song,X.Z., Steffen,D.,
+            Lovering,R.C., Wheeler,D.A., Worley,K.C., Yuan,Y., Zhang,Z.,
+            Adams,C.Q., Ansari-Lari,M.A., Ayele,M., Brown,M.J., Chen,G.,
+            Chen,Z., Clerc-Blankenburg,K.P., Davis,C., Delgado,O., Dinh,H.H.,
+            Draper,H., Gonzalez-Garay,M.L., Havlak,P., Jackson,L.R.,
+            Jacob,L.S., Kelly,S.H., Li,L., Li,Z., Liu,J., Liu,W., Lu,J.,
+            Maheshwari,M., Nguyen,B.V., Okwuonu,G.O., Pasternak,S., Perez,L.M.,
+            Plopper,F.J., Santibanez,J., Shen,H., Tabor,P.E., Verduzco,D.,
+            Waldron,L., Wang,Q., Williams,G.A., Zhang,J., Zhou,J., Allen,C.C.,
+            Amin,A.G., Anyalebechi,V., Bailey,M., Barbaria,J.A., Bimage,K.E.,
+            Bryant,N.P., Burch,P.E., Burkett,C.E., Burrell,K.L., Calderon,E.,
+            Cardenas,V., Carter,K., Casias,K., Cavazos,I., Cavazos,S.R.,
+            Ceasar,H., Chacko,J., Chan,S.N., Chavez,D., Christopoulos,C.,
+            Chu,J., Cockrell,R., Cox,C.D., Dang,M., Dathorne,S.R., David,R.,
+            Davis,C.M., Davy-Carroll,L., Deshazo,D.R., Donlin,J.E., D'Souza,L.,
+            Eaves,K.A., Egan,A., Emery-Cohen,A.J., Escotto,M., Flagg,N.,
+            Forbes,L.D., Gabisi,A.M., Garza,M., Hamilton,C., Henderson,N.,
+            Hernandez,O., Hines,S., Hogues,M.E., Huang,M., Idlebird,D.G.,
+            Johnson,R., Jolivet,A., Jones,S., Kagan,R., King,L.M., Leal,B.,
+            Lebow,H., Lee,S., Levan,J.M., Lewis,L.C., London,P.,
+            Lorensuhewa,L.M., Loulseged,H., Lovett,D.A., Lucier,A.,
+            Lucier,R.L., Ma,J., Madu,R.C., Mapua,P., Martindale,A.D.,
+            Martinez,E., Massey,E., Mawhiney,S., Meador,M.G., Mendez,S.,
+            Mercado,C., Mercado,I.C., Merritt,C.E., Miner,Z.L., Minja,E.,
+            Mitchell,T., Mohabbat,F., Mohabbat,K., Montgomery,B., Moore,N.,
+            Morris,S., Munidasa,M., Ngo,R.N., Nguyen,N.B., Nickerson,E.,
+            Nwaokelemeh,O.O., Nwokenkwo,S., Obregon,M., Oguh,M., Oragunye,N.,
+            Oviedo,R.J., Parish,B.J., Parker,D.N., Parrish,J., Parks,K.L.,
+            Paul,H.A., Payton,B.A., Perez,A., Perrin,W., Pickens,A.,
+            Primus,E.L., Pu,L.L., Puazo,M., Quiles,M.M., Quiroz,J.B.,
+            Rabata,D., Reeves,K., Ruiz,S.J., Shao,H., Sisson,I., Sonaike,T.,
+            Sorelle,R.P., Sutton,A.E., Svatek,A.F., Svetz,L.A., Tamerisa,K.S.,
+            Taylor,T.R., Teague,B., Thomas,N., Thorn,R.D., Trejos,Z.Y.,
+            Trevino,B.K., Ukegbu,O.N., Urban,J.B., Vasquez,L.I., Vera,V.A.,
+            Villasana,D.M., Wang,L., Ward-Moore,S., Warren,J.T., Wei,X.,
+            White,F., Williamson,A.L., Wleczyk,R., Wooden,H.S., Wooden,S.H.,
+            Yen,J., Yoon,L., Yoon,V., Zorrilla,S.E., Nelson,D.,
+            Kucherlapati,R., Weinstock,G. and Gibbs,R.A.
+  TITLE     The finished DNA sequence of human chromosome 12
+  JOURNAL   Nature 440 (7082), 346-351 (2006)
+   PUBMED   16541075
+REFERENCE   2  (bases 1 to 4512)
+  AUTHORS   International Human Genome Sequencing Consortium.
+  TITLE     Finishing the euchromatic sequence of the human genome
+  JOURNAL   Nature 431 (7011), 931-945 (2004)
+   PUBMED   15496913
+COMMENT     GENOME ANNOTATION REFSEQ:  Features on this sequence have been
+            produced for build 36 version 3 of the NCBI's genome annotation
+            [see documentation].
+            On Mar 3, 2006 this sequence version replaced gi:51511728.
+            The DNA sequence is part of the fourth release of the finished
+            human reference genome. It was assembled from individual clone
+            sequences by the Human Genome Sequencing Consortium in consultation
+            with NCBI staff.
+FEATURES             Location/Qualifiers
+     source          1..4512
+                     /organism="Homo sapiens"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:9606"
+                     /chromosome="12"
+     gene            1..4512
+                     /gene="RPLP0"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: BestRefseq. Supporting evidence
+                     includes similarity to: 2 mRNAs"
+                     /db_xref="GeneID:6175"
+                     /db_xref="HGNC:10371"
+                     /db_xref="MIM:180510"
+     mRNA            join(1..129,381..482,1727..1902,2007..2094,2212..2358,
+                     2473..2658,3750..3890,4278..4512)
+                     /gene="RPLP0"
+                     /product="ribosomal protein, large, P0"
+                     /exception="unclassified transcription discrepancy"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: BestRefseq. Supporting evidence
+                     includes similarity to: 1 mRNA"
+                     /transcript_id="NM_001002.3"
+                     /db_xref="GI:49087144"
+                     /db_xref="GeneID:6175"
+                     /db_xref="HGNC:10371"
+                     /db_xref="MIM:180510"
+     mRNA            join(1..129,321..482,1727..1902,2007..2094,2212..2358,
+                     2473..2658,3750..3890,4278..4512)
+                     /gene="RPLP0"
+                     /product="ribosomal protein, large, P0"
+                     /exception="unclassified transcription discrepancy"
+                     /note="Derived by automated computational analysis using
+                     gene prediction method: BestRefseq. Supporting evidence
+                     includes similarity to: 1 mRNA"
+                     /transcript_id="NM_053275.3"
+                     /db_xref="GI:49087137"
+                     /db_xref="GeneID:6175"
+                     /db_xref="HGNC:10371"
+                     /db_xref="MIM:180510"
+     CDS             join(429..482,1727..1902,2007..2094,2212..2358,2473..2658,
+                     3750..3890,4278..4439)
+                     /gene="RPLP0"
+                     /GO_component="GO:0005842 - cytosolic large ribosomal
+                     subunit (sensu Eukaryota) [Evidence TAS] [PMID 3323886];
+                     GO:0005622 - intracellular [Evidence IEA]; GO:0005840 -
+                     ribosome [Evidence IEA]"
+                     /GO_function="GO:0005515 - protein binding [Evidence IPI]
+                     [PMID 15303970]; GO:0003723 - RNA binding [Evidence TAS]
+                     [PMID 3323886]; GO:0003735 - structural constituent of
+                     ribosome [Evidence TAS] [PMID 3323886] [Evidence IEA]"
+                     /GO_process="GO:0006412 - protein biosynthesis [Evidence
+                     TAS] [PMID 3323886]; GO:0042254 - ribosome biogenesis and
+                     assembly [Evidence IEA]; GO:0006414 - translational
+                     elongation [Evidence IEA]"
+                     /note="60S acidic ribosomal protein P0; acidic ribosomal
+                     phosphoprotein P0"
+                     /codon_start=1
+                     /product="ribosomal protein P0"
+                     /protein_id="NP_000993.1"
+                     /db_xref="GI:4506667"
+                     /db_xref="CCDS:CCDS9193.1"
+                     /db_xref="GeneID:6175"
+                     /db_xref="HGNC:10371"
+                     /db_xref="MIM:180510"
+     CDS             join(429..482,1727..1902,2007..2094,2212..2358,2473..2658,
+                     3750..3890,4278..4439)
+                     /gene="RPLP0"
+                     /GO_component="GO:0005842 - cytosolic large ribosomal
+                     subunit (sensu Eukaryota) [Evidence TAS] [PMID 3323886];
+                     GO:0005622 - intracellular [Evidence IEA]; GO:0005840 -
+                     ribosome [Evidence IEA]"
+                     /GO_function="GO:0005515 - protein binding [Evidence IPI]
+                     [PMID 15303970]; GO:0003723 - RNA binding [Evidence TAS]
+                     [PMID 3323886]; GO:0003735 - structural constituent of
+                     ribosome [Evidence TAS] [PMID 3323886] [Evidence IEA]"
+                     /GO_process="GO:0006412 - protein biosynthesis [Evidence
+                     TAS] [PMID 3323886]; GO:0042254 - ribosome biogenesis and
+                     assembly [Evidence IEA]; GO:0006414 - translational
+                     elongation [Evidence IEA]"
+                     /note="60S acidic ribosomal protein P0; acidic ribosomal
+                     phosphoprotein P0"
+                     /codon_start=1
+                     /product="ribosomal protein P0"
+                     /protein_id="NP_444505.1"
+                     /db_xref="GI:16933546"
+                     /db_xref="CCDS:CCDS9193.1"
+                     /db_xref="GeneID:6175"
+                     /db_xref="HGNC:10371"
+                     /db_xref="MIM:180510"
+ORIGIN      
+        1 gtctgacggg cgatggcgca gccaatagac aggagcgcta tccgcggttt ctgattggct
+       61 actttgttcg cattataaaa ggcacgcgcg ggcgcgaggc ccttctctcg ccaggcgtcc
+      121 tcgtggaagg ttcgtgtgct agttagatgg gcgccagggg tcgccggcgg gaagcatgga
+      181 ggggtctttg ggggcctttg ggaacatgga gtcctattct gttccgcctg gggcctcggt
+      241 ggcggcttgc acgccccgag atgacggccg ctgccctagg cagggccggc gggcgattgc
+      301 gcgtgtcctg ctcctcttag gcccgggacc gcgggatggg tgtcggcgtg accaggcctg
+      361 agctccctgt ctctcctcag tgacatcgtc tttaaaccct gcgtggcaat ccctgacgca
+      421 ccgccgtgat gcccagggaa gacagggcga cctggaagtc caactacttc cttaagatca
+      481 tcgtaagtgc agggtgggtc gcctctgctc ttcatgttgc cccagcgcaa atagggacag
+      541 tcagctgcta tgtgctgagg gtctactcac accggctact gaattaggcc atttttggga
+      601 aaatactgtt tagttaacaa tttcctgaga taggtccctt ctgttgcaga taaacgggct
+      661 caggcaagtt aagtgggtcc taagatgaca gcattcgtat ccaggtctgt ctggcttcta
+      721 aaagagcgcg ctttatactt tttttttttt aaacggagtc tcgctctgtt gtccaggctg
+      781 gagtgcagtg gcttgatctt ggcttactgc aacctccgct tcccaggttc aagcgattct
+      841 cctgcttcag cctcccgagt agctgggatt acaggggcgc gacaccacac ccagctaatt
+      901 tttgtatttt caatagagac agggattcac catgttggcc aggatggtct cgatctcttg
+      961 acttcatgat ccaccttcct cggcctccct aagtgctagg attacaggtg tgagccaccg
+     1021 cgcccggccg cacattacag ttttactcca tttttgagaa ggtctgaggt caggaatgac
+     1081 tcattgtaag gaagcaagct gttgcatatt taggacctgt cagccaagaa acttaagtgt
+     1141 ccaatgactt ttggatggcc tttgaggtgg gtctcccttg cccagaaatg ctgactgtac
+     1201 tgcgcttaag caattaggca gcattgtaga gcatagcttg tattacattt tcccacactt
+     1261 agaaggtttt cagacacaaa acccaaagga attgtgtaac aatccggata aacacgccta
+     1321 gattgttttt acaaataata atgttgctat atttgcttaa cgtggtgctt ttaatgctgt
+     1381 gaatctagcc ctcctcttga ccaacttact tggaacattc cttttttatc ctgttaacca
+     1441 ttttagtgaa tcagaagcat gcctggtaat tgggaaaaat taaaaactaa gtaaaaaaag
+     1501 aaaaaactcc ttgattgaat gtagaaacct aattttcagc gttcataccc agctagccaa
+     1561 tcatccagtt tggcagtgtt acaacgtagc tcccaatctc cctctgactt caaaagctta
+     1621 gaagaaaggg agtgggatgg aaacaaattg tggggttcag tttcttctgg cattttttcc
+     1681 ctctctcttc ctgttaaact tggctcctct ggcttgtttt ttgtagcaac tattggatga
+     1741 ttatccgaaa tgtttcattg tgggagcaga caatgtgggc tccaagcaga tgcagcagat
+     1801 ccgcatgtcc cttcgcggga aggctgtggt gctgatgggc aagaacacca tgatgcgcaa
+     1861 ggccatccga gggcacctgg aaaacaaccc agctctggag aagtcagttc ccctggcagt
+     1921 tttgtccttt ctccccagtg cccgtctccc tcttcctgga gaatggtgct gaaaggtgat
+     1981 tgtctcccat aaacttctct ttgcagactg ctgcctcata tccgggggaa tgtgggcttt
+     2041 gtgttcacca aggaggacct cactgagatc agggacatgt tgctggccaa taaggtaagg
+     2101 ggacaattgg gttggctaaa gagactttgt tgttgctcct taaagcaaaa tggaccattc
+     2161 tcaggttgtg tgagtggaga ggcttttctc actgtttgtt gtctttgtca ggtgccagct
+     2221 gctgcccgtg ctggtgccat tgccccatgt gaagtcactg tgccagccca gaacactggt
+     2281 ctcgggcccg agaagacctc ctttttccag gctttaggta tcaccactaa aatctccagg
+     2341 ggcaccattg aaatcctggt gagtggacct ggtttgcctg tgctaaccag gcaaatgggg
+     2401 agctgctttt agtggccatg gatctgctgg ttgtccaaca ggtgtttact gccccactat
+     2461 tatctggttc agagtgatgt gcagctgatc aagactggag acaaagtggg agccagcgaa
+     2521 gccacgctgc tgaacatgct caacatctcc cccttctcct ttgggctggt catccagcag
+     2581 gtgttcgaca atggcagcat ctacaaccct gaagtgcttg atatcacaga ggaaactctg
+     2641 cattctcgct tcctggaggt atatgctgtc agccttgccc cctcttacac tgatggttga
+     2701 gagcatgaca aggttcagac tgagtccctg taaccaagga ctgtgttttc atctgtctac
+     2761 ctacctcatc tgtaaaatgt cagtaacaac ataagattgt tgaaggattt tttttttttt
+     2821 tttttggaga cagagtcttg ctgtgtcgcc caggctggag tgcagtggca caatctcccg
+     2881 gctcactgca agctccgcct ccgggttcac accattctcc tgcctcagcc tcctgagtag
+     2941 ctgggactac aggcacccgc cactacgccc ggctaatttt tttgtatttt taggtttcac
+     3001 cgcgttagcc aggatggtgt cgatctcctg acctcgtgat ccgcccaact cggcctccca
+     3061 aagtgctggg attacaggca tgagccacca cgcctggcca aaggatttaa tgaattaatg
+     3121 gatgtacagt gctggggctg ttattctagg gcctgcattg agactcacat tttgccatca
+     3181 aaagcctttt aagaggtgga ggttgcggtg agctgacatg gtgccactgc actccggcct
+     3241 gagtgacaga gtgagactct gtctcacaaa aaaaataatg ccctttaaat aatgaataat
+     3301 agtgatagaa aatgtcattt cttggacaaa tgaaaaattg aaattaatgt atataattag
+     3361 atattattag ctactcttag gtagcttcat ttgttgaaag tttgacaagt gaatgaagtt
+     3421 cacatctgga aatcgttgaa catttttcgt tcatggaact caatggctac gttagtcgtt
+     3481 tatgcttttc actgttgtgg taggggcttt ggaagtaaat gccatcaaca atggatacag
+     3541 aagacctgga tttggaataa gggcaaaatt tatttgatgg ggctgaattg ctctgccagg
+     3601 agcatttggt atgagatgaa atggcctctc ttgagactga gctgccaacc tggcaattat
+     3661 tgtctgctaa gggttctctt tattcaccct tacttggact tcctttcctg tagggaatct
+     3721 cacgtaaaat gaaatcttcc ctcccccagg gtgtccgcaa tgttgccagt gtctgtctgc
+     3781 agattggcta cccaactgtt gcatcagtac cccattctat catcaacggg tacaaacgag
+     3841 tcctggcctt gtctgtggag acggattaca ccttcccact tgctgaaaag gtaaaaggat
+     3901 cccaccagga ccacagtggg cctgactgtg acaaattagc agggtgatgt ggccttctac
+     3961 cttactgctt ttatagttgt attttatata gcagataatt ttgtgagggg atatttgaga
+     4021 ggttgggagg cagggaaggc gtttctcact tgagaaatga caagagaccc aaagaggggg
+     4081 ttaatgggca agagctgggc cttaggaacc ctgcctcact aggccatacc caagctgtcc
+     4141 tgcttgggct gcttctgaca ggaaaggctt cacacggact ttgatattgt tggtccttaa
+     4201 actctaccaa ggcaggaggg tggtgggtaa tagaggagtg tggatgacca ttttgaccac
+     4261 ttcccccctc ctttcaggtc aaggccttct tggctgatcc atctgccttt gtggctgctg
+     4321 cccctgtggc tgctgccacc acagctgctc ctgctgctgc tgcagcccca gctaaggttg
+     4381 aagccaagga agagtcggag gagtcggacg aggatatggg atttggtctc tttgactaat
+     4441 caccaaaaag caaccaactt agccagtttt atttgcaaaa caaggaaata aaggcttact
+     4501 tctttaaaaa gt
+//
+

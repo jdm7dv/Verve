@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Infrastructure="clr-namespace:Lab05.Infrastructure">
+    
+    <Infrastructure:SequenceStringConverter x:Key="SequenceConverter" />
+    
+    <DataTemplate x:Key="SingleSequenceTemplate">
+        <TextBlock Text="{Binding Converter={StaticResource SequenceConverter}}" Foreground="Red" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="SingleAssemblyTemplate">
+        <TextBlock Text="{Binding Converter={StaticResource SequenceConverter}}" Foreground="Green" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="TranslatedSequence">
+        <StackPanel>
+            <TextBlock Text="{Binding Metadata[Documentation], PresentationTraceSources.TraceLevel=High}" FontWeight="Bold" />
+            <TextBlock Text="{Binding Converter={StaticResource SequenceConverter}}" Foreground="DarkViolet" />
+        </StackPanel>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="SelectedSequenceTemplate">
+        <StackPanel ToolTip="{Binding ID}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding ID, Mode=OneWay}" Foreground="DarkRed" FontWeight="Bold" />
+                <TextBlock>
+                    <Run Text=" : " />
+                    <Run Text=" [" />
+                    <Run Text="{Binding Alphabet.Name, Mode=OneWay}" />
+                    <Run Text="] (" />
+                    <Run Text="{Binding Count, Mode=OneWay}" />
+                    <Run Text=" symbols)" />
+                </TextBlock>
+            </StackPanel>
+            <TextBlock Grid.Column="2" Text="{Binding Converter={StaticResource SequenceConverter}}" Foreground="Blue" />
+        </StackPanel>
+    </DataTemplate>
+    
+</ResourceDictionary>

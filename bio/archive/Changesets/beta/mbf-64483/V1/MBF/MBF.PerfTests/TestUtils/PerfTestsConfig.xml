@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AutomationTest>
+  <!-- ObjectModel perf number input values -->
+  <ObjectModel>
+    <FilePath>TestUtils\PerfTestData\ObjectModel\Flavobacteria bacterium MS024-3C ctg90, whole genome shotgun sequence.fasta</FilePath>
+    <Alphabet>DNA</Alphabet>
+    <SequenceID>>gi|225010424|ref|NZ_ABVW01000002.1| Flavobacteria bacterium MS024-3C ctg90, whole genome shotgun sequence</SequenceID>
+    <StartIndex>108</StartIndex>
+    <EndIndex>182465</EndIndex>
+    <StartLine>1</StartLine>
+    <SequenceRangeToRead>3500</SequenceRangeToRead>  
+</ObjectModel>
+  <!-- MUMmer perf number input values -->
+  <MUMmer>
+    <RefFilePath>TestUtils\PerfTestData\AlignmentAlgorithms\20 - SwineFluOutbreak_NewYork_DNA.FASTA</RefFilePath>
+    <QueryFilePath>TestUtils\PerfTestData\AlignmentAlgorithms\20 - SwineFluOutbreak_HongKong_DNA.FASTA</QueryFilePath>
+    <SMFilePath>TestUtils\PerfTestData\AlignmentAlgorithms\DiagonalScoreMatrix.txt</SMFilePath>
+    <MUMLength>20</MUMLength>
+  </MUMmer>
+  <Pamsam>
+    <RefFilePath>TestUtils\PerfTestData\PAMSAM\Dna\854_raw.afa</RefFilePath>
+    <QueryFilePath>TestUtils\PerfTestData\PAMSAM\Dna\854.afa</QueryFilePath>
+  </Pamsam>
+  <!-- PaDeNA perf number input values -->
+  <PaDeNA>
+    <FilePath>TestUtils\PerfTestData\PaDeNA\EulerTestData\2MB_Euler.fasta</FilePath>
+  </PaDeNA>
+  <!-- AlignmentAlgorithm (SmithWaterman/NeedlemanWunsch) perf number input values -->
+  <AlignmentAlgorithm>
+    <RefFilePath>TestUtils\PerfTestData\AlignmentAlgorithms\20 - SwineFluOutbreak_NewYork_DNA.FASTA</RefFilePath>
+    <QueryFilePath>TestUtils\PerfTestData\AlignmentAlgorithms\20 - SwineFluOutbreak_HongKong_DNA.FASTA</QueryFilePath>
+    <SMFilePath>TestUtils\PerfTestData\AlignmentAlgorithms\DiagonalScoreMatrix.txt</SMFilePath>
+  </AlignmentAlgorithm>
+  <BAMParser>
+    <FilePath>TestUtils\PerfTestData\BAMTestData\NA07000.SLX.SC.Mosaik.SRP000033.2009_08.bam.bam</FilePath>
+  </BAMParser>
+</AutomationTest>

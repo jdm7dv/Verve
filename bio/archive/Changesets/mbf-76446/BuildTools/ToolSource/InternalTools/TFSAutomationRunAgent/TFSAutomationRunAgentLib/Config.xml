@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AppConfig>
+  <!--This XML file contains configuration details of the application-->
+  <!--Drop path configuration-->
+  <DropLocation>\\droplocation\Drop</DropLocation>
+  <!--Local Drop path configuration-->
+  <LocalRunLocation>C:\Drop</LocalRunLocation>
+  <!--Test automation configuration-->
+  <AutomationLogFileName>\AutomationRun.log</AutomationLogFileName>
+  <MSTestPath>C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE</MSTestPath>
+  <AutomationDllPath>\release\MBF.Tests.dll</AutomationDllPath>
+  <TestSettingsPath>\Drop.testsettings</TestSettingsPath>
+  <AutomationCategory>Priority0</AutomationCategory>
+  <AutomationResultPath>\Quality Results\AutomationReport.trx</AutomationResultPath>
+</AppConfig>

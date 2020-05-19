@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D583F738-5F5D-46A7-9945-FFAC4138AAE9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MBF.PerfTests</RootNamespace>
+    <AssemblyName>MBF.PerfTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Public\ext\nunit\bin\net-2.0\framework\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PerfTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\Utility.cs" />
+    <Compile Include="Util\XmlUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestUtils\PerfTestData\AlignmentAlgorithms\DiagonalScoreMatrix.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestUtils\PerfTestsConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MBF\MBF.csproj">
+      <Project>{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}</Project>
+      <Name>MBF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF.PADENA\MBF.PADENA.csproj">
+      <Project>{09FB9316-CC67-4429-8151-1DC7373BD848}</Project>
+      <Name>MBF.PADENA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples\MBF.PAMSAM\MBF.Pamsam.csproj">
+      <Project>{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}</Project>
+      <Name>MBF.Pamsam</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\10 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\10 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\100 - Dna1.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\100 - Dna2.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\11 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\11 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\1MB - Dna1.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\1MB - Dna2.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\2 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\2 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\20 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\20 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\25 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\25 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\2MB - Dna1.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\2MB - Dna2.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\30 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\30 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\36 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\36 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\38 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\38 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\4 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\4 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\45 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\45 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\50 - Dna1.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\50 - Dna2.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\500 - Dna1.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\500 - Dna2.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\6 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\6 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\7 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\7 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\8 - SwineFluOutbreak_HongKong_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\AlignmentAlgorithms\8 - SwineFluOutbreak_NewYork_DNA.FASTA">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\BAMTestData\NA07000.SLX.SC.Mosaik.SRP000033.2009_08.bam.bam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\ObjectModel\Flavobacteria bacterium MS024-3C ctg90, whole genome shotgun sequence.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\ObjectModel\Homo sapiens tyrosine monooxygenasetryptophan monooxygenase activation.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\ObjectModel\Macrobrachium lanchesteri mitochondrion, complete genome.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.10240.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.10240.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.10240.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.102400.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.102400.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.102400.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.1048576.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.1048576.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.1048576.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.2097152.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.2097152.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.2097152.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.51200.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.51200.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.51200.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.512000.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.512000.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.512000.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.5242880.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.5242880.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\E-coli Test Data\ecoli.5242880.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\EulerTestData\1MB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\EulerTestData\2MB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\EulerTestData\500KB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\EulerTestData\5MB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PaDeNA\EulerTestData\7MB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\10.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\10_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\12.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\854.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\122.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\854_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\122_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\12_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\2.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\2_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\4.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\4_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\6.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\6_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\8.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\8_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\WD40.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Dna\WD40_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\10.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\10_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\12.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\12_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\2.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\2_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\4.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\4_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\6.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\6_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\8.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\8_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\all.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestUtils\PerfTestData\PAMSAM\Protein\all_raw.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

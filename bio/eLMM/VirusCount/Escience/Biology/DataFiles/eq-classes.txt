@@ -1,0 +1,21 @@
+amino acid	letter	group	number
+Gly	G	Hydrophobic	1
+Ala	A	Hydrophobic	1
+Val	V	Hydrophobic	1
+Leu	L	Hydrophobic	1
+Ile	I	Hydrophobic	1
+Pro	P	Hydrophobic	1
+Ser	S	Hydrophilic, uncharged	2
+Thr	T	Hydrophilic, uncharged	2
+Cys	C	Hydrophilic, uncharged	2
+Met	M	Hydrophilic, uncharged	2
+Asn	N	Hydrophilic, uncharged	2
+Gln	Q	Hydrophilic, uncharged	2
+Phe	F	Hydrophobic, aromatic	3
+Tyr	Y	Hydrophobic, aromatic	3
+Trp	W	Hydrophobic, aromatic	3
+Lys	K	Hydrophilic, positive	4
+Arg	R	Hydrophilic, positive	4
+His	H	Hydrophilic, positive	4
+Asp	D	Hydrophilic, negative	5
+Glu	E	Hydrophilic, negative	5

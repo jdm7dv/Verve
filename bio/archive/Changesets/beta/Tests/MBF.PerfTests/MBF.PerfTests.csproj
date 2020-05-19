@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MBF.PerfTests</RootNamespace>
+    <AssemblyName>MBF.PerfTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\..\Source\MBF_Code_Rules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <CodeAnalysisRuleSet>..\..\Source\MBF_Code_Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PerfTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\Utility.cs" />
+    <Compile Include="Util\XmlUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\MBF\Add-ins\MBF.PADENA\MBF.PADENA.csproj">
+      <Project>{09FB9316-CC67-4429-8151-1DC7373BD848}</Project>
+      <Name>MBF.PADENA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\MBF\MBF\MBF.csproj">
+      <Project>{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}</Project>
+      <Name>MBF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\MBF\Add-ins\MBF.PAMSAM\MBF.Pamsam.csproj">
+      <Project>{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}</Project>
+      <Name>MBF.Pamsam</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\PerfTestData\AlignmentAlgorithms\AmbiguousDNA.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\PerfTestData\AlignmentAlgorithms\DiagonalScoreMatrix.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\PerfTestData\AlignmentAlgorithms\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\PerfTestData\ObjectModel\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\PerfTestData\PaDeNA\EulerTestData\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\PerfTestData\PAMSAM\Dna\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\PerfTestData\SAMBAMTestData\readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\PerfTestsConfig.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\LargeSizeEcoli_Query.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\LargeSizeEcoli_Ref.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\MUMmer-MediumSizeEcoli_Query.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\MUMmer-MediumSizeEcoli_Ref.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\MediumSizeStreptomyces coelicolor A3%282%29-Query.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\MediumSizeStreptomyces coelicolor A3%282%29-Ref.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\NUCmer-MediumSizeEcoli-Query.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\NUCmer-MediumSizeEcoli-Ref.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\SmallSizeE-coli_Query.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\SmallSizeE-coli_Ref.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\SmallSizeHomosapiensclaspin-Query.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\AlignmentAlgorithms\SmallSizeHomosapiensclaspin-Ref.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\ObjectModel\Flavobacteria bacterium MS024-3C ctg90, whole genome shotgun sequence.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\ObjectModel\Homo sapiens tyrosine monooxygenasetryptophan monooxygenase activation.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\ObjectModel\Macrobrachium lanchesteri mitochondrion, complete genome.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.10240.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.10240.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.10240.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.102400.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.102400.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.102400.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.1048576.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.1048576.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.1048576.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.2097152.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.2097152.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.2097152.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.51200.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.51200.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.51200.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.512000.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.512000.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.512000.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.5242880.1.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.5242880.3.errorFragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\E-coli Test Data\ecoli.5242880.fragments">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\EulerTestData\1MB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\EulerTestData\2MB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\EulerTestData\500KB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\EulerTestData\5MB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PaDeNA\EulerTestData\7MB_Euler.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PAMSAM\Dna\122_Phyllodonta indeterminata voucher_Query.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PAMSAM\Dna\122_Phyllodonta indeterminata voucher_Ref.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PAMSAM\Dna\854_Phyllodonta indeterminata voucher_Query.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\PAMSAM\Dna\854_Phyllodonta indeterminata voucher_Ref.afa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\SAMBAMTestData\20MBVeryLargeSize-NA12273.SLX.MOSAIK.SRP000033.2009_11.bam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\SAMBAMTestData\20MBVeryLargeSize-NA12273.SLX.MOSAIK.SRP000033.2009_11.sam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\SAMBAMTestData\LargeSize-NA12273.SLX.MOSAIK.SRP000033.2009_11.bam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PerfTestData\SAMBAMTestData\LargeSize-NA12273.SLX.MOSAIK.SRP000033.2009_11.sam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

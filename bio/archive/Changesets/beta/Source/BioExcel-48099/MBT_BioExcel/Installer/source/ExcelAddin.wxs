@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id='0C6A5E9D-4E8E-4BB0-89F2-74F22547C766'
+    Name='Microsoft Research Biology Extension for Excel'
+    Language='1033'
+    Version='$(env.ProductVersion)'
+    Manufacturer=' '
+    UpgradeCode='02CD7C3D-F7C4-44F5-8AC7-95B0B4D1B8F9'>
+
+    <!--installer package information-->
+    <Package
+        Id='*'
+        Description='Microsoft Research Biology Extension for Excel installation database.'
+        Comments='This installer database contains the logic and data required to install Microsoft Research Biology Extension for Excel.'
+        Manufacturer='Microsoft Biology Foundation'
+        InstallerVersion='200'
+        Compressed='yes'/>
+
+    <Media Id='1' Cabinet='ExcelAddin.cab' EmbedCab='yes'/>
+
+    <!--Directory: Target-->
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+
+     <!--Directory: ProgramFiles-->
+     <Directory Id='ProgramFilesFolder' Name='PFiles'>
+
+       <!--Directory: Configurable install directory-->
+       <Directory Id='INSTALLDIR'>
+
+          <!--Framework merge module-->
+          <Directory Id='FRAMEWORKFOLDER'>
+            <Merge Id='MBFFrameworkModule' Language='1033' SourceFile='MergeModule.msm' DiskId='1'/>
+          </Directory>
+
+        <!--Directory: Install folder-->
+        <Directory Id='ProductRootFolder' Name='!(loc.ProductRootFolder)'>
+
+          <!--Directory: Version number-->
+          <Directory Id='ProductVersionFolder' Name='$(env.ProductVersion)'>
+
+            <!--Directory: Root directory for Microsoft Biology Tools-->
+            <Directory Id='MBTFolder' Name='!(loc.MBTFolder)'>
+
+              <!--Directory: Excel Addin folder-->
+              <Directory Id='EXCELADDINFOLDER' Name='!(loc.ExcelAddinFolder)'>
+
+              <!--Temporary readme document-->
+              <Component Id='ReadmeDocument' Guid='74466A67-DA55-4AC5-8445-A26BB9C17B25'>
+                <File Id='readme.txt' KeyPath='yes' Source='SourceDir\readme.txt'/>
+              </Component>
+
+                <!--Directory: Excel Addin folder end-->
+              </Directory>
+
+              <!--Directory: Root directory for Microsoft Biology Tools end -->
+            </Directory>
+            <!--Directory: Version number end-->
+          </Directory>
+          <!--Directory: Install folder end-->
+        </Directory>
+      <!--Directory: Configurable install directory end-->
+      </Directory>
+    <!--Directory: ProgramFiles end-->
+    </Directory>
+  <!--Directory: Target end-->
+  </Directory>
+
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="8C84AEE8-012C-4D6A-A734-E3A2F1A7D579">
+        <CreateFolder Directory="EXCELADDINFOLDER" />
+        <RegistryKey Root="HKLM"
+                     Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBT\Excel Biology Extension"
+              Action="createAndRemoveOnUninstall">
+          <RegistryValue Type="integer" Name="Installed" Value="1" />
+          <RegistryValue Type="string" Name="InstallationPath" Value="[EXCELADDINFOLDER]" KeyPath="yes"/>
+          <RegistryValue Type="string" Name="Version" Value="$(env.ProductVersion)"/>
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+
+    <!--Features-->
+    <Feature Id='AllFeatures' Title='!(loc.ExcelAddinFeatureTitle)' Level='1' Display='expand' ConfigurableDirectory='INSTALLDIR'>
+      <ComponentGroupRef Id='ExcelAddinComponentGroup'/>
+      <ComponentRef Id='ExcelVstoRegistryEntries' />
+      <ComponentRef Id='RegistryEntries'/>
+      <MergeRef Id='MBFFrameworkModule'/>
+      <ComponentRef Id='ReadmeDocument'/>
+    </Feature>
+    
+    <?include VSTOInstaller.wxi?>
+    <?include IncExcelAddinProperties.wxi?>
+
+  </Product>
+  
+</Wix>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Module Id="MicrosoftBiologyFoundation" Codepage="1252" Language="1033" Version="1.0.0">
+    <!--module package information-->
+    <Package Id="2A98800F-757B-47A6-AA17-C4F255CCFED2" Description="Microsoft Biology Foundation Framework" Comments="Microsoft Biology Foundation" Manufacturer="Microsoft Corporation" InstallerVersion="200" />
+    <!--Directory: Target-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!--Directory: Root directory for MBF-->
+      <Directory Id="FRAMEWORKFOLDER">
+        <Component Id="cmp17785C8E87A0D230834119722E88EE3F" Guid="AA2FE7A7-DE2C-40B5-8135-F27842284649">
+          <File Id="fil74EDA9F9C5DE9431A8D54E7C0F43302E" KeyPath="yes" Source="SourceDir\MBF.dll" />
+        </Component>
+        <Component Id="cmp896D8089025CD77F1612410934EACC47" Guid="25A04CA6-6582-46A0-9EAA-4A3C807EE458">
+          <File Id="fil049D703FABB3C5509F30BD32748DB016" KeyPath="yes" Source="SourceDir\MBF.WebServiceHandlers.dll" />
+        </Component>
+        <Directory Id="dirDC89604453E9D8AC5B5A96812BE18573" Name="Add-ins">
+          <Component Id="cmp1B594EF27DE00FBD3E1A9AF8C319D7A9" Guid="8706680C-276A-4BA7-A53C-D4421A488B3F">
+            <File Id="fil0B7330EC0ACE699F0CDD578155F2F036" KeyPath="yes" Source="SourceDir\Add-ins\MBF.PaDeNA.dll" />
+          </Component>
+          <Component Id="cmp315CE39862D0ACC7B9D09401FE2EB5CC" Guid="1B712ED1-4D4D-464D-B489-5086BDEA2C38">
+            <File Id="fil196A988EC78D1B8E45D3FF760E43084E" KeyPath="yes" Source="SourceDir\Add-ins\MBF.PAMSAM.dll" />
+          </Component>
+        </Directory>
+      </Directory>
+      <!--Directory: Target end-->
+    </Directory>
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="8C84AEE8-012C-4D6A-A734-E3A2F1A7D573">
+        <RegistryKey Root="HKLM" Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBF" Action="createAndRemoveOnUninstall">
+          <RegistryValue Type="integer" Name="Installed" Value="1" />
+          <RegistryValue Type="string" Name="InstallationPath" Value="[FRAMEWORKFOLDER]" KeyPath="yes" />
+          <RegistryValue Type="string" Name="Version" Value="$(env.ProductVersion)" />
+        </RegistryKey>
+        <CreateFolder Directory="FRAMEWORKFOLDER" />
+      </Component>
+    </DirectoryRef>
+  </Module>
+</Wix>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id='96D4A661-199E-421E-9861-EBB44FB3AC0D'
+    Name='!(loc.ProductName)'
+    Language='1033'
+    Version='$(env.ProductVersion)'
+    Manufacturer=' '
+    UpgradeCode='FF355C70-9CB5-4F5F-97AD-ED6BEF6EB2EE'>
+
+    <!--installer package information-->
+    <Package
+        Id='*'
+        Description='!(loc.ProductName) installation database.'
+        Comments='This installer database contains the logic and data required to install !(loc.ProductName).'
+        Manufacturer='Microsoft Biology Foundation'
+        InstallerVersion='200'
+        Compressed='yes'/>
+
+    <Media Id='1' Cabinet='SequenceAssembler.cab' EmbedCab='yes'/>
+
+    <!-- Upgrade support region -->
+    <!--
+    To enable upgrade when changing product version from 1.0 to 1.x:
+    1. Change Product Version (major.minor) environment variable.
+    2. Change Product Id (GUID).
+    3. Modify the code in this region as necessary.
+    -->
+
+    <!--Detect older version of the product for Upgrade support-->
+    <Upgrade Id="FF355C70-9CB5-4F5F-97AD-ED6BEF6EB2EE">
+      
+      <!-- Check for lower major version (uncomment after Product Id change) -->
+      <!--<UpgradeVersion Maximum="1.0.0" Minimum="0.2.0" IncludeMaximum="no" MigrateFeatures="yes" Property="MAJORVERSIONCHANGE"/>-->
+      
+      <!-- Check for lower minor version (uncomment after Product Id change) -->
+      <!--<UpgradeVersion Maximum="1.1.0" Minimum="1.0.0" IncludeMaximum="yes" IncludeMinimum="no" MigrateFeatures="yes" Property="MINORVERSIONCHANGE"/>-->
+      
+      <!-- Check for higher minor version -->
+      <UpgradeVersion Maximum="2.0.0" Minimum="1.0.0" IncludeMaximum="no" MigrateFeatures="yes" Property="NEWERVERSIONFOUND"/>
+    </Upgrade>
+    
+    <!-- Show error if lower major version (Beta version: 0.2) installed (uncomment after Product Id change) -->
+    <!--<Condition Message='An older version of this product is already installed. Installation of this version cannot continue. To configure or remove the existing version of this product, use Add/Remove Programs on the Control Panel.'>NOT MAJORVERSIONCHANGE</Condition>-->
+    
+    <!-- Show error if newer minor version found (ex: 1.2 found when installing 1.1) -->
+    <Condition Message='A newer version of this product is already installed. Installation of this version cannot continue. To configure or remove the existing version of this product, use Add/Remove Programs on the Control Panel.'>NOT NEWERVERSIONFOUND</Condition>
+
+    <!-- Remove older version of this product (uncomment after Product Id change) -->
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize" />
+    </InstallExecuteSequence>
+    <!-- Upgrade support region end -->
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+     
+      <!--Directory: ProgramFiles-->
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+
+        <!--Directory: Configurable install directory-->
+        <Directory Id='INSTALLDIR'>
+
+          <!--Framework merge module-->
+          <Directory Id='FRAMEWORKFOLDER'>
+            <Merge Id='MBFFrameworkModule' Language='1033' SourceFile='MergeModule.msm' DiskId='1'/>
+          </Directory>
+          
+        <!--Directory: Install folder-->
+        <Directory Id='ProductRootFolder' Name='!(loc.ProductRootFolder)'>
+
+          <!--Directory: Product version folder-->
+          <Directory Id='ProductVersionFolder' Name='$(env.ProductVersion)'>
+
+          <!--Directory: Root directory for Microsoft Biology Tools-->
+          <Directory Id='MBTFolder' Name='!(loc.MBTFolder)'>
+
+            <!--Directory: Sequence Assembler folder /-->
+            <Directory Id='SequenceAssemblerFolder' Name='!(loc.SequenceAssemblerFolder)' />
+            
+            <!--Directory: Root directory for Microsoft Biology Tools end -->
+          </Directory>
+
+            <!--Directory: Product version folder end-->
+          </Directory>
+        
+          <!--Directory: Install folder end-->
+        </Directory>
+
+        <!--Directory: Configurable install directory end-->
+        </Directory>
+        
+        <!--Directory: ProgramFiles end-->
+      </Directory>
+
+      <!-- Directory: Program Menu folder (for application shortcuts) -->
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="!(loc.ProductRootFolder)">
+          <Directory Id="ApplicationDocumentsFolder" Name="!(loc.ApplicationDocumentsFolderName)"/>
+        </Directory>
+      </Directory>
+      
+      <!--Directory: Target end-->
+    </Directory>
+
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="CAA68730-F9FA-4C32-A6CA-0786B15155A0">
+        <RegistryKey Root="HKLM"
+                     Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBT\Sequence Assembler"
+              Action="createAndRemoveOnUninstall">
+          <RegistryValue Type="integer" Name="Installed" Value="1" />
+          <RegistryValue Type="string" Name="InstallationPath" Value="[SequenceAssemblerFolder]" KeyPath="yes"/>
+          <RegistryValue Type="string" Name="Version" Value="$(env.ProductVersion)"/>
+        </RegistryKey>
+        <CreateFolder Directory="SequenceAssemblerFolder" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Application shortcuts region -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="86022F63-48A6-43FA-A500-DBAD64B58BE4">
+        <Shortcut Id="StartMenuApplicationShortcut"
+          Name="!(loc.ApplicationShortcutName)"
+          Description="!(loc.ApplicationShortcutDescription)"
+          Target="[SequenceAssemblerFolder]SequenceAssembler.exe"
+          WorkingDirectory="SequenceAssemblerFolder"/>
+        <RemoveFolder Id="RemoveShortcutDir" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBT\Sequence Assembler"
+                       Name="Application Shortcut Directory" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    
+      <DirectoryRef Id="ApplicationDocumentsFolder">
+        <Component Id="DocumentShortcut" Guid="3F037379-6F64-4C3D-94DE-947E6941F862">
+          <Shortcut Id="StartMenuDocumentationShortcut"
+                    Name="!(loc.DocumentShortcutName)"
+                    Description="!(loc.DocumentShortcutDescription)"
+                    Target="[SequenceAssemblerFolder]Docs\MSR_Sequence_Assembler_User_Guide.docx"
+                    WorkingDirectory="SequenceAssemblerFolder"/>
+          <RemoveFolder Id="RemoveShortcut" On="uninstall"/>
+          <RegistryValue Root="HKCU" Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBT\Sequence Assembler"
+                         Name="Application Shortcut" Type="integer" Value="1" KeyPath="yes"/>
+        </Component>
+    </DirectoryRef>
+    <!-- Application shortcuts region end -->
+
+    <!--Features-->
+    <Feature Id='AllFeatures' Title='!(loc.SequenceAssemblerFeatureTitle)' Level='1' Display='expand'>
+      <ComponentGroupRef Id='SequenceAssemblerComponentGroup'/>
+      <ComponentRef Id='RegistryEntries'/>
+      <ComponentRef Id='ApplicationShortcut'/>
+      <ComponentRef Id='DocumentShortcut'/>
+      <MergeRef Id='MBFFrameworkModule' />
+      <ComponentRef Id='ReadmeDocument'/>
+      <ComponentGroupRef Id='FileAssociations'/>
+    </Feature>
+
+    <?include IncSequenceAssemblerProperties.wxi?>
+
+  </Product>
+</Wix>

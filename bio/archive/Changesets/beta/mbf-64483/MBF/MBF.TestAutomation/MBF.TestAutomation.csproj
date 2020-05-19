@@ -1,0 +1,678 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5A607023-A649-4555-B86C-5171F86BF828}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MBF.TestAutomation</RootNamespace>
+    <AssemblyName>MBF.TestAutomation</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>%24/mbf/MBF/MBF.TestAutomation</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>https://tfs.codeplex.com/tfs/tfs04</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Algorithms\Alignment\AlignmentBvtTestCases.cs" />
+    <Compile Include="Algorithms\Alignment\AlignmentP1TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\MUMmer\MUMmerBvtTestCases.cs" />
+    <Compile Include="Algorithms\Alignment\MUMmer\MUMmerP1TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NeedlemanWunschP2TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmerBvtTestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmerP1TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\NUCmer\NUCmerP2TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\PairwiseOverlapP2TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\SequenceAlignmentP2TestCases.cs" />
+    <Compile Include="Algorithms\Alignment\SmithWatermanP2TestCases.cs" />
+    <Compile Include="Algorithms\Assembly\AssemblyBvtTestCases.cs" />
+    <Compile Include="Algorithms\Assembly\AssemblyP1TestCases.cs" />
+    <Compile Include="Algorithms\Translation\TranslationBvtTestCases.cs" />
+    <Compile Include="Algorithms\Translation\TranslationP1TestCases.cs" />
+    <Compile Include="Algorithms\Translation\TranslationP2TestCases.cs" />
+    <Compile Include="AlphabetsBvtTestCases.cs" />
+    <Compile Include="AlphabetsP2TestCases.cs" />
+    <Compile Include="CompoundSequenceBvtTestCases.cs" />
+    <Compile Include="CompoundSequenceP1TestCases.cs" />
+    <Compile Include="CompoundSequenceP2TestCases.cs" />
+    <Compile Include="DerivedSequenceBvtTestCases.cs" />
+    <Compile Include="DerivedSequenceP1TestCases.cs" />
+    <Compile Include="DerivedSequenceP2TestCases.cs" />
+    <Compile Include="Encoding\EncodingBvtTestCases.cs" />
+    <Compile Include="Encoding\EncodingP1TestCases.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IO\BAM\BAMBvtTestCases.cs" />
+    <Compile Include="IO\BAM\BAMP1TestCases.cs" />
+    <Compile Include="IO\BAM\BAMP2TestCases.cs" />
+    <Compile Include="IO\Bed\BedBvtTestCases.cs" />
+    <Compile Include="IO\Bed\BedP1TestCases.cs" />
+    <Compile Include="IO\ClustalW\ClustalWBvtTestCases.cs" />
+    <Compile Include="IO\Fasta\FastaBvtTestCases.cs" />
+    <Compile Include="IO\Fasta\FastaP1TestCases.cs" />
+    <Compile Include="IO\FastQ\FastQBvtTestCases.cs" />
+    <Compile Include="IO\FastQ\FastQP1TestCases.cs" />
+    <Compile Include="IO\FastQ\FastQP2TestCases.cs" />
+    <Compile Include="IO\FileVirtualQualitativeSequenceProviderBvtTestCases.cs" />
+    <Compile Include="IO\FileVirtualSequenceProviderBvtTestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankBvtTestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankFeaturesBvtTestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankFeaturesP1TestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankFeaturesP2TestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankP1TestCases.cs" />
+    <Compile Include="IO\GenBank\GenBankP2TestCases.cs" />
+    <Compile Include="IO\Gff\GffBvtTestCases.cs" />
+    <Compile Include="IO\Gff\GffP1TestCases.cs" />
+    <Compile Include="IO\Gff\GffP2TestCases.cs" />
+    <Compile Include="IO\MBFStreamReaderBvtTestCases.cs" />
+    <Compile Include="IO\Newick\PhylogeneticTreeBvtTestCases.cs" />
+    <Compile Include="IO\Newick\PhylogeneticTreeP1TestCases.cs" />
+    <Compile Include="IO\Newick\PhylogeneticTreeP2TestCases.cs" />
+    <Compile Include="IO\Nexus\NexusBvtTestCases.cs" />
+    <Compile Include="IO\Nexus\NexusP2TestCases.cs" />
+    <Compile Include="IO\Phylip\PhylipBvtTestCases.cs" />
+    <Compile Include="IO\Phylip\PhylipP2TestCases.cs" />
+    <Compile Include="IO\SAM\SAMBvtTestCases.cs" />
+    <Compile Include="IO\SAM\SAMP1TestCases.cs" />
+    <Compile Include="IO\SAM\SAMP2TestCases.cs" />
+    <Compile Include="IO\SequenceAlignmentParserP1TestCases.cs" />
+    <Compile Include="IO\SequenceParserP1TestCases.cs" />
+    <Compile Include="IO\SnpBvtTestCases.cs" />
+    <Compile Include="IO\SnpP1TestCases.cs" />
+    <Compile Include="IO\VirtualAlignedSequenceListBvtTestCases.cs" />
+    <Compile Include="IO\VirtualAlignedSequenceListP1Cases.cs" />
+    <Compile Include="IO\VirtualQualitativeSequenceListBvtTestCases.cs" />
+    <Compile Include="IO\VirtualQualitativeSequenceListP2TestCases.cs" />
+    <Compile Include="IO\VirtualSequenceListBvtTestCases.cs" />
+    <Compile Include="IO\XsvSparseBvtTestCases.cs" />
+    <Compile Include="Matrix\DenseAnsiBvtTestCases.cs" />
+    <Compile Include="Matrix\DenseMatrixBvtTestCases.cs" />
+    <Compile Include="Matrix\DensePairAnsiBvtTestCases.cs" />
+    <Compile Include="Matrix\MatrixFactoryBvtTestCases.cs" />
+    <Compile Include="Matrix\PaddedDoubleBvtTestCases.cs" />
+    <Compile Include="Matrix\RowKeysAnsiBvtTestCases.cs" />
+    <Compile Include="Matrix\RowKeysPaddedDoubleBvtTestCases.cs" />
+    <Compile Include="Matrix\RowKeysPairAnsiBvtTestCases.cs" />
+    <Compile Include="Matrix\SparseMatrixBvtTestCases.cs" />
+    <Compile Include="Matrix\VectorViewBvtTestCases.cs" />
+    <Compile Include="PaDeNA\PaDeNABvtTestCases.cs" />
+    <Compile Include="PaDeNA\PaDeNAP1TestCases.cs" />
+    <Compile Include="PAMSAM\PamSamBvtTestCases.cs" />
+    <Compile Include="PAMSAM\PamSamP1TestCases.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualitativeSequenceBvtTestCases.cs" />
+    <Compile Include="QualitativeSequenceP1TestCases.cs" />
+    <Compile Include="QualitativeSequenceP2TestCases.cs" />
+    <Compile Include="Registration\RegistrationBvtTestCases.cs" />
+    <Compile Include="SegmentedSequenceBvtTestCases.cs" />
+    <Compile Include="SegmentedSequenceP1TestCases.cs" />
+    <Compile Include="SegmentedSequenceP2TestCases.cs" />
+    <Compile Include="SequenceBvtTestCases.cs" />
+    <Compile Include="SequenceP1TestCases.cs" />
+    <Compile Include="SequenceP2TestCases.cs" />
+    <Compile Include="SequenceRangeAndBedFileOperationsBvtTestCases.cs" />
+    <Compile Include="SequenceRangeAndBedFileOperationsP1TestCases.cs" />
+    <Compile Include="SparseSequenceBvtTestCases.cs" />
+    <Compile Include="SparseSequenceP1TestCases.cs" />
+    <Compile Include="SparseSequenceP2TestCases.cs" />
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Util\Utility.cs" />
+    <Compile Include="Util\XmlUtility.cs" />
+    <Compile Include="VirtualDataBvtTestCases.cs" />
+    <Compile Include="VirtualSequenceBvtTestcases.cs" />
+    <Compile Include="VirtualSequenceP1TestCases.cs" />
+    <Compile Include="VirtualSequenceP2TestCases.cs" />
+    <Compile Include="Web\AzureBlast\AzureBlastBvtTestCases.cs" />
+    <Compile Include="Web\AzureBlast\AzureBlastP1TestCases.cs" />
+    <Compile Include="Web\AzureBlast\AzureBlastP2TestCases.cs" />
+    <Compile Include="Web\BioHPC\BioHPCBlastBvtTestCases.cs" />
+    <Compile Include="Web\Blast\BlastBvtTestCases.cs" />
+    <Compile Include="Web\Blast\BlastP1TestCases.cs" />
+    <Compile Include="Web\Blast\BlastP2TestCases.cs" />
+    <Compile Include="Web\ClustalW\BioHpcProxyClass.cs" />
+    <Compile Include="Web\ClustalW\ClustalWServiceHandlerBvtTestCases.cs" />
+    <Compile Include="Web\ClustalW\TestIClustalWServiceHandler.cs" />
+    <Compile Include="Web\EbiBlast\EbiBlastBvtTestCases.cs" />
+    <Compile Include="Web\EbiBlast\EbiBlastP1TestCases.cs" />
+    <Compile Include="Web\EbiBlast\EbiBlastP2TestCases.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestData\TestUtils\00_Bonobo_DEL_Chr1.bed" />
+    <None Include="TestData\TestUtils\00_Gorilla_DEL_chr1.bed" />
+    <None Include="TestData\TestUtils\AlignEmptyFile_1.fasta" />
+    <None Include="TestData\TestUtils\AlignFileWithBlankLines.fasta" />
+    <None Include="TestData\TestUtils\AlignFileWithGap_1.fasta" />
+    <None Include="TestData\TestUtils\AlignFileWithSpaces_1.fasta" />
+    <None Include="TestData\TestUtils\AlignFile_1.fasta" />
+    <None Include="TestData\TestUtils\AlignFile_2.fasta" />
+    <None Include="TestData\TestUtils\AlignFile_Dna_1.fasta" />
+    <None Include="TestData\TestUtils\AlignFile_Dna_2.fasta" />
+    <None Include="TestData\TestUtils\AlignFile_Pro_1.fasta" />
+    <None Include="TestData\TestUtils\AlignFile_Pro_2.fasta" />
+    <None Include="TestData\TestUtils\AlignFile_Rna_1.fasta" />
+    <None Include="TestData\TestUtils\AlignFile_Rna_2.fasta" />
+    <None Include="TestData\TestUtils\AlignmentData.aln" />
+    <None Include="TestData\TestUtils\AlignUnicodeFile_1.fasta" />
+    <None Include="TestData\TestUtils\DNA-Medium.fasta" />
+    <None Include="TestData\TestUtils\DNA-MultiSequences.fasta" />
+    <None Include="TestData\TestUtils\dna.phy" />
+    <None Include="TestData\TestUtils\DnaGenBank_MiscRecombination.gbk" />
+    <None Include="TestData\TestUtils\DNAGenBank_Variation.gbk" />
+    <None Include="TestData\TestUtils\DNA\12.afa" />
+    <None Include="TestData\TestUtils\DNA\12_raw.afa" />
+    <None Include="TestData\TestUtils\DNA\4_raw.afa" />
+    <None Include="TestData\TestUtils\EmptyNexusFile.nex" />
+    <None Include="TestData\TestUtils\EmptyPhylipParserFile.phy" />
+    <None Include="TestData\TestUtils\EmptySeq.gbk" />
+    <None Include="TestData\TestUtils\FastQDnaSolexa.fastq" />
+    <None Include="TestData\TestUtils\FastQEmptyFile.fastq" />
+    <None Include="TestData\TestUtils\FastQFileWithEmptySeqIdAndQualityScore.fastq" />
+    <None Include="TestData\TestUtils\FastQFileWithEmptySequence.fastq" />
+    <None Include="TestData\TestUtils\FastQFileWithInvalidAlphabet.fastq" />
+    <None Include="TestData\TestUtils\FastQFileWithInvalidQualityScore.fastq" />
+    <None Include="TestData\TestUtils\FastQFileWithInvalidSeqID.fastq" />
+    <None Include="TestData\TestUtils\FastQProteinSolexa.fastq" />
+    <None Include="TestData\TestUtils\FastQRnaSolexa.fastq" />
+    <None Include="TestData\TestUtils\FastQSanger.fastq" />
+    <None Include="TestData\TestUtils\FastQSangerWithBlankLines.fastq" />
+    <None Include="TestData\TestUtils\FastQWithEmptyQualScore.fastq" />
+    <None Include="TestData\TestUtils\GenBankRepeatRegion.gbk" />
+    <None Include="TestData\TestUtils\GenBank_Features.gbk" />
+    <None Include="TestData\TestUtils\HumanReferenceGene.bed" />
+    <None Include="TestData\TestUtils\InvalidAlignFile_1.fasta" />
+    <None Include="TestData\TestUtils\InvalidateEndFeature.gff" />
+    <None Include="TestData\TestUtils\InvalidateFrameFeature.gff" />
+    <None Include="TestData\TestUtils\InvalidateGenBankParseFeaturesHasReader.gbk" />
+    <None Include="TestData\TestUtils\InvalidateNexusParserAlignAlphabet.nex" />
+    <None Include="TestData\TestUtils\InvalidateNexusParserAlphabet.nex" />
+    <None Include="TestData\TestUtils\InvalidateNexusParserHeader.nex" />
+    <None Include="TestData\TestUtils\InvalidateNexusParserSeqCount.nex" />
+    <None Include="TestData\TestUtils\InvalidateNexusParserSeqLength.nex" />
+    <None Include="TestData\TestUtils\InvalidateNullFeature.gff" />
+    <None Include="TestData\TestUtils\InvalidateParseHeaderDateFormate.gff" />
+    <None Include="TestData\TestUtils\InvalidateParseHeaderFieldLen.gff" />
+    <None Include="TestData\TestUtils\InvalidateParseHeaderProtein.gff" />
+    <None Include="TestData\TestUtils\InvalidateParseHeaderVersion.gff" />
+    <None Include="TestData\TestUtils\InvalidatePhylipParserAlignAlphabet.phy" />
+    <None Include="TestData\TestUtils\InvalidatePhylipParserAlphabet.phy" />
+    <None Include="TestData\TestUtils\InvalidatePhylipParserCount.phy" />
+    <None Include="TestData\TestUtils\InvalidatePhylipParserSeqLength.phy" />
+    <None Include="TestData\TestUtils\InvalidateScoreFeature.gff" />
+    <None Include="TestData\TestUtils\InvalidateSpecificSeqs.gff" />
+    <None Include="TestData\TestUtils\InvalidateStartFeature.gff" />
+    <None Include="TestData\TestUtils\InvalidateStrandFeature.gff" />
+    <None Include="TestData\TestUtils\InvalideGenBank.gbk" />
+    <None Include="TestData\TestUtils\InvalideGenBankParseHeader.genbank" />
+    <None Include="TestData\TestUtils\InvalideGenBankReference.genbank" />
+    <None Include="TestData\TestUtils\InvalidFastQFormat.Fastq" />
+    <None Include="TestData\TestUtils\InvalidFastQQualScore.fastq" />
+    <None Include="TestData\TestUtils\InvalidFeatureLength.gff" />
+    <None Include="TestData\TestUtils\InvalidGenBankHeaderDataType.genbank" />
+    <None Include="TestData\TestUtils\InvalidGenBankSegment.gbk" />
+    <None Include="TestData\TestUtils\InvalidGenBankWithoutLocus.gbk" />
+    <None Include="TestData\TestUtils\InvalidGenBankWithPrimary.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_ParseReference.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_ParseReference_Default.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_ParseSequence.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_ParseSequence_Default.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_ParseSource.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_Unknown_Locus.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_Unknown_MoleculeType.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_Unknown_RawDate.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_Unknown_StrandTopology.gbk" />
+    <None Include="TestData\TestUtils\Invalid_GenBank_Unknown_StrandType.gbk" />
+    <None Include="TestData\TestUtils\LargeSize.fasta" />
+    <None Include="TestData\TestUtils\LargeSize.gb" />
+    <None Include="TestData\TestUtils\LargeSize.gbk" />
+    <None Include="TestData\TestUtils\LargeSize.GFF" />
+    <None Include="TestData\TestUtils\LargeSizeDnaIllumina.fastq" />
+    <None Include="TestData\TestUtils\LargeSizeDnaIlluminaFastq.fastq" />
+    <None Include="TestData\TestUtils\LargeSizeDnaSanger.fastq" />
+    <None Include="TestData\TestUtils\LargeSizeFastQDnaSolexa.fastq" />
+    <None Include="TestData\TestUtils\LargeSize_AlignFile_Pro_1.fasta" />
+    <None Include="TestData\TestUtils\LargeSize_AlignFile_Pro_2.fasta" />
+    <None Include="TestData\TestUtils\LargeSize_FastQ_Sanger.fastq" />
+    <None Include="TestData\TestUtils\Long_Start_End.bed" />
+    <None Include="TestData\TestUtils\Mandatory_GenBank_Headers.gbk" />
+    <None Include="TestData\TestUtils\Maximum_Sequences.gff" />
+    <None Include="TestData\TestUtils\MediumSize.gbk" />
+    <None Include="TestData\TestUtils\MediumSize.Gff" />
+    <None Include="TestData\TestUtils\MediumSizeDNAGenBank.gbk" />
+    <None Include="TestData\TestUtils\MediumSizeDnaIllumina.fastq" />
+    <None Include="TestData\TestUtils\MediumSizeDnaSanger.fastq" />
+    <None Include="TestData\TestUtils\MediumSizeFastQDnaSolexa.fastq" />
+    <None Include="TestData\TestUtils\MediumSizeRNAGenBank.gbk" />
+    <None Include="TestData\TestUtils\MediumSize_AlignFile_Pro_1.fasta" />
+    <None Include="TestData\TestUtils\MediumSize_AlignFile_Pro_2.fasta" />
+    <None Include="TestData\TestUtils\MediumSize_GenBankFile.gbk" />
+    <None Include="TestData\TestUtils\Medium_Size.fasta" />
+    <None Include="TestData\TestUtils\MergeBed.bed" />
+    <None Include="TestData\TestUtils\Metadata_GenBank_DNA.gbk" />
+    <None Include="TestData\TestUtils\Metadata_GenBank_Protein.gbk" />
+    <None Include="TestData\TestUtils\Metadata_GenBank_RNA.gbk" />
+    <None Include="TestData\TestUtils\MiscRNAGenBank.gbk" />
+    <None Include="TestData\TestUtils\MockOutputObjects\AzureDnaResultsASync.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\AzureProteinSeqResultsASync.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\AzureWebServiceCancelRequestIdentifier.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\AzureWebServiceRequestStatusForDnaSeq.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\AzureWebserviceResultsSync.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCCancelRequestIdentifierForDna.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCCancelRequestIdentifierForProtein.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCFetchResultsAsync.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCFetchResultsForProtein.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCFetchResultsSync.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCFetchResultsSyncForProtein.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCGetRequestStatusForDna.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCGetRequestStatusForProtein.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCRequestIdentifierForDna.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\BioHPCRequestIdentifierForProtein.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\EBIBlastAsyncFetchResults.object">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TestUtils\MockOutputObjects\EBIBlastObjectsBvtSyc.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\EBIBlastRequestStatusForDnaSeq.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\EBIBlastRequestStatusForProteinSeq.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\NCBIBlastObjectsBvtAsyc.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\NCBIBlastRequestIdentifierForDna.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\NCBIBlastRequestIdentifierForProtein.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\NCBIBlastRequestStatusForDna.object" />
+    <None Include="TestData\TestUtils\MockOutputObjects\NCBIBlastRequestStatusForProtein.object" />
+    <None Include="TestData\TestUtils\MulitSeqSanger-DNA_PRO.fastq" />
+    <None Include="TestData\TestUtils\MulitSeqSanger-DNA_RNA.fastq" />
+    <None Include="TestData\TestUtils\MulitSeqSanger-DNA_RNA_PRO.fastq" />
+    <None Include="TestData\TestUtils\MulitSeqSanger-RNA_PROTEIN.fastq" />
+    <None Include="TestData\TestUtils\MulitSeqSolexa-DNA_PRO.fastq" />
+    <None Include="TestData\TestUtils\MulitSeqSolexa-DNA_RNA.fastq" />
+    <None Include="TestData\TestUtils\MulitSeqSolexa-DNA_RNA_PRO.fastq" />
+    <None Include="TestData\TestUtils\MulitSeqSolexa-RNA_PRO.fastq" />
+    <None Include="TestData\TestUtils\MultiChromoSnpFile.tsv" />
+    <None Include="TestData\TestUtils\MultiGene_CDS_DNA.gbk" />
+    <None Include="TestData\TestUtils\MultipleReference_GenBank_Protein.gbk" />
+    <None Include="TestData\TestUtils\MultiSeqIllumina-DNA_PRO.fastq" />
+    <None Include="TestData\TestUtils\MultiSeqIllumina-DNA_RNA.fastq" />
+    <None Include="TestData\TestUtils\MultiSeqIllumina-DNA_RNA_PRO.fastq" />
+    <None Include="TestData\TestUtils\MultiSeqIllumina-RNA_PROTEIN.fastq" />
+    <None Include="TestData\TestUtils\MultiSequence-Dna_Pro.gff" />
+    <None Include="TestData\TestUtils\MultiSequence-DNA_RNA.gff" />
+    <None Include="TestData\TestUtils\MultiSequence-Dna_Rna_Pro.gff" />
+    <None Include="TestData\TestUtils\MultiSequence-Rna_Pro.gff" />
+    <None Include="TestData\TestUtils\MultiSequenceDNA_GenBank.gbk" />
+    <None Include="TestData\TestUtils\MultiSequences-DNA_DNA.fasta" />
+    <None Include="TestData\TestUtils\MultiSequences-DNA_Pro.fasta" />
+    <None Include="TestData\TestUtils\MultiSequences-DNA_RNA.fasta" />
+    <None Include="TestData\TestUtils\MultiSequences-DNA_RNA_Pro.fasta" />
+    <None Include="TestData\TestUtils\MultiSequences-RNA_Pro.fasta" />
+    <None Include="TestData\TestUtils\MultiSequences_GenBank_Protein.gbk" />
+    <None Include="TestData\TestUtils\MultiSequence_GenBank_RNA.gbk" />
+    <None Include="TestData\TestUtils\MultiSeq_GenBank_Protein.gbk" />
+    <None Include="TestData\TestUtils\Multi_Sequences.fasta" />
+    <None Include="TestData\TestUtils\Multi_Seq_Medium_Size.fasta" />
+    <None Include="TestData\TestUtils\Multi_Seq_Search_Medium_Size.fasta" />
+    <None Include="TestData\TestUtils\Multi_Seq_Search_Small_Size.fasta" />
+    <None Include="TestData\TestUtils\Multi_Seq_Small_Size.fasta" />
+    <None Include="TestData\TestUtils\Nucmer_Query_Seq.gbk" />
+    <None Include="TestData\TestUtils\Nucmer_Query_Seq.gff" />
+    <None Include="TestData\TestUtils\Nucmer_Reference_Seq.gbk" />
+    <None Include="TestData\TestUtils\Nucmer_Reference_Seq.gff" />
+    <None Include="TestData\TestUtils\OneLineDnaIlluminaSequence.fastq" />
+    <None Include="TestData\TestUtils\OneLineSeq.fasta" />
+    <None Include="TestData\TestUtils\OneLineSeq.gbk" />
+    <None Include="TestData\TestUtils\OneLineSeq.gff" />
+    <None Include="TestData\TestUtils\OneLineSeqDnaSolexa.fastq" />
+    <None Include="TestData\TestUtils\OneLineSnpFile.tsv" />
+    <None Include="TestData\TestUtils\One_Line.bed" />
+    <None Include="TestData\TestUtils\OnlyFeatures.gff" />
+    <None Include="TestData\TestUtils\OperatorGenBankFile.genbank" />
+    <None Include="TestData\TestUtils\PaDeNATestData\1And2FormatPairedReadsLibraryInformation.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\AverageSizeChromosomes.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ChrReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ClustalWContigs.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\EulerTestDataReads.fasta" />
+    <None Include="TestData\TestUtils\PaDeNATestData\FilterContigsReverseDirectionAndPalindromeContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\FilterContigsRevReadWithRevComplement.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\FilterContigsWithForwardOrientation.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\FilterContigsWithOneLineReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\FilterContigsWithReadAndPalindromeContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\FilterContigsWithReadNotSupportReverseOrientation.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\FilterContigsWithRevComplement.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\FilterContigsWithReverseOrientation.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\LeftSideContigGenerator.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLine200bpReadsWithRC.fasta" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineBubbleReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReadsFor10KAnd50And100KLibrary.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReadsFor2KAnd0.5KLibrary.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReadsForMapToContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReadsForMapToContigPartialOverlap.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReadsForPairedReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWith1And2PairedReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithFAndRPairedReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithX1AndY1PairedReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ReadsWithBubbles.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ReadsWithDanglingLinks.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ReadsWithDotsBetweenSequenceId.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ReadsWithMultipleBubbles.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ReadsWithMultipleDanglingLinks.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ReadsWithSpecialCharsID.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldForForwardReadAndPalindromeContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldForForwardReadAndRevComplContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldForReverseReadAndPalindromeContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldForReverseReadAndRevComplContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldPaths.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldPathsForForwardReadAndReverseCompContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldPathsForReverseDirectionDoesNotSupportOrientation.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldPathsWithForwardOrientation.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\ScaffoldPathsWithReverse.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\SeqReadsAndReverse.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\SeqReadsWithRightSideContig.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\SequenceIdWithDotReads.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\SequenceReadsWithoutIDName.fa" />
+    <None Include="TestData\TestUtils\PaDeNATestData\virulgenomereads.fa" />
+    <None Include="TestData\TestUtils\PhylipParserEncodingFile.phy" />
+    <None Include="TestData\TestUtils\primate-mtDNA-interleaved.nex" />
+    <None Include="TestData\TestUtils\PROTEIN-Medium.gbk" />
+    <None Include="TestData\TestUtils\ProteinFastQIllumina.fastq" />
+    <None Include="TestData\TestUtils\ProteinFastQSanger.fastq" />
+    <None Include="TestData\TestUtils\ProteinGenBank_MaturePeptide.gbk" />
+    <None Include="TestData\TestUtils\ProteinGenBank_Variation.gbk" />
+    <None Include="TestData\TestUtils\Protein\12.afa" />
+    <None Include="TestData\TestUtils\Protein\12_raw.afa" />
+    <None Include="TestData\TestUtils\QueryBedWithTenChromo.bed" />
+    <None Include="TestData\TestUtils\Query_Protein.fasta" />
+    <None Include="TestData\TestUtils\Query_Protein_Ambiguity.fasta" />
+    <None Include="TestData\TestUtils\Query_Rna.fasta" />
+    <None Include="TestData\TestUtils\Query_Rna_Ambiguity.fasta" />
+    <None Include="TestData\TestUtils\Query_Small_Size_Ambiguity.fasta" />
+    <None Include="TestData\TestUtils\random.GFF" />
+    <None Include="TestData\TestUtils\reads.fasta" />
+    <None Include="TestData\TestUtils\ReferenceBed.bed" />
+    <None Include="TestData\TestUtils\ReferenceBedWithAllIdenticalEntries.bed" />
+    <None Include="TestData\TestUtils\ReferenceBedWithTenChromo.bed" />
+    <None Include="TestData\TestUtils\RNA-Medium.gbk" />
+    <None Include="TestData\TestUtils\RnaFastQIllumina.fastq" />
+    <None Include="TestData\TestUtils\RnaFastQSanger.fastq" />
+    <None Include="TestData\TestUtils\RNAGenBank_Variation.gbk" />
+    <None Include="TestData\TestUtils\RNA\15.fa" />
+    <None Include="TestData\TestUtils\RNA\15_raw.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\AlignmentQualitySequenceWithDV.bam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\AlignmentWithIndexTwelveOutput.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\AlignmentWithQualityValues.bam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\AlignmentWithQualityValues.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\AlignmentWithQualityValues.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\AlignmentWithRef.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\AlignmentWithSequenceRange.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\BAMWithQualityValues.bam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\EmptyReaderLine.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\EmptySAMFile.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\InvalidSamBioReader.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\InvalidSAMEmptyFile.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\MediumSizeBam.bam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\MediumSizeBam.bam.bai" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\MediumSizeBAMSequences.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\MediumSizeSAMFile.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\NA07000.454.BCM.crossmatch.bam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\NA07000.454.BCM.crossmatchSeqAlignmentOutput.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\qualitativesequences.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\RefSequencesOutput.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\ref_list.fna" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SamFormatterFile.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignment.bam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignment.bam.bai" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignment.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignmentFormatWithRef.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignmentOutput.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignmentOutputWithIndex.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignmentWithBlankLine.sam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignmentWithRef.bam" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignmentWithRef.bam.bai" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqAlignmentWithRefSeq.fa" />
+    <None Include="TestData\TestUtils\SAMBAMTestData\SeqFormatterAlignOutput.fa" />
+    <None Include="TestData\TestUtils\SampleSparseSeq.csv" />
+    <None Include="TestData\TestUtils\Search_Dna.gbk" />
+    <None Include="TestData\TestUtils\Search_Dna.gff" />
+    <None Include="TestData\TestUtils\Search_Medium_Size.fasta" />
+    <None Include="TestData\TestUtils\Search_Protein.fasta" />
+    <None Include="TestData\TestUtils\Search_Protein_Ambiguity.fasta" />
+    <None Include="TestData\TestUtils\Search_Rna.fasta" />
+    <None Include="TestData\TestUtils\Search_Rna_Ambiguity.fasta" />
+    <None Include="TestData\TestUtils\Search_Small_Size.fasta" />
+    <None Include="TestData\TestUtils\Search_Small_Size_Ambiguity.fasta" />
+    <None Include="TestData\TestUtils\simple.GFF" />
+    <None Include="TestData\TestUtils\SimpleDnaIllumina.fastq" />
+    <None Include="TestData\TestUtils\SimpleDnaIllumina.fq" />
+    <None Include="TestData\TestUtils\SimpleDnaIlluminaDV.fastq" />
+    <None Include="TestData\TestUtils\SimpleNexusCharBlock.nex" />
+    <None Include="TestData\TestUtils\SimpleNexusFile.nex" />
+    <None Include="TestData\TestUtils\SimpleSnpFile.tsv" />
+    <None Include="TestData\TestUtils\Simple_Encoding.gff" />
+    <None Include="TestData\TestUtils\Simple_Encoding_Reader.gff" />
+    <None Include="TestData\TestUtils\Simple_Fasta_DNA.fa" />
+    <None Include="TestData\TestUtils\Simple_Fasta_DNA.fas" />
+    <None Include="TestData\TestUtils\Simple_Fasta_DNA.fasta" />
+    <None Include="TestData\TestUtils\Simple_Fasta_DNA.fna" />
+    <None Include="TestData\TestUtils\Simple_Fasta_DNA.fsa" />
+    <None Include="TestData\TestUtils\Simple_Fasta_DNA.mpfa" />
+    <None Include="TestData\TestUtils\Simple_Fasta_Protein.fasta" />
+    <None Include="TestData\TestUtils\Simple_Fasta_RNA.fasta" />
+    <None Include="TestData\TestUtils\Simple_Fastq_Sequence.fastq" />
+    <None Include="TestData\TestUtils\Simple_GenBank_DNA.gbk" />
+    <None Include="TestData\TestUtils\Simple_GenBank_DNA.genbank" />
+    <None Include="TestData\TestUtils\Simple_GenBank_Primary.gbk" />
+    <None Include="TestData\TestUtils\Simple_GenBank_Protein.gbk" />
+    <None Include="TestData\TestUtils\Simple_GenBank_RNA.gbk" />
+    <None Include="TestData\TestUtils\Simple_Gff_Dna.gff" />
+    <None Include="TestData\TestUtils\Simple_Gff_Protein.GFF" />
+    <None Include="TestData\TestUtils\Simple_Gff_Rna.gff" />
+    <None Include="TestData\TestUtils\SingleSequenceFastQSanger.fastq" />
+    <None Include="TestData\TestUtils\SmallSizeQueryBed.bed" />
+    <None Include="TestData\TestUtils\SmallSizeReferenceBed.bed" />
+    <None Include="TestData\TestUtils\Small_Size.bed" />
+    <None Include="TestData\TestUtils\Small_Size.fasta" />
+    <None Include="TestData\TestUtils\Small_Size.gbk" />
+    <None Include="TestData\TestUtils\Small_Size.gff" />
+    <None Include="TestData\TestUtils\Temp_Dna.fasta" />
+    <None Include="TestData\TestUtils\Three_Chromo.bed" />
+    <None Include="TestData\TestUtils\TwoLineSeqDnaSolexa.fastq" />
+    <None Include="TestData\TestUtils\TwoLineSequenceDnaIllumina.fastq" />
+    <None Include="TestData\TestUtils\TwoLineSequenceeDnaSanger.fastq" />
+    <None Include="TestData\TestUtils\VeryLargeSize_AlignFile_Pro_1.fasta" />
+    <None Include="TestData\TestUtils\VeryLargeSize_AlignFile_Pro_2.fasta" />
+    <None Include="TestData\TestUtils\VeryLargeSize_Protein.fasta" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\TestUtils\AzureBlastConfig.xml" />
+    <Content Include="TestData\TestUtils\BedTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\BioHPCTestConfigs.xml" />
+    <Content Include="TestData\TestUtils\BlastRecords.xml" />
+    <Content Include="TestData\TestUtils\BlastXmlWithMoreThanTenRecords.xml" />
+    <Content Include="TestData\TestUtils\BlastXmlWithMoreThanThreeRecords.xml" />
+    <Content Include="TestData\TestUtils\BLOSUM50.txt" />
+    <Content Include="TestData\TestUtils\BLOSUM50_Dna.txt" />
+    <Content Include="TestData\TestUtils\BLOSUM50_Rna.txt" />
+    <Content Include="TestData\TestUtils\BLOSUMEmpty50.txt" />
+    <Content Include="TestData\TestUtils\BLOSUMFewAlphabets50.txt" />
+    <Content Include="TestData\TestUtils\BLOSUMInvalid50.txt" />
+    <Content Include="TestData\TestUtils\BLOSUMInvalidDiagnol50.txt" />
+    <Content Include="TestData\TestUtils\BLOSUMModified50.txt" />
+    <Content Include="TestData\TestUtils\BLOSUMOnlyAlphabet50.txt" />
+    <Content Include="TestData\TestUtils\ClustalWTestData\ClustalWTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\ClustalWTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\FastQTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\GenBankFeaturesTestConfig.xml" />
+    <Content Include="TestData\TestUtils\GffTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\GreaterThanOneTree.txt" />
+    <Content Include="TestData\TestUtils\InvalidateNewickBranch.txt" />
+    <Content Include="TestData\TestUtils\InvalidateNewickLeaf.txt" />
+    <Content Include="TestData\TestUtils\InvalidateNewickParse.txt" />
+    <Content Include="TestData\TestUtils\InvalidateNewickParserPeek.txt" />
+    <Content Include="TestData\TestUtils\LargeSizeBlastRecords.xml" />
+    <Content Include="TestData\TestUtils\LargeSizeDnaIllumina_output.txt" />
+    <Content Include="TestData\TestUtils\LargeSize_FastQ_Sanger_Output.txt" />
+    <Content Include="TestData\TestUtils\MatrixTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\MBFStreamReaderConfig.xml" />
+    <Content Include="TestData\TestUtils\MediumSizedBlastXml.xml" />
+    <Content Include="TestData\TestUtils\Medium_Size_Aligned_Seq.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_End_Index.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_First_Mum_Order.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_First_Seq_Start.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_Length.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_Nodes.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_Second_Mum_Order.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_Second_Seq_Start.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_SimpleAligned_Seq.txt" />
+    <Content Include="TestData\TestUtils\Medium_Size_Start_Index.txt" />
+    <Content Include="TestData\TestUtils\MSAConfig.xml" />
+    <Content Include="TestData\TestUtils\MUMmerTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\NexusTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\NUCmerTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\OneLeafTree.txt" />
+    <Content Include="TestData\TestUtils\OneLineTree.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\BubbleLinksLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\BubbleLinksRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\BubbleLinksSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ChrKmers.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ChromosomeReadsContigsLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ChromosomeReadsContigsNodeSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ChromosomeReadsContigsRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ContigsWithBothOrientaionNodeSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ContigsWithBothOrientationLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ContigsWithBothOrientationRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\MultipleBubbleLinksLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\MultipleBubbleLinksRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\MultipleBubbleLinksSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\MultipleDanglingLinksLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\MultipleDanglingLinksRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\MultipleDanglingLinksSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineKmers.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithClustersContigs.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithClustersKmers.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithRCContigs.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithRCGraphLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithRCGraphRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithRCKmers.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineReadsWithRCSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineStep4Left.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineStep4Right.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineStep4Sequences.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineWithClustersStep2left.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineWithClustersStep2right.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\OneLineWithClustersStep2sequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\PaDeNATestsConfig.xml" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\PalindromeContigNodeSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\PalindromeContigRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\PalindromeContigsLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ReadsWithDanglingLinksLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ReadsWithDanglingLinksRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\ReadsWithDanglingLinksSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\SmallSizeReadsStep2left.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\SmallSizeReadsStep2Right.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\Step2SmallSizeSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\Step4RedundantPathleft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\Step4RedundantPathright.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\Step4RedundantPathsequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\Step4SmallSizeDanglingLinksLeft.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\Step4SmallSizeDanglingLinksRight.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\Step4SmallSizeDanglingLinksSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\VirualGenomeNodeSequence.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\VirualGenomeStep2left.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\VirualGenomeStep2Right.txt" />
+    <Content Include="TestData\TestUtils\PaDeNATestData\virulgenomekmers.txt" />
+    <Content Include="TestData\TestUtils\PhylipTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\PhylogeneticTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\Phylo_Tree_Special_Char.txt" />
+    <Content Include="TestData\TestUtils\QualitativeTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\Readme.txt" />
+    <Content Include="TestData\TestUtils\reads_output.txt" />
+    <Content Include="TestData\TestUtils\SAMBAMTestData\attribution.txt" />
+    <Content Include="TestData\TestUtils\SAMBAMTestData\SAMBAMTestsConfig.xml" />
+    <Content Include="TestData\TestUtils\SequenceAlignmentParser.xml" />
+    <Content Include="TestData\TestUtils\SequenceParser.xml" />
+    <Content Include="TestData\TestUtils\SimpleDna_output.txt" />
+    <Content Include="TestData\TestUtils\Simple_FastQ_Dna_output.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_Aligned_Seq.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_End_Index.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_First_Mum_Order.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_First_Seq_Start.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_Length.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_Nodes.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_Phylo_Tree.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_Second_Mum_Order.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_Second_Seq_Start.txt" />
+    <Content Include="TestData\TestUtils\Small_Size_Start_Index.txt" />
+    <Content Include="TestData\TestUtils\TestsConfig.xml" />
+    <Content Include="TestData\TestUtils\VeryLargeSize_Output.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MBF.PaDeNA\MBF.PaDeNA.csproj">
+      <Project>{09FB9316-CC67-4429-8151-1DC7373BD848}</Project>
+      <Name>MBF.PaDeNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF.TestUtils\MBF.TestUtils.csproj">
+      <Project>{FC09FA89-39A2-4DB7-BB26-4DF616918506}</Project>
+      <Name>MBF.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF.WebServiceHandlers\MBF.WebServiceHandlers.csproj">
+      <Project>{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}</Project>
+      <Name>MBF.WebServiceHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF\MBF.csproj">
+      <Project>{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}</Project>
+      <Name>MBF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples\MBF.PAMSAM\MBF.Pamsam.csproj">
+      <Project>{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}</Project>
+      <Name>MBF.Pamsam</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

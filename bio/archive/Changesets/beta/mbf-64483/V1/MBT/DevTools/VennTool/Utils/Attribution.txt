@@ -1,0 +1,8 @@
+﻿The following files and/or directories were downloaded from 
+the identified locations and are licensed for use under a 
+license compatible with our use of the MS-PL
+----------------------------------------------------------------
+Directory/File: Utils\CommandLineArguments.cs
+      Location: http://commandlinearguments.codeplex.com/
+       License: MS-PL
+

@@ -1,0 +1,34 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>MBF Console Application</Name>
+    <Description>Creates a Console Application targeting MBF framework by guiding you by a wizard.</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>100</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>MBFConsoleApplication</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>MBFIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="MBFConsoleApplication.csproj" File="MBFConsoleApplication.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Program.cs" OpenInEditor="true">Program.cs</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      </Folder>
+    </Project>
+    <CustomParameters>
+      <CustomParameter Name="$MBFReferencePath$" Value="MBFFramework"/>
+      <CustomParameter Name="$OtherAssemblies$" Value="Assemblies"/>
+      <CustomParameter Name="$CodeSnippets$" Value="Snippets"/>
+      <CustomParameter Name="$MBFNamespaces$" Value="using"/>
+    </CustomParameters>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>MBF.TemplateWizard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=13335e9abfbf69d0</Assembly>
+    <FullClassName>MBF.TemplateWizard.VSTemplateWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>

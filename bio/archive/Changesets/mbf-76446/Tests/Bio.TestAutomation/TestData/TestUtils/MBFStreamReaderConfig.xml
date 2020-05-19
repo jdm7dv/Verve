@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AutomationTest>
+  <SimpleFastAStreamReader>
+    <FilePath>TestUtils\AlignFile_1.fasta</FilePath>
+    <ExpectedLines>
+      <ExpectedLine1>>gi|160797|gb|AAA29796.1| hemoglobin</ExpectedLine1>
+      <ExpectedLine2>KRIPKSQNLRSIHSIFPFLEDKLSHLN</ExpectedLine2>
+    </ExpectedLines>
+    <StartIndex>1</StartIndex>
+    <EndIndex>10</EndIndex>
+    <CharsCount>20</CharsCount>
+    <CharsStartIndex>0</CharsStartIndex>
+    <ExpectedString>>gi|160797|gb|AAA29796.1| hemoglobin</ExpectedString>
+    <NewLineCharacterCount>2</NewLineCharacterCount>
+    <CurrentLineStartingIndex>0</CurrentLineStartingIndex>
+    <NumberOfNewlineCharacters>0</NumberOfNewlineCharacters>
+    <Position>38</Position>
+  </SimpleFastAStreamReader>
+  <SimpleFastQStreamReader>
+    <FilePath>TestUtils\FastQSanger.fastq</FilePath>
+    <ExpectedLines>
+      <ExpectedLine>@SRR002012.1 Oct4:5:1:871:340 length=26</ExpectedLine>
+      <ExpectedLine>GGCGCACTTACACCCTACATCCATTG</ExpectedLine>
+      <ExpectedLine>+SRR002012.1 Oct4:5:1:871:340 length=26</ExpectedLine>
+      <ExpectedLine>IIIIG1?II;IIIII1IIII1%.I7I</ExpectedLine>
+      <ExpectedLine>@SRR002012.2 Oct4:5:1:804:348 length=26</ExpectedLine>
+      <ExpectedLine>GTCTGCATTATCTACCAGCACTTCCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.2 Oct4:5:1:804:348 length=26</ExpectedLine>
+      <ExpectedLine>IIIIIIIII'I2IIIII:)I2II3I0</ExpectedLine>
+      <ExpectedLine>@SRR002012.3 Oct4:5:1:767:334 length=26</ExpectedLine>
+      <ExpectedLine>GCTGTCTTCCCGCTGTTTTATCCCCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.3 Oct4:5:1:767:334 length=26</ExpectedLine>
+      <ExpectedLine>III8IIIIIII3III6II%II*III3</ExpectedLine>
+      <ExpectedLine>@SRR002012.4 Oct4:5:1:805:329 length=26</ExpectedLine>
+      <ExpectedLine>GTAGTTTACCTGTTCATATGTTTCTG</ExpectedLine>
+      <ExpectedLine>+SRR002012.4 Oct4:5:1:805:329 length=26</ExpectedLine>
+      <ExpectedLine>IIIIIII9IIIIII?IIIIIIII7II</ExpectedLine>
+      <ExpectedLine>@SRR002012.5 Oct4:5:1:833:340 length=26</ExpectedLine>
+      <ExpectedLine>GGAAGGAAGAGGCTAGCCCAGCCTTT</ExpectedLine>
+      <ExpectedLine>+SRR002012.5 Oct4:5:1:833:340 length=26</ExpectedLine>
+      <ExpectedLine>IIIIIIIIIIIIIII*I%I6)III+I</ExpectedLine>
+      <ExpectedLine>@SRR002012.6 Oct4:5:1:629:843 length=26</ExpectedLine>
+      <ExpectedLine>GTACACTGTATGACCCGTCATATGTC</ExpectedLine>
+      <ExpectedLine>+SRR002012.6 Oct4:5:1:629:843 length=26</ExpectedLine>
+      <ExpectedLine>I-III"II%)&amp;II$$6IIIIIII?HI</ExpectedLine>
+      <ExpectedLine>@SRR002012.7 Oct4:5:1:791:235 length=26</ExpectedLine>
+      <ExpectedLine>GCACGGATTAATTCTCTTCTTCTTCA</ExpectedLine>      
+      <ExpectedLine>+SRR002012.7 Oct4:5:1:791:235 length=26</ExpectedLine>
+      <ExpectedLine>III8IIIII=III>I0IIIIIIII0I</ExpectedLine>
+      <ExpectedLine>@SRR002012.8 Oct4:5:1:869:835 length=26</ExpectedLine>
+      <ExpectedLine>GTTTTCTCGACATCACCCAGGAACTT</ExpectedLine>
+      <ExpectedLine>+SRR002012.8 Oct4:5:1:869:835 length=26</ExpectedLine>
+      <ExpectedLine>I=IIIIII++III++#IFIII#(IDI</ExpectedLine>
+      <ExpectedLine>@SRR002012.9 Oct4:5:1:872:299 length=26</ExpectedLine>
+      <ExpectedLine>GATAACTCTCGAGCTGATGGTATTCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.9 Oct4:5:1:872:299 length=26</ExpectedLine>
+      <ExpectedLine>IIII*II>I1III%IIIIII3IIIII</ExpectedLine>
+      <ExpectedLine>@SRR002012.10 Oct4:5:1:777:342 length=26</ExpectedLine>
+      <ExpectedLine>GACTTGAACCATTACTAAATACCCCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.10 Oct4:5:1:777:342 length=26</ExpectedLine>      
+      <ExpectedLine>I&amp;IIIII0BD1IIIIIII?I6II+@I</ExpectedLine>
+      <ExpectedLine>@SRR002012.11 Oct4:5:1:657:250 length=26</ExpectedLine>
+      <ExpectedLine>GTTGCAAACCTTCTGTACTGCAACCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.11 Oct4:5:1:657:250 length=26</ExpectedLine>
+      <ExpectedLine>IIIIIIIIIIHIIIIIIIIIIIIE0></ExpectedLine>
+      <ExpectedLine>@SRR002012.12 Oct4:5:1:931:648 length=26</ExpectedLine>
+      <ExpectedLine>GTATAGTTCCATTTGCTACCACTTTT</ExpectedLine>
+      <ExpectedLine>+SRR002012.12 Oct4:5:1:931:648 length=26</ExpectedLine>
+      <ExpectedLine>IIII:IIIII*IIII%II'II-IIB%</ExpectedLine>
+    </ExpectedLines>
+    <StartIndex>1</StartIndex>
+    <EndIndex>10</EndIndex>
+    <CharsCount>20</CharsCount>
+    <ExpectedString>@SRR002012</ExpectedString>
+    <CharsStartIndex>0</CharsStartIndex>
+  </SimpleFastQStreamReader>
+  <SimpleSAMStreamReader>
+    <FilePath>TestUtils\SAMBAMTestData\SeqAlignment.sam</FilePath>
+    <ExpectedLines>
+      <ExpectedLine>@HD	VN:1.0</ExpectedLine>
+      <ExpectedLine>@SQ	SN:chr20	LN:62435964</ExpectedLine>
+      <ExpectedLine>@RG	ID:L1	PU:SC_1_10	LB:SC_1	SM:NA12891</ExpectedLine>
+      <ExpectedLine>@RG	ID:L2	PU:SC_2_12	LB:SC_2	SM:NA12891</ExpectedLine>
+      <ExpectedLine>@CO	This is a sample sam file.</ExpectedLine>
+      <ExpectedLine>read_28833_29006_6945	99	chr20	28833	20	10M1D25M	=	28993	195	AGCTTAGCTAGCTACCTATATCTTGGTCTTGGCCG	&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;:&lt;9/,&amp;,22;;&lt;&lt;&lt;	NM:i:1	RG:Z:L1</ExpectedLine>
+      <ExpectedLine>read_28701_28881_323b	147	chr20	28834	30	35M	=	28701	-168	ACCTATATCTTGGCCTTGGCCGATGCGGCCTTGCA	&lt;&lt;&lt;&lt;&lt;;&lt;&lt;&lt;&lt;7;:&lt;&lt;&lt;6;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;7&lt;&lt;&lt;&lt;	MF:i:18	RG:Z:L2</ExpectedLine>
+    </ExpectedLines>
+    <StartIndex>1</StartIndex>
+    <EndIndex>5</EndIndex>
+    <CharsCount>5</CharsCount>
+    <ExpectedString>@HD	V</ExpectedString>
+    <CharsStartIndex>0</CharsStartIndex>
+  </SimpleSAMStreamReader>
+  <SimpleFastAStreamReaderWithBlankLines>
+    <FilePath>TestUtils\AlignFileWithBlankLines.fasta</FilePath>
+    <ExpectedLines>
+      <ExpectedLine1>>gi|160797|gb|AAA29796.1| hemoglobin</ExpectedLine1>
+      <ExpectedLine2>KRIPKSQNLRSIHSIFPFLEDKLSHLN</ExpectedLine2>
+    </ExpectedLines>
+  </SimpleFastAStreamReaderWithBlankLines>
+  <SimpleFastQStreamReaderWithBlankLines>
+    <FilePath>TestUtils\FastQSangerWithBlankLines.fastq</FilePath>
+    <ExpectedLines>
+      <ExpectedLine>@SRR002012.1 Oct4:5:1:871:340 length=26</ExpectedLine>
+      <ExpectedLine>GGCGCACTTACACCCTACATCCATTG</ExpectedLine>
+      <ExpectedLine>+SRR002012.1 Oct4:5:1:871:340 length=26</ExpectedLine>
+      <ExpectedLine>IIIIG1?II;IIIII1IIII1%.I7I</ExpectedLine>
+      <ExpectedLine>@SRR002012.2 Oct4:5:1:804:348 length=26</ExpectedLine>
+      <ExpectedLine>GTCTGCATTATCTACCAGCACTTCCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.2 Oct4:5:1:804:348 length=26</ExpectedLine>
+      <ExpectedLine>IIIIIIIII'I2IIIII:)I2II3I0</ExpectedLine>
+      <ExpectedLine>@SRR002012.3 Oct4:5:1:767:334 length=26</ExpectedLine>
+      <ExpectedLine>GCTGTCTTCCCGCTGTTTTATCCCCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.3 Oct4:5:1:767:334 length=26</ExpectedLine>
+      <ExpectedLine>III8IIIIIII3III6II%II*III3</ExpectedLine>
+      <ExpectedLine>@SRR002012.4 Oct4:5:1:805:329 length=26</ExpectedLine>
+      <ExpectedLine>GTAGTTTACCTGTTCATATGTTTCTG</ExpectedLine>
+      <ExpectedLine>+SRR002012.4 Oct4:5:1:805:329 length=26</ExpectedLine>
+      <ExpectedLine>IIIIIII9IIIIII?IIIIIIII7II</ExpectedLine>
+      <ExpectedLine>@SRR002012.5 Oct4:5:1:833:340 length=26</ExpectedLine>
+      <ExpectedLine>GGAAGGAAGAGGCTAGCCCAGCCTTT</ExpectedLine>
+      <ExpectedLine>+SRR002012.5 Oct4:5:1:833:340 length=26</ExpectedLine>
+      <ExpectedLine>IIIIIIIIIIIIIII*I%I6)III+I</ExpectedLine>
+      <ExpectedLine>@SRR002012.6 Oct4:5:1:629:843 length=26</ExpectedLine>
+      <ExpectedLine>GTACACTGTATGACCCGTCATATGTC</ExpectedLine>
+      <ExpectedLine>+SRR002012.6 Oct4:5:1:629:843 length=26</ExpectedLine>
+      <ExpectedLine>I-III"II%)&amp;II$$6IIIIIII?HI</ExpectedLine>
+      <ExpectedLine>@SRR002012.7 Oct4:5:1:791:235 length=26</ExpectedLine>
+      <ExpectedLine>GCACGGATTAATTCTCTTCTTCTTCA</ExpectedLine>
+      <ExpectedLine>+SRR002012.7 Oct4:5:1:791:235 length=26</ExpectedLine>
+      <ExpectedLine>III8IIIII=III>I0IIIIIIII0I</ExpectedLine>
+      <ExpectedLine>@SRR002012.8 Oct4:5:1:869:835 length=26</ExpectedLine>
+      <ExpectedLine>GTTTTCTCGACATCACCCAGGAACTT</ExpectedLine>
+      <ExpectedLine>+SRR002012.8 Oct4:5:1:869:835 length=26</ExpectedLine>
+      <ExpectedLine>I=IIIIII++III++#IFIII#(IDI</ExpectedLine>
+      <ExpectedLine>@SRR002012.9 Oct4:5:1:872:299 length=26</ExpectedLine>
+      <ExpectedLine>GATAACTCTCGAGCTGATGGTATTCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.9 Oct4:5:1:872:299 length=26</ExpectedLine>
+      <ExpectedLine>IIII*II>I1III%IIIIII3IIIII</ExpectedLine>
+      <ExpectedLine>@SRR002012.10 Oct4:5:1:777:342 length=26</ExpectedLine>
+      <ExpectedLine>GACTTGAACCATTACTAAATACCCCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.10 Oct4:5:1:777:342 length=26</ExpectedLine>
+      <ExpectedLine>I&amp;IIIII0BD1IIIIIII?I6II+@I</ExpectedLine>
+      <ExpectedLine>@SRR002012.11 Oct4:5:1:657:250 length=26</ExpectedLine>
+      <ExpectedLine>GTTGCAAACCTTCTGTACTGCAACCC</ExpectedLine>
+      <ExpectedLine>+SRR002012.11 Oct4:5:1:657:250 length=26</ExpectedLine>
+      <ExpectedLine>IIIIIIIIIIHIIIIIIIIIIIIE0></ExpectedLine>
+      <ExpectedLine>@SRR002012.12 Oct4:5:1:931:648 length=26</ExpectedLine>
+      <ExpectedLine>GTATAGTTCCATTTGCTACCACTTTT</ExpectedLine>
+      <ExpectedLine>+SRR002012.12 Oct4:5:1:931:648 length=26</ExpectedLine>
+      <ExpectedLine>IIII:IIIII*IIII%II'II-IIB%</ExpectedLine>
+    </ExpectedLines>
+  </SimpleFastQStreamReaderWithBlankLines>
+  <SimpleSAMStreamReaderWithBlankLines>
+    <FilePath>TestUtils\SAMBAMTestData\SeqAlignmentWithBlankLine.sam</FilePath>
+    <ExpectedLines>
+      <ExpectedLine>@HD	VN:1.0</ExpectedLine>
+      <ExpectedLine>@SQ	SN:chr20	LN:62435964</ExpectedLine>
+      <ExpectedLine>@RG	ID:L1	PU:SC_1_10	LB:SC_1	SM:NA12891</ExpectedLine>
+      <ExpectedLine>@RG	ID:L2	PU:SC_2_12	LB:SC_2	SM:NA12891</ExpectedLine>
+      <ExpectedLine>@CO	This is a sample sam file.</ExpectedLine>
+      <ExpectedLine>read_28833_29006_6945	99	chr20	28833	20	10M1D25M	=	28993	195	AGCTTAGCTAGCTACCTATATCTTGGTCTTGGCCG	&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;:&lt;9/,&amp;,22;;&lt;&lt;&lt;	NM:i:1	RG:Z:L1</ExpectedLine>
+      <ExpectedLine>read_28701_28881_323b	147	chr20	28834	30	35M	=	28701	-168	ACCTATATCTTGGCCTTGGCCGATGCGGCCTTGCA	&lt;&lt;&lt;&lt;&lt;;&lt;&lt;&lt;&lt;7;:&lt;&lt;&lt;6;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;7&lt;&lt;&lt;&lt;	MF:i:18	RG:Z:L2</ExpectedLine>
+    </ExpectedLines>
+  </SimpleSAMStreamReaderWithBlankLines>
+  <MBFTextReaderValidation>
+    <FilePath>TestUtils\Simple_GenBank_DNA.gbk</FilePath>
+    <ExpectedLine>LOCUS       ALSEB2MP1                291 bp    DNA     linear   PRI 30-JUN-1998</ExpectedLine>
+    <ExpectedHeader>LOCUS</ExpectedHeader>
+  </MBFTextReaderValidation>
+</AutomationTest>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

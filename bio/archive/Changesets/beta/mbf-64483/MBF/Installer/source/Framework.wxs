@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id='2A98800F-757B-47A6-AA17-C4F255CCFED2'
+    Name='!(loc.ProductName)'
+    Language='1033'
+    Version='$(env.ProductVersion)'
+    Manufacturer=' '
+    UpgradeCode='C9705F31-B53F-45AE-B6F6-A55D59D4E846'>
+
+    <!--installer package information-->
+    <Package
+        Id='*'
+        Description='!(loc.ProductName) installation database.'
+        Comments='This installer database contains the logic and data required to install !(loc.ProductName).'
+        Manufacturer='Microsoft Biology Foundation'
+        InstallerVersion='200'
+        Compressed='yes'/>
+
+    <Media Id='1' Cabinet='MBFFramework.cab' EmbedCab='yes'/>
+
+    <!-- Upgrade support region -->
+    <!--
+    To enable upgrade when changing product version from 1.0 to 1.x:
+    1. Change Product Version (major.minor) environment variable.
+    2. Change Product Id (GUID).
+    3. Modify the code in this region as necessary.
+    -->
+
+    <!--Detect older version of the product for Upgrade support-->
+    <Upgrade Id="C9705F31-B53F-45AE-B6F6-A55D59D4E846">
+
+      <!-- Check for lower major version (uncomment after Product Id change) -->
+      <!--<UpgradeVersion Maximum="1.0.0" Minimum="0.2.0" IncludeMaximum="no" MigrateFeatures="yes" Property="MAJORVERSIONCHANGE"/>-->
+
+      <!-- Check for lower minor version (uncomment after Product Id change) -->
+      <!--<UpgradeVersion Maximum="1.1.0" Minimum="1.0.0" IncludeMaximum="yes" IncludeMinimum="no" MigrateFeatures="yes" Property="MINORVERSIONCHANGE"/>-->
+
+      <!-- Check for higher minor version -->
+      <UpgradeVersion Maximum="2.0.0" Minimum="1.0.0" IncludeMaximum="no" MigrateFeatures="yes" Property="NEWERVERSIONFOUND"/>
+    </Upgrade>
+
+    <!-- Show error if lower major version (Beta version: 0.2) installed (uncomment after Product Id change) -->
+    <!--<Condition Message='An older version of this product is already installed. Installation of this version cannot continue. To configure or remove the existing version of this product, use Add/Remove Programs on the Control Panel.'>NOT MAJORVERSIONCHANGE</Condition>-->
+
+    <!-- Show error if newer minor version found (ex: 1.2 found when installing 1.1) -->
+    <Condition Message='A newer version of this product is already installed. Installation of this version cannot continue. To configure or remove the existing version of this product, use Add/Remove Programs on the Control Panel.'>NOT NEWERVERSIONFOUND</Condition>
+
+    <!-- Remove older version of this product (uncomment after Product Id change) -->
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize" />
+    </InstallExecuteSequence>
+    <!-- Upgrade support region end -->
+
+    <!--Directory: Target-->
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      
+      <!--Directory: ProgramFiles-->
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+
+        <!--Directory: Configurable install directory-->
+        <Directory Id='INSTALLDIR'>
+
+          <!--Directory: Visual Studio user project templates folder-->
+          <!--Note: This path is set based on a registry search-->
+          <Directory Id='VSTEMPLATEFOLDER'/>
+          
+        <!--Directory: Root directory for MBF/MBT products-->
+        <Directory Id='ProductRoot' Name='!(loc.ProductRootFolder)'>
+          
+          <!--Directory: Version number-->
+          <Directory Id='ProductVersionFolder' Name='$(env.ProductVersion)'>
+          
+            <!--Directory: Framework -->
+            <Directory Id='FRAMEWORKINSTALLFOLDER' Name='!(loc.FrameworkFolder)'>
+
+              <!--Framework merge module-->
+              <Directory Id='FRAMEWORKFOLDER'>
+                <Merge Id='MBFFrameworkModule' Language='1033' SourceFile='MergeModule.msm' DiskId='1'/>
+              </Directory>
+              
+              <!--Directory: SDK /-->
+              <Directory Id='SDKFolder' Name='!(loc.SDKFolder)' />
+
+              <!--Temporary readme document-->
+              <Component Id='ReadmeDocument' Guid='EB1DC31A-36C8-4118-9B48-2322FD4D9107'>
+                <CreateFolder Directory='ProductVersionFolder' />
+                <File Id='readme.txt' KeyPath='yes' Source='SourceDir\readme.txt'/>
+              </Component>
+
+            <!--Directory: Framework end-->
+            </Directory>
+            
+            <!--Directory: Version number end-->
+          </Directory>
+
+          <!--Directory: Root directory for MBF/MBT products end-->
+        </Directory>
+
+          <!--Directory: Configurable install directory end-->
+        </Directory>
+
+        <!-- Directory: Program Menu folder (for application shortcuts) -->
+        <Directory Id="ProgramMenuFolder">
+          <Directory Id="ApplicationProgramsFolder" Name="!(loc.ProductRootFolder)">
+            <Directory Id="ApplicationDocumentsFolder" Name="!(loc.ApplicationDocumentsFolderName)"/>
+          </Directory>
+        </Directory>
+        
+        <!--Directory: ProgramFiles end-->
+      </Directory>
+        
+    <!--Directory: Target end-->
+    </Directory>
+
+    <!-- Application shortcuts region -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ReadGeneratorShortcut" Guid="3E29DE66-535B-45CD-8ABD-ADB078E3E183">
+        <Shortcut Id="ShortcutReadGenerator"
+          Name="!(loc.ReadGenerator)"
+          Description="!(loc.ReadGeneratorDescription)"
+          Target="[SDKFolder]Samples\ReadGenerator\ReadGenerator.exe"
+          WorkingDirectory="ReadGenerator"/>
+        <RemoveFolder Id="RemoveReadGenShortcut" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBF"
+                       Name="Read Generator Shortcut" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ApplicationDocumentsFolder">
+      <Component Id="DocumentShortcut" Guid="A36776D4-E36E-4454-9A24-C661F9DB2105">
+        <Shortcut Id="ShortcutMbfChm"
+                  Name="!(loc.MbfChm)"
+                  Description="!(loc.MbfChmDescription)"
+                  Target="[SDKFolder]MBF.chm"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutCodingConventions"
+                  Name="!(loc.CodingConventions)"
+                  Description="!(loc.CodingConventionsDescription)"
+                  Target="[SDKFolder]MBF_Coding_Conventions.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutCommentingConventions"
+                  Name="!(loc.CommentingConventions)"
+                  Description="!(loc.CommentingConventionsDescription)"
+                  Target="[SDKFolder]MBF_Commenting_Conventions.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutContribDocTemplate"
+                  Name="!(loc.ContributionDocumentationTemplate)"
+                  Description="!(loc.ContributionDocTemplateDescription)"
+                  Target="[SDKFolder]MBF_Contribution_Documentation_Template.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutContributionGuide"
+                  Name="!(loc.ContributionGuide)"
+                  Description="!(loc.ContributionGuideDescription)"
+                  Target="[SDKFolder]MBF_Contribution_Guide.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutGettingStarted"
+                  Name="!(loc.GettingStarted)"
+                  Description="!(loc.GettingStartedDescription)"
+                  Target="[SDKFolder]MBF_Getting_Started.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutOnboarding"
+                  Name="!(loc.Onboarding)"
+                  Description="!(loc.OnboardingDescription)"
+                  Target="[SDKFolder]MBF_Onboarding.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutOverview"
+                  Name="!(loc.Overview)"
+                  Description="!(loc.OverviewDescription)"
+                  Target="[SDKFolder]MBF_Overview.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutPaDeNA"
+                  Name="!(loc.PaDeNA)"
+                  Description="!(loc.PaDeNADescription)"
+                  Target="[SDKFolder]MBF_PaDeNA.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <Shortcut Id="ShortcutProgrammingGuide"
+                  Name="!(loc.ProgrammingGuide)"
+                  Description="!(loc.ProgrammingGuideDescription)"
+                  Target="[SDKFolder]MBF_Programming_Guide.docx"
+                  WorkingDirectory="SDKFolder"/>
+        <RemoveFolder Id="RemoveShortcut" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBF"
+                       Name="Document Shortcuts" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+    <!-- Application shortcuts region end -->
+
+    <!--Features-->
+    <!--Framework feature enabled by default with no option to deselect-->
+    <Feature Id='MBFFeature' Title='!(loc.FrameworkFeatureTitle)' Level='1'
+             Display='expand' AllowAdvertise='no' InstallDefault='local' ConfigurableDirectory='INSTALLDIR'
+             TypicalDefault='install' Description='!(loc.CustomizeDlgMBFDescription)' Absent='disallow'>
+      <MergeRef Id='MBFFrameworkModule' />
+      <ComponentRef Id='ReadmeDocument'/>
+    </Feature>
+    <!--SDK feature disabled initially. User can select it in SelectionTree-->
+    <Feature Id='SDKFeature' Title='!(loc.SDKFeatureTitle)' Level='2'
+             Display='expand' AllowAdvertise='no' InstallDefault='local' ConfigurableDirectory='INSTALLDIR'
+             TypicalDefault='install' Description='!(loc.CustomizeDlgSDKDescription)'>
+      <ComponentGroupRef Id='SDKComponentGroup'/>
+      <ComponentRef Id='ReadGeneratorShortcut'/>
+      <ComponentRef Id='DocumentShortcut'/>
+      <!--MBF project template for Visual Studio 2010-->
+      <Feature Id='VSTemplateFeature' Title='!(loc.VSTemplateFeatureTitle)' Level='2'
+         Display='expand' AllowAdvertise='no' InstallDefault='local'
+         TypicalDefault='install' Description='!(loc.CustomizeDlgVSTemplateDescription)' Absent='allow'>
+        <ComponentGroupRef Id='VSTemplateComponentGroup'/>
+        <Condition Level='0'>NOT VSTEMPLATEDIR</Condition>
+      </Feature>
+    </Feature>
+
+    <?include IncFrameworkProperties.wxi?>
+    
+  </Product>
+</Wix>

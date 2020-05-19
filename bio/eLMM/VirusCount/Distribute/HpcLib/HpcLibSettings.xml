@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <KnownClusters>
+    <ClusterInfo Name="MSR-GCB-K12" StoragePath="\\msr-hpbs107\gcb-k12\Redmond"/>
+
+    <ClusterInfo Name="MSR-SCR-K12" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="MSR-SCR-K27" StoragePath="\\MSR-ARRAYS\SCRATCH\MSR-POOL\escience"/>
+    <ClusterInfo Name="MSR-SCR-L11" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="MSR-SCR-L17" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="MSR-SCR-M12" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="MSR-SCR-K18" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="MSR-GCB-N10" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    
+    <ClusterInfo Name="RR1-N13-03-H41" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <!--<ClusterInfo Name="RR1-N13-03-H41" StoragePath="\\Msr-arrays\scratch\msr-pool\17-H41\REDMOND"/>-->
+        
+    <ClusterInfo Name="RR1-N13-17-H41" StoragePath="\\MSR-ARRAYS\SCRATCH\MSR-POOL\escience"/>
+    <ClusterInfo Name="RR1-N13-11-H41" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="RR1-N13-14-H41" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="RR1-N13-20-H41" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="RR1-N13-06-H41" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="RR1-N13-09-H44" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="RR1-N13-22-H01" StoragePath="\\Msr-arrays\scratch\msr-pool\22-H01\redmond"/>
+
+    <ClusterInfo Name="MSR-OLY-HN01" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+
+    <ClusterInfo Name="MSR-L27-SCL01" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+    <ClusterInfo Name="MSR-k25-node01" StoragePath="\\msr-arrays\scratch\msr-pool\escience"/>
+
+    <ClusterInfo Name="MSR-SCR-IBC-J27" StoragePath="\\MSR-HPBS411\ibc-j27\REDMOND"/>
+    
+
+
+  </KnownClusters>
+  <ActiveClusters>
+    <string>RR1-N13-17-H41</string>
+    <string>RR1-N13-09-H44</string>
+    <string>RR1-N13-03-H41</string>
+    <string>RR1-N13-20-H41</string>
+    <string>RR1-N13-11-H41</string>
+    <string>RR1-N13-14-H41</string>
+    <string>RR1-N13-22-H01</string>
+
+  </ActiveClusters>
+</SharedSettings>

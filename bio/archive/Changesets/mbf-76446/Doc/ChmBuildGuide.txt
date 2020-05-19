@@ -1,0 +1,8 @@
+HOWTO: Building the API Document
+
+Run $MBI\DevelopmentBranch\MBI\BuildTools\BuildScripts\GenerateDocumentLocally.cmd.
+The script checks for the prerequisites (Visual Studio Tool for Office Runtime 4 and Microsoft Office Excel 2007/2010), then builds the MBI solution and generates the .chm file (MBF.chm).
+The build output is placed in the folder $MBI\DevelopmentBranch\MBI\Build\LocalBuild.
+The CHM is created in the $MBI\DevelopmentBranch\MBI\Build\LocalBuild\Binaries\docs folder.
+
+Note: It is not necessary to install Sandcastle or HTML Help Compiler before running the script because the binaries are now part of the source tree.

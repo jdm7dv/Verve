@@ -1,0 +1,237 @@
+﻿#snippet-Parsing
+#namespace-MBF.IO.Fasta;
+		/// <summary>
+		/// Parses a FastA file which has one or more sequences.
+		/// </summary>
+		/// <param name="filename">Path to the file to be parsed.</param>
+		/// <returns>List of ISequence objects</returns>
+		static IList<ISequence> ParseFastA(string filename)
+		{
+		    // A new parser to import a file
+		    FastaParser parser = new FastaParser();
+		    return parser.Parse(filename);
+		}
+
+#snippet-PairWiseAlignment
+#namespace-MBF.Algorithms.Alignment;
+		/// <summary>
+        /// Method to align two sequences, this sample code uses NeedlemanWunschAligner.
+        /// </summary>
+        /// <param name="referenceSequence">Reference sequence for alignment</param>
+        /// <param name="querySequence">Query sequence for alignment</param>
+        /// <returns>List of IPairwiseSequenceAlignment</returns>
+        public static IList<IPairwiseSequenceAlignment> AlignSequences(ISequence referenceSequence, ISequence querySequence)
+        {
+            // Initialize the Aligner
+            NeedlemanWunschAligner aligner = new NeedlemanWunschAligner();
+
+            // Calling align method to do the alignment.
+            return aligner.Align(referenceSequence, querySequence);
+        }
+
+#snippet-Formatting
+#namespace-MBF.IO.Fasta;
+		/// <summary>
+        /// Exports a given sequence to a file in FastA format
+        /// </summary>
+        /// <param name="sequence">Sequence to be exported.</param>
+        /// <param name="filename">Target filename.</param>
+        static void ExportFastA(ISequence sequence, string filename)
+        {
+            // A formatter to export the output
+            FastaFormatter formatter = new FastaFormatter();
+
+            // Exports the sequence to a file
+            formatter.Format(sequence, filename);
+        }
+
+#snippet-MultipleAlignment
+#namespace-MBF.Algorithms.Alignment;
+#namespace-MBF.SimilarityMatrices;
+#namespace-MBF.Algorithms.Alignment.MultipleSequenceAlignment;
+#assembly-PAMSAM
+		/// <summary>
+        /// Aligns multiple sequences using a multiple sequence aligner.
+        /// This sample uses PAMSAM with a set of default parameters.
+        /// </summary>
+        /// <param name="sequences">List of sequences to align.</param>
+        /// <returns>List of ISequenceAlignment</returns>
+        static IList<ISequence> DoMultipleSequenceAlignment(List<ISequence> sequences)
+        {
+            // Initialise objects for constructor
+            SimilarityMatrix similarityMatrix = new SimilarityMatrix(SimilarityMatrix.StandardSimilarityMatrix.AmbiguousDna);
+            int gapOpenPenalty = -4;
+            int gapExtendPenalty = -1;
+            int kmerLength = 3;
+
+            DistanceFunctionTypes distanceFunctionName = DistanceFunctionTypes.EuclideanDistance;
+            UpdateDistanceMethodsTypes hierarchicalClusteringMethodName = UpdateDistanceMethodsTypes.Average;
+            ProfileAlignerNames profileAlignerName = ProfileAlignerNames.NeedlemanWunschProfileAligner;
+            ProfileScoreFunctionNames profileProfileFunctionName = ProfileScoreFunctionNames.WeightedInnerProduct;
+
+            // Call aligner
+            PAMSAMMultipleSequenceAligner msa = new PAMSAMMultipleSequenceAligner
+                (sequences, MoleculeType.DNA, kmerLength, distanceFunctionName, hierarchicalClusteringMethodName,
+                profileAlignerName, profileProfileFunctionName, similarityMatrix, gapOpenPenalty, gapExtendPenalty,
+                Environment.ProcessorCount * 2, Environment.ProcessorCount);
+
+            return msa.AlignedSequences;
+        }
+
+#snippet-SimpleSequenceAssembly
+#namespace-MBF.Algorithms.Assembly;
+#namespace-MBF.Algorithms.Alignment;
+#namespace-MBF.SimilarityMatrices;
+        /// <summary>
+        /// Do a simple sequence assembly.
+        /// This sample uses NeedlemanWunschAligner.
+        /// </summary>
+        /// <param name="sequences">List of sequences to assemble.</param>
+        /// <returns>IDeNovoAssembly which has the assembled result.</returns>
+        static IDeNovoAssembly DoSimpleSequenceAssemble(List<ISequence> sequences)
+        {
+            // Create an assembler
+            OverlapDeNovoAssembler assembler = new OverlapDeNovoAssembler();
+
+            // Setup the parameters
+            assembler.OverlapAlgorithm = new NeedlemanWunschAligner();
+            assembler.OverlapAlgorithm.SimilarityMatrix = new DiagonalSimilarityMatrix(5, -4, MoleculeType.DNA);
+            assembler.OverlapAlgorithm.GapOpenCost = -10;
+            assembler.ConsensusResolver = new SimpleConsensusResolver(66);
+            assembler.AssumeStandardOrientation = false;
+
+            return assembler.Assemble(sequences);
+        }
+
+#snippet-OnlineBlast
+#namespace-MBF.Web.Blast;
+#namespace-MBF.Web;
+#assembly-WebServiceHandlers
+		/// <summary>
+        /// Submits a blast query to a blast search provider.
+        /// This sample uses NCBI as the provider.
+        /// </summary>
+        /// <param name="sequence">Sequence to submit for searching.</param>
+        /// <returns>Job ID of the query. You can get the results using GetBlastResults after the job is completed.</returns>
+        static string SubmitBlastQuery(ISequence sequence)
+        {
+            // Create the service provider
+            NCBIBlastHandler serviceProvider = new NCBIBlastHandler();
+
+            ConfigParameters configParams = new ConfigParameters();
+            configParams.UseBrowserProxy = true;
+            serviceProvider.Configuration = configParams;
+
+            // create the request and return the job ID.
+            return serviceProvider.SubmitRequest(sequence, GetBlastSearchParams());
+        }
+
+        /// <summary>
+        /// Gets the blast results from a given job ID.
+        /// If the job is not complete, this method will throw an exception.
+        /// </summary>
+        /// <param name="jobID">Job ID for which the blast results should be fetched.</param>
+        /// <returns>List of BlastResult.</returns>
+        static IList<BlastResult> GetBlastResults(string jobID)
+        {
+            // Create the service provider
+            NCBIBlastHandler serviceProvider = new NCBIBlastHandler();
+
+            ConfigParameters configParams = new ConfigParameters();
+            configParams.UseBrowserProxy = true;
+            serviceProvider.Configuration = configParams;
+
+            // Check the job status
+            ServiceRequestInformation info = serviceProvider.GetRequestStatus(jobID);
+            if (info.Status != ServiceRequestStatus.Ready)
+            {
+                throw new InvalidOperationException("Blast search results are not yet ready!");
+            }
+
+            // Get the results back and parse it.
+            IBlastParser blastXmlParser = new BlastXmlParser();
+            return blastXmlParser.Parse(new System.IO.StringReader(serviceProvider.GetResult(jobID, GetBlastSearchParams())));
+        }
+
+        /// <summary>
+        /// Create sample blast parameters.
+        /// </summary>
+        /// <returns>BlastParameters object.</returns>
+        static BlastParameters GetBlastSearchParams()
+        {
+            BlastParameters searchParams = new BlastParameters();
+            searchParams.Add("Program", "blastn");
+            searchParams.Add("Database", "nr");
+            // higher Expect will return more results
+            searchParams.Add("Expect", "1e-10");
+            searchParams.Add("CompositionBasedStatistics", "0");
+
+            return searchParams;
+        }
+
+#snippet-OperationOnGenomicIntervals
+		/// <summary>
+        /// Merges two sequence ranges with default parameters.
+        /// </summary>
+        /// <param name="referenceSequence">Reference sequence for merging.</param>
+        /// <param name="querySequence">Query sequence for merging.</param>
+        /// <returns>SequenceRangeGrouping with merged output.</returns>
+        static SequenceRangeGrouping DoBEDMerge(SequenceRangeGrouping referenceSequence, SequenceRangeGrouping querySequence)
+        {
+            return referenceSequence.MergeOverlaps(querySequence);
+        }
+
+#snippet-Logging
+#namespace-MBF.Util.Logging;
+		/// <summary>
+        /// Write a given string to the application log.
+        /// </summary>
+        /// <param name="matter">String to write to the log.</param>
+        static void WriteLog(string matter)
+        {
+            // Open log if not already opened.
+            if (!ApplicationLog.Ready)
+            {
+                ApplicationLog.Open("mbf.log");
+            }
+
+            // Write to log.
+            ApplicationLog.WriteLine(matter);
+        }
+
+#snippet-DenovoAssembly
+#namespace-MBF.Algorithms.Assembly;
+#namespace-MBF.Algorithms.Assembly.PaDeNA;
+#assembly-PaDeNA
+		/// <summary>
+        /// Method to do a denovo assembly.
+        /// This sample uses PaDeNA Denovo assembler.
+        /// </summary>
+        /// <param name="sequences">List of seuqnces to assemble.</param>
+        /// <returns>PaDeNAAssembly which contain the assembled result.</returns>
+        static PaDeNAAssembly DoDenovoAssembly(List<ISequence> sequences)
+        {
+            // Create a denovo assembler
+            ParallelDeNovoAssembler assembler = new ParallelDeNovoAssembler();
+
+            #region Setting assembler parameters
+            // Length of kmer
+            assembler.KmerLength = 6;
+
+            // Threshold to be used for error correction step where dangling links are removed.
+            // All dangling links that have lengths less than specified length will be removed.
+            assembler.DanglingLinksThreshold = 3;
+
+            // Threshold to be used for error correction step where redundant paths are removed.
+            // Paths that have same start and end points (redundant paths) and whose lengths are less 
+            // than specified length will be removed. They will be replaced by a single 'best' path
+            assembler.RedundantPathLengthThreshold = 7;
+
+            // Enter the name of the library along with mean distance and standard deviation
+            CloneLibrary.Instance.AddLibrary("abc", (float)4, (float)5);
+            #endregion
+
+            // Assemble
+            return (PaDeNAAssembly)assembler.Assemble(sequences);
+        }
+

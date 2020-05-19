@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4FEF570F-A4BC-47E2-A2B5-2F372D55C6F1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MBF.Test</RootNamespace>
+    <AssemblyName>MBF.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Build\Binaries\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Build\Binaries\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>bin\Debug\Bio.Test.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Public\ext\nunit\bin\net-2.0\framework\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlignerTest.cs" />
+    <Compile Include="AssemblerTest.cs" />
+    <Compile Include="BAMTest.cs" />
+    <Compile Include="BEDOperationsTest.cs" />
+    <Compile Include="BioMatrixTest.cs" />
+    <Compile Include="MBFStreamReaderTest.cs" />
+    <Compile Include="MBFTextReaderTest.cs" />
+    <Compile Include="BlastWebTest.cs" />
+    <Compile Include="BoyerMooreTest.cs" />
+    <Compile Include="ByteArrayTest.cs" />
+    <Compile Include="ClustalWTest.cs" />
+    <Compile Include="ClusterTest.cs" />
+    <Compile Include="DerivedSequenceTest.cs" />
+    <Compile Include="FastaTest.cs" />
+    <Compile Include="FastQTest.cs" />
+    <Compile Include="FeatureItemTest.cs" />
+    <Compile Include="FrameworkAbstractionTest.cs" />
+    <Compile Include="GenBankTest.cs" />
+    <Compile Include="GffTest.cs" />
+    <Compile Include="GlobalSetup.cs" />
+    <Compile Include="CloneTest.cs" />
+    <Compile Include="IndexedItemTest.cs" />
+    <Compile Include="LocationBuilderTest.cs" />
+    <Compile Include="LongestIncreasingSubsequenceTest.cs" />
+    <Compile Include="MatePairMapperTest.cs" />
+    <Compile Include="MUMmer3Test.cs" />
+    <Compile Include="NewickTest.cs" />
+    <Compile Include="PADENA\ContigBuilderTest.cs" />
+    <Compile Include="PADENA\ContigGraphBuilderTest.cs" />
+    <Compile Include="PADENA\DanglingLinksPurgerTest.cs" />
+    <Compile Include="PADENA\GraphConstructionTest.cs" />
+    <Compile Include="PADENA\ReadAlignmentTest.cs" />
+    <Compile Include="PADENA\RedundantPathsPurgerTest.cs" />
+    <Compile Include="PADENA\ParallelDeNovoAssemblerTest.cs" />
+    <Compile Include="PADENA\ParallelDeNovoAssemblerExtendedTest.cs" />
+    <Compile Include="PADENA\Scaffold\DistanceCalculationTest.cs" />
+    <Compile Include="PADENA\Scaffold\FilterMatePairsTest.cs" />
+    <Compile Include="PADENA\Scaffold\GraphScaffoldBuilderTest.cs" />
+    <Compile Include="PADENA\Scaffold\MapReadsToContigsTest.cs" />
+    <Compile Include="PADENA\Scaffold\PathPurgerTest.cs" />
+    <Compile Include="PADENA\Scaffold\TracePathTest.cs" />
+    <Compile Include="PatternConverterTest.cs" />
+    <Compile Include="PhylipTest.cs" />
+    <Compile Include="PADENA\TestInputs.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="QualitativeSequenceTest.cs" />
+    <Compile Include="RegistrationTest.cs" />
+    <Compile Include="SAMTest.cs" />
+    <Compile Include="SegmentedSequenceTest.cs" />
+    <Compile Include="SequenceCompareTest.cs" />
+    <Compile Include="SequenceFindMatchTest.cs" />
+    <Compile Include="SequenceStatisticsTest.cs" />
+    <Compile Include="SerializationTest.cs" />
+    <Compile Include="SimilarityMatrixTest.cs" />
+    <Compile Include="SparseSequenceTest.cs" />
+    <Compile Include="SuffixTreeTest.cs" />
+    <Compile Include="NexusTest.cs" />
+    <Compile Include="TranslationTest.cs" />
+    <Compile Include="UtilTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VirtualSequenceTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MBF\MBF.csproj">
+      <Project>{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}</Project>
+      <Name>MBF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF.PaDeNA\MBF.PaDeNA.csproj">
+      <Project>{09FB9316-CC67-4429-8151-1DC7373BD848}</Project>
+      <Name>MBF.PaDeNA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MBF.WebServiceHandlers\MBF.WebServiceHandlers.csproj">
+      <Project>{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}</Project>
+      <Name>MBF.WebServiceHandlers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\BED\Merge\Merge_single.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Merge_twofiles_1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Merge_twofiles_2.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Single_MinLength-1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Single_MinLength-3.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Single_MinLength0.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Single_MinLength1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Two_MinLength-3.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Subtract\Subtract_query.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Subtract\Subtract_ref.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Two_MinLength-1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Two_MinLength0.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Two_MinLength1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Subtract\Result_subtract_minoverlap0.bed">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Subtract\Result_Subtract_minoverlap1.bed">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Subtract\Result_Subtract_minoverlap0_NOnOverlappingPieces.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Subtract\Result_Subtract_minoverlap1_NOnOverlappingPieces.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Two_MinLength2.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Merge\Result_Merge_Two_MinLength6.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Intersect\Intersect_query.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Intersect\Intersect_ref.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Intersect\Result_Intersect_MinOverlap0.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Intersect\Result_Intersect_MinOverlap0_OverLappingBases.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Intersect\Result_Intersect_MinOverlap1.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BED\Intersect\Result_Intersect_MinOverlap1_OverLappingBases.BED">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="TestData\BAM\SeqAlignment.bam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\ClustalW\AlignmentData.aln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Fasta\186972391.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Fasta\5_sequences.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Fasta\NC_005213.ffn">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Fasta\uniprot-dutpase.fasta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\FastQ\SRR002012_5.fastq">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GenBank\LocusTokenParserTest.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GenBank\U49845+D12555.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GenBank\U49845.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GenBank\BK000016-tpa.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GenBank\D12555.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GenBank\NC_001284.gbk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GenBank\NM_001747.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GFF\random.GFF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\GFF\Tachibana2005.gff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Phylip\primates.phy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\SAM\SeqAlignment1.sam">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestData\BlastXml\NewYork.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\BlastXml\sources\readme.txt" />
+    <None Include="TestData\Nexus\primate-mtDNA-interleaved.nex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\Phylip\dna.phy">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\PhylogeneticTree\tree.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="TestData\GFF\attribution.txt" />
+    <Content Include="TestData\SimilarityMatrices\ReadMe.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\SimilarityMatrices\SampleCustomMatrix.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\SimilarityMatrices\TestIupacNA.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\SimilarityMatrices\TestNcbiStdAA.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

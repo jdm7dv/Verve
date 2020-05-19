@@ -1,0 +1,93 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+
+    <LinearGradientBrush x:Key="NormalBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#EEE" Offset="0.0"/>
+        <GradientStop Color="#CCC" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="NormalBorderBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#CCC" Offset="0.0"/>
+        <GradientStop Color="#444" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MouseOverBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#FFF" Offset="0.0"/>
+        <GradientStop Color="#AAA" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PressedBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#BBB" Offset="0.0"/>
+        <GradientStop Color="#EEE" Offset="0.1"/>
+        <GradientStop Color="#EEE" Offset="0.9"/>
+        <GradientStop Color="#FFF" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PressedBorderBrush" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#444" Offset="0.0"/>
+        <GradientStop Color="#888" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <Style x:Key="SimpleCheckBox" TargetType="{x:Type CheckBox}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Background" Value="{DynamicResource NormalBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource NormalBorderBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <!-- BulletDecorator is used to provide baseline alignment between the checkmark and the Content -->
+                    <BulletDecorator Background="Transparent">
+                        <BulletDecorator.Bullet>
+                            <Grid Width="13" Height="13">
+                                <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                                <Path x:Name="CheckMark" Stroke="{TemplateBinding Foreground}" StrokeThickness="4" SnapsToDevicePixels="False" Data="M2,9.1679044 L6.8982784,13.663265 M6.9653733,13.73036 L18.287957,2" Margin="-5.288,-2.134,-2,-0.596" StrokeStartLineCap="Triangle" StrokeEndLineCap="Round"/>
+                            </Grid>
+                        </BulletDecorator.Bullet>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                    </BulletDecorator>
+
+                    <!-- This uses Visibility to hide and show the CheckMark on IsChecked -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="false">
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="CheckMark"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CheckBoxListItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Padding" Value="2,0,0,0"/>
+        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid x:Name="Bd" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" 
+                                  ToolTip="{Binding Details}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox VerticalAlignment="Center" d:LayoutOverrides="Width" Margin="5,2,2,2" IsHitTestVisible="False" 
+                                          IsChecked="{TemplateBinding IsSelected}" Style="{DynamicResource SimpleCheckBox}" BorderThickness="0" Background="{x:Null}" Foreground="DarkGreen"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="5" Grid.Column="1" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <LinearGradientBrush x:Key="LineBrush" StartPoint="0.24,0.14" EndPoint="0.249,0.148" SpreadMethod="Repeat">
+        <GradientStop Color="Transparent" Offset="0.25" />
+        <GradientStop Color="White" Offset="0.5"/>
+        <GradientStop Color="Transparent" Offset=".75"/>
+    </LinearGradientBrush>
+
+</ResourceDictionary>

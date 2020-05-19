@@ -1,0 +1,66 @@
+// -------------------------------------------------------------------------------------
+// <copyright file="GlobalSuppressions.cs" company="Microsoft">
+//  Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+// <summary>
+// This file is used by Code Analysis to maintain SuppressMessage 
+// attributes that are applied to this project. 
+// Project-level suppressions either have no target or are given 
+// a specific target and scoped to a namespace, type, member, etc. 
+// </summary>
+// ------------------------------------------------------------------------------------- 
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA2210:AssembliesShouldHaveValidStrongNames")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1014:MarkAssembliesWithClsCompliant")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Scope = "type", Target = "SequenceAssembler.AssemblerPane")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.AssemblerPane.#AssemblyGrid")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "SequenceAssembler.AssemblerPane.#OnDialogSaveEditedSequence(System.Object,SequenceAssembler.EditSequenceEventArgs)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Scope = "member", Target = "SequenceAssembler.AssemblerPane.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.AssemblerPane.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Contigs", Scope = "member", Target = "SequenceAssembler.AssemblyOutput.#NoOfContigs")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "width", Scope = "member", Target = "SequenceAssembler.ConsensusCustomView.#CreateBottomView(System.Int32,System.Int32)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Contig", Scope = "member", Target = "SequenceAssembler.ConsensusCustomView.#SelectedContig")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.ConsensusCustomView.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "SequenceAssembler.Controller.#OnParseFileStarted(System.Object,System.ComponentModel.DoWorkEventArgs)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "SequenceAssembler.Controller.#OnSaveSequenceClicked(System.Object,SequenceAssembler.SaveSequenceInputEventArgs)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Scope = "member", Target = "SequenceAssembler.EditSequenceDialog.#Sequence")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.EditSequenceDialog.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Scope = "member", Target = "SequenceAssembler.EditSequenceEventArgs.#Sequence")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Scope = "type", Target = "SequenceAssembler.IWebService")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.MessageDialog.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "OK", Scope = "member", Target = "SequenceAssembler.MessageDialogButton.#OK")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "OK", Scope = "member", Target = "SequenceAssembler.MessageDialogResult.#OK")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.OpenFileDialog.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#ellipse")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#ellipse1")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#ellipse2")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#ellipse3")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#ellipse4")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#ellipse5")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#ellipse6")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#ellipse7")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.ProgressAnimation.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1003:UseGenericEventHandlerInstances", Scope = "type", Target = "SequenceAssembler.RangeSelectionChangedEventHandler")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Contig", Scope = "member", Target = "SequenceAssembler.RangeSlider.#ContigLength")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Scope = "member", Target = "SequenceAssembler.RangeSliderBase.#.cctor()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2208:InstantiateArgumentExceptionsCorrectly", Scope = "member", Target = "SequenceAssembler.RangeSliderBase.#.cctor()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.SequenceItemViewer.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.TreeViewTooltip.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "Contig", Scope = "resource", Target = "SequenceAssembler.Properties.Resource.resources")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "contigs", Scope = "resource", Target = "SequenceAssembler.Properties.Resource.resources")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1016:MarkAssembliesWithAssemblyVersion")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.AlignmentReport.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.BlastHeader.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.BlastPane.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "SEnd", Scope = "member", Target = "SequenceAssembler.BlastResultCollator.#SEnd")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.PairwiseSequenceAlignment.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "ch", Scope = "resource", Target = "SequenceAssembler.Properties.Resource.resources")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "fcgi", Scope = "resource", Target = "SequenceAssembler.Properties.Resource.resources")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "ncbi", Scope = "resource", Target = "SequenceAssembler.Properties.Resource.resources")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "nih", Scope = "resource", Target = "SequenceAssembler.Properties.Resource.resources")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "nlm", Scope = "resource", Target = "SequenceAssembler.Properties.Resource.resources")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Pairwise", Scope = "type", Target = "SequenceAssembler.PairwiseSequenceAlignment")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.BlastDialog.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Scope = "member", Target = "SequenceAssembler.ColorSchemeDialog.#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "SequenceAssembler.ConsensusCustomView.#GetColorFromString(System.Boolean,System.String)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "SequenceAssembler.Controller.#OnSearchStarted(System.Object,System.ComponentModel.DoWorkEventArgs)")]

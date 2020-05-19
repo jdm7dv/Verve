@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id='96D4A661-199E-421E-9861-EBB44FB3AC0D'
+    Name='MBF Sequence Assembler'
+    Language='1033'
+    Version='$(env.ProductVersion)'
+    Manufacturer=' '
+    UpgradeCode='FF355C70-9CB5-4F5F-97AD-ED6BEF6EB2EE'>
+
+    <!--installer package information-->
+    <Package
+        Id='*'
+        Description='MBF Sequence Assembler installation database.'
+        Comments='This installer database contains the logic and data required to install MBF Sequence Assembler.'
+        Manufacturer='Microsoft Biology Foundation'
+        InstallerVersion='200'
+        Compressed='yes'/>
+
+    <Media Id='1' Cabinet='SequenceAssembler.cab' EmbedCab='yes'/>
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+     
+      <!--Directory: ProgramFiles-->
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+
+        <!--Directory: Configurable install directory-->
+        <Directory Id='INSTALLDIR'>
+
+          <!--Framework merge module-->
+          <Directory Id='FRAMEWORKFOLDER'>
+            <Merge Id='MBFFrameworkModule' Language='1033' SourceFile='MergeModule.msm' DiskId='1'/>
+          </Directory>
+          
+        <!--Directory: Install folder-->
+        <Directory Id='ProductRootFolder' Name='!(loc.ProductRootFolder)'>
+
+          <!--Directory: Product version folder-->
+          <Directory Id='ProductVersionFolder' Name='$(env.ProductVersion)'>
+
+          <!--Directory: Root directory for Microsoft Biology Tools-->
+          <Directory Id='MBTFolder' Name='!(loc.MBTFolder)'>
+
+            <!--Directory: Sequence Assembler folder /-->
+            <Directory Id='SequenceAssemblerFolder' Name='!(loc.SequenceAssemblerFolder)' />
+            
+            <!--Directory: Root directory for Microsoft Biology Tools end -->
+          </Directory>
+
+            <!--Directory: Product version folder end-->
+          </Directory>
+        
+          <!--Directory: Install folder end-->
+        </Directory>
+
+        <!--Directory: Configurable install directory end-->
+        </Directory>
+        
+        <!--Directory: ProgramFiles end-->
+      </Directory>
+      
+      <!--Directory: Target end-->
+    </Directory>
+
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="CAA68730-F9FA-4C32-A6CA-0786B15155A0">
+        <RegistryKey Root="HKLM"
+                     Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBT\Sequence Assembler"
+              Action="createAndRemoveOnUninstall">
+          <RegistryValue Type="integer" Name="Installed" Value="1" />
+          <RegistryValue Type="string" Name="InstallationPath" Value="[SequenceAssemblerFolder]" KeyPath="yes"/>
+          <RegistryValue Type="string" Name="Version" Value="$(env.ProductVersion)"/>
+        </RegistryKey>
+        <CreateFolder Directory="SequenceAssemblerFolder" />
+      </Component>
+    </DirectoryRef>
+
+    <!--Features-->
+    <Feature Id='AllFeatures' Title='!(loc.SequenceAssemblerFeatureTitle)' Level='1' Display='expand'>
+      <ComponentGroupRef Id='SequenceAssemblerComponentGroup'/>
+      <ComponentRef Id='RegistryEntries'/>
+      <MergeRef Id='MBFFrameworkModule' />
+      <ComponentRef Id='ReadmeDocument'/>
+      <ComponentGroupRef Id='FileAssociations'/>
+    </Feature>
+
+    <?include IncSequenceAssemblerProperties.wxi?>
+
+  </Product>
+</Wix>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\dev\libs\nunit\samples\csharp\CSharp.sln</TopNode>
+  <SelectedNode>[0-1000]C:\dev\libs\nunit\samples\csharp\CSharp.sln</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\dev\libs\nunit\samples\csharp\CSharp.sln" Expanded="true">
+      <Nodes>
+        <Node UniqueName="[0-1007]C:\dev\libs\nunit\samples\csharp\failures\bin\Debug\cs-failures.dll" Expanded="true">
+          <Nodes>
+            <Node UniqueName="[0-1008]NUnit" Expanded="true">
+              <Nodes>
+                <Node UniqueName="[0-1009]NUnit.Samples" Expanded="true">
+                  <Nodes>
+                    <Node UniqueName="[0-1001]NUnit.Samples.SimpleCSharpTest">
+                      <Nodes>
+                        <Node UniqueName="[0-1002]NUnit.Samples.SimpleCSharpTest.Add" />
+                        <Node UniqueName="[0-1003]NUnit.Samples.SimpleCSharpTest.DivideByZero" />
+                        <Node UniqueName="[0-1004]NUnit.Samples.SimpleCSharpTest.Equals" />
+                        <Node UniqueName="[0-1005]NUnit.Samples.SimpleCSharpTest.ExpectAnException" />
+                        <Node UniqueName="[0-1006]NUnit.Samples.SimpleCSharpTest.IgnoredTest" />
+                      </Nodes>
+                    </Node>
+                  </Nodes>
+                </Node>
+              </Nodes>
+            </Node>
+          </Nodes>
+        </Node>
+        <Node UniqueName="[0-1032]C:\dev\libs\nunit\samples\csharp\money\bin\Debug\cs-money.dll" Expanded="true">
+          <Nodes>
+            <Node UniqueName="[0-1033]NUnit" Expanded="true">
+              <Nodes>
+                <Node UniqueName="[0-1034]NUnit.Samples" Expanded="true">
+                  <Nodes>
+                    <Node UniqueName="[0-1035]NUnit.Samples.Money" Expanded="true">
+                      <Nodes>
+                        <Node UniqueName="[0-1010]NUnit.Samples.Money.MoneyTest">
+                          <Nodes>
+                            <Node UniqueName="[0-1011]NUnit.Samples.Money.MoneyTest.BagMultiply" />
+                            <Node UniqueName="[0-1012]NUnit.Samples.Money.MoneyTest.BagNegate" />
+                            <Node UniqueName="[0-1013]NUnit.Samples.Money.MoneyTest.BagSimpleAdd" />
+                            <Node UniqueName="[0-1014]NUnit.Samples.Money.MoneyTest.BagSubtract" />
+                            <Node UniqueName="[0-1015]NUnit.Samples.Money.MoneyTest.BagSumAdd" />
+                            <Node UniqueName="[0-1016]NUnit.Samples.Money.MoneyTest.IsZero" />
+                            <Node UniqueName="[0-1017]NUnit.Samples.Money.MoneyTest.MixedSimpleAdd" />
+                            <Node UniqueName="[0-1018]NUnit.Samples.Money.MoneyTest.MoneyBagEquals" />
+                            <Node UniqueName="[0-1019]NUnit.Samples.Money.MoneyTest.MoneyBagHash" />
+                            <Node UniqueName="[0-1020]NUnit.Samples.Money.MoneyTest.MoneyEquals" />
+                            <Node UniqueName="[0-1021]NUnit.Samples.Money.MoneyTest.MoneyHash" />
+                            <Node UniqueName="[0-1022]NUnit.Samples.Money.MoneyTest.Normalize" />
+                            <Node UniqueName="[0-1023]NUnit.Samples.Money.MoneyTest.Normalize2" />
+                            <Node UniqueName="[0-1024]NUnit.Samples.Money.MoneyTest.Normalize3" />
+                            <Node UniqueName="[0-1025]NUnit.Samples.Money.MoneyTest.Normalize4" />
+                            <Node UniqueName="[0-1026]NUnit.Samples.Money.MoneyTest.Print" />
+                            <Node UniqueName="[0-1027]NUnit.Samples.Money.MoneyTest.SimpleAdd" />
+                            <Node UniqueName="[0-1028]NUnit.Samples.Money.MoneyTest.SimpleBagAdd" />
+                            <Node UniqueName="[0-1029]NUnit.Samples.Money.MoneyTest.SimpleMultiply" />
+                            <Node UniqueName="[0-1030]NUnit.Samples.Money.MoneyTest.SimpleNegate" />
+                            <Node UniqueName="[0-1031]NUnit.Samples.Money.MoneyTest.SimpleSubtract" />
+                          </Nodes>
+                        </Node>
+                      </Nodes>
+                    </Node>
+                  </Nodes>
+                </Node>
+              </Nodes>
+            </Node>
+          </Nodes>
+        </Node>
+        <Node UniqueName="[0-1037]C:\dev\libs\nunit\samples\csharp\money-port\bin\Debug\cs-money-port.dll" Expanded="true">
+          <Nodes>
+            <Node UniqueName="[0-1038]NUnit" Expanded="true">
+              <Nodes>
+                <Node UniqueName="[0-1039]NUnit.Samples" Expanded="true">
+                  <Nodes>
+                    <Node UniqueName="[0-1040]NUnit.Samples.Money" Expanded="true">
+                      <Nodes>
+                        <Node UniqueName="[0-1041]NUnit.Samples.Money.Port" Expanded="true">
+                          <Nodes>
+                            <Node UniqueName="[0-1036]NUnit.Samples.Money.Port.MoneyTest" />
+                          </Nodes>
+                        </Node>
+                      </Nodes>
+                    </Node>
+                  </Nodes>
+                </Node>
+              </Nodes>
+            </Node>
+          </Nodes>
+        </Node>
+        <Node UniqueName="[0-1075]C:\dev\libs\nunit\samples\csharp\syntax\bin\Debug\cs-syntax.dll" Expanded="true">
+          <Nodes>
+            <Node UniqueName="[0-1076]NUnit" Expanded="true">
+              <Nodes>
+                <Node UniqueName="[0-1077]NUnit.Framework" Expanded="true">
+                  <Nodes>
+                    <Node UniqueName="[0-1078]NUnit.Framework.Tests" Expanded="true">
+                      <Nodes>
+                        <Node UniqueName="[0-1042]NUnit.Framework.Tests.AssertSyntaxTests">
+                          <Nodes>
+                            <Node UniqueName="[0-1063]NUnit.Framework.Tests.AssertSyntaxTests.AllItemsTests" />
+                            <Node UniqueName="[0-1072]NUnit.Framework.Tests.AssertSyntaxTests.AndOperator" />
+                            <Node UniqueName="[0-1052]NUnit.Framework.Tests.AssertSyntaxTests.AssignableFromTypeTests" />
+                            <Node UniqueName="[0-1066]NUnit.Framework.Tests.AssertSyntaxTests.CollectionContainsTests" />
+                            <Node UniqueName="[0-1067]NUnit.Framework.Tests.AssertSyntaxTests.CollectionEquivalenceTests" />
+                            <Node UniqueName="[0-1062]NUnit.Framework.Tests.AssertSyntaxTests.ComparisonTests" />
+                            <Node UniqueName="[0-1074]NUnit.Framework.Tests.AssertSyntaxTests.ComplexTests" />
+                            <Node UniqueName="[0-1049]NUnit.Framework.Tests.AssertSyntaxTests.EmptyCollectionTests" />
+                            <Node UniqueName="[0-1048]NUnit.Framework.Tests.AssertSyntaxTests.EmptyStringTests" />
+                            <Node UniqueName="[0-1055]NUnit.Framework.Tests.AssertSyntaxTests.EndsWithTests" />
+                            <Node UniqueName="[0-1056]NUnit.Framework.Tests.AssertSyntaxTests.EqualIgnoringCaseTests" />
+                            <Node UniqueName="[0-1058]NUnit.Framework.Tests.AssertSyntaxTests.EqualityTests" />
+                            <Node UniqueName="[0-1059]NUnit.Framework.Tests.AssertSyntaxTests.EqualityTestsWithTolerance" />
+                            <Node UniqueName="[0-1060]NUnit.Framework.Tests.AssertSyntaxTests.EqualityTestsWithTolerance_MixedFloatAndDouble" />
+                            <Node UniqueName="[0-1061]NUnit.Framework.Tests.AssertSyntaxTests.EqualityTestsWithTolerance_MixingTypesGenerally" />
+                            <Node UniqueName="[0-1050]NUnit.Framework.Tests.AssertSyntaxTests.ExactTypeTests" />
+                            <Node UniqueName="[0-1051]NUnit.Framework.Tests.AssertSyntaxTests.InstanceOfTypeTests" />
+                            <Node UniqueName="[0-1046]NUnit.Framework.Tests.AssertSyntaxTests.IsFalse" />
+                            <Node UniqueName="[0-1047]NUnit.Framework.Tests.AssertSyntaxTests.IsNaN" />
+                            <Node UniqueName="[0-1044]NUnit.Framework.Tests.AssertSyntaxTests.IsNotNull" />
+                            <Node UniqueName="[0-1043]NUnit.Framework.Tests.AssertSyntaxTests.IsNull" />
+                            <Node UniqueName="[0-1045]NUnit.Framework.Tests.AssertSyntaxTests.IsTrue" />
+                            <Node UniqueName="[0-1065]NUnit.Framework.Tests.AssertSyntaxTests.NoItemTests" />
+                            <Node UniqueName="[0-1071]NUnit.Framework.Tests.AssertSyntaxTests.NotOperator" />
+                            <Node UniqueName="[0-1070]NUnit.Framework.Tests.AssertSyntaxTests.NotTests" />
+                            <Node UniqueName="[0-1073]NUnit.Framework.Tests.AssertSyntaxTests.OrOperator" />
+                            <Node UniqueName="[0-1069]NUnit.Framework.Tests.AssertSyntaxTests.PropertyTests" />
+                            <Node UniqueName="[0-1057]NUnit.Framework.Tests.AssertSyntaxTests.RegularExpressionTests" />
+                            <Node UniqueName="[0-1064]NUnit.Framework.Tests.AssertSyntaxTests.SomeItemTests" />
+                            <Node UniqueName="[0-1054]NUnit.Framework.Tests.AssertSyntaxTests.StartsWithTests" />
+                            <Node UniqueName="[0-1068]NUnit.Framework.Tests.AssertSyntaxTests.SubsetTests" />
+                            <Node UniqueName="[0-1053]NUnit.Framework.Tests.AssertSyntaxTests.SubstringTests" />
+                          </Nodes>
+                        </Node>
+                      </Nodes>
+                    </Node>
+                  </Nodes>
+                </Node>
+              </Nodes>
+            </Node>
+          </Nodes>
+        </Node>
+      </Nodes>
+    </Node>
+  </Nodes>
+</VisualState>

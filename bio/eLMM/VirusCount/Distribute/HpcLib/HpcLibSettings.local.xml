@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfLocalSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LocalSettings Username="carlson">
+    <LogFile>D:\Projects\PhyloD\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <LocalSettings Username="carlk">
+    <LogFile>D:\deldir\carlk\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <!--<LocalSettings Username="jennl">
+    <LogFile>\\mlasbio3\E$\Source\jennl\ERG\Bio\VirusCount\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>Results\schadt*Tab.txt,Results\schadt*INFO.txt,Tabulated\schadt*Tab.txt,Tabulated\schadt*INFO.txt</DefaultResultsCopyPattern>
+  </LocalSettings>-->
+  <LocalSettings Username="jennl">
+    <LogFile>\\mlasbio3\E$\Source\jennl\ERG\log\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <LocalSettings Username="t-tienhl">
+    <LogFile>D:\Projects\PhyloDTreeBuilder\ClusterSubmitLog.xml</LogFile>
+  </LocalSettings>
+  <LocalSettings Username="nicopf">
+    <LogFile>D:\Users\nicopf\ClusterSubmitLog42.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <LocalSettings Username="heckerma">
+    <LogFile>\\heckerma4\C$\m\phylod\log\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <LocalSettings Username="t-angitt">
+    <LogFile>\\escience1\d$\Users\t-angitt\log\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <LocalSettings Username="t-gabm">
+    <LogFile>D:\Users\t-gabm\log\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <LocalSettings Username="t-marmo">
+    <LogFile>D:\Users\t-marmo\log\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <LocalSettings Username="t-arasun">
+    <LogFile>D:\Users\t-arasun\log\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+  <LocalSettings Username="t-chrisl">
+    <LogFile>D:\Users\t-chrisl\log\ClusterSubmitLog.xml</LogFile>
+    <DefaultResultsCopyPattern>raw\%name%*raw*,raw\%name%*tab*</DefaultResultsCopyPattern>
+  </LocalSettings>
+</ArrayOfLocalSettings>

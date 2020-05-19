@@ -1,0 +1,225 @@
+﻿<Window x:Class="SequenceLoader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:ComponentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase" 
+        Title="Lab 03: Sequences" 
+        Height="600" Width="900" TextElement.FontSize="12pt">
+    <DockPanel>
+        
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="Add Data File" Command="Open" />
+                <MenuItem Header="E_xport Sequence" Command="Save" />
+                <Separator />
+                <MenuItem Header="_Exit" Command="Close" />
+            </MenuItem>
+        </Menu>
+        
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="images/background.png" />
+            </Grid.Background>
+            <Grid.Resources>
+                <CollectionViewSource x:Key="sequenceCollection" Source="{Binding LoadedSequences}">
+                    <CollectionViewSource.SortDescriptions>
+                        <ComponentModel:SortDescription PropertyName="FullName" Direction="Ascending" />
+                    </CollectionViewSource.SortDescriptions>
+                    <CollectionViewSource.GroupDescriptions>
+                        <PropertyGroupDescription PropertyName="MoleculeType" />
+                    </CollectionViewSource.GroupDescriptions>
+                </CollectionViewSource>
+            </Grid.Resources>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".25*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Background="Black" BorderBrush="White" BorderThickness="2" Padding="5">
+                <TextBlock FontWeight="Bold" Foreground="White" Text="Loaded Sequences" FontSize="12pt"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            
+            <ListBox Grid.Row="1" ItemsSource="{Binding Source={StaticResource sequenceCollection}}" 
+                     SelectedItem="{Binding SelectedSequence}" Background="#90ffffff" BorderThickness="0">
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="GroupItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="GroupItem">
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal" TextElement.Foreground="Blue" TextElement.FontWeight="Bold">
+                                                        <TextBlock Text="{Binding Name}" />
+                                                        <TextBlock Text=" (" />
+                                                        <TextBlock Text="{Binding ItemCount}" />
+                                                        <TextBlock Text=" sequences)" />
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Margin="20,2,2,2" Text="{Binding ShortName}" FontSize="10pt" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
+            <GridSplitter Grid.RowSpan="2" Grid.Column="1" Width="2" Background="Black" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" />
+
+            <Border Grid.Column="2" Background="Black" BorderBrush="White" BorderThickness="2" Padding="5">
+                <TextBlock FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" FontSize="12pt"
+                           Text="{Binding SelectedSequence.FullName, FallbackValue=None}" />
+            </Border>
+
+            <Grid Grid.Column="2" Grid.Row="1">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedSequence}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <Border Background="#90000000" Margin="4">
+                    <StackPanel Margin="10">
+                        <Slider Minimum="0" Maximum="{Binding SelectedSequence.SegmentMaxRange}" Value="{Binding SelectedSequence.SegmentPosition}" />
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold">
+                            <Run Text="{Binding SelectedSequence.SegmentPosition, Mode=OneWay}" />
+                            <Run Text=" - " />
+                            <Run Text="{Binding SelectedSequence.SegmentEnd, Mode=OneWay}" />
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <GroupBox Grid.Row="1" BorderBrush="SkyBlue" Background="#50ffffff">
+                    <GroupBox.Header>
+                        <Grid>
+                            <TextBlock Text="Transformations" FontWeight="Bold" Foreground="Black" Margin="1,1,0,0" />
+                            <TextBlock Text="Transformations" FontWeight="Bold" Foreground="White" />
+                        </Grid>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="5" />
+                                <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                <Setter Property="TextWrapping" Value="NoWrap" />
+                            </Style>
+                        </Grid.Resources>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Original" HorizontalAlignment="Right" FontWeight="Bold" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedSequence.Segment}" Foreground="White" TextElement.FontFamily="Consolas, Courier New" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Reverse" HorizontalAlignment="Right" FontWeight="Bold" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedSequence.ReverseSegment}" Foreground="Blue" TextElement.FontFamily="Consolas, Courier New" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Complement" HorizontalAlignment="Right" FontWeight="Bold" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding SelectedSequence.ComplementSegment}" Foreground="Red" TextElement.FontFamily="Consolas, Courier New" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Reverse-Complement" HorizontalAlignment="Right" FontWeight="Bold" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding SelectedSequence.ReverseComplementSegment}" Foreground="Green" TextElement.FontFamily="Consolas, Courier New" />
+
+                    </Grid>
+                </GroupBox>
+                
+                <GroupBox Grid.Row="2">
+                    <GroupBox.Header>
+                        <Grid>
+                            <TextBlock Text="Metadata" FontWeight="Bold" Foreground="Black" Margin="1,1,0,0" />
+                            <TextBlock Text="Metadata" FontWeight="Bold" Foreground="White" />
+                        </Grid>
+                    </GroupBox.Header>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <DataGrid Margin="5" ItemsSource="{Binding SelectedSequence.Metadata}" Background="Transparent"
+                                  CanUserAddRows="True" CanUserDeleteRows="True" ScrollViewer.CanContentScroll="False"
+                                  RowBackground="AliceBlue" AlternatingRowBackground="LightGray" AutoGenerateColumns="False" GridLinesVisibility="None">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="*" Header="Key" Binding="{Binding Key}" FontWeight="Bold" />
+                                <DataGridTemplateColumn Width="2*" Header="Value">
+                                    <DataGridTemplateColumn.CellEditingTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Value}" IsReadOnly="{Binding IsNonTextData}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <TextBlock x:Name="TextValue" Text="{Binding Value}" />
+                                                <Border x:Name="DetailsGrid" Background="DarkGray" BorderThickness="0" Visibility="Collapsed">
+                                                    <Expander Header="Details" IsExpanded="False">
+                                                        <DataGrid ItemsSource="{Binding ValueDetails}" Margin="5,0" 
+                                                              HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"
+                                                              BorderThickness="0" IsReadOnly="True" HeadersVisibility="None" AutoGenerateColumns="False">
+                                                            <DataGrid.Columns>
+                                                                <DataGridTextColumn FontWeight="Bold" Binding="{Binding Item1}" />
+                                                                <DataGridTextColumn Binding="{Binding Item2}" />
+                                                            </DataGrid.Columns>
+                                                        </DataGrid>
+                                                    </Expander>
+                                                </Border>
+
+                                            </Grid>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsNonTextData}" Value="True">
+                                                    <Setter TargetName="TextValue" Property="Visibility" Value="Collapsed" />
+                                                    <Setter TargetName="DetailsGrid" Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    
+                </GroupBox>
+                
+            </Grid>
+            
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Module Id="MicrosoftBiologyFoundation" Codepage="1252" Language="1033" Version="1.0.0">
+    <!--module package information-->
+    <Package Id="E0ACFDB1-5751-45DD-A712-2F36ED026697" Description="Microsoft Biology Foundation Framework" Comments="Microsoft Biology Foundation" Manufacturer="Microsoft Corporation" InstallerVersion="200" />
+    <!--Directory: Target-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!--Directory: Root directory for MBF-->
+      <Directory Id="FRAMEWORKFOLDER">
+        <Component Id="cmp231ED58A4F8E8CFBB5D7D072E28537B8" Guid="01FA54B2-E539-4728-B55A-A66590EA20F4">
+          <File Id="fil675B488729DA21B25EA19CD45BC6034F" KeyPath="yes" Source="SourceDir\Bio.dll" />
+        </Component>
+        <Component Id="cmpD31AA9A1874948CC4E1E317D72589B99" Guid="7F5A8A8C-68AF-4EAD-92AB-DC08FDDD0E6B">
+          <File Id="filF8540D066920C6E9ADF11899E192CDED" KeyPath="yes" Source="SourceDir\Bio.WebServiceHandlers.dll" />
+        </Component>
+        <Directory Id="dirDC89604453E9D8AC5B5A96812BE18573" Name="Add-ins">
+          <Component Id="cmp396831C758E3B7FD07DC6C3A7FE9A40A" Guid="1BF0C05A-95FE-4BCB-8A98-162AA66FC1E6">
+            <File Id="fil367B95614806A5AB3FD59C076EC308B0" KeyPath="yes" Source="SourceDir\Add-ins\Bio.Comparative.dll" />
+          </Component>
+          <Component Id="cmp0399045D309D40DA0BBBDE59023B3ABE" Guid="C8BB7CA2-734F-48AF-886D-595CEAE804D1">
+            <File Id="fil24D15DBB1AD988719A95D3D57428C809" KeyPath="yes" Source="SourceDir\Add-ins\Bio.Padena.dll" />
+          </Component>
+          <Component Id="cmpD905CD8EE635784880AE700E2AFEDA54" Guid="3B17E42D-5B8D-41AB-A649-B172C9FE5806">
+            <File Id="filE8E3C9709900F9CD364AED1C2C72AE21" KeyPath="yes" Source="SourceDir\Add-ins\Bio.Pamsam.dll" />
+          </Component>
+        </Directory>
+      </Directory>
+      <!--Directory: Target end-->
+    </Directory>
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="7DBD2038-FAEE-4A6F-9AE7-09E48D3C42B9">
+        <RegistryKey Root="HKLM" Key="Software\Microsoft\MBI\$(env.ProductVersion)\MBF" Action="createAndRemoveOnUninstall">
+          <RegistryValue Type="integer" Name="Installed" Value="1" />
+          <RegistryValue Type="string" Name="InstallationPath" Value="[FRAMEWORKFOLDER]" KeyPath="yes" />
+          <RegistryValue Type="string" Name="Version" Value="$(env.ProductVersion)" />
+        </RegistryKey>
+        <CreateFolder Directory="FRAMEWORKFOLDER" />
+        <RemoveFolder Id="RemoveFrameworkFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+  </Module>
+</Wix>

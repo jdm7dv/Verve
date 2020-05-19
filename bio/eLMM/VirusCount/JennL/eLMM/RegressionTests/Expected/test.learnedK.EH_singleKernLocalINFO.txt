@@ -1,0 +1,11 @@
+num cids=188, numSnp=0
+01 -dateStamp singleKernLocal -phenDataFile Input\expression.test2.txt -inputTabFile Input\null -impType eigImp -model LMM -numEMit 3 -numIt 2 -outputFile Results\test.learnedK.EH.txt -k1 Input\expression.cov.txt -doFullKernelLearning
+singleKernLocal
+machine: MLASBIO3
+Start date: 1/13/2011 2:18:42 PM
+Code version 1.0.4030.25558 compiled on 1/13/2011 2:11:56 PM
+MODEL=LMM
+Log likes:
+
+
+

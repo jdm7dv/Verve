@@ -1,0 +1,197 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF", "Source\MBF\MBF\MBF.csproj", "{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.WebServiceHandlers", "Source\MBF\MBF.WebServiceHandlers\MBF.WebServiceHandlers.csproj", "{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.PADENA", "Source\MBF\Add-ins\MBF.PADENA\MBF.PADENA.csproj", "{09FB9316-CC67-4429-8151-1DC7373BD848}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.Pamsam", "Source\MBF\Add-ins\MBF.PAMSAM\MBF.Pamsam.csproj", "{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.TemplateApplicationWizard", "Source\MBT\MBF.TemplateWizard\MBF.TemplateApplicationWizard.csproj", "{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAMUtils", "Source\MBT\SAMUtils\SAMUtils.csproj", "{438E5AEB-2B46-491A-9173-A46780DFC282}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SequenceAssembler", "Source\MBT\SequenceAssembler\SequenceAssembler.csproj", "{49391C5C-F94E-4BD4-8139-5D4184557E79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBT.VennToNodeXL", "Source\MBT\DevUtils\MBT.VennToNodeXL\MBT.VennToNodeXL.csproj", "{D0396DF3-880C-4B5B-8820-B79E478F9603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedStats", "Source\MBT\DevUtils\BedStats\BedStats.csproj", "{04AE089E-B261-421F-B56F-7464E8D459AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VennTool", "Source\MBT\DevUtils\VennTool\VennTool.csproj", "{6A22023F-655F-4327-AEFF-E35866867019}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.Workflow", "SourceSamples\MBF.Workflow\MBF.Workflow.csproj", "{C3C499B6-01C6-4118-8C45-9857A27FA466}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadSimulator", "SourceSamples\ReadSimulator\ReadSimulator.csproj", "{1CEA873B-6050-42C9-845F-13B694504BCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.PerfTests", "Tests\MBF.PerfTests\MBF.PerfTests.csproj", "{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.TestAutomation", "Tests\MBF.TestAutomation\MBF.TestAutomation.csproj", "{5A607023-A649-4555-B86C-5171F86BF828}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.Tests", "Tests\MBF.Tests\MBF.Tests.csproj", "{B3F93C1F-3DE8-472E-B845-39699F21BE61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBF.TestUtils", "Tests\MBF.TestUtils\MBF.TestUtils.csproj", "{FC09FA89-39A2-4DB7-BB26-4DF616918506}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{126712E3-C7E5-44EC-B7AA-E4BEBABAEA00}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		MBI.vsmdi = MBI.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "ipy", "BuildTools\ToolSource\ExternalTools\IronPython\2.0.6\ipy.exe", "{4772B92E-E7A0-44DF-9854-1A356666A20E}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		Executable = BuildTools\\ToolSource\\ExternalTools\\IronPython\\2.0.6\\ipy.exe
+		RemoteMachine = BOBD02
+		StartingDirectory = BuildTools\\ToolSource\\ExternalTools\\IronPython\\2.0.6
+		Environment = Default
+		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+		LaunchSQLEngine = No
+		AttachLaunchAction = No
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MumUtil", "Source\MBT\MumUtil\MumUtil.csproj", "{050EF1B0-2525-4726-98D4-3ED96CBB696A}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 18
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://vstf-eu-dub-01.partners.extranet.microsoft.com:8443/tfs/ext04_consol_tpc
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Tests\\MBF.TestUtils\\MBF.TestUtils.csproj
+		SccProjectName1 = Tests/MBF.TestUtils
+		SccLocalPath1 = Tests\\MBF.TestUtils
+		SccProjectUniqueName2 = Tests\\MBF.Tests\\MBF.Tests.csproj
+		SccProjectName2 = Tests/MBF.Tests
+		SccLocalPath2 = Tests\\MBF.Tests
+		SccProjectUniqueName3 = Tests\\MBF.TestAutomation\\MBF.TestAutomation.csproj
+		SccProjectName3 = Tests/MBF.TestAutomation
+		SccLocalPath3 = Tests\\MBF.TestAutomation
+		SccProjectUniqueName4 = Tests\\MBF.PerfTests\\MBF.PerfTests.csproj
+		SccProjectName4 = Tests/MBF.PerfTests
+		SccLocalPath4 = Tests\\MBF.PerfTests
+		SccProjectUniqueName5 = SourceSamples\\MBF.Workflow\\MBF.Workflow.csproj
+		SccProjectName5 = SourceSamples/MBF.Workflow
+		SccLocalPath5 = SourceSamples\\MBF.Workflow
+		SccProjectUniqueName6 = Source\\MBT\\DevUtils\\VennTool\\VennTool.csproj
+		SccProjectName6 = Source/MBT/DevUtils/VennTool
+		SccLocalPath6 = Source\\MBT\\DevUtils\\VennTool
+		SccProjectUniqueName7 = Source\\MBT\\DevUtils\\BedStats\\BedStats.csproj
+		SccProjectName7 = Source/MBT/DevUtils/BedStats
+		SccLocalPath7 = Source\\MBT\\DevUtils\\BedStats
+		SccProjectUniqueName8 = Source\\MBT\\DevUtils\\MBT.VennToNodeXL\\MBT.VennToNodeXL.csproj
+		SccProjectName8 = Source/MBT/DevUtils/MBT.VennToNodeXL
+		SccLocalPath8 = Source\\MBT\\DevUtils\\MBT.VennToNodeXL
+		SccProjectUniqueName9 = Source\\MBT\\SequenceAssembler\\SequenceAssembler.csproj
+		SccProjectName9 = Source/MBT/SequenceAssembler
+		SccLocalPath9 = Source\\MBT\\SequenceAssembler
+		SccProjectUniqueName10 = Source\\MBT\\SAMUtils\\SAMUtils.csproj
+		SccProjectName10 = Source/MBT/SAMUtils
+		SccLocalPath10 = Source\\MBT\\SAMUtils
+		SccProjectUniqueName11 = Source\\MBT\\MBF.TemplateWizard\\MBF.TemplateApplicationWizard.csproj
+		SccProjectName11 = Source/MBT/MBF.TemplateWizard
+		SccLocalPath11 = Source\\MBT\\MBF.TemplateWizard
+		SccProjectUniqueName12 = Source\\MBF\\Add-ins\\MBF.PAMSAM\\MBF.Pamsam.csproj
+		SccProjectName12 = Source/MBF/Add-ins/MBF.PAMSAM
+		SccLocalPath12 = Source\\MBF\\Add-ins\\MBF.PAMSAM
+		SccProjectUniqueName13 = Source\\MBF\\Add-ins\\MBF.PADENA\\MBF.PADENA.csproj
+		SccProjectName13 = Source/MBF/Add-ins/MBF.PADENA
+		SccLocalPath13 = Source\\MBF\\Add-ins\\MBF.PADENA
+		SccProjectUniqueName14 = Source\\MBF\\MBF.WebServiceHandlers\\MBF.WebServiceHandlers.csproj
+		SccProjectName14 = Source/MBF/MBF.WebServiceHandlers
+		SccLocalPath14 = Source\\MBF\\MBF.WebServiceHandlers
+		SccProjectUniqueName15 = Source\\MBF\\MBF\\MBF.csproj
+		SccProjectName15 = Source/MBF/MBF
+		SccLocalPath15 = Source\\MBF\\MBF
+		SccProjectUniqueName16 = Source\\MBT\\MumUtil\\MumUtil.csproj
+		SccProjectName16 = Source/MBT/MumUtil
+		SccLocalPath16 = Source\\MBT\\MumUtil
+		SccProjectUniqueName17 = SourceSamples\\ReadSimulator\\ReadSimulator.csproj
+		SccProjectName17 = SourceSamples/ReadSimulator
+		SccLocalPath17 = SourceSamples\\ReadSimulator
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = MBI.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FFD90DB-7A15-4F80-B1D1-12A3B050BE8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{075F8CAF-EA4E-4765-9D41-8DDC58EDE03B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FB9316-CC67-4429-8151-1DC7373BD848}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FB9316-CC67-4429-8151-1DC7373BD848}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FB9316-CC67-4429-8151-1DC7373BD848}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FB9316-CC67-4429-8151-1DC7373BD848}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF5B2B2A-01AD-42C1-BB24-A3B4E63399D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A8FCB3-4F8A-4B0E-8A15-D23B5F783E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438E5AEB-2B46-491A-9173-A46780DFC282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438E5AEB-2B46-491A-9173-A46780DFC282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438E5AEB-2B46-491A-9173-A46780DFC282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438E5AEB-2B46-491A-9173-A46780DFC282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49391C5C-F94E-4BD4-8139-5D4184557E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49391C5C-F94E-4BD4-8139-5D4184557E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49391C5C-F94E-4BD4-8139-5D4184557E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49391C5C-F94E-4BD4-8139-5D4184557E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0396DF3-880C-4B5B-8820-B79E478F9603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0396DF3-880C-4B5B-8820-B79E478F9603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0396DF3-880C-4B5B-8820-B79E478F9603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0396DF3-880C-4B5B-8820-B79E478F9603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04AE089E-B261-421F-B56F-7464E8D459AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04AE089E-B261-421F-B56F-7464E8D459AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04AE089E-B261-421F-B56F-7464E8D459AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04AE089E-B261-421F-B56F-7464E8D459AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A22023F-655F-4327-AEFF-E35866867019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A22023F-655F-4327-AEFF-E35866867019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A22023F-655F-4327-AEFF-E35866867019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A22023F-655F-4327-AEFF-E35866867019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3C499B6-01C6-4118-8C45-9857A27FA466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C499B6-01C6-4118-8C45-9857A27FA466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C499B6-01C6-4118-8C45-9857A27FA466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C499B6-01C6-4118-8C45-9857A27FA466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CEA873B-6050-42C9-845F-13B694504BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CEA873B-6050-42C9-845F-13B694504BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7625DF8B-ED70-49FF-A9AC-9977D244FCC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A607023-A649-4555-B86C-5171F86BF828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A607023-A649-4555-B86C-5171F86BF828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A607023-A649-4555-B86C-5171F86BF828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A607023-A649-4555-B86C-5171F86BF828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F93C1F-3DE8-472E-B845-39699F21BE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F93C1F-3DE8-472E-B845-39699F21BE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F93C1F-3DE8-472E-B845-39699F21BE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F93C1F-3DE8-472E-B845-39699F21BE61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC09FA89-39A2-4DB7-BB26-4DF616918506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4772B92E-E7A0-44DF-9854-1A356666A20E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4772B92E-E7A0-44DF-9854-1A356666A20E}.Release|Any CPU.ActiveCfg = Debug|x86
+		{050EF1B0-2525-4726-98D4-3ED96CBB696A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{050EF1B0-2525-4726-98D4-3ED96CBB696A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{050EF1B0-2525-4726-98D4-3ED96CBB696A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{050EF1B0-2525-4726-98D4-3ED96CBB696A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

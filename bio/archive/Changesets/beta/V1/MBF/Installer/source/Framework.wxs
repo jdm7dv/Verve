@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id='2A98800F-757B-47A6-AA17-C4F255CCFED2'
+    Name='Microsoft Biology Foundation'
+    Language='1033'
+    Version='$(env.ProductVersion)'
+    Manufacturer=' '
+    UpgradeCode='C9705F31-B53F-45AE-B6F6-A55D59D4E846'>
+
+    <!--installer package information-->
+    <Package
+        Id='*'
+        Description='Microsoft Biology Foundation installation database.'
+        Comments='This installer database contains the logic and data required to install Microsoft Biology Foundation.'
+        Manufacturer='Microsoft Biology Foundation'
+        InstallerVersion='200'
+        Compressed='yes'/>
+
+    <Media Id='1' Cabinet='MBFFramework.cab' EmbedCab='yes'/>
+
+    <!--Directory: Target-->
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      
+      <!--Directory: ProgramFiles-->
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+
+        <!--Directory: Configurable install directory-->
+        <Directory Id='INSTALLDIR'>
+
+          <!--Directory: Visual Studio user project templates folder-->
+          <!--Note: This path is set based on a registry search-->
+          <Directory Id='VSTEMPLATEFOLDER'/>
+          
+        <!--Directory: Root directory for MBF/MBT products-->
+        <Directory Id='ProductRoot' Name='!(loc.ProductRootFolder)'>
+          
+          <!--Directory: Version number-->
+          <Directory Id='ProductVersionFolder' Name='$(env.ProductVersion)'>
+          
+            <!--Directory: Framework -->
+            <Directory Id='FRAMEWORKINSTALLFOLDER' Name='!(loc.FrameworkFolder)'>
+
+              <!--Framework merge module-->
+              <Directory Id='FRAMEWORKFOLDER'>
+                <Merge Id='MBFFrameworkModule' Language='1033' SourceFile='MergeModule.msm' DiskId='1'/>
+              </Directory>
+              
+              <!--Directory: SDK /-->
+              <Directory Id='SDKFolder' Name='!(loc.SDKFolder)' />
+
+              <!--Temporary readme document-->
+              <Component Id='ReadmeDocument' Guid='EB1DC31A-36C8-4118-9B48-2322FD4D9107'>
+                <CreateFolder Directory='ProductVersionFolder' />
+                <File Id='readme.txt' KeyPath='yes' Source='SourceDir\readme.txt'/>
+              </Component>
+
+            <!--Directory: Framework end-->
+            </Directory>
+            
+            <!--Directory: Version number end-->
+          </Directory>
+
+          <!--Directory: Root directory for MBF/MBT products end-->
+        </Directory>
+
+          <!--Directory: Configurable install directory end-->
+        </Directory>
+
+        <!--Directory: ProgramFiles end-->
+      </Directory>
+        
+    <!--Directory: Target end-->
+    </Directory>
+
+    <!--Features-->
+    <!--Framework feature enabled by default with no option to deselect-->
+    <Feature Id='MBFFeature' Title='!(loc.FrameworkFeatureTitle)' Level='1'
+             Display='expand' AllowAdvertise='no' InstallDefault='local' ConfigurableDirectory='INSTALLDIR'
+             TypicalDefault='install' Description='!(loc.CustomizeDlgMBFDescription)' Absent='disallow'>
+      <MergeRef Id='MBFFrameworkModule' />
+      <ComponentRef Id='ReadmeDocument'/>
+    </Feature>
+    <!--SDK feature disabled initially. User can select it in SelectionTree-->
+    <Feature Id='SDKFeature' Title='!(loc.SDKFeatureTitle)' Level='2'
+             Display='expand' AllowAdvertise='no' InstallDefault='local' ConfigurableDirectory='INSTALLDIR'
+             TypicalDefault='install' Description='!(loc.CustomizeDlgSDKDescription)'>
+      <ComponentGroupRef Id='SDKComponentGroup'/>
+      <!--MBF project template for Visual Studio 2010-->
+      <Feature Id='VSTemplateFeature' Title='!(loc.VSTemplateFeatureTitle)' Level='2'
+         Display='expand' AllowAdvertise='no' InstallDefault='local'
+         TypicalDefault='install' Description='!(loc.CustomizeDlgVSTemplateDescription)' Absent='allow'>
+        <ComponentGroupRef Id='VSTemplateComponentGroup'/>
+        <Condition Level='0'>NOT VSTEMPLATEDIR</Condition>
+      </Feature>
+    </Feature>
+
+    <?include IncFrameworkProperties.wxi?>
+    
+  </Product>
+</Wix>

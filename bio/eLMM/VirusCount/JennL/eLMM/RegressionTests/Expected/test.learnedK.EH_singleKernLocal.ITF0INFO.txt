@@ -1,0 +1,21 @@
+-Cleanup True -leaveSnpDataOnDiskIfPossible False -phenDataFile Input\expression.test2.txt -phenDataFileList null -phenDataNames null -k1 Input\expression.cov.txt -k2 null -dataForPossiblyLowRankKernel null -groupsFile null -forceRankDownTo -1 -groupKernelDir null -permutePhenInd 0 -groupsEeCovariates null -svdUFile null -svdDiagFile null -f null -TaskCount 1 -Tasks 0 -SkipFile null -MaxDegreeOfParallelism 8 -dateStamp singleKernLocal.ITF0 -seed 123456 -predictorTargetPairFilter FastLMM.NullOnly -covLearnType ONCE -MODEL FAST_LMM -impType EIGIMP -phenImpType NOIMP -mlType ML -numPC 0 -amountToAddToKernelDiag 0 -amountToAddToKernelDiagAndKeep 0 -deltaToUse NaN -numberOptimizationStarts 100 -minLogVal -15 -maxLogVal 5 -brentTol 1E-07 -brentMaxIter 100000 -doDeltaOptInLogSpace True -multiKBrentNumIntervalsBrentSearch 6 -multKBrentMaxIter 100000 -multKBrentTol 1E-07 -name FastLMM -REPORT_FREQ 1000 -E 01 -snpDataFile null -outputFile Results\test.learnedK.EH_singleKernLocal.ITF00-1.QQ.txt
+Start date: 1/13/2011 2:18:44 PM
+Code version 1.0.4030.25558 compiled on 1/13/2011 2:11:56 PM
+machine: MLASBIO3
+Loading up 0 of 0 SNPs into memory
+Keeping 2 of 2 phenotypes into memory
+Going to fit FAST_LMM across 0 individuals, 2 phenotypes, 0 SNPs  using kernel of dimension 188
+
+Total time = 0 seconds
+
+Time to compute SVD for kernel is 0.2035722 seconds
+
+
+Time to rotate data and do repmat of diags is 0.0083058 seconds
+
+Time to compute the null model= 0.365195 seconds
+
+Time to compute alternative models only is 0.000514 seconds
+
+PredictorTargetPairFilter is FastLMM.NullOnly
+

@@ -1,0 +1,23 @@
+-Cleanup True -leaveSnpDataOnDiskIfPossible False -phenDataFile Input\expression.test2.txt -phenDataFileList null -phenDataNames null -k1 Input\snp.cov.txt -k2 Input\expression.cov.txt -dataForPossiblyLowRankKernel null -groupsFile null -forceRankDownTo -1 -groupKernelDir null -permutePhenInd 0 -groupsEeCovariates null -svdUFile null -svdDiagFile null -f null -TaskCount 1 -Tasks 0 -SkipFile null -MaxDegreeOfParallelism 8 -dateStamp twoKernLocal -seed 123456 -predictorTargetPairFilter FastLMM.AllPossiblePairs -covLearnType ONCE -MODEL FAST_LMM -impType EIGIMP -phenImpType NOIMP -mlType ML -numPC 0 -amountToAddToKernelDiag 0 -amountToAddToKernelDiagAndKeep 0 -deltaToUse NaN -numberOptimizationStarts 100 -minLogVal -15 -maxLogVal 5 -brentTol 1E-07 -brentMaxIter 100000 -doDeltaOptInLogSpace True -multiKBrentNumIntervalsBrentSearch 6 -multKBrentMaxIter 100000 -multKBrentTol 1E-07 -name FLMM.twoKernLocal -REPORT_FREQ 1000 -E 01 -snpDataFile Input\snps.test100.txt -outputFile Results\test.fastLmm.EHandPS_twoKernLocal0-1.QQ.txt
+Start date: 1/13/2011 2:41:34 PM
+Code version 1.0.4030.25355 compiled on 1/13/2011 2:05:10 PM
+machine: MLASBIO3
+Start date: 1/13/2011 2:40:27 PM
+Code version 1.0.4030.25355 compiled on 1/13/2011 2:05:10 PM
+Loading up 100 of 100 SNPs into memory
+Keeping 2 of 2 phenotypes into memory
+Going to fit FAST_LMM across 188 individuals, 2 phenotypes, 100 SNPs  using kernel of dimension 188
+
+Total time = 66.4099588 seconds
+
+Time to compute SVD for kernel is 0 seconds
+
+
+Time to rotate data and do repmat of diags is 4.7E-06 seconds
+
+Time to compute the null model= 64.7181476 seconds
+
+Time to compute alternative models only is 0.0304893 seconds
+
+PredictorTargetPairFilter is FastLMM.AllPossiblePairs
+
